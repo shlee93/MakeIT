@@ -20,12 +20,7 @@
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
    
 <style>
-    .signUpTitle{
-        text-align: center;
-    }
-    .memberNo-center{
-        text-align: center;
-    }
+
 </style>
 <script>   
     function fn_enroll_validate()
