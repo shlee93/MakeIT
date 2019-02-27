@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+	
+	<!-- AOP적용해보자 -->
+	<!-- 1. AOP적용 공통모듈을 등록하자(객체등록) -->
+	<!-- <bean id="loggerAspect" class="com.kh.spring.common.aop.LoggerAspect"></bean> -->
+	
+	<!-- 2. AOP 적용 설정하자 -->
+	<!-- <aop:config>
+		<aop:aspect id="loggerAspect" ref="loggerAspect">
+			<aop:pointcut expression="execution(* com.kh.spring..*(..))" id="pcAll"/> 전체
+			<aop:pointcut expression="execution(* com.kh.spring..*Dao.insert*(..))" id="pcAll"/>
+			<aop:pointcut expression="execution(* com.kh.spring..*Service..*(..))" id="pcAll"/> 서비스 들어갈때
+			<aop:around method="loggerAdvice" pointcut-ref="pcAll"/>
+			<aop:before method="beforeAd" pointcut-ref="pcAll"/>
+			<aop:after method="beforeAd" pointcut-ref="pcAll"/>
+		</aop:aspect>
+	</aop:config>
+ -->
+ 	
+ 	<!-- 어노테이션을 이용한 AOP적용 -->
+ 	<aop:aspectj-autoproxy/>
+</beans>
