@@ -21,7 +21,7 @@ public class BuyController {
 	public ModelAndView selectVolList()
 	{
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("buy/buy_volList");
+		mv.setViewName("buy/buyVolList");
 		return mv;
 	}
 }

@@ -60,7 +60,6 @@
          <button class="btn btn-secondary" style="width: 45px; font-size: 20px">-</button>
          <br>
          <label>기한</label> 
-         <input type="date" class="form-control col-sm-2" style="display: inline">&nbsp부터&nbsp&nbsp
          <input type="date" class="form-control col-sm-2" style="display: inline">&nbsp까지
          <br> 
          
