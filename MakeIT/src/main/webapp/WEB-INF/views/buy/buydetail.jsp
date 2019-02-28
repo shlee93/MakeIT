@@ -5,11 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 	<c:set var="path" value="${pageContext.request.contextPath }"/>
-	    <!-- Latest compiled and minified CSS -->
+	 <!-- Latest compiled and minified CSS -->
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
    
    <!-- jQuery library -->
@@ -22,15 +22,12 @@
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
    
    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-   
-	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/selldetail/selldetail.css" />
+
+   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/buydetail/buydetail.css" />
+
 </head>
-
-
-
-       
 <body>
-<div class='container-fluid' id="total">
+ <div class='container-fluid' id="total">
     <div class='row'>
         <div class='col-md-1' id='nav'></div>
         <div class='col-md-10' id='section' >
@@ -108,20 +105,10 @@
                             </div>
                             <br/>
                             <p>어쩌고저쩌고ㄴㅇㄹㄴㅇㄹㄴㅁ오러ㅏㅓㅁㄴ아ㅣ러ㅣㅏㅁㄴ어리ㅏㅁㄴ어리ㅏㅓㅁㄴ아ㅣ런이ㅏㅓ라ㅣㄴ어리ㅏㄴ어리ㅏㅓㅇ니이ㅏ러ㅣㅏㅁㄴ어리ㅏㅁㄴ어ㅏㅣ~</p>
-                            <div class="row">
-                                <div class="col-md-1"></div>
-                                <div class="col-md-10" style="text-align:center;">
-                                    <select class="form-control" style="width:100%">
-                                        <option value="option1">옵션1</option>
-                                        <option value="option2">옵션2</option>
-                                        <option value="option3">옵션3</option>
-                                    </select>
-                                </div>
-                                <div class='col-md-1'></div>
-                            </div>
+                       
                             <div class='row' style='margin-top: 1.2em'>
                                 <div class='col-md-6'>
-                                    <button class="btn btn-primary" style='padding-left:17px; padding-right:17px; float:right;'>구매하기</button>
+                                    <button class="btn btn-primary" style='padding-left:17px; padding-right:17px; float:right;'>지원하기</button>
                                 </div>
                                 <div class='col-md-6' style='float:left'>
                                     <button onclick='fn_starPop()'; class='btn btn-primary' style='float:left;' disabled>후기남기기</button>
