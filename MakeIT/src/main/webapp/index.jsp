@@ -16,5 +16,6 @@
 <a class="dropdown-item" href="${path }/member/memberLogin.do">로그인</a>
 <a class="dropdown-item" href="${path }/member/memberMyPage.do">마이페이지</a>
 <a class="dropdown-item" href="${path }/member/memberMyPage.do">주재범</a>
+<a class="dropdown-item" href="${path }/mainpage/mainpage.do">메인페이지</a>
 </body>
 </html>

@@ -30,4 +30,10 @@ public class MemberController {
 	public String memberMyPage() {
 		return "member/memberMyPage";
 	}
+	
+	@RequestMapping("/mainpage/mainpage.do")
+	public String mainpage() {
+		
+		return "mainpage/mainpage";
+	}
 }
