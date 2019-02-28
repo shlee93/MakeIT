@@ -22,8 +22,8 @@ public class MemberController {
 	private Logger logger = Logger.getLogger(MemberController.class);
 	
 	@RequestMapping("/member/memberEnroll.do")
-	public String memberEnroll() {
-		return "member/memberEnroll";
+	public String memberEnrollck() {
+		return "member/memberEnrollck";
 	}
 	
 	@RequestMapping("/member/memberMyPage.do")
@@ -35,5 +35,11 @@ public class MemberController {
 	public String mainpage() {
 		
 		return "mainpage/mainpage";
+
+	}
+	@RequestMapping("/member/individualMember")
+	public String memberEnroll() {
+		return "member/memberEnroll";
+
 	}
 }
