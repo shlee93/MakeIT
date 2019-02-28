@@ -12,6 +12,10 @@
     border-radius: 0.5rem;
     background: #fff;
 }
+#progress{
+	text-align: center;
+}
+
 
 /* myPage */
 .profile-img{
