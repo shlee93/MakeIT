@@ -4,7 +4,6 @@
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 	<c:set var="path" value="${pageContext.request.contextPath }"/>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,55 +27,64 @@
 	    	    
 </head>
 <style>
-	body
-	{
-		/* background-color:#E0ede9; */
-	}
-	#checkId-container 
+	#checkEmail-container 
 	{
 		margin-top:3em;
 		text-align:center;
 	}
-	
+
 </style>
 
 <body>
-	<div id="checkId-container">
-		<c:if test="${isAble==true }">
-			<p style="color:green;"><span style="color:#516055">[${memberId }]</span>는 사용가능합니다.</p>
-			<br><br>
-			<button class='btn btn-primary' type="button" onclick="setUserId('${memberId }');">닫기</button>
-		</c:if>
-		<c:if test="${isAble==false }">
-			<p style="color:red;"><span style="color:#516055">[${memberId }]</span>는 사용할 수 없습니다.</p>
-			<br><br>
-			<button class='btn btn-primary' type="button" onclick="setUserId(1);">닫기</button>
-		</c:if>
+	<div id="checkEmail-container">
+		<input type="text" name="inputRandomNo" id="inputRandomNo" maxlength="6" placeholder="인증번호를 입력하세요."/>
+		<input type="hidden" name="randomNo" id="randomNo" value="${randomNo }">
+		<input type="button" onclick="checkEmail();" class="btn btn-primary" value="확인">
 	</div>
 	<script>
+  		setTimeout(function(){self.close();},300000);
+  		
+  		var count = 300;
+  		var counter = setInterval(timer,1000);
+  		function timer()
+  		{
+  			count--;
+  			if(count<=0)
+ 				{
+  				clearInterval(counter);
+  				
+  				document.getElementById('timer').innerHTML="";
+  				return
+ 				}
+  			document.getElementById('timer').innerHTML=count;
+  		}
+  	</script>
+	<div id='timer-container' class='timer-container'>
+		<p><span id='timer'></span> 초 이내에 인증을 완료해주세요. 이후에 자동으로 창이 닫힙니다.</p>
+	</div>		
+	<script>
 		
-		function setUserId(checkedId)
+		function checkEmail()
 		{
 			var frm=opener.document.signupform;
 			
-			if(checkedId==1)
+			var inputRandomNo = $('#inputRandomNo').val().trim();
+			var randomNo = $('#randomNo').val().trim();
+			if(inputRandomNo!=randomNo)
 			{
-				frm.memberId.value='';
-				frm.idValid.value='0';
-				frm.memberId.focus();
+				frm.emailValid.value='0';
+				alert("번호가 일치하지 않습니다.");
+				return;
 			}
 			else
 			{
-				frm.memberId.value=checkedId;
-				frm.idValid.value='1';
-				frm.password.focus();				
+				frm.emailValid.value='1';
+				alert('인증이 완료되었습니다.')
+				self.close();
 			}
 			
-			self.close();	
+				
 		}
-		
-		
 	</script>
-
 </body>
 </html>

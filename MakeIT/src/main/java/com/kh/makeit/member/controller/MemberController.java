@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.makeit.common.SendMail;
 import com.kh.makeit.member.model.service.MemberService;
 
 @SessionAttributes("userId")
@@ -75,6 +76,18 @@ public class MemberController {
 		mv.setViewName("member/duplicateCheck");
 		return mv;
 	}
+	
+	@RequestMapping("/member/checkEmail")
+	public ModelAndView checkEmail(String email) {
+		logger.debug(email);
+		int randomNo = SendMail.sendmail(email);
+		logger.debug(randomNo);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("randomNo",randomNo);
+		mv.addObject("email",email);
+		mv.setViewName("member/checkEmail");
+		return mv;
+	}
 
 	@RequestMapping("/member/memberEnrollEnd.do")
 	public ModelAndView memberEnrollEnd(HttpServletRequest request, MultipartFile memberProfile) {
@@ -85,7 +98,7 @@ public class MemberController {
 		String memberRegNoCk = request.getParameter("memberNo") + "-" + request.getParameter("memberNo2");
 		String memberRegNo = memberRegNoCk.substring(0, 8) + "******";
 		String gender = "";
-		if (memberRegNo.substring(8, 1) == "1" || memberRegNo.substring(8, 1) == "3") {
+		if (memberRegNo.charAt(7) == '1' || memberRegNo.charAt(7) == '3') {
 			gender = "M";
 		} else {
 			gender = "F";

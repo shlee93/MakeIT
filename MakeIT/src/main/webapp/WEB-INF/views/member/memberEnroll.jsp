@@ -133,7 +133,7 @@
                     </div>
                     <div class="col-md-2 mb-2">
                         <select class='form-control' id='joinEmailDomain' name='joinEmailDomain' required>
-                            <option value=''>
+                            <option value=''disabled selected>
                                 domain.com
                             </option>
                             <option value='naver.com'>
@@ -155,6 +155,7 @@
                     </div>
                     <div class="col-md-4 mb-2">
                     	<input type='button' onclick='fn_checkEmail();' class='btn btn-primary' value='이메일 인증'>
+                    	<input type='hidden' name='emailValid' id="emailValid" value='0'>
                     </div>
                 </div>
                 <div class="row">
@@ -202,13 +203,42 @@
 		<form action="" name="checkIdDuplicateFrm">
 			<input type="hidden" name="memberId"/>
 		</form>
+		<form action="" name="emailCheckFrm">
+			<input type="hidden" name="email"/>
+		</form>
     </div>
     
     
 <script>
 
 	function fn_checkEmail(){
+		var email=$("#memberEmail").val().trim();
+	       
+		if(!email || email.length<=0)
+		{
+		   alert("이메일을 입력하세요.");
+		   return;   
+		   
+		}
+		var domain=$('#joinEmailDomain').val().trim();
+		if(!domain || domain.length<=0)
+		{
+		   alert("도메인을 선택하세요.");
+		   return;   
+		}
+		var fullEmail = email+'@'+domain;
+		console.log(fullEmail);
+		var url="${path}/member/checkEmail";
+		var title="이메일 인증";
+		var shape="left=200px, top=100px, width=500px, height=300px";
 		
+		var popup=open("",title,shape);
+		
+		emailCheckFrm.email.value=fullEmail;
+		emailCheckFrm.target=title;
+		emailCheckFrm.action=url;
+		emailCheckFrm.method="post";
+		emailCheckFrm.submit();    
 	}
 	
     $('#addSearch').click(function(){
@@ -249,6 +279,11 @@
                 return false;   
             }
             
+            if($('input[name=emailValid]')[0].value=='0'){
+            	alert('이메일 인증을 해주세요');
+            	return false;
+            }
+            
             if($('#memberId').val().trim().length==0)
             {
                 alert("아이디를 입력하세요!");
@@ -266,6 +301,7 @@
             
             var joinPw=$("#password").val().trim();
             
+
             if(!/^[a-zA-Z0-9]{8,20}$/.test(joinPw))
             { 
                 alert('비밀번호는 숫자와 영문자 조합으로 8~20자리를 사용해야 합니다.'); 
@@ -371,16 +407,16 @@
     	function fn_checkduplicate(){
     		var memberId=$("#memberId").val().trim();
        
-    		if(!memberId || memberId.length<8)
+    		if(!memberId || memberId.length<6)
     		{
-    		   alert("아이디를 8글자 이상 입력하세요~!");
+    		   alert("아이디를 6글자 이상 입력하세요~!");
     		   return;   
     		   
     		}
     		
-    		if(!/^[a-zA-Z0-9]{8,20}$/.test(memberId))
+    		if(!/^[a-zA-Z0-9]{6,20}$/.test(memberId))
     		 { 
-    		     alert('아이디는 숫자와 영문자 조합으로 8~20자리를 사용해야 합니다.'); 
+    		     alert('아이디는 숫자와 영문자 조합으로 6~20자리를 사용해야 합니다.'); 
     		     $('#memberId').focus();
     		     return false;
     		 }

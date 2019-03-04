@@ -7,10 +7,10 @@ import java.util.Properties;
 public class SendMail {
     public SendMail(){}
     
-    final String username="i37491287@gmail.com";
-    final String password="1q2w3e4r!@#$";
+    final static String username="i37491287@gmail.com";
+    final static String password="1q2w3e4r!@#$";
     
-    public void sendmail(){
+    public static int sendmail(String email){
         
         Properties props = new Properties(); 
         /*props.put("mail.smtp.user",username); 
@@ -38,7 +38,7 @@ public class SendMail {
             Message message = new MimeMessage(session); 
             message.setFrom(new InternetAddress("i37491287@gmail.com"));// 
             message.setRecipients(Message.RecipientType.TO,
-            InternetAddress.parse("")); 
+            InternetAddress.parse(email)); 
             message.setSubject("MakeIT 인증번호 입니다.");
             message.setText("인증번호는 ["+randomNo+"]번 입니다.");//내용 
             //message.setContent("인증번호는 ["+randomNo+"]번 입니다.","text/html; charset=utf-8");
@@ -47,5 +47,6 @@ public class SendMail {
         } catch(Exception e){
             e.printStackTrace();
         }
+        return randomNo;
     }    
 }

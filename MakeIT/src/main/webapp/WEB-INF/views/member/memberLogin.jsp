@@ -3,6 +3,7 @@
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+	<c:set var="path" value="${pageContext.request.contextPath }"/>
 	
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="HelloSpring" name="pageTitle"/>
@@ -14,7 +15,6 @@
         </div>
         <div class="col-md-10">     
             <div id="login">
-                <h3 class="text-center text-white pt-5">Login form</h3>
                 <div class="container">
                     <div id="login-row" class="row justify-content-center align-items-center">
                         <div id="login-column" class="col-md-6">
@@ -34,9 +34,9 @@
                                         <input type="submit" name="submit" class="btn btn-info btn-md" value="로그인">
                                     </div>
                                     <div id="register-link" class="text-right">
-                                        <a href="#" class="text-info">ID찾기</a><span class="text-info">/</span>
-                                        <a href="#" class="text-info">비밀번호 찾기</a><span class="text-info">/</span>
-                                        <a href="#" class="text-info">회원가입</a>
+                                        <a href="${path }/member/findId.do" class="text-info">ID찾기</a><span class="text-info">/</span>
+                                        <a href="${path }/member/findPw.do" class="text-info">비밀번호 찾기</a><span class="text-info">/</span>
+                                        <a href="${path }/member/memberEnroll.do" class="text-info">회원가입</a>
                                     </div>
                                 </form>
                             </div>
