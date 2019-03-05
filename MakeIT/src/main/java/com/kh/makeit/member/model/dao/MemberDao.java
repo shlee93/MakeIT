@@ -8,4 +8,6 @@ public interface MemberDao {
 
 	int insertMember(Map<Object, Object> map);
 
+	Map<String, String> login(Map<String, String> map);
+
 }

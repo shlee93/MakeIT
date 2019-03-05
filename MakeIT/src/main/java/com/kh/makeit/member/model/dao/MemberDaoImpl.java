@@ -21,9 +21,12 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public int insertMember(Map<Object, Object> map) {
-		int result = sqlSession.insert("member.insertMemberInfo",map);
-		result += sqlSession.insert("member.insertMember",map);
-		return result;
+		return sqlSession.insert("member.insertMember",map);
+	}
+
+	@Override
+	public Map<String, String> login(Map<String, String> map) {
+		return sqlSession.selectOne("member.login",map);
 	}
 
 }
