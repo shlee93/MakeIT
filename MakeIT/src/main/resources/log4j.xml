@@ -69,7 +69,7 @@
 		<appender-ref ref="sqlLogger"/>
 	</logger>
 	
-	<logger name="com.kh.spring">
+	<logger name="com.kh.makeit">
 		<level value="debug" />
 	</logger>
 	
