@@ -35,8 +35,8 @@
     <div id="topWrap">
         <div id="logoIcon"><p>LOGO</p></div>
         <div id="loginWrap">
-            <a href="Login" id="login">Login |</a>
-            <a href="join" id="join"> Join us</a>
+            <a href="${path }/member/memberLogin.do" id="login">Login |</a>
+            <a href="${path }/member/memberEnroll.do" id="join"> Join us</a>
         </div>
     </div>
     <div id="serviceWrap">
