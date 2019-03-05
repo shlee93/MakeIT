@@ -1,24 +1,28 @@
 @charset "UTF-8";
-  #total,#contestMain
+    #total,#contestMain
     {
-      margin-top: 5%;
+       margin-top: 5%;
     }
-    #contestimg{
-     width: 100%;
-     height: 100%;
+    
+    #contestimg
+    {
+       width: 100%;
+       height: 100%;
     }
  
-    #contestdetail{
-      height: 150px;
-      overflow: auto;
-      border: 1px solid gray;
-      padding-left: 0;
-      
+    #contestdetail
+    {
+       height: 150px;
+       overflow: auto;
+       border: 1px solid gray;
+       padding-left: 0;      
     }
-    .righthandle{
-      margin-top: 5%;
-      margin-bottom: 5%;
-      margin-left: 5%;
-      text-align: center;
-      width:80%;
+    
+    .righthandle
+    {
+	   margin-top: 5%;
+	   margin-bottom: 5%;
+	   margin-left: 5%;
+	   text-align: center;
+	   width:80%;
     }

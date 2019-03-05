@@ -1,7 +1,10 @@
 @charset "UTF-8";
-div {
+
+/* div 
+{
    border: 1px solid black;
-}
+} */
+
 #buy-container {
    padding: 20px;
 }

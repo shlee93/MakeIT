@@ -15,7 +15,6 @@
 <a class="dropdown-item" href="${path }/member/memberEnroll.do">회원가입</a>
 <a class="dropdown-item" href="${path }/member/memberLogin.do">로그인</a>
 <a class="dropdown-item" href="${path }/member/memberMyPage.do">마이페이지</a>
-
 <a class="dropdown-item" href="${path }/sell/sellmain.do">판매메인</a>
 <a class="dropdown-item" href="${path }/sell/sellDetail.do">판매디테일</a>
 <a class="dropdown-item" href="${path }/sell/sellWrite.do">판매글작성</a>
@@ -26,5 +25,6 @@
 <a class="dropdown-item" href="${path }/contest/contestWrite.do">컨테스트글작성</a>
 <a class="dropdown-item" href="${path }/member/memberMyPage.do">주재범</a>
 <a class="dropdown-item" href="${path }/mainpage/mainpage.do">메인페이지</a>
+
 </body>
 </html>
