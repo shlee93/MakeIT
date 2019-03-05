@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<a class="dropdown-item" href="${path }/member/memberEnroll.do">회원가입</a>
+<a class="dropdown-item" href="${path }/member/memberEnrollck.do">회원가입</a>
 <a class="dropdown-item" href="${path }/member/memberLogin.do">로그인</a>
 <a class="dropdown-item" href="${path }/member/memberMyPage.do">마이페이지</a>
 <a class="dropdown-item" href="${path }/sell/sellmain.do">판매메인</a>
