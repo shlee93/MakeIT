@@ -1,10 +1,11 @@
 @charset "UTF-8";
 
-     body, html{
+  body, html{
         padding: 0;
         margin: 0;
         overflow-x: hidden;
     }
+
 /* ======================헤더 */
     #mainVideo{
         width: 100%;
@@ -42,14 +43,17 @@
     #serviceWrap{
         position: absolute;
         left: 50%;
-        top: 8%;
-        transform: translate(-50%,-8%);
+        top: 10%;
+        transform: translate(-50%,-10%);
         /* background-color: blue;  */
     }
     #tradeService{
         position: relative;
         font-size: 30px;
+        height: 35px;
+        
         color: white;
+        overflow: hidden;
         /* background-color: blue;  */
     }
     #tradeService p{
@@ -92,13 +96,13 @@
     #mainWrite{
         position: absolute;
         left: 50%;
-        top: 25%;
-        transform: translate(-50%,-25%);
-        /* background-color: red;  */
+        top: 220px;
+        transform: translateX(-50%); 
+        /* background-color: red;   */
     }
     #write1{
         
-        position: absolute;
+        position: relative;
         left: 50%;
         top: 1%;
         transform: translate(-50%,-1%);
@@ -108,10 +112,10 @@
         white-space: nowrap;
     }
     #write2{
-        position: absolute;
+        position: relative;
         left: 50%;
-        top: -5%;
-        transform: translate(-50%, 5%);
+        top: -30;
+        transform: translate(-50%, -30%);
         font-size: 70px;
         font-weight: bold;
         color: gold;

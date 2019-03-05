@@ -18,114 +18,148 @@
             <form name='signupform' action="${path }/member/memberEnrollEnd.do" method="POST" onsubmit='return fn_enroll_validate()' enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-12 signUpTitle">
-                        <h1>회원가입</h1>
+                    	<c:if test="${memberLevel==1 }">
+							<h1>개인회원가입</h1>
+						</c:if>
+						<c:if test="${memberLevel==2 }">
+							<h1>기업회원가입</h1>
+						</c:if>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 mb-2">
-                        <span>프로필사진</span><span class="text-danger">*</span>
-                    </div>
-                    <div class="col-md-5 mb-2">
+                	<div class="col-md-1 mb-2"></div>
+                	<div class="col-md-2 mb-2">
+	                    <c:if test="${memberLevel==1 }">
+							<span>프로필사진</span><span class="text-danger">*</span>
+						</c:if>
+						<c:if test="${memberLevel==2 }">
+							<span>회사사진</span><span class="text-danger">*</span>
+						</c:if>
+					</div>
+                    <div class="col-md-6 mb-2">
                         <input type="file" accept="image/*" id='memberProfile' name='memberProfile' class='form-control' value=''required>
                     </div>
-                    <div class="col-md-4 mb-2">
+                    <div class="col-md-3 mb-2">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 mb-2">
+                	<div class="col-md-1 mb-2"></div>
+                    <div class="col-md-2 mb-2">
                         <span>아이디</span><span class="text-danger">*</span>
                     </div>
-                    <div class="col-md-5 mb-2">
+                    <div class="col-md-6 mb-2">
                         <input type="text" id='memberId' name='memberId' class='form-control' value='' placeholder="아이디 입력" required>
                         <input type='hidden' name='idValid' value='0'>
+                        <input type="hidden" name="memberLevel" value="${memberLevel }">
                     </div>
-                    <div class="col-md-4 mb-2">
+                    <div class="col-md-3 mb-2">
                         <input type='button' onclick='fn_checkduplicate();' class='btn btn-primary' value='중복체크'>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 mb-2">
+                	<div class="col-md-1 mb-2"></div>
+                    <div class="col-md-2 mb-2">
                         <span>비밀번호</span><span class="text-danger">*</span>
                     </div>
-                    <div class="col-md-5 mb-2">
+                    <div class="col-md-6 mb-2">
                         <input type="password" id='password' name='password' class='form-control' value='' placeholder="비밀번호 입력" required>
                     </div>
-                    <div class="col-md-4 mb-2">
+                    <div class="col-md-3 mb-2">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 mb-2">
+                	<div class="col-md-1 mb-2"></div>
+                    <div class="col-md-2 mb-2">
                         <span>비밀번호확인</span><span class="text-danger">*</span>
                     </div>
-                    <div class="col-md-5 mb-2">
+                    <div class="col-md-6 mb-2">
                         <input type="password" id='cpassword' name='cpassword' class='form-control' value='' placeholder="비밀번호 확인" required>
                     </div>
-                    <div class="col-md-4 mb-2" id="ck_password">
+                    <div class="col-md-3 mb-2" id="ck_password">
 						<div id="alert-success" style="color: green;">비밀번호가 일치합니다.</div>
 						<div id="alert-danger" style="color: red;">비밀번호가 일치하지 않습니다.</div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 mb-2">
-                        <span>이름</span><span class="text-danger">*</span>
+                	<div class="col-md-1 mb-2"></div>
+                    <div class="col-md-2 mb-2">
+                        <c:if test="${memberLevel==1 }">
+                        	<span>이름</span><span class="text-danger">*</span>
+                        </c:if>
+                        <c:if test="${memberLevel==2 }">
+                        	<span>회사명</span><span class="text-danger">*</span>
+                        </c:if>
                     </div>
-                    <div class="col-md-5 mb-2">
+                    <div class="col-md-6 mb-2">
                         <input type="text" id='memberName' name='memberName' class='form-control' value='' placeholder="이름 입력" required>
                     </div>
-                    <div class="col-md-4 mb-2">
+                    <div class="col-md-3 mb-2">
                     </div>
                 </div>
                 <div class="row">
+                	<div class="col-md-1 mb-2"></div>
+                    <div class="col-md-2 mb-2">
+                    	<c:if test="${memberLevel==1 }">
+                        	<span>생년월일</span><span class="text-danger">*</span>
+                        </c:if>
+                        <c:if test="${memberLevel==2 }">
+                        	<span>사업개시일</span><span class="text-danger">*</span>
+                        </c:if>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <input type="text" id='birth' name='birth' class='form-control' value='' maxlength="6" placeholder="예시 : 900123" required>
+                    </div>
                     <div class="col-md-3 mb-2">
-                        <span>주민등록번호</span><span class="text-danger">*</span>
-                    </div>
-                    <div class="col-md-2 mb-2">
-                        <input type="text" id='memberNo' name='memberNo' class='form-control' value='' maxlength="6" placeholder="주민번호 앞 6자리" required>
-                    </div>
-                    <div class="col-md-1 mb-2 memberNo-center">
-                        <span>-</span>
-                    </div>
-                    <div class="col-md-2 mb-2">
-                        <input type="password" id="memberNo2" name="memberNo2" class="form-control" value='' maxlength="7" placeholder="주민번호 뒤 7자리" required>
-                    </div>
-                    <div class="col-md-4 mb-2">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 mb-2">
+                	<div class="col-md-1 mb-2"></div>
+                    <div class="col-md-2 mb-2">
                         <span>계좌번호</span><span class="text-danger">*</span>
                     </div>
                     <div class="col-md-2 mb-2">
                         <select class="form-control" id="bank" name="bank">
-                            <option value="국민은행">국민은행</option>
-                            <option value="우리은행">우리은행</option>
-                            <option value="신한은행">신한은행</option>
-                            <option value="하나은행">하나은행</option>
-                            <option value="농협은행">농협은행</option>
+                            <option value="069">국민은행</option>
+                            <option value="071">우리은행</option>
+                            <option value="068">신한은행</option>
+                            <option value="070">하나은행</option>
+                            <option value="072">농협은행</option>
                         </select>
                     </div>
-                    <div class="col-md-3 mb-2">
+                    <div class="col-md-4 mb-2">
                         <input type="text" class='form-control' id='memberAccount' name='memberAccount' placeholder="계좌번호 입력" required>   
                     </div>
-                    <div class="col-md-4 mb-2">
+                    <div class="col-md-3 mb-2">
                         <input type='button' onclick='fn_accountCheck();' class='btn btn-primary' value='계좌인증'>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 mb-2">
-                        <span>연락처</span><span class="text-danger">*</span>
+                	<div class="col-md-1 mb-2"></div>
+                    <div class="col-md-2 mb-2">
+                        <c:if test="${memberLevel==1 }">
+                        	<span>연락처</span><span class="text-danger">*</span>
+                        </c:if>
+                        <c:if test="${memberLevel==2 }">
+                        	<span>대표연락처</span><span class="text-danger">*</span>
+                        </c:if>
                     </div>
-                    <div class="col-md-5 mb-2">
+                    <div class="col-md-6 mb-2">
                         <input type="tel" class='form-control' id='memberPhone' name='memberPhone' maxlength="11" placeholder="연락처를 (-) 없이 입력해주세요" required>   
                     </div>
-                    <div class="col-md-4 mb-2">
+                    <div class="col-md-3 mb-2">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 mb-2">
-                        <span>이메일</span><span class="text-danger">*</span>
-                    </div>
+                	<div class="col-md-1 mb-2"></div>
                     <div class="col-md-2 mb-2">
+                        <c:if test="${memberLevel==1 }">
+                        	<span>이메일</span><span class="text-danger">*</span>
+                        </c:if>
+                        <c:if test="${memberLevel==2 }">
+                        	<span>대표이메일</span><span class="text-danger">*</span>
+                        </c:if>
+                    </div>
+                    <div class="col-md-3 mb-2">
                         <input type="text" id='memberEmail' name='memberEmail' class='form-control' value='' placeholder="이메일" required>
                     </div>
                     <div class="col-md-1 mb-2 memberNo-center">
@@ -153,24 +187,31 @@
                             </option>   
                         </select>
                     </div>
-                    <div class="col-md-4 mb-2">
+                    <div class="col-md-3 mb-2">
                     	<input type='button' onclick='fn_checkEmail();' class='btn btn-primary' value='이메일 인증'>
                     	<input type='hidden' name='emailValid' id="emailValid" value='0'>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 mb-2">
-                        <span>주소</span><span class="text-danger">*</span>
+                	<div class="col-md-1 mb-2"></div>
+                    <div class="col-md-2 mb-2">
+                        <c:if test="${memberLevel==1 }">
+                        	<span>주소</span><span class="text-danger">*</span>
+                        </c:if>
+                        <c:if test="${memberLevel==2 }">
+                        	<span>회사주소</span><span class="text-danger">*</span>
+                        </c:if>
                     </div>
-                    <div class="col-md-5 mb-2">
+                    <div class="col-md-6 mb-2">
                         <input type='text' class='form-control' id ='addSearch' name='addSearch' placeholder='입력 하시려면 클릭하세요' required>
                         <input type='text' class='form-control' id="addDetail" name='addDetail' placeholder='상세 주소를 입력하세요' required>
                     </div>
-                    <div class="col-md-4 mb-2">
+                    <div class="col-md-3 mb-2">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 mb-2">
+                	<div class="col-md-1 mb-2"></div>
+                    <div class="col-md-2 mb-2">
                         <span>관심분야</span>
                     </div>
                     <div class="col-md-2 mb-2">
@@ -179,7 +220,7 @@
                     <div class="col-md-2 mb-2">
                         <label for="networkProtect">네트워크보안</label><input type='checkbox' name='interest' id="networkProtect" value="네트워크보안">
                     </div>
-                    <div class="col-md-1 mb-2">
+                    <div class="col-md-2 mb-2">
                         <label for="programming">개발</label><input type='checkbox' name='interest' id="programming" value="프로그래밍">
                     </div>
                     <div class="col-md-3 mb-2">

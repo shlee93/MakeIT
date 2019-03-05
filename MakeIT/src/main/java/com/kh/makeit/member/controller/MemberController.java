@@ -6,21 +6,25 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.makeit.common.SendMail;
 import com.kh.makeit.member.model.service.MemberService;
 
-@SessionAttributes("userId")
+@SessionAttributes("memberId")
 
 @Controller
 public class MemberController {
@@ -32,7 +36,7 @@ public class MemberController {
 
 	private Logger logger = Logger.getLogger(MemberController.class);
 
-	@RequestMapping("/member/memberEnroll.do")
+	@RequestMapping("/member/memberEnrollck.do")
 	public String memberEnrollck() {
 		return "member/memberEnrollck";
 	}
@@ -49,9 +53,13 @@ public class MemberController {
 
 	}
 
-	@RequestMapping("/member/individualMember")
-	public String memberEnroll() {
-		return "member/memberEnroll";
+	@RequestMapping("/member/memberEnroll")
+	public ModelAndView memberEnroll(String memberLevel) {
+		logger.debug(memberLevel);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("memberLevel",memberLevel);
+		mv.setViewName("member/memberEnroll");
+		return mv;
 
 	}
 
@@ -95,32 +103,26 @@ public class MemberController {
 		String memberId = request.getParameter("memberId");
 		String password = pwEncoder.encode(request.getParameter("password"));
 		String name = request.getParameter("memberName");
-		String memberRegNoCk = request.getParameter("memberNo") + "-" + request.getParameter("memberNo2");
-		String memberRegNo = memberRegNoCk.substring(0, 8) + "******";
-		String gender = "";
-		if (memberRegNo.charAt(7) == '1' || memberRegNo.charAt(7) == '3') {
-			gender = "M";
-		} else {
-			gender = "F";
-		}
+		String birth = request.getParameter("birth");
 		String bankCode = request.getParameter("bank");
 		String account = request.getParameter("memberAccount");
 		String phone = request.getParameter("memberPhone");
 		String email = request.getParameter("memberEmail") + "@" + request.getParameter("joinEmailDomain");
 		String address = request.getParameter("addSearch") + " " + request.getParameter("addDetail");
 		String[] interest = request.getParameterValues("interest");
+		String memberLevel = request.getParameter("memberLevel");
 		Map<Object,Object> map = new HashMap<>();
 		map.put("memberId", memberId);
 		map.put("password", password);
 		map.put("name", name);
-		map.put("memberRegNo", memberRegNo);
-		map.put("gender", gender);
+		map.put("birth", birth);
 		map.put("bankCode", bankCode);
 		map.put("account", account);
 		map.put("phone", phone);
 		map.put("email", email);
 		map.put("address", address);
 		map.put("interest", interest);
+		map.put("memberLevel", memberLevel);
 		if(!memberProfile.isEmpty()) {
 			String oriFileName = memberProfile.getOriginalFilename();
 			String ext = oriFileName.substring(oriFileName.lastIndexOf("."));//.부터 확장자까지
@@ -151,5 +153,53 @@ public class MemberController {
 		mv.addObject("loc",loc);
 		mv.setViewName("common/msg");
 		return mv;
+	}
+	
+	@RequestMapping("/member/loginEnd.do")
+	public ModelAndView loginEnd(String memberId, String password, String saveId, HttpServletResponse response) {
+		logger.debug(memberId);
+		String encodePw = pwEncoder.encode(password);
+		logger.debug(encodePw);
+		logger.debug(saveId);
+		Map<String,String> map = new HashMap();
+		map.put("memberId", memberId);
+		map.put("password", password);
+		
+		Map<String,String> result = service.login(map);
+		logger.debug(result);
+		ModelAndView mv = new ModelAndView();
+		String msg = "";
+		String loc = "/";
+		if(result != null) {
+			if(pwEncoder.matches(password, result.get("PASSWORD"))) {
+				msg = "로그인 성공했습니다.";
+				mv.addObject("memberId",result.get("MEMBERID"));
+				if(saveId!=null) {
+					Cookie c=new Cookie("saveId",memberId);
+					c.setMaxAge(7*24*60*60); //7일
+					response.addCookie(c);
+				} else {
+					Cookie c=new Cookie("saveId",memberId);
+					c.setMaxAge(0);
+					response.addCookie(c);
+				}
+			} else {
+				msg="password가 일치하지 않습니다.";
+			}
+		} else {
+			msg="id가 존재하지 않습니다.";
+		}
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		return mv;
+	}
+	
+	@RequestMapping("/member/memberLogout.do")
+	public String memberLogout(SessionStatus status) {
+		if(!status.isComplete()) {
+			status.setComplete();
+		}
+		return "redirect:/";
 	}
 }
