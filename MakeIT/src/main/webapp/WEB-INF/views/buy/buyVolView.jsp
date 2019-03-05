@@ -37,7 +37,7 @@
 	<button class="btn btn-secondary">결정하기</button>
 	<button class="btn btn-secondary">뒤로가기</button>
 	
-	<table>
+	<table class="table table-hover">
 		<tr>
 			<td>이전</td>
 			<td>창과 방패가 서로 강하기를 주장하니 어찌 세상이 평화로울 수 있겠습니까</td>
