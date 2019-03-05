@@ -10,6 +10,7 @@
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 	<c:set var="path" value="${pageContext.request.contextPath }"/>
 	 <!-- Latest compiled and minified CSS -->
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
    
     <!-- jQuery library -->
@@ -31,6 +32,29 @@
  	<div class='container-fluid' id="total">
   		<div class='row'>
        		<div class='col-md-1' id='nav'></div>
+
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+   
+   <!-- jQuery library -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   
+   <!-- Popper JS -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+   
+   <!-- Latest compiled JavaScript -->
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+   
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/buywrite/buywrite.css" />
+
+</head>
+<body>
+ <body>
+    <div class='container-fluid' id="total">
+        <div class='row'>
+            <div class='col-md-1' id='nav'></div>
+
             <div class='col-md-10' id='section' >
               <div class="row">
                 <div class="col-md-2">

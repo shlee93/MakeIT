@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+
 public class ContestController 
 {
 	@RequestMapping("/contest/contestMain.do")
@@ -21,4 +22,5 @@ public class ContestController
 	{
 		return "contest/contestWrite";
 	}	
+
 }
