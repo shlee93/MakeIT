@@ -37,6 +37,32 @@
 }
  
 </style>
+<script>
+var subde="";
+	$(function(){
+		$("select[name=interest]").on("change",function(){
+			var interest=$(this).val();
+			$.ajax({
+				url:"${path}/sell/findInterest",
+				data:{"interest":interest},
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+				dataType:"json",
+				type:"post",
+				success:function(data){
+					console.log(data);
+					var html="";
+					
+					for(var i = 0;i<data.list.length;i++){
+						console.log(data.list[i]["DETAILINTEREST"]);
+						html+="<option value='"+data.list[i]["DETAILINTEREST"]+"'>"+data.list[i]["DETAILINTEREST"]+"</option>";
+					}
+					$('#detailInterest').html(html);
+				}
+			});
+		});
+	});
+	
+</script>
 </head>
 <body>
 	<form id="sellWriteFrm">
@@ -48,20 +74,15 @@
 	         <label>분류</label> 
 	         </div>
 	         <div class="col-md-8">
-	         	<select class="form-control col-md-4" style="display: inline">
+	         	<select class="form-control col-md-4" name="interest" style="display: inline">
 		            <option disabled selected>대분류</option>
-		            <option>개발자</option>
-		            <option>웹디자이너</option>
-		            <option>네트워크 보안</option>
+		            <option value=1>개발자</option>
+		            <option value=2>웹디자이너</option>
+		            <option value=3>네트워크 보안</option>
 	         	</select> 
-	         	<select class="form-control col-md-4" style="display: inline; margin-right: 10px">
+	         	<select class="form-control col-md-4" id="detailInterest"  style="display: inline; margin-right: 10px">
 		            <option disabled selected>소분류</option>
-		            <option>웹</option>
-		            <option>모바일</option>
-		            <option>게임</option>
-		            <option>응용 프로그램</option>
-		            <option>보안 프로그램</option>
-		            <option>데이터베이스 관리</option>
+		           
 	         	</select>
 	         </div> 
 	         <br> 
@@ -102,9 +123,32 @@
        </div>
          <textarea class="form-control" rows="10"></textarea>
          <br/> 
-         <div class="filebox">
-            <label for="ex_file">이미지 업로드</label> <input type="file" id="ex_file">
-         </div>
+       <div class="filebox"> 
+	       <input class="upload-name" value="파일선택" disabled="disabled"> 
+	       <label for="ex_filename">업로드</label> 
+	       <input type="file" id="ex_filename" class="upload-hidden"> 
+       </div>
+		<script>
+		$(document).ready(function(){ 
+			var fileTarget = $('.filebox .upload-hidden'); 
+			fileTarget.on('change', function(){ 
+				 if(window.FileReader){ 
+					 modern browser var filename = $(this)[0].files[0].name; 
+					 }
+				 else { 
+					 old IE var filename = $(this).val().split('/').pop().split('\\').pop();
+					  }
+				 $(this).siblings('.upload-name').val(filename); }); }); 
+
+			
+		</script>
+
+         
+         <!--  <div id="imgContainer" class="row">
+	         	<input type="file" class="form-control col-md-8" id='firstimg' name="sellImg">
+	         	<br/><br/>
+	         </div> -->
+         
          <br/>
          <div id="btn-container">
             <button class="btn btn-secondary">취소</button>
