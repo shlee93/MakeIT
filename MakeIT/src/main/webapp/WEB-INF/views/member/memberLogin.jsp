@@ -19,18 +19,20 @@
                     <div id="login-row" class="row justify-content-center align-items-center">
                         <div id="login-column" class="col-md-6">
                             <div class="login-box col-md-12">
-                                <form id="login-form" class="form" action="" method="post">
+                                <form id="login-form" class="form" action="${path }/member/loginEnd.do" method="post">
                                     <h3 class="text-center text-info">Login</h3>
                                     <div class="form-group">
                                         <label for="username" class="text-info">ID:</label><br>
-                                        <input type="text" name="username" id="username" class="form-control">
+                                        <input type="text" name="memberId" id="memberId" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="password" class="text-info">Password:</label><br>
-                                        <input type="text" name="password" id="password" class="form-control">
+                                        <input type="password" name="password" id="password" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label for="remember-me" class="text-info"><span>아이디 저장</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
+                                        <label for="saveId" class="text-info"><span>아이디 저장</span> 
+                                        <span><input id="saveId" name="saveId" type="checkbox"></span>
+                                        </label><br>
                                         <input type="submit" name="submit" class="btn btn-info btn-md" value="로그인">
                                     </div>
                                     <div id="register-link" class="text-right">
