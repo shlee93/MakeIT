@@ -103,7 +103,7 @@
        	 
    	    <label>주최</label>
      	<input type="text" class="form-control col-sm-2" style="display: inline;" placeholder="주최측" disabled/>&nbsp;&nbsp;
-      	<input type="text" class="form-control col-sm-2" style="display: inline;" placeholder="주최자 아이디" disabled/>
+      	<input type="text" class="form-control col-sm-2" style="display: inline;" placeholder="주최자 아이디"  value='${memberId}'disabled/> 
        	
        	<br/>
        	

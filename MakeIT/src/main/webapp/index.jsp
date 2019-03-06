@@ -24,15 +24,7 @@
 <a class="dropdown-item" href="${path }/contest/contestDetail.do">컨테스트상세</a>
 <a class="dropdown-item" href="${path }/contest/contestWrite.do">컨테스트글작성</a>
 <a class="dropdown-item" href="${path }/buy/volList.do">지원자 리스트</a>
-<a class="dropdown-item" href="${path }/sell/sellmain.do">판매메인</a>
-<a class="dropdown-item" href="${path }/sell/sellDetail.do">판매디테일</a>
-<a class="dropdown-item" href="${path }/sell/sellWrite.do">판매글작성</a>
-<a class="dropdown-item" href="${path }/buy/buyDetail.do">구매디테일</a>
-<a class="dropdown-item" href="${path }/buy/buyWrite.do">구매글작성</a>
-<a class="dropdown-item" href="${path }/contest/contestMain.do">컨테스트메인</a>
-<a class="dropdown-item" href="${path }/contest/contestDetail.do">컨테스트상세</a>
-<a class="dropdown-item" href="${path }/contest/contestWrite.do">컨테스트글작성</a>
-<a class="dropdown-item" href="${path }/mainpage/mainpage.do">메인페이지</a>
+
 
 </body>
 </html>
