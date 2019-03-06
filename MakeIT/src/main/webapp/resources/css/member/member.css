@@ -18,6 +18,9 @@
 
 
 /* myPage */
+#myTab{
+	margin-top: 5%;
+}
 .profile-img{
     text-align: center;
     border-right: 1px solid #818182;

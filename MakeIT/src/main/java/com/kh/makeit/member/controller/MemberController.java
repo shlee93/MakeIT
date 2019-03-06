@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.makeit.common.SendMail;
 import com.kh.makeit.member.model.service.MemberService;
 
-@SessionAttributes("memberId")
 
 @Controller
 public class MemberController {
@@ -42,8 +42,15 @@ public class MemberController {
 	}
 
 	@RequestMapping("/member/memberMyPage.do")
-	public String memberMyPage() {
-		return "member/memberMyPage";
+	public ModelAndView memberMyPage(HttpSession session) {
+		String id = (String) session.getAttribute("memberId");
+		Map<Object,Object> map = service.selectOne(id);
+		logger.debug(map);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("map",map);
+		mv.setViewName("member/memberMyPage");
+		return mv;
 	}
 
 	@RequestMapping("/mainpage/mainpage.do")
@@ -98,7 +105,7 @@ public class MemberController {
 	}
 
 	@RequestMapping("/member/memberEnrollEnd.do")
-	public ModelAndView memberEnrollEnd(HttpServletRequest request, MultipartFile memberProfile) {
+	public ModelAndView memberEnrollEnd(HttpServletRequest request, MultipartFile memberProfile,HttpSession session) {
 		String saveDir = request.getSession().getServletContext().getRealPath("/resources/upload/member");
 		String memberId = request.getParameter("memberId");
 		String password = pwEncoder.encode(request.getParameter("password"));
@@ -156,7 +163,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/member/loginEnd.do")
-	public ModelAndView loginEnd(String memberId, String password, String saveId, HttpServletResponse response) {
+	public ModelAndView loginEnd(String memberId, String password, String saveId, HttpServletResponse response, HttpSession session) {
 		logger.debug(memberId);
 		String encodePw = pwEncoder.encode(password);
 		logger.debug(encodePw);
@@ -174,6 +181,7 @@ public class MemberController {
 			if(pwEncoder.matches(password, result.get("PASSWORD"))) {
 				msg = "로그인 성공했습니다.";
 				mv.addObject("memberId",result.get("MEMBERID"));
+				session.setAttribute("member", result);
 				if(saveId!=null) {
 					Cookie c=new Cookie("saveId",memberId);
 					c.setMaxAge(7*24*60*60); //7일
