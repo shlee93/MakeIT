@@ -28,4 +28,9 @@ public class MemberServiceImpl implements MemberService {
 		return dao.login(map);
 	}
 
+	@Override
+	public Map<Object, Object> selectOne(String id) {
+		return dao.selectOne(id);
+	}
+
 }

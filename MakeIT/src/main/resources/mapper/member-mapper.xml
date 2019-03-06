@@ -10,6 +10,9 @@
 	<select id="login" parameterType="map" resultType="map">
 		SELECT * FROM MEMBER WHERE MEMBERID=#{memberId}
 	</select>
+	<select id="selectOne" parameterType="map" resultType="map">
+		SELECT * FROM MEMBER JOIN GRADE USING(GRADENO) JOIN BANK USING(BANKCODE) WHERE MEMBERID=#{id}
+	</select>
 	<resultMap type="map" id="memberMap">
 		<result column="interest" property="interest" typeHandler="strArray"/>
 	</resultMap>
