@@ -126,3 +126,40 @@
     min-height: 500px;
 }
 
+
+/* 로그인 */
+
+#login .container #login-row #login-column .login-box {
+  margin-top: 120px;
+  max-width: 600px;
+  height: 320px;
+  border: 1px solid #9C9C9C;
+  /* background-image: linear-gradient(to bottom, #aec1c3, #a9b5b7, #bcc5c6, #cfd5d5, #e3e5e5); */
+}
+#login .container #login-row #login-column .login-box #login-form {
+  padding: 20px;
+}
+#login .container #login-row #login-column .login-box #login-form #register-link {
+  margin-top: -85px;
+}
+
+
+/* 회원가입체크 */
+	#individual{
+		text-align: center;	
+		margin-top: 20%;
+	}
+	#company{
+		text-align: center;
+		margin-top: 20%;
+	}
+	#welcome{
+		text-align: center;
+		margin-top: 5%;
+	}
+	.fas{
+		display: block;
+	}
+	.signUp{
+		margin-top: 2%;
+	}

@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="member">
-
+	<select resultType="map" parameterType="string" id="idDuplicate"> 
+		SELECT * FROM MEMBER JOIN MEMBERINFO USING(ID) WHERE ID=#{memberId} 
+	</select>
+	<insert id="insertMemberInfo" parameterType="map">
+		INSERT INTO MEMBERINFO VALUES(#{memberId},#{password},#{name},#{phone},#{email},#{address},DEFAULT,DEFAULT,#{oriImg},#{reImg},NULL,DEFAULT,DEFAULT,#{account},DEFAULT,#{bankCode}) 
+	</insert>
+	<insert id="insertMember" parameterType="map">
+		INSERT INTO MEMBER VALUES(#{memberId},#{memberRegNo},#{gender},DEFAULT,#{interest})
+	</insert>
 </mapper>
