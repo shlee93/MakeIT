@@ -35,6 +35,8 @@
 #priceProduct{
 	height:100%;
 }
+
+
  
 </style>
 <script>
@@ -54,7 +56,7 @@ var subde="";
 					
 					for(var i = 0;i<data.list.length;i++){
 						console.log(data.list[i]["DETAILINTEREST"]);
-						html+="<option value='"+data.list[i]["DETAILINTEREST"]+"'>"+data.list[i]["DETAILINTEREST"]+"</option>";
+						html+="<option value='"+(i+1)+"'>"+data.list[i]["DETAILINTEREST"]+"</option>";
 					}
 					$('#detailInterest').html(html);
 				}
@@ -80,22 +82,23 @@ var subde="";
 		            <option value=2>웹디자이너</option>
 		            <option value=3>네트워크 보안</option>
 	         	</select> 
-	         	<select class="form-control col-md-4" id="detailInterest"  style="display: inline; margin-right: 10px">
+	         	<select class="form-control col-md-4" id="detailInterest" name="detailInterest"  style="display: inline; margin-right: 10px">
 		            <option disabled selected>소분류</option>
 		           
 	         	</select>
 	         </div> 
-	         <br> 
          </div>
+          <br> 
          <div class="row">
 	         <div class="col-md-2">
 	         	<label>제목</label> 
 	         </div>
 	         <div class="col-md-8">
-	         	<input type="text" class="form-control" style="display: inline;" placeholder="제목을 입력하세요." /> 
+	         	<input type="text" name="writeTitle" class="form-control" style="display: inline;" placeholder="제목을 입력하세요." /> 
 	         	<br> 
 	         </div>
 		</div>
+		 <br> 
          <div class='row'>
             <div class="col-md-2">
              	<label>상품</label> 
@@ -107,47 +110,25 @@ var subde="";
 	         	<br/><br/>
 	         </div>
 	         <div class="col-md-2">
-	       	<button class="btn btn-secondary" type="button" onclick="fn_optionPlus();" style="width: 45px; font-size: 20px">+</button>
-         	<button class="btn btn-secondary" type="button" onclick="fn_otionDelete();" style="width: 45px; font-size: 20px">-</button>
+	        <button class="btn btn-secondary" type="button" onclick="fn_optionPlus();" style="width: 45px; font-size: 20px">+</button>
+         	<button class="btn btn-secondary" type="button" onclick="fn_otionDelete();" style="width: 45px; font-size: 20px">-</button> 
          	</div>
          <br/>
          </div>
          <br/>
        
-         <br/> 
       <div class='row'>
             <div class="col-md-12">
              	<label>상세설명</label> 
             </div> 
          
        </div>
-         <textarea class="form-control" rows="10"></textarea>
+         <textarea class="form-control" name="sellContent" rows="10"></textarea>
          <br/> 
-       <div class="filebox"> 
-	       <input class="upload-name" value="파일선택" disabled="disabled"> 
-	       <label for="ex_filename">업로드</label> 
-	       <input type="file" id="ex_filename" class="upload-hidden"> 
-       </div>
-		<script>
-		$(document).ready(function(){ 
-			var fileTarget = $('.filebox .upload-hidden'); 
-			fileTarget.on('change', function(){ 
-				 if(window.FileReader){ 
-					 modern browser var filename = $(this)[0].files[0].name; 
-					 }
-				 else { 
-					 old IE var filename = $(this).val().split('/').pop().split('\\').pop();
-					  }
-				 $(this).siblings('.upload-name').val(filename); }); }); 
-
-			
-		</script>
-
-         
-         <!--  <div id="imgContainer" class="row">
-	         	<input type="file" class="form-control col-md-8" id='firstimg' name="sellImg">
-	         	<br/><br/>
-	         </div> -->
+    	<div class="filebox bs3-primary preview-image">
+            <label for="input_file">사진 선택</label> 
+            <input type="file" id="input_file" class="upload-hidden" multiple="multiple" accept=".gif, .jpg, .png"> 
+         </div>
          
          <br/>
          <div id="btn-container">
@@ -159,6 +140,44 @@ var subde="";
    </div>
    </form>
    <script>
+   var sel_files=[];
+   $(document).ready(function(){
+          //preview image 
+          var imgTarget = $('.preview-image .upload-hidden');
+
+          imgTarget.on('change', function(e){
+             var files=e.target.files;
+              var filesArr=Array.prototype.slice.call(files);
+              console.log(files);
+              var parent = $(this).parent();
+              parent.children('.upload-display').remove();
+              console.log("수 : " + filesArr.length);
+            if(filesArr.length > 5)
+            {
+               alert("사진은 5개 제한입니다.");
+               return;
+            }
+              filesArr.forEach(function(f){
+                  if(!f.type.match("image.*")){
+                     alert("확장자는 이미지 확장자만 가능합니다.");
+                     return;
+             
+                  }
+                  console.log(f)
+                  sel_files.push(f);
+                  
+                  var reader=new FileReader();
+                  reader.onload=function(e){
+                     var src = e.target.result;
+                      parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+                  }
+                  
+                  reader.readAsDataURL(f);
+               })
+           });
+      });
+
+		
    function writeEnd(){
 	   
 	   $('#sellWriteFrm').attr("action","${pageContext.request.contextPath}/sell/sellWriteEnd");
@@ -166,25 +185,16 @@ var subde="";
 		$('#sellWriteFrm').submit();
    }
    	function fn_optionPlus(){
-   	/* 	var addPrice='<input type="number" class="form-control col-md-3" name="price" style="display: inline" placeholder="금액(원)"> ';
-   		$('#priceProduct').append(addPrice); 
-   		var addDate='<input type="text" class="form-control col-md-2" name="endDate" style="display: inline" placeholder="작업기한">';
-   		$('#priceProduct').append(addDate);
-   		var addOption='<div class="remove"><input type="text" class="form-control  col-md-8" name="productOption" style="display: inline" placeholder="상품에 대한 설명을 입력하세요."><br/><br/></div>';
-   		$('#priceProduct').append(addOption); */
    		var addOption="<div class=addoption><input type='number' class='form-control col-md-3' name='price' style='display: inline' placeholder='금액(원)'><input type='text' class='form-control col-md-2' name='endDate' style='display: inline' placeholder='작업기한'><input type='text' class='form-control  col-md-8' name='productOption' style='display: inline' placeholder='상품에 대한 설명을 입력하세요.'><br/><br/></div>";
    		$('#priceProduct').append(addOption); 
    	}
    	function fn_otionDelete()
    	{	
    		$('.addoption').last().remove();
-   		/* if($('#priceProduct > input:nth-last-of-type(1)').attr("id")!=$('#firstOption').attr("id")){
-   			$('#priceProduct > input').last().remove();
-   			$('#priceProduct > input').last().remove();
-   			$('#priceProduct > input').last().remove();
-   		} */
    	}
    	
+      	
+      
    </script>
 </body>
 </html>

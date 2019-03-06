@@ -11,7 +11,7 @@
     #contestdetail{
       height: 150px;
       overflow: auto;
-      border: 1px solid gray;
+      /* border: 1px solid gray; */
       padding-left: 0;
       
     }
