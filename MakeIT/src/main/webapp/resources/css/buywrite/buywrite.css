@@ -1,6 +1,20 @@
 @charset "UTF-8";
+<<<<<<< HEAD
+
+/* div 
+{
+   border: 1px solid black;
+} */
+
+
 div {
+<<<<<<< HEAD
   
+=======
+   border: 1px solid black;
+}
+
+>>>>>>> refs/remotes/origin/lsh
 #buy-container {
    padding: 20px;
 }

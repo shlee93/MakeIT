@@ -29,4 +29,9 @@ public class MemberDaoImpl implements MemberDao {
 		return sqlSession.selectOne("member.login",map);
 	}
 
+	@Override
+	public Map<Object, Object> selectOne(String id) {
+		return sqlSession.selectOne("member.selectOne",id);
+	}
+
 }

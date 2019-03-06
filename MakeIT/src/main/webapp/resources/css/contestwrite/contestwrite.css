@@ -1,7 +1,13 @@
 @charset "UTF-8";
+<<<<<<< HEAD
+/* div {
+   border: 1px solid black;
+} */
+=======
 div {
 
 }
+
 #buy-container {
    padding: 20px;
 }
