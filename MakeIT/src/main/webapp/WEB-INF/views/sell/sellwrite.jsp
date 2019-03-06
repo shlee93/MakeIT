@@ -67,7 +67,6 @@ var subde="";
 <body>
 	<form id="sellWriteFrm">
    <div class="row">
-<<<<<<< HEAD
       <div class="col-sm-1"></div>
       <div id="buy-container" class="col-sm-10">
          <label>분류</label> <select class="form-control col-sm-2"
