@@ -9,15 +9,18 @@
     padding: 3%;
     margin-top: 3%;
     margin-bottom: 3%;
-    border-radius: 0.5rem;
     background: #fff;
 }
+
 #progress{
 	text-align: center;
 }
 
 
 /* myPage */
+.myPageInfo:hover{
+	cursor: pointer;
+}
 #myTab{
 	margin-top: 5%;
 }
@@ -25,11 +28,14 @@
     text-align: center;
     border-right: 1px solid #818182;
     margin-top: 5%;
+    max-height:300px;
+    max-width:100%;
     
 }
 .profile-img img{
-    width: 70%;
-    height: 100%;
+    width: 150px;
+    height: 150px;
+    position: relative;
     border-radius: 50%;
     
 }

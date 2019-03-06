@@ -107,7 +107,7 @@
                         </c:if>
                     </div>
                     <div class="col-md-6 mb-2">
-                        <input type="text" id='birth' name='birth' class='form-control' value='' maxlength="6" placeholder="예시 : 900123" required>
+                        <input type="date" id='birth' name='birth' class='form-control' value='' maxlength="6" placeholder="예시 : 900123" required>
                     </div>
                     <div class="col-md-3 mb-2">
                     </div>
@@ -221,7 +221,7 @@
                         <label for="networkProtect">네트워크보안</label><input type='checkbox' name='interest' id="networkProtect" value="네트워크보안">
                     </div>
                     <div class="col-md-2 mb-2">
-                        <label for="programming">개발</label><input type='checkbox' name='interest' id="programming" value="프로그래밍">
+                        <label for="programming">개발</label><input type='checkbox' name='interest' id="programming" value="개발">
                     </div>
                     <div class="col-md-3 mb-2">
                     </div>

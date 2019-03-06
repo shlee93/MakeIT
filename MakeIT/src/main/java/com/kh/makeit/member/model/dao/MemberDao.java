@@ -8,8 +8,10 @@ public interface MemberDao {
 
 	int insertMember(Map<Object, Object> map);
 
-	Map<String, String> login(Map<String, String> map);
+	Map<Object, Object> login(Map<String, String> map);
 
 	Map<Object, Object> selectOne(String id);
+
+	int memberIntroduction(Map<String, String> map);
 
 }
