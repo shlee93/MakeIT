@@ -41,12 +41,15 @@ public class sellController {
 		return "sell/sellwrite";
 	}
 	@RequestMapping("/sell/sellWriteEnd")
-	public String sellWriteEnd(int[] price,int interest, int detailInterest,String writeTitle,String[] endDate,String[] productOption,String sellContent,MultipartFile[] input_file,HttpServletRequest request )
+	public String sellWriteEnd(String[] price,int interest, int detailInterest,String writeTitle,String[] endDate,String[] productOption,String sellContent,MultipartFile[] input_file,HttpServletRequest request )
 	{	
 		HttpSession session = request.getSession();
 		Map map=(Map)session.getAttribute("member");
 		System.out.println(map.get("MEMBERID"));
-		
+		for(int i=0;i<input_file.length;i++)
+		{
+			System.out.println(input_file[i]);
+		}
 		return "sell/sellmain";
 	}
 	//ajax 카테고리 분류
