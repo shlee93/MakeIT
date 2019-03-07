@@ -30,7 +30,14 @@
 
 <style>
 
-body {margin: 10px;}
+
+div {padding: 10px;}
+thead {
+	text-align:center;
+}
+.volTr{
+	cursor:pointer
+}
 .where {
   display: block;
   margin: 25px 15px;
@@ -119,48 +126,26 @@ body {margin: 10px;}
 				</thead>
 				<tbody>
 				<c:forEach items="${volList}" var="v">
-					<tr>
+					<tr class="volTr" onclick="fn_volView('${v.MEMBERID}', '${v.BUYNO }', '${v.CATEGORYCODE }')" >
 						<td><c:out value="${v.MEMBERID }"/></td>
-						<td><c:out value="${v.BUYCANDIDATECONTENT }"/></td>
-						<td><c:out value="${v.BUYCANDIDATEDATE }"/></td>
+						<td><c:out value="${v.BUYCANDIDATETITLE }"/></td>
+						<fmt:parseDate value="${v.BUYCANDIDATEDATE }" var="dateFMT" pattern="yyyy-MM-dd HH:mm:ss.S"/>
+						<td><fmt:formatDate value="${dateFMT}" pattern="yy-MM-dd HH:mm"/></td>
 					</tr>
 				</c:forEach>
 				</tbody>
 			</table>
-			<div>
-				<input type="text" class="form-group" id="title"
-					value="내가 나를 이긴다 그럼 나는 너를 이기는가" readonly style="width:90%"/>
-					<br> 
-				<input type="text"
-					class="form-group" id="writer" value="조충현" readonly style="width:5%"/>
-				<br>
-				<textarea class="form-group" id="content" rows="10" style="width:90%;">
-					내가 나를 이긴다 고로 나는 너를 이긴다. 왜냐하면 나느 천하무적이기 때문이다. 누가 나를 이길 쏘냐? 그건 너도 나도 우리도 심지어 하늘도 모르는 것이다.
-				</textarea>
-				<div style="text-align:right; margin-right:200px;">
-					<button class="btn btn-secondary">결정하기</button>
-					<button class="btn btn-secondary">뒤로가기</button>
-				</div>
-				<hr>
-				<table class="table table-hover" style="width:90%">
-					<tr>
-						<td>이전</td>
-						<td>창과 방패가 서로 강하기를 주장하니 어찌 세상이 평화로울 수 있겠습니까</td>
-						<td>제갈공명</td>
-					</tr>
-					<tr>
-						<td>다음</td>
-						<td>암튼 다이아몬드가 젤 단단함 반박시 빙시</td>
-						<td>관종</td>
-					</tr>
-	
-				</table>
-			</div>
+			<form action="" name="volViewFrm">
+				<input type="hidden" name="memberId"/>
+				<input type="hidden" name="buyNo"/>
+				<input type="hidden" name="categoryCode"/>
+			</form>	
+			<!--
 			<div class="filebox bs3-primary preview-image">
 				<label for="input_file">사진 선택</label> 
 				<input type="file" id="input_file" class="upload-hidden" multiple="multiple" accept=".gif, .jpg, .png"> 
+			</div> -->
 			</div>
-
 		
 		<div class="col-sm-1"></div>
 	</div>
@@ -201,6 +186,19 @@ $(document).ready(function(){
 	         })
 	     });
 	});
+	
+	function fn_volView(memberId, buyNo, categoryCode)
+	{
+		var url="${path}/buy/buyVolView.do";
+				
+		volViewFrm.memberId.value=memberId;
+		volViewFrm.buyNo.value=buyNo;
+		volViewFrm.categoryCode.value=categoryCode;
+		volViewFrm.action=url;
+		volViewFrm.method="post";
+		volViewFrm.submit();
+		
+	}
 </script>
 </body>
 </html>

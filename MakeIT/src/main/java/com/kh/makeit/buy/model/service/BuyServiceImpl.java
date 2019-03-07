@@ -14,8 +14,15 @@ public class BuyServiceImpl implements BuyService {
 	BuyDao dao;
 	
 	@Override
-	public List<Map<String, String>> selectVolList(int buyNo, String category) {
-		return dao.selectVolList(buyNo, category);
+	public List<Map<String, String>> selectVolList(Map m) {
+		return dao.selectVolList(m);
 	}
 
+	@Override
+	public Map<String, String> selectVolView(Map map) {
+		// TODO Auto-generated method stub
+		return dao.selectVolView(map);
+	}
+	
+	
 }

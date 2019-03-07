@@ -25,6 +25,5 @@
 <a class="dropdown-item" href="${path }/contest/contestDetail.do">컨테스트상세</a>
 <a class="dropdown-item" href="${path }/contest/contestWrite.do">컨테스트글작성</a>
 <a class="dropdown-item" href="${path }/mainpage/mainpage.do">메인페이지</a>
-
 </body>
 </html>

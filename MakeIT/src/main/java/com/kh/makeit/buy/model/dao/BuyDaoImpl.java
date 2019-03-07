@@ -14,11 +14,17 @@ public class BuyDaoImpl implements BuyDao {
 	SqlSessionTemplate session;
 	
 	@Override
-	public List<Map<String, String>> selectVolList(int buyNo, String category) {
-		Map<String,String> map = new HashMap();
-		map.put("buyNo", String.valueOf(buyNo));
-		map.put("category", category);
-		return session.selectList("buy.selectVolList",map);
+	public List<Map<String, String>> selectVolList(Map m) {
+		
+		return session.selectList("buy.selectVolList",m);
 	}
+
+	@Override
+	public Map<String, String> selectVolView(Map map) {
+		// TODO Auto-generated method stub
+		return session.selectOne("buy.selectVolView", map);
+	}
+	
+	
 
 }

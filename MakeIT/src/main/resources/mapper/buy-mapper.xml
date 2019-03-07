@@ -4,4 +4,7 @@
 	<select id="selectVolList" parameterType="map" resultType="map">
 		SELECT * FROM BUYCANDIDATE WHERE BUYNO = ${buyNo} AND CATEGORYCODE = #{category} ORDER BY BUYCANDIDATEDATE
 	</select>
+	<select id="selectVolView" parameterType="map" resultType="map">
+		SELECT * FROM BUYCANDIDATE WHERE MEMBERID = #{memberId} AND BUYNO = ${buyNo} AND CATEGORYCODE = #{category}
+	</select>
 </mapper>

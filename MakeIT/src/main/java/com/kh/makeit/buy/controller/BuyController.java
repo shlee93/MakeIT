@@ -1,5 +1,6 @@
 package com.kh.makeit.buy.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,11 +33,31 @@ public class BuyController {
 		String categoryCode = "B";
 		
 		ModelAndView mv = new ModelAndView();
-		List<Map<String, String>> volList = service.selectVolList(buyNo, categoryCode);
+		
+		Map<String,String> map = new HashMap();
+		map.put("buyNo", String.valueOf(buyNo));
+		map.put("category", categoryCode);
+		
+		List<Map<String, String>> volList = service.selectVolList(map);
 		mv.addObject("volList", volList);
 		mv.setViewName("buy/buyVolList");
 		return mv;
 
+	}
+	
+	@RequestMapping("/buy/buyVolView.do")
+	public ModelAndView selectVolView(String memberId, String buyNo, String categoryCode)
+	{
+		ModelAndView mv = new ModelAndView();
+		Map<String,String> map = new HashMap();
+		map.put("memberId", memberId);
+		map.put("buyNo", buyNo);
+		map.put("category", categoryCode);
+		
+		Map<String,String> vol = service.selectVolView(map);
+		mv.addObject("vol", vol);
+		mv.setViewName("buy/buyVolView");
+		return mv;
 	}
 
 }
