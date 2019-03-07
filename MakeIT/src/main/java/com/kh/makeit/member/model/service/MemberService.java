@@ -22,4 +22,10 @@ public interface MemberService {
 
 	double sellAvg(String id);
 
+	String searchId(String email);
+
+	String searchEmail(String id);
+
+	int updatePw(Map<String, String> map);
+
 }

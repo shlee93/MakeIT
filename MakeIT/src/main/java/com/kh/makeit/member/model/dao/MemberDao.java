@@ -22,4 +22,10 @@ public interface MemberDao {
 
 	double sellAvg(String id);
 
+	String searchId(String email);
+
+	String searchEmail(String id);
+
+	int updatePw(Map<String, String> map);
+
 }

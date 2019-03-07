@@ -58,4 +58,19 @@ public class MemberServiceImpl implements MemberService {
 		return dao.sellAvg(id);
 	}
 
+	@Override
+	public String searchId(String email) {
+		return dao.searchId(email);
+	}
+
+	@Override
+	public String searchEmail(String id) {
+		return dao.searchEmail(id);
+	}
+
+	@Override
+	public int updatePw(Map<String, String> map) {
+		return dao.updatePw(map);
+	}
+
 }

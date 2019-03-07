@@ -195,31 +195,7 @@
                                     <div class="col-md-4">
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <label>프로젝트당 평균 소요시간</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                    	<p>판매:</p>
-                                    </div>
-                                    <div class="col-md-2">
-                                    	<p>6개월</p>
-                                    </div>
-                                    <div class="col-md-4">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                	<div class="col-md-4">
-                                    </div>
-                                	<div class="col-md-2">
-                                    	<p>구매:</p>
-                                    </div>
-                                    <div class="col-md-2">
-                                    	<p>4개월</p>
-                                    </div>
-                                    <div class="col-md-4">
-                                    </div>
-                                </div>
+                                
                             </div>
                             <div class="tab-pane fade" id="appeal" role="tabpanel" aria-labelledby="appeal-tab">
                              	<form action="${path }/member/memberIntroduction.do" method="POST">

@@ -260,12 +260,94 @@ public class MemberController {
 		return mv;
 	}
 	
+	@RequestMapping("/member/findId.do")
+	public String findId() {
+		return "member/findId";
+	}
+	
+	@RequestMapping("/findIdCheck.do")
+	public ModelAndView findIdCheck(String email) {
+		int randomNo = SendMail.sendmail(email);
+		logger.debug(randomNo);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("randomNo",randomNo);
+		mv.addObject("email",email);
+		mv.setViewName("member/findIdCheck");
+		return mv;
+	}
+	
+	@RequestMapping("/member/findIdEnd.do")
+	public ModelAndView findIdEnd(String email) {
+		String id = service.searchId(email);
+		logger.debug(id);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("id",id);
+		mv.setViewName("member/findIdEnd");
+		return mv;
+	}
+	
+	@RequestMapping("/member/findPw.do")
+	public String findPw() {
+		return "member/findPw";
+	}
+	
+	@RequestMapping("/findPwCheck.do")
+	public ModelAndView findPwCheck(String id) {
+		String email = service.searchEmail(id);
+		int randomNo = SendMail.sendmail(email);
+		logger.debug(randomNo);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("randomNo",randomNo);
+		mv.addObject("id",id);
+		mv.setViewName("member/findPwCheck");
+		return mv;
+	}
+	
+	@RequestMapping("/member/findPwUpdate.do")
+	public ModelAndView findPwUpdate(String id) {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("id",id);
+		mv.setViewName("member/findPwUpdate");
+		return mv;
+	}
+	
+	@RequestMapping("/member/findPwEnd.do")
+	public ModelAndView findPwEnd(String id, String password) {
+		logger.debug(id);
+		logger.debug(password);
+		String encodePw = pwEncoder.encode(password);
+		logger.debug(encodePw);
+		Map<String,String> map = new HashMap<>();
+		map.put("id", id);
+		map.put("password", encodePw);
+		int result = service.updatePw(map);
+		ModelAndView mv = new ModelAndView();
+		String msg = "";
+		if(result > 0) {
+			msg = "비밀번호 변경 성공";
+		} else {
+			msg = "비밀번호 변경 실패";
+		}
+		mv.addObject("msg",msg);
+		mv.setViewName("member/findPwEnd");
+		return mv;
+	}
+	
 	@RequestMapping("/member/memberInfo.do")
 	@ResponseBody
 	public Map<Object,Object> memberInfo(String memberId){
 		Map<Object,Object> m = service.selectOne(memberId);
+		int buyCount = service.selectBuyCount(memberId);
+		int sellCount = service.boardSellCount(memberId);
+		double buyAvg = service.buyAvg(memberId);
+		double sellAvg = service.sellAvg(memberId);
 		String birth = m.get("BIRTH").toString().substring(0, 10);
 		m.put("BIRTH", birth);
+		m.put("buyCount", buyCount);
+		m.put("sellCount", sellCount);
+		m.put("buyAvg", buyAvg);
+		m.put("sellAvg", sellAvg);
+		
 		return m;
 	}
 }

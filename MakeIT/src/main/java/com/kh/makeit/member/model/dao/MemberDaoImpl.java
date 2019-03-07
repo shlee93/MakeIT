@@ -59,4 +59,19 @@ public class MemberDaoImpl implements MemberDao {
 		return sqlSession.selectOne("member.sellAvg",id);
 	}
 
+	@Override
+	public String searchId(String email) {
+		return sqlSession.selectOne("member.searchId",email);
+	}
+
+	@Override
+	public String searchEmail(String id) {
+		return sqlSession.selectOne("member.searchEmail",id);
+	}
+
+	@Override
+	public int updatePw(Map<String, String> map) {
+		return sqlSession.update("member.updatePw",map);
+	}
+
 }

@@ -28,6 +28,15 @@
 	<select id="sellAvg" parameterType="string" resultType="_double">
 		SELECT AVG(SELLPRICE) FROM SELLOPTION O JOIN SELL S USING(SELLNO) WHERE MEMBERID=#{id}
 	</select>
+	<select id="searchId" parameterType="string" resultType="string">
+		SELECT MEMBERID FROM MEMBER WHERE EMAIL=#{email}
+	</select>
+	<select id="searchEmail" parameterType="string" resultType="string">
+		SELECT EMAIL FROM MEMBER WHERE MEMBERID=#{id}
+	</select>
+	<update id="updatePw" parameterType="map">
+		UPDATE MEMBER SET PASSWORD = #{password} WHERE MEMBERID = #{id}
+	</update>
 	<resultMap type="map" id="memberMap">
 		<result column="interest" property="interest" typeHandler="strArray"/>
 	</resultMap>
