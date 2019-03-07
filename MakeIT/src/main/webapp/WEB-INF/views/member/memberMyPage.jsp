@@ -16,7 +16,7 @@
             nav
         </div>
         <div class="col-md-10">
-            <div class="container emp-profile">
+            <div class="container emp-profile" id="ajaxHtml">
                 <div class="row" id="toprow">
                     <div class="col-md-4">
                         <div class="profile-img">
@@ -42,9 +42,10 @@
                         </div>
                     </div>
                     <div class="col-md-2">
-                    	<form action="${path }/member/updateMember.do" method="post">
+                    	<form id="hiddenFrm" action="" method="post">
 	                    	<input type="hidden" id="updateId" name="updateId" value="${map.MEMBERID }"/>
-	                        <input type="submit" class="profile-edit-btn" name="btnAddMore" value="정보수정"/>
+	                        <input type="button" onclick="updateMember();" class="profile-edit-btn" name="updateBtn" value="정보수정"/>
+	                        <input type="button" onclick="deleteMember();" class="profile-edit-btn" name="deleteBtn" value="회원탈퇴"/>
                     	</form>
                     </div>
                 </div>
@@ -54,9 +55,9 @@
                         	<input type="hidden" id="memberId" value="${map.MEMBERID }">
                             <p>마이페이지</p>
                             <a class="myPageInfo" onclick="memberInfoAjax();">회원정보</a><br/>
-                            <a class="myPageInfo">찜한 목록</a><br/>
-                            <a class="myPageInfo">내가 쓴 글 보기</a><br/>
-                            <a class="myPageInfo">쪽지함</a>
+                            <a class="myPageInfo" onclick="memberOutBoxAjax();">찜한 목록</a><br/>
+                            <a class="myPageInfo" onclick="memberWriteAjax();">내가 쓴 글 보기</a><br/>
+                            <a class="myPageInfo" onclick="memberMessageAjax();">쪽지함</a>
                         </div>
                     </div>
                     <div class="col-md-8">
@@ -152,10 +153,15 @@
                                     <div class="col-md-2">
                                     	<p>판매:</p>
                                     </div>
-                                    <div class="col-md-2">
-                                    	<p><c:out value="${sellCount }건"></c:out> </p>
-                                    </div>
                                     <div class="col-md-4">
+                                    	<c:if test="${sellCount != 0 }">
+                                    		<p><c:out value="${sellCount }건"></c:out> </p>
+                                    	</c:if>
+                                    	<c:if test="${sellCount == 0 }">
+                                    		<p>등록된 글이 없습니다.</p>
+                                    	</c:if>
+                                    </div>
+                                    <div class="col-md-2">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -164,10 +170,15 @@
                                 	<div class="col-md-2">
                                     	<p>구매:</p>
                                     </div>
-                                    <div class="col-md-2">
-                                    	<p><c:out value="${buyCount }건"></c:out></p>
-                                    </div>
                                     <div class="col-md-4">
+                                    	<c:if test="${buyCount != 0 }">
+                                    		<p><c:out value="${buyCount }건"></c:out> </p>
+                                    	</c:if>
+                                    	<c:if test="${buyCount == 0 }">
+                                    		<p>등록된 글이 없습니다.</p>
+                                    	</c:if>
+                                    </div>
+                                    <div class="col-md-2">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -177,10 +188,15 @@
                                     <div class="col-md-2">
                                     	<p>판매:</p>
                                     </div>
-                                    <div class="col-md-2">
-                                    	<p><fmt:formatNumber value="${sellAvg }" type="currency"/></p>
-                                    </div>
                                     <div class="col-md-4">
+                                    	<c:if test="${sellAvg != 0 }">
+                                    		<p><fmt:formatNumber value="${sellAvg }" type="currency"/></p>
+                                    	</c:if>
+                                    	<c:if test="${sellAvg == 0 }">
+                                    		<p>등록된 글이 없습니다.</p>
+                                    	</c:if>
+                                    </div>
+                                    <div class="col-md-2">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -189,10 +205,15 @@
                                 	<div class="col-md-2">
                                     	<p>구매:</p>
                                     </div>
-                                    <div class="col-md-2">
-                                    	<p><fmt:formatNumber value="${buyAvg }" type="currency"/></p>
-                                    </div>
                                     <div class="col-md-4">
+                                    	<c:if test="${buyAvg != 0 }">
+                                    		<p><fmt:formatNumber value="${buyAvg }" type="currency"/></p>
+                                    	</c:if>
+                                    	<c:if test="${buyAvg == 0 }">
+                                    		<p>등록된 글이 없습니다.</p>
+                                    	</c:if>
+                                    </div>
+                                    <div class="col-md-2">
                                     </div>
                                 </div>
                                 
@@ -212,22 +233,73 @@
                                      	</div>
                                  	</div>
                             	</form>
+                            	<input type="hidden" id="sellcPage" value="0">
+                            	<input type="hidden" id="buycPage" value="0">
                              </div>
                         </div>
                     </div>
                 </div>
         </div>
 		<script>
+			function updateMember(){
+				$('#hiddenFrm').attr("action","${path }/member/updateMember.do");
+				$('#hiddenFrm').submit();
+			}
+			
+			function deleteMember(){
+				$('#hiddenFrm').attr("action","${path }/member/deleteMember.do");
+				$('#hiddenFrm').submit();
+			}
+			
 			function memberInfoAjax(){
 				$.ajax({
-					url:"${path}/member/memberInfo.do",
-					dataType:"json",
-					data:{"memberId":$('#memberId').val()},
+					url:"${path}/member/memberInfoAjax.do",
+					dataType:"html",
+					data:{"memberId":$('#memberId').val()
+						,"sellcPage":$('#sellcPage').val()
+						,"buycPage":$('#buycPage').val()},
 					success:function(data){
 						console.log(data);
+						$('#ajaxHtml').html(data);
 					}
 				});
 			}
+			function memberOutBoxAjax(){
+				$.ajax({
+					url:"${path}/member/memberOutBoxAjax.do",
+					dataType:"html",
+					data:{"memberId":$('#memberId').val()
+						,"sellcPage":$('#sellcPage').val()
+						,"buycPage":$('#buycPage').val()},
+					success:function(data){
+						console.log(data);
+						$('#ajaxHtml').html(data);
+					}
+				});
+			}
+			function memberWriteAjax(){
+				$.ajax({
+					url:"${path}/member/memberWriteAjax.do",
+					dataType:"html",
+					data:{"memberId":$('#memberId').val()},
+					success:function(data){
+						console.log(data);
+						$('#ajaxHtml').html(data);
+					}
+				});
+			}
+			function memberMessageAjax(){
+				$.ajax({
+					url:"${path}/member/memberMessageAjax.do",
+					dataType:"html",
+					data:{"memberId":$('#memberId').val()},
+					success:function(data){
+						console.log(data);
+						$('#ajaxHtml').html(data);
+					}
+				});
+			}
+			
 		</script>
         </div>
         <div class="col-md-1">

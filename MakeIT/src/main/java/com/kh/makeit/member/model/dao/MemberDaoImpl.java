@@ -1,7 +1,9 @@
 package com.kh.makeit.member.model.dao;
 
+import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -51,12 +53,21 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public double buyAvg(String id) {
-		return sqlSession.selectOne("member.buyAvg",id);
+		double result = 0;
+		if(sqlSession.selectOne("member.buyAvg",id) != null) {
+			result = sqlSession.selectOne("member.buyAvg",id);
+		}
+		return result;
 	}
 
 	@Override
 	public double sellAvg(String id) {
-		return sqlSession.selectOne("member.sellAvg",id);
+		double result = 0;
+		if(sqlSession.selectOne("member.sellAvg",id) != null) {
+			result = sqlSession.selectOne("member.sellAvg",id);
+		}
+		return result;
+		
 	}
 
 	@Override
@@ -72,6 +83,28 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public int updatePw(Map<String, String> map) {
 		return sqlSession.update("member.updatePw",map);
+	}
+
+	@Override
+	public int memberUpdate(Map<Object, Object> map) {
+		return sqlSession.update("member.memberUpdate",map);
+	}
+
+	@Override
+	public int deleteMember(String id) {
+		return sqlSession.update("member.deleteMember",id);
+	}
+
+	@Override
+	public List<Map<String, String>> buyOutBoxList(String memberId, int buycPage, int numPerPage) {
+		RowBounds row = new RowBounds((buycPage-1)*numPerPage,numPerPage);
+		return sqlSession.selectList("member.buyOutBoxList",memberId,row);
+	}
+
+	@Override
+	public List<Map<String, String>> sellOutBoxList(String memberId, int sellcPage, int numPerPage) {
+		RowBounds row = new RowBounds((sellcPage-1)*numPerPage,numPerPage);
+		return sqlSession.selectList("member.sellOutBoxList",memberId,row);
 	}
 
 }

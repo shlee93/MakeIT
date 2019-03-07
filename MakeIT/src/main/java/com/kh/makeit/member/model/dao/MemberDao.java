@@ -1,5 +1,6 @@
 package com.kh.makeit.member.model.dao;
 
+import java.util.List;
 import java.util.Map;
 
 public interface MemberDao {
@@ -27,5 +28,13 @@ public interface MemberDao {
 	String searchEmail(String id);
 
 	int updatePw(Map<String, String> map);
+
+	int memberUpdate(Map<Object, Object> map);
+
+	int deleteMember(String id);
+
+	List<Map<String, String>> buyOutBoxList(String memberId, int buycPage, int numPerPage);
+
+	List<Map<String, String>> sellOutBoxList(String memberId, int sellcPage, int numPerPage);
 
 }

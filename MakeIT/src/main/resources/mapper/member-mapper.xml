@@ -26,7 +26,7 @@
 		SELECT AVG(BUYPRICE) FROM BUY WHERE MEMBERID=#{id}
 	</select>
 	<select id="sellAvg" parameterType="string" resultType="_double">
-		SELECT AVG(SELLPRICE) FROM SELLOPTION O JOIN SELL S USING(SELLNO) WHERE MEMBERID=#{id}
+		SELECT AVG(SELLPRICE) FROM SELLOPTION O JOIN SELL S USING(SELLNO) WHERE S.MEMBERID=#{id}
 	</select>
 	<select id="searchId" parameterType="string" resultType="string">
 		SELECT MEMBERID FROM MEMBER WHERE EMAIL=#{email}
@@ -37,6 +37,18 @@
 	<update id="updatePw" parameterType="map">
 		UPDATE MEMBER SET PASSWORD = #{password} WHERE MEMBERID = #{id}
 	</update>
+	<update id="memberUpdate" parameterType="map">
+		UPDATE MEMBER SET MEMBERNAME=#{name},BIRTH=#{birth},BANKCODE=#{bankCode},ACCOUNT=#{account},PHONE=#{phone},EMAIL=#{email},ADDRESS=#{address},INTERESTNO=#{interest, typeHandler=strArray},ORIIMG=#{oriImg},REIMG=#{reImg} WHERE MEMBERID=#{memberId}
+	</update>
+	<update id="deleteMember" parameterType="string">
+		UPDATE MEMBER SET WITHDRAWYN='Y' WHERE MEMBERID=#{id}
+	</update>
+	<select id="buyOutBoxList" parameterType="string" resultType="map">
+		SELECT * FROM BUYOUTBOX O JOIN BUY B USING(BUYNO) WHERE O.MEMBERID=#{memberId} ORDER BY B.BUYDATE DESC
+	</select>
+	<select id="sellOutBoxList" parameterType="string" resultType="map">
+		SELECT * FROM SELLOUTBOX O JOIN SELL S USING(SELLNO) WHERE O.MEMBERID=#{memberId} ORDER BY S.SELLDATE DESC
+	</select>
 	<resultMap type="map" id="memberMap">
 		<result column="interest" property="interest" typeHandler="strArray"/>
 	</resultMap>
