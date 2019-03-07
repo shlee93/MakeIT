@@ -24,8 +24,18 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public Map<String, String> login(Map<String, String> map) {
+	public Map<Object, Object> login(Map<String, String> map) {
 		return dao.login(map);
+	}
+
+	@Override
+	public Map<Object, Object> selectOne(String id) {
+		return dao.selectOne(id);
+	}
+
+	@Override
+	public int memberIntroduction(Map<String, String> map) {
+		return dao.memberIntroduction(map);
 	}
 
 }

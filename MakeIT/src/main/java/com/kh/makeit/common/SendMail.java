@@ -1,9 +1,15 @@
 package com.kh.makeit.common;
 
-import javax.mail.*;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.Properties;
+
+
 public class SendMail {
     public SendMail(){}
     
@@ -41,7 +47,7 @@ public class SendMail {
             InternetAddress.parse(email)); 
             message.setSubject("MakeIT 인증번호 입니다.");
             message.setText("인증번호는 ["+randomNo+"]번 입니다.");//내용 
-            //message.setContent("인증번호는 ["+randomNo+"]번 입니다.","text/html; charset=utf-8");
+//            message.setContent("인증번호는 ["+randomNo+"]번 입니다.","text/html; charset=utf-8");
             Transport.send(message); 
             
         } catch(Exception e){

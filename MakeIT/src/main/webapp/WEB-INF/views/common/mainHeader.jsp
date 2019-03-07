@@ -38,10 +38,17 @@
        <div id="mainVideo"><img src="/"></div>
     <div id="topWrap">
         <div id="logoIcon"><p>LOGO</p></div>
+        <%if(session.getAttribute("member") == null){ %>
         <div id="loginWrap">
             <a href="${path }/member/memberLogin.do" id="login">Login |</a>
-            <a href="${path }/member/memberEnrollck.do" id="join"> Join us</a>
+            <a href="${path }/member/memberEnrollck.do" id="join"> Join us :)</a>
         </div>
+        <%}else{ %>
+        <div id="loginWrap">
+            <a href="${path }/member/memberMyPage.do" id="login">Mypage |</a>
+            <a href="${path }/member/memberLogout.do" id="join"> Logout :(</a>
+        </div>
+        <%} %>
     </div>
     <div id="serviceWrap">
         <div id="tradeService"><p>거래 서비스 | </p><p id="tradeNum"></p><p id="tradeUnit">만건+</p></div>
@@ -69,7 +76,6 @@
             // $.ajax{
 
             // }
-
             var tradeData = '232325';
             var tradeData2;
 

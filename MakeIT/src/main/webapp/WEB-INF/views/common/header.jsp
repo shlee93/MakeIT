@@ -41,10 +41,17 @@
             <div id="logoIcon"></div>
             <p id="logoWrite">재능 마켓</p>
         </div>
+        <%if(session.getAttribute("member") == null){ %>
         <div id="loginWrap">
             <a href="${path }/member/memberLogin.do" id="login">Login |</a>
-            <a href="${path }/member/memberEnrollck.do" id="join"> Join us</a>
+            <a href="${path }/member/memberEnrollck.do" id="join"> Join us :)</a>
         </div>
+        <%}else{ %>
+        <div id="loginWrap">
+            <a href="${path }/member/memberMyPage.do" id="login">Mypage |</a>
+            <a href="${path }/member/memberLogout.do" id="join"> Logout :(</a>
+        </div>
+        <%} %>
 
     </div>
 

@@ -2,6 +2,8 @@ package com.kh.makeit.member.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,14 +11,14 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,7 +26,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.makeit.common.SendMail;
 import com.kh.makeit.member.model.service.MemberService;
 
-@SessionAttributes("memberId")
 
 @Controller
 public class MemberController {
@@ -42,13 +43,25 @@ public class MemberController {
 	}
 
 	@RequestMapping("/member/memberMyPage.do")
-	public String memberMyPage() {
-		return "member/memberMyPage";
+	public ModelAndView memberMyPage(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Map<Object,Object> member = (Map<Object, Object>) session.getAttribute("member");
+		String id = (String) member.get("MEMBERID");
+		logger.debug(id);
+		Map<Object,Object> map = service.selectOne(id);
+		logger.debug(map);
+		String birth = map.get("BIRTH").toString().substring(0, 10);
+		map.put("BIRTH", birth);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("map",map);
+		mv.setViewName("member/memberMyPage");
+		return mv;
 	}
 
 	@RequestMapping("/mainpage/mainpage.do")
-	public String mainpage() {
-
+	public String mainpage(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		logger.debug("세션 : "+session.getAttribute("member"));
 		return "mainpage/mainpage";
 
 	}
@@ -60,7 +73,6 @@ public class MemberController {
 		mv.addObject("memberLevel",memberLevel);
 		mv.setViewName("member/memberEnroll");
 		return mv;
-
 	}
 
 	@RequestMapping("/member/memberLogin.do")
@@ -98,12 +110,14 @@ public class MemberController {
 	}
 
 	@RequestMapping("/member/memberEnrollEnd.do")
-	public ModelAndView memberEnrollEnd(HttpServletRequest request, MultipartFile memberProfile) {
+	public ModelAndView memberEnrollEnd(HttpServletRequest request, MultipartFile memberProfile,HttpSession session) {
 		String saveDir = request.getSession().getServletContext().getRealPath("/resources/upload/member");
 		String memberId = request.getParameter("memberId");
 		String password = pwEncoder.encode(request.getParameter("password"));
 		String name = request.getParameter("memberName");
-		String birth = request.getParameter("birth");
+		String birthString = request.getParameter("birth");
+		Date birth = Date.valueOf(birthString);
+		logger.debug(birth);
 		String bankCode = request.getParameter("bank");
 		String account = request.getParameter("memberAccount");
 		String phone = request.getParameter("memberPhone");
@@ -156,7 +170,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/member/loginEnd.do")
-	public ModelAndView loginEnd(String memberId, String password, String saveId, HttpServletResponse response) {
+	public ModelAndView loginEnd(String memberId, String password, String saveId, HttpServletResponse response, HttpSession session) throws ParseException {
 		logger.debug(memberId);
 		String encodePw = pwEncoder.encode(password);
 		logger.debug(encodePw);
@@ -165,15 +179,21 @@ public class MemberController {
 		map.put("memberId", memberId);
 		map.put("password", password);
 		
-		Map<String,String> result = service.login(map);
+		Map<Object,Object> result = service.login(map); 
 		logger.debug(result);
 		ModelAndView mv = new ModelAndView();
 		String msg = "";
 		String loc = "/";
 		if(result != null) {
-			if(pwEncoder.matches(password, result.get("PASSWORD"))) {
+			if(pwEncoder.matches(password, (String) result.get("PASSWORD"))) {
+				logger.debug(result.get("BIRTH").getClass());
+				String birth = result.get("BIRTH").toString().substring(0, 10);
+				logger.debug(birth);
+				result.put("BIRTH", birth);
+				logger.debug(result);
 				msg = "로그인 성공했습니다.";
-				mv.addObject("memberId",result.get("MEMBERID"));
+				
+				session.setAttribute("member", result);
 				if(saveId!=null) {
 					Cookie c=new Cookie("saveId",memberId);
 					c.setMaxAge(7*24*60*60); //7일
@@ -201,5 +221,36 @@ public class MemberController {
 			status.setComplete();
 		}
 		return "redirect:/";
+	}
+	
+	@RequestMapping("/member/memberIntroduction.do")
+	public ModelAndView memberIntroduction(String appealContent, String appealId) {
+		logger.debug(appealContent);
+		logger.debug(appealId);
+		Map<String,String> map = new HashMap<>();
+		map.put("appealContent", appealContent);
+		map.put("appealId", appealId);
+		int result = service.memberIntroduction(map);
+		ModelAndView mv = new ModelAndView();
+		String msg = "";
+		String loc = "/member/memberMyPage.do";
+		if(result > 0) {
+			msg = "자기소개란 등록 완료.";
+		} else {
+			msg = "자기소개란 등록 실패.";
+		}
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		return mv;
+	}
+	
+	@RequestMapping("/member/memberInfo.do")
+	@ResponseBody
+	public Map<Object,Object> memberInfo(String memberId){
+		Map<Object,Object> m = service.selectOne(memberId);
+		String birth = m.get("BIRTH").toString().substring(0, 10);
+		m.put("BIRTH", birth);
+		return m;
 	}
 }
