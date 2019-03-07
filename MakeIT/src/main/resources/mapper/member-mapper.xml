@@ -1,5 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="member">
-
+	<select resultType="map" parameterType="string" id="idDuplicate"> 
+		SELECT * FROM MEMBER WHERE MEMBERID=#{memberId} 
+	</select>
+	<insert id="insertMember" parameterType="map">
+		INSERT INTO MEMBER VALUES(#{memberId},#{password},#{name},#{phone},#{email},#{address},DEFAULT,DEFAULT,#{oriImg},#{reImg},NULL,DEFAULT,#{bankCode},#{account},#{birth},#{interest, typeHandler=strArray},DEFAULT,#{memberLevel}) 
+	</insert>
+	<select id="login" parameterType="map" resultType="map">
+		SELECT * FROM MEMBER WHERE MEMBERID=#{memberId}
+	</select>
+	<select id="selectOne" parameterType="map" resultType="map">
+		SELECT * FROM MEMBER JOIN GRADE USING(GRADENO) JOIN BANK USING(BANKCODE) WHERE MEMBERID=#{id}
+	</select>
+	<update id="memberIntroduction" parameterType="string">
+		UPDATE MEMBER SET INTRODUCTION = #{appealContent} WHERE MEMBERID=#{appealId}
+	</update>
+	<select id="selectBuyCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM BUY WHERE MEMBERID=#{id}
+	</select>
+	<select id="boardSellCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM SELL WHERE MEMBERID=#{id}
+	</select>
+	<select id="buyAvg" parameterType="string" resultType="_double">
+		SELECT AVG(BUYPRICE) FROM BUY WHERE MEMBERID=#{id}
+	</select>
+	<select id="sellAvg" parameterType="string" resultType="_double">
+		SELECT AVG(SELLPRICE) FROM SELLOPTION O JOIN SELL S USING(SELLNO) WHERE MEMBERID=#{id}
+	</select>
+	<select id="searchId" parameterType="string" resultType="string">
+		SELECT MEMBERID FROM MEMBER WHERE EMAIL=#{email}
+	</select>
+	<select id="searchEmail" parameterType="string" resultType="string">
+		SELECT EMAIL FROM MEMBER WHERE MEMBERID=#{id}
+	</select>
+	<update id="updatePw" parameterType="map">
+		UPDATE MEMBER SET PASSWORD = #{password} WHERE MEMBERID = #{id}
+	</update>
+	<resultMap type="map" id="memberMap">
+		<result column="interest" property="interest" typeHandler="strArray"/>
+	</resultMap>
 </mapper>

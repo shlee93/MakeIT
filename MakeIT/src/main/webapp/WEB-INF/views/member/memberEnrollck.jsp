@@ -9,6 +9,7 @@
 	<jsp:param value="HelloSpring" name="pageTitle"/>
 </jsp:include>
 
+<<<<<<< HEAD
    <style>
 	#individual{
 		text-align: center;	
@@ -29,6 +30,8 @@
 		margin-top: 2%;
 	}
    </style>
+=======
+>>>>>>> refs/remotes/origin/lsh
 <div class="container-fluid">
         <div class="row">
             <div class="col-md-1">
@@ -42,29 +45,32 @@
             	</div>
             	<div class="row">
             		<div class="col-md-6" id="individual">
-            			<form action="${path }/member/individualMember" method="post">
-            				<i class="fas fa-user fa-10x"></i>
+	          			<form action="${path }/member/memberEnroll" method="post">
+            				<i class="fas fa-user fa-10x"></i><br/>
             				<h3>당신의 재능을 <b>MakeIT</b>와 함께</h3>
-            				<input type="submit" class="btn btn-primary signUp" value="개인 회원가입">
-            			</form>
+            				<input type="hidden" name="memberLevel" id="memberLevel" value="1">
+            				<input type="submit" class="btn btn-primary signUp" id="individual" value="개인 회원가입">
+           				</form>
             		</div>
             		<div class="col-md-6" id="company">
-            			<form action="${path }/member/companyMember">
-            				<i class="fas fa-user-tie fa-10x"></i>
+       				    <form action="${path }/member/memberEnroll" method="post">
+            				<i class="fas fa-user-tie fa-10x"></i><br/>
             				<h3>많은 인재들이 기다리는 <b>MakeIT</b>입니다.</h3>
-            				<input type="submit" class="btn btn-primary signUp" value="기업 회원가입">
-            			</form>
+            				<input type="hidden" name="memberLevel" id="memberLevel" value="2">
+            				<input type="submit" class="btn btn-primary signUp" id="company" value="기업 회원가입">
+	           			</form>
             		</div>
             	</div>
-                
-                
-               
             </div>
             <div class="col-md-1">
                 aside
             </div>
         </div>
+<<<<<<< HEAD
 
+=======
+    </div>
+>>>>>>> refs/remotes/origin/lsh
 
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
