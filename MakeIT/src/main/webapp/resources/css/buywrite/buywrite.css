@@ -8,9 +8,13 @@
 
 
 div {
+<<<<<<< HEAD
+  
+=======
    border: 1px solid black;
 }
 
+>>>>>>> refs/remotes/origin/lsh
 #buy-container {
    padding: 20px;
 }

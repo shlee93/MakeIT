@@ -10,4 +10,6 @@ public interface MemberService {
 
 	Map<String, String> login(Map<String, String> map);
 
+	Map<Object, Object> selectOne(String id);
+
 }

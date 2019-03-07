@@ -107,7 +107,7 @@
                                             
                             </div>
                             <br/>
-                            <p>어쩌고저쩌고ㄴㅇㄹㄴㅇㄹㄴㅁ오러ㅏㅓㅁㄴ아ㅣ러ㅣㅏㅁㄴ어리ㅏㅁㄴ어리ㅏㅓㅁㄴ아ㅣ런이ㅏㅓ라ㅣㄴ어리ㅏㄴ어리ㅏㅓㅇ니이ㅏ러ㅣㅏㅁㄴ어리ㅏㅁㄴ어ㅏㅣ~</p>
+                            <p> Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.</p>
                             <div class="row">
                                 <div class="col-md-1"></div>
                                 <div class="col-md-10" style="text-align:center;">
