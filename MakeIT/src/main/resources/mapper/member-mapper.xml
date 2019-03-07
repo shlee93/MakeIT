@@ -16,6 +16,18 @@
 	<update id="memberIntroduction" parameterType="string">
 		UPDATE MEMBER SET INTRODUCTION = #{appealContent} WHERE MEMBERID=#{appealId}
 	</update>
+	<select id="selectBuyCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM BUY WHERE MEMBERID=#{id}
+	</select>
+	<select id="boardSellCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM SELL WHERE MEMBERID=#{id}
+	</select>
+	<select id="buyAvg" parameterType="string" resultType="_double">
+		SELECT AVG(BUYPRICE) FROM BUY WHERE MEMBERID=#{id}
+	</select>
+	<select id="sellAvg" parameterType="string" resultType="_double">
+		SELECT AVG(SELLPRICE) FROM SELLOPTION O JOIN SELL S USING(SELLNO) WHERE MEMBERID=#{id}
+	</select>
 	<resultMap type="map" id="memberMap">
 		<result column="interest" property="interest" typeHandler="strArray"/>
 	</resultMap>

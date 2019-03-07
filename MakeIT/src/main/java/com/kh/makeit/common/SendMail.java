@@ -1,14 +1,14 @@
 package com.kh.makeit.common;
 
-import java.net.PasswordAuthentication;
 import java.util.Properties;
 
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
 
-import org.aspectj.bridge.Message;
 public class SendMail {
     public SendMail(){}
     
@@ -36,7 +36,7 @@ public class SendMail {
     
         Session session = Session.getInstance(props, 
          new javax.mail.Authenticator() { 
-        protected PasswordAuthentication getPasswordAuthentication() { 
+    	protected PasswordAuthentication getPasswordAuthentication() { 
         return new PasswordAuthentication(username, password); 
         }});
         try{

@@ -4,7 +4,7 @@
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 	<c:set var="path" value="${pageContext.request.contextPath }"/>
-	
+	<fmt:setLocale value="kr_ko"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="HelloSpring" name="pageTitle"/>
 </jsp:include>
@@ -149,24 +149,75 @@
                                     <div class="col-md-4">
                                         <label>실행한 프로젝트 수</label>
                                     </div>
-                                    <div class="col-md-8">
-                                        <p>230개</p>
+                                    <div class="col-md-2">
+                                    	<p>판매:</p>
+                                    </div>
+                                    <div class="col-md-2">
+                                    	<p><c:out value="${sellCount }건"></c:out> </p>
+                                    </div>
+                                    <div class="col-md-4">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                	<div class="col-md-4">
+                                    </div>
+                                	<div class="col-md-2">
+                                    	<p>구매:</p>
+                                    </div>
+                                    <div class="col-md-2">
+                                    	<p><c:out value="${buyCount }건"></c:out></p>
+                                    </div>
+                                    <div class="col-md-4">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
                                         <label>프로젝트당 평균금액</label>
                                     </div>
-                                    <div class="col-md-8">
-                                        <p>10$</p>
+                                    <div class="col-md-2">
+                                    	<p>판매:</p>
+                                    </div>
+                                    <div class="col-md-2">
+                                    	<p><fmt:formatNumber value="${sellAvg }" type="currency"/></p>
+                                    </div>
+                                    <div class="col-md-4">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                	<div class="col-md-4">
+                                    </div>
+                                	<div class="col-md-2">
+                                    	<p>구매:</p>
+                                    </div>
+                                    <div class="col-md-2">
+                                    	<p><fmt:formatNumber value="${buyAvg }" type="currency"/></p>
+                                    </div>
+                                    <div class="col-md-4">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
                                         <label>프로젝트당 평균 소요시간</label>
                                     </div>
-                                    <div class="col-md-8">
-                                        <p>6 months</p>
+                                    <div class="col-md-2">
+                                    	<p>판매:</p>
+                                    </div>
+                                    <div class="col-md-2">
+                                    	<p>6개월</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                	<div class="col-md-4">
+                                    </div>
+                                	<div class="col-md-2">
+                                    	<p>구매:</p>
+                                    </div>
+                                    <div class="col-md-2">
+                                    	<p>4개월</p>
+                                    </div>
+                                    <div class="col-md-4">
                                     </div>
                                 </div>
                             </div>

@@ -38,4 +38,24 @@ public class MemberServiceImpl implements MemberService {
 		return dao.memberIntroduction(map);
 	}
 
+	@Override
+	public int selectBuyCount(String id) {
+		return dao.selectBuyCount(id);
+	}
+
+	@Override
+	public int boardSellCount(String id) {
+		return dao.boardSellCount(id);
+	}
+
+	@Override
+	public double buyAvg(String id) {
+		return dao.buyAvg(id);
+	}
+
+	@Override
+	public double sellAvg(String id) {
+		return dao.sellAvg(id);
+	}
+
 }
