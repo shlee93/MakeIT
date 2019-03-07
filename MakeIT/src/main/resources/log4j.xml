@@ -44,7 +44,7 @@
 	</appender>
 	<!-- 파일에 로그찍기 -->
 	<appender name="fileLogger" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="file" value="D://logs//spring//spring.log"/>
+		<param name="file" value="c://logs//spring//spring.log"/>
 		<param name="Append" value="true"/>
 		<param name="dataPattern" value=".yyyy-MM-dd"/>
 		<layout class="org.apache.log4j.PatternLayout">
