@@ -4,4 +4,16 @@
   <select id="findInterest" parameterType="_int" resultType="map">
   	select DETAILINTEREST from detailinterest where INTERESTNO=#{interest}
   </select>
+ <insert id="insertDataMap" parameterType="map">
+		insert into sell values(seq_sellno.nextval,'S',#{detailInterest},#{interest},#{title},default,#{content},#{writer},default,default)
+		<selectKey keyProperty="sellNo" resultType="string" order="AFTER">
+			select seq_sellno.currval from dual 
+		</selectKey>
+</insert>
+	<insert id="insertAttach" parameterType="com.kh.makeit.sell.model.vo.SellAttach">
+		insert into sellimg values(SEQ_SELLIMG.nextval,#{sellNo},'S',#{sellImgOri},#{sellImgRe})
+	</insert>
+	<insert id="insertOption" parameterType="map">
+		insert into SELLOPTION values(#{selloptionNo},#{sellNo},'S',#{sellPrice},#{sellOptionContent},#{selldeadLine})
+	</insert>
 </mapper>

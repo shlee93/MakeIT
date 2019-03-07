@@ -20,7 +20,7 @@
 <!-- Latest compiled JavaScript -->
 <script
    src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-
+   
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -39,7 +39,7 @@
 
  
 </style>
-<script>
+<!-- <script>
 var subde="";
 	$(function(){
 		$("select[name=interest]").on("change",function(){
@@ -53,10 +53,10 @@ var subde="";
 				success:function(data){
 					console.log(data);
 					var html="";
-					
 					for(var i = 0;i<data.list.length;i++){
 						console.log(data.list[i]["DETAILINTEREST"]);
-						html+="<option value='"+(i+1)+"'>"+data.list[i]["DETAILINTEREST"]+"</option>";
+						/* html+="<option value='"+(i+1)+"'>"+data.list[i]["DETAILINTEREST"]+"</option>"; */
+						html+=
 					}
 					$('#detailInterest').html(html);
 				}
@@ -64,10 +64,46 @@ var subde="";
 		});
 	});
 	
-</script>
+</script> -->
+<script>
+       		$(function()
+      			{
+            		$("#interest").change(function()
+       				{
+           				console.log(this.value);
+           				if(this.value!='카테고리')
+       					{
+            				$.ajax({
+	            				url:"${path}/categoryOneSel.do",
+	            	            data:{"interestNo":this.value},
+	            				dataType:"json",
+	            	            success:function(data)
+	            	            {
+	            	               console.log(data);
+	            	               var detailInterest=$('#detailInterest');
+	            	               
+            	               	   for(var i=0; i<data.length; i++)
+            	            	   {
+            	            	   	   
+           	            		   	   optionValue='DETAILINTEREST';
+           	            			   optionInter='DETAILINTERESTNO';
+          	            	   	   	   	   
+           	            	           var option
+           	            	           option+="<option value='"+data[i][optionInter]+"'>"+data[i][optionValue]+"</option>";
+           	            			   
+               	            	   	   detailInterest.html(option);
+            	            		   
+       		   	            	    }
+	            	            }
+	            			});
+       					}
+       				 })
+           		 }    		
+    		 );
+        </script>
 </head>
 <body>
-	<form id="sellWriteFrm">
+	<form id="sellWriteFrm" enctype="multipart/form-data">
    <div class="row">
       <div class="col-md-1"></div>
       <div id="buy-container" class="col-md-10">
@@ -76,14 +112,14 @@ var subde="";
 	         <label>분류</label> 
 	         </div>
 	         <div class="col-md-8">
-	         	<select class="form-control col-md-4" name="interest" style="display: inline">
-		            <option disabled selected>대분류</option>
-		            <option value=1>개발자</option>
-		            <option value=2>웹디자이너</option>
-		            <option value=3>네트워크 보안</option>
+	         	<select class="form-control col-md-4" id="interest" name="interest" style="display: inline">
+		       		 <option>카테고리</option>
+		        	<option value='1'>개발자</option>
+		        	<option value='2'>웹디자이너</option>
+		        	<option value='3'>네트워크보안</option>    
 	         	</select> 
-	         	<select class="form-control col-md-4" id="detailInterest"  style="display: inline; margin-right: 10px">
-		            <option disabled selected>소분류</option>
+	         	<select class="form-control col-md-4" id="detailInterest" name="detailInterest"  style="display: inline; margin-right: 10px">
+		            
 		           
 	         	</select>
 	         </div> 
@@ -105,7 +141,7 @@ var subde="";
              	<label>상품</label> 
              </div>
              <div id="priceProduct" class="col-md-8">
-	         	<input type="text" class="form-control col-md-2" id='firstPrice' name="price" style="display: inline" placeholder="금액(원)">
+	         	<input type="number" class="form-control col-md-2" id='firstPrice' name="price" style="display: inline" placeholder="금액(원)">
 	         	<input type="text" class="form-control col-md-2" id='endDate' name="endDate" style="display: inline" placeholder="작업기한"> 
 	         	<input type="text" class="form-control  col-md-8" id="firstOption" name="productOption" style="display: inline" placeholder="상품에 대한 설명을 입력하세요.">
 	         	<br/><br/>
@@ -180,7 +216,6 @@ var subde="";
 
 		
    function writeEnd(){
-	   
 	   $('#sellWriteFrm').attr("action","${pageContext.request.contextPath}/sell/sellWriteEnd");
 		$('#sellWriteFrm').attr("method","post");
 		$('#sellWriteFrm').submit();
