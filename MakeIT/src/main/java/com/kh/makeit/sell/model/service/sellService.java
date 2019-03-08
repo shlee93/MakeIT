@@ -13,10 +13,10 @@ public interface sellService {
 
 	int sellWriteEnd(ArrayList<SellAttach> files, Map dataMap, SellOption selloption);
 
-	List<Map> sellMainGrade();
+	List<Map> sellMainGrade(Map map);
 
-	List<Map> sellMainPerformance();
+	List<Map> sellMainPerformance(Map map);
 
-	List<Map> sellMainNew();
+	List<Map> sellMainNew(Map map);
 
 }

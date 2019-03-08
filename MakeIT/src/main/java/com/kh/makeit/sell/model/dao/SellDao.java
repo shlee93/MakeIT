@@ -16,6 +16,9 @@ public interface SellDao {
 
 	int insertOption(Map<String, String> map);
 
-	List<Map> sellMainPerformance();
+	List<Map> sellMainGrade(Map map);
+	
+	List<Map> sellMainPerformance(Map map);
 
+	List<Map> sellMainNew(Map map);
 }

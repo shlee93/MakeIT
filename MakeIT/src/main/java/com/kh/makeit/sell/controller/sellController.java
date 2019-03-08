@@ -36,18 +36,44 @@ public class sellController {
 	}
 	
 	@RequestMapping("/sell/sellmain.do")
-	public String sellMain()
+	public ModelAndView sellMain(HttpServletRequest request)
 	{
+		String bCategoryFlag = "1";
+		String sCategoryFlag = "";
+		String sortFlag = "1";
+		if(request.getParameter("bCategoryFlag") != null)
+		{
+			bCategoryFlag = request.getParameter("bCategoryFlag");
+		}
+		if(request.getParameter("sCategoryFlag") != null)
+		{
+			sCategoryFlag = request.getParameter("sCategoryFlag");
+		}
+		if(request.getParameter("sortFlag") != null)
+		{
+			sortFlag = request.getParameter("sortFlag");
+		}
+		
+		Map<String,String> map = new HashMap();
+		map.put("bCategoryFlag", bCategoryFlag);
+		map.put("sCategoryFlag", sCategoryFlag);
+		
 		ModelAndView mv = new ModelAndView();
-		List<Map> gradeList = service.sellMainGrade();
-		List<Map> performanceList = service.sellMainPerformance();
-		List<Map> newList = service.sellMainNew();
-		/*mv.addObject(gradeList);
+		
+		List<Map> gradeList = service.sellMainGrade(map);
+		List<Map> performanceList = service.sellMainPerformance(map);
+		List<Map> newList = service.sellMainNew(map);
+		
+		mv.addObject(gradeList);
 		mv.addObject(performanceList);
-		mv.addObject(newList);*/
-		System.out.println(performanceList);
-		/*mv.setViewName("sell/sellmain");*/
-		return "sell/sellmain";
+		mv.addObject(newList);
+		mv.addObject(bCategoryFlag);
+		mv.addObject(sCategoryFlag);
+		mv.addObject(sortFlag);
+		
+		//System.out.println(performanceList);
+		mv.setViewName("sell/sellmain");
+		return mv;
 	}
 	
 	@RequestMapping("/sell/sellWrite.do")

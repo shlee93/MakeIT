@@ -37,14 +37,24 @@ public class SellDaoImpl implements SellDao {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("sell.insertOption",map);
 	}
-
+	
 	@Override
-	public List<Map> sellMainPerformance() {
+	public List<Map> sellMainGrade(Map map) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("sell.sellMainPerformance");
+		return sqlSession.selectList("sell.sellMainGrade", map);
 	}
 
+	@Override
+	public List<Map> sellMainPerformance(Map map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("sell.sellMainPerformance", map);
+	}
 
+	@Override
+	public List<Map> sellMainNew(Map map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("sell.sellMainNew", map);
+	}
 	
 
 }

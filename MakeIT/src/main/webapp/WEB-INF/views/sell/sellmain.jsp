@@ -12,7 +12,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>판매 페이지</title>
+<title>판매페이지</title>
 
    <!-- Latest compiled and minified CSS -->
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
@@ -30,26 +30,23 @@
    
    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/sellmain/sellmain.css" />
-<!DOCTYPE html>
+<style>
+.hide
+{
+   display:none;
+}
 
-<html>
-
-
-
-<head>
-<meta charset="UTF-8">
-<title>테스트 판매 메인</title>
+</style>
 </head>
-<body >
-   <div class='row'>
-      <div class='col-md-1'></div>
-      <div class='col-md-10'>
-         <div class='row'>               
-            <div class='col-md-2 col-xs-2'>
-            <script>
+<body>
+<script>
    
     $(document).ready(function(){
-      
+      	
+    	pageFrm.bCategoryFlag.value="${bCategoryFlag}";
+    	pageFrm.sCategoryFlag.value="${sCategoryFlag}";
+    	pageFrm.sortFlag.value="${sortFlag}";
+    	
         $(".menu>a").click(function(){
             var submenu = $(this).next("ul");
  
@@ -60,8 +57,36 @@
                 submenu.slideDown();
             }
         });
+        
+        $("")
+        
     });
+    
+    function fn_changeCategory(bCtgr, sCtgr)
+    {
+    	var url="${path}/sell/sellMain.do";
+		
+		pageFrm.bCategoryFlag.value=bCtgr;
+		pageFrm.sCategoryFlag.value=sCtgr;
+		
+		pageFrm.action=url;
+		pageFrm.method="post";
+		pageFrm.submit();
+    }
+    
+    
 </script>
+<form action="" name="pageFrm">
+	<input type="hidden" name="bCategoryFlag" value="1"/>
+	<input type="hidden" name="sCategoryFlag" value=""/>
+	<input type="hidden" name="sortFlag" value="1"/>
+</form>
+   <div class='row'>
+      <div class='col-md-1'></div>
+      <div class='col-md-10'>
+         <div class='row'>               
+            <div class='col-md-2 col-xs-2'>
+			
 
 
 
@@ -72,56 +97,42 @@
                         <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
                         <div >
                             <ul>
-        <li class="menu">
-            <a><img src="" alt="상위메뉴이미지1"/></a>
-            <ul class="hide">
-                <li>메뉴1-1</li>
-                <li>메뉴1-2</li>
-                <li>메뉴1-3</li>
-                <li>메뉴1-4</li>
-                <li>메뉴1-5</li>
-                <li>메뉴1-6</li>
-            </ul>
-        </li>
- 
-        <li class="menu">
-            <a><img src="" alt="상위메뉴이미지2"/></a>
-            <ul class="hide">
-                <li>메뉴2-1</li>
-                <li>메뉴2-2</li>
-                <li>메뉴2-3</li>
-                <li>메뉴2-4</li>
-                <li>메뉴2-5</li>
-                <li>메뉴2-6</li>
-            </ul>
-        </li>
-    </ul>
-
-
-
-                           <!--  <ul id="menu-content" class="menu-content collapse out">
-                                
-                                <li  class='side-nav-li' data-toggle="collapse" data-target="#new" class="collapsed">
-                                    <a href="#">
-                                       <i class="fas fa-credit-card fa-lg"></i> &nbsp; 구매 
-                                      </a>
-                                </li>
-                                <li class='side-nav-li' data-toggle="collapse" data-target="#new" class="collapsed">
-                                    <a href="#">
-                                       <i class="fa fas fa-trophy fa-lg"></i> &nbsp;판매
+                          <li class="menu">
+                             <a href="#">
+                                       <i class="fas fa-cogs"></i> &nbsp;개발자 
                                     </a>
-                                </li>
-                                <li class='side-nav-li' data-toggle="collapse" data-target="#new" class="collapsed">
-                                    <a href="#">
-                                       <i class="fas fa-address-card"></i> &nbsp;컨테스트 
+                              <ul class="hide">
+                                  <li onclick="fn_changeCtgr">웹</li>
+                                  <li>모바일</li>
+                                  <li>게임</li>
+                                  <li>응용프로그램</li>
+                                  <li>보안프로그램</li>
+                                  <li>DB관리</li>
+                              </ul>
+                          </li>
+                        <li class="menu">
+                             <a href="#">
+                                       <i class="fas fa-pen-fancy"></i> &nbsp;웹 디자이너 
                                       </a>
-                                </li>
-                                <li class='side-nav-li' data-toggle="collapse" data-target="#new" class="collapsed">
-                                    <a href="#">
-                                       <i class="fas fa-fax fa-lg"></i> &nbsp;고객센터 
+                              <ul class="hide">
+                                  <li>웹 디자인</li>
+                                  <li>웹 퍼블리셔</li>
+                                  <li>게임 디자인</li>
+                              </ul>
+                        </li>
+                        <li class="menu">
+                             <a href="#">
+                                       <i class="fas fa-shield-alt"></i> &nbsp;네트워크보안
                                       </a>
-                                </li>                                   
-                            </ul> -->
+                              <ul class="hide">
+                                  <li>모의해킹</li>
+                                  <li>침해대응</li>
+                                  <li>보안관제</li>
+                                  <li>컨설턴트</li>
+                                  <li><c:out value="${gradeList.INTERESTNO }"/></li>
+                              </ul>
+                        </li>
+                   </ul>
                         </div>
                     </div>
                    
@@ -139,7 +150,7 @@
                   <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                      <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">실적별</a>
                      <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">등급별</a>
-                     <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="fn_newsellpost();" role="tab" aria-controls="nav-contact" aria-selected="false">신규등록</a>                     
+                     <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">신규등록</a>                     
                   </div>
                </nav>
                
@@ -476,7 +487,7 @@
    </div>
 <script>
 function fn_newsellpost(){
-	location.href="${path}/sellmain/newsellpost.do"
+   location.href="${path}/sellmain/newsellpost.do"
 }
 </script>
 </body>

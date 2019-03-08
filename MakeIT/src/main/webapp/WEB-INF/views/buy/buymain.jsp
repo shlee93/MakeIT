@@ -12,7 +12,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>판매 페이지</title>
+<title>구매페이지</title>
 
    <!-- Latest compiled and minified CSS -->
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
@@ -29,53 +29,85 @@
    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
    
    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/sellmain/sellmain.css" />
-<!DOCTYPE html>
+   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/buymain/buymain.css" />
+<style>
+.hide
+{
+   display:none;
+}
 
-<html>
-
-
-
-<head>
-<meta charset="UTF-8">
-<title>테스트 판매 메인</title>
+</style>
 </head>
 <body >
+<script>
+   
+    $(document).ready(function(){
+      
+        $(".menu>a").click(function(){
+            var submenu = $(this).next("ul");
+ 
+          
+            if( submenu.is(":visible") ){
+                submenu.slideUp();
+            }else{
+                submenu.slideDown();
+            }
+        });
+        
+        
+    });
+</script>
+<form action="" name="pageFrm">
+	<input type="hidden" name="categoryFlag"/>
+	<input type="hidden" name="sortFlag"/>
+</form>
    <div class='row'>
       <div class='col-md-1'></div>
       <div class='col-md-10'>
          <div class='row'>               
             <div class='col-md-2 col-xs-2'>
-            
                <!-- 네비 사이드 -->
                
                     <div class="nav-side-menu">
                         <div class="brand">Brand Logo</div>
                         <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
-                        <div class="menu-list">
-                            <ul id="menu-content" class="menu-content collapse out">
-                                
-                                <li  class='side-nav-li' data-toggle="collapse" data-target="#new" class="collapsed">
-                                    <a href="#">
-                                       <i class="fas fa-credit-card fa-lg"></i> 구매 
+                        <div >
+                            <ul>
+                          <li class="menu">
+                             <a href="#">
+                                       <i class="fas fa-cogs"></i> &nbsp;개발자 
+                                    </a>
+                              <ul class="hide">
+                                  <li>웹</li>
+                                  <li>모바일</li>
+                                  <li>게임</li>
+                                  <li>응용프로그램</li>
+                                  <li>보안프로그램</li>
+                                  <li>DB관리</li>
+                              </ul>
+                          </li>
+                        <li class="menu">
+                             <a href="#">
+                                       <i class="fas fa-pen-fancy"></i> &nbsp;웹 디자이너 
                                       </a>
-                                </li>
-                                <li class='side-nav-li' data-toggle="collapse" data-target="#new" class="collapsed">
-                                    <a href="#">
-                                       <i class="fa fas fa-trophy fa-lg"></i> 판매
-                                         </a>
-                                </li>
-                                <li class='side-nav-li' data-toggle="collapse" data-target="#new" class="collapsed">
-                                    <a href="#">
-                                       <i class="fas fa-address-card"></i> 블라인드채용 
+                              <ul class="hide">
+                                  <li>웹 디자인</li>
+                                  <li>웹 퍼블리셔</li>
+                                  <li>게임 디자인</li>
+                              </ul>
+                        </li>
+                        <li class="menu">
+                             <a href="#">
+                                       <i class="fas fa-shield-alt"></i> &nbsp;네트워크보안
                                       </a>
-                                </li>
-                                <li class='side-nav-li' data-toggle="collapse" data-target="#new" class="collapsed">
-                                    <a href="#">
-                                       <i class="fas fa-fax fa-lg"></i> 고객센터 
-                                      </a>
-                                </li>                                   
-                            </ul>
+                              <ul class="hide">
+                                  <li>모의해킹</li>
+                                  <li>침해대응</li>
+                                  <li>보안관제</li>
+                                  <li>컨설턴트</li>
+                              </ul>
+                        </li>
+                   </ul>
                         </div>
                     </div>
                    
@@ -428,6 +460,10 @@
    <div class='col-md-1'>
       
    </div>
-
+<script>
+function fn_newsellpost(){
+   location.href="${path}/sellmain/newsellpost.do"
+}
+</script>
 </body>
 </html>

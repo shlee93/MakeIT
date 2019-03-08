@@ -15,7 +15,11 @@ import com.kh.makeit.buy.model.service.BuyService;
 public class BuyController {
 	@Autowired
 	BuyService service;
-	
+	@RequestMapping("/buy/buyMain")
+	public String buyMain()
+	{
+		return "buy/buymain";
+	}
 	@RequestMapping("/buy/buyDetail")
 	public String buyDetail()
 	{

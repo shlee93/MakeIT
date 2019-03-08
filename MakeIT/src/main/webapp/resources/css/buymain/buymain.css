@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-/* div{border: 1px solid red} */
+div{border: 1px solid red}
       .box3{box-shadow:0 0 3px rgba(0,0,0,.3);position:relative}
       .box3 .box-content,.box3:after,.box3:before{position:absolute;left:7%;right:7%;transition:all .3s}
       .box3:after,.box3:before{display:block;background:rgba(0,0,0,.3);top:10%;bottom:10%;z-index:1;transform:scale(0,1)}

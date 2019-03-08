@@ -61,19 +61,19 @@ public class sellServiceImpl implements sellService {
 		return result;
 	}
 	@Override
-	public List<Map> sellMainGrade() {
+	public List<Map> sellMainGrade(Map map) {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.sellMainGrade(map);
 	}
 	@Override
-	public List<Map> sellMainPerformance() {
+	public List<Map> sellMainPerformance(Map map) {
 		// TODO Auto-generated method stub
-		return dao.sellMainPerformance();
+		return dao.sellMainPerformance(map);
 	}
 	@Override
-	public List<Map> sellMainNew() {
+	public List<Map> sellMainNew(Map map) {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.sellMainNew(map);
 	}
 	
 

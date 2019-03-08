@@ -10,13 +10,40 @@
 			select seq_sellno.currval from dual 
 		</selectKey>
 </insert>
-	<insert id="insertAttach" parameterType="com.kh.makeit.sell.model.vo.SellAttach">
-		insert into sellimg values(SEQ_SELLIMG.nextval,#{sellNo},'S',#{sellImgOri},#{sellImgRe})
-	</insert>
-	<insert id="insertOption" parameterType="map">
-		insert into SELLOPTION values(#{selloptionNo},#{sellNo},'S',#{sellPrice},#{sellOptionContent},#{selldeadLine})
-	</insert>
-	<select id="sellMainPerformance" resultType="map">
-		select * from performance join sell using(memberId) join sellimg using(sellno,categorycode) order by totalsale desc
-	</select>
+
+<insert id="insertAttach" parameterType="com.kh.makeit.sell.model.vo.SellAttach">
+	insert into sellimg values(SEQ_SELLIMG.nextval,#{sellNo},'S',#{sellImgOri},#{sellImgRe})
+</insert>
+
+<insert id="insertOption" parameterType="map">
+	insert into SELLOPTION values(#{selloptionNo},#{sellNo},'S',#{sellPrice},#{sellOptionContent},#{selldeadLine})
+</insert>
+
+<select id="sellMainGrade" resultType="map" parameterType="map">
+	select sellno, categorycode, memberid, detailinterestno, sell.interestno, selltitle, selldate, selldeleteyn, sellcheckyn, gradeno, sellimgno, sellimgori, sellimgre from sell join member using(memberid) join sellimg using(sellno, categorycode) where 1 = 1
+	<if test="sCategoryFlag!=null and sCategoryFlag!=''">
+		and detailinterestno = #{sCategoryFlag}
+	</if>
+	and sell.interestno = #{bCategoryFlag}
+	order by gradeno desc
+</select>
+
+<select id="sellMainPerformance" resultType="map" parameterType="map">
+	select * from performance join sell using(memberId) join sellimg using(sellno,categorycode) where 1 = 1
+	
+	<if test="sCategoryFlag==null and sCategoryFlag==''">
+		and detailinterestno = 1
+	</if>
+	and interestno = 1
+	order by totalsale desc
+</select>
+
+<select id="sellMainNew" resultType="map" parameterType="map">
+	select * from sell join sellimg using(sellno, categorycode) where 1 = 1
+	<if test="sCategoryFlag==null and sCategoryFlag==''">
+		and detailinterestno = #{sCategoryFlag}
+	</if>
+	and interestno = #{bCategoryFlag}
+	order by selldate desc
+</select> 
 </mapper>
