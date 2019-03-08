@@ -102,7 +102,7 @@
                                        <i class="fas fa-cogs"></i> &nbsp;개발자 
                                     </a>
                               <ul class="hide">
-                                  <li onclick="fn_changeCtgr">웹</li>
+                                  <li onclick="fn_changeCtgr('1','')">웹</li>
                                   <li>모바일</li>
                                   <li>게임</li>
                                   <li>응용프로그램</li>
