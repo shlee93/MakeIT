@@ -105,6 +105,7 @@ var subde="";
 <body>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<form id="sellWriteFrm">
    <div class="row">
       <div class="col-sm-1"></div>
@@ -147,6 +148,10 @@ var subde="";
          <div class="filebox">
             <label for="ex_file">이미지 업로드</label> <input type="file" id="ex_file">
 
+=======
+	<form id="sellWriteFrm" enctype="multipart/form-data">
+   <div class="row">
+>>>>>>> refs/remotes/origin/ck
 =======
 	<form id="sellWriteFrm" enctype="multipart/form-data">
    <div class="row">
