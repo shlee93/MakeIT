@@ -13,4 +13,10 @@ public interface sellService {
 
 	int sellWriteEnd(ArrayList<SellAttach> files, Map dataMap, SellOption selloption);
 
+	List<Map> sellMainGrade();
+
+	List<Map> sellMainPerformance();
+
+	List<Map> sellMainNew();
+
 }

@@ -43,7 +43,6 @@ public class sellServiceImpl implements sellService {
 			}
 			int i=0;
 			Map<String,String> map = new HashMap<>();
-			System.out.println("반복횟수!!!!!!"+selloption.getSellOptionContent().length);
 			while(i<selloption.getSellOptionContent().length)
 			{
 				selloption.setSellNo(Integer.parseInt((String) (dataMap.get("sellNo"))));
@@ -60,6 +59,21 @@ public class sellServiceImpl implements sellService {
 			throw e;
 		}
 		return result;
+	}
+	@Override
+	public List<Map> sellMainGrade() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<Map> sellMainPerformance() {
+		// TODO Auto-generated method stub
+		return dao.sellMainPerformance();
+	}
+	@Override
+	public List<Map> sellMainNew() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

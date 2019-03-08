@@ -32,13 +32,21 @@ public class sellController {
 	@RequestMapping("/sell/sellDetail.do")
 	public String sellDetail()
 	{
-		System.out.println("왔니?");
 		return "sell/sellDetail"; 
 	}
 	
 	@RequestMapping("/sell/sellmain.do")
 	public String sellMain()
 	{
+		ModelAndView mv = new ModelAndView();
+		List<Map> gradeList = service.sellMainGrade();
+		List<Map> performanceList = service.sellMainPerformance();
+		List<Map> newList = service.sellMainNew();
+		/*mv.addObject(gradeList);
+		mv.addObject(performanceList);
+		mv.addObject(newList);*/
+		System.out.println(performanceList);
+		/*mv.setViewName("sell/sellmain");*/
 		return "sell/sellmain";
 	}
 	
@@ -48,7 +56,7 @@ public class sellController {
 		return "sell/sellwrite";
 	}
 	@RequestMapping("/sell/sellWriteEnd")
-	public String sellWriteEnd(String[] price,int interest, int detailInterest,String writeTitle,String[] endDate,String[] productOption,String sellContent,MultipartFile[] input_file,HttpServletRequest request )
+	public ModelAndView sellWriteEnd(String[] price,int interest, int detailInterest,String writeTitle,String[] endDate,String[] productOption,String sellContent,MultipartFile[] input_file,HttpServletRequest request )
 	{	
 		System.out.println(interest+"대분류");
 		System.out.println(detailInterest+"소분류");
@@ -79,6 +87,7 @@ public class sellController {
 				String reName=sdf.format(System.currentTimeMillis())+"_"+rdv+ext;  //새이름
 				//파일입출력ㅎ
 				try {
+					System.out.println("파일입출력되니?");
 					f.transferTo(new File(savDir+"/"+reName)); //저경로에다가 파일을 생성해주는것
 				}catch(IllegalStateException | IOException e) {  //일리갈은 세이브디아이알 못찾을때 뜨는것
 					e.printStackTrace();
@@ -88,11 +97,28 @@ public class sellController {
 				sa.setSellImgOri(orifileName);
 				files.add(sa);
 			}
-		
-		
 		}
 		int result=service.sellWriteEnd(files,dataMap,selloption);
-		return "sell/sellmain";
+		String msg="";
+		String loc="";
+		ModelAndView mv = new ModelAndView();
+		if(result>0)
+		{
+			msg="판매글 작성을 완료하였습니다.";
+			loc="/sell/sellmain.do";
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+			mv.setViewName("common/msg");
+			return mv;
+		}else {
+			msg="판매글 등록에 실패하였습니다. 다시 시도해 주세요";
+			loc="/sell/sellWrite.do";
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+			mv.setViewName("common/msg");
+			return mv;
+		}
+		
 	}
 	//ajax 카테고리 분류
 	@RequestMapping(value="/sell/findInterest", produces = "application/text; charset=utf-8")

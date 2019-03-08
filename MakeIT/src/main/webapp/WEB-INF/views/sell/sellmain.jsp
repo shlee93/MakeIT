@@ -46,36 +46,82 @@
       <div class='col-md-10'>
          <div class='row'>               
             <div class='col-md-2 col-xs-2'>
-            
+            <script>
+   
+    $(document).ready(function(){
+      
+        $(".menu>a").click(function(){
+            var submenu = $(this).next("ul");
+ 
+          
+            if( submenu.is(":visible") ){
+                submenu.slideUp();
+            }else{
+                submenu.slideDown();
+            }
+        });
+    });
+</script>
+
+
+
                <!-- 네비 사이드 -->
                
                     <div class="nav-side-menu">
                         <div class="brand">Brand Logo</div>
                         <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
-                        <div class="menu-list">
-                            <ul id="menu-content" class="menu-content collapse out">
+                        <div >
+                            <ul>
+        <li class="menu">
+            <a><img src="" alt="상위메뉴이미지1"/></a>
+            <ul class="hide">
+                <li>메뉴1-1</li>
+                <li>메뉴1-2</li>
+                <li>메뉴1-3</li>
+                <li>메뉴1-4</li>
+                <li>메뉴1-5</li>
+                <li>메뉴1-6</li>
+            </ul>
+        </li>
+ 
+        <li class="menu">
+            <a><img src="" alt="상위메뉴이미지2"/></a>
+            <ul class="hide">
+                <li>메뉴2-1</li>
+                <li>메뉴2-2</li>
+                <li>메뉴2-3</li>
+                <li>메뉴2-4</li>
+                <li>메뉴2-5</li>
+                <li>메뉴2-6</li>
+            </ul>
+        </li>
+    </ul>
+
+
+
+                           <!--  <ul id="menu-content" class="menu-content collapse out">
                                 
                                 <li  class='side-nav-li' data-toggle="collapse" data-target="#new" class="collapsed">
                                     <a href="#">
-                                       <i class="fas fa-credit-card fa-lg"></i> 구매 
+                                       <i class="fas fa-credit-card fa-lg"></i> &nbsp; 구매 
                                       </a>
                                 </li>
                                 <li class='side-nav-li' data-toggle="collapse" data-target="#new" class="collapsed">
                                     <a href="#">
-                                       <i class="fa fas fa-trophy fa-lg"></i> 판매
-                                         </a>
+                                       <i class="fa fas fa-trophy fa-lg"></i> &nbsp;판매
+                                    </a>
                                 </li>
                                 <li class='side-nav-li' data-toggle="collapse" data-target="#new" class="collapsed">
                                     <a href="#">
-                                       <i class="fas fa-address-card"></i> 블라인드채용 
+                                       <i class="fas fa-address-card"></i> &nbsp;컨테스트 
                                       </a>
                                 </li>
                                 <li class='side-nav-li' data-toggle="collapse" data-target="#new" class="collapsed">
                                     <a href="#">
-                                       <i class="fas fa-fax fa-lg"></i> 고객센터 
+                                       <i class="fas fa-fax fa-lg"></i> &nbsp;고객센터 
                                       </a>
                                 </li>                                   
-                            </ul>
+                            </ul> -->
                         </div>
                     </div>
                    
@@ -93,7 +139,7 @@
                   <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                      <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">실적별</a>
                      <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">등급별</a>
-                     <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">신규등록</a>                     
+                     <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="fn_newsellpost();" role="tab" aria-controls="nav-contact" aria-selected="false">신규등록</a>                     
                   </div>
                </nav>
                
@@ -428,6 +474,10 @@
    <div class='col-md-1'>
       
    </div>
-
+<script>
+function fn_newsellpost(){
+	location.href="${path}/sellmain/newsellpost.do"
+}
+</script>
 </body>
 </html>

@@ -16,4 +16,7 @@
 	<insert id="insertOption" parameterType="map">
 		insert into SELLOPTION values(#{selloptionNo},#{sellNo},'S',#{sellPrice},#{sellOptionContent},#{selldeadLine})
 	</insert>
+	<select id="sellMainPerformance" resultType="map">
+		select * from performance join sell using(memberId) join sellimg using(sellno,categorycode) order by totalsale desc
+	</select>
 </mapper>
