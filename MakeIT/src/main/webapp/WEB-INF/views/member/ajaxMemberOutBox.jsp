@@ -18,10 +18,10 @@ pageEncoding="UTF-8"%>
 	   		</h5>
 		    <ul class="nav nav-tabs" id="myTab" role="tablist">
 		        <li class="nav-item">
-		            <a class="nav-link active" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="true">구매 찜 리스트</a>
+		            <a class="nav-link active" onclick="buytab();" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="true">구매 찜 리스트</a>
 		        </li>
 		        <li class="nav-item">
-		            <a class="nav-link" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="false">판매 찜 리스트</a>
+		            <a class="nav-link" onclick="selltab();" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="false">판매 찜 리스트</a>
 		        </li>
 		    </ul>
 		</div>
@@ -94,7 +94,7 @@ pageEncoding="UTF-8"%>
 	                    			<tr>
 	                    				<td><c:out value="${so.BUYNO }"/></td>
 										<td><a href="#"><c:out value="${so.SELLTITLE }"/></a></td>
-										<td><c:out value="${so.SELLWRITER }"/></td>
+										<td><c:out value="${so.MEMBERID }"/></td>
 										<td><c:out value="${so.SELLDATE }"/></td>
 	                    			</tr>
 	                    		</c:forEach>
@@ -110,9 +110,23 @@ pageEncoding="UTF-8"%>
                     	${sellPageBar }
                     </div>
                 </div>
-                <input type="hidden" id="sellcPage" value="${sellcPage }">
-               	<input type="hidden" id="buycPage" value="${buycPage }">
             </div>
         </div>
     </div>
 </div>
+<script>
+	function buytab(){
+		$('#fadeStatus').attr("value","1");
+		$('#buy').attr("class","tab-pane fade show active");
+		$('#sell').attr("class","tab-pane fade");
+		$('#buy-tab').attr("class","nav-link active");
+		$('#sell-tab').attr("class","nav-link");
+	}
+	function selltab(){
+		$('#fadeStatus').attr("value","2");
+		$('#sell').attr("class","tab-pane fade show active");
+		$('#buy').attr("class","tab-pane fade");
+		$('#sell-tab').attr("class","nav-link active");
+		$('#buy-tab').attr("class","nav-link");
+	}
+</script>

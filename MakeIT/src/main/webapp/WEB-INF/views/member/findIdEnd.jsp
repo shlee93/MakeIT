@@ -11,6 +11,7 @@
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 
@@ -45,10 +46,12 @@
     	<div class="row">
     		<div class="col-md-1"></div>
     		<div class="col-md-6">
-    			<c:if test="${id!=null }">
-    				<p>찾으신 ID는 [<c:out value="${id }"></c:out>] 입니다.</p>
+    			<c:if test="${idNo != 0 }">
+    				<c:forEach var="id" items="${idView }">
+    					<p>찾으신 ID는 [<c:out value="${id }"></c:out>] 입니다.</p>
+    				</c:forEach>
     			</c:if>
-    			<c:if test="${id==null }">
+    			<c:if test="${idNo == 0 }">
     				<p>찾으신 ID가 없습니다.</p>
     			</c:if>
     		</div>

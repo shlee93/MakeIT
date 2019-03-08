@@ -47,31 +47,50 @@ public class MemberController {
 	@RequestMapping("/member/memberMyPage.do")
 	public ModelAndView memberMyPage(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		Map<Object, Object> member = (Map<Object, Object>) session.getAttribute("member");
-		String id = (String) member.get("MEMBERID");
-		logger.debug(id);
-		Map<Object, Object> map = service.selectOne(id);
-		int buyCount = service.selectBuyCount(id);
-		int sellCount = service.boardSellCount(id);
-		double buyAvg = service.buyAvg(id);
-		double sellAvg = service.sellAvg(id);
-		String[] addressSplit = ((String) map.get("ADDRESS")).split("/");
-		String address = addressSplit[0] + " " + addressSplit[1];
-		map.put("ADDRESS", address);
-		logger.debug(buyCount);
-		logger.debug(sellCount);
-		logger.debug(buyAvg);
-		logger.debug(sellAvg);
-		logger.debug(map);
-		String birth = map.get("BIRTH").toString().substring(0, 10);
-		map.put("BIRTH", birth);
+		Map<Object, Object> map = new HashMap();
+		int buyCount = 0;
+		int sellCount = 0;
+		double buyAvg = 0;
+		double sellAvg = 0;
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("buyCount", buyCount);
-		mv.addObject("sellCount", sellCount);
-		mv.addObject("buyAvg", buyAvg);
-		mv.addObject("sellAvg", sellAvg);
-		mv.addObject("map", map);
-		mv.setViewName("member/memberMyPage");
+		logger.debug(session.getAttribute("member"));
+		if(!session.equals(null)) {
+			Map<Object, Object> member = (Map<Object, Object>) session.getAttribute("member");
+			String id = (String) member.get("MEMBERID");
+			logger.debug(id);
+			map = service.selectOne(id);
+			buyCount = service.selectBuyCount(id);
+			sellCount = service.boardSellCount(id);
+			buyAvg = service.buyAvg(id);
+			sellAvg = service.sellAvg(id);
+			String[] addressSplit = ((String) map.get("ADDRESS")).split("/");
+			String address = addressSplit[0] + " " + addressSplit[1];
+			map.put("ADDRESS", address);
+			logger.debug(buyCount);
+			logger.debug(sellCount);
+			logger.debug(buyAvg);
+			logger.debug(sellAvg);
+			logger.debug(map);
+			String birth = map.get("BIRTH").toString().substring(0, 10);
+			map.put("BIRTH", birth);
+			mv.setViewName("member/memberMyPage");
+			mv.addObject("buyCount", buyCount);
+			mv.addObject("sellCount", sellCount);
+			mv.addObject("buyAvg", buyAvg);
+			mv.addObject("sellAvg", sellAvg);
+			mv.addObject("map", map);
+			mv.addObject("sellcPage",0);
+			mv.addObject("buycPage",0);
+			mv.addObject("fadeStatus",1);
+		} else {
+			String msg = "로그인 후 이용해주세요";
+			String loc = "/";
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+			mv.setViewName("common/msg");
+		}
+		
+		
 		return mv;
 	}
 
@@ -288,10 +307,21 @@ public class MemberController {
 
 	@RequestMapping("/member/findIdEnd.do")
 	public ModelAndView findIdEnd(String email) {
-		String id = service.searchId(email);
+		List<String> id = service.searchId(email);
 		logger.debug(id);
+		List<String> idView = new ArrayList<>();
+		for(String i : id) {
+			int idLength = i.length();
+			String idStr = i.substring(0, 4);
+			for(int j = 0; j<idLength-idStr.length();j++) {
+				idStr+="*";
+			}
+			idView.add(idStr);
+		}
+		int idNo = idView.size();
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("id", id);
+		mv.addObject("idNo",idNo);
+		mv.addObject("idView", idView);
 		mv.setViewName("member/findIdEnd");
 		return mv;
 	}
@@ -463,8 +493,9 @@ public class MemberController {
 
 	@RequestMapping("/member/memberInfoAjax.do")
 	@ResponseBody
-	public ModelAndView memberInfo(String memberId, int sellcPage, int buycPage) {
+	public ModelAndView memberInfo(String memberId) {
 		Map<Object, Object> map = service.selectOne(memberId);
+		int fadeStatus = 1;
 		int buyCount = service.selectBuyCount(memberId);
 		int sellCount = service.boardSellCount(memberId);
 		double buyAvg = service.buyAvg(memberId);
@@ -472,7 +503,6 @@ public class MemberController {
 		String[] addressSplit = ((String) map.get("ADDRESS")).split("/");
 		String address = addressSplit[0] + " " + addressSplit[1];
 		map.put("ADDRESS", address);
-
 		String birth = map.get("BIRTH").toString().substring(0, 10);
 		map.put("BIRTH", birth);
 		ModelAndView mv = new ModelAndView();
@@ -480,9 +510,8 @@ public class MemberController {
 		mv.addObject("sellCount", sellCount);
 		mv.addObject("buyAvg", buyAvg);
 		mv.addObject("sellAvg", sellAvg);
-		mv.addObject("sellcPage",sellcPage);
-		mv.addObject("buycPage",buycPage);
 		mv.addObject("map", map);
+		mv.addObject("fadeStatus",fadeStatus);
 		mv.setViewName("member/ajaxMemberInfo");
 		return mv;
 	}
@@ -492,13 +521,19 @@ public class MemberController {
 	public ModelAndView memberOutBox(int buycPage,int sellcPage,String memberId,HttpServletRequest request) {
 		Map<Object, Object> map = service.selectOne(memberId);
 		int numPerPage = 5;
+		buycPage = 1;
+		sellcPage = 1;
 		List<Map<String,String>> buyOutBoxList = service.buyOutBoxList(memberId,buycPage,numPerPage);
-		int totalBuyCount = service.selectBuyCount(memberId);
-		String buyPageBar = PageFactory.getPageBar(totalBuyCount, buycPage, numPerPage, request.getContextPath()+"/member/memberOutBoxAjax.do");
+		int totalBuyCount = service.selectOutBoxBuyCount(memberId);
+		String buyPageBar = PageFactory.getPageBarAjax(totalBuyCount, buycPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
 		List<Map<String,String>> sellOutBoxList = service.sellOutBoxList(memberId,sellcPage,numPerPage);
-		int totalSellCount = service.selectBuyCount(memberId);
-		String sellPageBar = PageFactory.getPageBar(totalBuyCount, buycPage, numPerPage, request.getContextPath()+"/member/memberOutBoxAjax.do");
+		int totalSellCount = service.selectOutBoxSellCount(memberId);
+		String sellPageBar = PageFactory.getPageBarAjax(totalSellCount, sellcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
 		ModelAndView mv = new ModelAndView();
+		logger.debug(buyOutBoxList);
+		logger.debug(sellOutBoxList);
+		logger.debug(sellcPage);
+		logger.debug(buycPage);
 		mv.addObject("totalBuyCount",totalBuyCount);
 		mv.addObject("buyOutBoxList",buyOutBoxList);
 		mv.addObject("buyPageBar",buyPageBar);
@@ -508,7 +543,111 @@ public class MemberController {
 		mv.addObject("sellcPage",sellcPage);
 		mv.addObject("buycPage",buycPage);
 		mv.addObject("map",map);
+		mv.addObject("fadeStatus",1);
 		mv.setViewName("member/ajaxMemberOutBox");
+		return mv;
+	}
+	
+	@RequestMapping("/member/memberWriteAjax.do")
+	@ResponseBody
+	public ModelAndView memberWriteAjax(int buycPage, int sellcPage, String memberId, HttpServletRequest request) {
+		Map<Object, Object> map = service.selectOne(memberId);
+		int numPerPage = 5;
+		buycPage = 1;
+		sellcPage = 1;
+		List<Map<String,String>> buyList = service.buyList(memberId,buycPage,numPerPage);
+		int totalBuyCount = service.selectBuyCount(memberId);
+		String buyPageBar = PageFactory.getPageBarAjax(totalBuyCount, buycPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+		List<Map<String,String>> sellList = service.sellList(memberId,sellcPage,numPerPage);
+		int totalSellCount = service.boardSellCount(memberId);
+		String sellPageBar = PageFactory.getPageBarAjax(totalSellCount, sellcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+		ModelAndView mv = new ModelAndView();
+		logger.debug(sellList);
+		mv.addObject("map",map);
+		mv.addObject("buyList",buyList);
+		mv.addObject("totalBuyCount",totalBuyCount);
+		mv.addObject("buyPageBar",buyPageBar);
+		mv.addObject("sellList",sellList);
+		mv.addObject("totalSellCount",totalSellCount);
+		mv.addObject("sellPageBar",sellPageBar);
+		mv.addObject("sellcPage",sellcPage);
+		mv.addObject("buycPage",buycPage);
+		mv.addObject("fadeStatus",1);
+		mv.setViewName("member/ajaxMemberWrite");
+		return mv;
+	}
+	
+	@RequestMapping("/member/memberMessageAjax.do")
+	@ResponseBody
+	public ModelAndView memberMessageAjax() {
+		ModelAndView mv = new ModelAndView();
+		return mv;
+	}
+	
+	@RequestMapping("/member/memberPagingAjax.do")
+	@ResponseBody
+	public ModelAndView pagingAjax(int naviBarStatus, int fadeStatus, int buycPage,int sellcPage,String memberId,HttpServletRequest request) {
+		Map<Object, Object> map = service.selectOne(memberId);
+		ModelAndView mv = new ModelAndView();
+		int numPerPage = 5;
+		logger.debug(naviBarStatus);
+		logger.debug(fadeStatus);
+		logger.debug(buycPage);
+		logger.debug(sellcPage);
+		if(naviBarStatus == 2) {
+			if(fadeStatus == 1) {
+				sellcPage = 1;
+			} else {
+				buycPage = 1;
+			}
+			logger.debug(buycPage);
+			logger.debug(sellcPage);
+			List<Map<String,String>> buyOutBoxList = service.buyOutBoxList(memberId,buycPage,numPerPage);
+			int totalBuyCount = service.selectOutBoxBuyCount(memberId);
+			String buyPageBar = PageFactory.getPageBarAjax(totalBuyCount, buycPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+			List<Map<String,String>> sellOutBoxList = service.sellOutBoxList(memberId,sellcPage,numPerPage);
+			int totalSellCount = service.selectOutBoxSellCount(memberId);
+			String sellPageBar = PageFactory.getPageBarAjax(totalSellCount, sellcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+			mv.addObject("totalBuyCount",totalBuyCount);
+			mv.addObject("buyOutBoxList",buyOutBoxList);
+			mv.addObject("buyPageBar",buyPageBar);
+			mv.addObject("totalSellCount",totalSellCount);
+			mv.addObject("sellOutBoxList",sellOutBoxList);
+			mv.addObject("sellPageBar",sellPageBar);
+			mv.addObject("sellcPage",sellcPage);
+			mv.addObject("buycPage",buycPage);
+			mv.addObject("naviBarStatus",naviBarStatus);
+			mv.addObject("fadeStatus",fadeStatus);
+			mv.setViewName("member/ajaxMemberOutBox");
+		} else if(naviBarStatus == 3) {
+			if(fadeStatus == 1) {
+				sellcPage = 1;
+			} else {
+				buycPage = 1;
+			}
+			logger.debug(buycPage);
+			logger.debug(sellcPage);
+			List<Map<String,String>> buyList = service.buyList(memberId,buycPage,numPerPage);
+			int totalBuyCount = service.selectBuyCount(memberId);
+			String buyPageBar = PageFactory.getPageBarAjax(totalBuyCount, buycPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+			List<Map<String,String>> sellList = service.sellList(memberId,sellcPage,numPerPage);
+			int totalSellCount = service.boardSellCount(memberId);
+			String sellPageBar = PageFactory.getPageBarAjax(totalSellCount, sellcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+			mv.addObject("buyList",buyList);
+			mv.addObject("totalBuyCount",totalBuyCount);
+			mv.addObject("buyPageBar",buyPageBar);
+			mv.addObject("sellList",sellList);
+			mv.addObject("totalSellCount",totalSellCount);
+			mv.addObject("sellPageBar",sellPageBar);
+			mv.addObject("sellcPage",sellcPage);
+			mv.addObject("buycPage",buycPage);
+			mv.addObject("naviBarStatus",naviBarStatus);
+			mv.addObject("fadeStatus",fadeStatus);
+			mv.setViewName("member/ajaxMemberWrite");
+		} else if(naviBarStatus == 4) {
+			
+		}
+		mv.addObject("map",map);
 		return mv;
 	}
 }

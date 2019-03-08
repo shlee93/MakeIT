@@ -60,7 +60,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public String searchId(String email) {
+	public List<String> searchId(String email) {
 		return dao.searchId(email);
 	}
 
@@ -92,6 +92,26 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<Map<String, String>> sellOutBoxList(String memberId, int sellcPage, int numPerPage) {
 		return dao.sellOutBoxList(memberId,sellcPage,numPerPage);
+	}
+
+	@Override
+	public int selectOutBoxBuyCount(String memberId) {
+		return dao.selectOutBoxBuyCount(memberId);
+	}
+
+	@Override
+	public int selectOutBoxSellCount(String memberId) {
+		return dao.selectOutBoxSellCount(memberId);
+	}
+
+	@Override
+	public List<Map<String, String>> buyList(String memberId, int buycPage, int numPerPage) {
+		return dao.buyList(memberId,buycPage,numPerPage);
+	}
+
+	@Override
+	public List<Map<String, String>> sellList(String memberId, int sellcPage, int numPerPage) {
+		return dao.sellList(memberId,sellcPage,numPerPage);
 	}
 
 }

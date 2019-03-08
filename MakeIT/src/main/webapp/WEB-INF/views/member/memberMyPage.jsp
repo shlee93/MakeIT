@@ -233,13 +233,15 @@
                                      	</div>
                                  	</div>
                             	</form>
-                            	<input type="hidden" id="sellcPage" value="0">
-                            	<input type="hidden" id="buycPage" value="0">
                              </div>
                         </div>
                     </div>
                 </div>
         </div>
+        <input type="hidden" id="sellcPage" name="sellcPage" value="${sellcPage }">
+        <input type="hidden" id="buycPage" name="buycPage" value="${buycPage }">
+        <input type="hidden" id="fadeStatus" name="fadeStatus" value="${fadeStatus }">
+        <input type="hidden" id="naviBarStatus" name = "naviBarStatus" value="${naviBarStatus }">
 		<script>
 			function updateMember(){
 				$('#hiddenFrm').attr("action","${path }/member/updateMember.do");
@@ -252,12 +254,11 @@
 			}
 			
 			function memberInfoAjax(){
+				$('#naviBarStatus').attr("value","1");
 				$.ajax({
 					url:"${path}/member/memberInfoAjax.do",
 					dataType:"html",
-					data:{"memberId":$('#memberId').val()
-						,"sellcPage":$('#sellcPage').val()
-						,"buycPage":$('#buycPage').val()},
+					data:{"memberId":$('#memberId').val()},
 					success:function(data){
 						console.log(data);
 						$('#ajaxHtml').html(data);
@@ -265,6 +266,7 @@
 				});
 			}
 			function memberOutBoxAjax(){
+				$('#naviBarStatus').attr("value","2");
 				$.ajax({
 					url:"${path}/member/memberOutBoxAjax.do",
 					dataType:"html",
@@ -278,10 +280,13 @@
 				});
 			}
 			function memberWriteAjax(){
+				$('#naviBarStatus').attr("value","3");
 				$.ajax({
 					url:"${path}/member/memberWriteAjax.do",
 					dataType:"html",
-					data:{"memberId":$('#memberId').val()},
+					data:{"memberId":$('#memberId').val()
+						,"sellcPage":$('#sellcPage').val()
+						,"buycPage":$('#buycPage').val()},
 					success:function(data){
 						console.log(data);
 						$('#ajaxHtml').html(data);
@@ -289,6 +294,7 @@
 				});
 			}
 			function memberMessageAjax(){
+				$('#naviBarStatus').attr("value","4");
 				$.ajax({
 					url:"${path}/member/memberMessageAjax.do",
 					dataType:"html",
@@ -298,8 +304,7 @@
 						$('#ajaxHtml').html(data);
 					}
 				});
-			}
-			
+			}			
 		</script>
         </div>
         <div class="col-md-1">

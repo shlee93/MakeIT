@@ -221,8 +221,6 @@ pageEncoding="UTF-8"%>
                      	</div>
                  	</div>
             	</form>
-            	<input type="hidden" id="sellcPage" value="${sellcPage }">
-               	<input type="hidden" id="buycPage" value="${buycPage }">
              </div>
         </div>
     </div>

@@ -71,8 +71,8 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public String searchId(String email) {
-		return sqlSession.selectOne("member.searchId",email);
+	public List<String> searchId(String email) {
+		return sqlSession.selectList("member.searchId",email);
 	}
 
 	@Override
@@ -105,6 +105,28 @@ public class MemberDaoImpl implements MemberDao {
 	public List<Map<String, String>> sellOutBoxList(String memberId, int sellcPage, int numPerPage) {
 		RowBounds row = new RowBounds((sellcPage-1)*numPerPage,numPerPage);
 		return sqlSession.selectList("member.sellOutBoxList",memberId,row);
+	}
+
+	@Override
+	public int selectOutBoxBuyCount(String memberId) {
+		return sqlSession.selectOne("member.selectOutBoxBuyCount",memberId);
+	}
+
+	@Override
+	public int selectOutBoxSellCount(String memberId) {
+		return sqlSession.selectOne("member.selectOutBoxSellCount",memberId);
+	}
+
+	@Override
+	public List<Map<String, String>> buyList(String memberId, int buycPage, int numPerPage) {
+		RowBounds row = new RowBounds((buycPage-1)*numPerPage,numPerPage);
+		return sqlSession.selectList("member.buyList",memberId,row);
+	}
+
+	@Override
+	public List<Map<String, String>> sellList(String memberId, int sellcPage, int numPerPage) {
+		RowBounds row = new RowBounds((sellcPage-1)*numPerPage,numPerPage);
+		return sqlSession.selectList("member.sellList",memberId,row);
 	}
 
 }

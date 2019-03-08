@@ -23,7 +23,7 @@ public interface MemberDao {
 
 	double sellAvg(String id);
 
-	String searchId(String email);
+	List<String> searchId(String email);
 
 	String searchEmail(String id);
 
@@ -36,5 +36,13 @@ public interface MemberDao {
 	List<Map<String, String>> buyOutBoxList(String memberId, int buycPage, int numPerPage);
 
 	List<Map<String, String>> sellOutBoxList(String memberId, int sellcPage, int numPerPage);
+
+	int selectOutBoxBuyCount(String memberId);
+
+	int selectOutBoxSellCount(String memberId);
+
+	List<Map<String, String>> buyList(String memberId, int buycPage, int numPerPage);
+
+	List<Map<String, String>> sellList(String memberId, int sellcPage, int numPerPage);
 
 }
