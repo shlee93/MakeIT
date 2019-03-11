@@ -1,7 +1,9 @@
 package com.kh.makeit.member.model.dao;
 
+import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -73,5 +75,18 @@ public class MemberDaoImpl implements MemberDao {
 	public int updatePw(Map<String, String> map) {
 		return sqlSession.update("member.updatePw",map);
 	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

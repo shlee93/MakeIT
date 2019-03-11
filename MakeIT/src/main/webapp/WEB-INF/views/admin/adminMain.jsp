@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
+<c:set var="path" value="${pageContext.request.contextPath }"/>
+
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="HelloSpring" name="pageTitle"/>
 </jsp:include>
@@ -29,35 +31,81 @@
                                 role="tab" aria-controls="nav-category" aria-selected="false">카테고리 관리</a>
                             <a class="nav-item nav-link" id="nav-faq-tab" data-toggle="tab" href="#nav-faq" role="tab"
                                 aria-controls="nav-faq" aria-selected="false">FAQ 관리</a>
+                            <input type="hidden" id="view-status" value="member"/>
                         </div>
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
+                    <!-- 회원관리 탭 -->
                         <div class="tab-pane fade show active" id="nav-member" role="tabpanel" aria-labelledby="nav-member-tab">
-                            <table class="table" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>이름</th>
-                                        <th>전화번호</th>
-                                        <th>주소</th>
-                                        <th>가입일</th>
-                                        <th>생년월일</th>
-                                        <th>등급<th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><a href="#">아이디</a></td>
-                                        <td>이름</td>
-                                        <td>전화번호</td>
-                                        <td>주소</td>
-                                        <td>가입일</td>
-                                        <td>생년월일</td>
-                                        <td>등급</td>
-                                    </tr>
+                            <!--회원 검색 div  -->
+                            <div class="member-search">
+                                <div id="search-icon">검색</div>
+                                <input id="search-id" type="text" placeholder="검색할 회원의 아이디를 입력해주세요" size="50"/>
+                                <select id="member-sort">
+                                	<option class="member-sort-option" value="nosort">정렬</option>
+                                    <option class="member-sort-option" value="memberid">아이디</option>
+                                    <option class="member-sort-option" value="membername">이름</option>
+                                    <option class="member-sort-option" value="address">주소</option>
+                                    <option class="member-sort-option" value="entdate">가입일</option>
+                                    <option class="member-sort-option" value="birth">생년월일</option>
+                                    <option class="member-sort-option" value="gradeno">등급</option>
+                                </select>
+                                <input type="hidden" id="memberIdSort" value="0"/>
+                                <input type="hidden" id="memberNameSort" value="0"/>
+                                <input type="hidden" id="addressSort" value="0"/>
+                                <input type="hidden" id="entDateSort" value="0"/>
+                                <input type="hidden" id="birthSort" value="0"/>
+                                <input type="hidden" id="gradeNoSort" value="0"/>
+                                <button id="member-sort-reverse" style="display:none">▼</button>
+                            </div>
+                            <hr>
+                            <table class="table member-view" cellspacing="0">
+                                <!-- 회원 정보 출력 테이블 -->
+                                <c:choose>
+                                	<c:when test="${not empty memberList }">
+                                		<thead>
+		                                    <tr>
+		                                        <th>ID</th>
+		                                        <th>이름</th>
+		                                        <th>전화번호</th>
+		                                        <th>주소</th>
+		                                        <th>가입일</th>
+		                                        <th>생년월일</th>
+		                                        <th>등급<th>
+		                                    </tr>
+		                                </thead>
+		                                <tbody>
+                                		<c:forEach items="${memberList }" var="member">
+                                			<c:if test="${member.get('MEMBERLEVEL') eq 1 or member.get('MEMBERLEVEL') eq 2 }">
+                                				
+	                                				<tr>
+				                                        <td><a href="#" class="member-id">${member.get("MEMBERID")}</a></td>
+				                                        <td>${member.get("MEMBERNAME")}</td>
+				                                        <td>${member.get("PHONE")}</td>
+				                                        <td>${member.get("ADDRESS")}</td>
+				                                        <td>${member.get("ENTDATE")}</td>
+				                                        <td>${member.get("BIRTH")}</td>
+				                                        <td>${member.get("GRADENAME")}</td>
+				                                    </tr>
+			                                    
+                                			</c:if>
+                                		</c:forEach>
+                                			<tr>
+                                				<td colspan="7">${memberPageBar }</td>
+                                			</tr>
+                                		</tbody>
+                                	</c:when>
+                                	<c:otherwise>
+
+											<tr>
+												<th>회원정보가 없습니다.</th>
+											</tr>
+
+										</tbody>
+									</c:otherwise>
+                                </c:choose>
+	                    	</table>
                                     
-                                </tbody>
-                            </table>
                         </div>
                         <div class="tab-pane fade" id="nav-approval" role="tabpanel" aria-labelledby="nav-approval-tab">
                             <table class="table" cellspacing="0">
@@ -476,7 +524,7 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="nav-category" role="tabpanel" aria-labelledby="nav-category-tab">
-
+							<!-- 구매,판매,게시판 카테고리 관리 탭 -->
                             <table class="table" cellspacing="0">
                                 <thead>
                                     <tr>
@@ -493,27 +541,35 @@
                                     <!-- 네비 사이드 -->
 
                                     <div class="nav-side-menu">
+                                    <!-- 1차 카테고리 -->
                                         <div class="brand">1차 카테고리</div>
                                         <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
                                         <div class="menu-list">
+                                        	<input type="hidden" id="current-interest" value="1"/> 
                                             <ul id="menu-content" class="menu-content collapse out">
-
-                                                <li class='side-nav-li' data-toggle="collapse" data-target="#new" class="collapsed">
-                                                    <a href="#">
-                                                        개발자
-                                                    </a>
-                                                </li>
-                                                <li class='side-nav-li' data-toggle="collapse" data-target="#new" class="collapsed">
-                                                    <a href="#">
-                                                        웹디자이너
-                                                    </a>
-                                                </li>
-                                                <li class='side-nav-li' data-toggle="collapse" data-target="#new" class="collapsed">
-                                                    <a href="#">
-                                                        네트워크 보안
-                                                    </a>
-                                                </li>
-
+                                            <c:if test="${not empty interestList }">
+                                            	<c:forEach items="${interestList }" var="interest">
+                                            		<c:choose>
+                                            			<c:when test="${interest.INTERESTNO eq 1 }">
+                                            				<li class='side-nav-li first-interest active' data-toggle="collapse" data-target="#new" class="collapsed">
+			                                                    <a href="#" class="interest">
+			                                                        ${interest.INTEREST }
+			                                                    </a>
+			                                                	<input type="hidden" class="interest-no" value="${interest.INTERESTNO }"/>
+			                                                </li>	
+                                            			</c:when>
+                                            			<c:otherwise>
+                                            				<li class='side-nav-li first-interest' data-toggle="collapse" data-target="#new" class="collapsed">
+			                                                    <a href="#" class="interest">
+			                                                        ${interest.INTEREST }
+			                                                    </a>
+			                                                	<input type="hidden" class="interest-no" value="${interest.INTERESTNO }"/>
+			                                                </li>
+                                            			</c:otherwise>
+                                            		</c:choose>
+                                            	</c:forEach>
+                                            </c:if>
+                                               
                                             </ul>
                                         </div>
                                     </div>
@@ -522,7 +578,8 @@
 
                                 </div>
                                 <div class='col-md-9 col-xs-9'>
-                                    <table class="table" cellspacing="0">
+                                <!-- 2차 카테고리 -->
+                                    <table class="table" id="second-interest-tbl" cellspacing="0">
                                         <thead>
                                             <tr>
                                                 <th>2차 카테고리</th>
@@ -532,60 +589,54 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td><input type="text" value="데이터베이스" /></td>
-                                                <td>
-                                                    <select>
-                                                        <option value="개발자">개발자</option>
-                                                        <option value="웹디">웹디</option>
-                                                        <option value="게임">게임</option>
-                                                        <option value="몰라">몰라</option>
+                                        <c:forEach items="${deInterestList }" var="deInterest">
+                                            <tr class="interest-back">
+                                                <td class="deInterest-info">
+                                                	<input type="text" class="deInterest-val" value="${deInterest.DETAILINTEREST }" />
+                                                	<input type="hidden" class="deInterest-no" value="${deInterest.DETAILINTERESTNO }" />
+                                                	<input type="hidden" class="interest-no" value="${deInterest.INTERESTNO }" />
+                                                </td>
+                                                <td class="interest-info">
+                                                    <select class="change-interest">
+                                                    <c:forEach items="${interestList }" var="interest">
+                                                        <option value="${interest.INTERESTNO }" ${interest.INTERESTNO==deInterest.INTERESTNO?'selected':'' }>
+                                                        	${interest.INTEREST }
+                                                        </option>
+                                                    </c:forEach>
                                                     </select>
-                                                    <button class='btn btn-primary'>이동</button>
                                                 </td>
                                                 <td>
-                                                    <button class='btn btn-primary update-category'>수정</button>
+                                                	<!-- 2차 카테고리명, 1차 카테고리 변경 -->
+                                                    <button class='btn btn-primary update-interest'>수정</button>
                                                 </td>
                                                 <td>
+                                                	<!-- 2차 카테고리 삭제 -->
                                                     <button class='btn btn-primary delete-btn-view'>삭제</button>
                                                 </td>
                                             </tr>
                                             <tr class='delete-btn-back-tr'>
                                                 <td colspan="4">
                                                     <div class='delete-btn-back'>
-                                                        정말 삭제하시겠습니까?
+                                                        	정말 삭제하시겠습니까?
                                                         <button class="btn btn-primary category-delete-btn">삭제</button>
                                                         <button class='btn btn-primary category-delete-cancel'>취소</button>
                                                     </div>
                                                 </td>
                                             </tr>
+                                        </c:forEach>
                                             <tr>
-                                                <td><input type="text" value="데이터베이스" /></td>
-                                                <td>
-                                                    <select>
-                                                        <option value="개발자">개발자</option>
-                                                        <option value="웹디">웹디</option>
-                                                        <option value="게임">게임</option>
-                                                        <option value="몰라">몰라</option>
-                                                    </select>
-                                                    <button class='btn btn-primary'>이동</button>
-                                                </td>
-                                                <td>
-                                                    <button class='btn btn-primary update-category'>수정</button>
-                                                </td>
-                                                <td>
-                                                    <button class='btn btn-primary delete-btn-view'>삭제</button>
-                                                </td>
-                                                <div></div>
+                                            	<td colspan="4">
+                                            		<button class="btn btn-primary" id="insert-interest-view">+추가</button>
+                                            	</td>
                                             </tr>
-                                            <tr class='delete-btn-back-tr'>
-                                                <td colspan="4">
-                                                    <div class='delete-btn-back'>
-                                                        정말 삭제하시겠습니까?
-                                                        <button class="btn btn-primary category-delete-btn">삭제</button>
-                                                        <button class='btn btn-primary category-delete-cancel'>취소</button>
-                                                    </div>
-                                                </td>
+                                            <tr id="insert-interest-back">
+                                            	<td id="insert-interest-input" colspan="4">
+                                            		<div id="insert-interest-div">
+	                                            		<input type="text" id="insert-deInterest-val" size="30" placeholder="등록할 카테고리를 입력해 주세요" />
+	                                            		<button class="btn btn-primary" id="insert-interest-btn">등록</button>
+	                                            		<button class="btn btn-primary" id="insert-interest-btn-cansel">취소</button>
+                                            		</div>
+                                            	</td>
                                             </tr>
 
                                         </tbody>
@@ -690,80 +741,12 @@
                                     <button class="add-question">질문&답변 추가</button>
                                 </div>
                             </div>
-                            <div class="faq-back">
-                                <div class="faq-category">카테고리
-                                    <button class="faq-slide">▼</button>
-                                </div>
-                                <div class="faq-list-back">
-                                    <ul class="faq-list">
-                                        <li class="faq-question">질문
-                                            <button class="answer-slide">▼</button>
-                                            <button class="question-delete-view">삭제</button>
-                                            <button class="question-update">수정</button>
-                                            <hr>
-                                            <div class="faq-answer">답변
-                                                <button class="answer-update">수정</button>
-                                                <hr>
-                                            </div>
-                                            <div class='question-delete-back'>
-                                                답변과 함께 삭제 됩니다. 
-                                                <button class='question-delete-cancel'>취소</button>
-                                                <button class='question-delete'>삭제</button>
-                                                <hr>
-                                            </div>
-                                        </li>
-                                        <li class="faq-question">질문
-                                            <button class="answer-slide">▼</button>
-                                            <button class="question-delete-view">삭제</button>
-                                            <button class="question-update">수정</button>
-                                            <hr>
-                                            <div class="faq-answer">답변
-                                                <button class="answer-update">수정</button>
-                                                <hr>
-                                            </div>
-                                            <div class='question-delete-back'>
-                                                답변과 함께 삭제 됩니다. 
-                                                <button class='question-delete-cancel'>취소</button>
-                                                <button class='question-delete'>삭제</button>
-                                                <hr>
-                                            </div>
-
-                                        </li>
-                                        <li class="faq-question">질문
-                                            <button class="answer-slide">▼</button>
-                                            <button class="question-delete-view">삭제</button>
-                                            <button class="question-update">수정</button>
-                                            <hr>
-                                            <div class="faq-answer">답변
-                                                <button class="answer-update">수정</button>
-                                                <hr>
-                                            </div>
-                                            <div class='question-delete-back'>
-                                                답변과 함께 삭제 됩니다. 
-                                                <button class='question-delete-cancel'>취소</button>
-                                                <button class='question-delete'>삭제</button>
-                                                <hr>
-                                            </div>
-                                        </li>
-                                        <li class="faq-question">질문
-                                            <button class="answer-slide">▼</button>
-                                            <button class="question-delete-view">삭제</button>
-                                            <button class="question-update">수정</button>
-                                            <hr>
-                                            <div class="faq-answer">답변
-                                                <button class="answer-update">수정</button>
-                                                <hr>
-                                            </div>
-                                            <div class='question-delete-back'>
-                                                답변과 함께 삭제 됩니다. 
-                                                <button class='question-delete-cancel'>취소</button>
-                                                <button class='question-delete'>삭제</button>
-                                                <hr>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <button class="add-question">질문&답변 추가</button>
-                                </div>
+                            <div id="faq-insert-back">
+                            	<div id="add-faq-category">
+                            		<input type="text" id="input-faq-category"/>
+                            		<button type="button" id="add-faq-category-btn">추가</button>
+                            		<button type="button" id="add-faq-category-cancel">취소</button>
+                            	</div>
                             </div>
                         </div>
 

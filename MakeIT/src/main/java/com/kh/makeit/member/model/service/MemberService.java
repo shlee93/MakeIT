@@ -1,5 +1,6 @@
 package com.kh.makeit.member.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 public interface MemberService {
@@ -27,5 +28,7 @@ public interface MemberService {
 	String searchEmail(String id);
 
 	int updatePw(Map<String, String> map);
-
+	
+	
+	
 }

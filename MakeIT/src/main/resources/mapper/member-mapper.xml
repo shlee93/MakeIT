@@ -40,4 +40,7 @@
 	<resultMap type="map" id="memberMap">
 		<result column="interest" property="interest" typeHandler="strArray"/>
 	</resultMap>
+	
+	
+	
 </mapper>
