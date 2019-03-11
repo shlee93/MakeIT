@@ -14,4 +14,12 @@ public interface MemberService {
 
 	int memberIntroduction(Map<String, String> map);
 
+	int selectBuyCount(String id);
+
+	int boardSellCount(String id);
+
+	double buyAvg(String id);
+
+	double sellAvg(String id);
+
 }

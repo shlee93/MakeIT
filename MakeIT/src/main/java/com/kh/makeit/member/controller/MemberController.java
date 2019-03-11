@@ -49,10 +49,23 @@ public class MemberController {
 		String id = (String) member.get("MEMBERID");
 		logger.debug(id);
 		Map<Object,Object> map = service.selectOne(id);
+		int buyCount = service.selectBuyCount(id);
+		int sellCount = service.boardSellCount(id);
+		double buyAvg = service.buyAvg(id);
+		double sellAvg = service.sellAvg(id);
+		
+		logger.debug(buyCount);
+		logger.debug(sellCount);
+		logger.debug(buyAvg);
+		logger.debug(sellAvg);
 		logger.debug(map);
 		String birth = map.get("BIRTH").toString().substring(0, 10);
 		map.put("BIRTH", birth);
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("buyCount",buyCount);
+		mv.addObject("sellCount",sellCount);
+		mv.addObject("buyAvg",buyAvg);
+		mv.addObject("sellAvg",sellAvg);
 		mv.addObject("map",map);
 		mv.setViewName("member/memberMyPage");
 		return mv;
@@ -216,9 +229,10 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/member/memberLogout.do")
-	public String memberLogout(SessionStatus status) {
-		if(!status.isComplete()) {
-			status.setComplete();
+	public String memberLogout(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if(session != null) {
+			session.invalidate();
 		}
 		return "redirect:/";
 	}
