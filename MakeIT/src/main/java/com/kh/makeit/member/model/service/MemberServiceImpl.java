@@ -168,6 +168,27 @@ public class MemberServiceImpl implements MemberService {
 	public int sendMessageEnd(Map<String, String> message) {
 		return dao.sendMessageEnd(message);
 	}
+
+	@Override
+	public List<Map<String, String>> freeList(String memberId, int freecPage, int numPerPage) {
+		return dao.freeList(memberId,freecPage,numPerPage);
+	}
+
+	@Override
+	public int selectFreeCount(String memberId) {
+		return dao.selectFreeCount(memberId);
+	}
+
+	@Override
+	public List<Map<String, String>> qnaList(String memberId, int qnacPage, int numPerPage) {
+		return dao.qnaList(memberId,qnacPage,numPerPage);
+	}
+
+	@Override
+	public int selectQnaCount(String memberId) {
+		return dao.selectQnaCount(memberId);
+	}
+	
 	
 	
 }

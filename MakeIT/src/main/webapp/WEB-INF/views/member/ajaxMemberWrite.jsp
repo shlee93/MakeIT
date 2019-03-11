@@ -24,13 +24,53 @@ pageEncoding="UTF-8"%>
 			        <li class="nav-item">
 			            <a class="nav-link" onclick="selltab();" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="false">판매</a>
 			        </li>
+			        <li class="nav-item">
+			            <a class="nav-link" onclick="freetab();" id="free-tab" data-toggle="tab" href="#free" role="tab" aria-controls="free" aria-selected="false">자유</a>
+			        </li>
+			        <li class="nav-item">
+			            <a class="nav-link" onclick="qnatab();" id="qna-tab" data-toggle="tab" href="#qna" role="tab" aria-controls="qna" aria-selected="false">Q&A</a>
+			        </li>
 		        </c:if>
 		        <c:if test="${fadeStatus == 2 }">
 			        <li class="nav-item">
-			            <a class="nav-link" onclick="buytab();" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="true">구매</a>
+			            <a class="nav-link" onclick="buytab();" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="false">구매</a>
 			        </li>
 			        <li class="nav-item">
-			            <a class="nav-link active" onclick="selltab();" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="false">판매</a>
+			            <a class="nav-link active" onclick="selltab();" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="true">판매</a>
+			        </li>
+			        <li class="nav-item">
+			            <a class="nav-link" onclick="freetab();" id="free-tab" data-toggle="tab" href="#free" role="tab" aria-controls="free" aria-selected="false">자유</a>
+			        </li>
+			        <li class="nav-item">
+			            <a class="nav-link" onclick="qnatab();" id="qna-tab" data-toggle="tab" href="#qna" role="tab" aria-controls="qna" aria-selected="false">Q&A</a>
+			        </li>
+		        </c:if>
+		        <c:if test="${fadeStatus == 3 }">
+			        <li class="nav-item">
+			            <a class="nav-link" onclick="buytab();" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="false">구매</a>
+			        </li>
+			        <li class="nav-item">
+			            <a class="nav-link" onclick="selltab();" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="false">판매</a>
+			        </li>
+			        <li class="nav-item">
+			            <a class="nav-link active" onclick="freetab();" id="free-tab" data-toggle="tab" href="#free" role="tab" aria-controls="free" aria-selected="true">자유</a>
+			        </li>
+			        <li class="nav-item">
+			            <a class="nav-link" onclick="qnatab();" id="qna-tab" data-toggle="tab" href="#qna" role="tab" aria-controls="qna" aria-selected="false">Q&A</a>
+			        </li>
+		        </c:if>
+		        <c:if test="${fadeStatus == 4 }">
+			        <li class="nav-item">
+			            <a class="nav-link" onclick="buytab();" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="false">구매</a>
+			        </li>
+			        <li class="nav-item">
+			            <a class="nav-link" onclick="selltab();" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="false">판매</a>
+			        </li>
+			        <li class="nav-item">
+			            <a class="nav-link" onclick="freetab();" id="free-tab" data-toggle="tab" href="#free" role="tab" aria-controls="free" aria-selected="false">자유</a>
+			        </li>
+			        <li class="nav-item">
+			            <a class="nav-link active" onclick="qnatab();" id="qna-tab" data-toggle="tab" href="#qna" role="tab" aria-controls="qna" aria-selected="true">Q&A</a>
 			        </li>
 		        </c:if>
 		    </ul>
@@ -122,6 +162,70 @@ pageEncoding="UTF-8"%>
 	                    </div>
 	                </div>
 	            </div>
+	            <div class="tab-pane fade" id="free" role="tabpanel" aria-labelledby="free-tab">
+	                <div class="row">
+						<div class="col-md-12">
+	                    	<table class="table table-striped table-hover">
+	                    		<tr>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>작성일</th>
+	                    		</tr>
+	                    		<c:if test="${totalFreeCount != 0 }">
+		                    		<c:forEach var="fr" items="${freeList }">
+		                    			<tr>
+		                    				<td><c:out value="${fr.FREENO }"/></td>
+											<td><a href="#"><c:out value="${fr.FREETITLE }"/></a></td>
+											<td><c:out value="${fr.MEMBERID }"/></td>
+											<td><c:out value="${fr.FREEDATE }"/></td>
+		                    			</tr>
+		                    		</c:forEach>
+	                    		</c:if>
+	                    		<c:if test="${totalFreeCount == 0 }">
+	                    			<tr>
+	                    				<td colspan='4' style="text-align: center;">
+	                    					검색된 결과가 없습니다.
+	                    				</td>
+	                    			</tr>
+	                    		</c:if>
+	                    	</table>
+	                    	${freePageBar }
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="tab-pane fade" id="qna" role="tabpanel" aria-labelledby="qna-tab">
+	                <div class="row">
+						<div class="col-md-12">
+	                    	<table class="table table-striped table-hover">
+	                    		<tr>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>답변여부</th>
+	                    		</tr>
+	                    		<c:if test="${totalQnaCount != 0 }">
+		                    		<c:forEach var="qna" items="${qnaList }">
+		                    			<tr>
+		                    				<td><c:out value="${qna.QNANO }"/></td>
+											<td><a href="#"><c:out value="${qna.QNATITLE }"/></a></td>
+											<td><c:out value="${qna.MEMBERID }"/></td>
+											<td><c:out value="${qna.ANSWERYN }"/></td>
+		                    			</tr>
+		                    		</c:forEach>
+	                    		</c:if>
+	                    		<c:if test="${totalQnaCount == 0 }">
+	                    			<tr>
+	                    				<td colspan='4' style="text-align: center;">
+	                    					검색된 결과가 없습니다.
+	                    				</td>
+	                    			</tr>
+	                    		</c:if>
+	                    	</table>
+	                    	${qnaPageBar }
+	                    </div>
+	                </div>
+	            </div>
             </c:if>
             <c:if test="${fadeStatus == 2 }">
             	 <div class="tab-pane fade" id="buy" role="tabpanel" aria-labelledby="buy-tab">
@@ -188,6 +292,330 @@ pageEncoding="UTF-8"%>
 	                    </div>
 	                </div>
 	            </div>
+	            <div class="tab-pane fade" id="free" role="tabpanel" aria-labelledby="free-tab">
+	                <div class="row">
+						<div class="col-md-12">
+	                    	<table class="table table-striped table-hover">
+	                    		<tr>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>작성일</th>
+	                    		</tr>
+	                    		<c:if test="${totalFreeCount != 0 }">
+		                    		<c:forEach var="fr" items="${freeList }">
+		                    			<tr>
+		                    				<td><c:out value="${fr.FREENO }"/></td>
+											<td><a href="#"><c:out value="${fr.FREETITLE }"/></a></td>
+											<td><c:out value="${fr.MEMBERID }"/></td>
+											<td><c:out value="${fr.FREEDATE }"/></td>
+		                    			</tr>
+		                    		</c:forEach>
+	                    		</c:if>
+	                    		<c:if test="${totalFreeCount == 0 }">
+	                    			<tr>
+	                    				<td colspan='4' style="text-align: center;">
+	                    					검색된 결과가 없습니다.
+	                    				</td>
+	                    			</tr>
+	                    		</c:if>
+	                    	</table>
+	                    	${freePageBar }
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="tab-pane fade" id="qna" role="tabpanel" aria-labelledby="qna-tab">
+	                <div class="row">
+						<div class="col-md-12">
+	                    	<table class="table table-striped table-hover">
+	                    		<tr>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>답변여부</th>
+	                    		</tr>
+	                    		<c:if test="${totalQnaCount != 0 }">
+		                    		<c:forEach var="qna" items="${qnaList }">
+		                    			<tr>
+		                    				<td><c:out value="${qna.QNANO }"/></td>
+											<td><a href="#"><c:out value="${qna.QNATITLE }"/></a></td>
+											<td><c:out value="${qna.MEMBERID }"/></td>
+											<td><c:out value="${qna.ANSWERYN }"/></td>
+		                    			</tr>
+		                    		</c:forEach>
+	                    		</c:if>
+	                    		<c:if test="${totalQnaCount == 0 }">
+	                    			<tr>
+	                    				<td colspan='4' style="text-align: center;">
+	                    					검색된 결과가 없습니다.
+	                    				</td>
+	                    			</tr>
+	                    		</c:if>
+	                    	</table>
+	                    	${qnaPageBar }
+	                    </div>
+	                </div>
+	            </div>
+            </c:if>
+            <c:if test="${fadeStatus == 3 }">
+            	 <div class="tab-pane fade" id="buy" role="tabpanel" aria-labelledby="buy-tab">
+	                <div class="row">
+	                    <div class="col-md-12">
+	                    	<table class="table table-striped table-hover">
+	                    		<tr>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>작성일</th>
+	                    		</tr>
+	                    		<c:if test="${totalBuyCount != 0 }">
+		                    		<c:forEach var="bo" items="${buyList }">
+		                    			<tr>
+		                    				<td><c:out value="${bo.BUYNO }"/></td>
+											<td><a href="#"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><c:out value="${bo.MEMBERID }"/></td>
+											<td><c:out value="${bo.BUYDATE }"/></td>
+		                    			</tr>
+		                    		</c:forEach>
+	                    		</c:if>
+	                    		<c:if test="${totalBuyCount == 0 }">
+	                    			<tr>
+	                    				<td colspan='4' style="text-align: center;">
+	                    					검색된 결과가 없습니다.
+	                    				</td>
+	                    			</tr>
+	                    		</c:if>
+	                    	</table>
+	                    	${buyPageBar }
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="tab-pane fade" id="sell" role="tabpanel" aria-labelledby="sell-tab">
+	                <div class="row">
+						<div class="col-md-12">
+	                    	<table class="table table-striped table-hover">
+	                    		<tr>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>작성일</th>
+	                    		</tr>
+	                    		<c:if test="${totalSellCount != 0 }">
+		                    		<c:forEach var="so" items="${sellList }">
+		                    			<tr>
+		                    				<td><c:out value="${so.SELLNO }"/></td>
+											<td><a href="#"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><c:out value="${so.MEMBERID }"/></td>
+											<td><c:out value="${so.SELLDATE }"/></td>
+		                    			</tr>
+		                    		</c:forEach>
+	                    		</c:if>
+	                    		<c:if test="${totalSellCount == 0 }">
+	                    			<tr>
+	                    				<td colspan='4' style="text-align: center;">
+	                    					검색된 결과가 없습니다.
+	                    				</td>
+	                    			</tr>
+	                    		</c:if>
+	                    	</table>
+	                    	${sellPageBar }
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="tab-pane fade show active" id="free" role="tabpanel" aria-labelledby="free-tab">
+	                <div class="row">
+						<div class="col-md-12">
+	                    	<table class="table table-striped table-hover">
+	                    		<tr>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>작성일</th>
+	                    		</tr>
+	                    		<c:if test="${totalFreeCount != 0 }">
+		                    		<c:forEach var="fr" items="${freeList }">
+		                    			<tr>
+		                    				<td><c:out value="${fr.FREENO }"/></td>
+											<td><a href="#"><c:out value="${fr.FREETITLE }"/></a></td>
+											<td><c:out value="${fr.MEMBERID }"/></td>
+											<td><c:out value="${fr.FREEDATE }"/></td>
+		                    			</tr>
+		                    		</c:forEach>
+	                    		</c:if>
+	                    		<c:if test="${totalFreeCount == 0 }">
+	                    			<tr>
+	                    				<td colspan='4' style="text-align: center;">
+	                    					검색된 결과가 없습니다.
+	                    				</td>
+	                    			</tr>
+	                    		</c:if>
+	                    	</table>
+	                    	${freePageBar }
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="tab-pane fade" id="qna" role="tabpanel" aria-labelledby="qna-tab">
+	                <div class="row">
+						<div class="col-md-12">
+	                    	<table class="table table-striped table-hover">
+	                    		<tr>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>답변여부</th>
+	                    		</tr>
+	                    		<c:if test="${totalQnaCount != 0 }">
+		                    		<c:forEach var="qna" items="${qnaList }">
+		                    			<tr>
+		                    				<td><c:out value="${qna.QNANO }"/></td>
+											<td><a href="#"><c:out value="${qna.QNATITLE }"/></a></td>
+											<td><c:out value="${qna.MEMBERID }"/></td>
+											<td><c:out value="${qna.ANSWERYN }"/></td>
+		                    			</tr>
+		                    		</c:forEach>
+	                    		</c:if>
+	                    		<c:if test="${totalQnaCount == 0 }">
+	                    			<tr>
+	                    				<td colspan='4' style="text-align: center;">
+	                    					검색된 결과가 없습니다.
+	                    				</td>
+	                    			</tr>
+	                    		</c:if>
+	                    	</table>
+	                    	${qnaPageBar }
+	                    </div>
+	                </div>
+	            </div>
+            </c:if>
+            <c:if test="${fadeStatus == 4 }">
+            	 <div class="tab-pane fade" id="buy" role="tabpanel" aria-labelledby="buy-tab">
+	                <div class="row">
+	                    <div class="col-md-12">
+	                    	<table class="table table-striped table-hover">
+	                    		<tr>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>작성일</th>
+	                    		</tr>
+	                    		<c:if test="${totalBuyCount != 0 }">
+		                    		<c:forEach var="bo" items="${buyList }">
+		                    			<tr>
+		                    				<td><c:out value="${bo.BUYNO }"/></td>
+											<td><a href="#"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><c:out value="${bo.MEMBERID }"/></td>
+											<td><c:out value="${bo.BUYDATE }"/></td>
+		                    			</tr>
+		                    		</c:forEach>
+	                    		</c:if>
+	                    		<c:if test="${totalBuyCount == 0 }">
+	                    			<tr>
+	                    				<td colspan='4' style="text-align: center;">
+	                    					검색된 결과가 없습니다.
+	                    				</td>
+	                    			</tr>
+	                    		</c:if>
+	                    	</table>
+	                    	${buyPageBar }
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="tab-pane fade" id="sell" role="tabpanel" aria-labelledby="sell-tab">
+	                <div class="row">
+						<div class="col-md-12">
+	                    	<table class="table table-striped table-hover">
+	                    		<tr>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>작성일</th>
+	                    		</tr>
+	                    		<c:if test="${totalSellCount != 0 }">
+		                    		<c:forEach var="so" items="${sellList }">
+		                    			<tr>
+		                    				<td><c:out value="${so.SELLNO }"/></td>
+											<td><a href="#"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><c:out value="${so.MEMBERID }"/></td>
+											<td><c:out value="${so.SELLDATE }"/></td>
+		                    			</tr>
+		                    		</c:forEach>
+	                    		</c:if>
+	                    		<c:if test="${totalSellCount == 0 }">
+	                    			<tr>
+	                    				<td colspan='4' style="text-align: center;">
+	                    					검색된 결과가 없습니다.
+	                    				</td>
+	                    			</tr>
+	                    		</c:if>
+	                    	</table>
+	                    	${sellPageBar }
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="tab-pane fade" id="free" role="tabpanel" aria-labelledby="free-tab">
+	                <div class="row">
+						<div class="col-md-12">
+	                    	<table class="table table-striped table-hover">
+	                    		<tr>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>작성일</th>
+	                    		</tr>
+	                    		<c:if test="${totalFreeCount != 0 }">
+		                    		<c:forEach var="fr" items="${freeList }">
+		                    			<tr>
+		                    				<td><c:out value="${fr.FREENO }"/></td>
+											<td><a href="#"><c:out value="${fr.FREETITLE }"/></a></td>
+											<td><c:out value="${fr.MEMBERID }"/></td>
+											<td><c:out value="${fr.FREEDATE }"/></td>
+		                    			</tr>
+		                    		</c:forEach>
+	                    		</c:if>
+	                    		<c:if test="${totalFreeCount == 0 }">
+	                    			<tr>
+	                    				<td colspan='4' style="text-align: center;">
+	                    					검색된 결과가 없습니다.
+	                    				</td>
+	                    			</tr>
+	                    		</c:if>
+	                    	</table>
+	                    	${freePageBar }
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="tab-pane fade show active" id="qna" role="tabpanel" aria-labelledby="qna-tab">
+	                <div class="row">
+						<div class="col-md-12">
+	                    	<table class="table table-striped table-hover">
+	                    		<tr>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>답변여부</th>
+	                    		</tr>
+	                    		<c:if test="${totalQnaCount != 0 }">
+		                    		<c:forEach var="qna" items="${qnaList }">
+		                    			<tr>
+		                    				<td><c:out value="${qna.QNANO }"/></td>
+											<td><a href="#"><c:out value="${qna.QNATITLE }"/></a></td>
+											<td><c:out value="${qna.MEMBERID }"/></td>
+											<td><c:out value="${qna.ANSWERYN }"/></td>
+		                    			</tr>
+		                    		</c:forEach>
+	                    		</c:if>
+	                    		<c:if test="${totalQnaCount == 0 }">
+	                    			<tr>
+	                    				<td colspan='4' style="text-align: center;">
+	                    					검색된 결과가 없습니다.
+	                    				</td>
+	                    			</tr>
+	                    		</c:if>
+	                    	</table>
+	                    	${qnaPageBar }
+	                    </div>
+	                </div>
+	            </div>
             </c:if>
         </div>
     </div>
@@ -197,14 +625,44 @@ pageEncoding="UTF-8"%>
 		$('#fadeStatus').attr("value","1");
 		$('#buy').attr("class","tab-pane fade show active");
 		$('#sell').attr("class","tab-pane fade");
+		$('#free').attr("class","tab-pane fade");
+		$('#qna').attr("class","tab-pane fade");
+		$('#qna-tab').attr("class","nav-link");
 		$('#buy-tab').attr("class","nav-link active");
 		$('#sell-tab').attr("class","nav-link");
+		$('#free-tab').attr("class","nav-link");
 	}
 	function selltab(){
 		$('#fadeStatus').attr("value","2");
 		$('#sell').attr("class","tab-pane fade show active");
 		$('#buy').attr("class","tab-pane fade");
+		$('#free').attr("class","tab-pane fade");
+		$('#qna').attr("class","tab-pane fade");
+		$('#qna-tab').attr("class","nav-link");
 		$('#sell-tab').attr("class","nav-link active");
 		$('#buy-tab').attr("class","nav-link");
+		$('#free-tab').attr("class","nav-link");
+	}
+	function freetab(){
+		$('#fadeStatus').attr("value","3");
+		$('#sell').attr("class","tab-pane fade");
+		$('#buy').attr("class","tab-pane fade");
+		$('#free').attr("class","tab-pane fade show active");
+		$('#qna').attr("class","tab-pane fade");
+		$('#qna-tab').attr("class","nav-link");
+		$('#sell-tab').attr("class","nav-link");
+		$('#buy-tab').attr("class","nav-link");
+		$('#free-tab').attr("class","nav-link active");
+	}
+	function qnatab(){
+		$('#fadeStatus').attr("value","4");
+		$('#sell').attr("class","tab-pane fade");
+		$('#buy').attr("class","tab-pane fade");
+		$('#free').attr("class","tab-pane fade");
+		$('#qna').attr("class","tab-pane fade show active");
+		$('#qna-tab').attr("class","nav-link active");
+		$('#sell-tab').attr("class","nav-link");
+		$('#buy-tab').attr("class","nav-link");
+		$('#free-tab').attr("class","nav-link");
 	}
 </script>

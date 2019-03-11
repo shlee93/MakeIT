@@ -67,4 +67,12 @@ public interface MemberService {
 
 	int sendMessageEnd(Map<String, String> message);
 
+	List<Map<String, String>> freeList(String memberId, int freecPage, int numPerPage);
+
+	int selectFreeCount(String memberId);
+
+	List<Map<String, String>> qnaList(String memberId, int qnacPage, int numPerPage);
+
+	int selectQnaCount(String memberId);
+
 }

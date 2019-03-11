@@ -67,4 +67,12 @@ public interface MemberDao {
 
 	int sendMessageEnd(Map<String, String> message);
 
+	int selectFreeCount(String memberId);
+
+	List<Map<String, String>> freeList(String memberId, int freecPage, int numPerPage);
+
+	List<Map<String, String>> qnaList(String memberId, int qnacPage, int numPerPage);
+
+	int selectQnaCount(String memberId);
+
 }

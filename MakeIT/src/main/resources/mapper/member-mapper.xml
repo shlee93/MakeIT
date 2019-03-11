@@ -56,10 +56,10 @@
 		SELECT COUNT(*) FROM SELLOUTBOX O JOIN SELL S USING(SELLNO) WHERE O.MEMBERID=#{memberId}
 	</select>
 	<select id="buyList" parameterType="string" resultType="map">
-		SELECT * FROM BUY WHERE MEMBERID=#{memberId}
+		SELECT * FROM BUY WHERE MEMBERID=#{memberId} AND BUYDELYN='N' ORDER BY BUYDATE DESC
 	</select>
 	<select id="sellList" parameterType="string" resultType="map">
-		SELECT * FROM SELL WHERE MEMBERID=#{memberId}
+		SELECT * FROM SELL WHERE MEMBERID=#{memberId} AND SELLDELETEYN='N' ORDER BY SELLDATE DESC
 	</select>
 	<select id="sendMessage" parameterType="string" resultType="map">
 		SELECT * FROM MESSAGE WHERE SENDID=#{memberId} AND SENDDELETEYN = 'N' ORDER BY SENDDATE DESC
@@ -94,6 +94,18 @@
 	<insert id="sendMessageEnd" parameterType="map">
 		INSERT INTO MESSAGE VALUES(SEQ_MESSAGENO.NEXTVAL,#{messageContent},DEFAULT,DEFAULT,DEFAULT,DEFAULT,#{receiveId},#{sendId})
 	</insert>
+	<select id="selectFreeCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM FREE WHERE MEMBERID=#{memberId} AND FREEYN='N' ORDER BY FREEDATE DESC
+	</select>
+	<select id="freeList" parameterType="string" resultType="map">
+		SELECT * FROM FREE WHERE MEMBERID=#{memberId} AND FREEYN='N'
+	</select>
+	<select id="selectQnaCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM QNA WHERE MEMBERID=#{memberId}
+	</select>
+	<select id="qnaList" parameterType="string" resultType="map">
+		SELECT * FROM QNA WHERE MEMBERID=#{memberId}
+	</select>
 	<resultMap type="map" id="memberMap">
 		<result column="interest" property="interest" typeHandler="strArray"/>
 	</resultMap>

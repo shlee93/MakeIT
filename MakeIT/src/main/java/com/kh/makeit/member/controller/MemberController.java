@@ -81,6 +81,8 @@ public class MemberController {
 			mv.addObject("map", map);
 			mv.addObject("sellcPage",0);
 			mv.addObject("buycPage",0);
+			mv.addObject("freecPage",0);
+			mv.addObject("qnacPage",0);
 			mv.addObject("fadeStatus",1);
 		} else {
 			String msg = "로그인 후 이용해주세요";
@@ -550,17 +552,25 @@ public class MemberController {
 	
 	@RequestMapping("/member/memberWriteAjax.do")
 	@ResponseBody
-	public ModelAndView memberWriteAjax(int buycPage, int sellcPage, String memberId, HttpServletRequest request) {
+	public ModelAndView memberWriteAjax(int buycPage, int sellcPage, int freecPage, int qnacPage, String memberId, HttpServletRequest request) {
 		Map<Object, Object> map = service.selectOne(memberId);
 		int numPerPage = 5;
 		buycPage = 1;
 		sellcPage = 1;
+		freecPage = 1;
+		qnacPage = 1;
 		List<Map<String,String>> buyList = service.buyList(memberId,buycPage,numPerPage);
 		int totalBuyCount = service.selectBuyCount(memberId);
 		String buyPageBar = PageFactory.getPageBarAjax(totalBuyCount, buycPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
 		List<Map<String,String>> sellList = service.sellList(memberId,sellcPage,numPerPage);
 		int totalSellCount = service.boardSellCount(memberId);
 		String sellPageBar = PageFactory.getPageBarAjax(totalSellCount, sellcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+		List<Map<String,String>> freeList = service.freeList(memberId,freecPage,numPerPage);
+		int totalFreeCount = service.selectFreeCount(memberId);
+		String freePageBar = PageFactory.getPageBarAjax(totalFreeCount, freecPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+		List<Map<String,String>> qnaList = service.qnaList(memberId,qnacPage,numPerPage);
+		int totalQnaCount = service.selectQnaCount(memberId);
+		String qnaPageBar = PageFactory.getPageBarAjax(totalFreeCount, qnacPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
 		ModelAndView mv = new ModelAndView();
 		logger.debug(sellList);
 		mv.addObject("map",map);
@@ -572,6 +582,14 @@ public class MemberController {
 		mv.addObject("sellPageBar",sellPageBar);
 		mv.addObject("sellcPage",sellcPage);
 		mv.addObject("buycPage",buycPage);
+		mv.addObject("freeList",freeList);
+		mv.addObject("freecPage",freecPage);
+		mv.addObject("freePageBar",freePageBar);
+		mv.addObject("totalFreeCount",totalFreeCount);
+		mv.addObject("totalQnacount",totalQnaCount);
+		mv.addObject("qnaList",qnaList);
+		mv.addObject("qnaPageBar",qnaPageBar);
+		mv.addObject("qnacPage",qnacPage);
 		mv.addObject("fadeStatus",1);
 		mv.setViewName("member/ajaxMemberWrite");
 		return mv;
@@ -745,7 +763,7 @@ public class MemberController {
 	
 	@RequestMapping("/member/memberPagingAjax.do")
 	@ResponseBody
-	public ModelAndView pagingAjax(int naviBarStatus, int fadeStatus, int buycPage,int sellcPage,String memberId,HttpServletRequest request) {
+	public ModelAndView pagingAjax(int naviBarStatus, int fadeStatus, int buycPage,int sellcPage,int freecPage, int qnacPage,String memberId,HttpServletRequest request) {
 		Map<Object, Object> map = service.selectOne(memberId);
 		ModelAndView mv = new ModelAndView();
 		int numPerPage = 5;
@@ -758,7 +776,7 @@ public class MemberController {
 				sellcPage = 1;
 			} else {
 				buycPage = 1;
-			}
+			} 
 			logger.debug(buycPage);
 			logger.debug(sellcPage);
 			List<Map<String,String>> buyOutBoxList = service.buyOutBoxList(memberId,buycPage,numPerPage);
@@ -781,8 +799,18 @@ public class MemberController {
 		} else if(naviBarStatus == 3) {
 			if(fadeStatus == 1) {
 				sellcPage = 1;
-			} else {
+			} else if(fadeStatus == 2) {
 				buycPage = 1;
+				freecPage = 1;
+				qnacPage = 1;
+			} else if(fadeStatus == 3) {
+				sellcPage = 1;
+				buycPage = 1;
+				qnacPage = 1;
+			} else if(fadeStatus == 4) {
+				sellcPage = 1;
+				buycPage = 1;
+				freecPage = 1;
 			}
 			logger.debug(buycPage);
 			logger.debug(sellcPage);
@@ -792,6 +820,13 @@ public class MemberController {
 			List<Map<String,String>> sellList = service.sellList(memberId,sellcPage,numPerPage);
 			int totalSellCount = service.boardSellCount(memberId);
 			String sellPageBar = PageFactory.getPageBarAjax(totalSellCount, sellcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+			List<Map<String,String>> freeList = service.freeList(memberId,freecPage,numPerPage);
+			int totalFreeCount = service.selectFreeCount(memberId);
+			String freePageBar = PageFactory.getPageBarAjax(totalFreeCount, freecPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+			List<Map<String,String>> qnaList = service.qnaList(memberId,freecPage,numPerPage);
+			int totalQnaCount = service.selectQnaCount(memberId);
+			String qnaPageBar = PageFactory.getPageBarAjax(totalFreeCount, qnacPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+			logger.debug(sellList);
 			mv.addObject("buyList",buyList);
 			mv.addObject("totalBuyCount",totalBuyCount);
 			mv.addObject("buyPageBar",buyPageBar);
@@ -800,7 +835,14 @@ public class MemberController {
 			mv.addObject("sellPageBar",sellPageBar);
 			mv.addObject("sellcPage",sellcPage);
 			mv.addObject("buycPage",buycPage);
-			mv.addObject("naviBarStatus",naviBarStatus);
+			mv.addObject("freeList",freeList);
+			mv.addObject("freecPage",freecPage);
+			mv.addObject("freePageBar",freePageBar);
+			mv.addObject("totalFreeCount",totalFreeCount);
+			mv.addObject("totalQnacount",totalQnaCount);
+			mv.addObject("qnaList",qnaList);
+			mv.addObject("qnaPageBar",qnaPageBar);
+			mv.addObject("qnacPage",qnacPage);
 			mv.addObject("fadeStatus",fadeStatus);
 			mv.setViewName("member/ajaxMemberWrite");
 		} else if(naviBarStatus == 4) {

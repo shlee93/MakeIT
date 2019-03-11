@@ -106,6 +106,8 @@ public class PageFactory {
 		pageBar+="data:{'memberId':$('#memberId').val(),";
 		pageBar+="'sellcPage':cPage,";
 		pageBar+="'buycPage':cPage,";
+		pageBar+="'freecPage':cPage,";
+		pageBar+="'qnacPage':cPage,";
 		pageBar+="'fadeStatus':$('#fadeStatus').val(),";
 		pageBar+="'naviBarStatus':$('#naviBarStatus').val()},";
 		pageBar+="success:function(data){";

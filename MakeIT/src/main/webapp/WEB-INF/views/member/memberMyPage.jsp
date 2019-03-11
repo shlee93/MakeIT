@@ -240,6 +240,8 @@
         </div>
         <input type="hidden" id="sellcPage" name="sellcPage" value="${sellcPage }">
         <input type="hidden" id="buycPage" name="buycPage" value="${buycPage }">
+        <input type="hidden" id="freecPage" name="freecPage" value="${freecPage }">
+        <input type="hidden" id="qnacPage" name="qnacPage" value="${qnacPage }">
         <input type="hidden" id="fadeStatus" name="fadeStatus" value="${fadeStatus }">
         <input type="hidden" id="naviBarStatus" name = "naviBarStatus" value="${naviBarStatus }">
 		<script>
@@ -286,7 +288,9 @@
 					dataType:"html",
 					data:{"memberId":$('#memberId').val()
 						,"sellcPage":$('#sellcPage').val()
-						,"buycPage":$('#buycPage').val()},
+						,"buycPage":$('#buycPage').val()
+						,"freecPage":$('#freecPage').val()
+						,"qnacPage":$('#qnacPage').val()},
 					success:function(data){
 						console.log(data);
 						$('#ajaxHtml').html(data);

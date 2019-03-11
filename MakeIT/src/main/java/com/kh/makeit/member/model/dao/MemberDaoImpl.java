@@ -185,4 +185,27 @@ public class MemberDaoImpl implements MemberDao {
 		return sqlSession.insert("member.sendMessageEnd",message);
 	}
 
+	@Override
+	public int selectFreeCount(String memberId) {
+		return sqlSession.selectOne("member.selectFreeCount",memberId);
+	}
+
+	@Override
+	public List<Map<String, String>> freeList(String memberId, int freecPage, int numPerPage) {
+		RowBounds row = new RowBounds((freecPage-1)*numPerPage,numPerPage);
+		return sqlSession.selectList("member.freeList",memberId,row);
+	}
+
+	@Override
+	public List<Map<String, String>> qnaList(String memberId, int qnacPage, int numPerPage) {
+		RowBounds row = new RowBounds((qnacPage-1)*numPerPage,numPerPage);
+		return sqlSession.selectList("member.qnaList",memberId,row);
+	}
+
+	@Override
+	public int selectQnaCount(String memberId) {
+		return sqlSession.selectOne("member.selectQnaCount",memberId);
+	}
+	
+
 }
