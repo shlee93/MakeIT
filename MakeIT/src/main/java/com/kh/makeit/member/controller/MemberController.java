@@ -579,11 +579,14 @@ public class MemberController {
 	
 	@RequestMapping("/member/memberMessageAjax.do")
 	@ResponseBody
-	public ModelAndView memberMessageAjax(int buycPage, int sellcPage, String memberId, HttpServletRequest request) {
+	public ModelAndView memberMessageAjax(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Map<Object,Object> member = (Map<Object, Object>) session.getAttribute("member");
+		String memberId = (String) member.get("MEMBERID");
 		Map<Object, Object> map = service.selectOne(memberId);
 		int numPerPage = 5;
-		buycPage = 1;	// 보내기
-		sellcPage = 1;	// 받기
+		int buycPage = 1;	// 보내기
+		int sellcPage = 1;	// 받기
 		List<Map<String,String>> sendMessage = service.sendMessage(memberId,buycPage,numPerPage);
 		List<Map<String,String>> receiveMessage = service.receiveMessage(memberId,sellcPage,numPerPage);
 		int totalSendCount = service.totalSendCount(memberId);
@@ -606,7 +609,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/member/memberMessageDetailAjax.do")
-	public ModelAndView messageDetail(int sellcPage, int buycPage, int messageNo, String memberId) {
+	public ModelAndView messageDetail(int messageNo, String memberId) {
 		Map<Object, Object> map = service.selectOne(memberId);
 		logger.debug(messageNo);
 		Map<Object, Object> message = service.messageDetail(messageNo);
@@ -716,6 +719,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/member/reSendMessage.do")
+	@ResponseBody
 	public ModelAndView reSendMessage(String sendId, String memberId, int messageNo) {
 		logger.debug(memberId);
 		logger.debug(sendId);
@@ -730,24 +734,13 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/member/sendMessage.do")
-	public ModelAndView sendMessage(String sendId, String receiveId, String messageContent, int messageNo) {
-		Map<Object, Object> map = service.selectOne(sendId);
-		String msg = "";
-		String loc = "/member/memberMessageDetailAjax.do";
+	@ResponseBody
+	public void sendMessage(String sendId, String receiveId, String messageContent) {
 		Map<String,String> message = new HashMap();
 		message.put("sendId", sendId);
 		message.put("receiveId", receiveId);
 		message.put("messageContent", messageContent);
 		int result = service.sendMessageEnd(message);
-		if(result > 0) {
-			msg = "메시지가 정상적으로 전송되었습니다.";
-		} else {
-			msg = "메시지 전송이 실패했습니다. 다시 시도해 주세요.";
-		}
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("map",map);
-		mv.setViewName("common/msg");
-		return mv;
 	}
 	
 	@RequestMapping("/member/memberPagingAjax.do")

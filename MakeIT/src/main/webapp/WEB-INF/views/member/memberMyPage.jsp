@@ -298,15 +298,14 @@
 				$.ajax({
 					url:"${path}/member/memberMessageAjax.do",
 					dataType:"html",
-					data:{"memberId":$('#memberId').val()
-						,"sellcPage":$('#sellcPage').val()
-						,"buycPage":$('#buycPage').val()},
+					data:{"memberId":$('#memberId').val()},
 					success:function(data){
 						console.log(data);
 						$('#ajaxHtml').html(data);
 					}
 				});
-			}			
+			}	
+			
 		</script>
         </div>
         <div class="col-md-1">

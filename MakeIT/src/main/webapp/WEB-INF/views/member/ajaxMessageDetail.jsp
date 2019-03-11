@@ -71,7 +71,7 @@ pageEncoding="UTF-8"%>
                    			</tr>
                    			<tr>
                    				<td>
-                   					<button class="btn btn-primary" onclick="backMessage();">이전</button>
+                   					<button class="btn btn-primary" onclick="backMessageList();">이전</button>
                    				</td>
                    				<td>
                    					<button class="btn btn-primary" onclick="deleteMessage();">삭제</button>
@@ -91,9 +91,16 @@ pageEncoding="UTF-8"%>
     </div>
 </div>
 <script>
-	function backMessage(){
-		$('#messageFrm').attr("action","${path }/member/memberMyPage.do");
-		$('#messageFrm').submit();
+	function backMessageList(){
+		$.ajax({
+			url:"${path}/member/memberMessageAjax.do",
+			dataType:"html",
+			data:{"memberId":$('#memberId').val()},
+			success:function(data){
+				console.log(data);
+				$('#ajaxHtml').html(data);
+			}
+		});
 	}
 	function deleteMessage(){
 		$('#messageFrm').attr("action","${path }/member/deleteMessage.do");

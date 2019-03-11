@@ -46,34 +46,32 @@ pageEncoding="UTF-8"%>
            	 <div class="tab-pane fade show active" id="send" role="tabpanel" aria-labelledby="send-tab">
                 <div class="row">
                     <div class="col-md-12">
-                    	<form id="messageFrm">
-               				<input type="hidden" id="sendId" name="sendId" value="${map.MEMBERID }">
-               				<input type="hidden" id="receiveId" name="receiveId" value="${sendId }">
-               				<input type="hidden" id="messageNo" name="messageNo" value="${messageNo }">
-	                    	<table class="table">
-	                    		<tr>
-	                    			<th>보낸사람</th>
-	                    			<td><c:out value="${map.MEMBERID }"></c:out></td>
-	                    			<th>받는사람</th>
-	                    			<td><c:out value="${sendId }"></c:out></td>
-	                    		</tr>
-	                   			<tr>
-	                   				<td colspan="4">
-										<textarea rows="10" cols="75" name = "messageContent"></textarea>
-									</td>
-	                   			</tr>
-	                   			<tr>
-	                   				<td>
-	                   					<button class="btn btn-primary" onclick="backMessage();">이전</button>
-	                   				</td>
-	                   				<td>
-	                   					<button class="btn btn-primary" onclick="sendMessage();">보내기</button>
-	                   				</td>
-	                   				<td></td>
-	                   				<td></td>
-	                   			</tr>
-	                    	</table>
-                    	</form>
+           				<input type="hidden" id="sendId" name="sendId" value="${map.MEMBERID }">
+           				<input type="hidden" id="receiveId" name="receiveId" value="${sendId }">
+           				<input type="hidden" id="messageNo" name="messageNo" value="${messageNo }">
+                    	<table class="table">
+                    		<tr>
+                    			<th>보낸사람</th>
+                    			<td><c:out value="${map.MEMBERID }"></c:out></td>
+                    			<th>받는사람</th>
+                    			<td><c:out value="${sendId }"></c:out></td>
+                    		</tr>
+                   			<tr>
+                   				<td colspan="4">
+									<textarea rows="10" cols="75" id="messageContent" name = "messageContent"></textarea>
+								</td>
+                   			</tr>
+                   			<tr>
+                   				<td>
+                   					<button class="btn btn-primary" onclick="backMessage();">이전</button>
+                   				</td>
+                   				<td>
+                   					<button class="btn btn-primary" onclick="sendMessage();">보내기</button>
+                   				</td>
+                   				<td></td>
+                   				<td></td>
+                   			</tr>
+                    	</table>
                     </div>
                 </div>
             </div>
@@ -82,12 +80,37 @@ pageEncoding="UTF-8"%>
 </div>
 <script>
 	function backMessage(){
-		$('#messageFrm').attr("action","${path }/member/memberMyPage.do");
-		$('#messageFrm').submit();
+		$.ajax({
+			url:"${path}/member/memberMessageDetailAjax.do",
+			dataType:"html",
+			data:{"memberId":$('#sendId').val(),
+				"messageNo":$('#messageNo').val()},
+			success:function(data){
+				console.log(data);
+				$('#ajaxHtml').html(data);
+			}
+		});
 	}
 	function sendMessage(){
-		$('#messageFrm').attr("action","${path }/member/sendMessage.do");
-		$('#messageFrm').submit();
+		$('#naviBarStatus').attr("value","4");
+		$.ajax({
+			url:"${path}/member/sendMessage.do",
+			dataType:"html",
+			data:{"sendId":$('#sendId').val(),
+				"receiveId":$('#receiveId').val(),
+				"messageContent":$('#messageContent').val()},
+			success:function(data){
+				$.ajax({
+					url:"${path}/member/memberMessageAjax.do",
+					dataType:"html",
+					data:{"memberId":$('#sendId').val()},
+					success:function(data){
+						console.log(data);
+						$('#ajaxHtml').html(data);
+					}
+				});
+			}
+		});
 	}
 
 </script>

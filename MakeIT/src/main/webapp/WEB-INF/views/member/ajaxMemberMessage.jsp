@@ -226,8 +226,6 @@ pageEncoding="UTF-8"%>
 			url:"${path}/member/memberMessageDetailAjax.do",
 			dataType:"html",
 			data:{"memberId":$('#memberId').val()
-				,"sellcPage":$('#sellcPage').val()
-				,"buycPage":$('#buycPage').val()
 				,"messageNo":messageNo},
 			success:function(data){
 				console.log(data);
