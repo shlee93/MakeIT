@@ -45,4 +45,26 @@ public interface MemberService {
 
 	List<Map<String, String>> sellList(String memberId, int sellcPage, int numPerPage);
 
+	List<Map<String, String>> sendMessage(String memberId, int buycPage, int numPerPage);
+
+	List<Map<String, String>> receiveMessage(String memberId, int sellcPage, int numPerPage);
+
+	int totalSendCount(String memberId);
+
+	int totalReceiveCount(String memberId);
+
+	Map<Object, Object> messageDetail(int messageNo);
+
+	int updateMessageDate(int messageNo);
+
+	int deleteReceiveMessage(Map<Object, Object> map);
+
+	int deleteSendMessage(Map<Object, Object> map);
+
+	int deleteReceiveMessages(int delListInt);
+
+	int deleteSendMessages(int delListInt);
+
+	int sendMessageEnd(Map<String, String> message);
+
 }

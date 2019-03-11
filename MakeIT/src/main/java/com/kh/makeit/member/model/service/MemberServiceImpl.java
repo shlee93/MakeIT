@@ -114,4 +114,60 @@ public class MemberServiceImpl implements MemberService {
 		return dao.sellList(memberId,sellcPage,numPerPage);
 	}
 
+	@Override
+	public List<Map<String, String>> sendMessage(String memberId,int buycPage, int numPerPage) {
+		return dao.sendMessage(memberId,buycPage,numPerPage);
+	}
+
+	@Override
+	public List<Map<String, String>> receiveMessage(String memberId,int sellcPage, int numPerPage) {
+		return dao.receiveMessage(memberId,sellcPage,numPerPage);
+	}
+
+	@Override
+	public int totalSendCount(String memberId) {
+		return dao.totalSendCount(memberId);
+	}
+
+	@Override
+	public int totalReceiveCount(String memberId) {
+		return dao.totalReceiveCount(memberId);
+	}
+
+	@Override
+	public Map<Object, Object> messageDetail(int messageNo) {
+		return dao.messageDetail(messageNo);
+	}
+
+	@Override
+	public int updateMessageDate(int messageNo) {
+		return dao.updateMessageDate(messageNo);
+	}
+
+	@Override
+	public int deleteReceiveMessage(Map<Object, Object> map) {
+		return dao.deleteReceiveMessage(map);
+	}
+
+	@Override
+	public int deleteSendMessage(Map<Object, Object> map) {
+		return dao.deleteSendMessage(map);
+	}
+
+	@Override
+	public int deleteReceiveMessages(int delListInt) {
+		return dao.deleteReceiveMessages(delListInt);
+	}
+
+	@Override
+	public int deleteSendMessages(int delListInt) {
+		return dao.deleteSendMessages(delListInt);
+	}
+
+	@Override
+	public int sendMessageEnd(Map<String, String> message) {
+		return dao.sendMessageEnd(message);
+	}
+	
+	
 }

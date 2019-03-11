@@ -54,7 +54,7 @@ public class MemberController {
 		double sellAvg = 0;
 		ModelAndView mv = new ModelAndView();
 		logger.debug(session.getAttribute("member"));
-		if(!session.equals(null)) {
+		if(session.getAttribute("member")!=null) {
 			Map<Object, Object> member = (Map<Object, Object>) session.getAttribute("member");
 			String id = (String) member.get("MEMBERID");
 			logger.debug(id);
@@ -579,8 +579,174 @@ public class MemberController {
 	
 	@RequestMapping("/member/memberMessageAjax.do")
 	@ResponseBody
-	public ModelAndView memberMessageAjax() {
+	public ModelAndView memberMessageAjax(int buycPage, int sellcPage, String memberId, HttpServletRequest request) {
+		Map<Object, Object> map = service.selectOne(memberId);
+		int numPerPage = 5;
+		buycPage = 1;	// 보내기
+		sellcPage = 1;	// 받기
+		List<Map<String,String>> sendMessage = service.sendMessage(memberId,buycPage,numPerPage);
+		List<Map<String,String>> receiveMessage = service.receiveMessage(memberId,sellcPage,numPerPage);
+		int totalSendCount = service.totalSendCount(memberId);
+		String sendPageBar = PageFactory.getPageBarAjax(totalSendCount, buycPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+		int totalReceiveCount = service.totalReceiveCount(memberId);
+		String receivePageBar = PageFactory.getPageBarAjax(totalReceiveCount, sellcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("map",map);
+		mv.addObject("sendMessage",sendMessage);
+		mv.addObject("totalSendCount",totalSendCount);
+		mv.addObject("sendPageBar",sendPageBar);
+		mv.addObject("receiveMessage",receiveMessage);
+		mv.addObject("totalReceiveCount",totalReceiveCount);
+		mv.addObject("receivePageBar",receivePageBar);
+		mv.addObject("sellcPage",sellcPage);
+		mv.addObject("buycPage",buycPage);
+		mv.addObject("fadeStatus",1);
+		mv.setViewName("member/ajaxMemberMessage");
+		return mv;
+	}
+	
+	@RequestMapping("/member/memberMessageDetailAjax.do")
+	public ModelAndView messageDetail(int sellcPage, int buycPage, int messageNo, String memberId) {
+		Map<Object, Object> map = service.selectOne(memberId);
+		logger.debug(messageNo);
+		Map<Object, Object> message = service.messageDetail(messageNo);
+		logger.debug(message);
+		int result = 0;
+		if(message.get("RECEIVEID").equals(memberId)) {
+			result = service.updateMessageDate(messageNo);
+		}
+		if(result > 0) {
+			message = service.messageDetail(messageNo);
+		}
+		logger.debug(message);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("map",map);
+		mv.addObject("message",message);
+		mv.setViewName("/member/ajaxMessageDetail");
+		return mv;
+	}
+	
+	@RequestMapping("/member/deleteMessage.do")
+	public ModelAndView deleteMessage(int messageNo, String memberId) {
+		logger.debug(messageNo);
+		logger.debug(memberId);
+		Map<Object,Object> map = new HashMap();
+		map.put("messageNo", messageNo);
+		map.put("memberId", memberId);
+		Map<Object, Object> message = service.messageDetail(messageNo);
+		logger.debug(message);
+		logger.debug(memberId);
+		logger.debug(message.get("SENDID"));
+		logger.debug(message.get("RECEIVEID"));
+		int result = 0;
+		if(memberId.equals((String)message.get("SENDID"))) {
+			result = service.deleteSendMessage(map);
+		} else if(memberId.equals((String)message.get("RECEIVEID"))) {
+			result = service.deleteReceiveMessage(map);
+		}
+		String msg = "";
+		String loc = "";
+		logger.debug(result);
+		if(result > 0) {
+			msg = "메시지가 정상적으로 삭제되었습니다. 마이페이지로 돌아갑니다.";
+			loc = "/member/memberMyPage.do";
+		} else {
+			msg = "메시지가 정상적으로 삭제되지 않았습니다. 다시 시도해주세요.";
+			loc = "/member/memberMyPage.do";
+		}
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		return mv;
+	}
+	
+	@RequestMapping("/member/messageReceiveSelectDel.do")
+	public ModelAndView messageReceiveSelectDel(HttpServletRequest request) {
+		String[] deleteCk = request.getParameterValues("receiveDeleteCk");
+		logger.debug(deleteCk);
+		int result = 0;
+		int[] delListInt = new int[deleteCk.length];
+		for(int i = 0; i < deleteCk.length; i++) {
+			delListInt[i] = Integer.parseInt(deleteCk[i]);
+			result += service.deleteReceiveMessages(delListInt[i]);
+		}
+		String msg = "";
+		String loc = "";
+		logger.debug(result);
+		if(result > 0) {
+			msg = "메시지가 정상적으로 삭제되었습니다. 마이페이지로 돌아갑니다.";
+			loc = "/member/memberMyPage.do";
+		} else {
+			msg = "메시지가 정상적으로 삭제되지 않았습니다. 다시 시도해주세요.";
+			loc = "/member/memberMyPage.do";
+		}
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		return mv;
+	}
+	
+	@RequestMapping("/member/messageSendSelectDel.do")
+	public ModelAndView messageSendSelectDel(HttpServletRequest request) {
+		String[] delList = request.getParameterValues("sendDeleteCk");
+		logger.debug(delList);
+		int[] delListInt = new int[delList.length];
+		int result = 0;
+		for(int i = 0; i < delList.length; i++) {
+			delListInt[i] = Integer.parseInt(delList[i]);
+			result += service.deleteSendMessages(delListInt[i]);
+		}
+		String msg = "";
+		String loc = "";
+		logger.debug(result);
+		if(result > 0) {
+			msg = "메시지가 정상적으로 삭제되었습니다. 마이페이지로 돌아갑니다.";
+			loc = "/member/memberMyPage.do";
+		} else {
+			msg = "메시지가 정상적으로 삭제되지 않았습니다. 다시 시도해주세요.";
+			loc = "/member/memberMyPage.do";
+		}
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		return mv;
+	}
+	
+	@RequestMapping("/member/reSendMessage.do")
+	public ModelAndView reSendMessage(String sendId, String memberId, int messageNo) {
+		logger.debug(memberId);
+		logger.debug(sendId);
+		Map<Object, Object> map = service.selectOne(memberId);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("messageNo",messageNo);
+		mv.addObject("map",map);
+		mv.addObject("memberId",memberId);
+		mv.addObject("sendId",sendId);
+		mv.setViewName("member/ajaxReSendEnd");
+		return mv;
+	}
+	
+	@RequestMapping("/member/sendMessage.do")
+	public ModelAndView sendMessage(String sendId, String receiveId, String messageContent, int messageNo) {
+		Map<Object, Object> map = service.selectOne(sendId);
+		String msg = "";
+		String loc = "/member/memberMessageDetailAjax.do";
+		Map<String,String> message = new HashMap();
+		message.put("sendId", sendId);
+		message.put("receiveId", receiveId);
+		message.put("messageContent", messageContent);
+		int result = service.sendMessageEnd(message);
+		if(result > 0) {
+			msg = "메시지가 정상적으로 전송되었습니다.";
+		} else {
+			msg = "메시지 전송이 실패했습니다. 다시 시도해 주세요.";
+		}
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("map",map);
+		mv.setViewName("common/msg");
 		return mv;
 	}
 	
@@ -645,7 +811,27 @@ public class MemberController {
 			mv.addObject("fadeStatus",fadeStatus);
 			mv.setViewName("member/ajaxMemberWrite");
 		} else if(naviBarStatus == 4) {
-			
+			if(fadeStatus == 1) {
+				sellcPage = 1;
+			} else {
+				buycPage = 1;
+			}
+			List<Map<String,String>> sendMessage = service.sendMessage(memberId,buycPage,numPerPage);
+			List<Map<String,String>> receiveMessage = service.receiveMessage(memberId,sellcPage,numPerPage);
+			int totalSendCount = service.totalSendCount(memberId);
+			String sendPageBar = PageFactory.getPageBarAjax(totalSendCount, buycPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+			int totalReceiveCount = service.totalReceiveCount(memberId);
+			String receivePageBar = PageFactory.getPageBarAjax(totalReceiveCount, sellcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+			mv.addObject("sendMessage",sendMessage);
+			mv.addObject("totalSendCount",totalSendCount);
+			mv.addObject("sendPageBar",sendPageBar);
+			mv.addObject("receiveMessage",receiveMessage);
+			mv.addObject("totalReceiveCount",totalReceiveCount);
+			mv.addObject("receivePageBar",receivePageBar);
+			mv.addObject("sellcPage",sellcPage);
+			mv.addObject("buycPage",buycPage);
+			mv.addObject("fadeStatus",fadeStatus);
+			mv.setViewName("member/ajaxMemberMessage");
 		}
 		mv.addObject("map",map);
 		return mv;

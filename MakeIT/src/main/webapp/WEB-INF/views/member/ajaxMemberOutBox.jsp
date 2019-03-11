@@ -16,14 +16,26 @@ pageEncoding="UTF-8"%>
 	    	<h5>
 				<c:out value="${map.MEMBERNAME }"></c:out>
 	   		</h5>
-		    <ul class="nav nav-tabs" id="myTab" role="tablist">
-		        <li class="nav-item">
-		            <a class="nav-link active" onclick="buytab();" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="true">구매 찜 리스트</a>
-		        </li>
-		        <li class="nav-item">
-		            <a class="nav-link" onclick="selltab();" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="false">판매 찜 리스트</a>
-		        </li>
-		    </ul>
+	   		<c:if test="${fadeStatus == 1 }">
+			    <ul class="nav nav-tabs" id="myTab" role="tablist">
+			        <li class="nav-item">
+			            <a class="nav-link active" onclick="buytab();" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="true">구매 찜 리스트</a>
+			        </li>
+			        <li class="nav-item">
+			            <a class="nav-link" onclick="selltab();" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="false">판매 찜 리스트</a>
+			        </li>
+			    </ul>
+		    </c:if>
+		    <c:if test="${fadeStatus == 2 }">
+			    <ul class="nav nav-tabs" id="myTab" role="tablist">
+			        <li class="nav-item">
+			            <a class="nav-link" onclick="buytab();" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="true">구매 찜 리스트</a>
+			        </li>
+			        <li class="nav-item">
+			            <a class="nav-link active" onclick="selltab();" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="false">판매 찜 리스트</a>
+			        </li>
+			    </ul>
+		    </c:if>
 		</div>
     </div>
     <div class="col-md-2">
@@ -47,70 +59,138 @@ pageEncoding="UTF-8"%>
     </div>
     <div class="col-md-8">
         <div class="tab-content profile-tab" id="myTabContent">
-            <div class="tab-pane fade show active" id="buy" role="tabpanel" aria-labelledby="buy-tab">
-                <div class="row">
-                    <div class="col-md-12">
-                    	<table class="table table-striped table-hover">
-                    		<tr>
-                    			<th>번호</th>
-                    			<th>제목</th>
-                    			<th>작성자</th>
-                    			<th>작성일</th>
-                    		</tr>
-                    		<c:if test="${totalBuyCount != 0 }">
-	                    		<c:forEach var="bo" items="${buyOutBoxList }">
+        	<c:if test="${fadeStatus == 1 }">
+	            <div class="tab-pane fade show active" id="buy" role="tabpanel" aria-labelledby="buy-tab">
+	                <div class="row">
+	                    <div class="col-md-12">
+	                    	<table class="table table-striped table-hover">
+	                    		<tr>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>작성일</th>
+	                    		</tr>
+	                    		<c:if test="${totalBuyCount != 0 }">
+		                    		<c:forEach var="bo" items="${buyOutBoxList }">
+		                    			<tr>
+		                    				<td><c:out value="${bo.BUYNO }"/></td>
+											<td><a href="#"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><c:out value="${bo.BUYWRITER }"/></td>
+											<td><c:out value="${bo.BUYDATE }"/></td>
+		                    			</tr>
+		                    		</c:forEach>
+	                    		</c:if>
+	                    		<c:if test="${totalBuyCount == 0 }">
 	                    			<tr>
-	                    				<td><c:out value="${bo.BUYNO }"/></td>
-										<td><a href="#"><c:out value="${bo.BUYTITLE }"/></a></td>
-										<td><c:out value="${bo.BUYWRITER }"/></td>
-										<td><c:out value="${bo.BUYDATE }"/></td>
+	                    				<td colspan='4' style="text-align: center;">
+	                    					검색된 결과가 없습니다.
+	                    				</td>
 	                    			</tr>
-	                    		</c:forEach>
-                    		</c:if>
-                    		<c:if test="${totalBuyCount == 0 }">
-                    			<tr>
-                    				<td colspan='4' style="text-align: center;">
-                    					검색된 결과가 없습니다.
-                    				</td>
-                    			</tr>
-                    		</c:if>
-                    	</table>
-                    	${buyPageBar }
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="sell" role="tabpanel" aria-labelledby="sell-tab">
-                <div class="row">
-					<div class="col-md-12">
-                    	<table class="table table-striped table-hover">
-                    		<tr>
-                    			<th>번호</th>
-                    			<th>제목</th>
-                    			<th>작성자</th>
-                    			<th>작성일</th>
-                    		</tr>
-                    		<c:if test="${totalSellCount != 0 }">
-	                    		<c:forEach var="so" items="${sellOutBoxList }">
+	                    		</c:if>
+	                    	</table>
+	                    	${buyPageBar }
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="tab-pane fade" id="sell" role="tabpanel" aria-labelledby="sell-tab">
+	                <div class="row">
+						<div class="col-md-12">
+	                    	<table class="table table-striped table-hover">
+	                    		<tr>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>작성일</th>
+	                    		</tr>
+	                    		<c:if test="${totalSellCount != 0 }">
+		                    		<c:forEach var="so" items="${sellOutBoxList }">
+		                    			<tr>
+		                    				<td><c:out value="${so.BUYNO }"/></td>
+											<td><a href="#"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><c:out value="${so.MEMBERID }"/></td>
+											<td><c:out value="${so.SELLDATE }"/></td>
+		                    			</tr>
+		                    		</c:forEach>
+	                    		</c:if>
+	                    		<c:if test="${totalSellCount == 0 }">
 	                    			<tr>
-	                    				<td><c:out value="${so.BUYNO }"/></td>
-										<td><a href="#"><c:out value="${so.SELLTITLE }"/></a></td>
-										<td><c:out value="${so.MEMBERID }"/></td>
-										<td><c:out value="${so.SELLDATE }"/></td>
+	                    				<td colspan='4' style="text-align: center;">
+	                    					검색된 결과가 없습니다.
+	                    				</td>
 	                    			</tr>
-	                    		</c:forEach>
-                    		</c:if>
-                    		<c:if test="${totalSellCount == 0 }">
-                    			<tr>
-                    				<td colspan='4' style="text-align: center;">
-                    					검색된 결과가 없습니다.
-                    				</td>
-                    			</tr>
-                    		</c:if>
-                    	</table>
-                    	${sellPageBar }
-                    </div>
-                </div>
-            </div>
+	                    		</c:if>
+	                    	</table>
+	                    	${sellPageBar }
+	                    </div>
+	                </div>
+	            </div>
+            </c:if>
+            <c:if test="${fadeStatus == 2 }">
+            	<div class="tab-pane fade" id="buy" role="tabpanel" aria-labelledby="buy-tab">
+	                <div class="row">
+	                    <div class="col-md-12">
+	                    	<table class="table table-striped table-hover">
+	                    		<tr>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>작성일</th>
+	                    		</tr>
+	                    		<c:if test="${totalBuyCount != 0 }">
+		                    		<c:forEach var="bo" items="${buyOutBoxList }">
+		                    			<tr>
+		                    				<td><c:out value="${bo.BUYNO }"/></td>
+											<td><a href="#"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><c:out value="${bo.BUYWRITER }"/></td>
+											<td><c:out value="${bo.BUYDATE }"/></td>
+		                    			</tr>
+		                    		</c:forEach>
+	                    		</c:if>
+	                    		<c:if test="${totalBuyCount == 0 }">
+	                    			<tr>
+	                    				<td colspan='4' style="text-align: center;">
+	                    					검색된 결과가 없습니다.
+	                    				</td>
+	                    			</tr>
+	                    		</c:if>
+	                    	</table>
+	                    	${buyPageBar }
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="tab-pane fade show active" id="sell" role="tabpanel" aria-labelledby="sell-tab">
+	                <div class="row">
+						<div class="col-md-12">
+	                    	<table class="table table-striped table-hover">
+	                    		<tr>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>작성일</th>
+	                    		</tr>
+	                    		<c:if test="${totalSellCount != 0 }">
+		                    		<c:forEach var="so" items="${sellOutBoxList }">
+		                    			<tr>
+		                    				<td><c:out value="${so.BUYNO }"/></td>
+											<td><a href="#"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><c:out value="${so.MEMBERID }"/></td>
+											<td><c:out value="${so.SELLDATE }"/></td>
+		                    			</tr>
+		                    		</c:forEach>
+	                    		</c:if>
+	                    		<c:if test="${totalSellCount == 0 }">
+	                    			<tr>
+	                    				<td colspan='4' style="text-align: center;">
+	                    					검색된 결과가 없습니다.
+	                    				</td>
+	                    			</tr>
+	                    		</c:if>
+	                    	</table>
+	                    	${sellPageBar }
+	                    </div>
+	                </div>
+	            </div>
+            </c:if>
         </div>
     </div>
 </div>

@@ -67,7 +67,6 @@ public class MemberDaoImpl implements MemberDao {
 			result = sqlSession.selectOne("member.sellAvg",id);
 		}
 		return result;
-		
 	}
 
 	@Override
@@ -127,6 +126,63 @@ public class MemberDaoImpl implements MemberDao {
 	public List<Map<String, String>> sellList(String memberId, int sellcPage, int numPerPage) {
 		RowBounds row = new RowBounds((sellcPage-1)*numPerPage,numPerPage);
 		return sqlSession.selectList("member.sellList",memberId,row);
+	}
+
+	@Override
+	public List<Map<String, String>> sendMessage(String memberId,int buycPage, int numPerPage) {
+		RowBounds row = new RowBounds((buycPage-1)*numPerPage,numPerPage);
+		return sqlSession.selectList("member.sendMessage",memberId,row);
+	}
+
+	@Override
+	public List<Map<String, String>> receiveMessage(String memberId,int sellcPage, int numPerPage) {
+		RowBounds row = new RowBounds((sellcPage-1)*numPerPage,numPerPage);
+		return sqlSession.selectList("member.receiveMessage",memberId,row);
+	}
+
+	@Override
+	public int totalSendCount(String memberId) {
+		return sqlSession.selectOne("member.totalSendCount",memberId);
+	}
+
+	@Override
+	public int totalReceiveCount(String memberId) {
+		return sqlSession.selectOne("member.totalReceiveCount",memberId);
+	}
+
+	@Override
+	public Map<Object, Object> messageDetail(int messageNo) {
+		return sqlSession.selectOne("member.messageDetail",messageNo);
+	}
+
+	@Override
+	public int updateMessageDate(int messageNo) {
+		return sqlSession.update("member.updateMessageDate",messageNo);
+	}
+
+	@Override
+	public int deleteReceiveMessage(Map<Object, Object> map) {
+		return sqlSession.update("member.deleteReceiveMessage",map);
+	}
+
+	@Override
+	public int deleteSendMessage(Map<Object, Object> map) {
+		return sqlSession.update("member.deleteSendMessage",map);
+	}
+
+	@Override
+	public int deleteReceiveMessages(int delListInt) {
+		return sqlSession.update("member.deleteReceiveMessages",delListInt);
+	}
+
+	@Override
+	public int deleteSendMessages(int delListInt) {
+		return sqlSession.update("member.deleteSendMessages",delListInt);
+	}
+
+	@Override
+	public int sendMessageEnd(Map<String, String> message) {
+		return sqlSession.insert("member.sendMessageEnd",message);
 	}
 
 }

@@ -61,6 +61,39 @@
 	<select id="sellList" parameterType="string" resultType="map">
 		SELECT * FROM SELL WHERE MEMBERID=#{memberId}
 	</select>
+	<select id="sendMessage" parameterType="string" resultType="map">
+		SELECT * FROM MESSAGE WHERE SENDID=#{memberId} AND SENDDELETEYN = 'N' ORDER BY SENDDATE DESC
+	</select>
+	<select id="receiveMessage" parameterType="string" resultType="map">
+		SELECT * FROM MESSAGE WHERE RECEIVEID=#{memberId} AND RECEIVEDELETEYN = 'N'  ORDER BY SENDDATE DESC
+	</select>
+	<select id="totalSendCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM MESSAGE WHERE SENDID=#{memberId} AND SENDDELETEYN = 'N'
+	</select>
+	<select id="totalReceiveCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM MESSAGE WHERE RECEIVEID=#{memberId} AND RECEIVEDELETEYN = 'N'
+	</select>
+	<select id="messageDetail" parameterType="_int" resultType="map">
+		SELECT * FROM MESSAGE WHERE MESSAGENO=#{messageNo}
+	</select>
+	<update id="updateMessageDate" parameterType="_int">
+		UPDATE MESSAGE SET READDATE = SYSTIMESTAMP WHERE MESSAGENO=#{messageNo}
+	</update>
+	<update id="deleteReceiveMessage" parameterType="map">
+		UPDATE MESSAGE SET RECEIVEDELETEYN = 'Y' WHERE MESSAGENO=#{messageNo}
+	</update>
+	<update id="deleteSendMessage" parameterType="map">
+		UPDATE MESSAGE SET SENDDELETEYN = 'Y' WHERE MESSAGENO=#{messageNo}
+	</update>
+	<update id="deleteReceiveMessages" parameterType="_int">
+		UPDATE MESSAGE SET RECEIVEDELETEYN = 'Y' WHERE MESSAGENO=#{delListInt}
+	</update>
+	<update id="deleteSendMessages" parameterType="_int">
+		UPDATE MESSAGE SET SENDDELETEYN = 'Y' WHERE MESSAGENO=#{delListInt}
+	</update>
+	<insert id="sendMessageEnd" parameterType="map">
+		INSERT INTO MESSAGE VALUES(SEQ_MESSAGENO.NEXTVAL,#{messageContent},DEFAULT,DEFAULT,DEFAULT,DEFAULT,#{receiveId},#{sendId})
+	</insert>
 	<resultMap type="map" id="memberMap">
 		<result column="interest" property="interest" typeHandler="strArray"/>
 	</resultMap>
