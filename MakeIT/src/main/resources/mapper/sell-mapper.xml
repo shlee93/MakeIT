@@ -82,9 +82,7 @@ select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.g
 <!-- 퍼포먼스를위한 카운트 -->
 <select id="sellPerCount" parameterType="map" resultType="_int">
 	select count(distinct sellno) from sell se join member mb on(se.memberid=mb.memberid) join performance pf on(se.memberid=pf.memberid)  where 1=1
-  <if test='sCategoryFlag==null or sCategoryFlag==""'>
-      and se.interestno = 1  
-   </if>
+ 
    <choose>
          <when test='sCategoryFlag!=null and sCategoryFlag!=""'> and detailinterestno = #{sCategoryFlag} and totalsale is not null</when>
    </choose>
@@ -103,8 +101,8 @@ select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.g
 	<if test='searchtype=="title"'>
 		and selltitle like '%'||#{searchValue}||'%'
 	</if>
-	<if test='searchValue=="writer"'>
-		and memberid like '%'||#{searchValue}||'%'
+	<if test='searchtype=="writer"'>
+		and se.memberid like '%'||#{searchValue}||'%'
 	</if>
 	<if test='sCategoryFlag!=null and sCategoryFlag!=""'>
 	and detailinterestno=#{sCategoryFlag}
@@ -115,7 +113,7 @@ select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.g
 	<if test='gradeValue=="1"'>
 		order by mem.gradeno desc
 	</if>
-	<if test='gradeValue=="1"'>
+	<if test='sellValue=="1"'>
 		order by pf.totalsale desc
 	</if>
 </select>

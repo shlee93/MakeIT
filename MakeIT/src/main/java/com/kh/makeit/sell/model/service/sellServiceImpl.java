@@ -100,9 +100,9 @@ public class sellServiceImpl implements sellService {
 
 	//서치
 	@Override
-	public List<Map<String, String>> sellSearch(Map map) {
+	public List<Map<String, String>> sellSearch(Map map, int numPerPage, int contentCount, int cPage) {
 		// TODO Auto-generated method stub
-		return dao.sellSearch(map);
+		return dao.sellSearch(map, numPerPage, contentCount,cPage);
 	}
 	@Override
 	public int searchCount(Map<String, String> map2) {

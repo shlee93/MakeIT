@@ -85,9 +85,10 @@ public class SellDaoImpl implements SellDao {
 	}
 
 	@Override
-	public List<Map<String, String>> sellSearch(Map map) {
+	public List<Map<String, String>> sellSearch(Map map, int numPerPage, int contentCount, int cPage) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("sell.sellSearch",map);
+		RowBounds rb=new RowBounds((cPage-1)*numPerPage,numPerPage);
+		return sqlSession.selectList("sell.sellSearch",map, rb);
 	}
 
 	@Override

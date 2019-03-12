@@ -306,28 +306,34 @@ public class sellController {
 	   map2.put("sCategoryFlag", sCategoryFlag);
 	   int numPerPage=6;
 	   int contentCount=0;
-	   List<Map<String,String>> searchList = service.sellSearch(map);
+	   
 	   ModelAndView mv = new ModelAndView();
 	   
 	   if(newValue.equals("1"))
 	   {
+		   contentCount=service.searchCount(map2);
+		   List<Map<String,String>> searchList = service.sellSearch(map,numPerPage,contentCount,cPage);
 		   mv.addObject("newList",searchList);
 		   mv.setViewName("sell/sellNewMain");
-		   contentCount=service.searchCount(map2);
+		   
 		   mv.addObject("pageBar",PageFactory.getPageBar2(contentCount, cPage, numPerPage,"/makeit/sell/sellNewChange.do"));
 	   }
 	   else if(gradeValue.equals("1"))
 	   {
+		   contentCount=service.searchCount(map2);
+		   List<Map<String,String>> searchList = service.sellSearch(map,numPerPage,contentCount,cPage);
 		   mv.addObject("gradeList",searchList);
 		   mv.setViewName("sell/sellGradeMain");
-		   contentCount=service.searchCount(map2);
+		   
 		   mv.addObject("pageBar",PageFactory.getPageBar2(contentCount, cPage, numPerPage,"/makeit/sell/sellGradeChange.do"));
 	   }
 	   else if(sellValue.equals("1"))
 	   {
+		   contentCount=service.searchPerCount(map2);
+		   List<Map<String,String>> searchList = service.sellSearch(map,numPerPage,contentCount,cPage);
 		   mv.addObject("performanceList",searchList);
 		   mv.setViewName("sell/sellPerformanceMain");
-		   contentCount=service.searchPerCount(map2);
+		   
 		   mv.addObject("pageBar",PageFactory.getPageBar2(contentCount, cPage, numPerPage,"/makeit/sell/sellSellChange.do"));
 	   }
 	   
