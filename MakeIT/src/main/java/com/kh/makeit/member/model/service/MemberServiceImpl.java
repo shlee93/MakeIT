@@ -188,6 +188,24 @@ public class MemberServiceImpl implements MemberService {
 	public int selectQnaCount(String memberId) {
 		return dao.selectQnaCount(memberId);
 	}
+
+	@Override
+	public Map<String, Object> getAccount(Map<String, String> account) {
+		return dao.getAccount(account);
+	}
+
+	@Override
+	public List<Map<String, String>> contestList(String memberId, int contestcPage, int numPerPage) {
+		return dao.contestList(memberId,contestcPage,numPerPage);
+	}
+
+	@Override
+	public int selectContestCount(String memberId) {
+		return dao.selectContestCount(memberId);
+	}
+
+	
+	
 	
 	
 	

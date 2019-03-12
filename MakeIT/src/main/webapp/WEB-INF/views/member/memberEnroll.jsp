@@ -185,11 +185,27 @@
                     </div>
                     <div class="col-md-2 mb-2">
                         <select class="form-control" id="bank" name="bank">
-                            <option value="069">국민은행</option>
-                            <option value="071">우리은행</option>
-                            <option value="068">신한은행</option>
-                            <option value="070">하나은행</option>
-                            <option value="072">농협은행</option>
+                        	<option disabled selected>은행을 선택하세요</option>
+                            <option value="001">한국은행</option>
+                            <option value="010">KDB산업은행</option>
+                            <option value="011">IBK기업은행</option>
+                            <option value="012">한국수출입</option>
+                            <option value="020">NH농협은행</option>
+                            <option value="021">SH수협은행</option>
+                            <option value="030">신한은행</option>
+                            <option value="031">KB국민은행</option>
+                            <option value="032">우리은행</option>
+                            <option value="033">SC제일은행</option>
+                            <option value="034">씨티은행</option>
+                            <option value="035">KEB하나은행</option>
+                            <option value="040">DGB대구은행</option>
+                            <option value="041">BNK부산은행</option>
+                            <option value="042">광주은행</option>
+                            <option value="043">제주은행</option>
+                            <option value="044">전북은행</option>
+                            <option value="045">BNK경남은행</option>
+                            <option value="050">케이뱅크</option>
+                            <option value="051">카카오뱅크</option>
                         </select>
                     </div>
                     <div class="col-md-4 mb-2">
@@ -197,6 +213,7 @@
                     </div>
                     <div class="col-md-3 mb-2">
                         <input type='button' onclick='fn_accountCheck();' class='btn btn-primary' value='계좌인증'>
+                        <input type='hidden' name='accountValid' id="accountValid" value='0'>
                     </div>
                 </div>
                 <div class="row">
@@ -313,10 +330,42 @@
 		<form action="" name="emailCheckFrm">
 			<input type="hidden" name="email"/>
 		</form>
+		<form action="" name="accountCheckFrm">
+			<input type="hidden" name="accountNo"/>
+			<input type="hidden" name="bankCode"/>
+		</form>
     </div>
     
     
 <script>
+	function fn_accountCheck(){
+		var bankCode=$("#bank").val().trim();
+	       
+		if(!bankCode || bankCode.length<=0)
+		{
+		   alert("은행을 선택하세요.");
+		   return;   
+		   
+		}
+		var accountNo=$('#memberAccount').val().trim();
+		if(!accountNo || accountNo.length<=0)
+		{
+		   alert("계좌번호를 입력하세요.");
+		   return;   
+		}
+		var url="${path}/member/checkAccount";
+		var title="계좌 인증";
+		var shape="left=200px, top=100px, width=500px, height=300px";
+		
+		var popup=open("",title,shape);
+		
+		accountCheckFrm.accountNo.value=accountNo;
+		accountCheckFrm.bankCode.value=bankCode;
+		accountCheckFrm.target=title;
+		accountCheckFrm.action=url;
+		accountCheckFrm.method="post";
+		accountCheckFrm.submit();    
+	}
 	var sel_files=[];
 	$(document).ready(function(){
        //preview image 
@@ -423,6 +472,11 @@
             
             if($('input[name=emailValid]')[0].value=='0'){
             	alert('이메일 인증을 해주세요');
+            	return false;
+            }
+            
+            if($('input[name=accountValid]')[0].value=='0'){
+            	alert('계좌 인증을 해주세요');
             	return false;
             }
             

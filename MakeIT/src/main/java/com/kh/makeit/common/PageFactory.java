@@ -108,6 +108,7 @@ public class PageFactory {
 		pageBar+="'buycPage':cPage,";
 		pageBar+="'freecPage':cPage,";
 		pageBar+="'qnacPage':cPage,";
+		pageBar+="'contestcPage':cPage,";
 		pageBar+="'fadeStatus':$('#fadeStatus').val(),";
 		pageBar+="'naviBarStatus':$('#naviBarStatus').val()},";
 		pageBar+="success:function(data){";

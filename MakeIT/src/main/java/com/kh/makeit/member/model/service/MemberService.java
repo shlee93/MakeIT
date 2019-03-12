@@ -75,4 +75,10 @@ public interface MemberService {
 
 	int selectQnaCount(String memberId);
 
+	Map<String, Object> getAccount(Map<String, String> account);
+
+	List<Map<String, String>> contestList(String memberId, int contestcPage, int numPerPage);
+
+	int selectContestCount(String memberId);
+
 }

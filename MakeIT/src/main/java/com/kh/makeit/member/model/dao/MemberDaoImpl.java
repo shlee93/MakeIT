@@ -206,6 +206,22 @@ public class MemberDaoImpl implements MemberDao {
 	public int selectQnaCount(String memberId) {
 		return sqlSession.selectOne("member.selectQnaCount",memberId);
 	}
+
+	@Override
+	public Map<String, Object> getAccount(Map<String, String> account) {
+		return sqlSession.selectOne("member.getAccount",account);
+	}
+
+	@Override
+	public List<Map<String, String>> contestList(String memberId, int contestcPage, int numPerPage) {
+		RowBounds row = new RowBounds((contestcPage-1)*numPerPage,numPerPage);
+		return sqlSession.selectList("member.contestList",memberId,row);
+	}
+
+	@Override
+	public int selectContestCount(String memberId) {
+		return sqlSession.selectOne("member.selectContestCount",memberId);
+	}
 	
 
 }
