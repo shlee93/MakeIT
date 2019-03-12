@@ -1,4 +1,4 @@
-package com.kh.makeit.category.service;
+package com.kh.makeit.common.interest.service;
 
 import java.util.List;
 import java.util.Map;

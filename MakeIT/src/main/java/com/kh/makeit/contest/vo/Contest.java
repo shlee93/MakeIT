@@ -1,6 +1,7 @@
 package com.kh.makeit.contest.vo;
 
 import java.sql.Date;
+import java.util.List;
 
 public class Contest 
 {
@@ -12,6 +13,8 @@ public class Contest
 	private Date contestDeadLine;
 	private String contestPrice;
 	private String contestYn;
+	private int contestCount;
+	private String contestApplicant;
 	private int detailInterestNo;
 	private int interestNo;
 	private String memberId;
@@ -19,11 +22,10 @@ public class Contest
 	public Contest() {
 		super();
 	}
-	
+
 	public Contest(int contestNo, String categoryCode, String contestTitle, String contestContent, Date contestDate,
-			Date contestDeadLine, String contestPrice, String contestYn, int detailInterestNo, int interestNo,
-			String memberId) 
-	{
+			Date contestDeadLine, String contestPrice, String contestYn, int contestCount, String contestApplicant,
+			int detailInterestNo, int interestNo, String memberId) {
 		super();
 		this.contestNo = contestNo;
 		this.categoryCode = categoryCode;
@@ -33,6 +35,8 @@ public class Contest
 		this.contestDeadLine = contestDeadLine;
 		this.contestPrice = contestPrice;
 		this.contestYn = contestYn;
+		this.contestCount = contestCount;
+		this.contestApplicant = contestApplicant;
 		this.detailInterestNo = detailInterestNo;
 		this.interestNo = interestNo;
 		this.memberId = memberId;
@@ -102,6 +106,22 @@ public class Contest
 		this.contestYn = contestYn;
 	}
 
+	public int getContestCount() {
+		return contestCount;
+	}
+
+	public void setContestCount(int contestCount) {
+		this.contestCount = contestCount;
+	}
+
+	public String getContestApplicant() {
+		return contestApplicant;
+	}
+
+	public void setContestApplicant(String contestApplicant) {
+		this.contestApplicant = contestApplicant;
+	}
+
 	public int getDetailInterestNo() {
 		return detailInterestNo;
 	}
@@ -130,8 +150,9 @@ public class Contest
 	public String toString() {
 		return "Contest [contestNo=" + contestNo + ", categoryCode=" + categoryCode + ", contestTitle=" + contestTitle
 				+ ", contestContent=" + contestContent + ", contestDate=" + contestDate + ", contestDeadLine="
-				+ contestDeadLine + ", contestPrice=" + contestPrice + ", contestYn=" + contestYn
-				+ ", detailInterestNo=" + detailInterestNo + ", interestNo=" + interestNo + ", memberId=" + memberId
-				+ "]";
+				+ contestDeadLine + ", contestPrice=" + contestPrice + ", contestYn=" + contestYn + ", contestCount="
+				+ contestCount + ", contestApplicant=" + contestApplicant + ", detailInterestNo=" + detailInterestNo
+				+ ", interestNo=" + interestNo + ", memberId=" + memberId + "]";
 	}	
+	
 }

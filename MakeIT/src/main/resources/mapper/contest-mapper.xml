@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace='contest'>
+	<!-- 컨테스트 숫자세기 -->
+	<select id='contestCount' resultType='_int'>
+		select count(*) from contest
+	</select>
+	
+	<!-- 컨테스트리스트 가져오기 -->
+	<select id='getContestList' parameterType='map' resultType='map'>
+		select a.*, memberName,(select count(*) from contestImg where contestno=a.contestno) as contestImgCount from contest a join member b on a.memberId=b.memberId order by contestno desc
+	</select>
+	
+	<!-- 컨테스트 이미지 가져오기 -->
+	<select id='getContestDetailImg' parameterType='_int' resultType='map'>
+		select contestImgNo,contestImgRe from contestImg where contestNo=#{contestNo}
+	</select>
+	
+	<!-- 컨테스트 상세 가져오기 -->
+	<select id='contestDetail' parameterType="_int" resultType='map'>
+		select a.*, introduction from contest a join member b on a.memberId=b.memberId where contestNo=#{contestNo}
+	</select>
+	
+	<!-- 컨테스트 당 첫번째 이미지 가져오기 -->	
+	<select id='getContestPerFirstImg' parameterType='_int' resultType='contestImg'>
+		select * from CONTESTIMG where CONTESTIMGNO=(select MIN(CONTESTIMGNO) from CONTESTIMG where CONTESTNO=#{contestNo})
+	</select>
+	<insert id='insertContest' parameterType='map'>
+		insert into CONTEST values(seq_contestNo.nextval,'C',#{contestTitle}, #{contestContent}, #{contestDate}, #{contestDeadLine}, #{contestPrice}, default, #{detailInterestNo}, #{interestNo}, #{memberId})
+		<selectKey keyProperty='contestNo' resultType='String' order='AFTER'>
+			select seq_contestNo.currval from dual
+		</selectKey>
+	</insert> 
+	<insert id='insertContestImg' parameterType='contestImg'>
+		insert into CONTESTIMG values(SEQ_CONTESTIMGNO.nextval,#{contestNo},'C',#{contestImgOri},#{contestImgRe})
+	</insert>
+	<select id='contestApplicantCheck' parameterType='map' resultType='map'>
+		select applicantId from CONTESTAPPLICANT WHERE CONTESTNO=#{contestNo} and applicantId=#{applicantId}
+	</select>
+	<select id='contestApplicantList' parameterType='_int' resultType='map'>
+		select * from CONTESTAPPLICANT where contestNo=#{contestNo}
+	</select>
+	<insert id='contestApplicant' parameterType='map'>
+		insert into CONTESTAPPLICANT values(SEQ_CONTESTAPPLICANTNO.NEXTVAL, #{contestNo},'C', #{applicantId}, default, #{applicantFileOri}, #{applicantFileRe}) 
+	</insert>
+	<select id='contestApplicantOne' parameterType='map' resultType='map'>
+		select * from member m join contestapplicant c on m.MEMBERID=c.APPLICANTID where m.memberId=#{applicantId} and contestNo=#{contestNo}
+	</select>
+	<update id='applicantConfirm' parameterType='map'>
+		update contestApplicant set APPLICANTYN='Y' where applicantId=#{targetId} and contestNo=#{contestNo}
+	</update>
+	<delete id='contestDel' parameterType='_int'>
+		delete from contest where contestNo=#{contestDelNo}
+	</delete>
+</mapper>
