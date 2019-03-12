@@ -102,6 +102,61 @@ public class AdminDaoImpl implements AdminDao {
 		
 		return sqlSession.insert("admin.insertFaqCategory",category);
 	}
+
+	//관리자 페이지 FAQ카테고리 셀렉트
+	@Override
+	public List<Map<String, String>> selectFaqCategoryAdmin() {
+		
+		return sqlSession.selectList("admin.selectFaqCategoryAdmin");
+	}
+
+	//관리자 페이지 FAQ 질문 답변 등록
+	@Override
+	public int insertFaqnaAdmin(Map<Object, Object> faq) {
+		
+		return sqlSession.insert("admin.insertFaqnaAdmin", faq);
+	}
+
+	//관리자 페이지 FAQ 셀렉트
+	@Override
+	public List<Map<String, String>> selectFaqListAdmin() {
+
+		return sqlSession.selectList("admin.selectFaqListAdmin");
+	}
+
+	//관리자 페이지 FAQ 셀렉트
+	@Override
+	public Map<String, String> selectFaqAdmin(int faqNo) {
+		
+		return sqlSession.selectOne("admin.selectFaqAdmin", faqNo);
+	}
+
+	//관리자 페이지 FAQ 질문 답변 수정
+	@Override
+	public int updateFaqnaAdmin(Map<Object, Object> faq) {
+		
+		return sqlSession.update("admin.updateFaqnaAdmin",faq);
+	}
+
+	//관리자 페이지 FAQ 삭제
+	@Override
+	public int deleteFaqnaAdmin(int faqNo) {
+		
+		return sqlSession.delete("admin.deleteFaqnaAdmin", faqNo);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

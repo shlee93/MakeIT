@@ -1,3 +1,4 @@
+//관리자 회원정보 업데이트
 $(document).on('click','#member-update',function(){
 	var memberId=$('.panel-title').text();
 	var phone=$('#phone').val();
@@ -21,4 +22,52 @@ $(document).on('click','#member-update',function(){
 			self.close();
 		}
 	})
+});
+
+$(document).on('click','#insertQna',function(){
+	var question=$('#question').val();
+	var answer=$('#answer').val();
+	var faqCategory=$('#faq-category option:selected').val();
+	var $faq_tab=$(opener.document).find('#nav-faq');
+	$.ajax({
+		
+		url:"insertFaqnaEndAdmin.do",
+		data:{
+			"question":question,
+			"answer":answer,
+			"faqCategory":faqCategory
+		},
+		dataType:"html",
+		success:function(data){
+			$faq_tab.html(data);
+			self.close();
+		}
+	})
+	
+	
+});
+
+$(document).on('click','#updateQna',function(){
+	var question=$('#question').val();
+	var answer=$('#answer').val();
+	var faqCategory=$('#faq-category option:selected').val();
+	var faqNo=$('#faq-no').val();
+	var $faq_tab=$(opener.document).find('#nav-faq');
+	$.ajax({
+		
+		url:"updateFaqnaEndAdmin.do",
+		data:{
+			"question":question,
+			"answer":answer,
+			"faqCategory":faqCategory,
+			"faqNo":faqNo
+		},
+		dataType:"html",
+		success:function(data){
+			$faq_tab.html(data);
+			self.close();
+		}
+	})
+	
+	
 })

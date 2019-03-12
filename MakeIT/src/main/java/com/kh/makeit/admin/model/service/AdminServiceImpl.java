@@ -103,6 +103,58 @@ public class AdminServiceImpl implements AdminService {
 		
 		return dao.insertFaqCategory(category);
 	}
+
+	//관리자 페이지 FAQ카테고리 셀렉트
+	@Override
+	public List<Map<String, String>> selectFaqCategoryAdmin() {
+		
+		return dao.selectFaqCategoryAdmin();
+	}
+	//관리자 페이지 FAQ 질문 답변 등록
+	@Override
+	public int insertFaqnaAdmin(Map<Object, Object> faq) {
+		
+		return dao.insertFaqnaAdmin(faq);
+	}
+	
+	//관리자 페이지 FAQ 셀렉트
+	@Override
+	public List<Map<String, String>> selectFaqListAdmin() {
+		
+		return dao.selectFaqListAdmin();
+	}
+
+	//관리자 페이지 FAQ 셀렉트원
+	@Override
+	public Map<String, String> selectFaqAdmin(int faqNo) {
+		
+		return dao.selectFaqAdmin(faqNo);
+	}
+
+	//관리자 페이지 FAQ 질문 답변 수정
+	@Override
+	public int updateFaqnaAdmin(Map<Object, Object> faq) {
+		
+		return dao.updateFaqnaAdmin(faq);
+	}
+
+	//관리자 페이지 FAQ 삭제 
+	@Override
+	public int deleteFaqnaAdmin(int faqNo) {
+		
+		return dao.deleteFaqnaAdmin(faqNo);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

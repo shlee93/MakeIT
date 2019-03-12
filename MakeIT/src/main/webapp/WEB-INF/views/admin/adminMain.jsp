@@ -634,7 +634,7 @@
                                             		<div id="insert-interest-div">
 	                                            		<input type="text" id="insert-deInterest-val" size="30" placeholder="등록할 카테고리를 입력해 주세요" />
 	                                            		<button class="btn btn-primary" id="insert-interest-btn">등록</button>
-	                                            		<button class="btn btn-primary" id="insert-interest-btn-cansel">취소</button>
+	                                            		<button class="btn btn-primary" id="insert-interest-btn-cancel">취소</button>
                                             		</div>
                                             	</td>
                                             </tr>
@@ -656,96 +656,61 @@
 
                             </table>
                             <div class='row'>
-
-                                <div class="col-md-12">
+								<div class="col-md-6"></div>
+                                <div class="col-md-6 faq-add-back">
+                                
                                     <button class="faq-category-insert btn btn-primary">
                                         +카테고리 추가
                                     </button>
+                                    &nbsp; &nbsp;
+                                    <button class="add-qna btn btn-primary">
+                                    	+질문&답변 추가
+                                    </button>
+                                    
                                 </div>
                             </div>
                             <br>
-                            
-                            <div class="faq-back">
-                                <div class="faq-category">카테고리
-                                    <button class="faq-slide">▼</button>
-                                </div>
-                                <div class="faq-list-back">
-                                    <ul class="faq-list">
-                                        <li class="faq-question">질문
-
-                                            <button class="answer-slide">▼</button>
-                                            <button class="question-delete-view">삭제</button>
-                                            <button class="question-update">수정</button>
-                                            <hr>
-                                            <div class="faq-answer">답변
-                                                <button class="answer-update">수정</button>
-                                                <hr>
-                                            </div>
-                                            <div class='question-delete-back'>
-                                                답변과 함께 삭제 됩니다. 
-                                                <button class='question-delete-cancel'>취소</button>
-                                                <button class='question-delete'>삭제</button>
-                                                <hr>
-                                            </div>
-                                        </li>
-                                        <li class="faq-question">질문
-                                            
-                                            <button class="answer-slide">▼</button>
-                                            <button class="question-delete-view">삭제</button>
-                                            <button class="question-update">수정</button>
-                                            <hr>
-                                            <div class="faq-answer">답변
-                                                <button class="answer-update">수정</button>
-                                                <hr>
-                                            </div>
-                                            <div class='question-delete-back'>
-                                                답변과 함께 삭제 됩니다. 
-                                                <button class='question-delete-cancel'>취소</button>
-                                                <button class='question-delete'>삭제</button>
-                                                <hr>
-                                            </div>
-                                        </li>
-                                        <li class="faq-question">질문
-                                            <button class="answer-slide">▼</button>
-                                            <button class="question-delete-view">삭제</button>
-                                            <button class="question-update">수정</button>
-                                            <hr>
-                                            <div class="faq-answer">답변
-                                                <button class="answer-update">수정</button>
-                                                <hr>
-                                            </div>
-                                            <div class='question-delete-back'>
-                                                답변과 함께 삭제 됩니다. 
-                                                <button class='question-delete-cancel'>취소</button>
-                                                <button class='question-delete'>삭제</button>
-                                                <hr>
-                                            </div>
-                                        </li>
-                                        <li class="faq-question">질문
-                                            <button class="answer-slide">▼</button>
-                                            <button class="question-delete-view">삭제</button>
-                                            <button class="question-update">수정</button>
-                                            <hr>
-                                            <div class="faq-answer">답변
-                                                <button class="answer-update">수정</button>
-                                                <hr>
-                                            </div>
-                                            <div class='question-delete-back'>
-                                                답변과 함께 삭제 됩니다. 
-                                                <button class='question-delete-cancel'>취소</button>
-                                                <button class='question-delete'>삭제</button>
-                                                <hr>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <button class="add-question">질문&답변 추가</button>
-                                </div>
-                            </div>
+                            <c:if test="${not empty faqList }">
+                            	<c:forEach items="${categoryList }" var="category">
+	                            <div class="faq-back">
+	                                <div class="faq-category">${category.FAQNACATEGORYNAME }
+	                                    <button class="faq-slide">▼</button>
+	                                    <button class="faq-category-delete">삭제</button>
+	                                </div>
+	                                <div class="faq-list-back">
+	                                    <ul class="faq-list">
+	                                    <c:forEach items="${faqList }" var="faq">
+	                                    	<c:if test="${faq.FAQCATEGORYNO eq category.FAQCATEGORYNO }">
+	                                    	
+	                                        <li class="faq-question">${faq.FAQTITLE }
+												<input type="hidden" class="faq-no" value="${faq.FAQNO }"/>
+	                                            <button class="answer-slide">▼</button>
+	                                            <button class="qna-delete-view">삭제</button>
+	                                            <button class="qna-update">수정</button>
+	                                            <hr>
+	                                            <div class="faq-answer">${faq.FAQCONTENT }</div>
+	                                            <div class='qna-delete-back'>
+	                                                	답변과 함께 삭제 됩니다. 
+	                                                <button class='qna-delete-cancel btn btn-primary'>취소</button>
+	                                                <button class='qna-delete btn btn-primary'>삭제</button>
+	                                                <hr>
+	                                            </div>
+	                                        </li>
+	                                    	</c:if>
+	                                        
+	                                    </c:forEach>
+	                                    </ul>
+	                                    
+	                                </div>
+	                            </div>
+                            	
+                            	</c:forEach>
+                            </c:if>
                             <div id="faq-insert-back">
                             	<div id="add-faq-category">
                             		<input type="text" id="input-faq-category"/>
-                            		<button type="button" id="add-faq-category-btn">추가</button>
-                            		<button type="button" id="add-faq-category-cancel">취소</button>
+                            		<button type="button" class="btn btn-primary" id="add-faq-category-btn">추가</button>
+                            		<button type="button" class="btn btn-primary" id="add-faq-category-cancel">취소</button>
                             	</div>
                             </div>
                         </div>

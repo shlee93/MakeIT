@@ -33,13 +33,18 @@ public class AdminController {
 		int numPerPage=5;
 		int memberCount=adminService.selectMemberCountAdmin();
 		String pageBar=PageFactory.getPageBarAdmin(memberCount, cPage, numPerPage,"/makeit/admin/adminView.do");
-		List<Map<String,String>> memberList=adminService.selectMemberListAdmin(cPage,numPerPage);
-		
 		ModelAndView mav=new ModelAndView();
+		//회원정보 출력
+		List<Map<String,String>> memberList=adminService.selectMemberListAdmin(cPage,numPerPage);		
 		//카테고리 출력
 		List<Map<String,String>> interestList=adminService.selectInterestAdmin();
 		List<Map<String,String>> deInterestList=adminService.selectDeInterestAdmin();
+		//FAQ 출력
+		List<Map<String,String>> faqList=adminService.selectFaqListAdmin();
+		List<Map<String,String>> categoryList=adminService.selectFaqCategoryAdmin();
 		
+		mav.addObject("faqList", faqList);
+		mav.addObject("categoryList", categoryList);
 		mav.addObject("interestList",interestList);
 		mav.addObject("deInterestList",deInterestList);
 		mav.addObject("memberPageBar", pageBar);
@@ -218,6 +223,7 @@ public class AdminController {
 		return mav;
 	}
 	
+	//관리자 페이지 FAQ 카테고리 등록
 	@RequestMapping("/admin/insertFaqCategory")
 	public ModelAndView insertFaqCategory(String category) {
 		ModelAndView mav=new ModelAndView();
@@ -226,15 +232,88 @@ public class AdminController {
 		return mav;
 	}
 	
+	//관리자 페이지 FAQ 질문 답변 등록 팝업 띄우기
 	@RequestMapping("/admin/insertFaqQna.do")
 	public ModelAndView insertFaqQna() {
 		ModelAndView mav=new ModelAndView();
-		
+		List<Map<String,String>> categoryList=adminService.selectFaqCategoryAdmin();
+		mav.addObject("categoryList", categoryList);
 		mav.setViewName("admin/adminFaqAddPopup");
 		
 		return mav;
 	}
 	
+	//관리자 페이지 FAQ 질문 답변 등록
+	@RequestMapping("/admin/insertFaqnaEndAdmin.do")
+	public ModelAndView insertFaqnaEnd(String question,String answer,int faqCategory) {
+		
+		ModelAndView mav=new ModelAndView();
+		Map<Object,Object> faq=new HashMap();
+		faq.put("question", question);
+		faq.put("answer", answer);
+		faq.put("faqCategory", faqCategory);
+		int result=adminService.insertFaqnaAdmin(faq);
+		List<Map<String,String>> faqList=adminService.selectFaqListAdmin();
+		List<Map<String,String>> categoryList=adminService.selectFaqCategoryAdmin();
+		
+		mav.addObject("faqList", faqList);
+		mav.addObject("categoryList", categoryList);
+		mav.setViewName("admin/adminFaqView");
+		
+		return mav;
+	}
 	
+	//관리자 페이지 FAQ 수정 팝업
+	@RequestMapping("/admin/updateFaqQna.do")
+	public ModelAndView updateFaqQna(int faqNo) {
+		
+		ModelAndView mav=new ModelAndView();
+		List<Map<String,String>> categoryList=adminService.selectFaqCategoryAdmin();
+		Map<String,String> faq=adminService.selectFaqAdmin(faqNo);
+		mav.addObject("categoryList", categoryList);
+		mav.addObject("faq", faq);
+		mav.setViewName("admin/adminFaqUpdatePopup");
+		
+		return mav;
+	}
+	
+	//관리자 페이지 FAQ 질문 답변 수정
+	@RequestMapping("/admin/updateFaqnaEndAdmin.do")
+	public ModelAndView updateFaqnaEnd(String question,String answer,int faqCategory,int faqNo) {
+
+		ModelAndView mav=new ModelAndView();
+		Map<Object,Object> faq=new HashMap();
+		faq.put("question", question);
+		faq.put("answer", answer);
+		faq.put("faqCategory", faqCategory);
+		faq.put("faqNo", faqNo);
+		int result=adminService.updateFaqnaAdmin(faq);
+		List<Map<String,String>> faqList=adminService.selectFaqListAdmin();
+		List<Map<String,String>> categoryList=adminService.selectFaqCategoryAdmin();
+
+		mav.addObject("faqList", faqList);
+		mav.addObject("categoryList", categoryList);
+		mav.setViewName("admin/adminFaqView");
+
+		return mav;
+	}
+	
+	//관리자 페이지 FAQ 삭제 이벤트
+	@RequestMapping("/admin/deleteFaqnaAdmin.do")
+	public ModelAndView deleteFaqnaAdmin(int faqNo) {
+		
+		ModelAndView mav=new ModelAndView();
+		int result=adminService.deleteFaqnaAdmin(faqNo);
+		
+		List<Map<String,String>> faqList=adminService.selectFaqListAdmin();
+		List<Map<String,String>> categoryList=adminService.selectFaqCategoryAdmin();
+
+		mav.addObject("faqList", faqList);
+		mav.addObject("categoryList", categoryList);
+		mav.setViewName("admin/adminFaqView");
+
+		return mav;
+	}
+
 	
 }

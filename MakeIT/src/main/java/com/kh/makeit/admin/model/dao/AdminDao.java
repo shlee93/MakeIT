@@ -39,4 +39,22 @@ public interface AdminDao {
 	
 	//관리자 페이지 FAQ카테고리 등록
 	int insertFaqCategory(String category);
+	
+	//관리자 페이지 FAQ카테고리 셀렉트
+	List<Map<String,String>> selectFaqCategoryAdmin();
+	
+	//관리자 페이지 FAQ 질문 답변 등록
+	int insertFaqnaAdmin(Map<Object,Object> faq);
+	
+	//관리자 페이지 FAQ 셀렉트
+	List<Map<String,String>> selectFaqListAdmin();
+	
+	//관리자 페이지 FAQ 셀렉트원
+	Map<String,String> selectFaqAdmin(int faqNo);
+	
+	//관리자 페이지 FAQ 질문 답변 수정
+	int updateFaqnaAdmin(Map<Object,Object> faq);
+	
+	//관리자 페이지 FAQ 삭제
+	int deleteFaqnaAdmin(int faqNo);
 }

@@ -1,3 +1,4 @@
+/* 회원정보 수정 팝업 */
 .user-row {
 	margin-bottom: 14px;
 }
@@ -37,4 +38,11 @@
 	max-height: 70%;
 	width: auto;
 	height: auto;
+}
+/* QNA popup */
+#insertQna{
+	height:35px;
+}
+#updateQna{
+	height:35px;
 }

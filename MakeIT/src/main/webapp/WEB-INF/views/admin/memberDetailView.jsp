@@ -73,23 +73,27 @@
 										<tr>
 										<tr>
 											<td><strong>전화번호</strong></td>
-											<td><input type="text" name="phone" id="phone"
-												value="${member.get('PHONE') }" /></td>
+											<td>
+												<input type="text" name="phone" id="phone" value="${member.get('PHONE') }" />
+											</td>
 										</tr>
 										<tr>
 											<td><strong>이메일</strong></td>
-											<td><input type="text" name="email" id="email"
-												value="${member.get('EMAIL') }" /></td>
+											<td>
+												<input type="text" name="email" id="email" value="${member.get('EMAIL') }" />
+											</td>
 										</tr>
 										<tr>
 											<td><strong>주소</strong></td>
-											<td><input type="text" name="address" id="address"
-												value="${member.get('ADDRESS') }" /></td>
+											<td>
+												<input type="text" name="address" id="address" value="${member.get('ADDRESS') }" />
+											</td>
 										</tr>
 										<tr>
 											<td><strong>신고횟수</strong></td>
-											<td><input type="text" name="reportCount"
-												id="reportCount" value="${member.get('REPORTCOUNT') }" /></td>
+											<td>
+												<input type="text" name="reportCount" id="reportCount" value="${member.get('REPORTCOUNT') }" />
+											</td>
 										</tr>
 
 

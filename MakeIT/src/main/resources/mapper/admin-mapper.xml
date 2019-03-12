@@ -109,4 +109,35 @@
 	<insert id="insertFaqCategory">
 		INSERT INTO FAQCATEGORY VALUES(SEQ_FAQNACATEGORYNO.NEXTVAL,#{category})
 	</insert>
+	
+	<!-- 관리자 페이지 FAQ 카테고리 셀렉트 -->
+	<select id="selectFaqCategoryAdmin" resultType="map">
+		SELECT * FROM FAQCATEGORY
+	</select>
+	
+	<!-- 관리자 페이지 질문 답변 등록 -->
+	<insert id="insertFaqnaAdmin" parameterType="map">
+		INSERT INTO FAQ VALUES(SEQ_FAQNO.NEXTVAL,#{question},#{answer},#{faqCategory})
+	</insert>
+	
+	<!-- 관리자 페이지 FAQ 셀렉트 -->
+	<select id="selectFaqListAdmin" resultType="map">
+		SELECT * FROM FAQ
+	</select>
+	
+	<!-- 관리자 페이지 FAQ 셀렉트원 -->
+	<select id="selectFaqAdmin" resultType="map">
+		SELECT * FROM FAQ WHERE FAQNO=#{faqNo}
+	</select>
+	
+	<!-- 관리자 페이지 FAQ 수정 -->
+	<update id="updateFaqnaAdmin" parameterType="map">
+		UPDATE FAQ SET FAQTITLE=#{question},FAQCONTENT=#{answer},FAQNACATEGORYNO=#{faqCategory} WHERE FAQNO=#{faqNo}
+	</update>
+	
+	<!-- 관리자 페이지 FAQ 삭제 -->
+	<delete id="deleteFaqnaAdmin" parameterType="_int">
+		DELETE FROM FAQ WHERE FAQNO=#{faqNo}
+	</delete>
+	
 </mapper>

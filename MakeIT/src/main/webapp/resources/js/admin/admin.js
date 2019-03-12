@@ -325,7 +325,7 @@ $(document).on('click','#insert-interest-view',function(){
 });
 
 //카테고리 추가뷰 취소버튼
-$(document).on('click','#insert-interest-btn-cansel',function(){
+$(document).on('click','#insert-interest-btn-cancel',function(){
 	var $insert_back=$(this).parent();
 	var $insert_back_tr=$(this).parent().parent().parent();
 
@@ -420,10 +420,11 @@ $(document).on('click', '.faq-category-insert', function () {
 	$faq_insert_back.css("display","flex");
 });
 //faq 카테고리 추가 div 삭제 이벤트
-$(document).on('click', '.add-faq-category-cansel', function () {
+$(document).on('click', '#add-faq-category-cancel', function () {
 
 	var $faq_insert_back=$('#faq-insert-back');
 	$faq_insert_back.slideUp('slow');
+	
 	
 });
 
@@ -444,30 +445,21 @@ $(document).on('click','#add-faq-category-btn',function(){
 })
 
 
-//faq 질문,답변 추가 이벤트
-$(document).on('click', '.add-question', function () {
-	window.open("insertFaqQna.do","faqtWin","width=500, height=500, top=200,left=1000");
-//	var $faq_back = $(this).parent().parent('.faq-back');
-//	var $question = $('<textarea type="text" class="input-question"/>');
-//	var $answer = $('<textarea type="text" class="input-answer"/>');
-//	var $faq_list = $faq_back.children('.faq-list-back').children('.faq-list');
-//	var $list_question = $('<li id="faq-question"></li>');
-//	var $list_answer = $('<div id="faq-answer"></div>');
-//	var $addButton = $('<button type="button" class="add-faq">추가</button>');
-//	var $cancelButton = $('<button type="button" class="add-faq-cancel">취소</button>');
-//	$list_question.append($question);
-//	$list_question.append($answer);
-//	$list_question.append($addButton);
-//	$list_question.append($cancelButton);
-//
-//	$faq_list.append($list_question);
-//	$(this).remove();
-//	console.log($question);
+//faq 질문,답변 추가 팝업
+$(document).on('click', '.add-qna', function () {
+	window.open("insertFaqQna.do","faqWin","width=500, height=600, top=200,left=1000");
+
+});
+//faq 질문,답변 수정 팝업
+$(document).on('click', '.qna-update', function () {
+	var faqNo=$(this).siblings('.faq-no').val();
+	window.open("updateFaqQna.do?faqNo="+faqNo,"faqtWin","width=500, height=600, top=200,left=1000");
+
 });
 //faq 질문 삭제 뷰 이벤트
-$(document).on('click','.question-delete-view',function(){
-	var $delete_question=$(this).siblings('.question-delete-back');
-	var $delete_question_all=$('.question-delete-back');
+$(document).on('click','.qna-delete-view',function(){
+	var $delete_question=$(this).siblings('.qna-delete-back');
+	var $delete_question_all=$('.qna-delete-back');
 	console.log($delete_question_all);
 	for(var i=0;i<$delete_question_all.length;i++){
 		if(!$delete_question_all.eq(i).is(':hidden')){
@@ -483,22 +475,37 @@ $(document).on('click','.question-delete-view',function(){
 
 });
 //질문 삭제뷰 버튼 이후 취소버튼 클릭시 삭제뷰 사라지는 이벤트
-$(document).on('click','.question-delete-cancel',function(){
-	var $delete_question=$(this).parent('.question-delete-back');
+$(document).on('click','.qna-delete-cancel',function(){
+	var $delete_question=$(this).parent('.qna-delete-back');
 
 
 	$delete_question.slideUp('slow');
 
 });
 
-//faq 질문 수정 이벤트
-$(document).on('click','.question-update',function(){
-
-	confirm("수정하시겠습니까?")
-});
-//faq 답변 수정 이벤트
-$(document).on('click','.answer-update',function(){
-
-	confirm("수정하시겠습니까?")
+//FAQ 질문 답변 삭제
+$(document).on('click','.qna-delete',function(){
+	
+	var faqNo=$(this).parent().siblings('.faq-no').val();
+	var $faq_tab=$('#nav-faq');
+	$.ajax({
+		
+		url:"deleteFaqnaAdmin.do",
+		data:{
+			"faqNo":faqNo
+		},
+		dataType:"html",
+		success:function(data){
+			$faq_tab.html(data);
+			alert("삭제완료!");
+			
+		}
+	})
 })
+
+$(document).on('click','.faq-category-delete',function(){
+	var delete_flag=confirm("카테고리에 해당하는 모든 질문이 삭제됩니다.");
+})
+
+
 
