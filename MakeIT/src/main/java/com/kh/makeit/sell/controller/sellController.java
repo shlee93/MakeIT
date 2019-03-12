@@ -64,7 +64,7 @@ public class sellController {
       }
       Map<String,String> valueMap =new HashMap();
       
-      
+
 	   valueMap.put("newValue", newValue);
 	   valueMap.put("gradeValue", gradeValue);
 	   valueMap.put("sellValue", sellValue);
