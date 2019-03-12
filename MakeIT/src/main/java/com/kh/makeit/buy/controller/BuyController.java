@@ -30,6 +30,14 @@ public class BuyController {
 	{
 		return "buy/buywrite";
 	}
+	
+	@RequestMapping("/buy/buyWriteEnd.do")
+	public ModelAndView insertBuy()
+	{
+		ModelAndView mv = new ModelAndView();
+		return mv;
+		
+	}
 	@RequestMapping("/buy/volList.do")
 	public ModelAndView selectVolList()
 	{
