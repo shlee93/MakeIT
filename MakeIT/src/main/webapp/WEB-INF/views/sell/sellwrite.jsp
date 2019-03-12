@@ -36,35 +36,7 @@
 	height:100%;
 }
 
-
- 
 </style>
-<!-- <script>
-var subde="";
-	$(function(){
-		$("select[name=interest]").on("change",function(){
-			var interest=$(this).val();
-			$.ajax({
-				url:"${path}/sell/findInterest",
-				data:{"interest":interest},
-				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-				dataType:"json",
-				type:"post",
-				success:function(data){
-					console.log(data);
-					var html="";
-					for(var i = 0;i<data.list.length;i++){
-						console.log(data.list[i]["DETAILINTEREST"]);
-						/* html+="<option value='"+(i+1)+"'>"+data.list[i]["DETAILINTEREST"]+"</option>"; */
-						html+=
-					}
-					$('#detailInterest').html(html);
-				}
-			});
-		});
-	});
-	
-</script> -->
 <script>
        		$(function()
       			{

@@ -6,17 +6,24 @@ import java.util.Map;
 
 import com.kh.makeit.sell.model.vo.SellAttach;
 import com.kh.makeit.sell.model.vo.SellOption;
+import com.kh.makeit.sell.model.vo.SellmainOption;
 
 public interface sellService {
 
-	List<Map<String, String>> findInterest(int interest);
+   List<Map<String, String>> findInterest(int interest);
 
-	int sellWriteEnd(ArrayList<SellAttach> files, Map dataMap, SellOption selloption);
+   int sellWriteEnd(ArrayList<SellAttach> files, Map dataMap, SellOption selloption);
 
-	List<Map> sellMainGrade();
+   List<Map> sellMainGrade(Map map,int cPage, int numPerPage);
 
-	List<Map> sellMainPerformance();
+   List<Map> sellMainPerformance(Map map, int cPage, int numPerPage);
 
-	List<Map> sellMainNew();
+   List<Map<String, String>> sellMainNew(Map map, int cPage, int numPerPage);
+
+int sellCount(Map<String, String> map);
+
+SellAttach imageDiv(String imageId);
+
+SellmainOption sellPrice(String sellNo);
 
 }

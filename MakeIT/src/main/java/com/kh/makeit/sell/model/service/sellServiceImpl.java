@@ -12,70 +12,86 @@ import com.kh.makeit.common.MakeitException;
 import com.kh.makeit.sell.model.dao.SellDao;
 import com.kh.makeit.sell.model.vo.SellAttach;
 import com.kh.makeit.sell.model.vo.SellOption;
+import com.kh.makeit.sell.model.vo.SellmainOption;
 
 @Service
 public class sellServiceImpl implements sellService {
-	@Autowired
-	SellDao dao;
+   @Autowired
+   SellDao dao;
+   @Override
+   public List<Map<String, String>> findInterest(int interest) {
+      // TODO Auto-generated method stub
+      return dao.findInterest(interest);
+   }
+   @Override
+   public int sellWriteEnd(ArrayList<SellAttach> files, Map dataMap, SellOption selloption) {
+      int result=0;
+      int boardNo=0;
+      try {
+         result=dao.insertDataMap(dataMap);
+         if(result==0) //롤백해야되는상황
+         {
+            throw new MakeitException("게시글 등록에 실패하였습니다.");
+         }
+         for(SellAttach a : files)
+         {
+            a.setSellNo(Integer.parseInt((String) (dataMap.get("sellNo"))));
+            result=dao.insertAttach(a);
+            if(result==0)
+            {
+               throw new MakeitException("파일업로드에 실패하였습니다.");  
+            }
+         }
+         int i=0;
+         Map<String,String> map = new HashMap<>();
+         while(i<selloption.getSellOptionContent().length)
+         {
+            selloption.setSellNo(Integer.parseInt((String) (dataMap.get("sellNo"))));
+            map.put("sellNo",(String) (dataMap.get("sellNo")));
+            map.put("selldeadLine", selloption.getSelldeadline()[i]);
+            map.put("sellPrice", selloption.getSellPrice()[i]);
+            map.put("sellOptionContent",selloption.getSellOptionContent()[i]);
+            map.put("selloptionNo","옵션"+(i+1));
+            result=dao.insertOption(map);
+            i++;
+         }
+      }catch(Exception e)
+      {
+         throw e;
+      }
+      return result;
+   }
+   @Override
+   public List<Map> sellMainGrade(Map map,int cPage, int numPerPage) {
+      // TODO Auto-generated method stub
+      return dao.sellMainGrade(map,cPage,numPerPage);
+   }
+   @Override
+   public List<Map> sellMainPerformance(Map map,int cPage, int numPerPage) {
+      // TODO Auto-generated method stub
+      return dao.sellMainPerformance(map,cPage,numPerPage);
+   }
+   @Override
+   public List<Map<String, String>> sellMainNew(Map map, int cPage, int numPerPage) {
+      // TODO Auto-generated method stub
+      return dao.sellMainNew(map,cPage,numPerPage);
+   }
 	@Override
-	public List<Map<String, String>> findInterest(int interest) {
+	public int sellCount(Map<String, String> map) {
 		// TODO Auto-generated method stub
-		return dao.findInterest(interest);
+		return dao.sellCount(map);
 	}
 	@Override
-	public int sellWriteEnd(ArrayList<SellAttach> files, Map dataMap, SellOption selloption) {
-		int result=0;
-		int boardNo=0;
-		try {
-			result=dao.insertDataMap(dataMap);
-			if(result==0) //롤백해야되는상황
-			{
-				throw new MakeitException("게시글 등록에 실패하였습니다.");
-			}
-			for(SellAttach a : files)
-			{
-				a.setSellNo(Integer.parseInt((String) (dataMap.get("sellNo"))));
-				result=dao.insertAttach(a);
-				if(result==0)
-				{
-					throw new MakeitException("파일업로드에 실패하였습니다.");  
-				}
-			}
-			int i=0;
-			Map<String,String> map = new HashMap<>();
-			while(i<selloption.getSellOptionContent().length)
-			{
-				selloption.setSellNo(Integer.parseInt((String) (dataMap.get("sellNo"))));
-				map.put("sellNo",(String) (dataMap.get("sellNo")));
-				map.put("selldeadLine", selloption.getSelldeadline()[i]);
-				map.put("sellPrice", selloption.getSellPrice()[i]);
-				map.put("sellOptionContent",selloption.getSellOptionContent()[i]);
-				map.put("selloptionNo","옵션"+(i+1));
-				result=dao.insertOption(map);
-				i++;
-			}
-		}catch(Exception e)
-		{
-			throw e;
-		}
-		return result;
-	}
-	@Override
-	public List<Map> sellMainGrade() {
+	public SellAttach imageDiv(String imageId) {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.imageDiv(imageId);
 	}
 	@Override
-	public List<Map> sellMainPerformance() {
+	public SellmainOption sellPrice(String sellNo) {
 		// TODO Auto-generated method stub
-		return dao.sellMainPerformance();
+		return dao.sellPrice(sellNo);
 	}
-	@Override
-	public List<Map> sellMainNew() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
+   
 
 
 
