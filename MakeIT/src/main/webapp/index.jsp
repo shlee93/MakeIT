@@ -10,7 +10,7 @@
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 	<c:set var="path" value="${pageContext.request.contextPath }"/>
-</head>
+</head>	
 <body>
 
 <a class="dropdown-item" href="${path }/member/memberEnrollck.do">회원가입</a>

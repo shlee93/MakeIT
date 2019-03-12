@@ -2,48 +2,77 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="sell">
   <select id="findInterest" parameterType="_int" resultType="map">
-  	select DETAILINTEREST from detailinterest where INTERESTNO=#{interest}
+     select DETAILINTEREST from detailinterest where INTERESTNO=#{interest}
   </select>
  <insert id="insertDataMap" parameterType="map">
-		insert into sell values(seq_sellno.nextval,'S',#{detailInterest},#{interest},#{title},default,#{content},#{writer},default,default)
-		<selectKey keyProperty="sellNo" resultType="string" order="AFTER">
-			select seq_sellno.currval from dual 
-		</selectKey>
+      insert into sell values(seq_sellno.nextval,'S',#{detailInterest},#{interest},#{title},default,#{content},#{writer},default,default)
+      <selectKey keyProperty="sellNo" resultType="string" order="AFTER">
+         select seq_sellno.currval from dual 
+      </selectKey>
 </insert>
 
 <insert id="insertAttach" parameterType="com.kh.makeit.sell.model.vo.SellAttach">
-	insert into sellimg values(SEQ_SELLIMG.nextval,#{sellNo},'S',#{sellImgOri},#{sellImgRe})
+   insert into sellimg values(SEQ_SELLIMG.nextval,#{sellNo},'S',#{sellImgOri},#{sellImgRe})
 </insert>
 
 <insert id="insertOption" parameterType="map">
-	insert into SELLOPTION values(#{selloptionNo},#{sellNo},'S',#{sellPrice},#{sellOptionContent},#{selldeadLine})
+   insert into SELLOPTION values(#{selloptionNo},#{sellNo},'S',#{sellPrice},#{sellOptionContent},#{selldeadLine})
 </insert>
 
 <select id="sellMainGrade" resultType="map" parameterType="map">
-	select sellno, categorycode, memberid, detailinterestno, sell.interestno, selltitle, selldate, selldeleteyn, sellcheckyn, gradeno, sellimgno, sellimgori, sellimgre from sell join member using(memberid) join sellimg using(sellno, categorycode) where 1 = 1
-	<if test="sCategoryFlag!=null and sCategoryFlag!=''">
-		and detailinterestno = #{sCategoryFlag}
-	</if>
-	and sell.interestno = #{bCategoryFlag}
-	order by gradeno desc
+  select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.gradeno, se.detailinterestno, se.interestno, se.selltitle, se.selldate, se.selldeleteyn, se.sellcheckyn from sell se  join member mem on(se.memberid=mem.memberid) join grade gr on(mem.gradeno=gr.gradeno) where 1 = 1
+   <if test='sCategoryFlag==null or sCategoryFlag==""'>
+      and se.interestno=1  order by gr.gradeno desc
+   </if>
+   <choose>
+         <when test='sCategoryFlag!=null and sCategoryFlag!=""'> 
+         and se.detailinterestno = #{sCategoryFlag} order by gr.gradeno desc
+         </when>
+   </choose>
 </select>
 
 <select id="sellMainPerformance" resultType="map" parameterType="map">
-	select * from performance join sell using(memberId) join sellimg using(sellno,categorycode) where 1 = 1
-	
-	<if test="sCategoryFlag==null and sCategoryFlag==''">
-		and detailinterestno = 1
-	</if>
-	and interestno = 1
-	order by totalsale desc
+   select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.gradeno,pf.totalsale, se.detailinterestno, se.interestno, se.selltitle, se.selldate, se.selldeleteyn, se.sellcheckyn from sell se  join member mem on(se.memberid=mem.memberid) join PERFORMANCE pf on(mem.memberid=pf.memberid) join grade gr on(gr.gradeno=mem.gradeno) where 1 = 1
+
+    <if test='sCategoryFlag==null or sCategoryFlag==""'>
+      and se.interestno=1  order by pf.totalsale desc
+   </if>
+   <choose>
+         <when test='sCategoryFlag!=null and sCategoryFlag!=""'> 
+         and se.detailinterestno = #{sCategoryFlag} order by pf.totalsale desc
+         </when>
+   </choose>
 </select>
 
 <select id="sellMainNew" resultType="map" parameterType="map">
-	select * from sell join sellimg using(sellno, categorycode) where 1 = 1
-	<if test="sCategoryFlag==null and sCategoryFlag==''">
-		and detailinterestno = #{sCategoryFlag}
-	</if>
-	and interestno = #{bCategoryFlag}
-	order by selldate desc
+select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.gradeno,se.detailinterestno, se.interestno, se.selltitle, se.selldate, se.selldeleteyn, se.sellcheckyn from sell se  join member mem on(se.memberid=mem.memberid) join grade gr on(gr.gradeno=mem.gradeno) where 1 = 1 
+   <if test='sCategoryFlag==null or sCategoryFlag==""'>
+      and se.interestno=1  order by selldate desc
+   </if>
+   <choose>
+         <when test='sCategoryFlag!=null and sCategoryFlag!=""'> and se.detailinterestno = #{sCategoryFlag} order by selldate desc</when>
+   </choose>
 </select> 
+
+<select id="sellCount" resultType="_int" parameterType="map">
+   select count(distinct sellno) from sell join sellimg using(sellno,categorycode) where 1=1
+  <if test='sCategoryFlag==null or sCategoryFlag==""'>
+      and interestno = 1
+   </if>
+   <choose>
+         <when test='sCategoryFlag!=null and sCategoryFlag!=""'> and detailinterestno = #{sCategoryFlag}</when>
+   </choose>
+</select>
+
+<select id="imageDiv" parameterType="com.kh.makeit.sell.model.vo.SellAttach" resultType="com.kh.makeit.sell.model.vo.SellAttach">
+	select SELLIMGNO,SELLNO,CATEGORYCODE,SELLIMGORI,SELLIMGRE from sellIMG where sellIMGNO=(select MIN(sellIMGNO) from sellIMG where sellno=#{imageId})
+</select>
+
+<select id="sellPrice" parameterType="string" resultMap="priceMap">
+	select sellno,sellprice from(select sellno,min(sellprice) sellprice from selloption where sellno=#{sellno} group by sellno)
+</select>
+<resultMap type="com.kh.makeit.sell.model.vo.SellmainOption" id="priceMap">
+	<result column="SELLPRICE" property="sellPrice"/>
+</resultMap>
 </mapper>
+
