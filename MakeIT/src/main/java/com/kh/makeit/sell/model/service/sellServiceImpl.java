@@ -91,6 +91,12 @@ public class sellServiceImpl implements sellService {
 		// TODO Auto-generated method stub
 		return dao.sellPrice(sellNo);
 	}
+	//퍼포먼스를위한 카운트
+	@Override
+	public int sellPerCount(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return dao.sellPerCount(map);
+	}
    
 
 

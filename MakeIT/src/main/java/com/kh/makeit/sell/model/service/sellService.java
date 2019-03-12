@@ -26,4 +26,6 @@ SellAttach imageDiv(String imageId);
 
 SellmainOption sellPrice(String sellNo);
 
+int sellPerCount(Map<String, String> map);
+
 }

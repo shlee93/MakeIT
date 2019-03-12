@@ -77,6 +77,12 @@ public class SellDaoImpl implements SellDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("sell.sellPrice",sellNo);
 	}
+
+	@Override
+	public int sellPerCount(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("sell.sellPerCount",map);
+	}
    
 
 }

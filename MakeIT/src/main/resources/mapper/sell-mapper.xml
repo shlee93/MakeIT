@@ -74,4 +74,17 @@ select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.g
 <resultMap type="com.kh.makeit.sell.model.vo.SellmainOption" id="priceMap">
 	<result column="SELLPRICE" property="sellPrice"/>
 </resultMap>
+
+
+<!-- 퍼포먼스를위한 카운트 -->
+<select id="sellPerCount" parameterType="map" resultType="_int">
+	select count(distinct sellno) from sell se join member mb on(se.memberid=mb.memberid) join performance pf on(se.memberid=pf.memberid)  where 1=1
+  <if test='sCategoryFlag==null or sCategoryFlag==""'>
+      and se.interestno = 1  
+   </if>
+   <choose>
+         <when test='sCategoryFlag!=null and sCategoryFlag!=""'> and detailinterestno = #{sCategoryFlag} and totalsale is not null</when>
+   </choose>
+</select>
+
 </mapper>
