@@ -84,24 +84,22 @@ public class sellServiceImpl implements sellService {
 	@Override
 
 	public SellAttach imageDiv(String imageId) {
-
 		// TODO Auto-generated method stub
-
 		return dao.imageDiv(imageId);
-
 	}
 	@Override
-
 	public SellmainOption sellPrice(String sellNo) {
-
 		// TODO Auto-generated method stub
-
 		return dao.sellPrice(sellNo);
-
 	}
 
+	//퍼포먼스를위한 카운트
+	@Override
+	public int sellPerCount(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return dao.sellPerCount(map);
+	}
    
-
 
 
 

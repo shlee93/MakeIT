@@ -40,11 +40,8 @@
 </head>
 <body>
 <script>
-
     $(document).on("click",".sell-page",function(){
     	var cPage=$(this).children('.nextNum').val();
-    	console.log(cPage);
-    	console.log($("#gradeValue").val()+"셀그레이드!!!")
     	if($("#newValue").val()=='1'){
     	$.ajax({
      		url:"${path}/sell/sellNewChange.do",
@@ -80,10 +77,10 @@
          		});
     	}
     });
-
    
     
     $(document).ready(function(){
+       pageFrm.sCategoryFlag.value="${sCategoryFlag}";
         $(".menu>a").click(function(){
             var submenu = $(this).next("ul");
  
@@ -93,32 +90,22 @@
             }else{
                 submenu.slideDown();
             }
-
         });        		        
-
     });
     
-    function fn_changeCategory(bCtgr, sCtgr)
+    function fn_changeCategory(sCtgr)
     {
-
-       var url="${path}/sell/sellMain.do";
-      
-      pageFrm.bCategoryFlag.value=bCtgr;
+       var url="${path}/sell/sellmain.do"; 
       pageFrm.sCategoryFlag.value=sCtgr;
-      
       pageFrm.action=url;
       pageFrm.method="post";
       pageFrm.submit();
-
     }
     
     
 </script>
 <form action="" name="pageFrm">
-
-   <input type="hidden" name="bCategoryFlag" value="1"/>
    <input type="hidden" name="sCategoryFlag" value=""/>
-   <input type="hidden" name="sortFlag" value="1"/>
 </form>
 <input type="hidden" id="newValue" value="1">
 <input type="hidden" id="gradeValue" value="0">
@@ -128,7 +115,6 @@
       <div class='col-md-10'>
          <div class='row'>               
             <div class='col-md-2 col-xs-2'>
-
                <!-- 네비 사이드 -->
                
                     <div class="nav-side-menu">
@@ -141,14 +127,12 @@
                                        <i class="fas fa-cogs"></i> &nbsp;개발자 
                                     </a>
                               <ul class="hide">
-
-                                  <li onclick="fn_changeCtgr">웹</li>
-
-                                  <li>모바일</li>
-                                  <li>게임</li>
-                                  <li>응용프로그램</li>
-                                  <li>보안프로그램</li>
-                                  <li>DB관리</li>
+                                  <li onclick="fn_changeCategory('1');">웹</li>
+                                  <li onclick="fn_changeCategory('2');">모바일</li>
+                                  <li onclick="fn_changeCategory('3');">게임</li>
+                                  <li onclick="fn_changeCategory('4');">응용프로그램</li>
+                                  <li onclick="fn_changeCategory('5');">보안프로그램</li>
+                                  <li onclick="fn_changeCategory('6');">DB관리</li>
                               </ul>
                           </li>
                         <li class="menu">
@@ -156,9 +140,9 @@
                                        <i class="fas fa-pen-fancy"></i> &nbsp;웹 디자이너 
                                       </a>
                               <ul class="hide">
-                                  <li>웹 디자인</li>
-                                  <li>웹 퍼블리셔</li>
-                                  <li>게임 디자인</li>
+                                  <li onclick="fn_changeCategory('7');">웹 디자인</li>
+                                  <li onclick="fn_changeCategory('8');">웹 퍼블리셔</li>
+                                  <li onclick="fn_changeCategory('9');">게임 디자인</li>
                               </ul>
                         </li>
                         <li class="menu">
@@ -166,11 +150,10 @@
                                        <i class="fas fa-shield-alt"></i> &nbsp;네트워크보안
                                       </a>
                               <ul class="hide">
-                                  <li>모의해킹</li>
-                                  <li>침해대응</li>
-                                  <li>보안관제</li>
-                                  <li>컨설턴트</li>
-
+                                  <li onclick="fn_changeCategory('10');">모의해킹</li>
+                                  <li onclick="fn_changeCategory('11');">침해대응</li>
+                                  <li onclick="fn_changeCategory('12');">보안관제</li>
+                                  <li onclick="fn_changeCategory('13');">컨설턴트</li>
                               </ul>
                         </li>
                    </ul>
@@ -189,11 +172,9 @@
                             
                <nav>
                   <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-
                        <a class="nav-item nav-link active" id="nav-home-tab" onclick="fn_valueChangeNew();" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">신규등록</a>
                      <a class="nav-item nav-link" id="nav-profile-tab" onclick="fn_valueChangeGrade();" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">등급별</a>
-                     <a class="nav-item nav-link" id="nav-contact-tab"  onclick="fn_valueChangePerformance();" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">실적별</a>                      
-
+                     <a class="nav-item nav-link" id="nav-contact-tab"  onclick="fn_valueChangePerformance();" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">실적별</a>
                   </div>
                </nav>
                <script>
@@ -543,7 +524,7 @@
                            </div>
                              
                        </div>
-                      
+                        ${pageBar2}
                   </div>
                                                                     
          </div>            

@@ -37,7 +37,6 @@
 }
 
 </style>
-
 <script>
              $(function()
                {
@@ -151,10 +150,12 @@
    </form>
    <script>
    var sel_files=[];
+   var count = 0;
    $(document).ready(function(){
           //preview image 
+          
           var imgTarget = $('.preview-image .upload-hidden');
-
+			
           imgTarget.on('change', function(e){
              var files=e.target.files;
               var filesArr=Array.prototype.slice.call(files);
@@ -168,6 +169,7 @@
                return;
             }
               filesArr.forEach(function(f){
+            	  count = 0;
                   if(!f.type.match("image.*")){
                      alert("확장자는 이미지 확장자만 가능합니다.");
                      return;
@@ -179,10 +181,12 @@
                   var reader=new FileReader();
                   reader.onload=function(e){
                      var src = e.target.result;
-                      parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+                      parent.prepend('<div class="upload-display"><input type="radio" name="mainImgNo" value='+ (count++) +'><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
                   }
                   
                   reader.readAsDataURL(f);
+                  
+                  
                })
            });
       });

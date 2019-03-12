@@ -22,8 +22,6 @@ public interface SellDao {
    
    List<Map> sellMainPerformance(Map map,int cPage, int numPerPage);
 
-
-
    List<Map<String, String>> sellMainNew(Map map, int cPage, int numPerPage);
 
    int sellCount(Map<String, String> map);
@@ -32,6 +30,7 @@ SellAttach imageDiv(String imageId);
 
 SellmainOption sellPrice(String sellNo);
 
+int sellPerCount(Map<String, String> map);
+
 
 }
-

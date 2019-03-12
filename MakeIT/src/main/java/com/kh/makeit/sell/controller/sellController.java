@@ -42,10 +42,7 @@ public class sellController {
    @RequestMapping("/sell/sellmain.do")
    public ModelAndView sellMain(@RequestParam(value="cPage",required=false,defaultValue="0") int cPage, HttpServletRequest request)
    {
-
-	  String bCategoryFlag = "1";
       String sCategoryFlag ="";
-      String sortFlag = "1";
       String newValue="1";
       String gradeValue="";
       String sellValue="";
@@ -55,33 +52,24 @@ public class sellController {
       }
       if(request.getParameter("gradeValue") != null)
       {
-    	  gradeValue = request.getParameter("gradeValue");
-    	  System.out.println("넘어오라고!!!!"+gradeValue);
+    	  gradeValue = request.getParameter("gradeValue");    	  
       }
       if(request.getParameter("sellValue") != null)
       {
     	  sellValue = request.getParameter("sellValue");
       }
-      if(request.getParameter("bCategoryFlag") != null)
-      {
-         bCategoryFlag = request.getParameter("bCategoryFlag");
-      }
+
       if(request.getParameter("sCategoryFlag") != null)
       {
          sCategoryFlag = request.getParameter("sCategoryFlag");
       }
-      if(request.getParameter("sortFlag") != null)
-      {
-         sortFlag = request.getParameter("sortFlag");
-      }
       Map<String,String> valueMap =new HashMap();
       
-      
+
 	   valueMap.put("newValue", newValue);
 	   valueMap.put("gradeValue", gradeValue);
 	   valueMap.put("sellValue", sellValue);
       Map<String,String> map = new HashMap();
-      map.put("bCategoryFlag", bCategoryFlag);
       map.put("sCategoryFlag", sCategoryFlag);
       int numPerPage=6;
       int contentCount=service.sellCount(map);
@@ -98,9 +86,7 @@ public class sellController {
       mv.addObject("performanceList",performanceList);
       mv.addObject("valueMap", valueMap);
       mv.addObject("newList",newList);
-      mv.addObject("bCategoryFlag",bCategoryFlag);
       mv.addObject("sCategoryFlag",sCategoryFlag);
-      mv.addObject("sortFlag",sortFlag);
       mv.setViewName("sell/sellmain");
       return mv;
    }
@@ -111,8 +97,9 @@ public class sellController {
       return "sell/sellwrite";
    }
    @RequestMapping("/sell/sellWriteEnd")
-   public ModelAndView sellWriteEnd(String[] price,int interest, int detailInterest,String writeTitle,String[] endDate,String[] productOption,String sellContent,MultipartFile[] input_file,HttpServletRequest request )
+   public ModelAndView sellWriteEnd(String[] price,int interest, int detailInterest,String writeTitle,String[] endDate,String[] productOption,String sellContent,MultipartFile[] input_file, int mainImgNo, HttpServletRequest request )
    {   
+	  System.out.println(mainImgNo + "메인이미지값");
       System.out.println(interest+"대분류");
       System.out.println(detailInterest+"소분류");
       HttpSession session = request.getSession();
@@ -130,6 +117,13 @@ public class sellController {
       ArrayList<SellAttach> files=new ArrayList();
       String savDir=request.getSession().getServletContext().getRealPath("/resources/upload/sell");
       Map imgMap=new HashMap();
+      
+      
+      MultipartFile index = input_file[mainImgNo];
+      input_file[mainImgNo] = input_file[0];
+      input_file[0] = index;
+     
+      
       for(MultipartFile f: input_file)
       {
          if(!f.isEmpty()) {
@@ -214,25 +208,14 @@ public class sellController {
    @ResponseBody
    public ModelAndView newVc(@RequestParam(value="cPage",required=false,defaultValue="0") int cPage,String newValue,String gradeValue,String sellValue,HttpServletRequest request)
    {
-	   String bCategoryFlag = "1";
 	      String sCategoryFlag ="";
-	      String sortFlag = "1";
-	      newValue="1";
-	      if(request.getParameter("bCategoryFlag") != null)
-	      {
-	         bCategoryFlag = request.getParameter("bCategoryFlag");
-	      }
+	      newValue="1";	     
 	      if(request.getParameter("sCategoryFlag") != null)
 	      {
 	         sCategoryFlag = request.getParameter("sCategoryFlag");
 	      }
-	      if(request.getParameter("sortFlag") != null)
-	      {
-	         sortFlag = request.getParameter("sortFlag");
-	      }
 	  
 	      Map<String,String> map = new HashMap();
-	      map.put("bCategoryFlag", bCategoryFlag);
 	      map.put("sCategoryFlag", sCategoryFlag);
 	      int numPerPage=6;
 	      int contentCount=service.sellCount(map);	     
@@ -248,25 +231,15 @@ public class sellController {
    @RequestMapping("/sell/sellGradeChange.do")
    @ResponseBody
    public ModelAndView gradeVc(@RequestParam(value="cPage",required=false,defaultValue="0") int cPage,HttpServletRequest request)
-   {
-	   String bCategoryFlag = "1";
-	      String sCategoryFlag ="";
-	      String sortFlag = "1";	      
-	      if(request.getParameter("bCategoryFlag") != null)
-	      {
-	         bCategoryFlag = request.getParameter("bCategoryFlag");
-	      }
+   {	   
+	      String sCategoryFlag ="";      	      	      
 	      if(request.getParameter("sCategoryFlag") != null)
 	      {
 	         sCategoryFlag = request.getParameter("sCategoryFlag");
 	      }
-	      if(request.getParameter("sortFlag") != null)
-	      {
-	         sortFlag = request.getParameter("sortFlag");
-	      }
+	   
 	  
 	      Map<String,String> map = new HashMap();
-	      map.put("bCategoryFlag", bCategoryFlag);
 	      map.put("sCategoryFlag", sCategoryFlag);
 	      int numPerPage=6;
 	      int contentCount=service.sellCount(map);	     
@@ -282,29 +255,21 @@ public class sellController {
    @RequestMapping("/sell/sellSellChange.do")
    @ResponseBody
    public ModelAndView sellSellPageBar(@RequestParam(value="cPage",required=false,defaultValue="0") int cPage,HttpServletRequest request)
-   {
-	   	  String bCategoryFlag = "1";
+   {	   	  
 	      String sCategoryFlag ="";
 	      String sortFlag = "1";
 	   
-	      if(request.getParameter("bCategoryFlag") != null)
-	      {
-	         bCategoryFlag = request.getParameter("bCategoryFlag");
-	      }
+	
 	      if(request.getParameter("sCategoryFlag") != null)
 	      {
 	         sCategoryFlag = request.getParameter("sCategoryFlag");
 	      }
-	      if(request.getParameter("sortFlag") != null)
-	      {
-	         sortFlag = request.getParameter("sortFlag");
-	      }
+	    
 	  
 	      Map<String,String> map = new HashMap();
-	      map.put("bCategoryFlag", bCategoryFlag);
 	      map.put("sCategoryFlag", sCategoryFlag);
 	      int numPerPage=6;
-	      int contentCount=service.sellCount(map);
+	      int contentCount=service.sellPerCount(map);
 	      ModelAndView mv = new ModelAndView();
 	      
 	      List<Map> performanceList = service.sellMainPerformance(map,cPage,numPerPage);

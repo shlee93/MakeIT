@@ -54,6 +54,7 @@ public class SellDaoImpl implements SellDao {
       return sqlSession.selectList("sell.sellMainPerformance", map,rb);
    }
 
+
    @Override
    public List<Map<String, String>> sellMainNew(Map map,int cPage,int numPerPage) {
       // TODO Auto-generated method stub
@@ -78,6 +79,13 @@ public class SellDaoImpl implements SellDao {
 	public SellmainOption sellPrice(String sellNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("sell.sellPrice",sellNo);
+	}
+
+
+	@Override
+	public int sellPerCount(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("sell.sellPerCount",map);
 	}
    
 
