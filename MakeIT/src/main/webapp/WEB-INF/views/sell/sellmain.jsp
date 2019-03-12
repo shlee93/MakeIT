@@ -39,77 +39,9 @@
 </style>
 </head>
 <body>
-<script>
-    $(document).on("click",".sell-page",function(){
-    	var cPage=$(this).children('.nextNum').val();
-    	if($("#newValue").val()=='1'){
-    	$.ajax({
-     		url:"${path}/sell/sellNewChange.do",
-     		data:{
-     			"cPage":cPage
-     		},
-            dataType:"html",
-               success:function(data){                        	          	  
-            	   $("#nav-home").html(data);             	
-               }
-     		});
-    	}else if($("#gradeValue").val()=='1'){
-    		$.ajax({
-         		url:"${path}/sell/sellGradeChange.do",
-         		data:{
-         			"cPage":cPage
-         		},
-                dataType:"html",
-                   success:function(data){                        	          	  
-                	   $("#nav-profile").html(data);             	
-                   }
-         		});
-    	}else if ($("#sellValue").val()=='1'){  
-    		$.ajax({
-         		url:"${path}/sell/sellSellChange.do",
-         		data:{
-         			"cPage":cPage
-         		},
-                dataType:"html",
-                   success:function(data){                        	          	  
-                	   $("#nav-contact").html(data);             	
-                   }
-         		});
-    	}
-    });
-   
-    
-    $(document).ready(function(){
-      
-      
-       pageFrm.sCategoryFlag.value="${sCategoryFlag}";
-       
-       
-        $(".menu>a").click(function(){
-            var submenu = $(this).next("ul");
- 
-          
-            if( submenu.is(":visible") ){
-                submenu.slideUp();
-            }else{
-                submenu.slideDown();
-            }
-        });        		        
-    });
-    
-    function fn_changeCategory(sCtgr)
-    {
-       var url="${path}/sell/sellmain.do"; 
-      pageFrm.sCategoryFlag.value=sCtgr;
-      pageFrm.action=url;
-      pageFrm.method="post";
-      pageFrm.submit();
-    }
-    
-    
-</script>
+
 <form action="" name="pageFrm">
-   <input type="hidden" name="sCategoryFlag" value=""/>
+   <input type="hidden" id="sCategoryFlag" name="sCategoryFlag" value=""/>
 </form>
 <input type="hidden" id="newValue" value="1">
 <input type="hidden" id="gradeValue" value="0">
@@ -186,9 +118,11 @@
                function fn_valueChangeNew()
                {
             	   var pageBarCon="";
-             	   var html ="";                   	   
+             	   var html ="";         
+             	   var sCategoryFlag = $("#sCategoryFlag").val();
             	    $.ajax({
-                 		url:"${path}/sell/sellNewChange.do",                  		
+                 		url:"${path}/sell/sellNewChange.do",
+                 		data:{"sCategoryFlag":sCategoryFlag},
                         dataType:"html",
                            success:function(data){                        	  
                         	  html+=data;                        	  
@@ -200,13 +134,16 @@
             	    $("#sellValue").attr("value","0");
                } 
               function fn_valueChangeGrade()
-               {
+               {	
+            	  var sCategoryFlag = $("#sCategoryFlag").val();
             	   var pageBarCon="";
              	   var html ="";                   	  
             	    $.ajax({
-                 		url:"${path}/sell/sellGradeChange.do",                  		
+                 		url:"${path}/sell/sellGradeChange.do",  
+                 		data:{"sCategoryFlag":sCategoryFlag},
                         dataType:"html",
-                           success:function(data){                        	  
+                           success:function(data){    
+                        	   console.log(data);
                         	  html+=data;                        	  
                         	   $("#nav-profile").html(html);                        
                            }
@@ -217,10 +154,12 @@
                } 
                function fn_valueChangePerformance()
                {
+            	var sCategoryFlag=$("#sCategoryFlag").val()
             	   var pageBarCon="";
              	   var html ="";                   	  
             	    $.ajax({
-                 		url:"${path}/sell/sellSellChange.do",                  		
+                 		url:"${path}/sell/sellSellChange.do",      
+                 		data:{"sCategoryFlag":sCategoryFlag},
                         dataType:"html",
                            success:function(data){                        	  
                         	  html+=data;                        	  
@@ -231,7 +170,121 @@
             	    $("#gradeValue").attr("value","0");
             	    $("#sellValue").attr("value","1");
                } 
+               
+               
+               
+               $(document).on("click",".sell-page",function(){
+               	var cPage=$(this).children('.nextNum').val();
+               	var sCategoryFlag=$("#sCategoryFlag").val()
+               	
+               	if($("#newValue").val()=='1'){
+               	$.ajax({
+                		url:"${path}/sell/sellNewChange.do",
+                		data:{
+                			"cPage":cPage,"sCategoryFlag":sCategoryFlag
+                		},
+                       dataType:"html",
+                          success:function(data){                        	          	  
+                       	   $("#nav-home").html(data);             	
+                          }
+                		});
+               	}else if($("#gradeValue").val()=='1'){
+               		var sCategoryFlag=$("#sCategoryFlag").val()
+               		$.ajax({
+                    		url:"${path}/sell/sellGradeChange.do",
+                    		data:{
+                    			"cPage":cPage,"sCategoryFlag":sCategoryFlag
+                    		},
+                           dataType:"html",
+                              success:function(data){                        	          	  
+                           	   $("#nav-profile").html(data);             	
+                              }
+                    		});
+               	}else if ($("#sellValue").val()=='1'){  
+               		var sCategoryFlag=$("#sCategoryFlag").val()
+               		$.ajax({
+                    		url:"${path}/sell/sellSellChange.do",
+                    		data:{
+                    			"cPage":cPage,"sCategoryFlag":sCategoryFlag
+                    		},
+                           dataType:"html",
+                              success:function(data){                        	          	  
+                           	   $("#nav-contact").html(data);             	
+                              }
+                    		});
+               	}
+               });
               
+               
+               $(document).ready(function(){
+                 
+                 
+                  pageFrm.sCategoryFlag.value="${sCategoryFlag}";
+                  
+                  
+                   $(".menu>a").click(function(){
+                       var submenu = $(this).next("ul");
+            
+                     
+                       if( submenu.is(":visible") ){
+                           submenu.slideUp();
+                       }else{
+                           submenu.slideDown();
+                       }
+                   });        		        
+               });
+               
+               function fn_changeCategory(sCtgr)
+               {
+               	 console.log($("#sCategoryFlag").val());
+               	var url="${path}/sell/sellmain.do"; 
+                 pageFrm.sCategoryFlag.value=sCtgr;
+                 pageFrm.action=url;
+                 pageFrm.method="post";
+                 pageFrm.submit();
+               }
+               function fn_searchtw(){
+            	   var searchtype = $("#searchtype").val();
+            	   var searchValue =$("#searchValue").val();
+            		var sCategoryFlag=$("#sCategoryFlag").val();
+            	   var newValue=$("#newValue").val();
+            	   var gradeValue=$("#gradeValue").val();
+            	   var sellValue=$("#sellValue").val();            	   
+            	  	if($("#newValue").val()=='1'){
+            	   $.ajax({
+               		url:"${path}/sell/sellSellSearch.do",
+               		data:{
+               			"searchtype":searchtype,"searchValue":searchValue,"sCategoryFlag":sCategoryFlag,"newValue":newValue,"gradeValue":gradeValue,"sellValue":sellValue
+               		},
+                      dataType:"html",
+                         success:function(data){                        	          	  
+                      	   $("#nav-home").html(data);             	
+                         }
+               		});
+               	}else if($("#gradeValue").val()=='1'){
+               	 $.ajax({
+                		url:"${path}/sell/sellSellSearch.do",
+                		data:{
+                			"searchtype":searchtype,"searchValue":searchValue,"sCategoryFlag":sCategoryFlag,"gradeValue":gradeValue,"newValue":newValue,"sellValue":sellValue
+                		},
+                       dataType:"html",
+                          success:function(data){                        	          	  
+                       	   $("#nav-profile").html(data);             	
+                          }
+                		});
+               	}else if ($("#sellValue").val()=='1'){  
+               	 $.ajax({
+             		url:"${path}/sell/sellSellSearch.do",
+             		data:{
+             			"searchtype":searchtype,"searchValue":searchValue,"sCategoryFlag":sCategoryFlag,"sellValue":sellValue,"newValue":newValue,"gradeValue":gradeValue
+             		},
+                    dataType:"html",
+                       success:function(data){                        	          	  
+                    	   $("#nav-contact").html(data);             	
+                       }
+             		});
+               	}
+               }
                </script>
                <!-- 엘범 뷰 상단 탭 끝 -->
                
@@ -253,8 +306,12 @@
                              <div style="margin-right:0;">
                                 <form class="form-inline my-2 my-lg-0">
                                       <i class='fa fa-search'></i>&nbsp;
-                                   <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                                   <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+                                   <select id="searchtype"name="searchtype" class="form-control">
+  										<option value='title'>제목</option>
+  										<option value='writer'>작성자</option>                                 
+                                   </select>
+                                   <input class="form-control mr-sm-2" type="text" id="searchValue" placeholder="Search" aria-label="Search">                                  
+                                   <button class="btn btn-primary my-2 my-sm-0" onclick="fn_searchtw();" type="button">Search</button>
                                </form>
                             </div>
                         </nav>
@@ -294,11 +351,7 @@
                                             <h3 class="title">${newList.MEMBERID}</h3>                                                                                      
                                            <p class="description">
                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ad adipisci pariatur qui.
-                                           </p>
-                                           <ul class="icon">
-                                               <li><a href="#" class="fa fa-search"></a></li>
-                                               <li><a href="#" class="fa fa-link"></a></li>
-                                           </ul>
+                                           </p>                                       
                                        </div>
                                    </div>
                                    <div class='sub-description'>
@@ -393,10 +446,7 @@
                                            <p class="description">
                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ad adipisci pariatur qui.
                                            </p>
-                                           <ul class="icon">
-                                               <li><a href="#" class="fa fa-search"></a></li>
-                                               <li><a href="#" class="fa fa-link"></a></li>
-                                           </ul>
+                                          
                                        </div>
                                    </div>
                                    <div class='sub-description'>
@@ -488,10 +538,7 @@
                                            <p class="description">
                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ad adipisci pariatur qui.
                                            </p>
-                                           <ul class="icon">
-                                               <li><a href="#" class="fa fa-search"></a></li>
-                                               <li><a href="#" class="fa fa-link"></a></li>
-                                           </ul>
+                                      
                                        </div>
                                    </div>
                                    <div class='sub-description'>
@@ -538,10 +585,6 @@
    <div class='col-md-1'>
       
    </div>
-<script>
-function fn_newsellpost(){
-   location.href="${path}/sellmain/newsellpost.do"
-}
-</script>
+
 </body>
 </html>

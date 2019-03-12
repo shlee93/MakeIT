@@ -97,7 +97,26 @@ public class sellServiceImpl implements sellService {
 		// TODO Auto-generated method stub
 		return dao.sellPerCount(map);
 	}
+
+	//서치
+	@Override
+	public List<Map<String, String>> sellSearch(Map map) {
+		// TODO Auto-generated method stub
+		return dao.sellSearch(map);
+	}
+	@Override
+	public int searchCount(Map<String, String> map2) {
+		// TODO Auto-generated method stub
+		return dao.searchCount(map2);
+	}
+	@Override
+	public int searchPerCount(Map<String, String> map2) {
+		// TODO Auto-generated method stub
+		return dao.searchPerCount(map2);
+	}
    
+	
+	
 
 
 

@@ -83,6 +83,28 @@ public class SellDaoImpl implements SellDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("sell.sellPerCount",map);
 	}
+
+	@Override
+	public List<Map<String, String>> sellSearch(Map map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("sell.sellSearch",map);
+	}
+
+	@Override
+	public int searchCount(Map<String, String> map2) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("sell.searchCount", map2);
+	}
+
+	@Override
+	public int searchPerCount(Map<String, String> map2) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("sell.searchPerCount", map2);
+	}
+
+	
+	
    
+	
 
 }

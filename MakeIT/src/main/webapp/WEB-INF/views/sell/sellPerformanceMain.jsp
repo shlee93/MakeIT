@@ -4,7 +4,25 @@
    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
-
+    <div class='row'>
+                           <nav class="nav" style="width: 100%;">                                
+                                  
+                             <ul class="nav__link-wrapper">
+                               <li class="nav__link"><a href="#">새 글 작성</a></li>
+                             </ul>
+                             <div style="margin-right:0;">
+                                <form class="form-inline my-2 my-lg-0">
+                                      <i class='fa fa-search'></i>&nbsp;
+                                        <select id="searchtype"name="searchtype" class="form-control">
+  										<option value='title'>제목</option>
+  										<option value='writer'>작성자</option>                                 
+                                   </select>
+                                   <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                                   <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+                               </form>
+                            </div>
+                        </nav>
+                     </div>
               <div class="container mt-40">                            
                           <h3 class="text-center">실적별</h3>
                            <div class="row mt-30">                             

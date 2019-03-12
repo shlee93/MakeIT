@@ -31,5 +31,11 @@ SellmainOption sellPrice(String sellNo);
 
 int sellPerCount(Map<String, String> map);
 
+List<Map<String, String>> sellSearch(Map map);
+
+int searchCount(Map<String, String> map2);
+
+int searchPerCount(Map<String, String> map2);
+
 
 }
