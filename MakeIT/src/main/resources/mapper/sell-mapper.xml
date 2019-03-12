@@ -119,29 +119,29 @@ select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.g
 </select>
 
 <select id="searchCount" parameterType="map" resultType="_int">
-	select count(distinct sellno) from sell join sellimg using(sellno,categorycode) where 1=1
-   <choose>
-         <when test='sCategoryFlag!=null and sCategoryFlag!=""'> and detailinterestno = #{sCategoryFlag}</when>
-   </choose>
+	select count(distinct sellno) from sell  where 1=1
+   <if test='sCategoryFlag!=null and sCategoryFlag!=""'> 
+   		and detailinterestno = #{sCategoryFlag}
+   </if>
   
 	<if test='searchtype=="title"'>
 		and selltitle like '%'||#{searchValue}||'%'
 	</if>
-	<if test='searchValue=="writer"'>
+	<if test='searchtype=="writer"'>
 		and memberid like '%'||#{searchValue}||'%'
 	</if>
   
 </select>
 <select id="searchPerCount" parameterType="map" resultType="_int">
 	select count(distinct sellno) from sell se join member mb on(se.memberid=mb.memberid) join performance pf on(se.memberid=pf.memberid)  where 1=1
-   <choose>
-         <when test='sCategoryFlag!=null and sCategoryFlag!=""'> and detailinterestno = #{sCategoryFlag} and totalsale is not null</when>
-   </choose>
+   <if test='sCategoryFlag!=null and sCategoryFlag!=""'> 
+   		and se.detailinterestno = #{sCategoryFlag} and pf.totalsale is not null
+   </if>
    <if test='searchtype=="title"'>
-		and selltitle like '%'||#{searchValue}||'%'
+		and se.selltitle like '%'||#{searchValue}||'%'
 	</if>
-	<if test='searchValue=="writer"'>
-		and memberid like '%'||#{searchValue}||'%'
+	<if test='searchtype=="writer"'>
+		and se.memberid like '%'||#{searchValue}||'%'
 	</if>
 </select>
 </mapper>

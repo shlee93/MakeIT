@@ -299,6 +299,7 @@
 													$.ajax({
 																url : "${path}/sell/sellSellSearch.do",
 																data : {
+																	"cPage" : cPage,
 																	"searchtype" : searchtype,
 																	"searchValue" : searchValue,
 																	"sCategoryFlag" : sCategoryFlag,
@@ -315,6 +316,7 @@
 													$.ajax({
 																url : "${path}/sell/sellSellSearch.do",
 																data : {
+																	"cPage" : cPage,
 																	"searchtype" : searchtype,
 																	"searchValue" : searchValue,
 																	"sCategoryFlag" : sCategoryFlag,
@@ -331,6 +333,7 @@
 													$.ajax({
 														url : "${path}/sell/sellSellSearch.do",
 																data : {
+																	"cPage" : cPage,
 																	"searchtype" : searchtype,
 																	"searchValue" : searchValue,
 																	"sCategoryFlag" : sCategoryFlag,
@@ -567,6 +570,7 @@
 
 								</div>
 							</div>
+						
 							<div id="pageBarCon">${pageBar}</div>
 
 						</div>
@@ -584,11 +588,7 @@
 										<li class="nav__link"><a href="#">새 글 작성</a></li>
 									</ul>
 									<div style="margin-right: 0;">
-										<form class="form-inline my-2 my-lg-0">
-											<input class="form-control mr-sm-2" type="text"
-												placeholder="Search" aria-label="Search">
-											<button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
-										</form>
+										
 									</div>
 								</nav>
 							</div>
@@ -678,11 +678,7 @@
 										<li class="nav__link"><a href="#">새 글 작성</a></li>
 									</ul>
 									<div style="margin-right: 0;">
-										<form class="form-inline my-2 my-lg-0">
-											<input class="form-control mr-sm-2" type="text"
-												placeholder="Search" aria-label="Search">
-											<button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
-										</form>
+										
 									</div>
 								</nav>
 							</div>
