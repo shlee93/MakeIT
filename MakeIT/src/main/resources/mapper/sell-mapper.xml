@@ -21,44 +21,47 @@
 
 <select id="sellMainGrade" resultType="map" parameterType="map">
   select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.gradeno, se.detailinterestno, se.interestno, se.selltitle, se.selldate, se.selldeleteyn, se.sellcheckyn from sell se  join member mem on(se.memberid=mem.memberid) join grade gr on(mem.gradeno=gr.gradeno) where 1 = 1
-   <if test='sCategoryFlag==null or sCategoryFlag==""'>
+   <!-- <if test='sCategoryFlag==null or sCategoryFlag==""'>
       and se.interestno=1  order by gr.gradeno desc
-   </if>
+   </if> -->
    <choose>
          <when test='sCategoryFlag!=null and sCategoryFlag!=""'> 
-         and se.detailinterestno = #{sCategoryFlag} order by gr.gradeno desc
+         and se.detailinterestno = #{sCategoryFlag} <!-- order by gr.gradeno desc -->
          </when>
    </choose>
+   order by gr.gradeno desc
 </select>
 
 <select id="sellMainPerformance" resultType="map" parameterType="map">
    select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.gradeno,pf.totalsale, se.detailinterestno, se.interestno, se.selltitle, se.selldate, se.selldeleteyn, se.sellcheckyn from sell se  join member mem on(se.memberid=mem.memberid) join PERFORMANCE pf on(mem.memberid=pf.memberid) join grade gr on(gr.gradeno=mem.gradeno) where 1 = 1
 
-    <if test='sCategoryFlag==null or sCategoryFlag==""'>
+   <!--  <if test='sCategoryFlag==null or sCategoryFlag==""'>
       and se.interestno=1  order by pf.totalsale desc
-   </if>
+   </if> -->
    <choose>
          <when test='sCategoryFlag!=null and sCategoryFlag!=""'> 
-         and se.detailinterestno = #{sCategoryFlag} order by pf.totalsale desc
+         and se.detailinterestno = #{sCategoryFlag} <!-- order by pf.totalsale desc -->
          </when>
    </choose>
+   order by pf.totalsale desc
 </select>
 
 <select id="sellMainNew" resultType="map" parameterType="map">
 select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.gradeno,se.detailinterestno, se.interestno, se.selltitle, se.selldate, se.selldeleteyn, se.sellcheckyn from sell se  join member mem on(se.memberid=mem.memberid) join grade gr on(gr.gradeno=mem.gradeno) where 1 = 1 
-   <if test='sCategoryFlag==null or sCategoryFlag==""'>
+   <!-- <if test='sCategoryFlag==null or sCategoryFlag==""'>
       and se.interestno=1  order by selldate desc
-   </if>
+   </if> -->
    <choose>
-         <when test='sCategoryFlag!=null and sCategoryFlag!=""'> and se.detailinterestno = #{sCategoryFlag} order by selldate desc</when>
+         <when test='sCategoryFlag!=null and sCategoryFlag!=""'> and se.detailinterestno = #{sCategoryFlag} <!-- order by selldate desc --></when>
    </choose>
+   order by selldate desc
 </select> 
 
 <select id="sellCount" resultType="_int" parameterType="map">
    select count(distinct sellno) from sell join sellimg using(sellno,categorycode) where 1=1
-  <if test='sCategoryFlag==null or sCategoryFlag==""'>
+  <!-- <if test='sCategoryFlag==null or sCategoryFlag==""'>
       and interestno = 1
-   </if>
+   </if> -->
    <choose>
          <when test='sCategoryFlag!=null and sCategoryFlag!=""'> and detailinterestno = #{sCategoryFlag}</when>
    </choose>
@@ -79,12 +82,67 @@ select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.g
 <!-- 퍼포먼스를위한 카운트 -->
 <select id="sellPerCount" parameterType="map" resultType="_int">
 	select count(distinct sellno) from sell se join member mb on(se.memberid=mb.memberid) join performance pf on(se.memberid=pf.memberid)  where 1=1
-  <if test='sCategoryFlag==null or sCategoryFlag==""'>
-      and se.interestno = 1  
-   </if>
+ 
    <choose>
          <when test='sCategoryFlag!=null and sCategoryFlag!=""'> and detailinterestno = #{sCategoryFlag} and totalsale is not null</when>
    </choose>
 </select>
 
+<select id="sellSearch" parameterType="map" resultType="map">
+	<if test='newValue=="1"'>
+		select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.gradeno,se.detailinterestno, se.interestno, se.selltitle, se.selldate, se.selldeleteyn, se.sellcheckyn from sell se  join member mem on(se.memberid=mem.memberid) join grade gr on(gr.gradeno=mem.gradeno) where 1=1
+	</if>
+	<if test='gradeValue=="1"'>
+		select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.gradeno, se.detailinterestno, se.interestno, se.selltitle, se.selldate, se.selldeleteyn, se.sellcheckyn from sell se  join member mem on(se.memberid=mem.memberid) join grade gr on(mem.gradeno=gr.gradeno) where 1 = 1
+	</if>
+	<if test='sellValue=="1"'>
+		select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.gradeno,pf.totalsale, se.detailinterestno, se.interestno, se.selltitle, se.selldate, se.selldeleteyn, se.sellcheckyn from sell se  join member mem on(se.memberid=mem.memberid) join PERFORMANCE pf on(mem.memberid=pf.memberid) join grade gr on(gr.gradeno=mem.gradeno) where 1 = 1
+	</if>
+	<if test='searchtype=="title"'>
+		and selltitle like '%'||#{searchValue}||'%'
+	</if>
+	<if test='searchtype=="writer"'>
+		and se.memberid like '%'||#{searchValue}||'%'
+	</if>
+	<if test='sCategoryFlag!=null and sCategoryFlag!=""'>
+	and detailinterestno=#{sCategoryFlag}
+	</if>
+	<if test='newValue=="1"'>
+		order by selldate desc
+	</if>
+	<if test='gradeValue=="1"'>
+		order by mem.gradeno desc
+	</if>
+	<if test='sellValue=="1"'>
+		order by pf.totalsale desc
+	</if>
+</select>
+
+<select id="searchCount" parameterType="map" resultType="_int">
+	select count(distinct sellno) from sell  where 1=1
+   <if test='sCategoryFlag!=null and sCategoryFlag!=""'> 
+   		and detailinterestno = #{sCategoryFlag}
+   </if>
+  
+	<if test='searchtype=="title"'>
+		and selltitle like '%'||#{searchValue}||'%'
+	</if>
+	<if test='searchtype=="writer"'>
+		and memberid like '%'||#{searchValue}||'%'
+	</if>
+  
+</select>
+<select id="searchPerCount" parameterType="map" resultType="_int">
+	select count(distinct sellno) from sell se join member mb on(se.memberid=mb.memberid) join performance pf on(se.memberid=pf.memberid)  where 1=1
+   <if test='sCategoryFlag!=null and sCategoryFlag!=""'> 
+   		and se.detailinterestno = #{sCategoryFlag} and pf.totalsale is not null
+   </if>
+   <if test='searchtype=="title"'>
+		and se.selltitle like '%'||#{searchValue}||'%'
+	</if>
+	<if test='searchtype=="writer"'>
+		and se.memberid like '%'||#{searchValue}||'%'
+	</if>
+</select>
 </mapper>
+

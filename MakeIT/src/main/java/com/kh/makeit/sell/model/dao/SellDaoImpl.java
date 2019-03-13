@@ -33,7 +33,6 @@ public class SellDaoImpl implements SellDao {
       return sqlSession.insert("sell.insertAttach",a);
    }
 
-
    @Override
    public int insertOption(Map<String, String> map) {
       // TODO Auto-generated method stub
@@ -54,21 +53,18 @@ public class SellDaoImpl implements SellDao {
       return sqlSession.selectList("sell.sellMainPerformance", map,rb);
    }
 
-
    @Override
    public List<Map<String, String>> sellMainNew(Map map,int cPage,int numPerPage) {
       // TODO Auto-generated method stub
 	   RowBounds rb=new RowBounds((cPage-1)*numPerPage,numPerPage);
       return sqlSession.selectList("sell.sellMainNew", map,rb);
    }
-
 	
 	@Override
 	public int sellCount(Map<String, String> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("sell.sellCount",map);
 	}
-
 	@Override
 	public SellAttach imageDiv(String imageId) {
 		// TODO Auto-generated method stub
@@ -81,12 +77,28 @@ public class SellDaoImpl implements SellDao {
 		return sqlSession.selectOne("sell.sellPrice",sellNo);
 	}
 
-
 	@Override
 	public int sellPerCount(Map<String, String> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("sell.sellPerCount",map);
 	}
-   
 
+	@Override
+	public List<Map<String, String>> sellSearch(Map map, int numPerPage, int contentCount, int cPage) {
+		// TODO Auto-generated method stub
+		RowBounds rb=new RowBounds((cPage-1)*numPerPage,numPerPage);
+		return sqlSession.selectList("sell.sellSearch",map, rb);
+	}
+
+	@Override
+	public int searchCount(Map<String, String> map2) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("sell.searchCount", map2);
+	}
+
+	@Override
+	public int searchPerCount(Map<String, String> map2) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("sell.searchPerCount", map2);
+	}
 }

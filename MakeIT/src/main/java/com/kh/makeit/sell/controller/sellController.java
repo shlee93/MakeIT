@@ -29,8 +29,7 @@ import com.kh.makeit.sell.model.vo.SellmainOption;
 
 @Controller
 public class sellController {
-
-
+	
    @Autowired
    sellService service;
    @RequestMapping("/sell/sellDetail.do")
@@ -63,6 +62,7 @@ public class sellController {
       {
          sCategoryFlag = request.getParameter("sCategoryFlag");
       }
+      System.out.println(sCategoryFlag+"메인에서오는놈");
       Map<String,String> valueMap =new HashMap();
       
 
@@ -75,14 +75,14 @@ public class sellController {
       int contentCount=service.sellCount(map);
       System.out.println(contentCount);
       ModelAndView mv = new ModelAndView();
-      mv.addObject("pageBar",PageFactory.getPageBar(contentCount, cPage, numPerPage,"/makeit/sell/sellmain.do"));
+      mv.addObject("pageBar",PageFactory.getPageBar2(contentCount, cPage, numPerPage,"/makeit/sell/sellmain.do"));
       
       List<Map> gradeList = service.sellMainGrade(map,cPage,numPerPage);
       List<Map> performanceList = service.sellMainPerformance(map,cPage,numPerPage);
       List<Map<String,String>> newList = service.sellMainNew(map,cPage,numPerPage);
       System.out.println("안녕하세요"+newList);
       mv.addObject("gradeList",gradeList);
-      System.out.println(newList+"뉴리스트!!!!!");
+
       mv.addObject("performanceList",performanceList);
       mv.addObject("valueMap", valueMap);
       mv.addObject("newList",newList);
@@ -99,7 +99,7 @@ public class sellController {
    @RequestMapping("/sell/sellWriteEnd")
    public ModelAndView sellWriteEnd(String[] price,int interest, int detailInterest,String writeTitle,String[] endDate,String[] productOption,String sellContent,MultipartFile[] input_file, int mainImgNo, HttpServletRequest request )
    {   
-	  System.out.println(mainImgNo + "메인이미지값");
+     System.out.println(mainImgNo + "메인이미지값");
       System.out.println(interest+"대분류");
       System.out.println(detailInterest+"소분류");
       HttpSession session = request.getSession();
@@ -214,7 +214,7 @@ public class sellController {
 	      {
 	         sCategoryFlag = request.getParameter("sCategoryFlag");
 	      }
-	  
+	      System.out.println(sCategoryFlag+"EEEEEEEEEEEEEEEE");
 	      Map<String,String> map = new HashMap();
 	      map.put("sCategoryFlag", sCategoryFlag);
 	      int numPerPage=6;
@@ -232,12 +232,14 @@ public class sellController {
    @ResponseBody
    public ModelAndView gradeVc(@RequestParam(value="cPage",required=false,defaultValue="0") int cPage,HttpServletRequest request)
    {	   
-	      String sCategoryFlag ="";      	      	      
+	    System.out.println("들어오니???????????????????????????");
+	   	String sCategoryFlag ="";      	      	      
 	      if(request.getParameter("sCategoryFlag") != null)
 	      {
 	         sCategoryFlag = request.getParameter("sCategoryFlag");
 	      }
-	   
+	      System.out.println(sCategoryFlag+"그레이드메인");
+
 	  
 	      Map<String,String> map = new HashMap();
 	      map.put("sCategoryFlag", sCategoryFlag);
@@ -277,6 +279,67 @@ public class sellController {
 	      mv.addObject("pageBar",PageFactory.getPageBar2(contentCount, cPage, numPerPage,"/makeit/sell/sellSellChange.do"));
 	      mv.setViewName("sell/sellPerformanceMain");
 	      return mv;
+   }
+
+   @RequestMapping("/sell/sellSellSearch.do")
+   @ResponseBody
+   public ModelAndView sellSearch(@RequestParam(value="cPage",required=false,defaultValue="0") int cPage,String searchtype,String searchValue,String sCategoryFlag,String newValue,String gradeValue,String sellValue)
+   {
+	   Map map=new HashMap();
+	   System.out.println("서치타입"+searchtype);
+	   System.out.println("서치벨류"+searchValue);
+	   System.out.println("에스카테고리"+sCategoryFlag);
+	   System.out.println("newValue"+newValue);
+	   System.out.println("gradeValue"+gradeValue);
+	   System.out.println("sellValue"+sellValue);
+	   map.put("searchtype", searchtype);
+	   map.put("searchValue", searchValue);
+	   map.put("sCategoryFlag",sCategoryFlag);
+	   map.put("newValue",newValue);
+	   map.put("gradeValue", gradeValue);
+	   map.put("sellValue", sellValue);
+	   Map<String,String> map2 = new HashMap();
+	   map2.put("searchtype", searchtype);
+	   map2.put("searchValue", searchValue);
+	   map2.put("sCategoryFlag",sCategoryFlag);
+	   map2.put("newValue",newValue);
+	   map2.put("gradeValue", gradeValue);
+	   map2.put("sellValue", sellValue);
+	   map2.put("sCategoryFlag", sCategoryFlag);
+	   int numPerPage=6;
+	   int contentCount=0;
+	   
+	   ModelAndView mv = new ModelAndView();
+	   
+	   if(newValue.equals("1"))
+	   {
+		   contentCount=service.searchCount(map2);
+		   List<Map<String,String>> searchList = service.sellSearch(map,numPerPage,contentCount,cPage);
+		   mv.addObject("newList",searchList);
+		   mv.setViewName("sell/sellNewMain");
+		   
+		   mv.addObject("pageBar",PageFactory.getPageBar2(contentCount, cPage, numPerPage,"/makeit/sell/sellNewChange.do"));
+	   }
+	   else if(gradeValue.equals("1"))
+	   {
+		   contentCount=service.searchCount(map2);
+		   List<Map<String,String>> searchList = service.sellSearch(map,numPerPage,contentCount,cPage);
+		   mv.addObject("gradeList",searchList);
+		   mv.setViewName("sell/sellGradeMain");
+		   
+		   mv.addObject("pageBar",PageFactory.getPageBar2(contentCount, cPage, numPerPage,"/makeit/sell/sellGradeChange.do"));
+	   }
+	   else if(sellValue.equals("1"))
+	   {
+		   contentCount=service.searchPerCount(map2);
+		   List<Map<String,String>> searchList = service.sellSearch(map,numPerPage,contentCount,cPage);
+		   mv.addObject("performanceList",searchList);
+		   mv.setViewName("sell/sellPerformanceMain");
+		   
+		   mv.addObject("pageBar",PageFactory.getPageBar2(contentCount, cPage, numPerPage,"/makeit/sell/sellSellChange.do"));
+	   }
+	   
+	   return mv;
    }
    
    

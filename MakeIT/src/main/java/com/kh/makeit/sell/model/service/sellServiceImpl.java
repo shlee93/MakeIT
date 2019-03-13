@@ -82,25 +82,39 @@ public class sellServiceImpl implements sellService {
 		return dao.sellCount(map);
 	}
 	@Override
-
 	public SellAttach imageDiv(String imageId) {
 		// TODO Auto-generated method stub
 		return dao.imageDiv(imageId);
 	}
+
 	@Override
 	public SellmainOption sellPrice(String sellNo) {
 		// TODO Auto-generated method stub
 		return dao.sellPrice(sellNo);
 	}
-
 	//퍼포먼스를위한 카운트
 	@Override
 	public int sellPerCount(Map<String, String> map) {
 		// TODO Auto-generated method stub
 		return dao.sellPerCount(map);
 	}
-   
 
+	//서치
+	@Override
+	public List<Map<String, String>> sellSearch(Map map, int numPerPage, int contentCount, int cPage) {
+		// TODO Auto-generated method stub
+		return dao.sellSearch(map, numPerPage, contentCount,cPage);
+	}
+	@Override
+	public int searchCount(Map<String, String> map2) {
+		// TODO Auto-generated method stub
+		return dao.searchCount(map2);
+	}
+	@Override
+	public int searchPerCount(Map<String, String> map2) {
+		// TODO Auto-generated method stub
+		return dao.searchPerCount(map2);
+	}
 
 
 }
