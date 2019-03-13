@@ -373,6 +373,7 @@
 		         </div>
 		         <input id='applicantAcceptTarget' name='applicantAcceptTarget' type='hidden'/>
 		         <input id='contestNoHidden' name='contestNoHidden' type='hidden' value='${contestObj.CONTESTNO }'/>
+		         <input name='applicantContestTitle' type='hidden' value='${contestObj.CONTESTTITLE}'>
 		         <script>
 		         	function fn_applicantConfirm_submit(contestNo)
                		{

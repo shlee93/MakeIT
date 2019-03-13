@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.makeit.common.ApplicantConfirmMail;
 import com.kh.makeit.common.PageFactory;
 import com.kh.makeit.common.exception.BoardException;
 import com.kh.makeit.contest.service.ContestService;
@@ -328,7 +329,7 @@ public class ContestController
 	}
 	
 	@RequestMapping("/contest/applicantConfirm.do")
-	public ModelAndView applicantConfirm(int contestNoHidden, String applicantAcceptTarget)
+	public ModelAndView applicantConfirm(int contestNoHidden, String applicantAcceptTarget, String applicantContestTitle)
 	{
 		ModelAndView mv=new ModelAndView();
 		Map applicantConfirmInfo=new HashMap();
@@ -340,6 +341,16 @@ public class ContestController
 		String loc=null;
 		if(result==1)
 		{
+			ApplicantConfirmMail acm= new ApplicantConfirmMail();
+			System.out.println("지원자아이디"+applicantAcceptTarget);
+			System.out.println("지원넘버"+contestNoHidden);
+			Map applicantInfo=new HashMap<>();
+			applicantInfo.put("applicantId", applicantAcceptTarget);
+			applicantInfo.put("contestNo", contestNoHidden);
+			String applicantEmail=String.valueOf(cs.contestApplicantOneService(applicantInfo).get("EMAIL"));
+			
+			/*System.out.println(applicantEmail,applicantAcceptTarget, applicantContestTitle);*/
+			acm.sendmail(applicantEmail,applicantAcceptTarget, applicantContestTitle);
 			msg="승인하였습니다.";
 			loc="/contest/contestDetail.do?contestNo="+String.valueOf(contestNoHidden);
 		}
