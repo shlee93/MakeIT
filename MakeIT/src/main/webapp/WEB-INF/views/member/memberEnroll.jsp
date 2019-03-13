@@ -556,7 +556,7 @@
             
             if($('#memberNo').val().trim().length==0)
             {
-                alert("주민등록번호를 입력하세요");
+                alert("생년월일 입력하세요");
                 $('#memberNo').focus();
                 return false;
             }
