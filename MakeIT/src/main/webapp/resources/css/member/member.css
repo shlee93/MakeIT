@@ -137,7 +137,9 @@
 
 
 /* 로그인 */
-
+.text-info{
+	cursor: pointer;
+}
 #login .container #login-row #login-column .login-box {
   margin-top: 120px;
   max-width: 600px;

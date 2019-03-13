@@ -26,7 +26,49 @@
 		SELECT AVG(BUYPRICE) FROM BUY WHERE MEMBERID=#{id}
 	</select>
 	<select id="sellAvg" parameterType="string" resultType="_double">
-		SELECT AVG(SELLPRICE) FROM SELLOPTION O JOIN SELL S USING(SELLNO) WHERE MEMBERID=#{id}
+		SELECT AVG(SELLPRICE) FROM SELLOPTION O JOIN SELL S USING(SELLNO) WHERE S.MEMBERID=#{id}
+	</select>
+	<select id="searchId" parameterType="string" resultType="string">
+		SELECT MEMBERID FROM MEMBER WHERE EMAIL=#{email}
+	</select>
+	<select id="searchEmail" parameterType="string" resultType="string">
+		SELECT EMAIL FROM MEMBER WHERE MEMBERID=#{id}
+	</select>
+	<update id="updatePw" parameterType="map">
+		UPDATE MEMBER SET PASSWORD = #{password} WHERE MEMBERID = #{id}
+	</update>
+	<update id="memberUpdate" parameterType="map">
+		UPDATE MEMBER SET MEMBERNAME=#{name},BIRTH=#{birth},BANKCODE=#{bankCode},ACCOUNT=#{account},PHONE=#{phone},EMAIL=#{email},ADDRESS=#{address},INTERESTNO=#{interest, typeHandler=strArray},ORIIMG=#{oriImg},REIMG=#{reImg} WHERE MEMBERID=#{memberId}
+	</update>
+	<update id="deleteMember" parameterType="string">
+		UPDATE MEMBER SET WITHDRAWYN='Y' WHERE MEMBERID=#{id}
+	</update>
+	<select id="buyOutBoxList" parameterType="string" resultType="map">
+		SELECT * FROM BUYOUTBOX O JOIN BUY B USING(BUYNO) WHERE O.MEMBERID=#{memberId} ORDER BY B.BUYDATE DESC
+	</select>
+	<select id="sellOutBoxList" parameterType="string" resultType="map">
+		SELECT * FROM SELLOUTBOX O JOIN SELL S USING(SELLNO) WHERE O.MEMBERID=#{memberId} ORDER BY S.SELLDATE DESC
+	</select>
+	<select id="selectOutBoxBuyCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM BUYOUTBOX O JOIN BUY B USING(BUYNO) WHERE O.MEMBERID=#{memberId}
+	</select>
+	<select id="selectOutBoxSellCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM SELLOUTBOX O JOIN SELL S USING(SELLNO) WHERE O.MEMBERID=#{memberId}
+	</select>
+	<select id="buyList" parameterType="string" resultType="map">
+		SELECT * FROM BUY WHERE MEMBERID=#{memberId}
+	</select>
+	<select id="sellList" parameterType="string" resultType="map">
+		SELECT * FROM SELL WHERE MEMBERID=#{memberId}
+	</select>
+	<select id="selectServiceNum" parameterType='string' resultType="_int">
+		SELECT COUNT(SELLNO) FROM SELL 
+	</select>
+	<select id="selectTradeNum" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM SELLSPEC JOIN STATUS ON SELLSPEC.STATUSNO = STATUS.STATUSNO WHERE STATUS.STATUSNO = 4
+	</select>
+	<select id="selectRanking" parameterType="string" resultType="map">
+		SELECT SUM(SELLPRICE),MEMBERNAME,M.MEMBERID FROM MEMBER M JOIN(SELECT S.MEMBERID, SELLPRICE FROM SELL S JOIN(SELECT SELLPRICE,P.SELLNO FROM SELLOPTION P, (SELECT SELLOPTIONNO,SELLNO FROM SELLSPEC JOIN STATUS ON SELLSPEC.STATUSNO = STATUS.STATUSNO WHERE STATUS.STATUSNO =4) S WHERE P.SELLNO = S.SELLNO AND P.SELLOPTIONNO = S.SELLOPTIONNO) P ON S.SELLNO = P.SELLNO) P ON M.MEMBERID = P.MEMBERID GROUP BY MEMBERNAME,M.MEMBERID ORDER BY SUM(SELLPRICE) DESC
 	</select>
 	<resultMap type="map" id="memberMap">
 		<result column="interest" property="interest" typeHandler="strArray"/>
