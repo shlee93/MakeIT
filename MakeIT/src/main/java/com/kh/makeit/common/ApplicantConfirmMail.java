@@ -46,8 +46,8 @@ public class ApplicantConfirmMail
             message.setFrom(new InternetAddress("i37491287@gmail.com"));// 
             message.setRecipients(Message.RecipientType.TO,
             InternetAddress.parse(email)); 
-            message.setSubject("[MakeIT]"+applicantId+"님의"+contestTitle+"지원이 완료되었습니다.");
-            message.setText("콘테스트 주최자가"+applicantId+"님의 콘테스트 지원 내역을 수신했습니다. 좋은 결과 있으시길 바랍니다.");//내용 
+            message.setSubject("[MakeIT]- ["+applicantId+"] 님의 ["+contestTitle+"] 지원이 완료되었습니다.");
+            message.setText("콘테스트 주최자가 ["+applicantId+"] 님의 콘테스트 지원 내역을 수신했습니다. 좋은 결과 있으시길 바랍니다.");//내용 
 //            message.setContent("인증번호는 ["+randomNo+"]번 입니다.","text/html; charset=utf-8");
             Transport.send(message); 
             

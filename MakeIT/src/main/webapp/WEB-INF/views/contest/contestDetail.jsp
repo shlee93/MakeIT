@@ -104,7 +104,7 @@
                    
                     <div class="row " style="text-align:center">
                         <div class="col-md-10">
-                        	<img class="subImgs userImg" src=https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory&fname=http%3A%2F%2Fcfile22.uf.tistory.com%2Fimage%2F2253CF3E58A403A30DA6C3>     
+                        	<img class="subImgs userImg" src='${path}/resources/upload/member/${memberMap.REIMG}'>     
                           	<c:set var='currentId' value='${memberMap.get("MEMBERID")}'/>								
 	                          	<c:choose>
 		                          	<c:when test="${currentId eq contestObj.MEMBERID}">
@@ -114,7 +114,7 @@
 		                          		<button type=button class="btn btn-primary"> <i class="far fa-star">찜하기</i></button>
 		                          	</c:otherwise>
 	                          	</c:choose>
-                          	<p>어쩌고저쩌고ㄴㅇㄹㄴㅇㄹㄴㅁ오러ㅏㅓㅁㄴ아ㅣ러ㅣㅏㅁㄴ어리ㅏㅁㄴ어리ㅏㅓㅁㄴ아ㅣ런이ㅏㅓ라ㅣㄴ어리ㅏㄴ어리ㅏㅓㅇ니이ㅏ러ㅣㅏㅁㄴ어리ㅏㅁㄴ어ㅏㅣ~</p>
+                          	<p>${memberMap.INTRODUCTION}</p>
                           	
 	                          	<c:set var='currentId' value='${memberMap.get("MEMBERID")}'/>								
 	                          	<c:choose>

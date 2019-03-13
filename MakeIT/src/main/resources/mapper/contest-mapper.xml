@@ -8,7 +8,7 @@
 	
 	<!-- 컨테스트리스트 가져오기 -->
 	<select id='getContestList' parameterType='map' resultType='map'>
-		select a.*, memberName,(select count(*) from contestImg where contestno=a.contestno) as contestImgCount from contest a join member b on a.memberId=b.memberId order by contestno desc
+		select a.*, memberName,(select count(*) from contestApplicant where contestno=a.contestno) as contestApplicantCount from contest a join member b on a.memberId=b.memberId order by contestno desc
 	</select>
 	
 	<!-- 컨테스트 이미지 가져오기 -->

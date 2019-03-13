@@ -28,95 +28,146 @@
 	<style>
 		/* 어드민 네비 */
 
-      #nav{
-          padding-left: 0;
-      }
-      
-      .nav-side-menu {
+	  .hide
+	  {
+	  	  display: none;
+	  }
+
+      /* 네비 사이드 */    
+
+      .nav-side-menu 
+      {
           overflow: auto;
-          font-size: 0.9em;
-          font-weight: 550;
+          font-family: verdana;
+          font-size: 20px;
+          font-weight: 200;
           background-color: #2e353d;
-          position: fixed;
+          position: relative;
           top: 0px;
-          width: 14%;
+          width: 100%;
           height: 100%;
           color: #e1ffff;
       }
-      .nav-side-menu .brand {
+      
+      .nav-side-menu .brand 
+      {
           background-color: #23282e;
           line-height: 50px;
           display: block;
           text-align: center;
-          font-size: 1em;
+          font-size: 14px;
       }
-      .nav-side-menu .toggle-btn {
+      
+      .nav-side-menu .toggle-btn 
+      {
           display: none;
       }
-      .nav-side-menu ul,
-      .nav-side-menu li {
+      
+      .nav-side-menu ul,      
+      .nav-side-menu li 
+      {
           list-style: none;
+          padding: 0px;
           margin: 0px;
-          line-height: 3.5em;
+          line-height: 35px;
           cursor: pointer;
+          /*    
+            .collapsed{
+               .arrow:before{
+                         font-family: FontAwesome;
+                         content: "\f053";
+                         display: inline-block;
+                         padding-left:10px;
+                         padding-right: 10px;
+                         vertical-align: middle;
+                         float:right;
+                    }
+             }
+          */
       }
+      
       .nav-side-menu ul :not(collapsed) .arrow:before,
-      .nav-side-menu li :not(collapsed) .arrow:before {
+      .nav-side-menu li :not(collapsed) .arrow:before 
+      {
+          font-family: FontAwesome;
+          content: "\f078";
           display: inline-block;
           padding-left: 10px;
           padding-right: 10px;
           vertical-align: middle;
+          float: right;
       }
-      .nav-side-menu ul .active,
-      .nav-side-menu li .active {
-          border-left: 3px solid #c8d8a8;
-          background-color: #4f5b69;
-      }
-      .nav-side-menu ul .sub-menu li.active,
-      .nav-side-menu li .sub-menu li.active {
-          color: #c8d8a8;
-          
-      }
-      .nav-side-menu ul .sub-menu li.active a,
-      .nav-side-menu li .sub-menu li.active a {
-          color: #c8d8a8;
       
+      .nav-side-menu ul .active,
+      .nav-side-menu li .active 
+      {
+          border-left: 3px solid #d19b3d;
+          /* background-color: blue; */
       }
+      
+      .nav-side-menu ul .sub-menu li.active,
+      .nav-side-menu li .sub-menu li.active 
+      {
+          color: #d19b3d;
+      }
+      
+      .nav-side-menu ul .sub-menu li.active a,
+      .nav-side-menu li .sub-menu li.active a 
+      {
+          color: #d19b3d;
+      }
+      
       .nav-side-menu ul .sub-menu li,
-      .nav-side-menu li .sub-menu li {
+      .nav-side-menu li .sub-menu li 
+      {
           background-color: #181c20;
           border: none;
           line-height: 28px;
           border-bottom: 1px solid #23282e;
           margin-left: 0px;
       }
+      
       .nav-side-menu ul .sub-menu li:hover,
-      .nav-side-menu li .sub-menu li:hover {
+      .nav-side-menu li .sub-menu li:hover 
+      {
           background-color: #020203;
       }
+      
       .nav-side-menu ul .sub-menu li:before,
-      .nav-side-menu li .sub-menu li:before {
+      .nav-side-menu li .sub-menu li:before 
+      {
+          font-family: FontAwesome;
+          content: "\f105";
           display: inline-block;
           padding-left: 10px;
           padding-right: 10px;
           vertical-align: middle;
       }
-      .nav-side-menu li {
-          padding-left: 0.8em;
+      
+      .nav-side-menu li 
+      {
+          padding-left: 0px;
           border-left: 3px solid #2e353d;
           border-bottom: 1px solid #23282e;
       }
-      .nav-side-menu li a {
+      
+      .nav-side-menu li a 
+      {
           text-decoration: none;
           color: #e1ffff;
       }
-      .nav-side-menu li a i {
+      
+      .nav-side-menu li a i 
+      {
+          padding-left: 10px;
           width: 20px;
           padding-right: 20px;
       }
-      .nav-side-menu li:hover {
-          border-left: 3px solid #c8d8a8;
-          background-color: #4f5b69;
+      
+      .nav-side-menu li:hover 
+      {
+          border-left: 3px solid #d19b3d;
+          /* background-color: blue; */
           -webkit-transition: all 1s ease;
           -moz-transition: all 1s ease;
           -o-transition: all 1s ease;
@@ -131,7 +182,7 @@
               position: relative;
               width: 100%;
               margin-bottom: 10px;
-          }   
+          }
           
           .nav-side-menu .toggle-btn 
           {
@@ -147,7 +198,34 @@
               width: 40px;
               text-align: center;
           }
-      } 
+          
+          .brand 
+          {
+              text-align: left !important;
+              font-size: 22px;
+              padding-left: 20px;
+              line-height: 50px !important;
+          }
+      }
+      
+      @media (min-width: 767px) 
+      {
+          .nav-side-menu .menu-list .menu-content 
+          {
+              display: block;
+          }
+      }
+      
+      .side-nav-li
+      {
+         font-size: 1.5em;
+         margin-top: 2em;
+      }
+      
+      .side-nav-li a
+      {
+         line-height: 4em;   
+      }    
 		
 	</style>
 
@@ -205,13 +283,9 @@
 		                    <script>
 			                    $(document).ready(function(){
 	         
-							       pageFrm.bCategoryFlag.value="${bCategoryFlag}";
-							       pageFrm.sCategoryFlag.value="${sCategoryFlag}";
-							       pageFrm.sortFlag.value="${sortFlag}";
-							       
 							        $(".menu>a").click(function(){
 							            var submenu = $(this).next("ul");
-							 
+							 			console.log(submenu)
 							          
 							            if( submenu.is(":visible") ){
 							                submenu.slideUp();
@@ -227,19 +301,7 @@
 						</div>
 		            	<div class='col-md-10' id='section'>
 		                	<div class="row">
-		                		<div class="col-md-2">
-			                  		<select class="form-control" id='interestNo' name='interestNo'>
-			                    		<option>카테고리</option>
-					        			<option value='1'>개발자</option>
-					        			<option value='2'>웹디자이너</option>
-					        			<option value='3'>네트워크보안</option> 
-			                  		</select>
-			                	</div>
-			                	<div class="col-md-2">
-			                    	<select class="form-control" id='detailInterestNo' name='detailInterestNo'>
-			                    
-			                    	</select>
-			                	</div>
+		                		
 			                	<script>
 						       		$(function()
 					      			{
@@ -277,16 +339,14 @@
 					        	</script>
 				                <div class="col-md-6"></div>
 				                <div class="col-md-2">
-				                    <select class="form-control">
-				                        <option >정렬방식</option>
-				                    </select>
+				                    
 				                </div>
 			              </div>
 			              <c:forEach items="${contestList}" var="contest">
 			              
-			              <div class="card" id="contestMain" style='margin-top:2em; margin-bottom:2em; padding: 1em;'>
+			              <div class="card" id="contestMain" style='margin-top:2em; margin-left:2em; margin-bottom:2em; padding: 1em;'>
 			                <div class="row ">
-			                  <div class="col-md-2" id="${contest.CONTESTNO}" class='imgContainer'>
+			                  <div class="col-md-3" id="${contest.CONTESTNO}" class='imgContainer'>
 			                  	  <script>
 				                  	  $(function()
 						      			{
@@ -301,28 +361,28 @@
 					            	               
 					            	               var imgReName=data["contestImgRe"];
 					            	               var imgContainer=$('#${contest.CONTESTNO}');
-					            	               imgContainer.append("<img src='${path}/resources/upload/contest/"+data["contestImgRe"]+ "' class='w-100' style='max-height: 240px'>");
+					            	               imgContainer.append("<img src='${path}/resources/upload/contest/"+data["contestImgRe"]+ "' class='w-100' style='height:100%'>");
 					            	            }
 					            			});			       					    		
 						      			 });	
 			               	  	</script>
 			                  </div>
-			                  <div class="col-md-7 ">
+			                  <div class="col-md-5">
 			                    <div class="card-block px-3">
-			                      <div class="row" style='margin-top:1.2em;'>
-			                        <h2 class="card-title">${contest.CONTESTTITLE} </h2>
+			                      <div class="row" style='margin-top:1.5em;'>
+			                        <h5 class="card-title" > 컨테스트 제목: ${contest.CONTESTTITLE} </h5>
 			                      </div>
 			                      <div class="row">
 			                        <div class="col-md-12" id="contestdetail"  >
-			                            <h4>${contest.MEMBERNAME }</h4>
+			                            <h6>주최자: ${contest.MEMBERNAME }</h6>
 			                            <p class="card-text" style="overflow: hidden">${contest.CONTESTCONTENT }</p>
 			                        </div>
 			                        
 			                      </div>
 			                    </div>
 			                  </div>
-			                  <div class="col-md-3">
-			                    <div class="form-control righthandle" style='margin-top: 1.1em'>
+			                  <div class="col-md-4">
+			                    <div class="form-control righthandle" >
 			                      <strong>상금</strong>
 			                      <span>${contest.CONTESTPRICE}</span>
 			                    </div>
@@ -332,11 +392,11 @@
 			                    </div>    
 			                    <div class="form-control righthandle" style='margin-top: 1.1em'>
 			                        <strong>현재 참여자</strong>
-			                        <span>00명</span>
+			                        <span>${contest.CONTESTAPPLICANTCOUNT}명</span>
 			                    </div>                           
 			                    <div class="row">
 			                      <div class="col-md-12">
-			                        <a href="${path}/contest/contestDetail.do?contestNo=${contest.CONTESTNO}" class="btn btn-primary garo-center" style="width: 80%; height:100%; margin-top: 1.1em; margin-bottom:1.1em; margin-left:3.4em ;">상세보기</a>    
+			                        <a href="${path}/contest/contestDetail.do?contestNo=${contest.CONTESTNO}" class="btn btn-primary garo-center" style="width: 80%; height:45%; margin-top: 3em; margin-left:1.6em;">상세보기</a>    
 			                      </div>
 			                    </div>
 			                  </div>
@@ -344,13 +404,22 @@
 			                  </div>
 			              </div>
 			       		  </c:forEach>	
-			       		  <div style='margin-bottom:3em;'>
-				              <input type="text" class='form-control' placeholder="검색할 아이디를 입력하세요" style='width: 300px; display: inline;'/>
-				              <button class="btn btn-primary" type="submit" style='margin-bottom: 0.3em'>검색</button>
-			              </div>
-			              ${pageBar}
-			    
-			            
+			       		  <div class='row'>
+			       		  	  <div class='col-md-8'>	
+					       		  <div style='margin-bottom:3em; margin-left:2em;'>
+						              <input type="text" class='form-control' placeholder="검색할 아이디를 입력하세요" style='width: 300px; display: inline;'/>
+						              <button class="btn btn-primary" type="submit" style='margin-bottom: 0.3em'>검색</button>
+					              </div>
+				              </div>
+				              <div class='col-md-2'></div>
+				              <div class='col-md-2'>
+			                      <select class="form-control">
+			                          <option >정렬방식</option>
+			                      </select>				                  
+				              </div>
+			              </div>		              
+			              
+			              ${pageBar}		            
 			                
 		            	</div>
 		            <div class='col-md-1' id='right-nav' >
