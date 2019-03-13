@@ -102,7 +102,39 @@ public class SellDaoImpl implements SellDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("sell.searchPerCount", map2);
 	}
+	//메인창에서 디테일로 뿌려줄 자료가져오는 것
 
+	@Override
+	public List<Map<String, String>> selldetailView(int sellno) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("sell.selldetailView",sellno);
+	}
+
+	@Override
+	public List<Map<String, String>> selldetailImg(int sellno) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("sell.selldetailImg",sellno);
+	}
+
+	@Override
+	public List<Map<String, String>> selldetailOption(int sellno) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("sell.selldetailOption",sellno);
+	}
+
+	@Override
+	public List<Map<String, String>> sellReivew(int sellno) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("sell.sellReview",sellno);
+	}
+
+	@Override
+	public List<Map<String, String>> sellsubImg(int sellno) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("sell.sellsubImg",sellno);
+	}
+	
+	
 	
 	
    

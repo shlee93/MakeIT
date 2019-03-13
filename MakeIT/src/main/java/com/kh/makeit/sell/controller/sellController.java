@@ -339,6 +339,24 @@ public class sellController {
 	   
 	   return mv;
    }
-   
+   //메인페이지에서 이미지클릭해서 상세뷰로
+   @RequestMapping("/sell/selldetail")
+   public ModelAndView selldeatailView(int sellno)
+   {
+	   List<Map<String,String>> detailList=service.selldetailView(sellno);
+	   List<Map<String,String>> mainimgList=service.selldetailImg(sellno);
+	   List<Map<String,String>> optionList=service.selldetailOption(sellno);
+	   List<Map<String,String>> sellReivew=service.sellReview(sellno);
+	   List<Map<String,String>> subimgList=service.sellsubImg(sellno);
+	   ModelAndView mv = new ModelAndView();
+	   System.out.println(detailList);
+	   mv.addObject("subimgList",subimgList);
+	   mv.addObject("detailList",detailList);
+	   mv.addObject("mainimgList",mainimgList);
+	   mv.addObject("optionList",optionList);
+	   mv.addObject("sellReivew",sellReivew);
+	   mv.setViewName("sell/sellDetail");
+	   return mv;
+   }
    
 }
