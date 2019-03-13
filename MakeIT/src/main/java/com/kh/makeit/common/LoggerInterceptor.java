@@ -26,7 +26,7 @@ public class LoggerInterceptor extends HandlerInterceptorAdapter {
 	// 로그를 남겨보자 log4j 말고 slf4j를 이용해보자
 	private Logger logger = LoggerFactory.getLogger(LoggerInterceptor.class);
 
-	@Override
+	/*@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		if(logger.isDebugEnabled()) {
@@ -46,7 +46,7 @@ public class LoggerInterceptor extends HandlerInterceptorAdapter {
 			return false;
 		}
 		return super.preHandle(request, response, handler);
-	}
+	}*/
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,

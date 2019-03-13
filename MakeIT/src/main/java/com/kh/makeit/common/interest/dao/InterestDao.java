@@ -1,4 +1,4 @@
-package com.kh.makeit.Interest.dao;
+package com.kh.makeit.common.interest.dao;
 
 import java.util.List;
 import java.util.Map;

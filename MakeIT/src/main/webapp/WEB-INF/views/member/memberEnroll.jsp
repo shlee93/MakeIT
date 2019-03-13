@@ -626,6 +626,18 @@
     		checkIdDuplicateFrm.method="post";
     		checkIdDuplicateFrm.submit();    
     	}
+    	$(function()
+		{
+		    fn_setDatePickerMax();
+		});
+		
+		function fn_setDatePickerMax()
+		{
+		    var datePicker1 = document.getElementById('birth');
+		    datePicker1.max = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
+		    console.log(datePicker1.val);
+		   	    	
+		 }
 </script>
 
 

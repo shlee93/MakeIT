@@ -10,10 +10,9 @@
             margin-top: 3%;
             margin-left: 2%;
         }
-        .subImg{
-        
-        display: inline;
-      
+        .subImg
+        {
+        	display: inline;
         }
          #mainImg{
         position: relative; top:0; left: 0;
