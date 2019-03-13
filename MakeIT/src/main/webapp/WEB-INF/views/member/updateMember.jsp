@@ -78,7 +78,6 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-1">
-            nav
         </div>
         <div class="col-md-10">
             <form name='updateFrm' id="updateFrm" action="${path }/member/memberUpdateEnd.do" method="POST" onsubmit='return fn_enroll_validate()' enctype="multipart/form-data">
@@ -285,7 +284,6 @@
             </form>
         </div>
         <div class="col-md-1">
-            aside
         </div>
 		<form action="" name="checkIdDuplicateFrm">
 			<input type="hidden" name="memberId"/>

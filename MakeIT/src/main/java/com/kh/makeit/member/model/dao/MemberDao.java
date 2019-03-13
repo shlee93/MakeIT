@@ -81,4 +81,6 @@ public interface MemberDao {
 
 	int selectContestCount(String memberId);
 
+	int noReadMessage(String id);
+
 }

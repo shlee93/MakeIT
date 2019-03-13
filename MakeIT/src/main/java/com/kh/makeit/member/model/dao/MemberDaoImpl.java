@@ -222,6 +222,11 @@ public class MemberDaoImpl implements MemberDao {
 	public int selectContestCount(String memberId) {
 		return sqlSession.selectOne("member.selectContestCount",memberId);
 	}
+
+	@Override
+	public int noReadMessage(String id) {
+		return sqlSession.selectOne("member.noReadMessage",id);
+	}
 	
 
 }

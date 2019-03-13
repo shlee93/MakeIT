@@ -81,4 +81,6 @@ public interface MemberService {
 
 	int selectContestCount(String memberId);
 
+	int noReadMessage(String id);
+
 }

@@ -115,6 +115,9 @@
 	<select id="selectContestCount" parameterType="string" resultType="_int">
 		SELECT COUNT(*) FROM CONTEST WHERE MEMBERID=#{memberId} AND CONTESTYN='N'
 	</select>
+	<select id="noReadMessage" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM MESSAGE WHERE RECEIVEID=#{memberId} AND READDATE IS NULL
+	</select>
 	<resultMap type="map" id="memberMap">
 		<result column="interest" property="interest" typeHandler="strArray"/>
 	</resultMap>

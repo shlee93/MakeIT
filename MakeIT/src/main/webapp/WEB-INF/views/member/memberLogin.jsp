@@ -19,7 +19,6 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-1">
-            nav
         </div>
         <div class="col-md-10">     
             <div id="login">
@@ -41,6 +40,8 @@
                                         <label for="saveId" class="text-info"><span>아이디 저장</span> 
                                         <span><input id="saveId" name="saveId" type="checkbox" <%=cookieValue!=""?"checked":"" %>></span>
                                         </label><br>
+                                    </div>
+                                    <div class="form-group">
                                         <input type="submit" name="submit" class="btn btn-info btn-md" value="로그인">
                                     </div>
                                     <div id="register-link" class="text-right">
@@ -64,7 +65,6 @@
         	}
         </script>
         <div class="col-md-1">
-            aside
         </div>
     </div>
 </div>

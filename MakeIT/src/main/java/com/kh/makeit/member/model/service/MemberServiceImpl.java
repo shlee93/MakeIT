@@ -204,6 +204,12 @@ public class MemberServiceImpl implements MemberService {
 		return dao.selectContestCount(memberId);
 	}
 
+	@Override
+	public int noReadMessage(String id) {
+		return dao.noReadMessage(id);
+	}
+	
+
 	
 	
 	

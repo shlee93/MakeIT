@@ -63,6 +63,8 @@ public class MemberController {
 			sellCount = service.boardSellCount(id);
 			buyAvg = service.buyAvg(id);
 			sellAvg = service.sellAvg(id);
+			int noReadMessage = service.noReadMessage(id);
+			logger.debug(noReadMessage);
 			String[] addressSplit = ((String) map.get("ADDRESS")).split("/");
 			String address = addressSplit[0] + " " + addressSplit[1];
 			map.put("ADDRESS", address);
@@ -74,6 +76,7 @@ public class MemberController {
 			String birth = map.get("BIRTH").toString().substring(0, 10);
 			map.put("BIRTH", birth);
 			mv.setViewName("member/memberMyPage");
+			mv.addObject("noReadMessage",noReadMessage);
 			mv.addObject("buyCount", buyCount);
 			mv.addObject("sellCount", sellCount);
 			mv.addObject("buyAvg", buyAvg);
@@ -768,22 +771,29 @@ public class MemberController {
 	public ModelAndView messageSendSelectDel(HttpServletRequest request) {
 		String[] delList = request.getParameterValues("sendDeleteCk");
 		logger.debug(delList);
-		int[] delListInt = new int[delList.length];
-		int result = 0;
-		for(int i = 0; i < delList.length; i++) {
-			delListInt[i] = Integer.parseInt(delList[i]);
-			result += service.deleteSendMessages(delListInt[i]);
-		}
 		String msg = "";
 		String loc = "";
-		logger.debug(result);
-		if(result > 0) {
-			msg = "메시지가 정상적으로 삭제되었습니다. 마이페이지로 돌아갑니다.";
-			loc = "/member/memberMyPage.do";
+		if(delList != null) {
+			int[] delListInt = new int[delList.length];
+			int result = 0;
+			for(int i = 0; i < delList.length; i++) {
+				delListInt[i] = Integer.parseInt(delList[i]);
+				result += service.deleteSendMessages(delListInt[i]);
+			}
+			
+			logger.debug(result);
+			if(result > 0) {
+				msg = "메시지가 정상적으로 삭제되었습니다. 마이페이지로 돌아갑니다.";
+				loc = "/member/memberMyPage.do";
+			} else {
+				msg = "메시지가 정상적으로 삭제되지 않았습니다. 다시 시도해주세요.";
+				loc = "/member/memberMyPage.do";
+			}
 		} else {
-			msg = "메시지가 정상적으로 삭제되지 않았습니다. 다시 시도해주세요.";
+			msg = "메시지 선택 후 이용해주세요.";
 			loc = "/member/memberMyPage.do";
 		}
+		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("msg",msg);
 		mv.addObject("loc",loc);
