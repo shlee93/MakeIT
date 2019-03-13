@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,7 +20,7 @@
 <!-- Latest compiled JavaScript -->
 <script
    src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-
+   
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -33,144 +33,116 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/sellwrite/sellwrite.css" />
 <style>
 #priceProduct{
-	height:100%;
+   height:100%;
 }
- 
+
 </style>
 <script>
-var subde="";
-	$(function(){
-		$("select[name=interest]").on("change",function(){
-			var interest=$(this).val();
-			$.ajax({
-				url:"${path}/sell/findInterest",
-				data:{"interest":interest},
-				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-				dataType:"json",
-				type:"post",
-				success:function(data){
-					console.log(data);
-					var html="";
-					
-					for(var i = 0;i<data.list.length;i++){
-						console.log(data.list[i]["DETAILINTEREST"]);
-						html+="<option value='"+data.list[i]["DETAILINTEREST"]+"'>"+data.list[i]["DETAILINTEREST"]+"</option>";
-					}
-					$('#detailInterest').html(html);
-				}
-			});
-		});
-	});
-	
-</script>
+             $(function()
+               {
+                  $("#interest").change(function()
+                   {
+                       console.log(this.value);
+                       if(this.value!='카테고리')
+                      {
+                        $.ajax({
+                           url:"${path}/categoryOneSel.do",
+                              data:{"interestNo":this.value},
+                           dataType:"json",
+                              success:function(data)
+                              {
+                                 console.log(data);
+                                 var detailInterest=$('#detailInterest');
+                                 
+                                    for(var i=0; i<data.length; i++)
+                                 {
+                                       
+                                         optionValue='DETAILINTEREST';
+                                      optionInter='DETAILINTERESTNO';
+                                                 
+                                        var option
+                                        option+="<option value='"+data[i][optionInter]+"'>"+data[i][optionValue]+"</option>";
+                                      
+                                          detailInterest.html(option);
+                                    
+                                      }
+                              }
+                        });
+                      }
+                    })
+                  }          
+           );
+        </script>
 </head>
 <body>
-	<form id="sellWriteFrm">
+   <form id="sellWriteFrm" enctype="multipart/form-data">
    <div class="row">
-
-      <div class="col-sm-1"></div>
-      <div id="buy-container" class="col-sm-10">
-         <label>분류</label> <select class="form-control col-sm-2"
-            style="display: inline">
-            <option disabled selected>대분류</option>
-            <option>개발자</option>
-            <option>웹디자이너</option>
-            <option>네트워크 보안</option>
-         </select> <select class="form-control col-sm-2"
-            style="display: inline; margin-right: 10px">
-            <option disabled selected>소분류</option>
-            <option>웹</option>
-            <option>모바일</option>
-            <option>게임</option>
-            <option>응용 프로그램</option>
-            <option>보안 프로그램</option>
-            <option>데이터베이스 관리</option>
-         </select> 
-         <br> 
-         <label>제목</label> 
-         <input type="text" class="form-control col-sm-9" style="display: inline;" placeholder="제목을 입력하세요." /> 
-         <br> 
-         <label>상품</label> 
-         <input type="number" class="form-control col-sm-2" style="display: inline" placeholder="금액(원)"> 
-         <input type="text" class="form-control col-sm-7" style="display: inline" placeholder="상품에 대한 설명을 입력하세요.">
-         <button class="btn btn-secondary" style="width: 45px; font-size: 20px">+</button>
-         <button class="btn btn-secondary" style="width: 45px; font-size: 20px">-</button>
-         <br>
-         <label>기한</label> 
-         <input type="date" class="form-control col-sm-2" style="display: inline">&nbsp부터&nbsp&nbsp
-
-         <input type="date" class="form-control col-sm-2" style="display: inline">&nbsp까지
-         <br> 
-         
-         <label>상세 설명</label>
-         <textarea class="form-control" rows="10"></textarea>
-         <br>
-         <div class="filebox">
-            <label for="ex_file">이미지 업로드</label> <input type="file" id="ex_file">
-
-         </div>
+      <div class="col-md-1"></div>
+      <div id="buy-container" class="col-md-10">
          <div class="row">
-	         <div class="col-md-2">
-	         	<label>제목</label> 
-	         </div>
-	         <div class="col-md-8">
-	         	<input type="text" class="form-control" style="display: inline;" placeholder="제목을 입력하세요." /> 
-	         	<br> 
-	         </div>
-		</div>
+            <div class="col-md-2">
+            <label>분류</label> 
+            </div>
+            <div class="col-md-8">
+               <select class="form-control col-md-4" id="interest" name="interest" style="display: inline">
+                    <option>카테고리</option>
+                 <option value='1'>개발자</option>
+                 <option value='2'>웹디자이너</option>
+                 <option value='3'>네트워크보안</option>    
+               </select> 
+               <select class="form-control col-md-4" id="detailInterest" name="detailInterest"  style="display: inline; margin-right: 10px">
+                  
+                 
+               </select>
+            </div> 
+            <br> 
+         </div>
+          <br> 
+         <div class="row">
+            <div class="col-md-2">
+               <label>제목</label> 
+            </div>
+            <div class="col-md-8">
+               <input type="text" name="writeTitle" class="form-control" style="display: inline;" placeholder="제목을 입력하세요." /> 
+               <br> 
+            </div>
+      </div>
+       <br> 
          <div class='row'>
             <div class="col-md-2">
-             	<label>상품</label> 
+                <label>상품</label> 
              </div>
              <div id="priceProduct" class="col-md-8">
-	         	<input type="number" class="form-control col-md-2" id='firstPrice' name="price" style="display: inline" placeholder="금액(원)">
-	         	<input type="text" class="form-control col-md-2" id='endDate' name="endDate" style="display: inline" placeholder="작업기한"> 
-	         	<input type="text" class="form-control  col-md-8" id="firstOption" name="productOption" style="display: inline" placeholder="상품에 대한 설명을 입력하세요.">
-	         	<br/><br/>
-	         </div>
-	         <div class="col-md-2">
-	       	<button class="btn btn-secondary" type="button" onclick="fn_optionPlus();" style="width: 45px; font-size: 20px">+</button>
-         	<button class="btn btn-secondary" type="button" onclick="fn_otionDelete();" style="width: 45px; font-size: 20px">-</button>
-         	</div>
+               <input type="number" class="form-control col-md-2" id='firstPrice' name="price" style="display: inline" placeholder="금액(원)">
+               <input type="text" class="form-control col-md-2" id='endDate' name="endDate" style="display: inline" placeholder="작업기한"> 
+               <input type="text" class="form-control  col-md-8" id="firstOption" name="productOption" style="display: inline" placeholder="상품에 대한 설명을 입력하세요.">
+               <br/><br/>
+            </div>
+            <div class="col-md-2">
+           <button class="btn btn-secondary" type="button" onclick="fn_optionPlus();" style="width: 45px; font-size: 20px">+</button>
+            <button class="btn btn-secondary" type="button" onclick="fn_otionDelete();" style="width: 45px; font-size: 20px">-</button> 
+            </div>
          <br/>
          </div>
          <br/>
        
-         <br/> 
       <div class='row'>
             <div class="col-md-12">
-             	<label>상세설명</label> 
+                <label>상세설명</label> 
             </div> 
          
        </div>
-         <textarea class="form-control" rows="10"></textarea>
+         <textarea class="form-control" name="sellContent" rows="10"></textarea>
          <br/> 
-       <div class="filebox"> 
-	       <input class="upload-name" value="파일선택" disabled="disabled"> 
-	       <label for="ex_filename">업로드</label> 
-	       <input type="file" id="ex_filename" class="upload-hidden"> 
-       </div>
-		<script>
-		$(document).ready(function(){ 
-			var fileTarget = $('.filebox .upload-hidden'); 
-			fileTarget.on('change', function(){ 
-				 if(window.FileReader){ 
-					 modern browser var filename = $(this)[0].files[0].name; 
-					 }
-				 else { 
-					 old IE var filename = $(this).val().split('/').pop().split('\\').pop();
-					  }
-				 $(this).siblings('.upload-name').val(filename); }); }); 
+         <div id="null">
+         <span class='nullimg'>메인에 노출될 사진을 선택해주세요</span>
+         </div>
+       <div class="filebox bs3-primary preview-image">
+            <label for="input_file">사진 선택</label> 
+            
+            <input type="file" name="input_file" id="input_file" class="upload-hidden" multiple="multiple" accept=".gif, .jpg, .png"> 
+         </div>
 
-			
-		</script>
-
-         
-         <!--  <div id="imgContainer" class="row">
-	         	<input type="file" class="form-control col-md-8" id='firstimg' name="sellImg">
-	         	<br/><br/>
-	         </div> -->
-         
          <br/>
          <div id="btn-container">
             <button class="btn btn-secondary">취소</button>
@@ -181,32 +153,68 @@ var subde="";
    </div>
    </form>
    <script>
+   var sel_files=[];
+   var count = 0;
+   $(document).ready(function(){
+          //preview image 
+          
+          var imgTarget = $('.preview-image .upload-hidden');
+         
+          imgTarget.on('change', function(e){
+             var files=e.target.files;
+              var filesArr=Array.prototype.slice.call(files);
+              console.log(files);
+              var parent = $(this).parent();
+              parent.children('.upload-display').remove();
+             
+              console.log("수 : " + filesArr.length);
+            if(filesArr.length > 5)
+            {
+               alert("사진은 5개 제한입니다.");
+               return;
+            }
+              filesArr.forEach(function(f){
+                 count = 0;
+                  if(!f.type.match("image.*")){
+                     alert("확장자는 이미지 확장자만 가능합니다.");
+                     return;
+             
+                  }
+                  console.log(f)
+                  sel_files.push(f);
+                  
+                  var reader=new FileReader();
+                  reader.onload=function(e){
+                     var src = e.target.result;
+                      parent.prepend('<div class="upload-display"><input type="radio" name="mainImgNo" value='+ (count++) +'><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+                  }
+                  
+                  reader.readAsDataURL(f);
+                  
+                  
+               })
+                
+           });
+         
+      });
+
+      
    function writeEnd(){
-	   
-	   $('#sellWriteFrm').attr("action","${pageContext.request.contextPath}/sell/sellWriteEnd");
-		$('#sellWriteFrm').attr("method","post");
-		$('#sellWriteFrm').submit();
+      $('#sellWriteFrm').attr("action","${pageContext.request.contextPath}/sell/sellWriteEnd");
+      $('#sellWriteFrm').attr("method","post");
+      $('#sellWriteFrm').submit();
    }
-   	function fn_optionPlus(){
-   	/* 	var addPrice='<input type="number" class="form-control col-md-3" name="price" style="display: inline" placeholder="금액(원)"> ';
-   		$('#priceProduct').append(addPrice); 
-   		var addDate='<input type="text" class="form-control col-md-2" name="endDate" style="display: inline" placeholder="작업기한">';
-   		$('#priceProduct').append(addDate);
-   		var addOption='<div class="remove"><input type="text" class="form-control  col-md-8" name="productOption" style="display: inline" placeholder="상품에 대한 설명을 입력하세요."><br/><br/></div>';
-   		$('#priceProduct').append(addOption); */
-   		var addOption="<div class=addoption><input type='number' class='form-control col-md-3' name='price' style='display: inline' placeholder='금액(원)'><input type='text' class='form-control col-md-2' name='endDate' style='display: inline' placeholder='작업기한'><input type='text' class='form-control  col-md-8' name='productOption' style='display: inline' placeholder='상품에 대한 설명을 입력하세요.'><br/><br/></div>";
-   		$('#priceProduct').append(addOption); 
-   	}
-   	function fn_otionDelete()
-   	{	
-   		$('.addoption').last().remove();
-   		/* if($('#priceProduct > input:nth-last-of-type(1)').attr("id")!=$('#firstOption').attr("id")){
-   			$('#priceProduct > input').last().remove();
-   			$('#priceProduct > input').last().remove();
-   			$('#priceProduct > input').last().remove();
-   		} */
-   	}
-   	
+      function fn_optionPlus(){
+         var addOption="<div class=addoption><input type='number' class='form-control col-md-3' name='price' style='display: inline' placeholder='금액(원)'><input type='text' class='form-control col-md-2' name='endDate' style='display: inline' placeholder='작업기한'><input type='text' class='form-control  col-md-8' name='productOption' style='display: inline' placeholder='상품에 대한 설명을 입력하세요.'><br/><br/></div>";
+         $('#priceProduct').append(addOption); 
+      }
+      function fn_otionDelete()
+      {   
+         $('.addoption').last().remove();
+      }
+      
+         
+      
    </script>
 </body>
 </html>

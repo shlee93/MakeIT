@@ -27,30 +27,45 @@
 </head>
 
 
-
-       
+<script>
+     $(document).on('click','.subImgs',function(){
+       var imgIndex = $(this).parent('.subImg').prevAll().length;   
+       console.log(imgIndex);
+       /* console.log(('.subImg:eq('+0+') .subImgs').attr('src'));  */
+       console.log($('.mainImg').attr('src'));
+       var url1 = $(this).attr('src');
+       var url2 = $('.mainImg').attr('src');
+       $('.mainImg').attr('src',url1);
+       $(this).attr('src',url2);
+                             
+                          })
+</script>
+<style>
+#optionT{
+  font-size:20px;
+  text-align:center;
+  min-width:656px;
+ } 
+ 
+</style>   
+ 
 <body>
 <div class='container-fluid' id="total">
     <div class='row'>
         <div class='col-md-1' id='nav'></div>
         <div class='col-md-10' id='section' >
             <div class='row'>
-                <div class="col-md-7" id="img-container">
-                    <img  id="mainImg" class="mainImg" src=https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory&fname=http%3A%2F%2Fcfile22.uf.tistory.com%2Fimage%2F2253CF3E58A403A30DA6C3>
-                    <div class='row'>                                        
+                <div class="col-md-7" id="img-container">                	
+                    <img  id="mainImg" class="mainImg" src="${path}/resources/upload/sell/${mainimgList.get(0).SELLIMGRE}" style="min-height:600px;max-height:400px;">
+                    
+                    <div class='row'>              
+                      <c:forEach items="${subimgList}" var="subimgList">                          
                         <div class="col-md-3 subImg1" id="subImg-container">
-                            <img  class="subImgs" src=https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory&fname=http%3A%2F%2Fcfile22.uf.tistory.com%2Fimage%2F2253CF3E58A403A30DA6C3>     
+                            <img  class="subImgs" src="${path}/resources/upload/sell/${subimgList.SELLIMGRE}" >     
                         </div>
-                        <div class="col-md-3 subImg1" id="subImg-container">
-                            <img  class="subImgs" src=https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory&fname=http%3A%2F%2Fcfile22.uf.tistory.com%2Fimage%2F2253CF3E58A403A30DA6C3>     
-                        </div>
-                        <div class="col-md-3 subImg1" id="subImg-container">
-                            <img  class="subImgs" src=https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory&fname=http%3A%2F%2Fcfile22.uf.tistory.com%2Fimage%2F2253CF3E58A403A30DA6C3>     
-                        </div>
-                        <div class="col-md-3 subImg1" id="subImg-container">
-                            <img  class="subImgs" src=https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory&fname=http%3A%2F%2Fcfile22.uf.tistory.com%2Fimage%2F2253CF3E58A403A30DA6C3>     
-                        </div>                                            
+                      </c:forEach>                                             
                     </div>
+                       
                     <div class='row'>
                         <nav id=tab-list>
                             <div class="nav nav-tabs nav-fill detail" id="nav-tab" role="tablist">
@@ -61,8 +76,9 @@
                             </div>
                         </nav>
                         <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                                Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
+                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" style='min-width: 656px'>
+                              
+                               <h4>${detailList.get(0).SELLCONTENT}</h4>
                             </div>
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                 Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
@@ -70,8 +86,26 @@
                             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                                 Et et dkjflksdnn djsklfjlkdsdddddddddddddddddddddddjsdklfjsdlkjl jsdklfjlk  jdkf jdk  djkfsdjfk jdskl sdjklf jdslkf jlsdjf klj sjdklf jsdklfj kl jsdklf jklsdf jlkdsjflkjsdlkf jjsdklfjsldkjflksdjflksdjflksdjflksdjlkf jdk jlc jsd klfjldk  ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex 이대형앝나.
                             </div>
-                            <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
-                                Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
+                            <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab"  style='min-width:656px'>
+                                <table id="optionT" border="1px solid black"   >
+                                	<tr>
+                                		<th>옵션</th>
+                                		<th>옵션내용</th>
+                                		<th>소요기간</th>
+                                		<th>옵션별 가격</th>
+                                	</tr>
+                                <c:forEach items="${optionList}"  var="optionList" >
+                                	<%-- <h3> ${optionList.SELLOPTIONNO}  ${optionList.SELLOPTIONCONTENT}  소요기간  ${optionList.SELLDEADLINE} 금액  ${optionList.SELLPRICE } </h3> --%>
+                                	<tr>
+                                		<td> ${optionList.SELLOPTIONNO}</td>
+                                		<td>${optionList.SELLOPTIONCONTENT}</td>
+                                		<td>${optionList.SELLDEADLINE}</td>
+                                		<td>${optionList.SELLPRICE }</td>
+                                	</tr>
+                                	
+                                </c:forEach>
+                                </table>
+                                                                
                             </div>
                         </div>
                     </div>                       
@@ -86,35 +120,35 @@
                         
                         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                             <div class="navbar-nav">
-                                <a class="nav-item nav-link active xx" href="#">평점|후기 보기</a>
-                                <a class="nav-item nav-link xx" href="#">다른 글보기</a>
-                                <a class="nav-item nav-link xx" href="#">Pricing</a>
-                                <a class="nav-item nav-link disabled xx" href="#">Disabled</a>
+                            	<br/>
+                                <h4>${detailList.get(0).GRADENAME} ${detailList.get(0).MEMBERNAME}</h4>
+                                <a class="nav-item nav-link active xx" href="#">쪽지보내기</a>
+                                <a class="nav-item nav-link active xx" href="#">다른 글보기</a>                                
                             </div>
                         </div>                                            
                     </nav>
                     <div class="row " style="text-align:center">
                         <div class="col-md-10">
-                            <img  class="subImgs userImg" src=https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory&fname=http%3A%2F%2Fcfile22.uf.tistory.com%2Fimage%2F2253CF3E58A403A30DA6C3>     
+                        
+                            <img  class="userImg" src="${path}/resources/upload/member/${detailList.get(0).REIMG}">     
                             <br/>
                             <div class='row' style='margin-top: 1.2em'>
-                                <div class='col-md-6'>
-                                    <button class="btn btn-primary" style='padding-left:17px; padding-right:17px; float:right;'><i class='far fa-star'></i>찜하기</button>
+                                <div class='col-md-7'>
+                                    <button class="btn btn-primary" onclick="fn_outbox();" style='padding-left:17px; padding-right:17px; float:right;'><i class='far fa-star'></i>찜하기</button>
                                 </div>
-                                <div class='col-md-6' style='float:left'>
-                                    <button class='btn btn-primary' style='float:left;' >쪽지보내기</button>
-                                </div>
+                                
                                             
                             </div>
                             <br/>
-                            <p>어쩌고저쩌고ㄴㅇㄹㄴㅇㄹㄴㅁ오러ㅏㅓㅁㄴ아ㅣ러ㅣㅏㅁㄴ어리ㅏㅁㄴ어리ㅏㅓㅁㄴ아ㅣ런이ㅏㅓ라ㅣㄴ어리ㅏㄴ어리ㅏㅓㅇ니이ㅏ러ㅣㅏㅁㄴ어리ㅏㅁㄴ어ㅏㅣ~</p>
+                            <p> ${detailList.get(0).INTRODUCTION}</p>
                             <div class="row">
                                 <div class="col-md-1"></div>
                                 <div class="col-md-10" style="text-align:center;">
                                     <select class="form-control" style="width:100%">
-                                        <option value="option1">옵션1</option>
-                                        <option value="option2">옵션2</option>
-                                        <option value="option3">옵션3</option>
+                                        <c:forEach items="${optionList}" var="optionList" >
+                                        <option value="${optionList.SELLOPTIONNO}">${optionList.SELLOPTIONNO}  ${optionList.SELLOPTIONCONTENT}  소요기간  ${optionList.SELLDEADLINE}</option>
+                                        
+                                        </c:forEach>
                                     </select>
                                 </div>
                                 <div class='col-md-1'></div>
@@ -131,6 +165,8 @@
                                     {
                                         var starPop=open("starPop.html","별점/후기","top=200px, left=200px, width=400px, height=150px");
                                     }
+                                    
+                                    
                                 </script>                              
                             </div>
                         <div class="col-md-2"></div>
@@ -140,5 +176,7 @@
       </div>
     <div class='col-md-1' id='right-nav' ></div>                   
 </div>   
+</div>
+</div>
 </body>
 </html>

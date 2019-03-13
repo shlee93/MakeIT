@@ -30,10 +30,20 @@
 	</style>
 
 </head>
+<<<<<<< HEAD
 <body>
  	<div id="total" style='padding:1.1em;'>
+=======
+ <body>
+ 	<%-- <jsp:include page="/WEB-INF/views/common/header.jsp">
+		<jsp:param value="HelloSpring" name="pageTitle"/>
+	</jsp:include> --%>
+ 	
+ 	<div class='container-fluid' id="total">
+>>>>>>> refs/remotes/origin/JCH
   		<div class='row'>
        		<div class='col-md-1' id='nav'></div>
+<<<<<<< HEAD
 				<div class='col-md-10'>
 					<div class='row'>
 						<div class='col-md-2'>
@@ -237,6 +247,81 @@
 	            	</div>		            
 		        </div>   	
 	        </div>    
+=======
+
+            <div class='col-md-10' id='section' >
+              <div class="row">
+                <div class="col-md-2">
+                  <select class="form-control">
+                      <option >상위 카테고리</option>
+                  </select>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control">
+                        <option >하위 카테고리</option>
+                    </select>
+                </div>
+                <div class="col-md-6"></div>
+                <div class="col-md-2">
+                    <select class="form-control">
+                        <option >정렬방식</option>
+                    </select>
+                </div>
+              </div>
+              <div class="card" id="contestMain">
+                <div class="row ">
+                  <div class="col-md-2" id="imgContainer">
+                      <img id="contestimg" src="https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory&fname=http%3A%2F%2Fcfile22.uf.tistory.com%2Fimage%2F2253CF3E58A403A30DA6C3" class="w-100">
+                    </div>
+                    <div class="col-md-7 ">
+                      <div class="card-block px-3">
+                        <div class="row">
+                          <h2 class="card-title">콘테스트 이름을 작성해요 </h4>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12" id="contestdetail"  >
+                              <h4>회사이름</h4>
+                              <p class="card-text" style="overflow: hidden">상세설명 적는곳 Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.</p>
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-control righthandle">
+                          <strong>상금</strong>
+                          <span>50000만원</span>
+                        </div>
+                        <div class="form-control righthandle">
+                            <strong>기한</strong>
+                            <span>2019/03/04</span>
+                        </div>    
+                        <div class="form-control righthandle">
+                            <strong>현재 참여자</strong>
+                            <span>00명</span>
+                        </div>                           
+                          <div class="row">
+                            <div class="col-md-12">
+                              <a href="#" class="btn btn-primary" style="width: 80%; margin-left:5% ;">상세보기</a>    
+                            </div>
+                          </div>
+                      </div>
+          
+                  </div>
+              </div>
+       
+              <input type="text" name="searchKeyword" size="25" placeholder="검색할 아이디를 입력하세요" />
+              <button class="btn btn-primary" type="submit">검색</button>  
+    
+            
+                
+            </div>
+            <div class='col-md-1' id='right-nav' >
+               
+                      
+            </div>
+            
+>>>>>>> refs/remotes/origin/JCH
         </div>
     </div>       
 </body>

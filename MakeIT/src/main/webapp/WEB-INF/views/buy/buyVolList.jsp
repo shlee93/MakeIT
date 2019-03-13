@@ -29,7 +29,87 @@
 
 
 <style>
-div{border:1px solid black}
+
+
+div {padding: 10px;}
+thead {
+	text-align:center;
+}
+.volTr{
+	cursor:pointer
+}
+.where {
+  display: block;
+  margin: 25px 15px;
+  font-size: 11px;
+  color: #000;
+  text-decoration: none;
+  font-family: verdana;
+  font-style: italic;
+} 
+
+.filebox input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip:rect(0,0,0,0);
+    border: 0;
+}
+
+.filebox label {
+    display: inline-block;
+    padding: .5em .75em;
+    color: #999;
+    font-size: inherit;
+    line-height: normal;
+    vertical-align: middle;
+    background-color: #fdfdfd;
+    cursor: pointer;
+    border: 1px solid #ebebeb;
+    border-bottom-color: #e2e2e2;
+    border-radius: .25em;
+}
+
+
+
+/* imaged preview */
+.filebox .upload-display {
+    margin-bottom: 5px;
+}
+
+@media(min-width: 768px) {
+    .filebox .upload-display {
+        display: inline-block;
+        margin-right: 5px;
+        margin-bottom: 0;
+    }
+}
+
+.filebox .upload-thumb-wrap {
+    display: inline-block;
+    width: 54px;
+    padding: 2px;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.filebox .upload-display img {
+    display: block;
+    max-width: 100%;
+    width: 100% \9;
+    height: auto;
+}
+
+.filebox.bs3-primary label {
+  color: #fff;
+  background-color: #337ab7;
+    border-color: #2e6da4;
+}
 </style>
 </head>
 <body>
@@ -45,73 +125,80 @@ div{border:1px solid black}
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>조충현</td>
-						<td>내가 나를 이긴다 그럼 나는 너를 이기는가</td>
-						<td>2018/02/27</td>
+				<c:forEach items="${volList}" var="v">
+					<tr class="volTr" onclick="fn_volView('${v.MEMBERID}', '${v.BUYNO }', '${v.CATEGORYCODE }')" >
+						<td><c:out value="${v.MEMBERID }"/></td>
+						<td><c:out value="${v.BUYCANDIDATETITLE }"/></td>
+						<fmt:parseDate value="${v.BUYCANDIDATEDATE }" var="dateFMT" pattern="yyyy-MM-dd HH:mm:ss.S"/>
+						<td><fmt:formatDate value="${dateFMT}" pattern="yy-MM-dd HH:mm"/></td>
 					</tr>
-					<tr>
-						<td>조충현</td>
-						<td>내가 나를 이긴다 그럼 나는 너를 이기는가</td>
-						<td>2018/02/27</td>
-					</tr>
-					<tr>
-						<td>조충현</td>
-						<td>내가 나를 이긴다 그럼 나는 너를 이기는가</td>
-						<td>2018/02/27</td>
-					</tr>
-					<tr>
-						<td>조충현</td>
-						<td>내가 나를 이긴다 그럼 나는 너를 이기는가</td>
-						<td>2018/02/27</td>
-					</tr>
-					<tr>
-						<td>조충현</td>
-						<td>내가 나를 이긴다 그럼 나는 너를 이기는가</td>
-						<td>2018/02/27</td>
-					</tr>
-					<tr>
-						<td>조충현</td>
-						<td>내가 나를 이긴다 그럼 나는 너를 이기는가</td>
-						<td>2018/02/27</td>
-					</tr>
-					<tr>
-						<td>조충현</td>
-						<td>내가 나를 이긴다 그럼 나는 너를 이기는가</td>
-						<td>2018/02/27</td>
-					</tr>
+				</c:forEach>
 				</tbody>
 			</table>
-			<div>
-			<input type="text" class="form-group" id="title"
-				value="내가 나를 이긴다 그럼 나는 너를 이기는가" readonly /> <input type="text"
-				class="form-group" id="writer" value="조충현" readonly />
-			<br>
-			<textarea class="form-group" id="content" rows="10" style="width:90%;">
-				내가 나를 이긴다 고로 나는 너를 이긴다. 왜냐하면 나느 천하무적이기 때문이다. 누가 나를 이길 쏘냐? 그건 너도 나도 우리도 심지어 하늘도 모르는 것이다.
-			</textarea>
-			<div>
-			<button class="btn btn-secondary">결정하기</button>
-			<button class="btn btn-secondary">뒤로가기</button>
+			<form action="" name="volViewFrm">
+				<input type="hidden" name="memberId"/>
+				<input type="hidden" name="buyNo"/>
+				<input type="hidden" name="categoryCode"/>
+			</form>	
+			<!--
+			<div class="filebox bs3-primary preview-image">
+				<label for="input_file">사진 선택</label> 
+				<input type="file" id="input_file" class="upload-hidden" multiple="multiple" accept=".gif, .jpg, .png"> 
+			</div> -->
 			</div>
-
-			<table class="table table-hover">
-				<tr>
-					<td>이전</td>
-					<td>창과 방패가 서로 강하기를 주장하니 어찌 세상이 평화로울 수 있겠습니까</td>
-					<td>제갈공명</td>
-				</tr>
-				<tr>
-					<td>다음</td>
-					<td>암튼 다이아몬드가 젤 단단함 반박시 빙시</td>
-					<td>관종</td>
-				</tr>
-
-			</table>
-		</div>
-		</div>
 		
 		<div class="col-sm-1"></div>
 	</div>
+<script>
+var sel_files=[];
+$(document).ready(function(){
+	    //preview image 
+	    var imgTarget = $('.preview-image .upload-hidden');
+
+	    imgTarget.on('change', function(e){
+	    	var files=e.target.files;
+	        var filesArr=Array.prototype.slice.call(files);
+	        console.log(files);
+	        var parent = $(this).parent();
+	        parent.children('.upload-display').remove();
+	        console.log("수 : " + filesArr.length);
+			if(filesArr.length > 5)
+			{
+				alert("사진은 5개 제한입니다.");
+				return;
+			}
+	        filesArr.forEach(function(f){
+	            if(!f.type.match("image.*")){
+	               alert("확장자는 이미지 확장자만 가능합니다.");
+	               return;
+	       
+	            }
+	            console.log(f)
+	            sel_files.push(f);
+	            
+	            var reader=new FileReader();
+	            reader.onload=function(e){
+	            	var src = e.target.result;
+	                parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+	            }
+	            
+	            reader.readAsDataURL(f);
+	         })
+	     });
+	});
+	
+	function fn_volView(memberId, buyNo, categoryCode)
+	{
+		var url="${path}/buy/buyVolView.do";
+				
+		volViewFrm.memberId.value=memberId;
+		volViewFrm.buyNo.value=buyNo;
+		volViewFrm.categoryCode.value=categoryCode;
+		volViewFrm.action=url;
+		volViewFrm.method="post";
+		volViewFrm.submit();
+		
+	}
+</script>
 </body>
 </html>
