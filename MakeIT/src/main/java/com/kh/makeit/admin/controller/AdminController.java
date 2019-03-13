@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,12 +28,16 @@ public class AdminController {
 	
 	@RequestMapping("/admin/adminView.do")
 	public ModelAndView adminView(
-				@RequestParam(value="cPage", required=false, defaultValue="1") int cPage
+				@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
+				@RequestParam(value="reportStatus", required=false, defaultValue="BUY") String reportStatus
 			) {
+		
 		//회원 리스트 출력
 		int numPerPage=5;
 		int memberCount=adminService.selectMemberCountAdmin();
+		int reportCount=adminService.selectReportCountAdmin(reportStatus);
 		String pageBar=PageFactory.getPageBarAdmin(memberCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+		String pageBarReport=PageFactory.getPageBarAdmin(reportCount, cPage, numPerPage,"/makeit/admin/adminView.do");
 		ModelAndView mav=new ModelAndView();
 		//회원정보 출력
 		List<Map<String,String>> memberList=adminService.selectMemberListAdmin(cPage,numPerPage);		
@@ -42,7 +47,11 @@ public class AdminController {
 		//FAQ 출력
 		List<Map<String,String>> faqList=adminService.selectFaqListAdmin();
 		List<Map<String,String>> categoryList=adminService.selectFaqCategoryAdmin();
-		
+		//신고회원 출력
+		logger.info(reportStatus);
+		List<Map<Object,Object>> reportList=adminService.selectReportListAdmin(reportStatus,cPage,numPerPage);
+		mav.addObject("pageBarReport", pageBarReport);
+		mav.addObject("reportList", reportList);
 		mav.addObject("faqList", faqList);
 		mav.addObject("categoryList", categoryList);
 		mav.addObject("interestList",interestList);
@@ -229,6 +238,12 @@ public class AdminController {
 		ModelAndView mav=new ModelAndView();
 		
 		int result=adminService.insertFaqCategory(category);
+		List<Map<String,String>> faqList=adminService.selectFaqListAdmin();
+		List<Map<String,String>> categoryList=adminService.selectFaqCategoryAdmin();
+		
+		mav.addObject("faqList", faqList);
+		mav.addObject("categoryList", categoryList);
+		mav.setViewName("admin/adminFaqView");
 		return mav;
 	}
 	
@@ -314,6 +329,72 @@ public class AdminController {
 
 		return mav;
 	}
+	
+	//관리자 페이지 FAQ 카테고리 삭제
+	@RequestMapping("/admin/deleteFaqCategoryAdmin.do")
+	public ModelAndView deleteFaqCategoryAdmin(int faqCategoryNo) {
+		
+		ModelAndView mav=new ModelAndView();
+		
+		int result=adminService.deleteFaqCategoryAdmin(faqCategoryNo);
+		
+		List<Map<String,String>> faqList=adminService.selectFaqListAdmin();
+		List<Map<String,String>> categoryList=adminService.selectFaqCategoryAdmin();
 
+		mav.addObject("faqList", faqList);
+		mav.addObject("categoryList", categoryList);
+		mav.setViewName("admin/adminFaqView");
+
+		return mav;
+	}
+	//신고승인, 카운트 증가, 신고데이터 스테이터스 변경
+	@RequestMapping("/admin/updateReportCount.do")
+	public ModelAndView updateReportCount(String reportStatus,int contentNo,String reportId,
+			@RequestParam(value="reportFlag",required=false,defaultValue="true") boolean reportFlag,
+			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage
+			) {
+		int numPerPage=5;
+		int reportCount=adminService.selectReportCountAdmin(reportStatus);
+		String pageBarReport=PageFactory.getPageBarAdmin(reportCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+		ModelAndView mav=new ModelAndView();
+		int result=0;
+		int result2=0;
+		Map<Object,Object> report=new HashMap();
+		if(reportFlag) {
+			
+			result2=adminService.updateReportCount(reportId);
+			
+		}
+		report.put("reportId", reportId);
+		report.put("reportStatus", reportStatus);
+		report.put("contentNo", contentNo);
+		result=adminService.updateReportStatus(report);
+		
+		List<Map<Object,Object>> reportList=adminService.selectReportListAdmin(reportStatus,cPage,numPerPage);
+		mav.addObject("pageBarReport", pageBarReport);
+		mav.addObject("reportList", reportList);
+		mav.setViewName("admin/adminReportView");
+		
+		return mav;
+	}
+	
+	//신고 페이징 처리
+	@RequestMapping("/admin/selectReportListView.do")
+	public ModelAndView selectReportListView(String reportStatus,
+			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage
+			) {
+		int numPerPage=5;
+		int reportCount=adminService.selectReportCountAdmin(reportStatus);
+		String pageBarReport=PageFactory.getPageBarAdmin(reportCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+		ModelAndView mav=new ModelAndView();
+		List<Map<Object,Object>> reportList=adminService.selectReportListAdmin(reportStatus,cPage,numPerPage);
+		mav.addObject("pageBarReport", pageBarReport);
+		mav.addObject("reportList", reportList);
+		mav.setViewName("admin/adminReportView");
+		
+		return mav;
+		
+	}
+	
 	
 }

@@ -140,4 +140,117 @@
 		DELETE FROM FAQ WHERE FAQNO=#{faqNo}
 	</delete>
 	
+	<!-- 관리자 페이지 FAQ카테고리 삭제 -->
+	<delete id="deleteFaqCategoryAdmin" parameterType="_int">
+		DELETE FROM FAQCATEGORY WHERE FAQNACATEGORYNO=#{faqCategoryNo}
+	</delete>
+	
+	<!-- 관리자 페이지 구매 신고 리스트 -->
+	<select id="selectReportListAdmin" parameterType="string" resultType="map">
+		<choose>
+			<when test="_parameter=='BUY'">
+			SELECT 
+			M.MEMBERID AS BUYID,
+			M.MEMBERNAME,
+			M.PHONE,
+			M.EMAIL,
+			M.ADDRESS,
+			M.ENTDATE,
+			M.REIMG,
+			M.REPORTCOUNT,
+			M.BIRTH,
+			M.INTERESTNO,
+			M.GRADENAME,
+			B.BUYTITLE,
+			R.* 
+			FROM BUYREPORT R 
+			JOIN BUY B ON(B.BUYNO=R.BUYNO) 
+			JOIN 
+			(SELECT M.*,GRADENAME 
+			FROM MEMBER M
+    		JOIN GRADE G ON(G.GRADENO=M.GRADENO)) M ON(M.MEMBERID=B.MEMBERID)
+    		WHERE BUYREPORTYN='N'
+			</when>
+			<when test="_parameter=='SELL'">
+			SELECT 
+			M.MEMBERID AS SELLID,
+			M.MEMBERNAME,
+			M.PHONE,
+			M.EMAIL,
+			M.ADDRESS,
+			M.ENTDATE,
+			M.REIMG,
+			M.REPORTCOUNT,
+			M.BIRTH,
+			M.INTERESTNO,
+			M.GRADENAME,
+			S.SELLTITLE,
+			R.* 
+			FROM SELLREPORT R 
+			JOIN SELL S ON(S.SELLNO=R.SELLNO) 
+			JOIN 
+			(SELECT M.*,GRADENAME 
+			FROM MEMBER M
+    		JOIN GRADE G ON(G.GRADENO=M.GRADENO)) M ON(M.MEMBERID=S.MEMBERID)
+    		WHERE SELLREPORTYN='N'
+			</when>
+			<when test="_parameter=='CONTEST'">
+			SELECT 
+			M.MEMBERID AS CONTESTID,
+			M.MEMBERNAME,
+			M.PHONE,
+			M.EMAIL,
+			M.ADDRESS,
+			M.ENTDATE,
+			M.REIMG,
+			M.REPORTCOUNT,
+			M.BIRTH,
+			M.INTERESTNO,
+			M.GRADENAME,
+			C.CONTESTTITLE,
+			R.* 
+			FROM CONTESTREPORT R 
+			JOIN CONTEST C ON(C.CONTESTNO=R.CONTESTNO) 
+			JOIN 
+			(SELECT M.*,GRADENAME 
+			FROM MEMBER M
+    		JOIN GRADE G ON(G.GRADENO=M.GRADENO)) M ON(M.MEMBERID=C.MEMBERID)
+    		WHERE CONTESTREPORTYN='N'
+			</when>
+			<otherwise>
+			SELECT 
+			M.MEMBERID AS FREEID,
+			M.MEMBERNAME,
+			M.PHONE,
+			M.EMAIL,
+			M.ADDRESS,
+			M.ENTDATE,
+			M.REIMG,
+			M.REPORTCOUNT,
+			M.BIRTH,
+			M.INTERESTNO,
+			M.GRADENAME,
+			F.FREETITLE,
+			R.* 
+			FROM FREEREPORT R 
+			JOIN FREE F ON(F.FREENO=R.FREENO) 
+			JOIN 
+			(SELECT M.*,GRADENAME 
+			FROM MEMBER M
+    		JOIN GRADE G ON(G.GRADENO=M.GRADENO)) M ON(M.MEMBERID=F.MEMBERID)
+    		WHERE FREEREPORTYN='N'
+			</otherwise>
+		</choose>
+	</select>
+	<update id="updateReportCount" parameterType="string">
+		UPDATE MEMBER SET REPORTCOUNT=REPORTCOUNT+1 WHERE MEMBERID=#{reportId}
+	</update>
+	
+	<update id="updateReportStatus" parameterType="string">
+		UPDATE ${reportStatus}REPORT SET ${reportStatus}REPORTYN='Y' WHERE MEMBERID=#{reportId} AND ${reportStatus}NO=#{contentNo}
+	</update>
+	
+	<select id="selectReportCountAdmin" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM ${_parameter}REPORT
+	</select>
 </mapper>

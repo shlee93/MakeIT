@@ -144,34 +144,39 @@ public class AdminDaoImpl implements AdminDao {
 		
 		return sqlSession.delete("admin.deleteFaqnaAdmin", faqNo);
 	}
+
+	//관리자 페이지 FAQ카테고리 삭제
+	@Override
+	public int deleteFaqCategoryAdmin(int faqCategoryNo) {
+		
+		return sqlSession.delete("admin.deleteFaqCategoryAdmin",faqCategoryNo);
+	}
+
+	//관리자 페이지 구매 신고 리스트
+	@Override
+	public List<Map<Object, Object>> selectReportListAdmin(String reportStatus,int cPage,int numPerPage) {
+		RowBounds rb=new RowBounds((cPage-1)*numPerPage,numPerPage);
+		return sqlSession.selectList("admin.selectReportListAdmin",reportStatus,rb);
+	}
+
+	//관리자 페이지 회원 신고 횟수 증가
+	@Override
+	public int updateReportCount(String reportId) {
+		
+		return sqlSession.update("admin.updateReportCount", reportId);
+	}
 	
+	//관리자 페이지 게시글 신고 검토 여부
+	@Override
+	public int updateReportStatus(Map<Object,Object> report) {
+		
+		return sqlSession.update("admin.updateReportStatus",report);
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@Override
+	public int selectReportCountAdmin(String reportStatus) {
+		
+		return sqlSession.selectOne("admin.selectReportCountAdmin",reportStatus);
+	}
+
 }

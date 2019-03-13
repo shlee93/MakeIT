@@ -299,73 +299,176 @@
                                 </tbody>
                             </table>
                             <div class="container">
-                                <div class="row">
-
-                                    <div class="col-md-12">
-
-                                        <div class="panel panel-info">
-
-                                            <div class="panel-body">
-                                                <div class="report-tab-back">
-                                                    <ul class="report-tab">
-                                                        <li class="report-no">1</li>
-                                                        <li class="report-member">누구누구</li>
-                                                    </ul>
-                                                </div>
-                                                <div class="report-info-back">
-                                                    <div class="row">
-                                                        <div class="col-md-3" align="center">
-                                                            <h3 class="panel-title">한국인</h3>
-                                                            <img alt="User Pic" src="D:\D\HTMLVS\한효주.png" class="img-circle img-responsive">
-                                                        </div>
-                                                        <div class="col-md-9">
-                                                            <table class="table table-user-information">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td>분야</td>
-                                                                        <td>Programming</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>신고일</td>
-                                                                        <td>06/23/2013</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>주소</td>
-                                                                        <td>대한민국</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>이메일</td>
-                                                                        <td><a href="mailto:info@support.com">info@support.com</a></td>
-                                                                    </tr>
-                                                                    <td>
-                                                                        전화번호
-                                                                    </td>
-                                                                    <td>
-                                                                        123-4567-890(Landline)<br><br>555-4567-890(Mobile)
-                                                                    </td>
-
-                                                                    <tr>
-                                                                        <td>신고 사유</td>
-                                                                        <td>
-                                                                            <p>신고 하고 싶어서</p>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td></td>
-                                                                        <td>
-                                                                            <button class="report-btn">신고 승인</button>
-                                                                        </td>
-                                                                    </tr>
-
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            	<div class="row">
+                            		<div class="col-md-12">
+		                                <div class="row">
+											<div class='col-md-3 col-xs-3'>
+			
+												<!-- 네비 사이드 -->
+			
+												<div class="nav-side-menu">
+													<div class="brand">게시판</div>
+													<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+													<div class="menu-list">
+														<input type="hidden" id="report-view-status" value="BUY"/>
+														<ul id="menu-content" class="menu-content collapse out">
+			
+															<li class='side-nav-li report-view active' data-toggle="collapse" data-target="#new" class="collapsed">
+																<input type="hidden" value="BUY"/>
+																<a href="#">
+																	<i class="fas fa-credit-card fa-lg"></i> 구매
+																</a>
+															</li>
+															<li class='side-nav-li report-view' data-toggle="collapse" data-target="#new" class="collapsed">
+																<input type="hidden" value="SELL"/>
+																<a href="#">
+																	<i class="fa fas fa-trophy fa-lg"></i> 판매
+																</a>
+															</li>
+															<li class='side-nav-li report-view' data-toggle="collapse" data-target="#new" class="collapsed">
+																<input type="hidden" value="CONTEST"/>
+																<a href="#">
+																	<i class="fas fa-address-card"></i> 컨테스트
+																</a>
+															</li>
+															<li class='side-nav-li report-view' data-toggle="collapse" data-target="#new" class="collapsed">
+																<input type="hidden" value="FREE"/>
+																<a href="#">
+																	<i class="fas fa-fax fa-lg"></i> 자유게시판
+																</a>
+															</li>
+			
+														</ul>
+													</div>
+												</div>
+			
+												<!-- 네비 사이드 끝 -->
+			
+											</div>
+		
+											<div class="col-md-9">
+	
+												<div class="panel panel-info">
+											<c:if test="${empty reportList }">
+											<div>
+												데이터가 없습니다!
+											</div>
+											</c:if>
+											<c:choose>
+												<c:when test="${not empty reportList }">
+												
+													<c:forEach items='${reportList }' var="report">
+													
+													<div class="panel-body">
+														<div class="report-tab-back">
+															<ul class="report-tab">
+																<li><strong>피신고인:</strong>
+																	<span class="report-id">${report.MEMBERID }</span>
+																</li>&nbsp;&nbsp;&nbsp;&nbsp;
+																<li><strong>신고일:</strong>
+																	<span class="report-date">${report.BUYREPORTDATE }</span>
+																</li>
+															</ul>
+														</div>
+														<div class="report-info-back">
+															<div class="row">
+																<div class="col-md-3" align="center">
+																	<h3 class="panel-title">${report.BUYID }</h3>
+																	<img alt="User Pic" src="${path }/upload/member/${report.REIMG}" class="img-circle img-responsive">
+																</div>
+																<div class="col-md-9">
+																	<table class="table table-user-information">
+																		<tbody>
+																			<tr>
+																				<td>분야</td>
+																				<td>${report.INTERESTNO }</td>
+																			</tr>
+																			<tr>
+																				<td>신고일</td>
+																				<td>${report.BUYREPORTDATE }</td>
+																			</tr>
+																			<tr>
+																				<td>생년월일</td>
+																				<td>${report.BIRTH }</td>
+																			</tr>
+																			<tr>
+																				<td>주소</td>
+																				<td>${report.ADDRESS }</td>
+																			</tr>
+																			<tr>
+																				<td>이메일</td>
+																				<td><a href="#">${report.EMAIL }</a></td>
+																			</tr>
+																			<tr>
+																				<td>전화번호</td>
+																				<td>${report.PHONE }</td>
+																			</tr>
+																			<tr>
+																				<td>등급</td>
+																				<td>
+																					${report.GRADENAME }
+																				</td>
+																			</tr>	
+																			<tr>
+																				<td>신고 횟수</td>
+																				<td>
+																					${report.REPORTCOUNT}
+																				</td>
+																			</tr>																		
+																			<tr>
+																				<td>신고인</td>
+																				<td>
+																					${report.MEMBERID }
+																				</td>
+																			</tr>
+																			<tr>
+																				<td>신고 글 제목</td>
+																				<td>
+																					<span class="report-title">${report.BUYTITLE }</span>
+																					<input type="hidden" class="report-title-no" value="${report.BUYNO }"/>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td>신고 사유</td>
+																				<td>
+																					<p>${report.BUYREPORTCONTENT }</p>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td></td>
+																				<td>
+																					<input type="hidden" class="content-no" value="${report.BUYNO }"/>
+																					<button class="report-btn-cancel btn btn-primary">신고 거부</button>
+																					<button class="report-btn btn btn-primary">신고 승인</button>
+																				</td>
+																			</tr>
+	
+																		</tbody>
+																	</table>
+																</div>
+															</div>
+														</div>
+													</div>
+													
+													</c:forEach>
+												</c:when>
+												<c:otherwise>
+													<div>
+														데이터가 없습니다!
+													</div>
+												</c:otherwise>
+											</c:choose>
+											<c:if test="${not empty reportList }">
+												<div class="page-bar-back">
+													${pageBarReport }
+												</div>
+											</c:if>
+												</div>
+												
+											</div>
+			                            </div>
+			                        </div>
+                            	</div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="nav-payment" role="tabpanel" aria-labelledby="nav-payment-tab">
@@ -674,16 +777,19 @@
                             	<c:forEach items="${categoryList }" var="category">
 	                            <div class="faq-back">
 	                                <div class="faq-category">${category.FAQNACATEGORYNAME }
+	                                	<input type="hidden" class="faq-category-no" value="${category.FAQNACATEGORYNO }"/>
+	                                	<input type="hidden" class="faq-category-name" value="${category.FAQNACATEGORYNAME }"/>
 	                                    <button class="faq-slide">▼</button>
 	                                    <button class="faq-category-delete">삭제</button>
 	                                </div>
 	                                <div class="faq-list-back">
 	                                    <ul class="faq-list">
 	                                    <c:forEach items="${faqList }" var="faq">
-	                                    	<c:if test="${faq.FAQCATEGORYNO eq category.FAQCATEGORYNO }">
+	                                    	<c:if test="${faq.FAQNACATEGORYNO==category.FAQNACATEGORYNO }">
 	                                    	
 	                                        <li class="faq-question">${faq.FAQTITLE }
 												<input type="hidden" class="faq-no" value="${faq.FAQNO }"/>
+												<input type="hidden" class="faq-title" value="${faq.FAQTITLE }"/>
 	                                            <button class="answer-slide">▼</button>
 	                                            <button class="qna-delete-view">삭제</button>
 	                                            <button class="qna-update">수정</button>

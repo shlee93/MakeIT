@@ -29,16 +29,19 @@
 		<c:forEach items="${categoryList }" var="category">
 			<div class="faq-back">
 				<div class="faq-category">${category.FAQNACATEGORYNAME }
+					<input type="hidden" class="faq-category-no" value="${category.FAQNACATEGORYNO }"/>
+					<input type="hidden" class="faq-category-name" value="${category.FAQNACATEGORYNAME }"/>
 					<button class="faq-slide">▼</button>
 					<button class="faq-category-delete">삭제</button>
 				</div>
 				<div class="faq-list-back">
 					<ul class="faq-list">
 						<c:forEach items="${faqList }" var="faq">
-							<c:if test="${faq.FAQCATEGORYNO eq category.FAQCATEGORYNO }">
+							<c:if test="${faq.FAQNACATEGORYNO==category.FAQNACATEGORYNO }">
 
 								<li class="faq-question">${faq.FAQTITLE }
 									<input type="hidden" class="faq-no" value="${faq.FAQNO }" />
+									<input type="hidden" class="faq-title" value="${faq.FAQTITLE }"/>
 									<button class="answer-slide">▼</button>
 									<button class="qna-delete-view">삭제</button>
 									<button class="qna-update">수정</button>

@@ -1,3 +1,32 @@
+//탭 클릭시 뷰 스테이터스 전환
+$(document).on('click','#nav-member-tab',function(){
+	var $view_Status=$("#view-status");
+	$view_Status.val("member");
+});
+$(document).on('click','#nav-approval-tab',function(){
+	var $view_Status=$("#view-status");
+	$view_Status.val("approval");
+});
+$(document).on('click','#nav-report-tab',function(){
+	var $view_Status=$("#view-status");
+	$view_Status.val("report");
+});
+$(document).on('click','#nav-payment-tab',function(){
+	var $view_Status=$("#view-status");
+	$view_Status.val("payment");
+});
+$(document).on('click','#nav-refund-tab',function(){
+	var $view_Status=$("#view-status");
+	$view_Status.val("refund");
+});
+$(document).on('click','#nav-category-tab',function(){
+	var $view_Status=$("#view-status");
+	$view_Status.val("category");
+});
+$(document).on('click','#nav-faq-tab',function(){
+	var $view_Status=$("#view-status");
+	$view_Status.val("faq");
+});
 //회원 검색 Ajax
 $(document).on('keyup','#search-id',function(){
 	var searchId=$('#search-id').val();
@@ -139,10 +168,13 @@ $(document).on('change','#member-sort',function(){
 //회원 정보 페이징 처리
 $(document).on('click','.member-page',function(){
 	var cPage=$(this).children('.cPage').val();
-	console.log(cPage);
 	var viewStatus=$('#view-status').val();
+	//회원 관리에 필요한 변수
 	var memberSort=$('#member-sort option:selected').val();
 	var ascDesc=0;
+	//신고관리에 필요한 변수
+	var reportStatus=$('#report-view-status').val();
+	
 	if(viewStatus=='member'){
 		
 		if(memberSort=='memberid'){
@@ -176,7 +208,22 @@ $(document).on('click','.member-page',function(){
 			dataType:"html",
 			success:function(data){
 				$('.member-view').html(data);
-				console.log(data);
+				
+			}
+			
+		})
+	}else if(viewStatus=="report"){
+		
+		//신고관리 페이징처리
+		$.ajax({
+			url:"selectReportListView.do",
+			data:{
+					"cPage":cPage,
+					"reportStatus":reportStatus
+				},
+			dataType:"html",
+			success:function(data){
+				$report_tab.html(data);
 				
 			}
 			
@@ -216,9 +263,25 @@ $(document).on('click','.update-interest',function(){
 	var interestNo=$(this).parent().siblings('.interest-info').children('.change-interest').val();
 	var deInterestNo=$(this).parent().siblings('.deInterest-info').children('.deInterest-no').val();
 	var deInterestVal=$(this).parent().siblings('.deInterest-info').children('.deInterest-val').val();
+	var $curr_deInterest=$(this).parent().siblings('.deInterest-info').children('.deInterest-val');
+	var $deInterest=$('.deInterest-val');
 	var $secondInter_tbl=$('#second-interest-tbl');
 	var updateFlag=confirm('이 카테고리를 수정하시겠습니까?');
-	console.log(interestNo);
+	
+	if(deInterestVal==''){
+		alert("내용을 입력해주세요!");
+		$curr_deInterest.focus();
+		return false;
+	}
+	
+	for(var i=0;i<$deInterest.length;i++){
+		if(deInterestVal==$deInterest.eq(i).val()){
+			alert("이미 등록된 카테고리 입니다.");
+			$curr_deInterest.focus();
+			return false;
+		}
+	}
+	
 	if(updateFlag==true){
 		
 		$.ajax({
@@ -260,13 +323,28 @@ $(document).on('click','.category-delete-btn',function(){
 		}
 	})
 });
-// 카테고리 추가 버튼
+// 2차 카테고리 추가 버튼
 $(document).on('click','#insert-interest-btn',function(){
 	
 	var deInterestVal=$('#insert-deInterest-val').val();
 	var curr_Interest=$(this).parent().parent().parent().siblings('.interest-back').children('.deInterest-info').children('.interest-no').val();
 	var $secondInter_tbl=$('#second-interest-tbl');
+	var $curr_deInterest=$('#insert-deInterest-val');
+	var $deInterest=$('.deInterest-val');
 	
+	if(deInterestVal==''){
+		alert("내용을 입력해주세요!");
+		$curr_deInterest.focus();
+		return false;
+	}
+	
+	for(var i=0;i<$deInterest.length;i++){
+		if(deInterestVal==$deInterest.eq(i).val()){
+			alert("이미 등록된 카테고리 입니다.");
+			$curr_deInterest.focus();
+			return false;
+		}
+	}
 	$.ajax({
 		url:"insertInterestAdmin.do",
 		data:{
@@ -373,6 +451,71 @@ $(document).on('click', '.report-tab-back', function () {
 
 });
 
+//신고 승인
+$(document).on('click','.report-btn',function(){
+	var reportStatus=$('#report-view-status').val();
+	var reportId=$(this).parent().parent().parent().parent().parent().parent().parent().prev().children().children().children('.report-id').text();
+	var contentNo=$(this).siblings(".content-no").val();
+	var $report_tab=$('.panel-info'); 
+	$.ajax({
+		 url:"updateReportCount.do",
+		 data:{
+			 "reportId":reportId,
+			 "reportStatus":reportStatus,
+			 "contentNo":contentNo
+		 },
+		 dataType:"html",
+		 success:function(data){
+			 $report_tab.html(data);
+			 alert("신고승인 되었습니다!");
+		 }
+	 })
+});
+$(document).on('click','.report-btn-cancel',function(){
+	var reportStatus=$('#report-view-status').val();
+	var reportId=$(this).parent().parent().parent().parent().parent().parent().parent().prev().children().children().children('.report-id').text();
+	var contentNo=$(this).siblings(".content-no").val();
+	var $report_tab=$('.panel-info');
+	var reportFlag=false;
+	$.ajax({
+		 url:"updateReportCount.do",
+		 data:{
+			 "reportId":reportId,
+			 "reportStatus":reportStatus,
+			 "contentNo":contentNo,
+			 "reportFlag":reportFlag
+		 },
+		 dataType:"html",
+		 success:function(data){
+			 $report_tab.html(data);
+			 alert("신고거부 되었습니다!");
+		 }
+	 })
+});
+
+//신고 관리 게시판 카테고리 메뉴 클릭시 화면전환
+$(document).on('click','.report-view',function(){
+	var $view_Status=$('#report-view-status');
+	$view_Status.val($(this).children('input').val());
+	var reportStatus=$view_Status.val();
+	var $report_tab=$('.panel-info'); 
+	var $click_Li=$(this);
+	$.ajax({
+		url:"selectReportListView.do",
+		data:{
+				"reportStatus":reportStatus
+			},
+		dataType:"html",
+		success:function(data){
+			$report_tab.html(data);
+			$('.report-view').removeClass('active');
+			$click_Li.addClass('active');
+		}
+		
+	})
+})
+
+
 //faq 카테고리 클릭 이벤트
 $(document).on('click', '.faq-slide', function () {
 
@@ -427,10 +570,29 @@ $(document).on('click', '#add-faq-category-cancel', function () {
 	
 	
 });
-
+//FAQ 카테고리 등록
 $(document).on('click','#add-faq-category-btn',function(){
 	
 	var category=$("#input-faq-category").val();
+	var $faq_tab=$('#nav-faq');
+	var $category=$('.faq-category').children('.faq-category-name');
+	var categoryName=$category.val();
+	
+	if(category==""){
+		alert("등록할 내용을 입력해주세요!");
+		return false;
+	}
+	
+	for(var i=0; i<$category.length;i++){
+		if(category==$category.eq(i).val()){
+			alert("이미 등록된 카테고리 입니다.");
+			return false;
+		}
+	}
+	
+	
+	
+	
 	$.ajax({
 		url:"insertFaqCategory.do",
 		data:{
@@ -438,7 +600,9 @@ $(document).on('click','#add-faq-category-btn',function(){
 		},
 		dataType:"html",
 		success:function(data){
-			console.log(1);
+			$faq_tab.html(data);
+			alert("등록완료!");
+			
 		}
 	})
 	
@@ -502,9 +666,27 @@ $(document).on('click','.qna-delete',function(){
 		}
 	})
 })
-
+//FAQ 카테고리 삭제
 $(document).on('click','.faq-category-delete',function(){
 	var delete_flag=confirm("카테고리에 해당하는 모든 질문이 삭제됩니다.");
+	var faqCategoryNo=$(this).siblings('.faq-category-no').val();
+	var $faq_tab=$('#nav-faq');
+	if(delete_flag==true){
+		
+		$.ajax({
+			
+			url:"deleteFaqCategoryAdmin.do",
+			data:{
+				"faqCategoryNo":faqCategoryNo,
+			},
+			dateType:"html",
+			success:function(data){
+				$faq_tab.html(data);
+				alert("삭제완료!");			
+			}
+		})
+		
+	}
 })
 
 

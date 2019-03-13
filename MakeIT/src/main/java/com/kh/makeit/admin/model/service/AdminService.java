@@ -58,4 +58,18 @@ public interface AdminService {
 	//관리자 페이지 FAQ 삭제
 	int deleteFaqnaAdmin(int faqNo);
 	
+	//관리자 페이지 FAQ카테고리 삭제
+	int deleteFaqCategoryAdmin(int faqCategoryNo);
+	
+	//관리자 페이지 신고 리스트
+	List<Map<Object,Object>> selectReportListAdmin(String reportStatus,int cPage, int numPerPage);
+	
+	//관리자 페이지 회원 신고 횟수 증가
+	int updateReportCount(String reportId);
+	
+	//관리자 페이지 게시글 신고 검토 여부
+	int updateReportStatus(Map<Object,Object> report);
+	
+	//관리자 페이지 신고 리스트 카운트
+	int selectReportCountAdmin(String reportStatus);
 }

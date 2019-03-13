@@ -144,29 +144,41 @@ public class AdminServiceImpl implements AdminService {
 		
 		return dao.deleteFaqnaAdmin(faqNo);
 	}
+
+	//관리자 페이지 FAQ 카테고리 삭제
+	@Override
+	public int deleteFaqCategoryAdmin(int faqCategoryNo) {
+		
+		return dao.deleteFaqCategoryAdmin(faqCategoryNo);
+	}
 	
+	//관리자 페이지 구매 신고 리스트
+	@Override
+	public List<Map<Object, Object>> selectReportListAdmin(String reportStatus,int cPage,int numPerPage) {
+		
+		return dao.selectReportListAdmin(reportStatus,cPage,numPerPage);
+	}
+
+	//관리자 페이지 회원 신고 횟수 증가
+	@Override
+	public int updateReportCount(String reportId) {
+		
+		return dao.updateReportCount(reportId);
+	}
+
+	//관리자 페이지 게시글 신고 검토 여부
+	@Override
+	public int updateReportStatus(Map<Object,Object> report) {
+		
+		return dao.updateReportStatus(report);
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	//관리자 페이지 신고 리스트 카운트
+	@Override
+	public int selectReportCountAdmin(String reportStatus) {
+		
+		return dao.selectReportCountAdmin(reportStatus);
+	}
 	
 	
 }

@@ -62,7 +62,7 @@
 										</tr>
 										<tr>
 											<td><strong>관심분야</strong></td>
-											<td>${member.get('INTEREST') }</td>
+											<td>${member.get('INTERESTNO') }</td>
 										</tr>
 										<tr>
 											<td><strong>등급</strong></td>
