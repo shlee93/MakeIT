@@ -1,6 +1,6 @@
 package com.kh.makeit.contest.controller;
 
-import java.io.BufferedInputStream;
+import java.io.BufferedInputStream; 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.makeit.HomeController;
 import com.kh.makeit.common.PageFactory;
 import com.kh.makeit.common.exception.BoardException;
 import com.kh.makeit.contest.service.ContestService;
@@ -39,9 +38,6 @@ public class ContestController
 	@Autowired 
 	ContestService cs;
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
-	ModelAndView mv=new ModelAndView();
 	
 	@RequestMapping("/contest/contestMain.do")
 	public ModelAndView contestMain(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, HttpServletRequest request)
@@ -122,7 +118,7 @@ public class ContestController
 	}	
 	
 	@RequestMapping("/contest/contestFormEnd.do")
-	public String contestFormEnd(String contestTitle, String contestContent, String contestDate, String contestDeadLine, String contestPrice, String detailInterestNo, String interestNo, HttpServletRequest request, MultipartFile[] upFile) throws BoardException
+	public String contestFormEnd(String contestTitle, String contestContent, String contestDate, String contestDeadLine, String contestPrice, String detailInterestNo, String interestNo, HttpServletRequest request, int mainImgNo, MultipartFile[] upFile) throws BoardException
 	{
 		ModelAndView mv=new ModelAndView();
 		HttpSession session=request.getSession();
@@ -142,7 +138,12 @@ public class ContestController
 		contest.put("memberId",memberId);
 		
 		String savDir=request.getSession().getServletContext().getRealPath("/resources/upload/contest");
-		ArrayList<ContestImg> files=new ArrayList<>();
+		ArrayList<ContestImg> files=new ArrayList<>();		
+		
+		  
+	      MultipartFile index = upFile[mainImgNo];
+	      upFile[mainImgNo] = upFile[0];
+	      upFile[0] = index;
 		
 		for(MultipartFile f:upFile)
 		{  
@@ -357,4 +358,79 @@ public class ContestController
 		
 		return "redirect:/contest/contestMain.do";
 	}
+	
+	@RequestMapping("/contest/contestModify.do")
+	public ModelAndView contestModify(int contestDelNo, HttpServletRequest request)
+	{
+		HttpSession session=request.getSession();
+		ModelAndView mv=new ModelAndView();
+		Map<String,String> memberMap=(Map)session.getAttribute("member");
+		mv.addObject("memberMap", memberMap);	
+		Map<String,String> contestObj=cs.contestModifyService(contestDelNo);
+		contestObj.put("CONTESTDATE", String.valueOf(contestObj.get("CONTESTDATE")).substring(0, 10));
+		contestObj.put("CONTESTDEADLINE", String.valueOf(contestObj.get("CONTESTDEADLINE")).substring(0, 10));
+		List<Map<String,String>> contestImgList=cs.contestModifyImgService(contestDelNo); 
+		mv.addObject("contest", contestObj);
+		mv.addObject("contestImgList", contestImgList);
+		mv.setViewName("contest/contestModify");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/contest/contestModifyEnd.do")
+	public String contestModifyEnd(int contestNo, String contestTitle, String contestContent, String contestDate, String contestDeadLine, String contestPrice, String detailInterestNo, String interestNo, HttpServletRequest request, int mainImgNo, MultipartFile[] upFile) throws BoardException
+	{
+		ModelAndView mv=new ModelAndView();
+		HttpSession session=request.getSession();
+		Map<String,String> memberMap=(Map)session.getAttribute("member");
+		Map contest=new HashMap();
+		String memberId=memberMap.get("MEMBERID");
+		contest.put("contestNo", contestNo);
+		contest.put("contestTitle", contestTitle);
+		contest.put("contestContent", contestContent);
+		contest.put("contestDate",contestDate);
+		contest.put("contestDeadLine", contestDeadLine);
+		contest.put("contestPrice", contestPrice);
+		contest.put("detailInterestNo",detailInterestNo);
+		contest.put("interestNo", interestNo);
+		contest.put("memberId", memberId);
+		
+		String savDir=request.getSession().getServletContext().getRealPath("/resources/upload/contest");
+		ArrayList<ContestImg> files=new ArrayList<>();		
+		
+		  
+	      MultipartFile index = upFile[mainImgNo];
+	      upFile[mainImgNo] = upFile[0];
+	      upFile[0] = index;
+		
+		for(MultipartFile f:upFile)
+		{  
+			ContestImg contestImg=new ContestImg();
+			if(!f.isEmpty())
+			{
+				//파일명을 생성(rename)
+				String oriFileName=f.getOriginalFilename();
+				String ext=oriFileName.substring(oriFileName.lastIndexOf("."));
+				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+				int rdv=(int)(Math.random()*1000);
+				String reName=sdf.format(System.currentTimeMillis())+"_"+rdv+ext;
+				
+				try
+				{
+					f.transferTo(new File(savDir+"/"+reName));
+				}
+				catch(IllegalStateException | IOException e)
+				{
+					e.printStackTrace();
+				}
+				contestImg.setContestNo(contestNo);
+				contestImg.setContestImgRe(reName);
+				contestImg.setContestImgOri(oriFileName);
+				files.add(contestImg);				
+			}
+		}
+		cs.contestModifyEndService(contest, files);
+		
+		return "redirect:/contest/contestMain.do";
+	} 
 }

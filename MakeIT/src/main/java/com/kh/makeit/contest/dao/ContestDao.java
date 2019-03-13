@@ -3,7 +3,6 @@ package com.kh.makeit.contest.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.kh.makeit.contest.vo.Contest;
 import com.kh.makeit.contest.vo.ContestImg;
 
 public interface ContestDao 
@@ -21,5 +20,10 @@ public interface ContestDao
 	Map contestApplicantOneDao(Map applicantInfo);
 	int applicantConfirmDao(Map applicantConfirmInfo);
 	int contestDelDao(int contestDelNo);
+	Map contestModifyDao(int contestNo);
+	List<Map<String,String>> contestModifyImg(int contestNo);
+	int contestModifyEndDao(Map<String,String> contest);
+	int contestModifyForeDelImg(int contestNo);
+	int contestUpdateImg(ContestImg contestImg);
 	
 }

@@ -127,7 +127,49 @@ public class ContestServiceImpl implements ContestService
 	public int contestDelService(int contestDelNo) {
 		// TODO Auto-generated method stub
 		return cd.contestDelDao(contestDelNo);
+	}
+
+	@Override
+	public Map contestModifyService(int contestNo) {
+		// TODO Auto-generated method stub
+		return cd.contestModifyDao(contestNo);
+	}
+
+	@Override
+	public List<Map<String, String>> contestModifyImgService(int contestNo) {
+		// TODO Auto-generated method stub
+		return cd.contestModifyImg(contestNo);
+	}
+
+	@Override
+	public int contestModifyEndService(Map<String, String> contest, List<ContestImg> files) throws BoardException {
+		// TODO Auto-generated method stub
+		int result=0;
+		int contestNo=0;
+		
+		try
+		{
+			result=cd.contestModifyEndDao(contest);
+			
+			contestNo=Integer.parseInt(String.valueOf(contest.get("contestNo")));
+			cd.contestModifyForeDelImg(contestNo);
+			if(result==0)
+			{
+				throw new BoardException("게시판 등록실패");
+			}
+			for(ContestImg contestImg :files)
+			{
+				System.out.println("시발"+contestNo);
+				contestImg.setContestNo(contestNo);
+				result=cd.contestUpdateImg(contestImg);
+				if(result==0) throw new BoardException("파일 업로드 실패");
+			}
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}		
+		
+		return result;	
 	}		
-	
-	
 }

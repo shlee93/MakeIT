@@ -53,17 +53,15 @@
                         
                         </c:forEach> 
                         <script>
-                     	$(document).on('click','.subImgs',function(){
-                    		var imgIndex = $(this).parent('.subImg').prevAll().length;	
-                    		console.log(imgIndex);
-                    		/* console.log(('.subImg:eq('+0+') .subImgs').attr('src'));  */
-                    		console.log($('.mainImg').attr('src'));
-                    		var url1 = $(this).attr('src');
-                    		var url2 = $('.mainImg').attr('src');
-                    		$('.mainImg').attr('src',url1);
-                    		$(this).attr('src',url2);
-                    		
-                    	})
+	                     	$(document).on('click','.subImgs',function(){
+	                    		var imgIndex = $(this).parent('.subImg').prevAll().length;	
+	                    		
+	                    		var url1 = $(this).attr('src');
+	                    		var url2 = $('.mainImg').attr('src');
+	                    		$('.mainImg').attr('src',url1);
+	                    		$(this).attr('src',url2);
+	                    		
+	                    	})
                         </script>                                                                     
                     </div>
                     
@@ -139,11 +137,12 @@
 							 	</c:choose>  								
 	                          	<c:choose>
 							    	<c:when test="${currentId eq contestObj.MEMBERID}">
-								    	<button class='btn btn-primary' onclick='fn_contestModifySubmit()'>수정하기</button>
+								    	<button class='btn btn-primary' onclick='fn_contestModify()'>수정하기</button>
 								    	<script>
-								    		function fn_contestModifySubmit()
+								    		function fn_contestModify()
 								    		{
-								    			
+								    			$('#contestDetailFrm').attr('action','${path}/contest/contestModify.do');
+								    			$('#contestDetailFrm').submit();
 								    		}
 								    	</script>									    							    	   
 							      	</c:when>

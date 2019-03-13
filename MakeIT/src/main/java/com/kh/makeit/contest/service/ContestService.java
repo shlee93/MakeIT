@@ -19,4 +19,7 @@ public interface ContestService
 	Map contestApplicantOneService(Map applicantInfo); 
 	int applicantConfirmService(Map applicantConfirmInfo);
 	int contestDelService(int contestDelNo);
+	Map contestModifyService(int contestNo);
+	List<Map<String,String>> contestModifyImgService(int contestNo);
+	int contestModifyEndService(Map<String,String> contest, List<ContestImg> files) throws BoardException;
 }

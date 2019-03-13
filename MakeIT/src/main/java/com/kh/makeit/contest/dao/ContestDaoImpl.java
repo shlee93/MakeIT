@@ -94,7 +94,35 @@ public class ContestDaoImpl implements ContestDao
 	public int contestDelDao(int contestDelNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.delete("contest.contestDel", contestDelNo);
-	}		
+	}
+
+	@Override
+	public Map contestModifyDao(int contestNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("contest.contestModify", contestNo);
+	}
+
+	@Override
+	public List<Map<String, String>> contestModifyImg(int contestNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("contest.contestModifyImg", contestNo);
+	}
+
+	@Override
+	public int contestModifyEndDao(Map<String, String> contest) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("contest.contestModifyEnd", contest);
+	}
 	
-	
+	@Override
+	public int contestModifyForeDelImg(int contestNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("contest.modifyForeDelImg", contestNo);
+	}
+
+	@Override
+	public int contestUpdateImg(ContestImg contestImg) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("contest.contestUpdateImg", contestImg);
+	}
 }
