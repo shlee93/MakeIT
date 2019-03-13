@@ -1,5 +1,6 @@
 package com.kh.makeit.buy.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -7,12 +8,50 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.makeit.buy.model.dao.BuyDao;
+import com.kh.makeit.buy.model.vo.BuyAttach;
+import com.kh.makeit.common.MakeitException;
 
 @Service
 public class BuyServiceImpl implements BuyService {
 	@Autowired
 	BuyDao dao;
 	
+	@Override
+	public int buyCount(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return dao.buyCount(map);
+	}
+	
+	@Override
+	public List<Map<String, String>> buyMainGrade(Map<String, String> map, int cPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return dao.buyMainGrade(map, cPage, numPerPage);
+	}
+
+	@Override
+	public List<Map<String, String>> buyMainNew(Map<String, String> map, int cPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return dao.buyMainNew(map, cPage, numPerPage);
+	}
+	
+	@Override
+	public BuyAttach imageDiv2(String buyNo) {
+		// TODO Auto-generated method stub
+		return dao.imageDiv2(buyNo);
+	}
+	
+	@Override
+	public int searchCount(Map<String, String> map2) {
+		// TODO Auto-generated method stub
+		return dao.searchCount(map2);
+	}
+
+	@Override
+	public List<Map<String, String>> buySearch(Map map, int numPerPage, int contentCount, int cPage) {
+		// TODO Auto-generated method stub
+		return dao.buySearch(map, numPerPage, contentCount, cPage);
+	}
+
 	@Override
 	public List<Map<String, String>> selectVolList(Map m) {
 		return dao.selectVolList(m);
@@ -23,6 +62,35 @@ public class BuyServiceImpl implements BuyService {
 		// TODO Auto-generated method stub
 		return dao.selectVolView(map);
 	}
+
+	@Override
+	public int buyWriteEnd(ArrayList<BuyAttach> files, Map<String, String> map) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		try {
+			result = dao.insertBuy(map);
+			if(result < 1)
+			{
+				throw new MakeitException("구매 게시글 등록에 실패하였습니다.");
+			}
+			for(BuyAttach a : files)
+			{
+				a.setBuyNo(Integer.parseInt(map.get("buyNo")));
+				result = dao.insertAttach(a);
+				if(result < 1)
+				{
+					throw new MakeitException("파일 업로드에 실패하였습니다.");
+				}
+			}
+
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
 	
 	
 }

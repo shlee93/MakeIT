@@ -160,7 +160,7 @@ public class sellController {
          mv.setViewName("common/msg");
          return mv;
       }else {
-         msg="판매글 등록에 실패하였습니다. 다시 시도해 주세요";
+         msg="판매글 등록에 실패하였습니다. 다시 시도해 주세요.";
          loc="/sell/sellWrite.do";
          mv.addObject("msg",msg);
          mv.addObject("loc",loc);
