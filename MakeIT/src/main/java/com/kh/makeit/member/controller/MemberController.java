@@ -314,19 +314,23 @@ public class MemberController {
 
 	@RequestMapping("/member/memberIntroduction.do")
 	public ModelAndView memberIntroduction(String appealContent, String appealId) {
-		logger.debug(appealContent);
-		logger.debug(appealId);
-		Map<String, String> map = new HashMap<>();
-		map.put("appealContent", appealContent);
-		map.put("appealId", appealId);
-		int result = service.memberIntroduction(map);
 		ModelAndView mv = new ModelAndView();
 		String msg = "";
 		String loc = "/member/memberMyPage.do";
-		if (result > 0) {
-			msg = "자기소개란 등록 완료.";
+		if(appealContent != null) {
+			logger.debug(appealContent);
+			logger.debug(appealId);
+			Map<String, String> map = new HashMap<>();
+			map.put("appealContent", appealContent);
+			map.put("appealId", appealId);
+			int result = service.memberIntroduction(map);
+			if (result > 0) {
+				msg = "자기소개란 등록 완료.";
+			} else {
+				msg = "자기소개란 등록 실패.";
+			}
 		} else {
-			msg = "자기소개란 등록 실패.";
+			msg = "내용을 입력해주세요.";
 		}
 		mv.addObject("msg", msg);
 		mv.addObject("loc", loc);
