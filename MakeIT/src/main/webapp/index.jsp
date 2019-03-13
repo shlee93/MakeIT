@@ -27,6 +27,7 @@
 	<a class="dropdown-item" href="${path }/contest/contestDetail.do">컨테스트상세</a>
 	<a class="dropdown-item" href="${path }/contest/contestWrite.do">컨테스트글작성</a>
 	<a class="dropdown-item" href="${path }/mainpage/mainpage.do">메인페이지</a>
+		<a class="dropdown-item" href="${path }/intropage/intropage.do">인트로페이지</a>
 
 
    <div id="famousContentWrap">
@@ -161,7 +162,7 @@
 	                	var num = data[i]['SUM(SELLPRICE)'] + ""; 
 	                	var len = num.length;
 	                	var point = num.length %3;
-	                	console.log('실행!!~ : '+i);
+
 	                	str = num.substring(0, point);
 	                	while(point < len){
 	                		if(str != "") str +=",";
@@ -169,9 +170,7 @@
 	                		point += 3;
 	                	}
 	    				totalPrice2 = str;
-	    				console.log(totalPrice2);
 	    				data[i]['SUM(SELLPRICE)'] = str;
-	    				console.log(data[i]['SUM(SELLPRICE)']);
 
                 }
                 

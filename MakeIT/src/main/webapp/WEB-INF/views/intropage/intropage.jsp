@@ -12,6 +12,9 @@
 <!-- jQuery library -->
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 
+<!-- font -->
+<link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Sunflower:300" rel="stylesheet">
+
     <style>
     html,body{
         margin: 0;
@@ -68,9 +71,37 @@
         transform: translate(-50%,-80%);
         color: white;
         font-size: 25px;
-        opacity: 0;
+        display: none;
+        opacity: 1;
+    }
+    #goMain{
+    	position:absolute;
+    	width: 0px;
+    	height: 0px;
+    	left: 50%;
+    	top: 80%;
+    	transform: translate(-50%,-80%);
+    	background-color: cornflowerblue;
+    	border-radius: 100%;
+   		transition: ease-in-out;
+        transition-duration: 0.7s;
+    	opacity: 0;
+    }
+    #goMainText{
+		position: absolute;
+	   	width: max-content;
+	    height: max-content;
+
+ 	    left: 50%;
+ 	    top: -45px;
+	    transform: translateX(-50%); 
+	    font-size: 60px;
+	    font-family: 'Sunflower', sans-serif;
+	    color: white;
+	    cursor: pointer;
     }
     </style>
+
 </head>
 <body>
 
@@ -79,6 +110,8 @@
         <div id="whiteImg"></div>
         <div id="header"></div>
         <div id="footer"></div>
+        
+        <div id="goMain"><p id="goMainText">go!</p></div>
 
         <a id="skip" href="main"><u>SKIP intro</u></a>
     </div> 
@@ -88,14 +121,20 @@
     $(function (){
       setTimeout(function(){
 
-        $('#skip').css('opacity','1');
-        console.log('1');
+        $('#skip').css('display','block');
       },2000);
+    })
+        $(function (){
+      setTimeout(function(){
+
+        $('#skip').css('display','none');
+      },5000);
     })
 
     $(function(){
         setTimeout(function(){
-            $('#videoImg').attr('src','videoEffect/Intro2GIF.gif');
+ 
+            $('#videoImg').attr('src','${pageContext.request.contextPath }/resources/introSource/video/Intro2GIF.gif');
         },1000);
     })
 
@@ -104,6 +143,19 @@
             $('#whiteImg').css('opacity','1');
         },5000);
     })
+    
+    $(function(){
+    	setTimeout(function(){
+    		$('#goMain').css('width','100px');
+    		$('#goMain').css('height','100px');
+    		$('#goMain').css('opacity','1');
+    	},5000)
+    })
+    
+    $('#goMain').click(function(){
+    	console.log("gogo!");
+    	location.href="${path}/index.jsp";
+    });
     </script>
 
 </body>

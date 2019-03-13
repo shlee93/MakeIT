@@ -104,14 +104,6 @@ public class MemberController {
 		return mv;
 	}
 
-	@RequestMapping("/mainpage/mainpage.do")
-	public String mainpage(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		logger.debug("세션 : "+session.getAttribute("member"));
-		return "mainpage/mainpage";
-
-	}
-
 	@RequestMapping("/member/memberEnroll")
 	public ModelAndView memberEnroll(String memberLevel) {
 		logger.debug(memberLevel);
@@ -991,6 +983,13 @@ public class MemberController {
 
 		logger.info(data);
 		return data;
+	}
+	@RequestMapping("/intropage/intropage.do")
+	public String mainpage(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		logger.debug("세션 : "+session.getAttribute("member"));
+		return "intropage/intropage";
+
 	}
 
 }

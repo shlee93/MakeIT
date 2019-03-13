@@ -139,7 +139,6 @@
 	                	var num = data[i]['SUM(SELLPRICE)'] + ""; 
 	                	var len = num.length;
 	                	var point = num.length %3;
-	                	console.log('실행!!~ : '+i);
 	                	str = num.substring(0, point);
 	                	while(point < len){
 	                		if(str != "") str +=",";
@@ -147,9 +146,7 @@
 	                		point += 3;
 	                	}
 	    				totalPrice2 = str;
-	    				console.log(totalPrice2);
 	    				data[i]['SUM(SELLPRICE)'] = str;
-	    				console.log(data[i]['SUM(SELLPRICE)']);
 
                 }
                 
