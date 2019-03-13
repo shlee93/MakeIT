@@ -67,7 +67,7 @@ var subde="";
 <body>
 	<form id="sellWriteFrm">
    <div class="row">
-<<<<<<< HEAD
+
       <div class="col-sm-1"></div>
       <div id="buy-container" class="col-sm-10">
          <label>분류</label> <select class="form-control col-sm-2"
@@ -107,25 +107,7 @@ var subde="";
          <br>
          <div class="filebox">
             <label for="ex_file">이미지 업로드</label> <input type="file" id="ex_file">
-      <div class="col-md-1"></div>
-      <div id="buy-container" class="col-md-10">
-         <div class="row">
-         	<div class="col-md-2">
-	         <label>분류</label> 
-	         </div>
-	         <div class="col-md-8">
-	         	<select class="form-control col-md-4" name="interest" style="display: inline">
-		            <option disabled selected>대분류</option>
-		            <option value=1>개발자</option>
-		            <option value=2>웹디자이너</option>
-		            <option value=3>네트워크 보안</option>
-	         	</select> 
-	         	<select class="form-control col-md-4" id="detailInterest"  style="display: inline; margin-right: 10px">
-		            <option disabled selected>소분류</option>
-		           
-	         	</select>
-	         </div> 
-	         <br> 
+
          </div>
          <div class="row">
 	         <div class="col-md-2">

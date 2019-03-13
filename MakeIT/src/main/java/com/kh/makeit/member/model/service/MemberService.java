@@ -44,6 +44,12 @@ public interface MemberService {
 	List<Map<String, String>> buyList(String memberId, int buycPage, int numPerPage);
 
 	List<Map<String, String>> sellList(String memberId, int sellcPage, int numPerPage);
+	
+	int selectServiceNum();
+	
+	int selectTradeNum();
+	
+	List<Map<String, String>> selectRanking();
 
 	List<Map<String, String>> sendMessage(String memberId, int buycPage, int numPerPage);
 

@@ -115,6 +115,23 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public int selectServiceNum() {
+
+		return dao.selectServiceNum();
+	}
+
+	@Override
+	public int selectTradeNum() {
+		
+		return dao.selectTradeNum();
+	}
+
+	@Override
+	public List<Map<String, String>> selectRanking() {
+
+		return dao.selectRanking();
+	}
+
 	public List<Map<String, String>> sendMessage(String memberId,int buycPage, int numPerPage) {
 		return dao.sendMessage(memberId,buycPage,numPerPage);
 	}
@@ -208,11 +225,4 @@ public class MemberServiceImpl implements MemberService {
 	public int noReadMessage(String id) {
 		return dao.noReadMessage(id);
 	}
-	
-
-	
-	
-	
-	
-	
 }

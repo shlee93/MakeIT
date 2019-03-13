@@ -1,6 +1,5 @@
 @charset "UTF-8";
 
-
     body, html{
         padding: 0;
         margin: 0;
@@ -54,7 +53,7 @@
         height: 35px;
         
         color: white;
-        overflow: hidden;
+        /* overflow: hidden; */
         /* background-color: blue;  */
     }
     #tradeService p{
@@ -213,19 +212,33 @@
     }
     #famousContentTitle{
         position: relative;
-        font-size: 25px;
-        font-weight: bold;
-        margin-bottom: 0px;
+        font-size: 55px;
+        /* font-weight: bold; */
+        margin-bottom: -20px;
         white-space: nowrap;
         color: black;
+        font-family: 'Nanum Pen Script', cursive;
+        /* background-color: red; */
+    }
+    #famousContentTitle2{
+        position: relative;
+        font-size: 35px;
+        /* font-weight: bold; */
+        margin-bottom: -15px;
+        white-space: nowrap;
+        color: black;
+        opacity: 0.8;
+        font-family: 'Nanum Pen Script', cursive;
         /* background-color: red; */
     }
     #famousContentBody{
         position: relative;
         width: 100%;
         height: 373.5px;
-        background-color: red;
-        opacity: 0.5;
+        white-space: nowrap;
+        overflow: hidden;
+        /* background-color: red; */
+        /* opacity: 0.5; */
     }
     #famousContentLeft{
         position: absolute;
@@ -233,9 +246,10 @@
         height: 50px;
         left: 1%;
         top: 50%;
+        z-index: 1;
         transform: translate(-1%,-50%);
         border-radius: 100%;
-        background-color: white;
+        background-color: gold;
         cursor: pointer;
     }
     #famousContentRight{
@@ -244,13 +258,22 @@
         height: 50px;
         left: 99%;
         top: 50%;
+        z-index: 1;
         transform: translate(-99%,-50%);
         border-radius: 100%;
-        background-color: white;
+        background-color: gold;
         cursor: pointer;
     }
-    #famousContent{
+    .famousContent{
         position: relative;
+        display: inline-block;
+        width: 1000px;
+        height: 400px;
+        left: 0px;
+        transition: ease-in-out;
+        transition-duration: 0.7s;
+        background-color: blue;
+        /* opacity: 0.1; */
     }
 
     #recentlyViewWrap{
@@ -355,25 +378,16 @@
         top: 30px;
         transform: translate(-50%);
         width: 1000px;
-        height: 400px;
+        height: 639px;
+        transition: ease-in-out;
+        transition-duration: 0.7s;
         /* background-color: cornflowerblue; */
     }
 
-    #rankingViewTitle{
-        position: relative;
-        width: max-content;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 30px;
-        font-weight: bold;
-        white-space: nowrap;
-        margin-bottom: 0px;
-        color: black;
-    }
     #rankingViewAlign{
         position: absolute;
         width: max-content;
-        height: max-content;
+        height: 100%;
         left: 50%;
         top: 95%;
         transform: translate(-50%,-95%);
@@ -383,40 +397,338 @@
         position: relative;
         display: inline-block;
         width: 500px;
-        height: 350px;
+        height: 639px;
         background-color: white;
-        border: 2px solid black;
+        border: 1px solid gray;
         border-radius: 10px;
         transition: ease-in-out;
         transition-duration: 0.7s;
+        background-color: white;
+        overflow: hidden;
     }
-    #rankingViewDiv{
-        position: absolute;
-        width: 40px;
-        height: 40px;
-        left: 98%;
-        top: 50%;
-        transform: translate(-98%,-50%);
-        border-radius: 100%;
-        background-color: cornflowerblue;
+    
+    #rankingView1stBody{
+        position: relative;
+        width: 100%;
+        height: 200px;
+        background-color: gainsboro;
+        margin-bottom: -5px;
         cursor: pointer;
     }
+    
+    #rankingViewTitle{
+        position: relative;
+        width: max-content;
+        left: 50%;
+        top: 0%;
+        transform: translate(-50%,-0%);
+        font-size: 50px;
+        /* font-weight: bold; */
+        white-space: nowrap;
+        font-family: 'Sunflower', sans-serif;
+        /* background-color: red; */
+        color: black;
+    }
+    #rankingView1stBox{
+        position: absolute;
+        width: 85%;
+        height: 65%;
+        left: 50%;
+        top: 100%;
+        transform: translate(-50%,-100%);
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        background-color: white;
+    }
+    #rankingView1stLogo{
+        position: absolute;
+        width:120px;
+        height: 120px;
+        left: 3%;
+        top:50%;
+        transform: translate(-3%,-50%);
+        border-radius: 100%;
+        background-color: cornflowerblue;
+    }
+    #rankingView1stPriceBody{
+        position: absolute;
+        width: 270px;
+        height: 80px;
+        left: 95%;
+        transform: translateX(-95%);
+        /* background-color: gainsboro; */
+    }
+    #rankingView1stPriceTitle{
+        position: relative;
+        display: inline-block;
+        top: 7px;
+        font-size: 25px;
+        font-weight: bold;
+        font-family: 'Sunflower', sans-serif;
+        color: gray;
+    }
+    #rankingView1stPrice{
+        position: relative;
+        display: inline-block;
+        top: -17px;
+        font-size: 35px;
+        white-space: nowrap;
+        font-family: 'Sunflower', sans-serif;
+        color: black;
+    }
+    #rankingView1stNickBody{
+        position: absolute;
+        width: 200px;
+        height: 55px;
+        left: 66%;
+        top: 100%;
+        transform: translate(-66%,-100%);
+        /* background-color: blue; */
+    }
+    #rankingView1stNickBox{
+        position: absolute;
+        width: max-content;
+        height: 35px;
+        top: 10px;
+        border: 3px solid gainsboro;
+        border-radius: 30px;
+        /* background-color: red; */
+    }
+    #rankingView1stNick{
+        position: relative;
+        width: max-content;
+        font-size: 20px;
+        font-weight: bold;
+        font-family: 'Sunflower', sans-serif;
+        color: black;
+    }
+    .rankingViewBox{
+        position: relative;
+        width: 100%;
+        height: 100px;
+        cursor: pointer;
+        /* background-color: coral; */
+    }
+    .rankingViewLogo{
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        left: 5%;
+        top: 80%;
+        transform: translate(-5%,-80%);
+        border-radius: 100%;
+        background-color: cornflowerblue;
+    }
+    .rankingViewPriceBox{
+        position: absolute;
+        width: 230px;
+        height: 60px;
+        left: 85px;
+        top: 60%;
+        transform: translateY(-60%);
+        /* background-color: red; */
+    }
+
+    .rankingViewPrice{
+        position: absolute;
+        top: 160%;
+        transform: translateY(-160%);
+        font-size: 30px;
+        font-family: 'Sunflower', sans-serif;
+        white-space: nowrap;
+        color: black;
+    }
+    .rankingViewNickBox{
+        position: absolute;
+        width: 170px;
+        height: 60px;
+        left: 90%;
+        top: 60%;
+        transform: translate(-90%,-60%);
+        /* background-color: blue; */
+    }
+    .rankingViewNick{
+        position: absolute;
+
+        left: 100%;
+        top: 110%;
+        transform: translate(-100%,-110%);
+        white-space: nowrap;
+        font-size: 18px;
+        font-weight: bold;
+        font-family: 'Sunflower', sans-serif;
+        /* font-weight: bold; */
+        color: black;
+    }
+    .rankingWidthBar{
+        position: relative;
+        width: 350px;
+        height: 4px;
+        /* margin-bottom: -10px; */
+        left: 50%;
+        transform: translate(-50%);
+        background-color: black;
+        /* border-radius: 1px; */
+        opacity: 0.1;  
+    }
+    #rankingViewMore{
+        position: absolute;
+        width: 100%;
+        height: 30px;
+        top: 100%;
+        transform: translateY(-100%);
+        /* border-radius: 100%; */
+        z-index: 1;
+        background-color: cornflowerblue;
+        opacity: 1;
+        cursor: pointer;
+    }
+
+
     #rankingDetailViewBody{
         position: relative;
         display: inline-block;
         width: 0px;
-        height: 0px;
+        height: 300px;
+        top: -340px;
         background-color: white;
-        border: 2px solid black;
+        border: 1px solid gray;
         border-radius: 10px;
         transition: ease-in-out;
         transition-duration: 0.7s;
+        overflow: hidden;
         opacity: 0;
     }
-    #rankingDetailView{
+    #rankingDetailViewNickBox{
         position: absolute;
+        width: 100%;
+        height: 50px;
+        background-color: cornflowerblue;
+    }
+    #rankingDetailViewNick{
+        position: absolute;
+        left: 50%;
+        top: 90%;
+        transform: translate(-50%,-90%);
+        font-family: 'Sunflower', sans-serif;
+        font-size: 25px;
+        font-weight: bold;
+        white-space: nowrap;
+        color: white;
+    }
+    #rankingDetailViewDelete{
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        left: 98%;
+        top: 5px;
+        transform: translateX(-98%);
+        border-radius: 100%;
+        background-color: white;
+        cursor: pointer;
+    }
+    #rankingDetailViewBox{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        width: max-content;
+        height: max-content;
+        /* background-color: red; */
+    }
+    #rankingDetailViewGood{
+        display: block;
+        font-size: 25px;
+        color: black;
+        font-family: 'Sunflower', sans-serif;
+        margin-bottom: 3px;
+    }
+    #rankingDetailViewWork{
+        display: block;
+        font-size: 25px;
+        color: black;
+        font-family: 'Sunflower', sans-serif;
+        margin-bottom: 3px;
+    }
+    #rankingDetailViewMajor{
+        display: block;
+        font-size: 25px;
+        color: black;
+        font-family: 'Sunflower', sans-serif;
+        margin-bottom: 3px;
+    }
+    #reviewShowBox{
+        position: absolute;
+        width: 100%;
+        height: 30px;
+        left: 50%;
+        top: 100%;
+        transform: translate(-50%,-100%);
+        background-color:cornflowerblue;
+        cursor: pointer;
+    }
+    #reviewShow{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        font-size: 21px;
+        font-weight: bold;
+        font-family: 'Sunflower', sans-serif;
+        white-space: nowrap;
+        color: white;
+    }
+    
+    
+/* ===========================모달=============================== */
+    #reviewModalWrap{
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        overflow: hidden;
+        background-color: black;
+        z-index: 2;
+        opacity: 0;
+        transition: ease-in-out;
+        transition-duration: 0.7s;
+        display: none;
+    }
+    #reviewModalContent{
+        position: fixed;
+        width: 0px;
+        height: 0px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        background-color: white;
+        border-radius: 2px;
+        z-index: 2;
+        transition: ease-in-out;
+        transition-duration: 0.7s;
+        opacity: 1;
+        overflow: hidden;
+        /* display: none; */
     }
 
+    #reviewModalDelete{
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        left: 98%;
+        top: 5px;
+        transform: translateX(-98%);
+        background-color: cornflowerblue;
+        border-radius: 100%;
+        z-index: 2;
+        cursor: pointer;
+    }
+    
+/* ===========================푸터 및 기타=============================== */
     #widthTest{
         position: relative;
         width: 1024px;
@@ -436,7 +748,7 @@
         border-radius: 10px;
         opacity: 0.5;
     }
-    #bottomBox{
+        #bottomBox{
         position: absolute;
         width: 100%;
         height: 20%;
@@ -444,5 +756,3 @@
         background-color: gainsboro;
         border: 1px solid black;
     }
-
-/* ===================================푸터 끝 */

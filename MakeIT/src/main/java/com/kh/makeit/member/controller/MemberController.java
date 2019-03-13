@@ -2,7 +2,10 @@ package com.kh.makeit.member.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,14 +23,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.makeit.common.PageFactory;
 import com.kh.makeit.common.SendMail;
 import com.kh.makeit.member.model.service.MemberService;
+import com.sun.mail.iap.Response;
 
 @Controller
 public class MemberController {
@@ -100,13 +104,6 @@ public class MemberController {
 		return mv;
 	}
 
-	@RequestMapping("/mainpage/mainpage.do")
-	public String mainpage() {
-
-		return "mainpage/mainpage";
-
-	}
-
 	@RequestMapping("/member/memberEnroll")
 	public ModelAndView memberEnroll(String memberLevel) {
 		logger.debug(memberLevel);
@@ -114,7 +111,6 @@ public class MemberController {
 		mv.addObject("memberLevel", memberLevel);
 		mv.setViewName("member/memberEnroll");
 		return mv;
-
 	}
 
 	@RequestMapping("/member/memberLogin.do")
@@ -956,5 +952,44 @@ public class MemberController {
 		return mv;
 	}
 	
-	
+	@RequestMapping("/member/mainajax.do")
+	@ResponseBody
+	public Map<String,String> mainAjax() {
+		ModelAndView mv = new ModelAndView();
+		int serviceNum = service.selectServiceNum();
+		int tradeNum = service.selectTradeNum();
+		String trade = Integer.toString(tradeNum);
+		String service = Integer.toString(serviceNum);
+		
+		Map<String,String> m = new HashMap();
+		
+		m.put("trade", trade);
+		m.put("service", service);
+		return m;
+	}
+
+	@RequestMapping(value="/member/ranking.do",	produces="application/text; charset=utf8")
+	@ResponseBody
+	public String rankingAjax(){
+		DecimalFormat format = new DecimalFormat("###,###");
+		logger.info("시작~");
+		List<Map<String,String>> allList = service.selectRanking();
+		System.out.println("리스트 : "+allList);
+		System.out.println("리스트1 : "+allList.get(0));
+		System.out.println("리스트2 : "+allList.get(1));
+		logger.info("리스트 : "+allList);
+		Gson gson = new Gson();
+		String data = gson.toJson(allList);
+
+		logger.info(data);
+		return data;
+	}
+	@RequestMapping("/intropage/intropage.do")
+	public String mainpage(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		logger.debug("세션 : "+session.getAttribute("member"));
+		return "intropage/intropage";
+
+	}
+
 }

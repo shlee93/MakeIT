@@ -28,6 +28,6 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/X201/git/Final_MakeIT/MakeIT/MakeIT/src/main/webapp/WEB-INF/lib/mail-1.4.7.jar"/>
+	<classpathentry kind="lib" path="D:/SemiProject/SemiWork/petwork/web/WEB-INF/lib/mail-1.4.7.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

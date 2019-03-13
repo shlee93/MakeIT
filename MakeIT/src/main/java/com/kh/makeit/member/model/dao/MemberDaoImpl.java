@@ -129,6 +129,23 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
+	public int selectServiceNum() {
+		
+		return sqlSession.selectOne("member.selectServiceNum");
+	}
+
+	@Override
+	public int selectTradeNum() {
+
+		return sqlSession.selectOne("member.selectTradeNum");
+	}
+
+	@Override
+	public List<Map<String, String>> selectRanking() {
+
+		return sqlSession.selectList("member.selectRanking");
+	}
+
 	public List<Map<String, String>> sendMessage(String memberId,int buycPage, int numPerPage) {
 		RowBounds row = new RowBounds((buycPage-1)*numPerPage,numPerPage);
 		return sqlSession.selectList("member.sendMessage",memberId,row);
@@ -227,6 +244,6 @@ public class MemberDaoImpl implements MemberDao {
 	public int noReadMessage(String id) {
 		return sqlSession.selectOne("member.noReadMessage",id);
 	}
-	
+
 
 }

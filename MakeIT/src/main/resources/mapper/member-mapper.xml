@@ -118,6 +118,15 @@
 	<select id="noReadMessage" parameterType="string" resultType="_int">
 		SELECT COUNT(*) FROM MESSAGE WHERE RECEIVEID=#{memberId} AND READDATE IS NULL
 	</select>
+	<select id="selectServiceNum" parameterType='string' resultType="_int">
+		SELECT COUNT(SELLNO) FROM SELL 
+	</select>
+	<select id="selectTradeNum" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM SELLSPEC JOIN STATUS ON SELLSPEC.STATUSNO = STATUS.STATUSNO WHERE STATUS.STATUSNO = 4
+	</select>
+	<select id="selectRanking" parameterType="string" resultType="map">
+		SELECT SUM(SELLPRICE),MEMBERNAME,M.MEMBERID FROM MEMBER M JOIN(SELECT S.MEMBERID, SELLPRICE FROM SELL S JOIN(SELECT SELLPRICE,P.SELLNO FROM SELLOPTION P, (SELECT SELLOPTIONNO,SELLNO FROM SELLSPEC JOIN STATUS ON SELLSPEC.STATUSNO = STATUS.STATUSNO WHERE STATUS.STATUSNO =4) S WHERE P.SELLNO = S.SELLNO AND P.SELLOPTIONNO = S.SELLOPTIONNO) P ON S.SELLNO = P.SELLNO) P ON M.MEMBERID = P.MEMBERID GROUP BY MEMBERNAME,M.MEMBERID ORDER BY SUM(SELLPRICE) DESC
+	</select>
 	<resultMap type="map" id="memberMap">
 		<result column="interest" property="interest" typeHandler="strArray"/>
 	</resultMap>
