@@ -58,7 +58,7 @@ public class MemberController {
 		double sellAvg = 0;
 		ModelAndView mv = new ModelAndView();
 		logger.debug(session.getAttribute("member"));
-		if(!session.equals(null)) {
+		if(session.getAttribute("member")!=null) {
 			Map<Object, Object> member = (Map<Object, Object>) session.getAttribute("member");
 			String id = (String) member.get("MEMBERID");
 			logger.debug(id);
@@ -67,6 +67,8 @@ public class MemberController {
 			sellCount = service.boardSellCount(id);
 			buyAvg = service.buyAvg(id);
 			sellAvg = service.sellAvg(id);
+			int noReadMessage = service.noReadMessage(id);
+			logger.debug(noReadMessage);
 			String[] addressSplit = ((String) map.get("ADDRESS")).split("/");
 			String address = addressSplit[0] + " " + addressSplit[1];
 			map.put("ADDRESS", address);
@@ -78,6 +80,7 @@ public class MemberController {
 			String birth = map.get("BIRTH").toString().substring(0, 10);
 			map.put("BIRTH", birth);
 			mv.setViewName("member/memberMyPage");
+			mv.addObject("noReadMessage",noReadMessage);
 			mv.addObject("buyCount", buyCount);
 			mv.addObject("sellCount", sellCount);
 			mv.addObject("buyAvg", buyAvg);
@@ -85,6 +88,9 @@ public class MemberController {
 			mv.addObject("map", map);
 			mv.addObject("sellcPage",0);
 			mv.addObject("buycPage",0);
+			mv.addObject("freecPage",0);
+			mv.addObject("qnacPage",0);
+			mv.addObject("contestcPage",0);
 			mv.addObject("fadeStatus",1);
 		} else {
 			String msg = "로그인 후 이용해주세요";
@@ -146,6 +152,48 @@ public class MemberController {
 		mv.addObject("randomNo", randomNo);
 		mv.addObject("email", email);
 		mv.setViewName("member/checkEmail");
+		return mv;
+	}
+	
+	@RequestMapping("/member/checkAccount")
+	public ModelAndView checkAccount(String accountNo, String bankCode) {
+		logger.debug(accountNo);
+		logger.debug(bankCode);
+		Map<String,String> account = new HashMap<>();
+		account.put("accountNo", accountNo);
+		account.put("bankCode", bankCode);
+		Map<String,Object> returnAccount = service.getAccount(account);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("account",returnAccount);
+		mv.setViewName("member/checkAccountInput");
+		return mv;
+	}
+	
+	@RequestMapping("/member/accountCheckEnd")
+	public ModelAndView checkAccountEnd(String accountNo, String bankCode, String accountName, Date accountBirth) {
+		Map<String,String> account = new HashMap<>();
+		account.put("accountNo", accountNo);
+		account.put("bankCode", bankCode);
+		logger.debug(accountName);
+		logger.debug(accountBirth.toString());
+		Map<String,Object> returnAccount = service.getAccount(account);
+		ModelAndView mv = new ModelAndView();
+		logger.debug(returnAccount.get("ACCOUNTNAME"));
+		logger.debug(returnAccount.get("ACCOUNTBIRTH").toString());
+		String birth = returnAccount.get("ACCOUNTBIRTH").toString().substring(0,10);
+		if(returnAccount.get("ACCOUNTNAME").equals(accountName)) {
+			if(birth.equals(accountBirth.toString())) {
+				mv.addObject("msg","계좌인증 완료되었습니다.");
+				mv.addObject("isAble",true);
+			} else {
+				mv.addObject("msg","생년월일이 일치하지 않습니다.");
+				mv.addObject("isAble",false);
+			}
+		}else {
+			mv.addObject("msg","이름이 일치하지 않습니다.");
+			mv.addObject("isAble",false);
+		}
+		mv.setViewName("member/checkAccountEnd");
 		return mv;
 	}
 
@@ -273,19 +321,23 @@ public class MemberController {
 
 	@RequestMapping("/member/memberIntroduction.do")
 	public ModelAndView memberIntroduction(String appealContent, String appealId) {
-		logger.debug(appealContent);
-		logger.debug(appealId);
-		Map<String, String> map = new HashMap<>();
-		map.put("appealContent", appealContent);
-		map.put("appealId", appealId);
-		int result = service.memberIntroduction(map);
 		ModelAndView mv = new ModelAndView();
 		String msg = "";
 		String loc = "/member/memberMyPage.do";
-		if (result > 0) {
-			msg = "자기소개란 등록 완료.";
+		if(appealContent != null) {
+			logger.debug(appealContent);
+			logger.debug(appealId);
+			Map<String, String> map = new HashMap<>();
+			map.put("appealContent", appealContent);
+			map.put("appealId", appealId);
+			int result = service.memberIntroduction(map);
+			if (result > 0) {
+				msg = "자기소개란 등록 완료.";
+			} else {
+				msg = "자기소개란 등록 실패.";
+			}
 		} else {
-			msg = "자기소개란 등록 실패.";
+			msg = "내용을 입력해주세요.";
 		}
 		mv.addObject("msg", msg);
 		mv.addObject("loc", loc);
@@ -554,17 +606,29 @@ public class MemberController {
 	
 	@RequestMapping("/member/memberWriteAjax.do")
 	@ResponseBody
-	public ModelAndView memberWriteAjax(int buycPage, int sellcPage, String memberId, HttpServletRequest request) {
+	public ModelAndView memberWriteAjax(int buycPage, int sellcPage, int freecPage, int qnacPage, int contestcPage, String memberId, HttpServletRequest request) {
 		Map<Object, Object> map = service.selectOne(memberId);
 		int numPerPage = 5;
 		buycPage = 1;
 		sellcPage = 1;
+		freecPage = 1;
+		qnacPage = 1;
+		contestcPage = 1;
 		List<Map<String,String>> buyList = service.buyList(memberId,buycPage,numPerPage);
 		int totalBuyCount = service.selectBuyCount(memberId);
 		String buyPageBar = PageFactory.getPageBarAjax(totalBuyCount, buycPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
 		List<Map<String,String>> sellList = service.sellList(memberId,sellcPage,numPerPage);
 		int totalSellCount = service.boardSellCount(memberId);
 		String sellPageBar = PageFactory.getPageBarAjax(totalSellCount, sellcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+		List<Map<String,String>> freeList = service.freeList(memberId,freecPage,numPerPage);
+		int totalFreeCount = service.selectFreeCount(memberId);
+		String freePageBar = PageFactory.getPageBarAjax(totalFreeCount, freecPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+		List<Map<String,String>> qnaList = service.qnaList(memberId,qnacPage,numPerPage);
+		int totalQnaCount = service.selectQnaCount(memberId);
+		String qnaPageBar = PageFactory.getPageBarAjax(totalQnaCount, qnacPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+		List<Map<String,String>> contestList = service.contestList(memberId,contestcPage,numPerPage);
+		int totalContestCount = service.selectContestCount(memberId);
+		String contestPageBar = PageFactory.getPageBarAjax(totalContestCount, contestcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
 		ModelAndView mv = new ModelAndView();
 		logger.debug(sellList);
 		mv.addObject("map",map);
@@ -576,6 +640,18 @@ public class MemberController {
 		mv.addObject("sellPageBar",sellPageBar);
 		mv.addObject("sellcPage",sellcPage);
 		mv.addObject("buycPage",buycPage);
+		mv.addObject("freeList",freeList);
+		mv.addObject("freecPage",freecPage);
+		mv.addObject("freePageBar",freePageBar);
+		mv.addObject("totalFreeCount",totalFreeCount);
+		mv.addObject("totalQnaCount",totalQnaCount);
+		mv.addObject("totalContestCount",totalContestCount);
+		mv.addObject("qnaList",qnaList);
+		mv.addObject("qnaPageBar",qnaPageBar);
+		mv.addObject("qnacPage",qnacPage);
+		mv.addObject("contestList",contestList);
+		mv.addObject("contestPageBar",contestPageBar);
+		mv.addObject("contestcPage",contestcPage);
 		mv.addObject("fadeStatus",1);
 		mv.setViewName("member/ajaxMemberWrite");
 		return mv;
@@ -583,14 +659,180 @@ public class MemberController {
 	
 	@RequestMapping("/member/memberMessageAjax.do")
 	@ResponseBody
-	public ModelAndView memberMessageAjax() {
+	public ModelAndView memberMessageAjax(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Map<Object,Object> member = (Map<Object, Object>) session.getAttribute("member");
+		String memberId = (String) member.get("MEMBERID");
+		Map<Object, Object> map = service.selectOne(memberId);
+		int numPerPage = 5;
+		int buycPage = 1;	// 보내기
+		int sellcPage = 1;	// 받기
+		List<Map<String,String>> sendMessage = service.sendMessage(memberId,buycPage,numPerPage);
+		List<Map<String,String>> receiveMessage = service.receiveMessage(memberId,sellcPage,numPerPage);
+		int totalSendCount = service.totalSendCount(memberId);
+		String sendPageBar = PageFactory.getPageBarAjax(totalSendCount, buycPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+		int totalReceiveCount = service.totalReceiveCount(memberId);
+		String receivePageBar = PageFactory.getPageBarAjax(totalReceiveCount, sellcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("map",map);
+		mv.addObject("sendMessage",sendMessage);
+		mv.addObject("totalSendCount",totalSendCount);
+		mv.addObject("sendPageBar",sendPageBar);
+		mv.addObject("receiveMessage",receiveMessage);
+		mv.addObject("totalReceiveCount",totalReceiveCount);
+		mv.addObject("receivePageBar",receivePageBar);
+		mv.addObject("sellcPage",sellcPage);
+		mv.addObject("buycPage",buycPage);
+		mv.addObject("fadeStatus",1);
+		mv.setViewName("member/ajaxMemberMessage");
 		return mv;
+	}
+	
+	@RequestMapping("/member/memberMessageDetailAjax.do")
+	public ModelAndView messageDetail(int messageNo, String memberId) {
+		Map<Object, Object> map = service.selectOne(memberId);
+		logger.debug(messageNo);
+		Map<Object, Object> message = service.messageDetail(messageNo);
+		logger.debug(message);
+		int result = 0;
+		if(message.get("RECEIVEID").equals(memberId)) {
+			result = service.updateMessageDate(messageNo);
+		}
+		if(result > 0) {
+			message = service.messageDetail(messageNo);
+		}
+		logger.debug(message);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("map",map);
+		mv.addObject("message",message);
+		mv.setViewName("/member/ajaxMessageDetail");
+		return mv;
+	}
+	
+	@RequestMapping("/member/deleteMessage.do")
+	public ModelAndView deleteMessage(int messageNo, String memberId) {
+		logger.debug(messageNo);
+		logger.debug(memberId);
+		Map<Object,Object> map = new HashMap();
+		map.put("messageNo", messageNo);
+		map.put("memberId", memberId);
+		Map<Object, Object> message = service.messageDetail(messageNo);
+		logger.debug(message);
+		logger.debug(memberId);
+		logger.debug(message.get("SENDID"));
+		logger.debug(message.get("RECEIVEID"));
+		int result = 0;
+		if(memberId.equals((String)message.get("SENDID"))) {
+			result = service.deleteSendMessage(map);
+		} else if(memberId.equals((String)message.get("RECEIVEID"))) {
+			result = service.deleteReceiveMessage(map);
+		}
+		String msg = "";
+		String loc = "";
+		logger.debug(result);
+		if(result > 0) {
+			msg = "메시지가 정상적으로 삭제되었습니다. 마이페이지로 돌아갑니다.";
+			loc = "/member/memberMyPage.do";
+		} else {
+			msg = "메시지가 정상적으로 삭제되지 않았습니다. 다시 시도해주세요.";
+			loc = "/member/memberMyPage.do";
+		}
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		return mv;
+	}
+	
+	@RequestMapping("/member/messageReceiveSelectDel.do")
+	public ModelAndView messageReceiveSelectDel(HttpServletRequest request) {
+		String[] deleteCk = request.getParameterValues("receiveDeleteCk");
+		logger.debug(deleteCk);
+		int result = 0;
+		int[] delListInt = new int[deleteCk.length];
+		for(int i = 0; i < deleteCk.length; i++) {
+			delListInt[i] = Integer.parseInt(deleteCk[i]);
+			result += service.deleteReceiveMessages(delListInt[i]);
+		}
+		String msg = "";
+		String loc = "";
+		logger.debug(result);
+		if(result > 0) {
+			msg = "메시지가 정상적으로 삭제되었습니다. 마이페이지로 돌아갑니다.";
+			loc = "/member/memberMyPage.do";
+		} else {
+			msg = "메시지가 정상적으로 삭제되지 않았습니다. 다시 시도해주세요.";
+			loc = "/member/memberMyPage.do";
+		}
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		return mv;
+	}
+	
+	@RequestMapping("/member/messageSendSelectDel.do")
+	public ModelAndView messageSendSelectDel(HttpServletRequest request) {
+		String[] delList = request.getParameterValues("sendDeleteCk");
+		logger.debug(delList);
+		String msg = "";
+		String loc = "";
+		if(delList != null) {
+			int[] delListInt = new int[delList.length];
+			int result = 0;
+			for(int i = 0; i < delList.length; i++) {
+				delListInt[i] = Integer.parseInt(delList[i]);
+				result += service.deleteSendMessages(delListInt[i]);
+			}
+			
+			logger.debug(result);
+			if(result > 0) {
+				msg = "메시지가 정상적으로 삭제되었습니다. 마이페이지로 돌아갑니다.";
+				loc = "/member/memberMyPage.do";
+			} else {
+				msg = "메시지가 정상적으로 삭제되지 않았습니다. 다시 시도해주세요.";
+				loc = "/member/memberMyPage.do";
+			}
+		} else {
+			msg = "메시지 선택 후 이용해주세요.";
+			loc = "/member/memberMyPage.do";
+		}
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		return mv;
+	}
+	
+	@RequestMapping("/member/reSendMessage.do")
+	@ResponseBody
+	public ModelAndView reSendMessage(String sendId, String memberId, int messageNo) {
+		logger.debug(memberId);
+		logger.debug(sendId);
+		Map<Object, Object> map = service.selectOne(memberId);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("messageNo",messageNo);
+		mv.addObject("map",map);
+		mv.addObject("memberId",memberId);
+		mv.addObject("sendId",sendId);
+		mv.setViewName("member/ajaxReSendEnd");
+		return mv;
+	}
+	
+	@RequestMapping("/member/sendMessage.do")
+	@ResponseBody
+	public void sendMessage(String sendId, String receiveId, String messageContent) {
+		Map<String,String> message = new HashMap();
+		message.put("sendId", sendId);
+		message.put("receiveId", receiveId);
+		message.put("messageContent", messageContent);
+		int result = service.sendMessageEnd(message);
 	}
 	
 	@RequestMapping("/member/memberPagingAjax.do")
 	@ResponseBody
-	public ModelAndView pagingAjax(int naviBarStatus, int fadeStatus, int buycPage,int sellcPage,String memberId,HttpServletRequest request) {
+	public ModelAndView pagingAjax(int naviBarStatus, int fadeStatus, int buycPage,int sellcPage,int freecPage, int qnacPage, int contestcPage, String memberId,HttpServletRequest request) {
 		Map<Object, Object> map = service.selectOne(memberId);
 		ModelAndView mv = new ModelAndView();
 		int numPerPage = 5;
@@ -603,7 +845,7 @@ public class MemberController {
 				sellcPage = 1;
 			} else {
 				buycPage = 1;
-			}
+			} 
 			logger.debug(buycPage);
 			logger.debug(sellcPage);
 			List<Map<String,String>> buyOutBoxList = service.buyOutBoxList(memberId,buycPage,numPerPage);
@@ -626,8 +868,29 @@ public class MemberController {
 		} else if(naviBarStatus == 3) {
 			if(fadeStatus == 1) {
 				sellcPage = 1;
-			} else {
+				freecPage = 1;
+				qnacPage = 1;
+				contestcPage = 1;
+			} else if(fadeStatus == 2) {
 				buycPage = 1;
+				freecPage = 1;
+				qnacPage = 1;
+				contestcPage = 1;
+			} else if(fadeStatus == 3) {
+				sellcPage = 1;
+				buycPage = 1;
+				qnacPage = 1;
+				contestcPage = 1;
+			} else if(fadeStatus == 4) {
+				sellcPage = 1;
+				buycPage = 1;
+				freecPage = 1;
+				contestcPage = 1;
+			} else if(fadeStatus == 5) {
+				sellcPage = 1;
+				buycPage = 1;
+				freecPage = 1;
+				qnacPage = 1;
 			}
 			logger.debug(buycPage);
 			logger.debug(sellcPage);
@@ -637,6 +900,16 @@ public class MemberController {
 			List<Map<String,String>> sellList = service.sellList(memberId,sellcPage,numPerPage);
 			int totalSellCount = service.boardSellCount(memberId);
 			String sellPageBar = PageFactory.getPageBarAjax(totalSellCount, sellcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+			List<Map<String,String>> freeList = service.freeList(memberId,freecPage,numPerPage);
+			int totalFreeCount = service.selectFreeCount(memberId);
+			String freePageBar = PageFactory.getPageBarAjax(totalFreeCount, freecPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+			List<Map<String,String>> qnaList = service.qnaList(memberId,freecPage,numPerPage);
+			int totalQnaCount = service.selectQnaCount(memberId);
+			String qnaPageBar = PageFactory.getPageBarAjax(totalQnaCount, qnacPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+			List<Map<String,String>> contestList = service.contestList(memberId,contestcPage,numPerPage);
+			int totalContestCount = service.selectContestCount(memberId);
+			String contestPageBar = PageFactory.getPageBarAjax(totalContestCount, contestcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+			logger.debug(sellList);
 			mv.addObject("buyList",buyList);
 			mv.addObject("totalBuyCount",totalBuyCount);
 			mv.addObject("buyPageBar",buyPageBar);
@@ -645,11 +918,43 @@ public class MemberController {
 			mv.addObject("sellPageBar",sellPageBar);
 			mv.addObject("sellcPage",sellcPage);
 			mv.addObject("buycPage",buycPage);
-			mv.addObject("naviBarStatus",naviBarStatus);
+			mv.addObject("freeList",freeList);
+			mv.addObject("freecPage",freecPage);
+			mv.addObject("freePageBar",freePageBar);
+			mv.addObject("totalFreeCount",totalFreeCount);
+			mv.addObject("totalQnacount",totalQnaCount);
+			mv.addObject("totalContestCount",totalContestCount);
+			mv.addObject("qnaList",qnaList);
+			mv.addObject("qnaPageBar",qnaPageBar);
+			mv.addObject("qnacPage",qnacPage);
+			mv.addObject("contestList",contestList);
+			mv.addObject("contestPageBar",contestPageBar);
+			mv.addObject("contestcPage",contestcPage);
 			mv.addObject("fadeStatus",fadeStatus);
+			logger.debug(fadeStatus);
 			mv.setViewName("member/ajaxMemberWrite");
 		} else if(naviBarStatus == 4) {
-			
+			if(fadeStatus == 1) {
+				sellcPage = 1;
+			} else {
+				buycPage = 1;
+			}
+			List<Map<String,String>> sendMessage = service.sendMessage(memberId,buycPage,numPerPage);
+			List<Map<String,String>> receiveMessage = service.receiveMessage(memberId,sellcPage,numPerPage);
+			int totalSendCount = service.totalSendCount(memberId);
+			String sendPageBar = PageFactory.getPageBarAjax(totalSendCount, buycPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+			int totalReceiveCount = service.totalReceiveCount(memberId);
+			String receivePageBar = PageFactory.getPageBarAjax(totalReceiveCount, sellcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+			mv.addObject("sendMessage",sendMessage);
+			mv.addObject("totalSendCount",totalSendCount);
+			mv.addObject("sendPageBar",sendPageBar);
+			mv.addObject("receiveMessage",receiveMessage);
+			mv.addObject("totalReceiveCount",totalReceiveCount);
+			mv.addObject("receivePageBar",receivePageBar);
+			mv.addObject("sellcPage",sellcPage);
+			mv.addObject("buycPage",buycPage);
+			mv.addObject("fadeStatus",fadeStatus);
+			mv.setViewName("member/ajaxMemberMessage");
 		}
 		mv.addObject("map",map);
 		return mv;
@@ -671,7 +976,6 @@ public class MemberController {
 		return m;
 	}
 
-
 	@RequestMapping(value="/member/ranking.do",	produces="application/text; charset=utf8")
 	@ResponseBody
 	public String rankingAjax(){
@@ -688,4 +992,5 @@ public class MemberController {
 		logger.info(data);
 		return data;
 	}
+
 }

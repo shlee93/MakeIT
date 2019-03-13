@@ -132,4 +132,97 @@ public class MemberServiceImpl implements MemberService {
 		return dao.selectRanking();
 	}
 
+	public List<Map<String, String>> sendMessage(String memberId,int buycPage, int numPerPage) {
+		return dao.sendMessage(memberId,buycPage,numPerPage);
+	}
+
+	@Override
+	public List<Map<String, String>> receiveMessage(String memberId,int sellcPage, int numPerPage) {
+		return dao.receiveMessage(memberId,sellcPage,numPerPage);
+	}
+
+	@Override
+	public int totalSendCount(String memberId) {
+		return dao.totalSendCount(memberId);
+	}
+
+	@Override
+	public int totalReceiveCount(String memberId) {
+		return dao.totalReceiveCount(memberId);
+	}
+
+	@Override
+	public Map<Object, Object> messageDetail(int messageNo) {
+		return dao.messageDetail(messageNo);
+	}
+
+	@Override
+	public int updateMessageDate(int messageNo) {
+		return dao.updateMessageDate(messageNo);
+	}
+
+	@Override
+	public int deleteReceiveMessage(Map<Object, Object> map) {
+		return dao.deleteReceiveMessage(map);
+	}
+
+	@Override
+	public int deleteSendMessage(Map<Object, Object> map) {
+		return dao.deleteSendMessage(map);
+	}
+
+	@Override
+	public int deleteReceiveMessages(int delListInt) {
+		return dao.deleteReceiveMessages(delListInt);
+	}
+
+	@Override
+	public int deleteSendMessages(int delListInt) {
+		return dao.deleteSendMessages(delListInt);
+	}
+
+	@Override
+	public int sendMessageEnd(Map<String, String> message) {
+		return dao.sendMessageEnd(message);
+	}
+
+	@Override
+	public List<Map<String, String>> freeList(String memberId, int freecPage, int numPerPage) {
+		return dao.freeList(memberId,freecPage,numPerPage);
+	}
+
+	@Override
+	public int selectFreeCount(String memberId) {
+		return dao.selectFreeCount(memberId);
+	}
+
+	@Override
+	public List<Map<String, String>> qnaList(String memberId, int qnacPage, int numPerPage) {
+		return dao.qnaList(memberId,qnacPage,numPerPage);
+	}
+
+	@Override
+	public int selectQnaCount(String memberId) {
+		return dao.selectQnaCount(memberId);
+	}
+
+	@Override
+	public Map<String, Object> getAccount(Map<String, String> account) {
+		return dao.getAccount(account);
+	}
+
+	@Override
+	public List<Map<String, String>> contestList(String memberId, int contestcPage, int numPerPage) {
+		return dao.contestList(memberId,contestcPage,numPerPage);
+	}
+
+	@Override
+	public int selectContestCount(String memberId) {
+		return dao.selectContestCount(memberId);
+	}
+
+	@Override
+	public int noReadMessage(String id) {
+		return dao.noReadMessage(id);
+	}
 }

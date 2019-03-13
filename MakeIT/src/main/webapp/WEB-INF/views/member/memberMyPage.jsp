@@ -13,7 +13,6 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-1">
-            nav
         </div>
         <div class="col-md-10">
             <div class="container emp-profile" id="ajaxHtml">
@@ -240,8 +239,12 @@
         </div>
         <input type="hidden" id="sellcPage" name="sellcPage" value="${sellcPage }">
         <input type="hidden" id="buycPage" name="buycPage" value="${buycPage }">
+        <input type="hidden" id="freecPage" name="freecPage" value="${freecPage }">
+        <input type="hidden" id="qnacPage" name="qnacPage" value="${qnacPage }">
+        <input type="hidden" id="contestcPage" name="contestcPage" value="${contestcPage }">
         <input type="hidden" id="fadeStatus" name="fadeStatus" value="${fadeStatus }">
         <input type="hidden" id="naviBarStatus" name = "naviBarStatus" value="${naviBarStatus }">
+        <input type="hidden" id="noReadMessage" name = "noReadMessage" value="${noReadMessage }">
 		<script>
 			function updateMember(){
 				$('#hiddenFrm').attr("action","${path }/member/updateMember.do");
@@ -286,7 +289,10 @@
 					dataType:"html",
 					data:{"memberId":$('#memberId').val()
 						,"sellcPage":$('#sellcPage').val()
-						,"buycPage":$('#buycPage').val()},
+						,"buycPage":$('#buycPage').val()
+						,"freecPage":$('#freecPage').val()
+						,"qnacPage":$('#qnacPage').val()
+						,"contestcPage":$('#contestcPage').val()},
 					success:function(data){
 						console.log(data);
 						$('#ajaxHtml').html(data);
@@ -304,14 +310,31 @@
 						$('#ajaxHtml').html(data);
 					}
 				});
-			}			
+			}	
+			var noReadMessage = $('#noReadMessage').val();
+			if(noReadMessage != 0){
+				$(document).ready(function () {
+				    $("#modalOnLoad").modal('show');
+				});	
+			}
+			
 		</script>
         </div>
         <div class="col-md-1">
-            aside
         </div>
     </div>
-
+<div id="modalOnLoad" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <p>
+                	새 받은 메시지가 [<c:out value="${noReadMessage }"></c:out>]건 있습니다.
+                </p>
+                <button type="button" class="btn blue btn-outline" data-dismiss="modal" aria-hidden="true">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
