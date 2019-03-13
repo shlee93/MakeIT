@@ -37,6 +37,16 @@ int searchCount(Map<String, String> map2);
 
 int searchPerCount(Map<String, String> map2);
 
+List<Map<String, String>> selldetailView(int sellno);
+
+List<Map<String, String>> selldetailImg(int sellno);
+
+List<Map<String, String>> selldetailOption(int sellno);
+
+List<Map<String, String>> sellReivew(int sellno);
+
+List<Map<String, String>> sellsubImg(int sellno);
+
 
 }
 

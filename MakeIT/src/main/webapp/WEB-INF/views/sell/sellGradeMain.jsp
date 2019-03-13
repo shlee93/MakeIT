@@ -46,8 +46,8 @@
                                                            {
 
                                                                var imgContainer=$('#grade${gradeList.SELLNO}');
-                                                               imgContainer.append("<img src='${path}/resources/upload/sell/"+data["sellImgRe"]+ "' style='width: 100%; height: 200px;'>");
-                                                      
+                                                               
+                                                               imgContainer.append("<a href='${path}/sell/selldetail?"+${gradeList.SELLNO}+"'><img src='${path}/resources/upload/sell/"+ data["sellImgRe"]+"'style='width:100%;height:200px'></a>");
                                                            }
                                                      });                                         
                                                    });   

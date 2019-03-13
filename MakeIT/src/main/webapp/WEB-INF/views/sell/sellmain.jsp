@@ -524,12 +524,15 @@
 
 																			var imgReName = data["sellImgRe"];
 																			var imgContainer = $('#${newList.SELLNO}');
-																			imgContainer.append("<img src='${path}/resources/upload/sell/"+ data["sellImgRe"]+ "' style='width: 100%; height: 200px;'>");
-
+																			 imgContainer.append("<a href='${path}/sell/selldetail?sellno="+${newList.SELLNO}+"'><img src='${path}/resources/upload/sell/"+ data["sellImgRe"]+"'style='width:100%;height:200px'></a>"); 
+																			   
+																			/* imgContainer.append("<img src='${path}/resources/upload/sell/"+ data["sellImgRe"]+ "' style='width: 100%; height: 200px;'>"); */
+																			/* imgContainer.append("<a href='${path}/sell/selldetail?"+${newList.SELLNO}+"'><img src='${path}/resources/upload/sell/"+ data["sellImgRe"]+"'></a>"); */
 																		}
 																	});
 														});
 													</script>
+													<!-- <a href="시발라랏사">ㅇㅇㅇ</a> -->
 												</div>
 												<div class="box-content">
 													<h3 class="title">${newList.MEMBERID}</h3>
@@ -583,7 +586,7 @@
 
 						<div class="tab-pane fade" id="nav-profile" role="tabpanel"
 							aria-labelledby="nav-profile-tab">
-							<div class='row'>
+							<%-- <div class='row'>
 								<nav class="nav" style="width: 100%;">
 
 									<ul class="nav__link-wrapper">
@@ -663,7 +666,7 @@
 
 								</div>
 
-							</div>
+							</div> --%>
 
 						</div>
 
@@ -673,7 +676,7 @@
 
 						<div class="tab-pane fade" id="nav-contact" role="tabpanel"
 							aria-labelledby="nav-contact-tab">
-							<div class='row'>
+							<%-- <div class='row'>
 								<nav class="nav" style="width: 100%;">
 
 									<ul class="nav__link-wrapper">
@@ -752,7 +755,7 @@
 
 								</div>
 
-							</div>
+							</div> --%>
 
 						</div>
 

@@ -186,6 +186,10 @@ public class BuyController {
 		System.out.println("소분류" + detailInterest);
 		System.out.println("제목" + writeTitle);
 		System.out.println("가격" + price);
+		for(MultipartFile a : input_file)
+		{
+			System.out.println("asdf" + a.getOriginalFilename());
+		}
 		
 		
 		

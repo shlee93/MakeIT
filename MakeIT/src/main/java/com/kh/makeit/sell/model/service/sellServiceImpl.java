@@ -115,6 +115,32 @@ public class sellServiceImpl implements sellService {
 		// TODO Auto-generated method stub
 		return dao.searchPerCount(map2);
 	}
+   //메인창에서 이미지클릭시 상세창으로 다가 간다.
+	@Override
+	public List<Map<String, String>> selldetailView(int sellno) {
+		// TODO Auto-generated method stub
+		return dao.selldetailView(sellno);
+	}
+	@Override
+	public List<Map<String, String>> selldetailImg(int sellno) {
+		// TODO Auto-generated method stub
+		return dao.selldetailImg(sellno);
+	}
+	@Override
+	public List<Map<String, String>> selldetailOption(int sellno) {
+		// TODO Auto-generated method stub
+		return dao.selldetailOption(sellno);
+	}
+	@Override
+	public List<Map<String, String>> sellReview(int sellno) {
+		// TODO Auto-generated method stub
+		return dao.sellReivew(sellno);
+	}
+	@Override
+	public List<Map<String, String>> sellsubImg(int sellno) {
+		// TODO Auto-generated method stub
+		return dao.sellsubImg(sellno);
+	}
 
 
 }
