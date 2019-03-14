@@ -225,5 +225,16 @@ public class MemberServiceImpl implements MemberService {
 	public int noReadMessage(String id) {
 		return dao.noReadMessage(id);
 	}
+
+	@Override
+	public int insertNaverMember(Map<String, String> map) {
+		return dao.insertNaverMember(map);
+	}
+
+	@Override
+	public Map<Object, Object> selectNaverOne(String id) {
+		return dao.selectNaverOne(id);
+	}
+	
 }
 

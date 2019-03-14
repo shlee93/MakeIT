@@ -245,5 +245,15 @@ public class MemberDaoImpl implements MemberDao {
 		return sqlSession.selectOne("member.noReadMessage",id);
 	}
 
+	@Override
+	public int insertNaverMember(Map<String, String> map) {
+		return sqlSession.insert("member.insertNaverMember",map);
+	}
+
+	@Override
+	public Map<Object, Object> selectNaverOne(String id) {
+		return sqlSession.selectOne("member.selectNaverOne",id);
+	}
+
 
 }

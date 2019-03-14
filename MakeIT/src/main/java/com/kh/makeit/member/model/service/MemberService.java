@@ -89,4 +89,8 @@ public interface MemberService {
 
 	int noReadMessage(String id);
 
+	int insertNaverMember(Map<String, String> map);
+
+	Map<Object, Object> selectNaverOne(String id);
+
 }
