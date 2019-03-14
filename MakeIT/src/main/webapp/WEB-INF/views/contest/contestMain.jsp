@@ -234,6 +234,7 @@
  	<div id="total" style='padding:1.1em;'>
   		<div class='row'>
        		<div class='col-md-1' id='nav'></div>
+       			
 				<div class='col-md-10'>
 					<div class='row'>
 						<div class='col-md-2'>
@@ -300,6 +301,20 @@
 		                    </script>
 						</div>
 		            	<div class='col-md-10' id='section'>
+	            			 <div class='row'>
+			       		  	    <div class='col-md-8'>	
+					       		    <div style='margin-left:2em;'>
+						                <input type="text" class='form-control' placeholder="검색할 아이디를 입력하세요" style='width: 300px; display: inline;'/>
+						                <button class="btn btn-primary" type="submit" style='margin-bottom: 0.3em'>검색</button>
+					                </div>
+				                </div>
+				                <div class='col-md-2'></div>
+				              	<div class='col-md-2'>
+			                        <select class="form-control">
+			                            <option >정렬방식</option>
+			                        </select>				                  
+				                </div>
+			              	</div>	
 		                	<div class="row">
 		                		
 			                	<script>
@@ -344,7 +359,7 @@
 			              </div>
 			              <c:forEach items="${contestList}" var="contest">
 			              
-			              <div class="card" id="contestMain" style='margin-top:2em; margin-left:2em; margin-bottom:2em; padding: 1em;'>
+			              <div class="card" id="contestMain" style='margin-top:1em; margin-left:2em; margin-bottom:2em; padding: 1em;'>
 			                <div class="row ">
 			                  <div class="col-md-3" id="${contest.CONTESTNO}" class='imgContainer'>
 			                  	  <script>
@@ -369,7 +384,7 @@
 			                  </div>
 			                  <div class="col-md-5">
 			                    <div class="card-block px-3">
-			                      <div class="row" style='margin-top:1.5em;'>
+			                      <div class="row" style='margin-top:0.3em;'>
 			                        <h5 class="card-title" > 컨테스트 제목: ${contest.CONTESTTITLE} </h5>
 			                      </div>
 			                      <div class="row">
@@ -396,34 +411,19 @@
 			                    </div>                           
 			                    <div class="row">
 			                      <div class="col-md-12">
-			                        <a href="${path}/contest/contestDetail.do?contestNo=${contest.CONTESTNO}" class="btn btn-primary garo-center" style="width: 80%; height:45%; margin-top: 3em; margin-left:1.6em;">상세보기</a>    
+			                        <a href="${path}/contest/contestDetail.do?contestNo=${contest.CONTESTNO}" class="btn btn-primary garo-center" style="width: 100%; height:45%; margin-top: 3em;">상세보기</a>    
 			                      </div>
 			                    </div>
 			                  </div>
 			          
 			                  </div>
 			              </div>
-			       		  </c:forEach>	
-			       		  <div class='row'>
-			       		  	  <div class='col-md-8'>	
-					       		  <div style='margin-bottom:3em; margin-left:2em;'>
-						              <input type="text" class='form-control' placeholder="검색할 아이디를 입력하세요" style='width: 300px; display: inline;'/>
-						              <button class="btn btn-primary" type="submit" style='margin-bottom: 0.3em'>검색</button>
-					              </div>
-				              </div>
-				              <div class='col-md-2'></div>
-				              <div class='col-md-2'>
-			                      <select class="form-control">
-			                          <option >정렬방식</option>
-			                      </select>				                  
-				              </div>
-			              </div>		              
+			       		  </c:forEach>				       		  	              
 			              
 			              ${pageBar}		            
 			                
 		            	</div>
-		            <div class='col-md-1' id='right-nav' >
-		               
+		            <div class='col-md-1' id='right-nav' >		               
 		                      
 	            	</div>		            
 		        </div>   	
