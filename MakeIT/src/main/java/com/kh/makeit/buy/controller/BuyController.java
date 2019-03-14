@@ -169,9 +169,23 @@ public class BuyController {
 	
 	
 	@RequestMapping("/buy/buyDetail")
-	public String buyDetail()
+	public ModelAndView buyDetail(int buyNo)
 	{
-		return "buy/buydetail";
+		ModelAndView mv = new ModelAndView();
+		
+		Map<String,String> detailList = service.buyDetail(buyNo);
+		Map<String,String> mainimgList = service.selectMainImg(buyNo); 
+		List<Map<String,String>> subimgList = service.selectSubImg(buyNo);
+		List<Map<String,String>> reviewList = service.selectReview(buyNo);
+		int reviewCnt = service.selectReviewCnt(buyNo);
+		
+		mv.addObject("detailList",detailList);
+		mv.addObject("mainimgList", mainimgList);
+		mv.addObject("subimgList", subimgList);
+		mv.addObject("reviewList", reviewList);
+		mv.addObject("reviewCnt", reviewCnt);
+		mv.setViewName("buy/buydetail");
+		return mv;
 	}
 	@RequestMapping("/buy/buyWrite.do")
 	public String buyWrite()
@@ -256,6 +270,50 @@ public class BuyController {
 		return mv;
 	}
 	
+	@RequestMapping("/buy/writeReview.do")
+	public String writeReview()
+	{
+		return "buy/buyStarPop";
+	}
+	
+	@RequestMapping("/buy/writeReviewEnd.do")
+	public ModelAndView writeReviewEnd(String buyNo, String reviewContent, String starCount, HttpServletRequest request)
+	{
+		ModelAndView mv = new ModelAndView();
+		
+		HttpSession session = request.getSession();
+		Map<String,String> sessionMap = (Map)session.getAttribute("member");
+		
+		Map<String,String> map = new HashMap();
+		map.put("buyNo", buyNo);
+		map.put("reviewContent", reviewContent);
+		map.put("starCount", starCount);
+		map.put("memberId", sessionMap.get("MEMBERID"));
+		int result = service.insertReview(map);
+		
+		String msg = "";
+		String loc = "";
+		
+		if(result > 0)
+		{
+			msg = "후기가 등록되었습니다.";
+			loc = "buy/buyDetail?buyNo="+buyNo;
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+			mv.addObject("script","window.close();opener.location.reload();");
+			mv.setViewName("common/msg");
+		}
+		else
+		{
+			msg = "후기 등록에 실패하였습니다.";
+			loc = "buy/buyDetail?buyNo="+buyNo;
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+			mv.setViewName("common/msg");
+		}
+		
+		return mv;
+	}
 	
 	
 	
@@ -286,6 +344,7 @@ public class BuyController {
 		map.put("memberId", memberId);
 		map.put("buyNo", buyNo);
 		map.put("category", categoryCode);
+		
 		
 		Map<String,String> vol = service.selectVolView(map);
 		mv.addObject("vol", vol);

@@ -16,4 +16,11 @@ public interface BuyDao {
 	List<Map<String, String>> buySearch(Map map, int numPerPage, int contentCount, int cPage);
 	int insertBuy(Map<String, String> map);
 	int insertAttach(BuyAttach a);
+	Map<String, String> buyDetail(int buyNo);
+	Map<String, String> selectMainImg(int buyNo);
+	List<Map<String, String>> selectSubImg(int buyNo);
+	List<Map<String, String>> selectReview(int buyNo);
+	int insertReview(Map<String, String> map);
+	int selectReviewCnt(int buyNo);
+	
 }

@@ -16,4 +16,10 @@ public interface BuyService {
 	int searchCount(Map<String, String> map2);
 	List<Map<String, String>> buySearch(Map map, int numPerPage, int contentCount, int cPage);
 	int buyWriteEnd(ArrayList<BuyAttach> files, Map<String, String> map);
+	Map<String, String> buyDetail(int buyNo);
+	Map<String, String> selectMainImg(int buyNo);
+	List<Map<String, String>> selectSubImg(int buyNo);
+	int insertReview(Map<String, String> map);
+	List<Map<String, String>> selectReview(int buyNo);
+	int selectReviewCnt(int buyNo);
 }
