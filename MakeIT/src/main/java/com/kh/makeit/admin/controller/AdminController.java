@@ -29,15 +29,22 @@ public class AdminController {
 	@RequestMapping("/admin/adminView.do")
 	public ModelAndView adminView(
 				@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
-				@RequestParam(value="reportStatus", required=false, defaultValue="BUY") String reportStatus
+				@RequestParam(value="reportStatus", required=false, defaultValue="BUY") String reportStatus,
+				@RequestParam(value="paymentStatus",required=false,defaultValue="BUY") String paymentStatus,
+				@RequestParam(value="sortCheck", required=false, defaultValue="0") int sortCheck,
+				@RequestParam(value="refundStatus", required=false, defaultValue="BUY") String refundStatus
 			) {
 		
 		//회원 리스트 출력
 		int numPerPage=5;
 		int memberCount=adminService.selectMemberCountAdmin();
 		int reportCount=adminService.selectReportCountAdmin(reportStatus);
+		int paymentCount=adminService.selectPaymentCountAdmin(paymentStatus);
+		int refundCount=adminService.selectRefundCountAdmin(refundStatus);
 		String pageBar=PageFactory.getPageBarAdmin(memberCount, cPage, numPerPage,"/makeit/admin/adminView.do");
 		String pageBarReport=PageFactory.getPageBarAdmin(reportCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+		String pageBarPayment=PageFactory.getPageBarAdmin(paymentCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+		String pageBarRefund=PageFactory.getPageBarAdmin(refundCount, cPage, numPerPage,"/makeit/admin/adminView.do");
 		ModelAndView mav=new ModelAndView();
 		//회원정보 출력
 		List<Map<String,String>> memberList=adminService.selectMemberListAdmin(cPage,numPerPage);		
@@ -48,8 +55,19 @@ public class AdminController {
 		List<Map<String,String>> faqList=adminService.selectFaqListAdmin();
 		List<Map<String,String>> categoryList=adminService.selectFaqCategoryAdmin();
 		//신고회원 출력
-		logger.info(reportStatus);
 		List<Map<Object,Object>> reportList=adminService.selectReportListAdmin(reportStatus,cPage,numPerPage);
+		//결제현황 출력
+		Map<Object,Object> payment=new HashMap();
+		payment.put("paymentStatus", paymentStatus);
+		payment.put("sortCheck", sortCheck);
+		List<Map<Object,Object>> paymentList=adminService.selectPaymentListAdmin(payment,cPage,numPerPage);
+		//환불요청 리스트 출력
+		List<Map<Object,Object>> refundList=adminService.selectRefundListAdmin(refundStatus,cPage,numPerPage);
+		
+		mav.addObject("pageBarRefund", pageBarRefund);
+		mav.addObject("refundList", refundList);
+		mav.addObject("pageBarPayment", pageBarPayment);
+		mav.addObject("paymentList", paymentList);
 		mav.addObject("pageBarReport", pageBarReport);
 		mav.addObject("reportList", reportList);
 		mav.addObject("faqList", faqList);
@@ -396,5 +414,108 @@ public class AdminController {
 		
 	}
 	
+	//결제현황 출력
+	@RequestMapping("/admin/selectPaymentListView.do")
+	public ModelAndView selectPaymentListView(String paymentStatus,
+			
+			@RequestParam(value="cPage",required=false, defaultValue="1") int cPage,
+			@RequestParam(value="sortCheck",required=false, defaultValue="0") int sortCheck
+			) {
+		int numPerPage=5;
+		int paymentCount=adminService.selectPaymentCountAdmin(paymentStatus);
+		String pageBarPayment=PageFactory.getPageBarAdmin(paymentCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+		ModelAndView mav=new ModelAndView();
+		Map<Object,Object> payment=new HashMap();
+		payment.put("paymentStatus", paymentStatus);
+		payment.put("sortCheck", sortCheck);
+		
+		//결제현황 출력
+		List<Map<Object,Object>> paymentList=adminService.selectPaymentListAdmin(payment,cPage,numPerPage);
+				
+		mav.addObject("pageBarPayment", pageBarPayment);
+		mav.addObject("paymentList", paymentList);
+		mav.setViewName("/admin/adminPaymentView");
+		
+		return mav;
+	}
+	
+	//결제 모달 띄우기
+	@RequestMapping("/admin/paymentPopupView.do")
+	public ModelAndView paymentPopupView(int specNo,String paymentStatus) {
+		
+		ModelAndView mav=new ModelAndView();
+		Map<Object,Object> payment=new HashMap();
+		payment.put("specNo", specNo);
+		payment.put("paymentStatus", paymentStatus);
+		Map<Object,Object> paymentInfo=adminService.selectPaymentOne(payment);
+		
+		mav.addObject("paymentInfo", paymentInfo);
+		mav.setViewName("admin/adminPaymentPopup");
+		
+		return mav;
+	}
+	
+	//결제완료 spec status 업데이트
+	@RequestMapping("/admin/updatePaymentEnd")
+	public ModelAndView updatePaymentEnd(int specNo,String paymentStatus,
+			@RequestParam(value="cPage",required=false, defaultValue="1") int cPage,
+			@RequestParam(value="sortCheck",required=false, defaultValue="0") int sortCheck
+			) {
+		int numPerPage=5;
+		int paymentCount=adminService.selectPaymentCountAdmin(paymentStatus);
+		String pageBarPayment=PageFactory.getPageBarAdmin(paymentCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+		ModelAndView mav=new ModelAndView();
+		Map<Object,Object> payment=new HashMap();
+		payment.put("specNo", specNo);
+		payment.put("paymentStatus", paymentStatus);
+		int result=adminService.updatePaymentEnd(payment);
+		
+		//결제현황 출력
+		List<Map<Object,Object>> paymentList=adminService.selectPaymentListAdmin(payment,cPage,numPerPage);
+						
+		mav.addObject("pageBarPayment", pageBarPayment);
+		mav.addObject("paymentList", paymentList);
+		mav.setViewName("/admin/adminPaymentView");
+				
+		return mav;
+		
+	}
+	//환불 요청 리스트 출력
+	@RequestMapping("/admin/selectRefundListView.do")
+	public ModelAndView selectPaymentListView(String refundStatus,
+			
+			@RequestParam(value="cPage",required=false, defaultValue="1") int cPage
+			) {
+		int numPerPage=5;
+		int refundCount=adminService.selectRefundCountAdmin(refundStatus);
+		String pageBarRefund=PageFactory.getPageBarAdmin(refundCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+		ModelAndView mav=new ModelAndView();
+		
+		//환불요청 리스트 출력
+		List<Map<Object,Object>> refundList=adminService.selectRefundListAdmin(refundStatus,cPage,numPerPage);
+				
+		mav.addObject("pageBarRefund", pageBarRefund);
+		mav.addObject("refundList", refundList);
+		mav.setViewName("/admin/adminRefundView");
+		
+		return mav;
+	}
+	
+	//환불-결제 모달 띄우기
+	@RequestMapping("/admin/refundPopupView.do")
+	public ModelAndView refundPopupView(int specNo,String refundStatus) {
+			
+		ModelAndView mav=new ModelAndView();
+		Map<Object,Object> refund=new HashMap();
+		refund.put("specNo", specNo);
+		refund.put("refundStatus", refundStatus);
+		Map<Object,Object> refundInfo=adminService.selectRefundOne(refund);
+
+		mav.addObject("refundInfo", refundInfo);
+		mav.setViewName("admin/adminRefundPopup");
+
+		return mav;
+	}
+
 	
 }

@@ -242,15 +242,152 @@
 			</otherwise>
 		</choose>
 	</select>
+	<!-- 신고승인 카운트 증가 -->
 	<update id="updateReportCount" parameterType="string">
 		UPDATE MEMBER SET REPORTCOUNT=REPORTCOUNT+1 WHERE MEMBERID=#{reportId}
 	</update>
-	
+	<!-- 신고 검토 유무 업데이트 -->
 	<update id="updateReportStatus" parameterType="string">
 		UPDATE ${reportStatus}REPORT SET ${reportStatus}REPORTYN='Y' WHERE MEMBERID=#{reportId} AND ${reportStatus}NO=#{contentNo}
 	</update>
-	
+	<!-- 신고현황 카운트 -->
 	<select id="selectReportCountAdmin" parameterType="string" resultType="_int">
 		SELECT COUNT(*) FROM ${_parameter}REPORT
 	</select>
+	<!-- 결제현황 리스트 카운트 -->
+	<select id="selectPaymentCountAdmin" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM ${_parameter}SPEC
+	</select>
+	<!-- 결제현황 리스트 -->
+	<select id="selectPaymentListAdmin" parameterType="map" resultType="map">
+		<choose>
+			<when test="paymentStatus=='BUY'">
+				SELECT 
+				S.MEMBERID AS ${paymentStatus}ID,
+				S.${paymentStatus}TITLE,
+				S.CATEGORYCODE,
+				P.* 
+				FROM ${paymentStatus}SPEC P 
+				JOIN ${paymentStatus} S ON(S.${paymentStatus}NO=P.${paymentStatus}NO) 
+				WHERE ${paymentStatus}CHECKYN='Y' AND ${paymentStatus}DELETEYN='N'
+			</when>
+			<otherwise>
+				SELECT 
+				B.MEMBERID AS ${paymentStatus}ID,
+				B.${paymentStatus}TITLE,
+				P.* 
+				FROM ${paymentStatus}SPEC P 
+				JOIN ${paymentStatus} B ON(B.${paymentStatus}NO=P.${paymentStatus}NO) 
+				WHERE ${paymentStatus}CHECKYN='Y' AND ${paymentStatus}DELETEYN='N'
+			</otherwise>
+		</choose>
+		<if test="sortCheck==4">
+			AND STATUSNO=#{sortCheck}
+		</if>
+		 
+	</select>
+	<!-- 결제 모달 정보 출력 -->
+	<select id="selectPaymentOne" parameterType="map" resultType="map">
+		<choose>
+			<when test="paymentStatus=='SELL'">
+				SELECT 
+				P.*,
+				O.SELLPRICE,
+				S.MEMBERID AS TARGETID,
+				S.SELLTITLE,
+				A.BANKNAME,
+				M.ACCOUNT,
+				M.MEMBERNAME 
+				FROM SELLSPEC P 
+				INNER JOIN SELLOPTION O ON(O.SELLOPTIONCODE=P.SELLOPTIONCODE) 
+				INNER JOIN SELL S ON(S.SELLNO=P.SELLNO) 
+				INNER JOIN MEMBER M ON(M.MEMBERID=S.MEMBERID) 
+				INNER JOIN BANK A ON(M.BANKCODE=A.BANKCODE) 
+				WHERE SELLSPECNO=#{specNo}
+			</when>
+			<when test="paymentStatus=='BUY'">
+				SELECT P.*,
+				B.MEMBERID AS BUYID,
+				B.BUYTITLE,
+				A.BANKNAME,
+				M.ACCOUNT,
+				M.MEMBERNAME 
+				FROM BUYSPEC P 
+				INNER JOIN BUY B ON(B.BUYNO=P.BUYNO) 
+				INNER JOIN MEMBER M ON(M.MEMBERID=P.MEMBERID) 
+				INNER JOIN BANK A ON(A.BANKCODE=M.BANKCODE)  
+				WHERE BUYSPECNO=#{specNo}
+			</when>
+		</choose>
+	</select>
+	<!-- 결제 정보 업데이트 -->
+	<update id="updatePaymentEnd" parameterType="map">
+		UPDATE ${paymentStatus}SPEC SET STATUSNO=5
+	</update>
+	<!-- 환불 요청 리스트 카운트 -->
+	<select id="selectRefundCountAdmin" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM ${_parameter}SPEC WHERE STATUSNO=6
+	</select>
+	
+	<!-- 환불요청 리스트 -->
+	<select id="selectRefundListAdmin" parameterType="string" resultType="map">
+		<choose>
+			<when test="_parameter=='BUY'">
+				SELECT 
+				S.MEMBERID AS ${_parameter}ID,
+				S.${_parameter}TITLE,
+				S.CATEGORYCODE,
+				P.* 
+				FROM ${_parameter}SPEC P 
+				JOIN ${_parameter} S ON(S.${_parameter}NO=P.${_parameter}NO) 
+				WHERE ${_parameter}CHECKYN='Y' AND ${_parameter}DELETEYN='N'
+			</when>
+			<otherwise>
+				SELECT 
+				B.MEMBERID AS ${_parameter}ID,
+				B.${_parameter}TITLE,
+				P.* 
+				FROM ${_parameter}SPEC P 
+				JOIN ${_parameter} B ON(B.${_parameter}NO=P.${_parameter}NO) 
+				WHERE ${_parameter}CHECKYN='Y' AND ${_parameter}DELETEYN='N'
+			</otherwise>
+		</choose>
+			AND STATUSNO=6
+	</select>
+	
+	<!-- 결제 모달 정보 출력 -->
+	<select id="selectRefundOne" parameterType="map" resultType="map">
+		<choose>
+			<when test="refundStatus=='SELL'">
+				SELECT 
+				P.*,
+				O.SELLPRICE,
+				S.MEMBERID AS TARGETID,
+				S.SELLTITLE,
+				A.BANKNAME,
+				M.ACCOUNT,
+				M.MEMBERNAME 
+				FROM SELLSPEC P 
+				INNER JOIN SELLOPTION O ON(O.SELLOPTIONCODE=P.SELLOPTIONCODE) 
+				INNER JOIN SELL S ON(S.SELLNO=P.SELLNO) 
+				INNER JOIN MEMBER M ON(M.MEMBERID=S.MEMBERID) 
+				INNER JOIN BANK A ON(M.BANKCODE=A.BANKCODE) 
+				WHERE SELLSPECNO=#{specNo} AND STATUSNO=6
+			</when>
+			<when test="refundStatus=='BUY'">
+				SELECT P.*,
+				B.MEMBERID AS BUYID,
+				B.BUYTITLE,
+				A.BANKNAME,
+				M.ACCOUNT,
+				M.MEMBERNAME 
+				FROM BUYSPEC P 
+				INNER JOIN BUY B ON(B.BUYNO=P.BUYNO) 
+				INNER JOIN MEMBER M ON(M.MEMBERID=P.MEMBERID) 
+				INNER JOIN BANK A ON(A.BANKCODE=M.BANKCODE)  
+				WHERE BUYSPECNO=#{specNo} AND STATUSNO=6
+			</when>
+		</choose>
+	</select>
+	
 </mapper>

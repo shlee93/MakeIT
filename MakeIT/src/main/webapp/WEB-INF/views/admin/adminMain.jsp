@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="HelloSpring" name="pageTitle"/>
 </jsp:include>
@@ -453,9 +453,7 @@
 													</c:forEach>
 												</c:when>
 												<c:otherwise>
-													<div>
-														데이터가 없습니다!
-													</div>
+													
 												</c:otherwise>
 											</c:choose>
 											<c:if test="${not empty reportList }">
@@ -489,65 +487,153 @@
                                 <div class="mt-5 mb-5 text-center">
                                     <h2>결제현황 리스트</h2>
                                 </div>
-                                <div class="deal-payment">
-
-                                    <div class="deal-info-back">
-                                        <ul class="deal-info">
-                                            <li class="deal-no">1</li>
-                                            <li class="dealer">누구누구</li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="deal-back">
-
-                                        <ul class="step d-flex flex-nowrap">
-
-                                            <li class="step-item">
-                                                <a href="#!" class="">입금 대기</a>
-                                            </li>
-                                            <li class="step-item">
-                                                <a href="#!" class="">입금 완료 및<br>프로젝트 진행</a>
-                                            </li>
-                                            <li class="step-item active">
-                                                <a href="#!" class="">프로젝트 완료</a>
-                                            </li>
-                                            <li class="step-item">
-                                                <a href="#!" class="">구매 확정</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                </div><br>
-                                <div class="deal-payment">
-
-                                    <div class="deal-info-back">
-                                        <ul class="deal-info">
-                                            <li class="deal-no">1</li>
-                                            <li class="dealer">누구누구</li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="deal-back">
-
-                                        <ul class="step d-flex flex-nowrap">
-
-                                            <li class="step-item">
-                                                <a href="#!" class="">입금 대기</a>
-                                            </li>
-                                            <li class="step-item">
-                                                <a href="#!" class="">입금 완료 및<br>프로젝트 진행</a>
-                                            </li>
-                                            <li class="step-item active">
-                                                <a href="#!" class="">프로젝트 완료</a>
-                                            </li>
-                                            <li class="step-item">
-                                                <a href="#!" class="">구매 확정</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div><br>
+                                <div class="row">
+									<div class='col-md-3 col-xs-3'>
+	
+										<!-- 네비 사이드 -->
+	
+										<div class="nav-side-menu">
+											<div class="brand">게시판</div>
+											<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse"
+												data-target="#menu-content"></i>
+											<div class="menu-list">
+												<input type="hidden" id="payment-view-status" value="BUY" />
+												<ul id="menu-content" class="menu-content collapse out">
+													<li class='side-nav-li payment-view active' data-toggle="collapse" data-target="#new" class="collapsed">
+														<input type="hidden" value="BUY" /> 
+														<a> 
+															<i class="fas fa-credit-card fa-lg"></i> 구매
+														</a>
+													</li>
+													<li class='side-nav-li payment-view' data-toggle="collapse" data-target="#new" class="collapsed">
+														<input type="hidden" value="SELL" /> 
+														<a> 
+															<i class="fa fas fa-trophy fa-lg"></i> 판매
+														</a>
+													</li>
+	
+												</ul>
+											</div>
+										</div>
+	
+										<!-- 네비 사이드 끝 -->
+	
+									</div>
+									<div class="col-md-9 col-xs-9 payment-view-div">
+										<!-- 결제현황 -->
+										<button class="btn btn-primary" id="paymentSort-btn">구매확정▼</button>
+									<c:choose>
+										<c:when test="${not empty paymentList }">
+										
+										<c:forEach items="${paymentList }" var="payment">
+										<c:choose>
+											<c:when test="${payment.CATEGORYCODE eq 'B' }">
+											<div class="deal-payment">
+			
+			                                    <div class="deal-info-back">
+			                                        <ul class="deal-info">
+			                                            <li class="deal-no">
+			                                            	<strong>구매자:</strong>
+			                                            	${payment.MEMBERID }
+			                                            </li>
+			                                            <li class="dealer">
+			                                            	<strong>판매자:</strong>
+			                                            	${payment.BUYID }                            	
+			                                            </li>
+			                                            <li class="deal-title">
+															<strong>글 제목:</strong> 
+															${payment.BUYTITLE }
+														</li>
+			                                        </ul>
+			                                    </div>
+			
+			                                    <div class="deal-back">
+			
+			                                        <ul class="step d-flex flex-nowrap">
+			
+			                                            <li class="step-item ${payment.STATUSNO==1?'active':'' }">
+			                                                <a href="#!" >입금 대기</a>
+			                                            </li>
+			                                            <li class="step-item ${payment.STATUSNO==2?'active':'' }">
+			                                                <a href="#!" >입금 완료 및<br>프로젝트 진행</a>
+			                                            </li>
+			                                            <li class="step-item ${payment.STATUSNO==3?'active':'' }">
+			                                                <a href="#!" >프로젝트 완료</a>
+			                                            </li>
+			                                            <li class="step-item ${payment.STATUSNO==4?'active payment-pop':'' }" data-toggle="modal" data-target="#product_view">
+			                                                <a href="#!" >구매 확정</a>
+			                                                <input type="hidden" class="spec-no" value="${payment.BUYSPECNO }"/>
+			                                            </li>
+			                                        </ul>
+			                                    </div>
+			
+			                                </div><br>
+											</c:when>
+											<c:when test="${payment.CATEGORYCODE eq 'S' }">
+											
+			                                <div class="deal-payment">
+			
+			                                    <div class="deal-info-back">
+			                                        <ul class="deal-info">
+			                                            <li class="deal-no">
+			                                            	<strong>구매자:</strong>
+			                                            	${payment.MEMBERID }
+			                                            </li>
+			                                            <li class="dealer">
+			                                            	<strong>판매자:</strong>
+			                                            	${payment.SELLID }
+			                                            </li>
+			                                            <li class="deal-title">
+															<strong>글 제목:</strong> 
+															${payment.SELLTITLE }
+														</li>
+			                                        </ul>
+			                                    </div>
+			
+			                                    <div class="deal-back">
+			
+			                                        <ul class="step d-flex flex-nowrap">
+			
+			                                            <li class="step-item ${payment.STATUSNO==1?'active':''}">
+			                                                <a href="#!">입금 대기</a>
+			                                            </li>
+			                                            <li class="step-item ${payment.STATUSNO==2?'active':''}">
+			                                                <a href="#!">입금 완료 및<br>프로젝트 진행</a>
+			                                            </li>
+			                                            <li class="step-item ${payment.STATUSNO==3?'active':''}">
+			                                                <a href="#!">프로젝트 완료</a>
+			                                            </li>
+			                                            <li class="step-item ${payment.STATUSNO==4?'active payment-pop':''}" data-toggle="modal" data-target="#product_view">
+			                                                <a href="#!">구매 확정</a>
+			                                                <input type="hidden" class="spec-no" value="${payment.SELLSPECNO }"/>
+			                                            </li>
+			                                        </ul>
+			                                    </div>
+			
+			                                </div><br>
+											</c:when>
+											<c:otherwise>
+											
+											</c:otherwise>
+										</c:choose>
+										</c:forEach>
+		                                
+										</c:when>
+										<c:otherwise>
+										<div>
+											데이터가 없습니다!
+										</div>
+										</c:otherwise>
+									</c:choose>
+		                                <div>
+		                                	${pageBarPayment }
+		                                </div>
+		                                
+									</div>
+								</div>
                             </div>
                         </div>
+                        
                         <div class="tab-pane fade" id="nav-refund" role="tabpanel" aria-labelledby="nav-refund-tab">
                             <table class="table" cellspacing="0">
                                 <thead>
@@ -559,71 +645,155 @@
                             </table>
                             <div class="container">
                                 <div class="mt-5 mb-5 text-center">
-
+									<h2>환불요청 리스트</h2>
                                 </div>
-                                <div class="deal-refund">
-
-                                    <div class="deal-info-back">
-                                        <ul class="deal-info">
-                                            <li class="deal-no">1</li>
-                                            <li class="dealer">누구누구</li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="deal-back">
-
-                                        <ul class="step d-flex flex-nowrap">
-
-                                            <li class="step-item">
-                                                <a href="#!" class="">입금 대기</a>
-                                            </li>
-                                            <li class="step-item">
-                                                <a href="#!" class="">입금 완료 및<br>프로젝트 진행</a>
-                                            </li>
-                                            <li class="step-item active">
-                                                <a href="#!" class="">프로젝트 완료</a>
-                                            </li>
-                                            <li class="step-item">
-                                                <a href="#!" class="">환불 사유 확인</a>
-                                            </li>
-                                            <li class="step-item">
-                                                <a href="#!" class="">환불 승인</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                </div><br>
-                                <div class="deal-payment">
-
-                                    <div class="deal-info-back">
-                                        <ul class="deal-info">
-                                            <li class="deal-no">1</li>
-                                            <li class="dealer">누구누구</li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="deal-back">
-
-                                        <ul class="step d-flex flex-nowrap">
-
-                                            <li class="step-item">
-                                                <a href="#!" class="">입금 대기</a>
-                                            </li>
-                                            <li class="step-item">
-                                                <a href="#!" class="">입금 완료 및<br>프로젝트 진행</a>
-                                            </li>
-                                            <li class="step-item active">
-                                                <a href="#!" class="">프로젝트 완료</a>
-                                            </li>
-                                            <li class="step-item">
-                                                <a href="#!" class="">환불 사유 확인</a>
-                                            </li>
-                                            <li class="step-item">
-                                                <a href="#!" class="">환불 승인</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div><br>
+                                <div class="row">
+                                	<div class='col-md-3 col-xs-3'>
+	
+										<!-- 네비 사이드 -->
+	
+										<div class="nav-side-menu">
+											<div class="brand">게시판</div>
+											<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse"
+												data-target="#menu-content"></i>
+											<div class="menu-list">
+												<input type="hidden" id="refund-view-status" value="BUY" />
+												<ul id="menu-content" class="menu-content collapse out">
+													<li class='side-nav-li refund-view active' data-toggle="collapse" data-target="#new" class="collapsed">
+														<input type="hidden" value="BUY" /> 
+														<a> 
+															<i class="fas fa-credit-card fa-lg"></i> 구매
+														</a>
+													</li>
+													<li class='side-nav-li refund-view' data-toggle="collapse" data-target="#new" class="collapsed">
+														<input type="hidden" value="SELL" /> 
+														<a> 
+															<i class="fa fas fa-trophy fa-lg"></i> 판매
+														</a>
+													</li>
+	
+												</ul>
+											</div>
+										</div>
+	
+										<!-- 네비 사이드 끝 -->
+	
+									</div>
+									<div class="col-md-9 col-xs-9 refund-view-div">
+									<c:choose>
+										<c:when test="${not empty refundList }">
+										
+										<c:forEach items="${refundList }" var="refund">
+										<c:choose>
+											<c:when test="${refund.CATEGORYCODE eq 'B' }">
+		                                <div class="deal-refund">
+		
+		                                    <div class="deal-info-back">
+		                                        <ul class="deal-info">
+		                                            <li class="deal-no">
+			                                          	<strong>구매자:</strong>
+			                                           	${payment.BUYID }
+			                                        </li>
+			                                        <li class="dealer">
+			                                           	<strong>판매자:</strong>
+			                                           	${payment.MEMBERID }
+			                                        </li>
+			                                        <li class="deal-title">
+														<strong>글 제목:</strong> 
+														${payment.BUYTITLE }
+													</li>
+		                                        </ul>
+		                                    </div>
+		
+		                                    <div class="deal-back">
+		
+		                                        <ul class="step d-flex flex-nowrap">
+		
+		                                            <li class="step-item">
+		                                                <a href="#!">입금 대기</a>
+		                                            </li>
+		                                            <li class="step-item">
+		                                                <a href="#!">입금 완료 및<br>프로젝트 진행</a>
+		                                            </li>
+		                                            <li class="step-item">
+		                                                <a href="#!">프로젝트 완료</a>
+		                                            </li>
+		                                            <li class="step-item active">
+		                                                <a href="#!">환불 사유 확인</a>
+		                                            </li>
+		                                            <li class="step-item refund-pop" data-toggle="modal" data-target="#product_view">
+		                                                <a href="#!">환불 승인</a>
+		                                                <input type="hidden" class="spec-no" value="${payment.BUYSPECNO }"/>
+		                                            </li>
+		                                        </ul>
+		                                    </div>
+		
+		                                </div><br>
+		                                	</c:when>
+		                                	<c:when test="${refund.CATEGORYCODE eq 'S' }">
+		                                	
+		                                <div class="deal-refund">
+		
+		                                    <div class="deal-info-back">
+		                                        <ul class="deal-info">
+		                                            <li class="deal-no">
+			                                          	<strong>구매자:</strong>
+			                                           	${payment.MEMBERID }
+			                                        </li>
+			                                        <li class="dealer">
+			                                           	<strong>판매자:</strong>
+			                                           	${payment.SELLID }
+			                                        </li>
+			                                        <li class="deal-title">
+														<strong>글 제목:</strong> 
+														${payment.SELLTITLE }
+													</li>
+		                                        </ul>
+		                                    </div>
+		
+		                                    <div class="deal-back">
+		
+		                                        <ul class="step d-flex flex-nowrap">
+		
+		                                            <li class="step-item">
+		                                                <a href="#!">입금 대기</a>
+		                                            </li>
+		                                            <li class="step-item">
+		                                                <a href="#!">입금 완료 및<br>프로젝트 진행</a>
+		                                            </li>
+		                                            <li class="step-item">
+		                                                <a href="#!">프로젝트 완료</a>
+		                                            </li>
+		                                            <li class="step-item active">
+		                                                <a href="#!">환불 사유 확인</a>
+		                                            </li>
+		                                            <li class="step-item refund-pop" data-toggle="modal" data-target="#product_view">
+		                                                <a href="#!">환불 승인</a>
+		                                                <input type="hidden" class="spec-no" value="${payment.SELLSPECNO }"/>
+		                                            </li>
+		                                        </ul>
+		                                    </div>
+		
+		                                </div><br>
+		                                	</c:when>
+		                                	<c:otherwise>
+		                                	
+		                                	</c:otherwise>
+		                                </c:choose>
+		                                </c:forEach>
+		                            	</c:when>
+		                            	<c:otherwise>
+		                            		<div>
+			                                	데이터가 없습니다!
+			                                </div>
+		                            	</c:otherwise>
+		                            </c:choose>
+		                            <div>
+		                                ${pageBarRefund }
+		                            </div>
+									</div>
+                                </div>
+                                
                             </div>
                         </div>
                         <div class="tab-pane fade" id="nav-category" role="tabpanel" aria-labelledby="nav-category-tab">
@@ -834,3 +1004,16 @@
     </section>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
+<div class="modal fade product_view" id="product_view">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove">X</span></a>
+	                <h3 class="modal-title">결제</h3>
+	        </div>
+	        <div class="modal-body">
+	                
+	        </div>
+	    </div>
+    </div>
+</div>

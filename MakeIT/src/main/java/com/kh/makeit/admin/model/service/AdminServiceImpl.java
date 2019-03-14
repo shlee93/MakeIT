@@ -179,6 +179,70 @@ public class AdminServiceImpl implements AdminService {
 		
 		return dao.selectReportCountAdmin(reportStatus);
 	}
+
+	//관리자 페이지 결제현황 리스트 카운트
+	@Override
+	public int selectPaymentCountAdmin(String paymentStatus) {
+		
+		return dao.selectPaymentCountAdmin(paymentStatus);
+	}
+
+	//관리자 페이지 결제현황 리스트
+	@Override
+	public List<Map<Object, Object>> selectPaymentListAdmin(Map<Object,Object> payment, int cPage, int numPerPage) {
+		
+		return dao.selectPaymentListAdmin(payment, cPage, numPerPage);
+	}
+
+	//관리자 페이지 결제 정보 출력
+	@Override
+	public Map<Object, Object> selectPaymentOne(Map<Object, Object> payment) {
+		
+		return dao.selectPaymentOne(payment);
+	}
+
+	//관리자 페이지 결제 현황 구매확정
+	@Override
+	public int updatePaymentEnd(Map<Object, Object> payment) {
+		
+		return dao.updatePaymentEnd(payment);
+	}
+
+	//관리자 페이지 환불 요청 리스트 카운트
+	@Override
+	public int selectRefundCountAdmin(String refundStatus) {
+		
+		return dao.selectRefundCountAdmin(refundStatus);
+	}
+	
+	//관리자 페이지 환불요청 리스트
+	@Override
+	public List<Map<Object, Object>> selectRefundListAdmin(String refundStatus, int cPage, int numPerPage) {
+		
+		return dao.selectRefundListAdmin(refundStatus, cPage, numPerPage);
+	}
+	
+	//관리자 페이지 환불-결제 정보 출력
+	@Override
+	public Map<Object, Object> selectRefundOne(Map<Object, Object> refund) {
+		
+		return dao.selectRefundOne(refund);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

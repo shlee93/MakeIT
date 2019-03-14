@@ -1,3 +1,39 @@
+//결제 시스템
+$(document).on('click','.click-refund',function(){
+	
+	var IMP = window.IMP; // 생략가능
+	IMP.init('imp51275730');
+	IMP.request_pay({
+		pg : 'kcp', // version 1.1.0부터 지원.
+		pay_method : 'trans',
+		merchant_uid : 'merchant_' + new Date().getTime(),
+		name : '주문명:결제테스트',
+		amount : 1,
+		buyer_email : 'iamport@siot.do',
+		buyer_name : '구매자이름',
+		buyer_tel : '010-1234-5678',
+		buyer_addr : '서울특별시 강남구 삼성동',
+		buyer_postcode : '123-456',
+		m_redirect_url : 'adminView.do'
+	}, function(rsp) {
+		if ( rsp.success ) {
+			var msg = '결제가 완료되었습니다.';
+			msg += '고유ID : ' + rsp.imp_uid;
+			msg += '상점 거래ID : ' + rsp.merchant_uid;
+			msg += '결제 금액 : ' + rsp.paid_amount;
+			msg += '카드 승인번호 : ' + rsp.apply_num;
+			alert(msg);
+			
+		} else {
+			var msg = '결제에 실패하였습니다.';
+			msg += '에러내용 : ' + rsp.error_msg;
+			alert(msg);
+		}
+		
+	});
+})
+
+
 //탭 클릭시 뷰 스테이터스 전환
 $(document).on('click','#nav-member-tab',function(){
 	var $view_Status=$("#view-status");
@@ -174,6 +210,10 @@ $(document).on('click','.member-page',function(){
 	var ascDesc=0;
 	//신고관리에 필요한 변수
 	var reportStatus=$('#report-view-status').val();
+	//결제현황리스트에 필요한 변수
+	
+	var paymentStatus=$('#payment-view-status').val();
+	var $payment_Tab=$('.payment-view-div');
 	
 	if(viewStatus=='member'){
 		
@@ -227,6 +267,19 @@ $(document).on('click','.member-page',function(){
 				
 			}
 			
+		})
+	}else if(viewStatus=="payment"){
+		
+		$.ajax({
+			url:"selectPaymentListView.do",
+			data:{
+				"cPage":cPage,
+				"paymentStatus":paymentStatus
+			},
+			dataType:"html",
+			success:function(data){
+				$payment_Tab.html(data);
+			}
 		})
 	}
 	
@@ -437,6 +490,167 @@ $(document).on('click', '.deal-info-back', function () {
 	} 
 
 });
+
+//결제현황 카테고리 전환
+$(document).on('click','.payment-view',function(){
+	var $view_Status=$('#payment-view-status');
+	$view_Status.val($(this).children('input').val());
+	var $click_Li=$(this);
+	var viewStatus=$view_Status.val();
+	var $payment_Tab=$('.payment-view-div');
+	$.ajax({
+		url:"selectPaymentListView.do",
+		data:{
+			"paymentStatus":viewStatus
+		},
+		dataType:"html",
+		success:function(data){
+			$payment_Tab.html(data);
+			$('.payment-view').removeClass('active');
+			$click_Li.addClass('active');
+		}
+	})
+})
+
+//구매확정 결제현황만 출력
+$(document).on('click','#paymentSort-btn',function(){
+	
+	var $view_Status=$('#payment-view-status');
+	var $click_Li=$(this);
+	var viewStatus=$view_Status.val();
+	var $payment_Tab=$('.payment-view-div');
+	var sortCheck=4;
+	$.ajax({
+		url:"selectPaymentListView.do",
+		data:{
+			"paymentStatus":viewStatus,
+			"sortCheck":sortCheck
+		},
+		dataType:"html",
+		success:function(data){
+			$payment_Tab.html(data);
+			
+		}
+	})
+})
+
+//구매확정 결제 팝업
+$(document).on('click','.payment-pop',function(){
+	var $view_Status=$('#payment-view-status');
+	var viewStatus=$view_Status.val();
+	var $click_Li=$(this);
+	var specNo=$click_Li.children('input').val();
+	$.ajax({
+		url:"paymentPopupView.do",
+		data:{
+			"paymentStatus":viewStatus,
+			"specNo":specNo
+		},
+		dataType:"html",
+		success:function(data){
+			$('.modal-body').html(data);
+			$('#product_view').addClass('show');
+		}
+	})
+})
+
+//구매 확정 결제
+$(document).on('click','.payment-end',function(){
+	var $view_Status=$('#payment-view-status');
+	var viewStatus=$view_Status.val();
+	var title=$('.product-title').children('span').text();
+	var specNo=$('#end-spec-no').val();
+	var price=$('.cost').children('span').text();
+	console.log(title);
+	console.log(price);
+	
+	
+	var IMP = window.IMP; // 생략가능
+	IMP.init('imp51275730');
+	IMP.request_pay({
+		pg : 'kcp', // version 1.1.0부터 지원.
+		pay_method : 'trans',
+		merchant_uid : 'merchant_' + new Date().getTime(),
+		name : title,
+		amount : price,
+		buyer_email : 'make_it@gmail.kr',
+		buyer_name : 'MakeIT(메이크잇)',
+		buyer_tel : '010-1234-5678',
+		buyer_addr : '서울특별시 강남구 역삼동',
+		buyer_postcode : '123-456',
+		m_redirect_url : 'adminView.do'
+	}, function(rsp) {
+		if ( rsp.success ) {
+			var msg = '결제가 완료되었습니다.';
+			msg += '고유ID : ' + rsp.imp_uid;
+			msg += '<br>상점 거래ID : ' + rsp.merchant_uid;
+			msg += '<br>결제 금액 : ' + rsp.paid_amount;
+			msg += '<br>카드 승인번호 : ' + rsp.apply_num;
+			alert(msg);
+			
+			$.ajax({
+				
+				url:"updatePaymentEnd.do",
+				data:{
+					"paymentStatus":viewStatus,
+					"specNo":specNo
+				},
+				dataType:"html",
+				success:function(data){
+					$('.modal-body').children('.row').remove();
+					$payment_Tab.html(data);
+				}
+			})
+			
+		} else {
+			var msg = '결제에 실패하였습니다.';
+			msg += '에러내용 : ' + rsp.error_msg;
+			alert(msg);
+		}
+		
+	});
+	
+})
+//환불요청 리스트 카테고리 화면전환
+$(document).on('click','.refund-view',function(){
+	var $view_Status=$('#refund-view-status');
+	$view_Status.val($(this).children('input').val());
+	var $click_Li=$(this);
+	var viewStatus=$view_Status.val();
+	var $payment_Tab=$('.refund-view-div');
+	$.ajax({
+		url:"selectRefundListView.do",
+		data:{
+			"refundStatus":viewStatus
+		},
+		dataType:"html",
+		success:function(data){
+			$payment_Tab.html(data);
+			$('.refund-view').removeClass('active');
+			$click_Li.addClass('active');
+		}
+	})
+})
+
+//환불요청 결제 팝업
+$(document).on('click','.refund-pop',function(){
+	var $view_Status=$('#refund-view-status');
+	var viewStatus=$view_Status.val();
+	var $click_Li=$(this);
+	var specNo=$click_Li.children('input').val();
+	$.ajax({
+		url:"refundPopupView.do",
+		data:{
+			"refundStatus":viewStatus,
+			"specNo":specNo
+		},
+		dataType:"html",
+		success:function(data){
+			$('.modal-body').html(data);
+			$('#product_view').addClass('show');
+		}
+	})
+})
 
 //신고 회원 보기 이벤트
 $(document).on('click', '.report-tab-back', function () {

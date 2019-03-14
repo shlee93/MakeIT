@@ -72,4 +72,25 @@ public interface AdminDao {
 	
 	//관리자 페이지 신고 리스트 카운트
 	int selectReportCountAdmin(String reportStatus);
+	
+	//관리자 페이지 결제현황 리스트 카운트
+	int selectPaymentCountAdmin(String paymentStatus);
+	
+	//관리자 페이지 결제현황 리스트
+	List<Map<Object,Object>> selectPaymentListAdmin(Map<Object,Object> payment,int cPage,int numPerPage);
+	
+	//관리자 페이지 결제 정보 출력
+	Map<Object,Object> selectPaymentOne(Map<Object,Object> payment);
+	
+	//관리자 페이지 결제 현황 구매확정
+	int updatePaymentEnd(Map<Object,Object> payment);
+	
+	//관리자 페이지 환불 요청 리스트 카운트
+	int selectRefundCountAdmin(String refundStatus);
+	
+	//관리자 페이지 환불요청 리스트
+	List<Map<Object,Object>> selectRefundListAdmin(String refundStatus,int cPage,int numPerPage);
+	
+	//관리자 페이지 환불-결제 정보 출력
+	Map<Object,Object> selectRefundOne(Map<Object,Object> refund);
 }
