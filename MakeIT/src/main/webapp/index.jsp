@@ -8,6 +8,7 @@
 	<jsp:param value="HelloSpring" name="pageTitle"/>
 </jsp:include>
 
+
 	<a class="dropdown-item" href="${path }/member/memberEnrollck.do">회원가입</a>
 	
 	<a class="dropdown-item" href="${path }/member/memberLogin.do">로그인</a>
@@ -31,7 +32,7 @@
 
 
    <div id="famousContentWrap">
-        <P id="famousContentTitle">인기 컨텐츠!<br/><p id="famousContentTitle2">시간 되시면 둘러보세요 :)</p></P>
+        <P id="famousContentTitle">인기 컨텐츠!<br/><p id="famousContentTitle2">시간 되시면 둘러보세요 :)</p>
         <div id="famousContentBody">
             <div id="famousContentLeft"></div>
             <div id="famousContentRight"></div>
@@ -339,11 +340,5 @@
     </script>
 
  <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include> 
-
-
-
-
-
-
 
 

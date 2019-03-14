@@ -2,8 +2,6 @@ package com.kh.makeit.member.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.sql.Date;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -31,7 +29,6 @@ import com.google.gson.Gson;
 import com.kh.makeit.common.PageFactory;
 import com.kh.makeit.common.SendMail;
 import com.kh.makeit.member.model.service.MemberService;
-import com.sun.mail.iap.Response;
 
 @Controller
 public class MemberController {
