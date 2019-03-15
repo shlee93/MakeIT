@@ -48,7 +48,7 @@
    				<p>${msg }</p>
     		</div>
     		<div class="col-md-5">
-    			<input type="button" onclick="closeView();" value="닫기">
+    			<input type="button" class="btn btn-outline-info slidetopleft" onclick="closeView();" value="닫기">
     		</div>
     	</div>
     	<script>

@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>  
 
@@ -49,7 +48,7 @@
 	    			<input type="email" name="email" placeholder="가입시 등록한 이메일을 입력하세요." class="form-control">
 	    		</div>
 	    		<div class="col-md-5">
-	    			<input type="submit" class="btn btn-primary" value="인증번호 발송">
+	    			<input type="submit" class="btn btn-outline-info slidetopleft" value="인증번호 발송">
 	    		</div>
 	    	</div>
 		</form>

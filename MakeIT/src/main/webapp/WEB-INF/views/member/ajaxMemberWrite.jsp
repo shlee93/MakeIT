@@ -141,7 +141,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="bo" items="${buyList }">
 		                    			<tr>
 		                    				<td><c:out value="${bo.BUYNO }"/></td>
-											<td><a href="#"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
 											<td><c:out value="${bo.MEMBERID }"/></td>
 											<td><c:out value="${bo.BUYDATE }"/></td>
 		                    			</tr>
@@ -173,7 +173,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="so" items="${sellList }">
 		                    			<tr>
 		                    				<td><c:out value="${so.SELLNO }"/></td>
-											<td><a href="#"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
 											<td><c:out value="${so.MEMBERID }"/></td>
 											<td><c:out value="${so.SELLDATE }"/></td>
 		                    			</tr>
@@ -303,7 +303,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="bo" items="${buyList }">
 		                    			<tr>
 		                    				<td><c:out value="${bo.BUYNO }"/></td>
-											<td><a href="#"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
 											<td><c:out value="${bo.MEMBERID }"/></td>
 											<td><c:out value="${bo.BUYDATE }"/></td>
 		                    			</tr>
@@ -335,7 +335,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="so" items="${sellList }">
 		                    			<tr>
 		                    				<td><c:out value="${so.SELLNO }"/></td>
-											<td><a href="#"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
 											<td><c:out value="${so.MEMBERID }"/></td>
 											<td><c:out value="${so.SELLDATE }"/></td>
 		                    			</tr>
@@ -465,7 +465,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="bo" items="${buyList }">
 		                    			<tr>
 		                    				<td><c:out value="${bo.BUYNO }"/></td>
-											<td><a href="#"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
 											<td><c:out value="${bo.MEMBERID }"/></td>
 											<td><c:out value="${bo.BUYDATE }"/></td>
 		                    			</tr>
@@ -497,7 +497,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="so" items="${sellList }">
 		                    			<tr>
 		                    				<td><c:out value="${so.SELLNO }"/></td>
-											<td><a href="#"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
 											<td><c:out value="${so.MEMBERID }"/></td>
 											<td><c:out value="${so.SELLDATE }"/></td>
 		                    			</tr>
@@ -627,7 +627,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="bo" items="${buyList }">
 		                    			<tr>
 		                    				<td><c:out value="${bo.BUYNO }"/></td>
-											<td><a href="#"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
 											<td><c:out value="${bo.MEMBERID }"/></td>
 											<td><c:out value="${bo.BUYDATE }"/></td>
 		                    			</tr>
@@ -659,7 +659,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="so" items="${sellList }">
 		                    			<tr>
 		                    				<td><c:out value="${so.SELLNO }"/></td>
-											<td><a href="#"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
 											<td><c:out value="${so.MEMBERID }"/></td>
 											<td><c:out value="${so.SELLDATE }"/></td>
 		                    			</tr>
@@ -789,7 +789,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="bo" items="${buyList }">
 		                    			<tr>
 		                    				<td><c:out value="${bo.BUYNO }"/></td>
-											<td><a href="#"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
 											<td><c:out value="${bo.MEMBERID }"/></td>
 											<td><c:out value="${bo.BUYDATE }"/></td>
 		                    			</tr>
@@ -821,7 +821,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="so" items="${sellList }">
 		                    			<tr>
 		                    				<td><c:out value="${so.SELLNO }"/></td>
-											<td><a href="#"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
 											<td><c:out value="${so.MEMBERID }"/></td>
 											<td><c:out value="${so.SELLDATE }"/></td>
 		                    			</tr>
@@ -938,6 +938,7 @@ pageEncoding="UTF-8"%>
             </c:if>
         </div>
     </div>
+    <input type="hidden" id="fadeStatus" name="fadeStatus" value="${fadeStatus }">
 </div>
 <script>
 	function buytab(){

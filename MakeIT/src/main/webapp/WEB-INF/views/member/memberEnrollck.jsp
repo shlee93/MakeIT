@@ -8,7 +8,8 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="HelloSpring" name="pageTitle"/>
 </jsp:include>
-
+<!-- Member CSS -->
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/member/member.css" />
 <div class="container-fluid">
         <div class="row">
             <div class="col-md-1">
@@ -25,7 +26,7 @@
             				<i class="fas fa-user fa-10x"></i><br/>
             				<h3>당신의 재능을 <b>MakeIT</b>와 함께</h3>
             				<input type="hidden" name="memberLevel" id="memberLevel" value="1">
-            				<input type="submit" class="btn btn-primary signUp" id="individual" value="개인 회원가입">
+            				<input type="submit" class="btn btn-outline-info slidetopleft signUp" id="individual" value="개인 회원가입">
            				</form>
             		</div>
             		<div class="col-md-6" id="company">
@@ -33,7 +34,7 @@
             				<i class="fas fa-user-tie fa-10x"></i><br/>
             				<h3>많은 인재들이 기다리는 <b>MakeIT</b>입니다.</h3>
             				<input type="hidden" name="memberLevel" id="memberLevel" value="2">
-            				<input type="submit" class="btn btn-primary signUp" id="company" value="기업 회원가입">
+            				<input type="submit" class="btn btn-outline-info slidetopleft signUp" id="company" value="기업 회원가입">
 	           			</form>
             		</div>
             	</div>

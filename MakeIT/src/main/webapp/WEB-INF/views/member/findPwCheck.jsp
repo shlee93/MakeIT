@@ -39,7 +39,7 @@
 	<div id="checkEmail-container">
 		<input type="text" name="inputRandomNo" id="inputRandomNo" maxlength="6" placeholder="인증번호를 입력하세요."/>
 		<input type="hidden" name="randomNo" id="randomNo" value="${randomNo }">
-		<input type="button" onclick="checkEmail();" class="btn btn-primary" value="확인">
+		<input type="button" onclick="checkEmail();" class="btn btn-outline-info slidetopleft" value="확인">
 		<form action="${path }/member/findPwUpdate.do" id="emailFrm" method="post">
 			<input type="hidden" name="id" id="id" value="${id }">
 		</form>

@@ -4,6 +4,10 @@
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 	<c:set var="path" value="${pageContext.request.contextPath }"/>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
+
 
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 	
@@ -17,9 +21,12 @@
 	}
 %> 
 
+
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="HelloSpring" name="pageTitle"/>
 </jsp:include>
+<!-- Member CSS -->
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/member/member.css" />
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-1">
@@ -46,7 +53,7 @@
                                         </label><br>
                                     </div>
                                     <div class="form-group">
-                                        <input type="submit" name="submit" class="btn btn-info btn-md" value="로그인">
+                                        <input type="submit" name="submit" class="btn btn-outline-info slidetopleft" value="로그인">
                                     </div>
                                     <div id="register-link" class="text-right">
                                         <a onclick="findId();" class="text-info">ID찾기</a><span class="text-info">/</span>
@@ -55,7 +62,7 @@
                                     </div>
                                 </form>
                                 <div class="socialLogin" id="naver_id_login">
-                                	<%-- <a id="naverLogin"><img height="50" src="${path }/resources/images/naverLoginBtn_Green.PNG"/></a> --%>
+                                	
                                 </div>
                                 <form action="${path }/member/naverLogin" id="naverLoginform" name="naverLoginform">
                                 	<input type="hidden" id="email" name="email" value="">

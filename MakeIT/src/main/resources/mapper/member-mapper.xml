@@ -56,7 +56,7 @@
 		SELECT COUNT(*) FROM SELLOUTBOX O JOIN SELL S USING(SELLNO) WHERE O.MEMBERID=#{memberId}
 	</select>
 	<select id="buyList" parameterType="string" resultType="map">
-		SELECT * FROM BUY WHERE MEMBERID=#{memberId} AND BUYDELYN='N' ORDER BY BUYDATE DESC
+		SELECT * FROM BUY WHERE MEMBERID=#{memberId} AND BUYDELETEYN='N' ORDER BY BUYDATE DESC
 	</select>
 	<select id="sellList" parameterType="string" resultType="map">
 		SELECT * FROM SELL WHERE MEMBERID=#{memberId} AND SELLDELETEYN='N' ORDER BY SELLDATE DESC

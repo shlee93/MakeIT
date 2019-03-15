@@ -26,8 +26,8 @@ pageEncoding="UTF-8"%>
     <div class="col-md-2">
 		<form id="hiddenFrm" action="" method="post">
 			<input type="hidden" id="updateId" name="updateId" value="${map.MEMBERID }"/>
-			<input type="button" onclick="updateMember();" class="profile-edit-btn" name="updateBtn" value="정보수정"/>
-			<input type="button" onclick="deleteMember();" class="profile-edit-btn" name="deleteBtn" value="회원탈퇴"/>
+			<input type="button" onclick="updateMember();" class="btn btn-outline-info slidetopleft" name="updateBtn" value="정보수정"/>
+			<input type="button" onclick="deleteMember();" class="btn btn-outline-info slidetopleft" name="deleteBtn" value="회원탈퇴"/>
 		</form>
     </div>
 </div>
@@ -71,14 +71,14 @@ pageEncoding="UTF-8"%>
                    			</tr>
                    			<tr>
                    				<td>
-                   					<button class="btn btn-primary" onclick="backMessageList();">이전</button>
+                   					<button class="btn btn-outline-info slidetopleft" onclick="backMessageList();">이전</button>
                    				</td>
                    				<td>
-                   					<button class="btn btn-primary" onclick="deleteMessage();">삭제</button>
+                   					<button class="btn btn-outline-info slidetopleft" onclick="deleteMessage();">삭제</button>
                    				</td>
                    				<td>
                    					<c:if test="${message.RECEIVEID==map.MEMBERID }">
-                   						<button class="btn btn-primary" onclick="reMessage();">답장</button>
+                   						<button class="btn btn-outline-info slidetopleft" onclick="reMessage();">답장</button>
                    					</c:if>
                    				</td>
                    				<td></td>

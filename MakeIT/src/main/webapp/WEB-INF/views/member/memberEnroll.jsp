@@ -8,6 +8,8 @@
 	<jsp:param value="HelloSpring" name="pageTitle"/>
 </jsp:include>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
+<!-- Member CSS -->
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/member/member.css" />
 <style>
 .filebox input[type="file"] {
     position: absolute;
@@ -118,7 +120,7 @@
                         <input type="hidden" name="memberLevel" value="${memberLevel }">
                     </div>
                     <div class="col-md-3 mb-2">
-                        <input type='button' onclick='fn_checkduplicate();' class='btn btn-primary' value='중복체크'>
+                        <input type='button' onclick='fn_checkduplicate();' class="btn btn-outline-info slidetopleft" value='중복체크'>
                     </div>
                 </div>
                 <div class="row">
@@ -142,7 +144,7 @@
                     </div>
                     <div class="col-md-3 mb-2" id="ck_password">
 						<div id="alert-success" style="color: green;">비밀번호가 일치합니다.</div>
-						<div id="alert-danger" style="color: red;">비밀번호가 일치하지 않습니다.</div>
+						<div id="alert-danger" style="color: red;">비밀번호가 일치하지 않습니다. 비밀번호는 영문, 숫자, 특수문자 조합 8~20자리 입니다.</div>
                     </div>
                 </div>
                 <div class="row">
@@ -211,7 +213,7 @@
                         <input type="text" class='form-control' id='memberAccount' name='memberAccount' placeholder="계좌번호 입력" required>   
                     </div>
                     <div class="col-md-3 mb-2">
-                        <input type='button' onclick='fn_accountCheck();' class='btn btn-primary' value='계좌인증'>
+                        <input type='button' onclick='fn_accountCheck();' class="btn btn-outline-info slidetopleft" value='계좌인증'>
                         <input type='hidden' name='accountValid' id="accountValid" value='0'>
                     </div>
                 </div>
@@ -270,7 +272,7 @@
                         </select>
                     </div>
                     <div class="col-md-3 mb-2">
-                    	<input type='button' onclick='fn_checkEmail();' class='btn btn-primary' value='이메일 인증'>
+                    	<input type='button' onclick='fn_checkEmail();' class="btn btn-outline-info slidetopleft" value='이메일 인증'>
                     	<input type='hidden' name='emailValid' id="emailValid" value='0'>
                     </div>
                 </div>
@@ -311,10 +313,10 @@
                 <div class="row">
                     <div class="col-md-4"></div>
                     <div class="col-md-2">
-                        <input type="submit" class="btn btn-primary" value="회원가입">
+                        <input type="submit" class="btn btn-outline-info slidetopleft" value="회원가입">
                     </div>
                     <div class="col-md-2">
-                        <input type="button" class="btn btn-primary" value="취소">
+                        <input type="button" onclick="main();" class="btn btn-outline-info slidetopleft" value="취소">
                     </div>
                     <div class="col-md-4"></div>
                 </div>
@@ -336,6 +338,9 @@
     
     
 <script>
+	function main(){
+		
+	}
 	function fn_accountCheck(){
 		var bankCode=$("#bank").val().trim();
 	       
@@ -444,17 +449,45 @@
         $("#alert-success").hide();
         $("#alert-danger").hide();
     	$("input").keyup(function(){
-    	    var pwd1=$("#password").val();
-    	    var pwd2=$("#cpassword").val();
-    	    if(pwd1 != "" || pwd2 != ""){
-    	        if(pwd1 == pwd2){
-    	            $("#alert-success").show();
-    	            $("#alert-danger").hide();
-    	        }else{
-    	            $("#alert-success").hide();
-    	            $("#alert-danger").show();
-    	        }    
-    	    }
+    		var joincPw=$("#cpassword").val().trim();
+			var joinPw=$("#password").val().trim();
+			var chk_num = joinPw.search(/[0-9]/g); 
+            var chk_eng = joinPw.search(/[a-z]/ig);
+            var chk_spe = joinPw.search(/[$@$!%*#?&]/);
+            
+            if(chk_num < 0 && chk_eng < 0 && chk_spe < 0){
+            	$("#alert-success").hide();
+	            $("#alert-danger").show();
+            } else{
+            	if(!/^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(joinPw))
+                { 
+                	if(joincPw != "" || joinPw != ""){
+            	        if(joinPw == joincPw){
+            	            $("#alert-success").show();
+            	            $("#alert-danger").hide();
+            	        }else{
+            	            $("#alert-success").hide();
+            	            $("#alert-danger").show();
+            	        }    
+            	    }
+                }
+    			
+                if(!/^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(joincPw))
+                { 
+                	if(joinPw != "" || joincPw != ""){
+            	        if(joinPw == joincPw){
+            	            $("#alert-success").show();
+            	            $("#alert-danger").hide();
+            	        }else{
+            	            $("#alert-success").hide();
+            	            $("#alert-danger").show();
+            	        }    
+            	    }
+                }
+            	
+            }
+            
+    	    
     	});
     });
 
@@ -496,17 +529,18 @@
             var joinPw=$("#password").val().trim();
             
 
-            if(!/^[a-zA-Z0-9]{8,20}$/.test(joinPw))
+            if(!/^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(joinPw))
             { 
-                alert('비밀번호는 숫자와 영문자 조합으로 8~20자리를 사용해야 합니다.'); 
+                alert('비밀번호는 숫자와 영문자, 특수문자 조합으로 8~20자리를 사용해야 합니다.'); 
                 $('#password').focus();
                 return false;
             }
             
             var chk_num = joinPw.search(/[0-9]/g); 
             var chk_eng = joinPw.search(/[a-z]/ig);
+            var chk_spe = joinPw.search(/[$@$!%*#?&]/);
         
-            if(chk_num < 0 || chk_eng < 0)
+            if(chk_num < 0 || chk_eng < 0 || chk_spe < 0)
         
             { 
                 alert('비밀번호는 숫자와 영문자를 혼용하여야 합니다.');
@@ -523,18 +557,27 @@
             
             var joincPw=$("#cpassword").val().trim();
             
-            if(!/^[a-zA-Z0-9]{8,20}$/.test(joinPw))
+            if(!/^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(joincPw))
             { 
-                alert('비밀번호는 숫자와 영문자 조합으로 8~20자리를 사용해야 합니다.'); 
+                alert('비밀번호는 숫자와 영문자, 특수문자 조합으로 8~20자리를 사용해야 합니다.'); 
                 $('#cpassword').focus();
+                return false;
+            }
+            
+            var memberAccount = $('#memberAccount').val().trim();
+            
+            if(!/^[0-9]+$/.test(memberAccount))
+            { 
+                alert('계좌번호는 숫자만 사용해야 합니다.'); 
+                $('#memberAccount').focus();
                 return false;
             }
             
             var chk_cnum = joincPw.search(/[0-9]/g); 
             var chk_ceng = joincPw.search(/[a-z]/ig);
-        
+            var chk_cspe = joincPw.search(/[$@$!%*#?&]/);
 
-            if(chk_cnum < 0 || chk_ceng < 0)
+            if(chk_cnum < 0 || chk_ceng < 0 || chk_cspe < 0)
             { 
                 alert('비밀번호는 숫자와 영문자를 혼용하여야 합니다.');
                 $('#cpassword').focus();

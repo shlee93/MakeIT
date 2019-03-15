@@ -43,7 +43,7 @@
 				<span>예금주 생년월일</span><input type="date" name="accountBirth" id="accountBirth"/>
 				<input type="hidden" name="accountNo" id="accountNo" value="${account.ACCOUNTNO }">
 				<input type="hidden" name="bankCode" id="bankCode" value="${account.BANKCODE }">
-				<input type="submit" class="btn btn-primary" value="확인">
+				<input type="submit" class="btn btn-outline-info slidetopleft" value="확인">
 			</form>
 		</c:if>
 		<c:if test="${account == null }">

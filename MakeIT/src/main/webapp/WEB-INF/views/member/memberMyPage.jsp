@@ -8,7 +8,8 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="HelloSpring" name="pageTitle"/>
 </jsp:include>
-
+<!-- Member CSS -->
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/member/member.css" />
 
 <div class="container-fluid">
     <div class="row">
@@ -43,8 +44,8 @@
                     <div class="col-md-2">
                     	<form id="hiddenFrm" action="" method="post">
 	                    	<input type="hidden" id="updateId" name="updateId" value="${map.MEMBERID }"/>
-	                        <input type="button" onclick="updateMember();" class="profile-edit-btn" name="updateBtn" value="정보수정"/>
-	                        <input type="button" onclick="deleteMember();" class="profile-edit-btn" name="deleteBtn" value="회원탈퇴"/>
+	                        <input type="button" onclick="updateMember();" class="btn btn-outline-info slidetopleft" name="updateBtn" value="정보수정"/>
+	                        <input type="button" onclick="deleteMember();" class="btn btn-outline-info slidetopleft" name="deleteBtn" value="회원탈퇴"/>
                     	</form>
                     </div>
                 </div>
@@ -228,7 +229,7 @@
                                  	<div class="row">
                                     	<div class="col-md-10"></div>
                                      	<div class="col-md-1">
-                                         	<input type="submit" class="btn btn-primary" value="저장">
+                                         	<input type="submit" class="btn btn-outline-info slidetopleft" value="저장">
                                      	</div>
                                  	</div>
                             	</form>
@@ -242,7 +243,6 @@
         <input type="hidden" id="freecPage" name="freecPage" value="${freecPage }">
         <input type="hidden" id="qnacPage" name="qnacPage" value="${qnacPage }">
         <input type="hidden" id="contestcPage" name="contestcPage" value="${contestcPage }">
-        <input type="hidden" id="fadeStatus" name="fadeStatus" value="${fadeStatus }">
         <input type="hidden" id="naviBarStatus" name = "naviBarStatus" value="${naviBarStatus }">
         <input type="hidden" id="noReadMessage" name = "noReadMessage" value="${noReadMessage }">
 		<script>
@@ -252,6 +252,12 @@
 			}
 			
 			function deleteMember(){
+				$(document).ready(function () {
+				    $("#modalDelete").modal('show');
+				});	
+			}
+			
+			function delBtn(){
 				$('#hiddenFrm').attr("action","${path }/member/deleteMember.do");
 				$('#hiddenFrm').submit();
 			}
@@ -331,6 +337,19 @@
                 	새 받은 메시지가 [<c:out value="${noReadMessage }"></c:out>]건 있습니다.
                 </p>
                 <button type="button" class="btn blue btn-outline" data-dismiss="modal" aria-hidden="true">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modalDelete" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <p>
+                	정말로 탈퇴하시겠습니까?
+                </p>
+                <button type="button" onclick="delBtn();" class="btn blue btn-outline" data-dismiss="modal" aria-hidden="true">Yes</button>
+                <button type="button" class="btn blue btn-outline" data-dismiss="modal" aria-hidden="true">No</button>
             </div>
         </div>
     </div>

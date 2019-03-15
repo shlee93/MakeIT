@@ -11,6 +11,8 @@
 <%
 	List<String> interestList = (List)request.getAttribute("interestList");
 %>
+<!-- Member CSS -->
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/member/member.css" />
 <style>
 .filebox input[type="file"] {
     position: absolute;
@@ -194,7 +196,7 @@
                         <input type="text" class='form-control' id='memberAccount' name='memberAccount' placeholder="계좌번호 입력" value="${member.ACCOUNT }" required>   
                     </div>
                     <div class="col-md-3 mb-2">
-                        <input type='button' onclick='fn_accountCheck();' class='btn btn-primary' value='계좌인증'>
+                        <input type='button' onclick='fn_accountCheck();' class="btn btn-outline-info slidetopleft" value='계좌인증'>
                         <input type='hidden' name='accountValid' id="accountValid" value='1'>
                     </div>
                 </div>
@@ -250,7 +252,7 @@
                         </select>
                     </div>
                     <div class="col-md-3 mb-2">
-                    	<input type='button' onclick='fn_checkEmail();' class='btn btn-primary' value='이메일 인증'>
+                    	<input type='button' onclick='fn_checkEmail();' class="btn btn-outline-info slidetopleft" value='이메일 인증'>
                     	<input type='hidden' name='emailValid' id="emailValid" value='1'>
                     </div>
                 </div>
@@ -291,10 +293,10 @@
                 <div class="row">
                     <div class="col-md-4"></div>
                     <div class="col-md-2">
-                        <input type="button" id="updateBtn" class="btn btn-primary" value="수정">
+                        <input type="button" id="updateBtn" class="btn btn-outline-info slidetopleft" value="수정">
                     </div>
                     <div class="col-md-2">
-                        <input type="button" id="cancleBtn" class="btn btn-primary" value="취소">
+                        <input type="button" id="cancleBtn" class="btn btn-outline-info slidetopleft" value="취소">
                     </div>
                     <div class="col-md-4"></div>
                 </div>
@@ -481,6 +483,15 @@ $(function(){
         {
             alert("메일 아이디를 입력해주세요");
             $('#memberEmail').focus();
+            return false;
+        }
+        
+        var memberAccount = $('#memberAccount').val().trim();
+        
+        if(!/^[0-9]+$/.test(memberAccount))
+        { 
+            alert('계좌번호는 숫자만 사용해야 합니다.'); 
+            $('#memberAccount').focus();
             return false;
         }
 

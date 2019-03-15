@@ -41,7 +41,7 @@
 			<input type="password" id='password' name='password' class='form-control' value='' placeholder="새 비밀번호 입력" required>
 			<input type="hidden" name="id" id="id" value="${id }">
 		</form>
-		<input type="button" onclick="closeView();" class="btn btn-primary" value="확인">
+		<input type="button" onclick="closeView();" class="btn btn-outline-info slidetopleft" value="확인">
 	</div>
 	<script>
 	function closeView(){

@@ -3,7 +3,6 @@ package com.kh.makeit.member.controller;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -331,6 +330,7 @@ public class MemberController {
 		if (result > 0) {
 			msg = "회원가입이 완료되었습니다.";
 			loc = "/";
+			session.setAttribute("member", result);
 		} else {
 			msg = "회원가입이 실패했습니다.";
 			loc = "/";
@@ -1095,6 +1095,12 @@ public class MemberController {
 			mv.addObject("sellcPage",sellcPage);
 			mv.addObject("buycPage",buycPage);
 			mv.addObject("fadeStatus",fadeStatus);
+			System.out.println(fadeStatus);
+			System.out.println(buycPage);
+			System.out.println(sellcPage);
+			logger.debug(fadeStatus);
+			logger.debug(buycPage);
+			logger.debug(sellcPage);
 			mv.setViewName("member/ajaxMemberMessage");
 		}
 		mv.addObject("map",map);
