@@ -36,62 +36,6 @@
 	</bean>
 	
 	
-	<!-- 
-		스프링에서 트렌젝션처리
-		jdbc.datasource.DataSourceTransactionManager객체이용
-		
-		두가지 : 어노테이션, 선언적!
-		1. 어노테이션 처리
-			해당 매소드 위에 @Transactional(옵션)
-		
-		2. 선언적 처리
-			servlet-context.xml에 설정!!
-			*tx: 네임스페이스 등록
-			<tx:advice>
-				<tx:attributes>
-					(옵션)
-				</>
-			</>
-		
-		옵션값
-		readonly : 읽기전용(select처리시)
-		isolation : 트렌젝션 독립성
-		propagation : 트렌젝션 전파
-		timeout : 시간
-		rollbackfor : exception 발생!
-		rollbackforClassName
-		noRollbackFor
-		noRollbackForClassName
-		
-		
-		트렌젝션 전파(propagation)
-		●트렌젝션의 시작이나 기존 트렌젝션에 참여하는 방법을 결정하는 속성
-		●트렌젝션의 적용범위를 묶어서 커다란 트렌젝션을 만들 수 있음
-		●DB에 따라 좀 다르게 적용(yes or no)
-		●required : 디폴트
-			미리 시작된 트렌젝션 있으면 참여, 없으면 새로생성
-		●support : 이미 시작된 트렌젝션이 있으면 참여, 없으면 만들지 않음
-		●mandatory : required랑 비슷 단 없으면 예외처리
-			독립적인 트렌젝션을 사용하면 안될 때 사용
-		●required_new : 항상 새로운 트렌젝션을 생성
-		●not_supported : 트렌젝션 사용안함 / 실행중인 트렌젝션 있으면 보류
-		●never :  트렌젝션 사용안함 / 실행중인 트렌젝션 있으면 예외처리
-		●nested : 중첩트렌젝션 / 실행중인 트렌젝션 위에 새로운 트렌젝션이 생성 / 부모자식관계 
-				/ 새로 생성된 트렌젝션이 부모에 영향을 주지 않고 자신만 commit, rollback 
-				/ 부모는 자식에게 영향을 주게 되는 것
-		
-		isolation(격리수준)
-		●여러 트렌젝션이 작업 할 때 작업에 대한 결과를 어떻게 처리?
-		●보통 DB가 격리수준을 가지고 있음 default
-		●read_uncomitted : 가장 낮은수준 격리 -> 커밋되기전에 읽을 수 있게
-		●read_committed : default -> 커밋되면 읽을 수 있음, 읽은 정보를 수정가능
-		●repeatable_read : 읽은 정보 수정 불가능
-		●serializable : 하나에 하나씩 -> 가장 강력한 격리
-	 -->
-	<!-- 어노테이션 방식 -->
-	<!-- <tx:annotation-riven transaction-manager="transactionManager"/> -->
-	
-	<!-- 선언적방식 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="select*" rollback-for="Exception" read-only="true"/>

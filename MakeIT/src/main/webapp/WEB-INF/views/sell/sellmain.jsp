@@ -8,6 +8,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <%@ page import="java.util.*"%>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,6 +42,7 @@
 <style>
 .hide {
 	display: none;
+
 }
 </style>
 </head>
@@ -586,7 +588,7 @@
 
 						<div class="tab-pane fade" id="nav-profile" role="tabpanel"
 							aria-labelledby="nav-profile-tab">
-							<div class='row'>
+							<%-- <div class='row'>
 								<nav class="nav" style="width: 100%;">
 
 									<ul class="nav__link-wrapper">
@@ -666,7 +668,7 @@
 
 								</div>
 
-							</div>
+							</div> --%>
 
 						</div>
 
@@ -676,7 +678,7 @@
 
 						<div class="tab-pane fade" id="nav-contact" role="tabpanel"
 							aria-labelledby="nav-contact-tab">
-							<div class='row'>
+							<%-- <div class='row'>
 								<nav class="nav" style="width: 100%;">
 
 									<ul class="nav__link-wrapper">
@@ -755,7 +757,7 @@
 
 								</div>
 
-							</div>
+							</div> --%>
 
 						</div>
 

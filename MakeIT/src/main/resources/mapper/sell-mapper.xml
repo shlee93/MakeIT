@@ -68,20 +68,20 @@ select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.g
 </select>
 
 <select id="imageDiv" parameterType="com.kh.makeit.sell.model.vo.SellAttach" resultType="com.kh.makeit.sell.model.vo.SellAttach">
-	select SELLIMGNO,SELLNO,CATEGORYCODE,SELLIMGORI,SELLIMGRE from sellIMG where sellIMGNO=(select MIN(sellIMGNO) from sellIMG where sellno=#{imageId})
+   select SELLIMGNO,SELLNO,CATEGORYCODE,SELLIMGORI,SELLIMGRE from sellIMG where sellIMGNO=(select MIN(sellIMGNO) from sellIMG where sellno=#{imageId})
 </select>
 
 <select id="sellPrice" parameterType="string" resultMap="priceMap">
-	select sellno,sellprice from(select sellno,min(sellprice) sellprice from selloption where sellno=#{sellno} group by sellno)
+   select sellno,sellprice from(select sellno,min(sellprice) sellprice from selloption where sellno=#{sellno} group by sellno)
 </select>
 <resultMap type="com.kh.makeit.sell.model.vo.SellmainOption" id="priceMap">
-	<result column="SELLPRICE" property="sellPrice"/>
+   <result column="SELLPRICE" property="sellPrice"/>
 </resultMap>
 
 
 <!-- 퍼포먼스를위한 카운트 -->
 <select id="sellPerCount" parameterType="map" resultType="_int">
-	select count(distinct sellno) from sell se join member mb on(se.memberid=mb.memberid) join performance pf on(se.memberid=pf.memberid)  where 1=1
+   select count(distinct sellno) from sell se join member mb on(se.memberid=mb.memberid) join performance pf on(se.memberid=pf.memberid)  where 1=1
  
    <choose>
          <when test='sCategoryFlag!=null and sCategoryFlag!=""'> and detailinterestno = #{sCategoryFlag} and totalsale is not null</when>
@@ -89,80 +89,80 @@ select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.g
 </select>
 
 <select id="sellSearch" parameterType="map" resultType="map">
-	<if test='newValue=="1"'>
-		select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.gradeno,se.detailinterestno, se.interestno, se.selltitle, se.selldate, se.selldeleteyn, se.sellcheckyn from sell se  join member mem on(se.memberid=mem.memberid) join grade gr on(gr.gradeno=mem.gradeno) where 1=1
-	</if>
-	<if test='gradeValue=="1"'>
-		select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.gradeno, se.detailinterestno, se.interestno, se.selltitle, se.selldate, se.selldeleteyn, se.sellcheckyn from sell se  join member mem on(se.memberid=mem.memberid) join grade gr on(mem.gradeno=gr.gradeno) where 1 = 1
-	</if>
-	<if test='sellValue=="1"'>
-		select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.gradeno,pf.totalsale, se.detailinterestno, se.interestno, se.selltitle, se.selldate, se.selldeleteyn, se.sellcheckyn from sell se  join member mem on(se.memberid=mem.memberid) join PERFORMANCE pf on(mem.memberid=pf.memberid) join grade gr on(gr.gradeno=mem.gradeno) where 1 = 1
-	</if>
-	<if test='searchtype=="title"'>
-		and selltitle like '%'||#{searchValue}||'%'
-	</if>
-	<if test='searchtype=="writer"'>
-		and se.memberid like '%'||#{searchValue}||'%'
-	</if>
-	<if test='sCategoryFlag!=null and sCategoryFlag!=""'>
-	and detailinterestno=#{sCategoryFlag}
-	</if>
-	<if test='newValue=="1"'>
-		order by selldate desc
-	</if>
-	<if test='gradeValue=="1"'>
-		order by mem.gradeno desc
-	</if>
-	<if test='sellValue=="1"'>
-		order by pf.totalsale desc
-	</if>
+   <if test='newValue=="1"'>
+      select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.gradeno,se.detailinterestno, se.interestno, se.selltitle, se.selldate, se.selldeleteyn, se.sellcheckyn from sell se  join member mem on(se.memberid=mem.memberid) join grade gr on(gr.gradeno=mem.gradeno) where 1=1
+   </if>
+   <if test='gradeValue=="1"'>
+      select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.gradeno, se.detailinterestno, se.interestno, se.selltitle, se.selldate, se.selldeleteyn, se.sellcheckyn from sell se  join member mem on(se.memberid=mem.memberid) join grade gr on(mem.gradeno=gr.gradeno) where 1 = 1
+   </if>
+   <if test='sellValue=="1"'>
+      select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.gradeno,pf.totalsale, se.detailinterestno, se.interestno, se.selltitle, se.selldate, se.selldeleteyn, se.sellcheckyn from sell se  join member mem on(se.memberid=mem.memberid) join PERFORMANCE pf on(mem.memberid=pf.memberid) join grade gr on(gr.gradeno=mem.gradeno) where 1 = 1
+   </if>
+   <if test='searchtype=="title"'>
+      and selltitle like '%'||#{searchValue}||'%'
+   </if>
+   <if test='searchtype=="writer"'>
+      and se.memberid like '%'||#{searchValue}||'%'
+   </if>
+   <if test='sCategoryFlag!=null and sCategoryFlag!=""'>
+   and detailinterestno=#{sCategoryFlag}
+   </if>
+   <if test='newValue=="1"'>
+      order by selldate desc
+   </if>
+   <if test='gradeValue=="1"'>
+      order by mem.gradeno desc
+   </if>
+   <if test='sellValue=="1"'>
+      order by pf.totalsale desc
+   </if>
 </select>
 
 <select id="searchCount" parameterType="map" resultType="_int">
-	select count(distinct sellno) from sell  where 1=1
+   select count(distinct sellno) from sell  where 1=1
    <if test='sCategoryFlag!=null and sCategoryFlag!=""'> 
-   		and detailinterestno = #{sCategoryFlag}
+         and detailinterestno = #{sCategoryFlag}
    </if>
   
-	<if test='searchtype=="title"'>
-		and selltitle like '%'||#{searchValue}||'%'
-	</if>
-	<if test='searchtype=="writer"'>
-		and memberid like '%'||#{searchValue}||'%'
-	</if>
+   <if test='searchtype=="title"'>
+      and selltitle like '%'||#{searchValue}||'%'
+   </if>
+   <if test='searchtype=="writer"'>
+      and memberid like '%'||#{searchValue}||'%'
+   </if>
   
 </select>
 <select id="searchPerCount" parameterType="map" resultType="_int">
-	select count(distinct sellno) from sell se join member mb on(se.memberid=mb.memberid) join performance pf on(se.memberid=pf.memberid)  where 1=1
+   select count(distinct sellno) from sell se join member mb on(se.memberid=mb.memberid) join performance pf on(se.memberid=pf.memberid)  where 1=1
    <if test='sCategoryFlag!=null and sCategoryFlag!=""'> 
-   		and se.detailinterestno = #{sCategoryFlag} and pf.totalsale is not null
+         and se.detailinterestno = #{sCategoryFlag} and pf.totalsale is not null
    </if>
    <if test='searchtype=="title"'>
-		and se.selltitle like '%'||#{searchValue}||'%'
-	</if>
-	<if test='searchtype=="writer"'>
-		and se.memberid like '%'||#{searchValue}||'%'
-	</if>
+      and se.selltitle like '%'||#{searchValue}||'%'
+   </if>
+   <if test='searchtype=="writer"'>
+      and se.memberid like '%'||#{searchValue}||'%'
+   </if>
 </select>
 
 <!--메인창에서 상세창으로 데이터 가져오는 매퍼  -->
 <select id="selldetailView" parameterType="_int" resultType="map">
-	select se.sellno,se.sellcontent,se.memberid,me.MEMBERNAME,me.INTRODUCTION,me.reimg,gr.gradename from sell se join member me on(se.memberid=me.memberid) join grade gr on(gr.gradeno=me.gradeno) where sellno=#{sellno}
+   select se.sellno,se.sellcontent,se.memberid,me.MEMBERNAME,me.INTRODUCTION,me.reimg,gr.gradename from sell se join member me on(se.memberid=me.memberid) join grade gr on(gr.gradeno=me.gradeno) where sellno=#{sellno}
 </select>
 <!-- 메인창에서 이미지 가져오는놈 -->
 <select id="selldetailImg" parameterType="_int" resultType="map">
-	select * from sellIMG where sellIMGNO=(select MIN(sellIMGNO) from sellIMG where sellNO=#{sellno})
+   select * from sellIMG where sellIMGNO=(select MIN(sellIMGNO) from sellIMG where sellNO=#{sellno})
 </select>
 <!-- 옵션가져오기 -->
 <select id="selldetailOption" parameterType="_int" resultType="map">
-	select * from selloption where sellno=#{sellno}
+   select * from selloption where sellno=#{sellno}
 </select>
 <select id="sellReview" parameterType="_int" resultType="map">
-	select * from sellReview where sellno=#{sellno}
+   select * from sellReview where sellno=#{sellno}
 </select>
 
 <select id="sellsubImg" parameterType="_int" resultType="map">
-	 select * from sellimg where sellno=#{sellno} and sellimgno not in (select min(sellimgno) from sellimg where sellno=#{sellno})
+    select * from sellimg where sellno=#{sellno} and sellimgno not in (select min(sellimgno) from sellimg where sellno=#{sellno})
 </select>
 
 <!-- 수정값가져오기 -->

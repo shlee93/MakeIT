@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="admin">
+
+	<resultMap type="map" id="memberMap">
+		<result column="interest" property="interest" typeHandler="strArray"/>
+	</resultMap>
+	
+	<!--관리자 페이지 회원리스트 -->
+	<select id="selectMemberAdmin" resultType="map">
+		SELECT M.*,GRADENAME
+		FROM MEMBER M
+		JOIN GRADE G ON(G.GRADENO=M.GRADENO) WHERE MEMBERLEVEL NOT LIKE 0
+	</select>
+
+	<!--관리자 페이지 검색 회원리스트 -->
+	<select id="selectSearchAdmin" parameterType="string"
+		resultType="map">
+		SELECT M.*,GRADENAME FROM MEMBER M
+		JOIN GRADE G ON(G.GRADENO=M.GRADENO) WHERE MEMBERID LIKE
+		'%'||#{searchId}||'%'
+	</select>
+
+	<!-- 관리자 페이지 회원 상세보기 -->
+	<select id="selectMemberDetail" parameterType="string"
+		resultMap="memberMap">
+		SELECT * FROM MEMBER JOIN GRADE USING(GRADENO) JOIN BANK
+		USING(BANKCODE) WHERE MEMBERID=#{id}
+	</select>
+
+	<!-- 관리자 페이지 회원 정보 업데이트 -->
+	<update id="updateMemberAdmin" parameterType="map">
+		UPDATE MEMBER SET
+		PHONE=#{phone}, EMAIL=#{email}, ADDRESS=#{address},
+		REPORTCOUNT=#{reportCount} WHERE MEMBERID=#{memberId}
+	</update>
+
+	<!--관리자 페이지 회원리스트 정렬 -->
+	<select id="selectMemberSortAdmin" parameterType="map"
+		resultType="map">
+		SELECT M.*,GRADENAME FROM MEMBER M
+		JOIN GRADE G ON(G.GRADENO=M.GRADENO) WHERE MEMBERLEVEL NOT LIKE 0
+		<if test="memberSort!='nosort'">
+			<choose>
+				<when test="ascDesc==0 and memberSort=='gradeno'">
+					ORDER BY M.${memberSort}
+				</when>
+				<when test="ascDesc==1 and memberSort=='gradeno'">
+					ORDER BY M.${memberSort} DESC
+				</when>
+				<when test="ascDesc==0">
+					ORDER BY ${memberSort}
+				</when>
+				<otherwise>
+					ORDER BY ${memberSort} DESC
+				</otherwise>
+			</choose>
+		</if>
+	</select>
+
+	<!-- 관리자 페이지 회원 수 -->
+	<select id="selectMemberCountAdmin" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER WHERE MEMBERLEVEL NOT LIKE 0
+	</select>
+	
+	<!-- 관리자 페이지 카테고리 리스트 -->
+	<select id="selectDeInterestAdmin" resultType="map">
+		SELECT D.*,I.INTEREST 
+		FROM DETAILINTEREST D 
+		JOIN INTEREST I ON(I.INTERESTNO=D.INTERESTNO)
+		
+		<choose>
+			<when test="interestNo==null">
+				WHERE D.INTERESTNO=1
+			</when>
+			<otherwise>
+				WHERE D.INTERESTNO=#{interestNo}
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 관리자 페이지 카테고리 리스트 -->
+	<select id="selectInterestAdmin" resultType="map">
+		SELECT * FROM INTEREST
+	</select>
+	
+	<!-- 관리자 페이지 2차 카테고리 리스트 -->
+	<select id="selectDeInterestAdmin2" resultType="map">
+		SELECT * FROM DETAILINTEREST WHERE INTERESTNO=#{interestNo}
+	</select>
+	
+	<!-- 관리자 페이지 카테고리 수정 -->
+	<update id="updateInterestAdmin" parameterType="map">
+		UPDATE DETAILINTEREST SET INTERESTNO=${interestNo}, DETAILINTEREST=#{deInterestVal} WHERE DETAILINTERESTNO=${deInterestNo}
+	</update>
+	
+	<!-- 관리자 페이지 카테고리 삭제 -->
+	<delete id="deleteInterestAdmin" parameterType="_int">
+		DELETE FROM DETAILINTEREST WHERE DETAILINTERESTNO=#{deInterestNo}
+	</delete>
+	
+	<!-- 관리자 페이지 카테고리 등록 -->
+	<insert id="insertInterestAdmin">
+		INSERT INTO DETAILINTEREST VALUES(SEQ_DETAILINTERESTNO.NEXTVAL,#{interestNo},#{deInterestVal}) 
+	</insert>
+	
+	<!-- 관리자 페이지 FAQ 카테고리 등록 -->
+	<insert id="insertFaqCategory">
+		INSERT INTO FAQCATEGORY VALUES(SEQ_FAQNACATEGORYNO.NEXTVAL,#{category})
+	</insert>
+	
+	<!-- 관리자 페이지 FAQ 카테고리 셀렉트 -->
+	<select id="selectFaqCategoryAdmin" resultType="map">
+		SELECT * FROM FAQCATEGORY
+	</select>
+	
+	<!-- 관리자 페이지 질문 답변 등록 -->
+	<insert id="insertFaqnaAdmin" parameterType="map">
+		INSERT INTO FAQ VALUES(SEQ_FAQNO.NEXTVAL,#{question},#{answer},#{faqCategory})
+	</insert>
+	
+	<!-- 관리자 페이지 FAQ 셀렉트 -->
+	<select id="selectFaqListAdmin" resultType="map">
+		SELECT * FROM FAQ
+	</select>
+	
+	<!-- 관리자 페이지 FAQ 셀렉트원 -->
+	<select id="selectFaqAdmin" resultType="map">
+		SELECT * FROM FAQ WHERE FAQNO=#{faqNo}
+	</select>
+	
+	<!-- 관리자 페이지 FAQ 수정 -->
+	<update id="updateFaqnaAdmin" parameterType="map">
+		UPDATE FAQ SET FAQTITLE=#{question},FAQCONTENT=#{answer},FAQNACATEGORYNO=#{faqCategory} WHERE FAQNO=#{faqNo}
+	</update>
+	
+	<!-- 관리자 페이지 FAQ 삭제 -->
+	<delete id="deleteFaqnaAdmin" parameterType="_int">
+		DELETE FROM FAQ WHERE FAQNO=#{faqNo}
+	</delete>
+	
+	<!-- 관리자 페이지 FAQ카테고리 삭제 -->
+	<delete id="deleteFaqCategoryAdmin" parameterType="_int">
+		DELETE FROM FAQCATEGORY WHERE FAQNACATEGORYNO=#{faqCategoryNo}
+	</delete>
+	
+	<!-- 관리자 페이지 구매 신고 리스트 -->
+	<select id="selectReportListAdmin" parameterType="string" resultType="map">
+		<choose>
+			<when test="_parameter=='BUY'">
+			SELECT 
+			M.MEMBERID AS BUYID,
+			M.MEMBERNAME,
+			M.PHONE,
+			M.EMAIL,
+			M.ADDRESS,
+			M.ENTDATE,
+			M.REIMG,
+			M.REPORTCOUNT,
+			M.BIRTH,
+			M.INTERESTNO,
+			M.GRADENAME,
+			B.BUYTITLE,
+			R.* 
+			FROM BUYREPORT R 
+			JOIN BUY B ON(B.BUYNO=R.BUYNO) 
+			JOIN 
+			(SELECT M.*,GRADENAME 
+			FROM MEMBER M
+    		JOIN GRADE G ON(G.GRADENO=M.GRADENO)) M ON(M.MEMBERID=B.MEMBERID)
+    		WHERE BUYREPORTYN='N'
+			</when>
+			<when test="_parameter=='SELL'">
+			SELECT 
+			M.MEMBERID AS SELLID,
+			M.MEMBERNAME,
+			M.PHONE,
+			M.EMAIL,
+			M.ADDRESS,
+			M.ENTDATE,
+			M.REIMG,
+			M.REPORTCOUNT,
+			M.BIRTH,
+			M.INTERESTNO,
+			M.GRADENAME,
+			S.SELLTITLE,
+			R.* 
+			FROM SELLREPORT R 
+			JOIN SELL S ON(S.SELLNO=R.SELLNO) 
+			JOIN 
+			(SELECT M.*,GRADENAME 
+			FROM MEMBER M
+    		JOIN GRADE G ON(G.GRADENO=M.GRADENO)) M ON(M.MEMBERID=S.MEMBERID)
+    		WHERE SELLREPORTYN='N'
+			</when>
+			<when test="_parameter=='CONTEST'">
+			SELECT 
+			M.MEMBERID AS CONTESTID,
+			M.MEMBERNAME,
+			M.PHONE,
+			M.EMAIL,
+			M.ADDRESS,
+			M.ENTDATE,
+			M.REIMG,
+			M.REPORTCOUNT,
+			M.BIRTH,
+			M.INTERESTNO,
+			M.GRADENAME,
+			C.CONTESTTITLE,
+			R.* 
+			FROM CONTESTREPORT R 
+			JOIN CONTEST C ON(C.CONTESTNO=R.CONTESTNO) 
+			JOIN 
+			(SELECT M.*,GRADENAME 
+			FROM MEMBER M
+    		JOIN GRADE G ON(G.GRADENO=M.GRADENO)) M ON(M.MEMBERID=C.MEMBERID)
+    		WHERE CONTESTREPORTYN='N'
+			</when>
+			<otherwise>
+			SELECT 
+			M.MEMBERID AS FREEID,
+			M.MEMBERNAME,
+			M.PHONE,
+			M.EMAIL,
+			M.ADDRESS,
+			M.ENTDATE,
+			M.REIMG,
+			M.REPORTCOUNT,
+			M.BIRTH,
+			M.INTERESTNO,
+			M.GRADENAME,
+			F.FREETITLE,
+			R.* 
+			FROM FREEREPORT R 
+			JOIN FREE F ON(F.FREENO=R.FREENO) 
+			JOIN 
+			(SELECT M.*,GRADENAME 
+			FROM MEMBER M
+    		JOIN GRADE G ON(G.GRADENO=M.GRADENO)) M ON(M.MEMBERID=F.MEMBERID)
+    		WHERE FREEREPORTYN='N'
+			</otherwise>
+		</choose>
+	</select>
+	<!-- 신고승인 카운트 증가 -->
+	<update id="updateReportCount" parameterType="string">
+		UPDATE MEMBER SET REPORTCOUNT=REPORTCOUNT+1 WHERE MEMBERID=#{reportId}
+	</update>
+	<!-- 신고 검토 유무 업데이트 -->
+	<update id="updateReportStatus" parameterType="string">
+		UPDATE ${reportStatus}REPORT SET ${reportStatus}REPORTYN='Y' WHERE MEMBERID=#{reportId} AND ${reportStatus}NO=#{contentNo}
+	</update>
+	<!-- 신고현황 카운트 -->
+	<select id="selectReportCountAdmin" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM ${_parameter}REPORT
+	</select>
+	<!-- 결제현황 리스트 카운트 -->
+	<select id="selectPaymentCountAdmin" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM ${_parameter}SPEC
+	</select>
+	<!-- 결제현황 리스트 -->
+	<select id="selectPaymentListAdmin" parameterType="map" resultType="map">
+		<choose>
+			<when test="paymentStatus=='BUY'">
+				SELECT 
+				S.MEMBERID AS ${paymentStatus}ID,
+				S.${paymentStatus}TITLE,
+				S.CATEGORYCODE,
+				P.* 
+				FROM ${paymentStatus}SPEC P 
+				JOIN ${paymentStatus} S ON(S.${paymentStatus}NO=P.${paymentStatus}NO) 
+				WHERE ${paymentStatus}CHECKYN='Y' AND ${paymentStatus}DELETEYN='N'
+			</when>
+			<otherwise>
+				SELECT 
+				B.MEMBERID AS ${paymentStatus}ID,
+				B.${paymentStatus}TITLE,
+				P.* 
+				FROM ${paymentStatus}SPEC P 
+				JOIN ${paymentStatus} B ON(B.${paymentStatus}NO=P.${paymentStatus}NO) 
+				WHERE ${paymentStatus}CHECKYN='Y' AND ${paymentStatus}DELETEYN='N'
+			</otherwise>
+		</choose>
+		<if test="sortCheck==4">
+			AND STATUSNO=#{sortCheck}
+		</if>
+		 
+	</select>
+	<!-- 결제 모달 정보 출력 -->
+	<select id="selectPaymentOne" parameterType="map" resultType="map">
+		<choose>
+			<when test="paymentStatus=='SELL'">
+				SELECT 
+				P.*,
+				O.SELLPRICE,
+				S.MEMBERID AS TARGETID,
+				S.SELLTITLE,
+				A.BANKNAME,
+				M.ACCOUNT,
+				M.MEMBERNAME 
+				FROM SELLSPEC P 
+				INNER JOIN SELLOPTION O ON(O.SELLOPTIONCODE=P.SELLOPTIONCODE) 
+				INNER JOIN SELL S ON(S.SELLNO=P.SELLNO) 
+				INNER JOIN MEMBER M ON(M.MEMBERID=S.MEMBERID) 
+				INNER JOIN BANK A ON(M.BANKCODE=A.BANKCODE) 
+				WHERE SELLSPECNO=#{specNo}
+			</when>
+			<when test="paymentStatus=='BUY'">
+				SELECT P.*,
+				B.MEMBERID AS BUYID,
+				B.BUYTITLE,
+				A.BANKNAME,
+				M.ACCOUNT,
+				M.MEMBERNAME 
+				FROM BUYSPEC P 
+				INNER JOIN BUY B ON(B.BUYNO=P.BUYNO) 
+				INNER JOIN MEMBER M ON(M.MEMBERID=P.MEMBERID) 
+				INNER JOIN BANK A ON(A.BANKCODE=M.BANKCODE)  
+				WHERE BUYSPECNO=#{specNo}
+			</when>
+		</choose>
+	</select>
+	<!-- 결제 정보 업데이트 -->
+	<update id="updatePaymentEnd" parameterType="map">
+		UPDATE ${paymentStatus}SPEC SET STATUSNO=5
+	</update>
+	<!-- 환불 요청 리스트 카운트 -->
+	<select id="selectRefundCountAdmin" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM ${_parameter}SPEC WHERE STATUSNO=6
+	</select>
+	
+	<!-- 환불요청 리스트 -->
+	<select id="selectRefundListAdmin" parameterType="string" resultType="map">
+		<choose>
+			<when test="_parameter=='BUY'">
+				SELECT 
+				S.MEMBERID AS ${_parameter}ID,
+				S.${_parameter}TITLE,
+				S.CATEGORYCODE,
+				P.* 
+				FROM ${_parameter}SPEC P 
+				JOIN ${_parameter} S ON(S.${_parameter}NO=P.${_parameter}NO) 
+				WHERE ${_parameter}CHECKYN='Y' AND ${_parameter}DELETEYN='N'
+			</when>
+			<otherwise>
+				SELECT 
+				B.MEMBERID AS ${_parameter}ID,
+				B.${_parameter}TITLE,
+				P.* 
+				FROM ${_parameter}SPEC P 
+				JOIN ${_parameter} B ON(B.${_parameter}NO=P.${_parameter}NO) 
+				WHERE ${_parameter}CHECKYN='Y' AND ${_parameter}DELETEYN='N'
+			</otherwise>
+		</choose>
+			AND STATUSNO=6
+	</select>
+	
+	<!-- 결제 모달 정보 출력 -->
+	<select id="selectRefundOne" parameterType="map" resultType="map">
+		<choose>
+			<when test="refundStatus=='SELL'">
+				SELECT 
+				P.*,
+				O.SELLPRICE,
+				S.MEMBERID AS TARGETID,
+				S.SELLTITLE,
+				A.BANKNAME,
+				M.ACCOUNT,
+				M.MEMBERNAME 
+				FROM SELLSPEC P 
+				INNER JOIN SELLOPTION O ON(O.SELLOPTIONCODE=P.SELLOPTIONCODE) 
+				INNER JOIN SELL S ON(S.SELLNO=P.SELLNO) 
+				INNER JOIN MEMBER M ON(M.MEMBERID=S.MEMBERID) 
+				INNER JOIN BANK A ON(M.BANKCODE=A.BANKCODE) 
+				WHERE SELLSPECNO=#{specNo} AND STATUSNO=6
+			</when>
+			<when test="refundStatus=='BUY'">
+				SELECT P.*,
+				B.MEMBERID AS BUYID,
+				B.BUYTITLE,
+				A.BANKNAME,
+				M.ACCOUNT,
+				M.MEMBERNAME 
+				FROM BUYSPEC P 
+				INNER JOIN BUY B ON(B.BUYNO=P.BUYNO) 
+				INNER JOIN MEMBER M ON(M.MEMBERID=P.MEMBERID) 
+				INNER JOIN BANK A ON(A.BANKCODE=M.BANKCODE)  
+				WHERE BUYSPECNO=#{specNo} AND STATUSNO=6
+			</when>
+		</choose>
+	</select>
+	
+	<!-- 결제 정보 업데이트 -->
+	<update id="updateRefundEnd" parameterType="map">
+		UPDATE ${refundStatus}SPEC SET STATUSNO=7
+	</update>
+	
+</mapper>

@@ -160,7 +160,7 @@ public class sellController {
          mv.setViewName("common/msg");
          return mv;
       }else {
-         msg="판매글 등록에 실패하였습니다. 다시 시도해 주세요";
+         msg="판매글 등록에 실패하였습니다. 다시 시도해 주세요.";
          loc="/sell/sellWrite.do";
          mv.addObject("msg",msg);
          mv.addObject("loc",loc);
@@ -239,6 +239,7 @@ public class sellController {
 	         sCategoryFlag = request.getParameter("sCategoryFlag");
 	      }
 	      System.out.println(sCategoryFlag+"그레이드메인");
+
 	  
 	      Map<String,String> map = new HashMap();
 	      map.put("sCategoryFlag", sCategoryFlag);
@@ -279,6 +280,7 @@ public class sellController {
 	      mv.setViewName("sell/sellPerformanceMain");
 	      return mv;
    }
+
    @RequestMapping("/sell/sellSellSearch.do")
    @ResponseBody
    public ModelAndView sellSearch(@RequestParam(value="cPage",required=false,defaultValue="0") int cPage,String searchtype,String searchValue,String sCategoryFlag,String newValue,String gradeValue,String sellValue)
@@ -538,3 +540,4 @@ public class sellController {
    }
    
 }
+

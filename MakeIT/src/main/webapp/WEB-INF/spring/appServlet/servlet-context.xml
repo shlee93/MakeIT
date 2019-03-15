@@ -35,6 +35,7 @@
          <exclude-mapping path="/sell/sellGradeChange.do"/>
          <exclude-mapping path="/sell/sellSellChange.do"/>        
          <exclude-mapping path="/contest/contestMain.do"/>
+         <exclude-mapping path="/contest/sort.do"/>
          <exclude-mapping path="/contest/contestDetail.do"/>
          <exclude-mapping path="/contest/contestPerFirstImg.do"/>
          <exclude-mapping path="/contest/contestApplicantCheck.do"/>
@@ -43,8 +44,7 @@
          <!-- <mapping path="/member/login.do"/> -->
          <!-- <exclude-mapping path="/member/*"/> --><!-- member로 들어가는것만 제외 -->
          <beans:bean id="loggerInterceptor" class="com.kh.makeit.common.LoggerInterceptor"/>
-      </interceptor>
- 
+      </interceptor> 
    </interceptors>
 	
 	<!-- 파일업로드 객체 설정 -->

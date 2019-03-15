@@ -65,7 +65,6 @@ public class SellDaoImpl implements SellDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("sell.sellCount",map);
 	}
-
 	@Override
 	public SellAttach imageDiv(String imageId) {
 		// TODO Auto-generated method stub
@@ -205,11 +204,6 @@ public class SellDaoImpl implements SellDao {
 	
 
 	
-	
-	
-	
-	
-   
 	
 
 }

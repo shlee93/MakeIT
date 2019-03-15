@@ -130,6 +130,7 @@ public class sellServiceImpl implements sellService {
 		// TODO Auto-generated method stub
 		return dao.imageDiv(imageId);
 	}
+
 	@Override
 	public SellmainOption sellPrice(String sellNo) {
 		// TODO Auto-generated method stub
@@ -184,6 +185,7 @@ public class sellServiceImpl implements sellService {
 		// TODO Auto-generated method stub
 		return dao.sellsubImg(sellno);
 	}
+	
 	//수정을 위해 값가져오기
 	@Override
 	public Map sellModify(int sellno) {
@@ -218,14 +220,5 @@ public class sellServiceImpl implements sellService {
 		// TODO Auto-generated method stub
 		return dao.sellOutBoxDelete(outBoxDelete);
 	}
-
-	
-
-	
-
-	
-	
-
-
 
 }
