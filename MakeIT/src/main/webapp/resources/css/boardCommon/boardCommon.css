@@ -1,4 +1,33 @@
 @charset "UTF-8";
+	
+	/* 게시판 상세 이미지 5컨테이너 */
+	
+		.mainImgContainer
+		{
+			border:1px solid #e6e6e6;
+			padding:1px;
+		}
+		
+		.subImg
+		{
+			border:1px solid #e6e6e6;
+			height:100px;
+		}
+		.subImgs
+		{		
+			/* position: absolute; top:0; left: 0; */
+			width: 100%;
+			height: 100%;
+		}
+		.contentTextArea
+		{
+			width: 100% !important;
+	      	resize: none;
+     	    overflow-y: hidden; /* prevents scroll bar flash */
+    	  	padding: 1.1em; /* prevents text jump on Enter keypress */
+	      	padding-bottom: 0.2em;
+     	  	line-height: 1.6;
+		}
 	   
     /* 작성자 이미지 css */
   	

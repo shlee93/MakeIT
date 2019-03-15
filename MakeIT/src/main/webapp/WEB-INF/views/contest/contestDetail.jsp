@@ -44,35 +44,40 @@
 			height: 100%;
 		}   
 		
-	   /* div
-	   {
-	    border:1px solid red;  
-	   } */	
-	   
-	
-	    
+	   	/* div
+	   	{
+	    	border:1px solid red;  
+	   	} */
+	   		    
 	</style>
 </head>
+
+<script>
+	$(document).ready(function()
+	{
+		var scmove = $('#mainNavi').offset().top;
+		$('html, body').animate( { scrollTop : scmove }, 400 );
+	});
+</script>
 
 <body>
 	<div class='container-fluid' id="total">
     	<div class='row'>
     		<div class='col-md-1' id='left-nav' ></div>    
         	<div class='col-md-10' id='section' style='padding:50px' >
-            	<div class='row'>
-            	
+            	<div class='row'>            	
                 	<div class="col-md-6" id="img-container" style='padding:1px; width: 100%; height: 600px;'>
-                		<div class='row' id='mainImgContainer'>
+                		<div class='row mainImgContainer' id='mainImgContainer'>
                 	   		<img class="mainImg" id='${contestMainImg.CONTESTIMGNO}' src="${path}/resources/upload/contest/${contestMainImg.CONTESTIMGRE}" style='max-height: 400px; min-height: 600px; width: 100%;'>
                     	</div>
                     	<div class='row'>
-                    		<c:forEach items="${contestSubImgList}" var="contestSubImgList">
-                   		                             
+                    		
+                    		<c:forEach items="${contestSubImgList}" var="contestSubImgList">                   		                             
 	                        	<div class="col-md-3 subImg" style='padding:1px;'>
-	                            	<img class="subImgs" id='${contestSubImgList.CONTESTIMGNO}' src="${path}/resources/upload/contest/${contestSubImgList.CONTESTIMGRE}" style='width: 100%; height: 100%;'>     
-	                        	</div>
-                        
-                        	</c:forEach> 
+	                            	<img class="subImgs" id='${contestSubImgList.CONTESTIMGNO}' src="${path}/resources/upload/contest/${contestSubImgList.CONTESTIMGRE}">     
+	                        	</div>                        
+                        	</c:forEach>
+                        	 
                         	<script>
 	                     		$(document).on('click','.subImgs',function(){
 	                    			var imgIndex = $(this).parent('.subImg').prevAll().length;	
@@ -88,13 +93,12 @@
                     	<div class='row'>
                         	<nav id=tab-list>
                             	<div class="nav nav-tabs nav-fill detail" id="nav-tab" role="tablist">
-                                	<a class="nav-item nav-link active detail" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">상세설명</a>                                    
-                                	<a class="nav-item nav-link detail" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">기업소개</a>                                    
+                                	<a class="nav-item nav-link active detail" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">상세설명</a>                              	                                    
                             	</div>
                         	</nav>
-                        	<div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                        	<div class="tab-content" id="nav-tabContent" style='width: 100%;'>
                             	<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                            		<textarea rows="34" style='width:36.5em;'>
+                            		<textarea class='contentTextArea' rows="34">
                             			${contestObj.CONTESTCONTENT }
                             		</textarea>                                
                             	</div>
@@ -106,12 +110,12 @@
                     	</div>                   
                 	</div>
                 
-                	<div class="col-md-6 fixed" style='position:fixed; margin-top: -5em; margin-right: 50em;'>                   
+                	<div class="col-md-6 fixed" style='position:fixed; margin-top: -6.5em;'>                   
                     	<div class="row " style="text-align:center; margin-left:-5em;" >
                         	<div class="col-md-10">
                         	
  			                   	<!-- 똥글뱅이 -->
-                        		<div class="row align-items-center">			                  
+                        		<div class="row align-items-center" style='margin-bottom: 1em;'>			                  
 			                  		<div class="holderCircle">
 			                        	<div class="round"></div>
 			                        	<div class="dotCircle">
