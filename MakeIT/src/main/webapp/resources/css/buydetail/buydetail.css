@@ -71,8 +71,13 @@
             border-top:5px solid #e74c3c;
             border-bottom:5px solid #e74c3c;
             padding:30px 25px;
+            width:100%;
         }
-
+		
+		.tab-pane
+		{
+			padding:10px;
+		}
         .detail:hover
         {
             border: none;
@@ -108,4 +113,17 @@
         .userImg
         {
             border-radius: 6em;
+        }
+        
+        #review-table
+        {
+        	padding:20px;
+        }
+        .tab-id
+        {
+        	width:20%;
+        }
+        .tab-star
+        {
+        	width:30%;
         }

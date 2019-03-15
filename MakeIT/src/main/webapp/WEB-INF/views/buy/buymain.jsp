@@ -38,7 +38,7 @@
 	integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
 	crossorigin="anonymous">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/sellmain/sellmain.css" />
+	href="${pageContext.request.contextPath }/resources/css/buymain/buymain.css" />
 <style>
 .hide {
 	display: none;
@@ -365,6 +365,10 @@
 								});
 							}
 						}
+						function fn_detailView(buyNo)
+						{
+							location.href="${path}/buy/buyDetail?buyNo="+buyNo;
+						}
 					</script>
 					<!-- 엘범 뷰 상단 탭 끝 -->
 
@@ -412,14 +416,15 @@
 
 																			var imgReName = data["buyImgRe"];
 																			var imgContainer = $('#${newList.BUYNO}');
-																			imgContainer.append("<img src='${path}/resources/upload/buy/"+ data["buyImgRe"]+ "' style='width: 100%; height: 200px;'>");
+																			var url = "location.href='${path}/buy/buyDetail'";
+																			imgContainer.append("<img src='${path}/resources/upload/buy/"+ data["buyImgRe"]+ "' style='width: 100%; height: 200px;cursor:pointer;' onclick='fn_detailView(${newList.BUYNO})'>");
 
 																		}
 																	});
 														});
 													</script>
 												</div>
-												<div class="box-content">
+												<div class="box-content" onclick="fn_detailView(${newList.BUYNO})">
 													<h3 class="title">${newList.MEMBERID}</h3>
 													<p class="description">${newList.INTRODUCTION }</p>
 												</div>

@@ -90,6 +90,44 @@ public class BuyServiceImpl implements BuyService {
 		
 		return result;
 	}
+
+	@Override
+	public Map<String, String> buyDetail(int buyNo) {
+		// TODO Auto-generated method stub
+		return dao.buyDetail(buyNo);
+	}
+
+	@Override
+	public Map<String, String> selectMainImg(int buyNo) {
+		// TODO Auto-generated method stub
+		return dao.selectMainImg(buyNo);
+	}
+
+	@Override
+	public List<Map<String, String>> selectSubImg(int buyNo) {
+		// TODO Auto-generated method stub
+		return dao.selectSubImg(buyNo);
+	}
+
+	@Override
+	public List<Map<String, String>> selectReview(int buyNo) {
+		// TODO Auto-generated method stub
+		return dao.selectReview(buyNo);
+	}
+
+	@Override
+	public int selectReviewCnt(int buyNo) {
+		// TODO Auto-generated method stub
+		return dao.selectReviewCnt(buyNo);
+	}
+
+	@Override
+	public int insertReview(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return dao.insertReview(map);
+	}
+	
+	
 	
 	
 	

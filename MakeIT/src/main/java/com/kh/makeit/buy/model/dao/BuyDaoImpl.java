@@ -78,6 +78,43 @@ public class BuyDaoImpl implements BuyDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("buy.selectVolView", map);
 	}
+
+	@Override
+	public Map<String, String> buyDetail(int buyNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("buy.buyDetail",buyNo);
+	}
+
+	@Override
+	public Map<String, String> selectMainImg(int buyNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("buy.selectMainImg",buyNo);
+	}
+
+	@Override
+	public List<Map<String, String>> selectSubImg(int buyNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("buy.selectSubImg", buyNo);
+	}
+
+	@Override
+	public List<Map<String, String>> selectReview(int buyNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("buy.selectReview", buyNo);
+	}
+
+	@Override
+	public int selectReviewCnt(int buyNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("buy.selectReviewCnt", buyNo);
+	}
+
+	@Override
+	public int insertReview(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return session.insert("buy.insertReview", map);
+	}
+	
 	
 	
 

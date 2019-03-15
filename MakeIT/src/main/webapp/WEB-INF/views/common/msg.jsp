@@ -9,7 +9,12 @@
 <body>
 	<script>
 		alert('${msg }');
+		if("${script} != null")
+		{
+			${script}
+		}
 		location.href="${pageContext.request.contextPath }${loc }";
+		
 	</script>
 </body>
 </html>
