@@ -22,7 +22,6 @@
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
    
    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/contestdetail/contestDetail.css" />
    <link rel='stylesheet' href='${pageContext.request.contextPath }/resources/css/boardCommon/boardCommon.css'/>
    
@@ -30,7 +29,7 @@
 	  <jsp:param value="HelloSpring" name="pageTitle"/>
    </jsp:include>
    	
-	<style>
+   <style>
 		/* div
 		{
 			border:1px solid red;
@@ -70,11 +69,10 @@
                 		<div class='row mainImgContainer' id='mainImgContainer'>
                 	   		<img class="mainImg" id='${contestMainImg.CONTESTIMGNO}' src="${path}/resources/upload/contest/${contestMainImg.CONTESTIMGRE}" style='max-height: 400px; min-height: 600px; width: 100%;'>
                     	</div>
-                    	<div class='row'>
-                    		
+                    	<div class='row'>                    		
                     		<c:forEach items="${contestSubImgList}" var="contestSubImgList">                   		                             
 	                        	<div class="col-md-3 subImg" style='padding:1px;'>
-	                            	<img class="subImgs" id='${contestSubImgList.CONTESTIMGNO}' src="${path}/resources/upload/contest/${contestSubImgList.CONTESTIMGRE}">     
+	                            	<img class="subImgs" id='${contestSubImgList.CONTESTIMGNO}' src="${path}/resources/upload/contest/${contestSubImgList.CONTESTIMGRE}" style="cursor:pointer">     
 	                        	</div>                        
                         	</c:forEach>
                         	 
