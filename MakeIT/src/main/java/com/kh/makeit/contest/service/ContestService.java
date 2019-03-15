@@ -9,7 +9,9 @@ import com.kh.makeit.contest.vo.ContestImg;
 public interface ContestService 
 {
 	int contestCountService();
+	int sortCountService(Map<String,String> searchFlag);
 	List<Map<String,String>> getContestListService(int cPage, int numPerPage);
+	List<Map<String,String>> contestSortService(int cPage, int numPerPage, Map<String,String>searchFlag);
 	ContestImg getContestPerFirstImgService(int contestNo);
 	List<Map<String,String>> contestDetailService(int contestNo);
 	int contestFormEndService(Map<String,String> contest, List<ContestImg> files) throws BoardException;

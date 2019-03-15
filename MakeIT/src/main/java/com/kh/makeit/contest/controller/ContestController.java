@@ -1,6 +1,6 @@
 package com.kh.makeit.contest.controller;
 
-import java.io.BufferedInputStream; 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -16,8 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,6 +61,61 @@ public class ContestController
 		
 		return mv;
 	}
+	@RequestMapping("/contest/sort.do")
+	public ModelAndView sortMain(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, HttpServletRequest request, String interestFlag, String detailInterestFlag, String searchTypeFlag, String searchTypeKeyword, String sortTypeFlag)
+	{
+		Map searchFlag=new HashMap();
+		ModelAndView mv=new ModelAndView();
+		int numPerPage=5;
+		
+		if(interestFlag!=null)
+		{
+			System.out.println("인터레스트플래그 : "+interestFlag);
+			searchFlag.put("interestFlag",interestFlag);
+			mv.addObject("interestFlag", interestFlag);
+		}
+		if(detailInterestFlag!=null)
+		{
+			System.out.println("디테일인터레스트플래그 : "+detailInterestFlag);
+			searchFlag.put("detailInterestFlag",detailInterestFlag);
+			mv.addObject("detailInterestFlag", detailInterestFlag);
+		}
+		if(sortTypeFlag!=null)
+		{
+			System.out.println("솔트타입플래그 : "+sortTypeFlag);
+			searchFlag.put("sortTypeFlag",sortTypeFlag);
+			mv.addObject("sortTypeFlag", sortTypeFlag);
+		}
+		if(searchTypeFlag!=null)
+		{
+			System.out.println("서치타입플래그 : "+searchTypeFlag);
+			searchFlag.put("searchTypeFlag", searchTypeFlag);
+			mv.addObject("searchTypeFlag", searchTypeFlag); 
+		}
+		if(searchTypeKeyword!=null)
+		{
+			System.out.println("서치타입키워드 : "+searchTypeKeyword);
+			searchFlag.put("searchTypeKeyword",searchTypeKeyword);
+			mv.addObject("searchTypeKeyword", searchTypeKeyword);
+		}
+		
+		int contentCount=cs.sortCountService(searchFlag);		
+		
+		List<Map<String,String>> contestList=cs.contestSortService(cPage,numPerPage,searchFlag);
+		
+		mv.addObject("pageBar",PageFactory.getPageBar(contentCount, cPage, numPerPage, request.getContextPath()+"/contest/contestMain.do"));
+		for(int i=0; i<contestList.size(); i++)
+		{
+			String contestDate=String.valueOf(contestList.get(i).get("CONTESTDATE")).substring(0, 10);
+			contestList.get(i).put("CONTESTDATE", contestDate);
+			String contestDeadLine=String.valueOf(contestList.get(i).get("CONTESTDEADLINE")).substring(0, 10);
+			contestList.get(i).put("CONTESTDEADLINE", contestDeadLine);
+		}
+		mv.addObject("contestList", contestList);
+		mv.setViewName("contest/contestMain");	
+		
+		return mv;
+	}
 	
 	@RequestMapping("/contest/contestPerFirstImg.do")
 	@ResponseBody
@@ -78,8 +131,10 @@ public class ContestController
 	{
 		HttpSession session= request.getSession();
 		Map<String,String> memberMap=(Map)session.getAttribute("member");
-		String currentAccessId=memberMap.get("memberId");
-		
+		if(memberMap!=null)
+		{
+			String currentAccessId=memberMap.get("memberId");
+		}
 		ModelAndView mv=new ModelAndView();
 		List<Map<String,String>> contestContainer=cs.contestDetailService(contestNo);
 		if(contestContainer.size()>1)
@@ -444,4 +499,5 @@ public class ContestController
 		
 		return "redirect:/contest/contestMain.do";
 	} 
+	
 }

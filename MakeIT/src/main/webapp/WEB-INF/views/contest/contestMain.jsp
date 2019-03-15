@@ -231,13 +231,18 @@
 
 </head>
 <body>
- 	<div id="total" style='padding:1.1em;'>
+	<form id='sortFrm' action='${path}/contest/sort.do'>
+		<input type='hidden' id='interestFlag' name='interestFlag' value='${interestFlag}'/>
+		<input type='hidden' id='detailInterestFlag' name='detailInterestFlag' value='${detailInterestFlag }'/>
+		<input type='hidden' id='sortTypeFlag' name='sortTypeFlag' value='${sortTypeFlag }'/>
+		<input type='hidden' id='searchTypeFlag' name='searchTypeFlag' value='${searchTypeFlag }'/>
+		<input type='hidden' id='searchTypeKeyword' name='searchTypeKeyword' value='${searchTypeKeyword }'/>
+	</form>
+	<div id="total" style='padding:1.1em;'>
 
  	<div class='container-fluid' id="total">
-
   		<div class='row'>
        		<div class='col-md-1' id='nav'></div>
-
 				<div class='col-md-10'>
 					<div class='row'>
 						<div class='col-md-2'>
@@ -251,12 +256,12 @@
 		                                       <i class="fas fa-cogs"></i> &nbsp;개발자 
 		                                    </a>
 				                            <ul class="hide">
-			                                   <li onclick="fn_changeCtgr">웹</li>
-			                                   <li>모바일</li>
-			                                   <li>게임</li>
-			                                   <li>응용프로그램</li>
-			                                   <li>보안프로그램</li>
-			                                   <li>DB관리</li>
+			                                   <li onclick='fn_interest_flag_Search(1)'>웹</li>
+			                                   <li onclick='fn_interest_flag_Search(2)'>모바일</li>
+			                                   <li onclick='fn_interest_flag_Search(3)'>게임</li>
+			                                   <li onclick='fn_interest_flag_Search(4)'>응용프로그램</li>
+			                                   <li onclick='fn_interest_flag_Search(5)'>보안프로그램</li>
+			                                   <li onclick='fn_interest_flag_Search(6)'>DB관리</li>
 				                            </ul>
 				                        </li>
 				                        <li class="menu">
@@ -264,9 +269,9 @@
 		                                        <i class="fas fa-pen-fancy"></i> &nbsp;웹 디자이너 
 		                                    </a>
 				                            <ul class="hide">
-			                                    <li>웹 디자인</li>
-			                                    <li>웹 퍼블리셔</li>
-			                                    <li>게임 디자인</li>
+			                                    <li onclick='fn_interest_flag_Search(7)'>웹 디자인</li>
+			                                    <li onclick='fn_interest_flag_Search(8)'>웹 퍼블리셔</li>
+			                                    <li onclick='fn_interest_flag_Search(9)'>게임 디자인</li>
 				                            </ul>
 				                        </li>
 				                        <li class="menu">
@@ -274,14 +279,37 @@
 				                                <i class="fas fa-shield-alt"></i> &nbsp;네트워크보안
 				                            </a>
 			                                <ul class="hide">
-			                                    <li>모의해킹</li>
-			                                    <li>침해대응</li>
-			                                    <li>보안관제</li>
-			                                    <li>컨설턴트</li>
-			                                    <li><c:out value="${gradeList.INTERESTNO }"/></li>
+			                                    <li onclick='fn_interest_flag_Search(10)'>모의해킹</li>
+			                                    <li onclick='fn_interest_flag_Search(11)'>침해대응</li>
+			                                    <li onclick='fn_interest_flag_Search(12)'>보안관제</li>
+			                                    <li onclick='fn_interest_flag_Search(13)'>컨설턴트</li>			                                    
 			                                </ul>
 				                        </li>
 		                            </ul>
+		                            <script>
+		                            	function fn_interest_flag_Search(interestFlagNo)
+		                            	{
+		                            		/* console.log(typeof(interestFlagNo)); */
+		                            		if(0<interestFlagNo && interestFlagNo<7 )
+	                            			{	
+		                            			$('#interestFlag').attr('value',1);
+	                            			}
+		                            		else if(6<interestFlagNo && interestFlagNo<10)
+	                            			{
+		                            			$('#interestFlag').attr('value',2);
+	                            			}
+		                            		else if(9<interestFlagNo && interestFlagNo<14)
+	                            			{
+		                            			$('#interestFlag').attr('value',3);
+	                            			} 
+		                            		
+		                            		$('#detailInterestFlag').attr('value',interestFlagNo);
+		                            		
+		                            		console.log($('#detailInterestFlag').val());
+		                            		
+		                            		$('#sortFrm').submit();
+		                            	}
+		                            </script>
 		                        </div>
 		                    </div>
 		                    <script>
@@ -296,30 +324,67 @@
 							            }else{
 							                submenu.slideDown();
 							            }
-							        });
-							        
-							        $("")
-							        
+							        });							        
 							    });
 		                    </script>
 						</div>
 		            	<div class='col-md-10' id='section'>
-	            			 <div class='row'>
+	            			<div class='row'>
 			       		  	    <div class='col-md-8'>	
 					       		    <div style='margin-left:2em;'>
-						                <input type="text" class='form-control' placeholder="검색할 아이디를 입력하세요" style='width: 300px; display: inline;'/>
-						                <button class="btn btn-primary" type="submit" style='margin-bottom: 0.3em'>검색</button>
+					       		    	<select id='searchTypeSel' class='form-control' style='display:inline; width: 100px;'>
+					       		    		<option value=''>검색</option>
+					       		    		<option value='title'>제목</option>
+					       		    		<option value='name'>주최자</option>
+					       		    	</select>
+					       		    	<script>
+						       		    	$(function()
+				       		    			{
+						       		    		$('#searchTypeSel').change(function()
+						       		    		{
+						       		    			$('#searchTypeFlag').attr('value',this.value);
+						       		    			/* console.log($('#searchTypeFlag').val()); */
+						       		    		})
+				       		    			});
+					       		    	</script>
+						                <input type="text" id='contestKeywordInput' class='form-control' placeholder="검색할 아이디를 입력하세요" style='width: 300px; display: inline;'/>
+						                <input class="btn btn-primary" type='button' id='contestSearchBtn' style='margin-bottom: 0.3em' value='검색'/>
+						                <script>
+						                	$(function()
+				                			{
+						                		$('#contestSearchBtn').click(function()
+				                				{
+						                			var keyword=$('#contestKeywordInput').val();
+						                			console.log(keyword);
+						                			$('#searchTypeKeyword').attr('value',keyword);
+						                			$('#sortFrm').submit();
+				                				})
+						                	});
+						                </script>
 					                </div>
 				                </div>
 				                <div class='col-md-2'></div>
 				              	<div class='col-md-2'>
-			                        <select class="form-control">
-			                            <option >정렬방식</option>
-			                        </select>				                  
+			                        <select id='sortTypeSel'class="form-control">
+			                            <option value=''>정렬방식</option>
+			                            <option value='new'>새글순</option>
+			                            <option value='endDate'>마감순</option>
+			                            <option value='price'>상금순</option>
+			                        </select>
+			                        <script>
+				                        $(function()
+			       		    			{
+					       		    		$('#sortTypeSel').change(function()
+					       		    		{
+					       		    			$('#sortTypeFlag').attr('value',this.value);
+					       		    			/* console.log($('#searchTypeFlag').val()); */
+					       		    			$('#sortFrm').submit();
+					       		    		})
+			       		    			});
+			                        </script>
 				                </div>
 			              	</div>	
-		                	<div class="row">
-		                		
+		                	<div class="row">		                		
 			                	<script>
 						       		$(function()
 					      			{
@@ -356,82 +421,85 @@
 					           		 });
 					        	</script>
 				                <div class="col-md-6"></div>
-				                <div class="col-md-2">
-				                    
-				                </div>
-			              </div>
-			              <c:forEach items="${contestList}" var="contest">
+				                <div class="col-md-2"></div>
+			                </div>
+			               	<c:forEach items="${contestList}" var="contest">
 			              
-			              <div class="card" id="contestMain" style='margin-top:1em; margin-left:2em; margin-bottom:2em; padding: 1em;'>
-			                <div class="row ">
-			                  <div class="col-md-3" id="${contest.CONTESTNO}" class='imgContainer'>
-			                  	  <script>
-				                  	  $(function()
-						      			{
-				                  		  	var contestNo=${contest.CONTESTNO};
-				            				$.ajax({
-					            				url:"${path}/contest/contestPerFirstImg.do",
-					            	            data:{"contestNo": contestNo},
-					            				dataType:"json",
-					            	            success:function(data)
-					            	            {
-					            	               console.log(data["contestImgRe"]);
-					            	               
-					            	               var imgReName=data["contestImgRe"];
-					            	               var imgContainer=$('#${contest.CONTESTNO}');
-					            	               imgContainer.append("<img src='${path}/resources/upload/contest/"+data["contestImgRe"]+ "' class='w-100' style='height:100%'>");
-					            	            }
-					            			});			       					    		
-						      			 });	
+			              	<div class="card" id="contestMain" style='margin-top:1em; margin-left:2em; margin-bottom:2em; padding: 1em;'>
+			                  	<div class="row ">
+			                  	<div class="col-md-3" id="${contest.CONTESTNO}" class='imgContainer'>
+		                  	    <script>
+			                  	     $(function()
+					      			 {
+			                  		  	var contestNo=${contest.CONTESTNO};
+			            				$.ajax({
+				            				url:"${path}/contest/contestPerFirstImg.do",
+				            	            data:{"contestNo": contestNo},
+				            				dataType:"json",
+				            	            success:function(data)
+				            	            {
+				            	               console.log(data["contestImgRe"]);
+				            	               
+				            	               var imgReName=data["contestImgRe"];
+				            	               var imgContainer=$('#${contest.CONTESTNO}');
+				            	               imgContainer.append("<img src='${path}/resources/upload/contest/"+data["contestImgRe"]+ "' class='w-100' style='height:100%'>");
+				            	            }
+				            			});			       					    		
+					      			 });	
 			               	  	</script>
-			                  </div>
-			                  <div class="col-md-5">
-			                    <div class="card-block px-3">
-			                      <div class="row" style='margin-top:0.3em;'>
-			                        <h5 class="card-title" > 컨테스트 제목: ${contest.CONTESTTITLE} </h5>
-			                      </div>
-			                      <div class="row">
-			                        <div class="col-md-12" id="contestdetail"  >
-			                            <h6>주최자: ${contest.MEMBERNAME }</h6>
-			                            <p class="card-text" style="overflow: hidden">${contest.CONTESTCONTENT }</p>
-			                        </div>
-			                        
-			                      </div>
 			                    </div>
+			                    <div class='col-md-9'>
+			                       <div class="row" style='margin-top:0.3em;'>
+			                       <h5 class="card-title" >컨테스트 제목: ${contest.CONTESTTITLE} </h5>
+			                    </div>
+			                    <div class='row'>
+			                    	<div class='col-md-6'>
+			                    		<strong>주최자: ${contest.MEMBERNAME }</strong>
+			                            <p class="card-text" style="overflow:auto; height:200px;">${contest.CONTESTCONTENT }</p>
+			                    	</div>
+			                    	<div class='col-md-6'>
+			                    		<div class="form-control righthandle" >
+					                        <strong>상금</strong>
+					                        <span>${contest.CONTESTPRICE}</span>
+					                    </div>
+					                    <div class="form-control righthandle" style='margin-top: 1.1em'>
+					                        <strong>기한</strong>
+					                        <span>${contest.CONTESTDATE} ~ ${contest.CONTESTDEADLINE}</span>
+					                    </div>    
+					                    <div class="form-control righthandle" style='margin-top: 1.1em'>
+					                        <strong>현재 참여자</strong>
+					                        <span>${contest.CONTESTAPPLICANTCOUNT}명</span>
+					                    </div>                           
+					                    <div class="row">
+					                        <div class="col-md-12">
+					                        	<a href="${path}/contest/contestDetail.do?contestNo=${contest.CONTESTNO}" class="btn btn-primary garo-center" style="width: 100%; height:45%; margin-top: 3em;">상세보기</a>    
+					                        </div>
+					                    </div>
+			                    	 </div>			                   
+			                      </div>			                    
 			                  </div>
 			                  <div class="col-md-4">
-			                    <div class="form-control righthandle" >
-			                      <strong>상금</strong>
-			                      <span>${contest.CONTESTPRICE}</span>
-			                    </div>
-			                    <div class="form-control righthandle" style='margin-top: 1.1em'>
-			                        <strong>기한</strong>
-			                        <span>${contest.CONTESTDATE} ~ ${contest.CONTESTDEADLINE}</span>
-			                    </div>    
-			                    <div class="form-control righthandle" style='margin-top: 1.1em'>
-			                        <strong>현재 참여자</strong>
-			                        <span>${contest.CONTESTAPPLICANTCOUNT}명</span>
-			                    </div>                           
-			                    <div class="row">
-			                      <div class="col-md-12">
-			                        <a href="${path}/contest/contestDetail.do?contestNo=${contest.CONTESTNO}" class="btn btn-primary garo-center" style="width: 100%; height:45%; margin-top: 3em;">상세보기</a>    
-			                      </div>
-			                    </div>
+			                    
 			                  </div>
 			          
 			                  </div>
 			              </div>
 			       		  </c:forEach>				       		  	              
+			              <div class='row' style='margin-bottom:1em;'>
+			              	  <div class='col-md-10'></div>
+			              	  <div class='col-md-2'>
+			              	  	  <a class="btn btn-primary" style='float:right;'href="${path }/contest/contestWrite.do">글작성</a>
+			              	  </div>
+			              </div>
 			              
 			              ${pageBar}		            
 			                
-		            	</div>
+	            	</div>
 		            <div class='col-md-1' id='right-nav' >		               
 		                      
 	            	</div>		            
 		        </div>   	
 	        </div>    
-
         </div>
     </div>       
 </body>

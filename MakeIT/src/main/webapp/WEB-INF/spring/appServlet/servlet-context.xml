@@ -25,7 +25,12 @@
 	
 	<interceptors>
 		<interceptor>
-			<mapping path="/board/*"/>
+			<mapping path="/contest/*"/>
+			<exclude-mapping path="/contest/contestMain.do"/>
+			<exclude-mapping path="/contest/sort.do"/>
+			<exclude-mapping path="/contest/contestDetail.do"/>
+			<exclude-mapping path="/contest/contestPerFirstImg.do"/>
+			<exclude-mapping path="/contest/contestApplicantCheck.do"/>
 			<!-- <mapping path="/**"/> -->
 			<!-- <mapping path="/member/login.do"/> -->
 			<!-- <exclude-mapping path="/member/*"/> --><!-- member로 들어가는것만 제외 -->

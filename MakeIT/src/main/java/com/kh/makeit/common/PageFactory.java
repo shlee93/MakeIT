@@ -58,7 +58,9 @@ public class PageFactory {
 		pageBar+="}";
 		pageBar+="</script>";
 		return pageBar;
-	}public static String getPageBar2(int totalCon, int cPage, int numPerPage, String url) {
+	}
+	
+	public static String getPageBar2(int totalCon, int cPage, int numPerPage, String url) {
 		String pageBar = "";
 		int pageBarSize = 5;
 		

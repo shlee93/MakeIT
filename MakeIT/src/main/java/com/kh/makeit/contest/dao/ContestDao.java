@@ -8,7 +8,9 @@ import com.kh.makeit.contest.vo.ContestImg;
 public interface ContestDao 
 {
 	int contestCountDao();
+	int sortCountDao(Map<String,String> searchFlag);
 	List<Map<String,String>> getContestListDao(int cPage, int numPerPage);
+	List<Map<String,String>> contestSortDao(int cPage, int numPerPage, Map<String,String>searchFlag);
 	ContestImg getContestPerFirstImgDao(int contestNo);
 	List<Map<String,String>> getContestDetailImg(int contestNo);
 	Map<String,String> contestDetailDao(int contestNo);

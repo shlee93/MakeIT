@@ -20,13 +20,25 @@ public class ContestServiceImpl implements ContestService
 	public int contestCountService() {
 		// TODO Auto-generated method stub
 		return cd.contestCountDao();
-	}
+	}	
 
+	@Override
+	public int sortCountService(Map<String,String> searchFlag) {
+		// TODO Auto-generated method stub
+		return cd.sortCountDao(searchFlag);
+	}
+	
 	@Override
 	public List<Map<String,String>> getContestListService(int cPage, int numPerPage) {
 		// TODO Auto-generated method stub
 		return cd.getContestListDao(cPage, numPerPage);
 	}	
+
+	@Override
+	public List<Map<String, String>> contestSortService(int cPage, int numPerPage, Map<String, String> searchFlag) {
+		// TODO Auto-generated method stub
+		return cd.contestSortDao(cPage, numPerPage, searchFlag);
+	}
 
 	@Override
 	public ContestImg getContestPerFirstImgService(int contestNo) {

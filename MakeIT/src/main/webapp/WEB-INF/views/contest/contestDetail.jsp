@@ -74,7 +74,9 @@
                         </nav>
                         <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                                ${contestObj.CONTESTCONTENT }
+                            	<textarea rows="34" style='width:36.5em;'>
+                            		${contestObj.CONTESTCONTENT }
+                            	</textarea>                                
                             </div>
                             
                             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
@@ -104,7 +106,7 @@
                    
                     <div class="row " style="text-align:center">
                         <div class="col-md-10">
-                        	<img class="subImgs userImg" src='${path}/resources/upload/member/${memberMap.REIMG}'>     
+                        	<img class="subImgs userImg" src='${path}/resources/upload/member/${contestObj.REIMG}'>     
                           	<c:set var='currentId' value='${memberMap.get("MEMBERID")}'/>								
 	                          	<c:choose>
 		                          	<c:when test="${currentId eq contestObj.MEMBERID}">
@@ -114,7 +116,7 @@
 		                          		<button type=button class="btn btn-primary"> <i class="far fa-star">찜하기</i></button>
 		                          	</c:otherwise>
 	                          	</c:choose>
-                          	<p>${memberMap.INTRODUCTION}</p>
+                          	<p>${contestObj.INTRODUCTION}</p>
                           	
 	                          	<c:set var='currentId' value='${memberMap.get("MEMBERID")}'/>								
 	                          	<c:choose>
@@ -148,6 +150,7 @@
 							      	</c:when>
 						      		<c:otherwise>
 						      			<input type='button' class="btn btn-primary" onclick='fn_applicantAccess_modal()' value='지원하기'>
+						      			
 						      		</c:otherwise>
 						 		</c:choose>
                         </div>
@@ -237,7 +240,7 @@
 						      </th>  
 			               </tr>
 			               	  <th>
-			               	  	<input type='file' name='upFile'/>
+			               	  	<input type='file' id='upFile' name='upFile'/>
 			               	  </th> 	
 			               <tr>
 			                  <th>
@@ -248,10 +251,18 @@
 			                  
 			                  	<script>
 			                  		function fn_applicant_submit()
-			                  		{
+			                  		{			                  			
 			                  			$('#applicantAccessModal').modal('hide');
-			                  			$('#contestApplicantFrm').attr('action','${path}/contest/contestApplicant.do');
-			                  			$('#contestApplicantFrm').submit();
+			                  			
+			                  			if($('#upFile').val()!='')
+		                  				{
+			                  				$('#contestApplicantFrm').attr('action','${path}/contest/contestApplicant.do');
+			                  				$('#contestApplicantFrm').submit();
+		                  				}
+			                  			else
+		                  				{
+			                  				alert("파일을 첨부해주세요.");
+		                  				}
 			                  		}
 			                  		
 			                  		function fn_applicant_close()
