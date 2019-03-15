@@ -93,4 +93,7 @@ public interface AdminService {
 	
 	//관리자 페이지 환불-결제 정보 출력
 	Map<Object,Object> selectRefundOne(Map<Object,Object> refund);
+	
+	//관리자 페이지 환불 확정 업데이트
+	int updateRefundEnd(Map<Object,Object> refund);
 }

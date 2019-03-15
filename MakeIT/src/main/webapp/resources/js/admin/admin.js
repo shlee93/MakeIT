@@ -652,6 +652,62 @@ $(document).on('click','.refund-pop',function(){
 	})
 })
 
+$(document).on('click','.refund-end',function(){
+	var $view_Status=$('#refund-view-status');
+	var viewStatus=$view_Status.val();
+	var title=$('.product-title').children('span').text();
+	var specNo=$('#end-spec-no').val();
+	var price=$('.cost').children('span').text();
+	console.log(title);
+	console.log(price);
+	
+	
+	var IMP = window.IMP; // 생략가능
+	IMP.init('imp51275730');
+	IMP.request_pay({
+		pg : 'kcp', // version 1.1.0부터 지원.
+		pay_method : 'trans',
+		merchant_uid : 'merchant_' + new Date().getTime(),
+		name : title,
+		amount : price,
+		buyer_email : 'make_it@gmail.kr',
+		buyer_name : 'MakeIT(메이크잇)',
+		buyer_tel : '010-1234-5678',
+		buyer_addr : '서울특별시 강남구 역삼동',
+		buyer_postcode : '123-456',
+		m_redirect_url : 'adminView.do'
+	}, function(rsp) {
+		if ( rsp.success ) {
+			var msg = '결제가 완료되었습니다.';
+			msg += '고유ID : ' + rsp.imp_uid;
+			msg += '<br>상점 거래ID : ' + rsp.merchant_uid;
+			msg += '<br>결제 금액 : ' + rsp.paid_amount;
+			msg += '<br>카드 승인번호 : ' + rsp.apply_num;
+			alert(msg);
+			
+			$.ajax({
+				
+				url:"updateRefundEnd.do",
+				data:{
+					"refundStatus":viewStatus,
+					"specNo":specNo
+				},
+				dataType:"html",
+				success:function(data){
+					$('.modal-body').children('.row').remove();
+					$payment_Tab.html(data);
+				}
+			})
+			
+		} else {
+			var msg = '결제에 실패하였습니다.';
+			msg += '에러내용 : ' + rsp.error_msg;
+			alert(msg);
+		}
+		
+	});
+	
+})
 //신고 회원 보기 이벤트
 $(document).on('click', '.report-tab-back', function () {
 

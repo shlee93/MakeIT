@@ -229,6 +229,14 @@ public class AdminServiceImpl implements AdminService {
 		return dao.selectRefundOne(refund);
 	}
 	
+	//관리자 페이지 환불 확정 업데이트
+	@Override
+	public int updateRefundEnd(Map<Object, Object> refund) {
+		
+		return dao.updateRefundEnd(refund);
+	}
+	
+	
 	
 	
 	

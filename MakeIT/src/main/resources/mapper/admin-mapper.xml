@@ -390,4 +390,9 @@
 		</choose>
 	</select>
 	
+	<!-- 결제 정보 업데이트 -->
+	<update id="updateRefundEnd" parameterType="map">
+		UPDATE ${refundStatus}SPEC SET STATUSNO=7
+	</update>
+	
 </mapper>

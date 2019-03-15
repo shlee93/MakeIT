@@ -228,6 +228,14 @@ public class AdminDaoImpl implements AdminDao {
 		
 		return sqlSession.selectOne("admin.selectRefundOne", refund);
 	}
+
+	//관리자 페이지 환불-결제 업데이트
+	@Override
+	public int updateRefundEnd(Map<Object, Object> refund) {
+		
+		return sqlSession.update("admin.updateRefundEnd", refund);
+	}
+	
 	
 	
 	

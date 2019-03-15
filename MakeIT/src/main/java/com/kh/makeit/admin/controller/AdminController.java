@@ -516,6 +516,31 @@ public class AdminController {
 
 		return mav;
 	}
+	
+	//결제완료 spec status 업데이트
+	@RequestMapping("/admin/updateRefundEnd")
+	public ModelAndView updateRefundEnd(int specNo,String refundStatus,
+			@RequestParam(value="cPage",required=false, defaultValue="1") int cPage
+			) {
+		int numPerPage=5;
+		int refundCount=adminService.selectRefundCountAdmin(refundStatus);
+		String pageBarRefund=PageFactory.getPageBarAdmin(refundCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+		ModelAndView mav=new ModelAndView();
+		Map<Object,Object> refund=new HashMap();
+		refund.put("specNo", specNo);
+		refund.put("refundStatus", refundStatus);
+		int result=adminService.updateRefundEnd(refund);
+			
+		//결제현황 출력
+		List<Map<Object,Object>> paymentList=adminService.selectRefundListAdmin(refundStatus,cPage,numPerPage);
+							
+		mav.addObject("pageBarRefund", pageBarRefund);
+		mav.addObject("paymentList", paymentList);
+		mav.setViewName("/admin/adminPaymentView");
+					
+		return mav;
+		
+	}
 
 	
 }
