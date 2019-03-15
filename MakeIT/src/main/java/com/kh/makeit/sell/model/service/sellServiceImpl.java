@@ -220,5 +220,11 @@ public class sellServiceImpl implements sellService {
 		// TODO Auto-generated method stub
 		return dao.sellOutBoxDelete(outBoxDelete);
 	}
+//신고 인서트
+	@Override
+	public int insertReport(Map reportMap) {
+		// TODO Auto-generated method stub
+		return dao.insertReport(reportMap);
+	}
 
 }

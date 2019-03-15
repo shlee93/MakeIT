@@ -1,25 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 	<c:set var="path" value="${pageContext.request.contextPath }"/>
-	    <!-- Latest compiled and minified CSS -->
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-   
-   <!-- jQuery library -->
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-   
-   <!-- Popper JS -->
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-   
-   <!-- Latest compiled JavaScript -->
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+	
+<jsp:include page="/WEB-INF/views/common/header.jsp">
+	<jsp:param value="HelloSpring" name="pageTitle"/>
+</jsp:include>
    
    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
    
@@ -49,10 +37,10 @@
  
 </style>   
  
-<body>
+
  
                                
-<div class='container-fluid' id="total">
+<div class='container-fluid' id="total" style=min-height:1700px; >
     <div class='row'>
         <div class='col-md-1' id='nav'></div>
         <div class='col-md-10' id='section' >
@@ -133,7 +121,7 @@
                     <div class="row " style="text-align:center">
                         <div class="col-md-10">
                         
-                            <img  class="userImg" src="${path}/resources/upload/member/${detailList.get(0).REIMG}">     
+                            <img  class="userImg" src="${path}/resources/upload/member/${detailList.get(0).REIMG}" style="max-width:200px;max-height:200px;">     
                             <br/>
                             <div class='row' style='margin-top: 1.2em'>
                                 <div class='col-md-7'>
@@ -222,11 +210,15 @@
 			$('#sellOutBoxDelFrm').submit();
 		}
 		function fn_reportPop(){
-			var url="${path}/sell/sellReport";
-			var name="판매글 신고";			
-			window.open("${path}/sell/sellReport?sellWriter=${detailList.get(0).MEMBERID}&&sellno=${detailList.get(0).SELLNO}",name,'width=490, height=300, menubar=no, status=no, toolbar=no');
+			if(${sessionScope.member.MEMBERID!=null}){
+				var url="${path}/sell/sellReport";
+				var name="판매글 신고";			
+				window.open("${path}/sell/sellReport?sellWriter=${detailList.get(0).MEMBERID}&&sellno=${detailList.get(0).SELLNO}",name,'width=490, height=300, menubar=no, status=no, toolbar=no');
+			}else{
+				alert('로그인 후 이용해 주세요 ');
+				location.href="${path}/member/memberLogin.do";
+			}
 			
-
 		}
 	</script>
 </body>

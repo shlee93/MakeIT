@@ -205,5 +205,8 @@ insert into SELLOPTION values(SEQ_SELLOPTIONCODE.NEXTVAL,#{selloptionNo},#{selln
 <delete id="sellOutBoxDelete" parameterType="map">
 	delete from selloutbox where sellno=#{sellno} and categorycode='S' and memberid=#{memberId}
 </delete>
-
+<!-- 신고하기 인서트 -->
+<insert id="insertReport" parameterType="map">
+	insert into SELLREPORT values(SEQ_SELLREPORTNO.NEXTVAL,#{sellno},#{reportId},'S',#{reportContent},default,default)
+</insert>
 </mapper>

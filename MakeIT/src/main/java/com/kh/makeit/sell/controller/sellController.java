@@ -539,5 +539,24 @@ public class sellController {
 	   return mv;
    }
    
+   //신고하는것 처리
+   @RequestMapping("/sell/sellReportEnd")
+   public ModelAndView sellReprotEnd(int sellno,String reportId,String reportContent)
+   {
+	   ModelAndView mv= new ModelAndView();
+	   Map reportMap=new HashMap();
+	   String msg="";
+	   reportMap.put("sellno", sellno);
+	   reportMap.put("reportId", reportId);
+	   reportMap.put("reportContent",reportContent);
+	   int result=service.insertReport(reportMap);	   	   
+	   msg="신고내용이 접수되었습니다.";
+	   mv.addObject("msg",msg);
+	   mv.addObject("script","window.close();opener.location.reload();");
+	   mv.setViewName("common/msg");
+
+	   return mv;
+   }
+   
 }
 

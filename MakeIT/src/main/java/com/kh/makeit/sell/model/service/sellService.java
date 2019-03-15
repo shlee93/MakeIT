@@ -62,6 +62,8 @@ int sellOutBoxInsert(Map outBoxInsert);
 
 int sellOutBoxDelete(Map outBoxDelete);
 
+int insertReport(Map reportMap);
+
 
 
 }
