@@ -255,5 +255,10 @@ public class MemberDaoImpl implements MemberDao {
 		return sqlSession.selectOne("member.selectNaverOne",id);
 	}
 
+	@Override
+	public int deleteNaverMember(String updateId) {
+		return sqlSession.delete("member.deleteNaverMember",updateId);
+	}
+
 
 }

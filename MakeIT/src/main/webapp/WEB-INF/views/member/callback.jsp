@@ -17,6 +17,8 @@
 		frm.email.value=naver_id_login.getProfileData('email');
 		frm.name.value=naver_id_login.getProfileData('name');
 		frm.img.value=naver_id_login.getProfileData('profile_image');
+		frm.token.value=naver_id_login.oauthParams.access_token;
+		
 		frm.submit();
 		self.close();
 	}

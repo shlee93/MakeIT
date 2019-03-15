@@ -93,4 +93,6 @@ public interface MemberDao {
 
 	Map<Object, Object> selectNaverOne(String id);
 
+	int deleteNaverMember(String updateId);
+
 }

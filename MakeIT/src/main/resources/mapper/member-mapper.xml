@@ -133,6 +133,9 @@
 	<select id="selectNaverOne" parameterType="string" resultType="map">
 		SELECT * FROM MEMBER WHERE MEMBERID=#{id}
 	</select>
+	<delete id="deleteNaverMember" parameterType="string">
+		DELETE FROM MEMBER WHERE MEMBERID=#{updateId}
+	</delete>
 	<resultMap type="map" id="memberMap">
 		<result column="interest" property="interest" typeHandler="strArray"/>
 	</resultMap>

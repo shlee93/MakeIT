@@ -235,6 +235,11 @@ public class MemberServiceImpl implements MemberService {
 	public Map<Object, Object> selectNaverOne(String id) {
 		return dao.selectNaverOne(id);
 	}
+
+	@Override
+	public int deleteNaverMember(String updateId) {
+		return dao.deleteNaverMember(updateId);
+	}
 	
 }
 

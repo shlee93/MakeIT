@@ -96,6 +96,18 @@ public class MemberController {
 			String id = (String) map.get("MEMBERID");
 			logger.debug(id);
 			map = service.selectNaverOne(id);
+			if(map.get("BANKCODE")!=null) {
+				map = service.selectOne(id);
+			}
+			if(map.get("ADDRESS")!=null) {
+				String[] addressSplit = ((String) map.get("ADDRESS")).split("/");
+				String address = addressSplit[0] + " " + addressSplit[1];
+				map.put("ADDRESS", address);
+			}
+			if(map.get("BIRTH")!=null) {
+				String birth = map.get("BIRTH").toString().substring(0, 10);
+				map.put("BIRTH", birth);
+			}
 			buyCount = service.selectBuyCount(id);
 			sellCount = service.boardSellCount(id);
 			buyAvg = service.buyAvg(id);
@@ -152,6 +164,8 @@ public class MemberController {
 		String email = request.getParameter("email");
 		String name = request.getParameter("name");
 		String img = request.getParameter("img");
+		String token = request.getParameter("access_token");
+		logger.debug(token);
 		String[] idStr = email.split("@");
 		String id = idStr[0];
 		String msg = "";
@@ -648,7 +662,14 @@ public class MemberController {
 
 	@RequestMapping("/member/deleteMember.do")
 	public ModelAndView deleteMember(String updateId, HttpServletRequest request) {
-		int result = service.deleteMember(updateId);
+		Map<Object,Object> map = service.selectNaverOne(updateId);
+		int result = 0;
+		if(map.get("PASSWORD") != null) {
+			result = service.deleteMember(updateId);
+		} else {
+			result = service.deleteNaverMember(updateId);
+		}
+		
 		String msg = "";
 		String loc = "";
 		if (result > 0) {
