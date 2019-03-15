@@ -155,7 +155,7 @@
 											<br/>
 											<button class='btn btn-primary'>찜하기</button>
 			                              <!-- <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p> -->
-			                              <i class="fa fa-clock-o"></i>
+			                              <!-- <i class="fa fa-clock-o"></i> -->
 			                           </div>
 			                           
 			                           <div class="CirItem title-box active CirItem2">
@@ -204,7 +204,7 @@
 												</div>
 											</div>
 			                              <!-- <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p> -->
-			                              <i class="fa fa-user"></i>
+			                              <!-- <i class="fa fa-user"></i> -->
 			                           </div>
 			                           <div class="CirItem title-box CirItem4">
 			                              <!-- 작성자 이미지 컨테이너 -->
@@ -217,7 +217,7 @@
 												</div>
 											</div>
 			                              <!-- <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p> -->
-			                              <i class="fa fa-tags"></i>
+			                              <!-- <i class="fa fa-tags"></i> -->
 			                           </div>
 			                           <div class="CirItem title-box CirItem5">
 			                              <!-- 작성자 이미지 컨테이너 -->
@@ -230,7 +230,7 @@
 												</div>
 											</div>
 			                              <!-- <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p> -->
-			                              <i class="fa fa-upload"></i>
+			                              <!-- <i class="fa fa-upload"></i> -->
 			                           </div>
 			                           <div class="CirItem title-box CirItem6">
 			                              <!-- 작성자 이미지 컨테이너 -->
