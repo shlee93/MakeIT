@@ -42,34 +42,42 @@
 .hide {
 	display: none;
 }
+#container{
+ width:97%;
+}
 </style>
 </head>
 <body>
-	<form action="${path}/sell/sellReportEnd">
-		<div>
-			<div class="row">
-				<h3>신고하기</h3>
+	<div id="container">
+		<form action="${path}/sell/sellReportEnd">
+			<div>
+				<div class="row" >
+					<div class="col-md-12" style="text-align:center" >
+						<h3 >신고하기</h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-2" >
+						
+					</div>
+					<div class="col-md-9">
+						<label>신고대상</label> 
+						<input class="form-control" type="text" name="reportId" value="${sellWriter}" style="width:40%;">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<label style="">신고내용</label> 
+					</div>
+					<div class="col-md-9">
+						<textarea class="form-control" rows="5"></textarea>
+					</div>
+				</div>
+				
 			</div>
-			<div class="row">
-				<div class="col-md-3">
-					<label>신고대상</label> 
-				</div>
-				<div class="col-md-9">
-					<input type="text" name="reportId" value="${sellWriter} ">
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-3">
-					<label>신고내용</label> 
-				</div>
-				<div class="col-md-9">
-					<textarea rows="10"></textarea>
-				</div>
-			</div>
-			
-		</div>
-	</form>
-	<input type="hidden" name="sellno" value="${sellno}">
+		</form>
+		<input type="hidden" name="sellno" value="${sellno}">
+	</div>
 </body>
 </html>
 

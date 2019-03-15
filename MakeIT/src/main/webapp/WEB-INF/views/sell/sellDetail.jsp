@@ -194,7 +194,7 @@
                                         var starPop=open("starPop.html","별점/후기","top=200px, left=200px, width=400px, height=150px");
                                     }                                                                       
                                 </script>
-                                <input type="hidden" id="loginCheck" name="sellWriter" value="${session.MEMBERID}">                              
+                                <input type="hidden" id="loginCheck" name="sellWriter" value="${session.MEMBERID}">                                                             
                             </div>
                         <div class="col-md-2"></div>
                     </div>                      
@@ -223,10 +223,9 @@
 		}
 		function fn_reportPop(){
 			var url="${path}/sell/sellReport";
-			var name="판매글 신고";
-			var option="width=300px;height=200px";
-			window.open(url,name,'width=500, height=500, menubar=no, status=no, toolbar=no');
-
+			var name="판매글 신고";			
+			window.open("${path}/sell/sellReport?sellWriter=${detailList.get(0).MEMBERID}&&sellno=${detailList.get(0).SELLNO}",name,'width=490, height=300, menubar=no, status=no, toolbar=no');
+			
 
 		}
 	</script>

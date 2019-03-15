@@ -526,6 +526,7 @@ public class sellController {
    @RequestMapping("/sell/sellReport")
    public ModelAndView sellReportPop(int sellno,HttpServletRequest request,String sellWriter)
    {
+	   System.out.println(sellno+sellWriter);
 	   ModelAndView mv = new ModelAndView();	   
 	   Map reportMap=new HashMap();
 	   /*reportMap.put("sellno", sellno);
