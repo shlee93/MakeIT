@@ -4,6 +4,9 @@
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 	<c:set var="path" value="${pageContext.request.contextPath }"/>
+
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+	
 <%
 	Cookie[] cookies=request.getCookies();
 	String cookieValue="";
@@ -13,6 +16,7 @@
 		}
 	}
 %> 
+
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="HelloSpring" name="pageTitle"/>
 </jsp:include>
@@ -50,6 +54,26 @@
                                         <a href="${path }/member/memberEnroll.do" class="text-info">회원가입</a>
                                     </div>
                                 </form>
+                                <div class="socialLogin" id="naver_id_login">
+                                	<%-- <a id="naverLogin"><img height="50" src="${path }/resources/images/naverLoginBtn_Green.PNG"/></a> --%>
+                                </div>
+                                <form action="${path }/member/naverLogin" id="naverLoginform" name="naverLoginform">
+                                	<input type="hidden" id="email" name="email" value="">
+                                	<input type="hidden" id="name" name="name" value="">
+                                	<input type="hidden" id="img" name="img" value="">
+                                	<input type="hidden" id="token" name="token" value="">
+                                </form>
+                                <script>
+	                                var naver_id_login = new naver_id_login("ayo0PcF7e31pJS4Lbj1N", "http://localhost:9090/makeit/callback");	// Client ID, CallBack URL 삽입
+									// 단 'localhost'가 포함된 CallBack URL
+									var state = naver_id_login.getUniqState();
+									
+									naver_id_login.setButton("green", 2, 40);
+									naver_id_login.setDomain("http://localhost:9090/makeit");	//  URL
+									naver_id_login.setState(state);
+									naver_id_login.setPopup();
+									naver_id_login.init_naver_id_login();
+                                </script>
                             </div>
                         </div>
                     </div>
@@ -62,6 +86,9 @@
         	}
         	function findPw(){
         		var popup=open("${path}/member/findPw.do","find PW","left=200px, top=100px, width=450px, height=250px");
+        	}
+        	function naverPop(){
+        		var popup=open("${path}/member/naverLogin.do","naverLogin","left=200px, top=100px, width=450px, height=250px");
         	}
         </script>
         <div class="col-md-1">
