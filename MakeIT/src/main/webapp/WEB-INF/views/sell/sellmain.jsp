@@ -510,6 +510,10 @@
 											<div class="box3" style='margin: 20px;'>
 												<div id="${newList.SELLNO}">
 													<script>
+													function fn_detailView(sellno)
+		                                            {
+		                                               location.href="${path}/sell/selldetail?sellno="+sellno;
+		                                            }
 														$(function() {
 															var sellNo = ${newList.SELLNO};
 															$.ajax({
@@ -522,7 +526,7 @@
 
 																			var imgReName = data["sellImgRe"];
 																			var imgContainer = $('#${newList.SELLNO}');
-																			 imgContainer.append("<a href='${path}/sell/selldetail?sellno="+${newList.SELLNO}+"'><img src='${path}/resources/upload/sell/"+ data["sellImgRe"]+"'style='width:100%;height:200px'></a>"); 
+																			 imgContainer.append("<img src='${path}/resources/upload/sell/"+ data["sellImgRe"]+ "' style='width: 100%; height: 200px;cursor:pointer;' onclick='fn_detailView(${newList.SELLNO})'>"); 
 																			   
 																			/* imgContainer.append("<img src='${path}/resources/upload/sell/"+ data["sellImgRe"]+ "' style='width: 100%; height: 200px;'>"); */
 																			/* imgContainer.append("<a href='${path}/sell/selldetail?"+${newList.SELLNO}+"'><img src='${path}/resources/upload/sell/"+ data["sellImgRe"]+"'></a>"); */
@@ -532,11 +536,9 @@
 													</script>
 													<!-- <a href="시발라랏사">ㅇㅇㅇ</a> -->
 												</div>
-												<div class="box-content">
+												<div class="box-content" onclick="location.href='${path}/sell/selldetail?sellno=${newList.SELLNO }'">
 													<h3 class="title">${newList.MEMBERID}</h3>
-													<p class="description">Lorem ipsum dolor sit amet,
-														consectetur adipisicing elit. A ad adipisci pariatur qui.
-													</p>
+													<p class="description">${newList.INTRODUCTION}</p>
 												</div>
 											</div>
 											<div class='sub-description'>

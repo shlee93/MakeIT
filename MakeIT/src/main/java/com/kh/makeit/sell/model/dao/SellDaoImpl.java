@@ -133,6 +133,78 @@ public class SellDaoImpl implements SellDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("sell.sellsubImg",sellno);
 	}
+
+	//글수정 값가져오기
+	@Override
+	public Map sellModify(int sellno) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("sell.sellModify",sellno);
+	}
+
+	@Override
+	public List<Map<String, String>> sellOptionModify(int sellno) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("sell.sellOptionModify",sellno);
+	}
+
+	@Override
+	public List<Map<String, String>> sellImgModify(int sellno) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("sell.sellImgModify",sellno);
+	}
+
+	@Override
+	public int updateDataMap(Map dataMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("sell.updateDataMap",dataMap);
+	}
+
+	@Override
+	public int deleteAttach(Map dataMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("sell.deleteAttach",dataMap);
+	}
+
+	@Override
+	public int insertAttach2(SellAttach a) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("sell.insertAttach2",a);
+	}
+
+	@Override
+	public int deleteOption(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("sell.deleteOption",map);
+	}
+
+	@Override
+	public int insertOption2(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("sell.insertOption2",map);
+	}
+
+	@Override
+	public Map sellOutBoxYn(Map outBoxc) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("sell.sellOutBoxYn",outBoxc);
+	}
+
+	@Override
+	public int sellOutBoxInsert(Map outBoxInsert) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("sell.sellOutBoxInsert",outBoxInsert);
+	}
+
+	@Override
+	public int sellOutBoxDelete(Map outBoxDelete) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("sell.sellOutBoxDelete",outBoxDelete);
+	}
+
+	
+	
+
+	
 	
 	
 	

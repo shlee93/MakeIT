@@ -31,6 +31,10 @@
                                    <div class="box3" style='margin: 20px;'>
                                        <div id="performance${performanceList.SELLNO}">
                                        		<script>
+                                       		function fn_detailView(sellno)
+                                            {
+                                               location.href="${path}/sell/selldetail?sellno="+sellno;
+                                            }
                                        	  $(function()
                                                   {
                                                      var sellNo=${performanceList.SELLNO};
@@ -44,16 +48,16 @@
 
                                                                var imgContainer=$('#performance${performanceList.SELLNO}');
                                                                /* imgContainer.append("<img src='${path}/resources/upload/sell/"+data["sellImgRe"]+ "' style='width: 100%; height: 200px;'>"); */
-                                                               imgContainer.append("<a href='${path}/sell/selldetail?"+${performanceList.SELLNO}+"'><img src='${path}/resources/upload/sell/"+ data["sellImgRe"]+"'style='width:100%;height:200px'></a>");
+                                                               imgContainer.append("<img src='${path}/resources/upload/sell/"+ data["sellImgRe"]+ "' style='width: 100%; height: 200px;cursor:pointer;' onclick='fn_detailView(${performanceList.SELLNO})'>");
                                                            }
                                                      });                                         
                                                    });   
                                        		</script>                                       	
                                        </div>
-                                       <div class="box-content">
+                                       <div class="box-content" onclick="location.href='${path}/sell/selldetail?sellno=${performanceList.SELLNO }'">
                                             <h3 class="title">${performanceList.MEMBERID}</h3>                                                                                      
                                            <p class="description">
-                                               Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ad adipisci pariatur qui.
+                                               ${performanceList.INTRODUCTION}
                                            </p>
                                            <ul class="icon">
                                                <li><a href="#" class="fa fa-search"></a></li>

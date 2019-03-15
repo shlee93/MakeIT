@@ -50,6 +50,8 @@
 </style>   
  
 <body>
+ 
+                               
 <div class='container-fluid' id="total">
     <div class='row'>
         <div class='col-md-1' id='nav'></div>
@@ -123,7 +125,8 @@
                             	<br/>
                                 <h4>${detailList.get(0).GRADENAME} ${detailList.get(0).MEMBERNAME}</h4>
                                 <a class="nav-item nav-link active xx" href="#">쪽지보내기</a>
-                                <a class="nav-item nav-link active xx" href="#">다른 글보기</a>                                
+                                <a class="nav-item nav-link active xx" href="#">다른 글보기</a>   
+                                <a class="nav-item nav-link active xx" href="#" onclick="fn_reportPop(); return false;">신고하기</a>                                
                             </div>
                         </div>                                            
                     </nav>
@@ -134,7 +137,15 @@
                             <br/>
                             <div class='row' style='margin-top: 1.2em'>
                                 <div class='col-md-7'>
-                                    <button class="btn btn-primary" onclick="fn_outbox();" style='padding-left:17px; padding-right:17px; float:right;'><i class='far fa-star'></i>찜하기</button>
+                                	<c:if test="${empty outBoxYn and detailList.get(0).MEMBERID ne session.MEMBERID }">
+                                    	<button class="btn btn-primary" onclick="fn_outboxDo();" style='padding-left:17px; padding-right:17px; float:right;'><i class='far fa-star'></i>찜하기</button>
+                                    </c:if>
+                                    <c:if test="${!empty outBoxYn and detailList.get(0).MEMBERID ne session.MEMBERID }">
+                                   		<button class="btn btn-primary" onclick="fn_outboxNo();" style='padding-left:17px; padding-right:17px; float:right;'><i class='far fa-star'></i>찜풀기</button>
+                                   	</c:if>
+                                   	<c:if test="${detailList.get(0).MEMBERID eq session.MEMBERID and session!=null}">
+                                   		<button class="btn btn-primary" onclick=";" style='padding-left:17px; padding-right:17px; float:right;'><i class='far fa-star'></i>구매자 보기</button>
+                                   	</c:if>
                                 </div>
                                 
                                             
@@ -155,19 +166,35 @@
                             </div>
                             <div class='row' style='margin-top: 1.2em'>
                                 <div class='col-md-6'>
-                                    <button class="btn btn-primary" style='padding-left:17px; padding-right:17px; float:right;'>구매하기</button>
+                               
+                                	<c:if test="${session.MEMBERID eq detailList.get(0).MEMBERID}">
+                                		<button class="btn btn-primary" onclick="fn_sellModify();" id="sellModify" style='padding-left:17px; padding-right:17px; float:right;'>수정하기</button>
+                                	</c:if>
+                                	<c:if test="${session.MEMBERID ne detailList.get(0).MEMBERID}">
+                                    	<button class="btn btn-primary" style='padding-left:17px; padding-right:17px; float:right;'>구매하기</button>
+                                    </c:if>
                                 </div>
                                 <div class='col-md-6' style='float:left'>
                                     <button onclick='fn_starPop()'; class='btn btn-primary' style='float:left;' disabled>후기남기기</button>
                                 </div>
+                                <form id='sellDetailFrm'>
+                                	<input type="hidden" id="sellno" name="sellno" value="${detailList.get(0).SELLNO}">
+                                </form>
+                                <form id="sellOutBoxInFrm">
+                                	<input type="hidden" name="sellno" value="${detailList.get(0).SELLNO}">
+                                </form>
+                                <form id="sellOutBoxDelFrm">
+                                	<input type="hidden" name="sellno" value="${detailList.get(0).SELLNO}">
+                                </form>
                                 <script>
+                                	console.log($("#sellno").val());
+                                	
                                     function fn_starPop()
                                     {
                                         var starPop=open("starPop.html","별점/후기","top=200px, left=200px, width=400px, height=150px");
-                                    }
-                                    
-                                    
-                                </script>                              
+                                    }                                                                       
+                                </script>
+                                <input type="hidden" id="loginCheck" name="sellWriter" value="${session.MEMBERID}">                              
                             </div>
                         <div class="col-md-2"></div>
                     </div>                      
@@ -175,8 +202,33 @@
           </div>
       </div>
     <div class='col-md-1' id='right-nav' ></div>                   
-</div>   
-</div>
-</div>
+	</div>   
+	</div>
+	</div>
+	<script>
+		var loginCheck=$("#loginCheck").val();
+		var sellno=$("#sellno").val();
+		function fn_sellModify(){
+			$('#sellDetailFrm').attr('action',"${path}/sell/sellModify");
+			$('#sellDetailFrm').submit();
+		}
+		function fn_outboxDo(){
+			$('#sellOutBoxInFrm').attr('action',"${path}/sell/sellOutBox.do");
+			$('#sellOutBoxInFrm').submit();
+		}
+	
+		function fn_outboxNo(){
+			$('#sellOutBoxDelFrm').attr('action',"${path}/sell/sellOutBoxDel.do");
+			$('#sellOutBoxDelFrm').submit();
+		}
+		function fn_reportPop(){
+			var url="${path}/sell/sellReport";
+			var name="판매글 신고";
+			var option="width=300px;height=200px";
+			window.open(url,name,'width=500, height=500, menubar=no, status=no, toolbar=no');
+
+
+		}
+	</script>
 </body>
 </html>

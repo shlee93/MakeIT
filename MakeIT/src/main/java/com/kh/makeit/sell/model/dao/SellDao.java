@@ -47,5 +47,29 @@ List<Map<String, String>> sellReivew(int sellno);
 
 List<Map<String, String>> sellsubImg(int sellno);
 
+Map sellModify(int sellno);
+
+List<Map<String, String>> sellOptionModify(int sellno);
+
+List<Map<String, String>> sellImgModify(int sellno);
+
+int updateDataMap(Map dataMap);
+
+
+
+int insertAttach2(SellAttach a);
+
+int deleteOption(Map<String, String> map);
+
+int insertOption2(Map<String, String> map);
+
+int deleteAttach(Map dataMap);
+
+Map sellOutBoxYn(Map outBoxc);
+
+int sellOutBoxInsert(Map outBoxInsert);
+
+int sellOutBoxDelete(Map outBoxDelete);
+
 
 }
