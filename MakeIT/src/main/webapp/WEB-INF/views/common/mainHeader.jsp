@@ -42,14 +42,11 @@
         <div id="logoIcon"><p>LOGO</p></div>
         <%if(session.getAttribute("member") == null){ %>
         <div id="loginWrap">
-            <a href="${path }/member/memberLogin.do" id="login">Login |</a>
-            <a href="${path }/member/memberEnrollck.do" id="join"> Join us :)</a>
-      		<script>
 
-          	$(function(){
-          		//location.href="${path }/intropage/intropage.do";
-          	})
-      		</script>
+            	<a href="${path }/member/memberLogin.do" id="login">Login |</a>
+            	<a href="${path }/member/memberEnrollck.do" id="join"> Join us :)</a>
+
+
         </div>
         <%}else{ %>
         <div id="loginWrap">
