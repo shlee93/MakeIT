@@ -16,8 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.makeit.HomeController;
+import com.kh.makeit.common.ApplicantConfirmMail;
 import com.kh.makeit.common.PageFactory;
 import com.kh.makeit.common.exception.BoardException;
 import com.kh.makeit.contest.service.ContestService;
@@ -39,9 +37,6 @@ public class ContestController
 	@Autowired 
 	ContestService cs;
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
-	ModelAndView mv=new ModelAndView();
 	
 	@RequestMapping("/contest/contestMain.do")
 	public ModelAndView contestMain(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, HttpServletRequest request)
@@ -66,6 +61,61 @@ public class ContestController
 		
 		return mv;
 	}
+	@RequestMapping("/contest/sort.do")
+	public ModelAndView sortMain(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, HttpServletRequest request, String interestFlag, String detailInterestFlag, String searchTypeFlag, String searchTypeKeyword, String sortTypeFlag)
+	{
+		Map searchFlag=new HashMap();
+		ModelAndView mv=new ModelAndView();
+		int numPerPage=5;
+		
+		if(interestFlag!=null)
+		{
+			System.out.println("인터레스트플래그 : "+interestFlag);
+			searchFlag.put("interestFlag",interestFlag);
+			mv.addObject("interestFlag", interestFlag);
+		}
+		if(detailInterestFlag!=null)
+		{
+			System.out.println("디테일인터레스트플래그 : "+detailInterestFlag);
+			searchFlag.put("detailInterestFlag",detailInterestFlag);
+			mv.addObject("detailInterestFlag", detailInterestFlag);
+		}
+		if(sortTypeFlag!=null)
+		{
+			System.out.println("솔트타입플래그 : "+sortTypeFlag);
+			searchFlag.put("sortTypeFlag",sortTypeFlag);
+			mv.addObject("sortTypeFlag", sortTypeFlag);
+		}
+		if(searchTypeFlag!=null)
+		{
+			System.out.println("서치타입플래그 : "+searchTypeFlag);
+			searchFlag.put("searchTypeFlag", searchTypeFlag);
+			mv.addObject("searchTypeFlag", searchTypeFlag); 
+		}
+		if(searchTypeKeyword!=null)
+		{
+			System.out.println("서치타입키워드 : "+searchTypeKeyword);
+			searchFlag.put("searchTypeKeyword",searchTypeKeyword);
+			mv.addObject("searchTypeKeyword", searchTypeKeyword);
+		}
+		
+		int contentCount=cs.sortCountService(searchFlag);		
+		
+		List<Map<String,String>> contestList=cs.contestSortService(cPage,numPerPage,searchFlag);
+		
+		mv.addObject("pageBar",PageFactory.getPageBar(contentCount, cPage, numPerPage, request.getContextPath()+"/contest/contestMain.do"));
+		for(int i=0; i<contestList.size(); i++)
+		{
+			String contestDate=String.valueOf(contestList.get(i).get("CONTESTDATE")).substring(0, 10);
+			contestList.get(i).put("CONTESTDATE", contestDate);
+			String contestDeadLine=String.valueOf(contestList.get(i).get("CONTESTDEADLINE")).substring(0, 10);
+			contestList.get(i).put("CONTESTDEADLINE", contestDeadLine);
+		}
+		mv.addObject("contestList", contestList);
+		mv.setViewName("contest/contestMain");	
+		
+		return mv;
+	}
 	
 	@RequestMapping("/contest/contestPerFirstImg.do")
 	@ResponseBody
@@ -81,8 +131,10 @@ public class ContestController
 	{
 		HttpSession session= request.getSession();
 		Map<String,String> memberMap=(Map)session.getAttribute("member");
-		String currentAccessId=memberMap.get("memberId");
-		
+		if(memberMap!=null)
+		{
+			String currentAccessId=memberMap.get("memberId");
+		}
 		ModelAndView mv=new ModelAndView();
 		List<Map<String,String>> contestContainer=cs.contestDetailService(contestNo);
 		if(contestContainer.size()>1)
@@ -122,7 +174,7 @@ public class ContestController
 	}	
 	
 	@RequestMapping("/contest/contestFormEnd.do")
-	public String contestFormEnd(String contestTitle, String contestContent, String contestDate, String contestDeadLine, String contestPrice, String detailInterestNo, String interestNo, HttpServletRequest request, MultipartFile[] upFile) throws BoardException
+	public String contestFormEnd(String contestTitle, String contestContent, String contestDate, String contestDeadLine, String contestPrice, String detailInterestNo, String interestNo, HttpServletRequest request, int mainImgNo, MultipartFile[] upFile) throws BoardException
 	{
 		ModelAndView mv=new ModelAndView();
 		HttpSession session=request.getSession();
@@ -142,7 +194,12 @@ public class ContestController
 		contest.put("memberId",memberId);
 		
 		String savDir=request.getSession().getServletContext().getRealPath("/resources/upload/contest");
-		ArrayList<ContestImg> files=new ArrayList<>();
+		ArrayList<ContestImg> files=new ArrayList<>();		
+		
+		  
+	      MultipartFile index = upFile[mainImgNo];
+	      upFile[mainImgNo] = upFile[0];
+	      upFile[0] = index;
 		
 		for(MultipartFile f:upFile)
 		{  
@@ -327,7 +384,7 @@ public class ContestController
 	}
 	
 	@RequestMapping("/contest/applicantConfirm.do")
-	public ModelAndView applicantConfirm(int contestNoHidden, String applicantAcceptTarget)
+	public ModelAndView applicantConfirm(int contestNoHidden, String applicantAcceptTarget, String applicantContestTitle)
 	{
 		ModelAndView mv=new ModelAndView();
 		Map applicantConfirmInfo=new HashMap();
@@ -339,6 +396,16 @@ public class ContestController
 		String loc=null;
 		if(result==1)
 		{
+			ApplicantConfirmMail acm= new ApplicantConfirmMail();
+			System.out.println("지원자아이디"+applicantAcceptTarget);
+			System.out.println("지원넘버"+contestNoHidden);
+			Map applicantInfo=new HashMap<>();
+			applicantInfo.put("applicantId", applicantAcceptTarget);
+			applicantInfo.put("contestNo", contestNoHidden);
+			String applicantEmail=String.valueOf(cs.contestApplicantOneService(applicantInfo).get("EMAIL"));
+			
+			/*System.out.println(applicantEmail,applicantAcceptTarget, applicantContestTitle);*/
+			acm.sendmail(applicantEmail,applicantAcceptTarget, applicantContestTitle);
 			msg="승인하였습니다.";
 			loc="/contest/contestDetail.do?contestNo="+String.valueOf(contestNoHidden);
 		}
@@ -357,4 +424,80 @@ public class ContestController
 		
 		return "redirect:/contest/contestMain.do";
 	}
+	
+	@RequestMapping("/contest/contestModify.do")
+	public ModelAndView contestModify(int contestDelNo, HttpServletRequest request)
+	{
+		HttpSession session=request.getSession();
+		ModelAndView mv=new ModelAndView();
+		Map<String,String> memberMap=(Map)session.getAttribute("member");
+		mv.addObject("memberMap", memberMap);	
+		Map<String,String> contestObj=cs.contestModifyService(contestDelNo);
+		contestObj.put("CONTESTDATE", String.valueOf(contestObj.get("CONTESTDATE")).substring(0, 10));
+		contestObj.put("CONTESTDEADLINE", String.valueOf(contestObj.get("CONTESTDEADLINE")).substring(0, 10));
+		List<Map<String,String>> contestImgList=cs.contestModifyImgService(contestDelNo); 
+		mv.addObject("contest", contestObj);
+		mv.addObject("contestImgList", contestImgList);
+		mv.setViewName("contest/contestModify");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/contest/contestModifyEnd.do")
+	public String contestModifyEnd(int contestNo, String contestTitle, String contestContent, String contestDate, String contestDeadLine, String contestPrice, String detailInterestNo, String interestNo, HttpServletRequest request, int mainImgNo, MultipartFile[] upFile) throws BoardException
+	{
+		ModelAndView mv=new ModelAndView();
+		HttpSession session=request.getSession();
+		Map<String,String> memberMap=(Map)session.getAttribute("member");
+		Map contest=new HashMap();
+		String memberId=memberMap.get("MEMBERID");
+		contest.put("contestNo", contestNo);
+		contest.put("contestTitle", contestTitle);
+		contest.put("contestContent", contestContent);
+		contest.put("contestDate",contestDate);
+		contest.put("contestDeadLine", contestDeadLine);
+		contest.put("contestPrice", contestPrice);
+		contest.put("detailInterestNo",detailInterestNo);
+		contest.put("interestNo", interestNo);
+		contest.put("memberId", memberId);
+		
+		String savDir=request.getSession().getServletContext().getRealPath("/resources/upload/contest");
+		ArrayList<ContestImg> files=new ArrayList<>();		
+		
+		  
+	      MultipartFile index = upFile[mainImgNo];
+	      upFile[mainImgNo] = upFile[0];
+	      upFile[0] = index;
+		
+		for(MultipartFile f:upFile)
+		{  
+			ContestImg contestImg=new ContestImg();
+			if(!f.isEmpty())
+			{
+				//파일명을 생성(rename)
+				String oriFileName=f.getOriginalFilename();
+				String ext=oriFileName.substring(oriFileName.lastIndexOf("."));
+				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+				int rdv=(int)(Math.random()*1000);
+				String reName=sdf.format(System.currentTimeMillis())+"_"+rdv+ext;
+				
+				try
+				{
+					f.transferTo(new File(savDir+"/"+reName));
+				}
+				catch(IllegalStateException | IOException e)
+				{
+					e.printStackTrace();
+				}
+				contestImg.setContestNo(contestNo);
+				contestImg.setContestImgRe(reName);
+				contestImg.setContestImgOri(oriFileName);
+				files.add(contestImg);				
+			}
+		}
+		cs.contestModifyEndService(contest, files);
+		
+		return "redirect:/contest/contestMain.do";
+	} 
+	
 }

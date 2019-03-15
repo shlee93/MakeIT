@@ -23,12 +23,25 @@ public class ContestDaoImpl implements ContestDao
 	}
 
 	@Override
+	public int sortCountDao(Map<String,String> searchFlag) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("contest.sortCount", searchFlag);
+	}
+
+	@Override
 	public List<Map<String,String>> getContestListDao(int cPage, int numPerPage) {
 		// TODO Auto-generated method stub
 		RowBounds rb=new RowBounds((cPage-1)*numPerPage,numPerPage);
 		return sqlSession.selectList("contest.getContestList", null, rb);
 	}	
 	
+	@Override
+	public List<Map<String, String>> contestSortDao(int cPage, int numPerPage, Map<String, String> searchFlag) {
+		// TODO Auto-generated method stub
+		RowBounds rb=new RowBounds((cPage-1)*numPerPage,numPerPage);
+		return sqlSession.selectList("contest.contestSort", searchFlag, rb);
+	}
+
 	@Override
 	public List<Map<String,String>> getContestDetailImg(int contestNo) {
 		// TODO Auto-generated method stub
@@ -93,8 +106,36 @@ public class ContestDaoImpl implements ContestDao
 	@Override
 	public int contestDelDao(int contestDelNo) {
 		// TODO Auto-generated method stub
-		return sqlSession.delete("contest.contestDel", contestDelNo);
-	}		
+		return sqlSession.update("contest.contestDel", contestDelNo);
+	}
+
+	@Override
+	public Map contestModifyDao(int contestNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("contest.contestModify", contestNo);
+	}
+
+	@Override
+	public List<Map<String, String>> contestModifyImg(int contestNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("contest.contestModifyImg", contestNo);
+	}
+
+	@Override
+	public int contestModifyEndDao(Map<String, String> contest) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("contest.contestModifyEnd", contest);
+	}
 	
-	
+	@Override
+	public int contestModifyForeDelImg(int contestNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("contest.modifyForeDelImg", contestNo);
+	}
+
+	@Override
+	public int contestUpdateImg(ContestImg contestImg) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("contest.contestUpdateImg", contestImg);
+	}
 }

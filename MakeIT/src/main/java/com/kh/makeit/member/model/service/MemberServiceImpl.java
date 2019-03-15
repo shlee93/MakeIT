@@ -11,28 +11,28 @@ import com.kh.makeit.member.model.dao.MemberDao;
 @Service
 public class MemberServiceImpl implements MemberService {
 
-	@Autowired
-	MemberDao dao;
-	
-	@Override
-	public Map<String, String> idDuplicate(String memberId) {
-		return dao.idDuplicate(memberId);
-	}
+   @Autowired
+   MemberDao dao;
+   
+   @Override
+   public Map<String, String> idDuplicate(String memberId) {
+      return dao.idDuplicate(memberId);
+   }
 
-	@Override
-	public int insertMember(Map<Object, Object> map) {
-		return dao.insertMember(map);
-	}
+   @Override
+   public int insertMember(Map<Object, Object> map) {
+      return dao.insertMember(map);
+   }
 
 	@Override
 	public Map<Object, Object> login(Map<String, String> map) {
 		return dao.login(map);
 	}
 
-	@Override
-	public Map<Object, Object> selectOne(String id) {
-		return dao.selectOne(id);
-	}
+   @Override
+   public Map<Object, Object> selectOne(String id) {
+      return dao.selectOne(id);
+   }
 
 	@Override
 	public int memberIntroduction(Map<String, String> map) {
@@ -225,4 +225,21 @@ public class MemberServiceImpl implements MemberService {
 	public int noReadMessage(String id) {
 		return dao.noReadMessage(id);
 	}
+
+	@Override
+	public int insertNaverMember(Map<String, String> map) {
+		return dao.insertNaverMember(map);
+	}
+
+	@Override
+	public Map<Object, Object> selectNaverOne(String id) {
+		return dao.selectNaverOne(id);
+	}
+
+	@Override
+	public int deleteNaverMember(String updateId) {
+		return dao.deleteNaverMember(updateId);
+	}
+	
 }
+

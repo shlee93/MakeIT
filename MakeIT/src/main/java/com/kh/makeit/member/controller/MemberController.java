@@ -2,8 +2,6 @@ package com.kh.makeit.member.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.sql.Date;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -31,7 +29,6 @@ import com.google.gson.Gson;
 import com.kh.makeit.common.PageFactory;
 import com.kh.makeit.common.SendMail;
 import com.kh.makeit.member.model.service.MemberService;
-import com.sun.mail.iap.Response;
 
 @Controller
 public class MemberController {
@@ -58,9 +55,9 @@ public class MemberController {
 		double sellAvg = 0;
 		ModelAndView mv = new ModelAndView();
 		logger.debug(session.getAttribute("member"));
-		if(session.getAttribute("member")!=null) {
-			Map<Object, Object> member = (Map<Object, Object>) session.getAttribute("member");
-			String id = (String) member.get("MEMBERID");
+		map = (Map<Object, Object>) session.getAttribute("member");
+		if(map != null && map.get("PASSWORD") != null) {
+			String id = (String) map.get("MEMBERID");
 			logger.debug(id);
 			map = service.selectOne(id);
 			buyCount = service.selectBuyCount(id);
@@ -92,7 +89,42 @@ public class MemberController {
 			mv.addObject("qnacPage",0);
 			mv.addObject("contestcPage",0);
 			mv.addObject("fadeStatus",1);
-		} else {
+		} else if(map != null && map.get("PASSWORD") == null){
+			String id = (String) map.get("MEMBERID");
+			logger.debug(id);
+			map = service.selectNaverOne(id);
+			if(map.get("BANKCODE")!=null) {
+				map = service.selectOne(id);
+			}
+			if(map.get("ADDRESS")!=null) {
+				String[] addressSplit = ((String) map.get("ADDRESS")).split("/");
+				String address = addressSplit[0] + " " + addressSplit[1];
+				map.put("ADDRESS", address);
+			}
+			if(map.get("BIRTH")!=null) {
+				String birth = map.get("BIRTH").toString().substring(0, 10);
+				map.put("BIRTH", birth);
+			}
+			buyCount = service.selectBuyCount(id);
+			sellCount = service.boardSellCount(id);
+			buyAvg = service.buyAvg(id);
+			sellAvg = service.sellAvg(id);
+			int noReadMessage = service.noReadMessage(id);
+			logger.debug(noReadMessage);
+			mv.setViewName("member/memberMyPage");
+			mv.addObject("noReadMessage",noReadMessage);
+			mv.addObject("buyCount", buyCount);
+			mv.addObject("sellCount", sellCount);
+			mv.addObject("buyAvg", buyAvg);
+			mv.addObject("sellAvg", sellAvg);
+			mv.addObject("map", map);
+			mv.addObject("sellcPage",0);
+			mv.addObject("buycPage",0);
+			mv.addObject("freecPage",0);
+			mv.addObject("qnacPage",0);
+			mv.addObject("contestcPage",0);
+			mv.addObject("fadeStatus",1);
+		}else {
 			String msg = "로그인 후 이용해주세요";
 			String loc = "/";
 			mv.addObject("msg",msg);
@@ -116,6 +148,67 @@ public class MemberController {
 	@RequestMapping("/member/memberLogin.do")
 	public String memberLogin() {
 		return "member/memberLogin";
+	}
+
+	@RequestMapping("/callback")
+	public String navLogin(HttpServletRequest request) throws Exception {
+		
+		return "member/callback";
+	}	
+	
+	@RequestMapping("/member/naverLogin")
+	public ModelAndView navLoginEnd(HttpServletRequest request,HttpSession session) {
+		String email = request.getParameter("email");
+		String name = request.getParameter("name");
+		String img = request.getParameter("img");
+		String token = request.getParameter("access_token");
+		logger.debug(token);
+		String[] idStr = email.split("@");
+		String id = idStr[0];
+		String msg = "";
+		String loc = "/";
+		List<String> memberId = service.searchId(email);
+		Map<String,String> map = new HashMap();
+		map.put("memberId", id);
+		map.put("email", email);
+		map.put("name", name);
+		map.put("img", img);
+		int result = 0;
+		logger.debug(memberId);
+		Map<Object,Object> member = null;
+		
+		if(memberId.size() != 0) {
+			for(int i = 0; i < memberId.size(); i++) {
+				member = service.selectNaverOne(memberId.get(i));	
+				logger.debug(member.get("PASSWORD"));
+				if(member.get("PASSWORD") == null) {
+					if (!member.get("WITHDRAWYN").equals("N")) {
+						msg = "회원정보가 없습니다.";
+					} else {
+						msg = "로그인 성공했습니다.";
+						Map<Object,Object> login = service.login(map);
+						session.setAttribute("member", login);
+					}
+					break;
+				} else {
+					msg = "해당 이메일로 가입한 아이디가 존재합니다. 확인 후 로그인 해주세요.";										
+				}
+			}
+		} else {
+			result = service.insertNaverMember(map);
+			if(result > 0) {
+				msg = "로그인 성공했습니다. 마이페이지에서 추가정보를 입력해주시면 더 다양한 정보를 받아보실 수 있습니다.";
+				Map<Object,Object> login = service.login(map);
+				session.setAttribute("member", login);
+			} else {
+				msg = "해당 아이디로 로그인 할 수 없습니다.";
+			}
+		}
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		return mv;
 	}
 
 	@RequestMapping("/member/duplicateCheck")
@@ -423,38 +516,53 @@ public class MemberController {
 	@RequestMapping("/member/updateMember.do")
 	public ModelAndView updateMember(String updateId) throws ParseException {
 		Map<Object, Object> map = service.selectOne(updateId);
-		logger.debug(map);
-		String[] interest = ((String) map.get("INTERESTNO")).split(",");
-		List<String> interestList = new ArrayList();
-		for (int i = 0; i < interest.length; i++) {
-			interestList.add(interest[i]);
-		}
-		String[] emailList = ((String) map.get("EMAIL")).split("@");
-		String[] addressList = ((String) map.get("ADDRESS")).split("/");
-		String firstAdd = addressList[0];
-		String addDetail = addressList[1];
-		logger.debug(emailList[0]);
-		logger.debug(emailList[1]);
-		String email = emailList[0];
-		String domain = emailList[1];
-		String birth = map.get("BIRTH").toString().substring(0, 10);
-		logger.debug(birth);
-		Date date = Date.valueOf(birth);
-		logger.debug(date);
-		map.put("BIRTH", date);
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("member", map);
-		mv.addObject("interestList", interestList);
-		mv.addObject("email", email);
-		mv.addObject("domain", domain);
-		mv.addObject("firstAdd", firstAdd);
-		mv.addObject("addDetail", addDetail);
+		if(map != null) {
+			logger.debug(map);
+			String[] interest = ((String) map.get("INTERESTNO")).split(",");
+			List<String> interestList = new ArrayList();
+			for (int i = 0; i < interest.length; i++) {
+				interestList.add(interest[i]);
+			}
+			String[] emailList = ((String) map.get("EMAIL")).split("@");
+			String[] addressList = ((String) map.get("ADDRESS")).split("/");
+			String firstAdd = addressList[0];
+			String addDetail = addressList[1];
+			logger.debug(emailList[0]);
+			logger.debug(emailList[1]);
+			String email = emailList[0];
+			String domain = emailList[1];
+			String birth = map.get("BIRTH").toString().substring(0, 10);
+			logger.debug(birth);
+			Date date = Date.valueOf(birth);
+			logger.debug(date);
+			map.put("BIRTH", date);
+			
+			mv.addObject("member", map);
+			mv.addObject("interestList", interestList);
+			mv.addObject("email", email);
+			mv.addObject("domain", domain);
+			mv.addObject("firstAdd", firstAdd);
+			mv.addObject("addDetail", addDetail);
+		} else {
+			map = service.selectNaverOne(updateId);
+			logger.debug(map);
+			String[] emailList = ((String) map.get("EMAIL")).split("@");
+			String email = emailList[0];
+			String domain = emailList[1];
+			mv.addObject("member", map);
+			mv.addObject("email", email);
+			mv.addObject("domain", domain);
+		}
+		
 		mv.setViewName("member/updateMember");
 		return mv;
 	}
 
 	@RequestMapping("/member/memberUpdateEnd.do")
 	public ModelAndView memberUpdate(HttpServletRequest request, MultipartFile memberProfile, HttpSession session) {
+		String msg = "";
+		String loc = "/member/memberMyPage.do";
 		String saveDir = request.getSession().getServletContext().getRealPath("/resources/upload/member");
 		String memberId = request.getParameter("memberId");
 		String name = request.getParameter("memberName");
@@ -478,36 +586,70 @@ public class MemberController {
 		map.put("address", address);
 		map.put("interest", interest);
 		Map<Object, Object> oriMember = service.selectOne(memberId);
-		if (!(memberProfile.isEmpty()) && memberProfile.getOriginalFilename() != oriMember.get("ORIIMG")) {
-			String oriFileName = memberProfile.getOriginalFilename();
-			String ext = oriFileName.substring(oriFileName.lastIndexOf("."));// .부터 확장자까지
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
-			int rdv = (int) (Math.random() * 1000);
-			String reName = sdf.format(System.currentTimeMillis()) + "_" + rdv + ext;
-			File oriFile = new File(saveDir + "/" + (String) oriMember.get("REIMG"));
-			logger.debug(oriFile.exists());
-			logger.debug(oriFile.getName());
-			oriFile.delete();
-			try {
-				memberProfile.transferTo(new File(saveDir + "/" + reName));
-			} catch (IllegalStateException | IOException e) {
-				e.printStackTrace();
+		logger.debug(oriMember);
+		if(oriMember != null) {
+			if (!(memberProfile.isEmpty()) && memberProfile.getOriginalFilename() != oriMember.get("ORIIMG")) {
+				String oriFileName = memberProfile.getOriginalFilename();
+				String ext = oriFileName.substring(oriFileName.lastIndexOf("."));// .부터 확장자까지
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+				int rdv = (int) (Math.random() * 1000);
+				String reName = sdf.format(System.currentTimeMillis()) + "_" + rdv + ext;
+				File oriFile = new File(saveDir + "/" + (String) oriMember.get("REIMG"));
+				logger.debug(oriFile.exists());
+				logger.debug(oriFile.getName());
+				oriFile.delete();
+				try {
+					memberProfile.transferTo(new File(saveDir + "/" + reName));
+				} catch (IllegalStateException | IOException e) {
+					e.printStackTrace();
+				}
+				map.put("oriImg", oriFileName);
+				map.put("reImg", reName);
+			} else {
+				map.put("oriImg", oriMember.get("ORIIMG"));
+				map.put("reImg", oriMember.get("REIMG"));
 			}
-			map.put("oriImg", oriFileName);
-			map.put("reImg", reName);
+			logger.debug(map);
+			int result = service.memberUpdate(map);
+			
+			if (result > 0) {
+				msg = "회원정보 수정이 완료되었습니다.";
+			} else {
+				msg = "회원정보 수정이 실패했습니다.";
+			}
 		} else {
-			map.put("oriImg", oriMember.get("ORIIMG"));
-			map.put("reImg", oriMember.get("REIMG"));
+			oriMember = service.selectNaverOne(memberId);
+			if (!(memberProfile.isEmpty()) && memberProfile.getOriginalFilename() != oriMember.get("ORIIMG")) {
+				String oriFileName = memberProfile.getOriginalFilename();
+				String ext = oriFileName.substring(oriFileName.lastIndexOf("."));// .부터 확장자까지
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+				int rdv = (int) (Math.random() * 1000);
+				String reName = sdf.format(System.currentTimeMillis()) + "_" + rdv + ext;
+				File oriFile = new File(saveDir + "/" + (String) oriMember.get("REIMG"));
+				logger.debug(oriFile.exists());
+				logger.debug(oriFile.getName());
+				oriFile.delete();
+				try {
+					memberProfile.transferTo(new File(saveDir + "/" + reName));
+				} catch (IllegalStateException | IOException e) {
+					e.printStackTrace();
+				}
+				map.put("oriImg", oriFileName);
+				map.put("reImg", reName);
+			} else {
+				map.put("oriImg", oriMember.get("ORIIMG"));
+				map.put("reImg", oriMember.get("REIMG"));
+			}
+			logger.debug(map);
+			int result = service.memberUpdate(map);
+			
+			if (result > 0) {
+				msg = "회원정보 수정이 완료되었습니다.";
+			} else {
+				msg = "회원정보 수정이 실패했습니다.";
+			}
 		}
-		logger.debug(map);
-		int result = service.memberUpdate(map);
-		String msg = "";
-		String loc = "/member/memberMyPage.do";
-		if (result > 0) {
-			msg = "회원정보 수정이 완료되었습니다.";
-		} else {
-			msg = "회원정보 수정이 실패했습니다.";
-		}
+		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("msg", msg);
 		mv.addObject("loc", loc);
@@ -517,7 +659,14 @@ public class MemberController {
 
 	@RequestMapping("/member/deleteMember.do")
 	public ModelAndView deleteMember(String updateId, HttpServletRequest request) {
-		int result = service.deleteMember(updateId);
+		Map<Object,Object> map = service.selectNaverOne(updateId);
+		int result = 0;
+		if(map.get("PASSWORD") != null) {
+			result = service.deleteMember(updateId);
+		} else {
+			result = service.deleteNaverMember(updateId);
+		}
+		
 		String msg = "";
 		String loc = "";
 		if (result > 0) {

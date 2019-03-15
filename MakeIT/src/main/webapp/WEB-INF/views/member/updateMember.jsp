@@ -109,7 +109,7 @@
                     			</div>
                    			</div>
 				            <label for="memberProfile">사진 선택</label> 
-				            <input type="file" name="memberProfile" id="memberProfile" class="upload-hidden" accept=".gif, .jpg, .png"> 
+				            <input type="file" name="memberProfile" id="memberProfile" class="upload-hidden" accept=".gif, .jpg, .png" required> 
 				        </div>
                     </div>
                     <div class="col-md-3 mb-2">

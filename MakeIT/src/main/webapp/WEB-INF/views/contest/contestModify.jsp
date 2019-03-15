@@ -107,7 +107,7 @@
  <div class="row">
  	<div class="col-sm-1"></div>
     <div id="buy-container" class="col-sm-10">
-    	<form action='${path}/contest/contestFormEnd.do' method='post' enctype="multipart/form-data">    
+    	<form action='${path}/contest/contestModifyEnd.do' method='post' enctype="multipart/form-data">    
 			<label>제목</label> 
 	
 			<select class="form-control col-sm-1" id='interestNo' name='interestNo' style="display: inline;"/>
@@ -158,11 +158,13 @@
 	    		 );
 	        </script>
 	       
-			<input type="text" class="form-control col-sm-6" id='contestTitle' name='contestTitle' style="display: inline;" placeholder="제목을 입력하세요." /> 
+			<input type="text" class="form-control col-sm-6" id='contestTitle' name='contestTitle' style="display: inline;" placeholder="제목을 입력하세요." value='${contest.get("CONTESTTITLE")}'/> 
 	        
 	        <!-- 콘테스트 이름 -->      
 	        
 	        <br/>
+	       	 
+	       	<input type='hidden' name='contestNo' value='${contest.CONTESTNO}'>
 	       	 
 	   	    <label>주최</label>
 	     	<input type="text" class="form-control col-sm-2" style="display: inline;" id='star' name='dona' placeholder="주최측" value='${memberMap.get("MEMBERNAME")}' readonly/>&nbsp;&nbsp;
@@ -171,13 +173,13 @@
 	       	<br/>
 	       	
 	       	<label>상금</label>
-	     	<input type="text" class="form-control col-sm-2" id='contestPrice' name='contestPrice' style="display: inline;" placeholder="상금 총액" />
+	     	<input type="text" class="form-control col-sm-2" id='contestPrice' name='contestPrice' style="display: inline;" placeholder="상금 총액"  value='${contest.get("CONTESTPRICE")}'/>
 	       	
 	       	<br/>
 	       	  
 	        <label>기한</label> 
-	        <input type="date" id='contestDate' name='contestDate' class="form-control col-sm-2" style="display: inline">~
-	        <input type="date" id='contestDeadLine' name='contestDeadLine' class="form-control col-sm-2" style="display: inline">
+	        <input type="date" id='contestDate' name='contestDate' class="form-control col-sm-2" style="display: inline" value="${contest.get('CONTESTDATE')}" >~
+	        <input type="date" id='contestDeadLine' name='contestDeadLine' class="form-control col-sm-2" style="display: inline" value="${contest.get('CONTESTDEADLINE')}">
 			<script>        
 		        $(function()
         		{
@@ -221,57 +223,71 @@
 	        <br/> 
 	         
 	        <label>상세 설명</label>
-	        <textarea class="form-control" id='contestContent' name='contestContent' rows="10"></textarea>
+	        <textarea class="form-control" id='contestContent' name='contestContent' rows="10">${contest.CONTESTCONTENT}</textarea>
 	        <br>
-	        <div class="filebox bs3-primary preview-image">
-	           <label for="input_file">사진 선택</label> 
-	           <input type="file" id="input_file" name='upFile' class="upload-hidden" multiple="multiple" accept=".gif, .jpg, .png"> 
-            </div>
+	        <div id="null">
+         		<span class='nullimg'>메인에 노출될 사진을 선택해주세요</span>
+         	</div>
+	       	<div id='modifyFilePreview' class="filebox bs3-primary preview-image">
+	       		<c:forEach items="${contestImgList}" var="contestImgList" varStatus='status'>
+	       			<div class="upload-display"><input type="radio" name="mainImgNo" value='${status.index}'><div class="upload-thumb-wrap"><img src="${path}/resources/upload/contest/${contestImgList.CONTESTIMGRE}" class="upload-thumb"></div></div>	
+	       		</c:forEach>
+	            <label for="upFile">사진 선택</label> 
+	            
+	            <input type="file" name="upFile" id="upFile" class="upload-hidden" multiple="multiple" accept=".gif, .jpg, .png"> 
+	        </div>
+            	
             <script>
 	            var sel_files=[];
-				$(document).ready(function()
-				{
-			       //preview image 
-			       var imgTarget = $('.preview-image .upload-hidden');
-			
-			       imgTarget.on('change', function(e)
-	    		   {
-			           var files=e.target.files;
-			           var filesArr=Array.prototype.slice.call(files);
-			           console.log(files);
-			           var parent = $(this).parent();
-			           parent.children('.upload-display').remove();
-			           console.log("수 : " + filesArr.length);
-			           if(filesArr.length > 5)
-				       {
-				          alert("사진은 5개 제한입니다.");
-				          return;
-				       }
-			           filesArr.forEach(function(f)
-	        		   {
-			               if(!f.type.match("image.*"))
-			               {
-			                  alert("확장자는 이미지 확장자만 가능합니다.");
-			                  return;
-			               }
-				           console.log(f)
-				           sel_files.push(f);
-				               
-			               var reader=new FileReader();
-			               reader.onload=function(e)
-			               {
-				              var src = e.target.result;
-				              parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
-			               }				               
-				           reader.readAsDataURL(f);
-			            })
-			         });
-			      });
+	            var count = 0;
+	            $(document).ready(function(){
+                   //preview image 
+                   
+                   var imgTarget = $('.preview-image .upload-hidden');
+                  
+                   imgTarget.on('change', function(e){
+                      var files=e.target.files;
+                       var filesArr=Array.prototype.slice.call(files);
+                       console.log(files);
+                       var parent = $(this).parent();
+                       parent.children('.upload-display').remove();
+                      
+                       console.log("수 : " + filesArr.length);
+                     if(filesArr.length > 5)
+                     {
+                        alert("사진은 5개 제한입니다.");
+                        return;
+                     }
+                       filesArr.forEach(function(f){
+                          count = 0;
+                           if(!f.type.match("image.*")){
+                              alert("확장자는 이미지 확장자만 가능합니다.");
+                              return;
+                      
+                           }
+                           console.log(f)
+                           sel_files.push(f);
+                           
+                           var reader=new FileReader();
+                           reader.onload=function(e){
+                              var src = e.target.result;
+                               parent.prepend('<div class="upload-display"><input type="radio" name="mainImgNo" value='+ (count++) +'><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+                           }
+                           
+                           reader.readAsDataURL(f);
+                           
+                           
+                        })
+                         
+                    });
+                  
+               });
+            
 			</script>
 	        <br>
 	        <div id="btn-container">
 	           <button class="btn btn-secondary">취소</button>
-	           <input type='submit' class="btn btn-secondary" value='작성'/>
+	           <input type='submit' class="btn btn-secondary" value='수정'/>
 	        </div>
         </form>
     </div>
