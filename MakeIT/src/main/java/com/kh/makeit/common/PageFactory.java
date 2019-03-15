@@ -9,8 +9,15 @@ public class PageFactory {
 		int pageNo = ((cPage-1)/pageBarSize)*pageBarSize+1;
 		int pageEnd = pageNo+pageBarSize-1;
 		int totalPage = (int)Math.ceil((double)totalCon/numPerPage); 
-		pageBar+="<ul class='pagination justify-content-center pagination-sm'>";
+		pageBar+="<ul class='pagination pagination-sm' style='justify-content:center'>";
 		// 이전
+		System.out.println("pagination cPage :"+ cPage);
+		System.out.println("pagination pageNo :"+pageNo);
+		System.out.println("pagination totalCon :"+totalCon);
+		System.out.println("pagination numPerPage :"+numPerPage);
+		System.out.println("pagination totalPage :"+totalPage);
+		
+		
 		if(pageNo==1) {
 			pageBar+="<li class='page-item' disabled>";
 			pageBar+="<a class='page-link' href='#' tabindex='-1'>이전</a>";

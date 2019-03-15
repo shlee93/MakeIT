@@ -134,7 +134,7 @@
     $(function(){
         setTimeout(function(){
  
-            $('#videoImg').attr('src','${pageContext.request.contextPath }/resources/introSource/video/Intro2GIF.gif');
+            $('#videoImg').attr('src','${path }/resources/introSource/video/Intro2GIF.gif');
         },1000);
     })
 

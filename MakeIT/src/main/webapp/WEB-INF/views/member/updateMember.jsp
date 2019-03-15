@@ -455,13 +455,6 @@ $(function(){
             $('#memberName').focus();
             return false;
         }
-        
-        if($('#memberNo').val().trim().length==0)
-        {
-            alert("생년월일 입력하세요");
-            $('#memberNo').focus();
-            return false;
-        }
 
         if($('#addSearch').val().trim().length==0)
         {
@@ -490,15 +483,30 @@ $(function(){
             $('#memberEmail').focus();
             return false;
         }
-        var f=document.signupform;
-        if(f.joinEmailDomain.value=='')
-        {
-            alert("이메일 도메인을 선택해주세요");
-            $('#joinEmailDomain').focus();
-            return false;
-        }   
+
         return true;
     };      
+    	
+    $(function()
+	{
+	    fn_setDatePickerMax();
+	});
+	
+	function fn_setDatePickerMax()
+	{
+	    var datePicker1 = document.getElementById('birth');
+	    datePicker1.max = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
+	    console.log(datePicker1.val);
+	   	    	
+	 }
+	
+	$('#cancleBtn').click(function(){
+		location.href = "${path}/member/memberMyPage.do";
+	});
+	$('#updateBtn').click(function(){
+		$('#updateFrm').submit();
+	})
+    
     	
 </script>
 

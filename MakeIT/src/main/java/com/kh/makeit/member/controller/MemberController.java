@@ -971,25 +971,30 @@ public class MemberController {
 	@RequestMapping(value="/member/ranking.do",	produces="application/text; charset=utf8")
 	@ResponseBody
 	public String rankingAjax(){
-		DecimalFormat format = new DecimalFormat("###,###");
-		logger.info("시작~");
+
 		List<Map<String,String>> allList = service.selectRanking();
-		System.out.println("리스트 : "+allList);
-		System.out.println("리스트1 : "+allList.get(0));
-		System.out.println("리스트2 : "+allList.get(1));
-		logger.info("리스트 : "+allList);
 		Gson gson = new Gson();
 		String data = gson.toJson(allList);
-
-		logger.info(data);
+		
 		return data;
 	}
 	@RequestMapping("/intropage/intropage.do")
-	public String mainpage(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		logger.debug("세션 : "+session.getAttribute("member"));
+	public String intropage(HttpServletRequest request, HttpServletResponse response) {
+		
+		Cookie cookie = new Cookie("introCookie", "1");
+		cookie.setMaxAge(10 * 60);
+		response.addCookie(cookie);
+		
+		Cookie[] cookies = request.getCookies();
+		logger.info("쿠키 값 : "+cookies);
+		
 		return "intropage/intropage";
-
+	}
+	
+	@RequestMapping("/mainpage/mainpage.do")
+	public String mainpage() {
+		
+		return "mainpage/mainpage";
 	}
 
 }
