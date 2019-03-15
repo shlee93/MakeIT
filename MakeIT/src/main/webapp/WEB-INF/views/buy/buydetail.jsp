@@ -31,8 +31,12 @@
 	var reviewTotal = 0;
 	var reviewCnt = ${reviewCnt};
 	var reviewAvg = 0;
-	$(document).ready(function() {
-		for(var i = 0; i < reviewCnt-1; i++)
+	console.log("리뷰총합 : " + reviewTotal);
+	console.log("리뷰수 : " + reviewCnt);
+	console.log("리뷰평균 : " + reviewAvg); 
+	
+	 $(document).on('click','#nav-profile-tab',function() {
+		for(var i = 0; i < reviewCnt; i++)
 		{
 			reviewTotal += ${reviewList.get(i).BUYREVIEWSTAR};
 		}
@@ -41,8 +45,8 @@
 		var html = "<img src='${path }/resources/image/star.png'>"
 		+ "<p id='reviewAvg'>" + reviewAvg + "</p>";
 		$("#rateTd").append(html);
-	}
-
+	 });
+ 
      $(document).on('click','.subImgs',function(){
        var imgIndex = $(this).parent('.subImg').prevAll().length;   
        console.log(imgIndex);
