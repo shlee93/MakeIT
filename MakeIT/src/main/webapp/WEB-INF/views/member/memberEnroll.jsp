@@ -339,7 +339,7 @@
     
 <script>
 	function main(){
-		
+		location.href = "${path}/member/mainPage";
 	}
 	function fn_accountCheck(){
 		var bankCode=$("#bank").val().trim();
@@ -459,7 +459,7 @@
             	$("#alert-success").hide();
 	            $("#alert-danger").show();
             } else{
-            	if(!/^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(joinPw))
+            	if(/^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(joinPw))
                 { 
                 	if(joincPw != "" || joinPw != ""){
             	        if(joinPw == joincPw){
@@ -470,9 +470,12 @@
             	            $("#alert-danger").show();
             	        }    
             	    }
+                } else{
+                	$("#alert-success").hide();
+     	            $("#alert-danger").show();
                 }
     			
-                if(!/^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(joincPw))
+                if(/^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(joincPw))
                 { 
                 	if(joinPw != "" || joincPw != ""){
             	        if(joinPw == joincPw){
@@ -483,6 +486,9 @@
             	            $("#alert-danger").show();
             	        }    
             	    }
+                } else{
+               		$("#alert-success").hide();
+     	            $("#alert-danger").show();
                 }
             	
             }

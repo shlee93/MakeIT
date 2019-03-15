@@ -1107,6 +1107,11 @@ public class MemberController {
 		return mv;
 	}
 	
+	@RequestMapping("/member/mainPage")
+	public String mainPageView() {
+		return "redirect:/";
+	}
+	
 	@RequestMapping("/member/mainajax.do")
 	@ResponseBody
 	public Map<String,String> mainAjax() {
