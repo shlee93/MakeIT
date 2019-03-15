@@ -35,6 +35,10 @@
                                    <div class="box3" style='margin: 20px;'>
                                        <div id="grade${gradeList.SELLNO}">
                                        		<script>
+                                       		function fn_detailView(sellno)
+                                            {
+                                               location.href="${path}/sell/selldetail?sellno="+sellno;
+                                            }
                                        	  $(function()
                                                   {
                                                      var sellNo=${gradeList.SELLNO};
@@ -47,16 +51,16 @@
 
                                                                var imgContainer=$('#grade${gradeList.SELLNO}');
                                                                
-                                                               imgContainer.append("<a href='${path}/sell/selldetail?"+${gradeList.SELLNO}+"'><img src='${path}/resources/upload/sell/"+ data["sellImgRe"]+"'style='width:100%;height:200px'></a>");
+                                                               imgContainer.append("<img src='${path}/resources/upload/sell/"+ data["sellImgRe"]+ "' style='width: 100%; height: 200px;cursor:pointer;' onclick='fn_detailView(${gradeList.SELLNO})'>");
                                                            }
                                                      });                                         
                                                    });   
                                        		</script>                                       	
                                        </div>
-                                       <div class="box-content">
+											<div class="box-content" onclick="location.href='${path}/sell/selldetail?sellno=${gradeList.SELLNO }'">
                                             <h3 class="title">${gradeList.MEMBERID}</h3>                                                                                      
                                            <p class="description">
-                                               Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ad adipisci pariatur qui.
+                                               ${gradeList.INTRODUCTION}
                                            </p>
                                            <ul class="icon">
                                                <li><a href="#" class="fa fa-search"></a></li>

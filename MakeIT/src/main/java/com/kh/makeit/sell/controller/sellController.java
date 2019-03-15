@@ -343,21 +343,198 @@ public class sellController {
    }
    //메인페이지에서 이미지클릭해서 상세뷰로
    @RequestMapping("/sell/selldetail")
-   public ModelAndView selldeatailView(int sellno)
+   public ModelAndView selldeatailView(int sellno,HttpServletRequest request)
    {
 	   List<Map<String,String>> detailList=service.selldetailView(sellno);
 	   List<Map<String,String>> mainimgList=service.selldetailImg(sellno);
 	   List<Map<String,String>> optionList=service.selldetailOption(sellno);
 	   List<Map<String,String>> sellReivew=service.sellReview(sellno);
 	   List<Map<String,String>> subimgList=service.sellsubImg(sellno);
+	  
+	   HttpSession session = request.getSession();
 	   ModelAndView mv = new ModelAndView();
-	   System.out.println(detailList);
+	   if((Map)session.getAttribute("member")!=null)
+	   {
+		   
+		   Map<String,String> sessionMap=(Map)session.getAttribute("member");
+		   String loginMember=String.valueOf(sessionMap.get("MEMBERID"));
+		   Map outBoxc= new HashMap();
+		   outBoxc.put("sellno",sellno);
+		   outBoxc.put("loginMember", loginMember);
+		   Map outBoxYn=service.sellOutBoxYn(outBoxc);
+		   mv.addObject("outBoxYn",outBoxYn);
+		   mv.addObject("session", sessionMap);
+	   }
+	  
 	   mv.addObject("subimgList",subimgList);
 	   mv.addObject("detailList",detailList);
 	   mv.addObject("mainimgList",mainimgList);
 	   mv.addObject("optionList",optionList);
 	   mv.addObject("sellReivew",sellReivew);
 	   mv.setViewName("sell/sellDetail");
+	   return mv;
+   }
+   @RequestMapping("/sell/sellModify")
+   public ModelAndView sellModify(HttpServletRequest request,int sellno)
+   {
+	  /* sellno=request.getParameter("sellno");*/
+	  System.out.println(sellno);
+	  ModelAndView mv = new ModelAndView();
+	  Map modifyMap=service.sellModify(sellno);
+	  List<Map<String,String>> modifyOption=service.sellOptionModify(sellno);
+	  List<Map<String,String>> modifyImg=service.sellImgModify(sellno); 
+	  mv.addObject("modifyMap",modifyMap);
+	  mv.addObject("modifyImg",modifyImg);
+	  mv.addObject("modifyOption",modifyOption);
+	  mv.setViewName("/sell/sellModify");
+	  return mv;
+   }
+   @RequestMapping("/sell/sellModifyEnd")
+   public ModelAndView sellModify(int sellno,String[] price,int interest, int detailInterest,String writeTitle,String[] endDate,String[] productOption,String sellContent,MultipartFile[] input_file, int mainImgNo, HttpServletRequest request)
+   {
+	   	  HttpSession session = request.getSession();
+	   	  Map sessionMap=(Map)session.getAttribute("member");
+	      Map dataMap=new HashMap();
+	      SellOption selloption = new SellOption();
+	      selloption.setSellPrice(price);
+	      selloption.setSelldeadline(endDate);
+	      selloption.setSellOptionContent(productOption);
+	      dataMap.put("sellno", sellno);
+	      dataMap.put("interest", interest);
+	      dataMap.put("detailInterest", detailInterest);
+	      dataMap.put("writer", sessionMap.get("MEMBERID"));
+	      dataMap.put("title", writeTitle);
+	      dataMap.put("content", sellContent);
+	      ArrayList<SellAttach> files=new ArrayList();
+	      String savDir=request.getSession().getServletContext().getRealPath("/resources/upload/sell");
+	      Map imgMap=new HashMap();
+	      
+	      
+	      MultipartFile index = input_file[mainImgNo];
+	      input_file[mainImgNo] = input_file[0];
+	      input_file[0] = index;
+	     
+	      
+	      for(MultipartFile f: input_file)
+	      {
+	         if(!f.isEmpty()) {
+	            //파일명 생성(rename)
+	            String orifileName=f.getOriginalFilename();
+	            String ext=orifileName.substring(orifileName.lastIndexOf(".")); //.부터 확장자까지 가져오기
+	            //rename규칙 설정
+	            SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSSS");
+	            int rdv=(int)(Math.random()*1000); //랜덤값설정
+	            String reName=sdf.format(System.currentTimeMillis())+"_"+rdv+ext;  //새이름
+	            //파일입출력ㅎ
+	            try {
+	               System.out.println("파일입출력되니?");
+	               f.transferTo(new File(savDir+"/"+reName)); //저경로에다가 파일을 생성해주는것
+	            }catch(IllegalStateException | IOException e) {  //일리갈은 세이브디아이알 못찾을때 뜨는것
+	               e.printStackTrace();
+	            }
+	            SellAttach sa = new SellAttach();
+	            sa.setSellImgRe(reName);
+	            sa.setSellImgOri(orifileName);
+	            files.add(sa);
+	         }
+	      }
+	      int result=service.sellModifyEnd(files,dataMap,selloption);
+	      String msg="";
+	      String loc="";
+	      ModelAndView mv = new ModelAndView();
+	      if(result>0)
+	      {
+	         msg="판매글 수정을 완료하였습니다.";
+	         loc="/sell/sellmain.do";
+	         mv.addObject("msg",msg);
+	         mv.addObject("loc",loc);
+	         mv.setViewName("common/msg");
+	         return mv;
+	      }else {
+	         msg="판매글 수정에 실패하였습니다. 다시 시도해 주세요";
+	         loc="/sell/sellModify";
+	         mv.addObject("msg",msg);
+	         mv.addObject("loc",loc);
+	         mv.setViewName("common/msg");
+	         return mv;
+	      }
+ 
+   }
+  
+   //찜하기 메소드 ㅎ
+   @RequestMapping("sell/sellOutBox.do")
+   public ModelAndView sellOutBoxInsert(int sellno,HttpServletRequest request)
+   {
+	   ModelAndView mv= new ModelAndView();
+	   HttpSession session = request.getSession();
+	   Map sessionMap=(Map)session.getAttribute("member");
+	   Map outBoxInsert =new HashMap();
+	   outBoxInsert.put("sellno", sellno);
+	   outBoxInsert.put("memberId", sessionMap.get("MEMBERID"));
+	   int result =service.sellOutBoxInsert(outBoxInsert);
+	   		String msg="";
+	      String loc="";
+	     
+	      if(result>0)
+	      {
+	         msg="판매글 찜을 완료하였습니다.";
+	         loc="/sell/selldetail.do?sellno="+sellno;
+	         mv.addObject("msg",msg);
+	         mv.addObject("loc",loc);
+	         mv.setViewName("common/msg");
+	         return mv;
+	      }else {
+	         msg="판매글 찜에 실패하였습니다. 다시 시도해 주세요";
+	         loc="/sell/selldetail.do?sellno="+sellno;
+	         mv.addObject("msg",msg);
+	         mv.addObject("loc",loc);
+	         mv.setViewName("common/msg");
+	         return mv;
+	      }
+	   
+   }
+   //찜풀기 메소드 ㅎ
+   @RequestMapping("/sell/sellOutBoxDel.do")
+   public ModelAndView sellOutBoxDelete(int sellno,HttpServletRequest request)
+   {
+	   ModelAndView mv= new ModelAndView();
+	   HttpSession session = request.getSession();
+	   Map sessionMap=(Map)session.getAttribute("member");
+	   Map outBoxDelete =new HashMap();
+	   outBoxDelete.put("sellno", sellno);
+	   outBoxDelete.put("memberId", sessionMap.get("MEMBERID"));
+	   int result =service.sellOutBoxDelete(outBoxDelete);
+	   		String msg="";
+	      String loc="";
+	     
+	      if(result>0)
+	      {
+	         msg="판매글 찜을 해제하였습니다.";
+	         loc="/sell/selldetail.do?sellno="+sellno;
+	         mv.addObject("msg",msg);
+	         mv.addObject("loc",loc);
+	         mv.setViewName("common/msg");
+	         return mv;
+	      }else {
+	         msg="판매글 찜을 해제하지 못하였습니다. 다시 시도해 주세요 ";
+	         loc="/sell/selldetail.do?sellno="+sellno;
+	         mv.addObject("msg",msg);
+	         mv.addObject("loc",loc);
+	         mv.setViewName("common/msg");
+	         return mv;
+	      }
+   }
+   //신고하는창 띄워주기
+   @RequestMapping("/sell/sellReport")
+   public ModelAndView sellReportPop(int sellno,HttpServletRequest request,String sellWriter)
+   {
+	   ModelAndView mv = new ModelAndView();	   
+	   Map reportMap=new HashMap();
+	   /*reportMap.put("sellno", sellno);
+	   reportMap.put("sellWriter",sellWriter );*/
+	   mv.addObject("sellno",sellno);
+	   mv.addObject("sellWriter",sellWriter);
+	   mv.setViewName("sell/sellReport");
 	   return mv;
    }
    
