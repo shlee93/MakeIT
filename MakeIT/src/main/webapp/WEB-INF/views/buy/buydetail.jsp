@@ -25,26 +25,29 @@
    
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/buydetail/buydetail.css" />
 </head>
-
-
-<script>
-	var reviewTotal = 0;
-	var reviewCnt = ${reviewCnt};
-	var reviewAvg = 0;
-	console.log("리뷰총합 : " + reviewTotal);
-	console.log("리뷰수 : " + reviewCnt);
-	console.log("리뷰평균 : " + reviewAvg); 
-	
+<script>	
+	var reviewList = new Array();
+	<c:forEach items="${reviewList}" var="review">
+		reviewList.push("${review.BUYREVIEWSTAR}");
+	</c:forEach>
+	console.log("${sessionScope.member.MEMBERID}");
 	 $(document).on('click','#nav-profile-tab',function() {
+		var reviewTotal = 0;
+		var reviewCnt = ${reviewCnt};
+		var reviewAvg = 0;
+	
 		for(var i = 0; i < reviewCnt; i++)
 		{
-			reviewTotal += ${reviewList.get(i).BUYREVIEWSTAR};
+			reviewTotal += Number(reviewList[i]);
 		}
+		
 		reviewAvg = reviewTotal / reviewCnt;
 		
-		var html = "<img src='${path }/resources/image/star.png'>"
-		+ "<p id='reviewAvg'>" + reviewAvg + "</p>";
-		$("#rateTd").append(html);
+		var html = "<img id='rateStar' src='${path }/resources/image/star.png'>"
+		+"<p id='reviewAvg'>" + reviewAvg.toFixed(2) + "</p>"
+		+"<p id='reviewCnt'>" + reviewCnt + "명 참여</p>";
+		$("#rate-div").html(html);
+		reviewCnt = 0;
 	 });
  
      $(document).on('click','.subImgs',function(){
@@ -58,9 +61,23 @@
        $(this).attr('src',url2);
                              
 	})
+	
+	function fn_reviewMod(reviewNo)
+	{
+    	 var starPop=open("${path}/buy/modReview.do?buyNo=${param.buyNo}&reviewNo="+reviewNo,"buyStarForm","top=200px, left=200px, width=400px, height=190px");
+	}
+     
+     function fn_reviewDel(reviewNo, buyNo)
+     {
+    	 if(confirm("후기를 삭제하시겠습니까?"))
+    	 location.href="${path}/buy/buyReviewDel.do?reviewNo="+reviewNo +"&buyNo="+buyNo;
+    	 
+     }
+	     
 </script>
  
 <body>
+
 <div class='container-fluid' id="total">
     <div class='row'>
         <div class='col-md-1' id='nav'></div>
@@ -91,13 +108,9 @@
                                <h4>${detailList.BUYCONTENT}</h4>
                             </div>
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                            
-                            	<table id="review-table" class="table" style="width:100%;">
-                            		<tr>
-                            			<td id="rateTd" colspan="3">
-                            				
-                            			</td>
-                            		</tr>
+                            	<div id="rate-div"></div>
+                            	<table id="review-table" class="table" style="width:100%; ">
+                            		
                                 <c:forEach items="${reviewList }" var="review">
                                 	<tr style="font-size:20pt">
                                 		<td class="tab-id">${review.MEMBERID }</td>
@@ -109,7 +122,14 @@
                                 				<img src="${path }/resources/image/emptyStar.png">
                                 			</c:forEach>
                                 		</td>
-                                		<td></td>
+                                		<td style="text-align: right">
+                                			
+                                			<c:if test="${review.MEMBERID eq sessionScope.member.MEMBERID }">
+                                				<button class="btn btn-primary review-mod" onclick="fn_reviewMod('${review.BUYREVIEWNO}','${review.BUYNO }')">수정</button>
+                                				<button class="btn btn-primary review-del" onclick="fn_reviewDel('${review.BUYREVIEWNO}','${review.BUYNO }')">삭제</button>
+                                			</c:if>
+                                			
+                                		</td>
                                 	</tr>
                                 	<tr style="font-size:15pt">
                                 		<td></td>
