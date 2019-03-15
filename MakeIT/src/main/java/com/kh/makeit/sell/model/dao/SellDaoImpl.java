@@ -200,6 +200,12 @@ public class SellDaoImpl implements SellDao {
 		return sqlSession.insert("sell.sellOutBoxDelete",outBoxDelete);
 	}
 
+	@Override
+	public int insertReport(Map reportMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("sell.insertReport",reportMap);
+	}
+
 	
 	
 

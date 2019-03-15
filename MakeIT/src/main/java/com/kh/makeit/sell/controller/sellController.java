@@ -528,6 +528,7 @@ public class sellController {
    @RequestMapping("/sell/sellReport")
    public ModelAndView sellReportPop(int sellno,HttpServletRequest request,String sellWriter)
    {
+	   System.out.println(sellno+sellWriter);
 	   ModelAndView mv = new ModelAndView();	   
 	   Map reportMap=new HashMap();
 	   /*reportMap.put("sellno", sellno);
@@ -535,6 +536,25 @@ public class sellController {
 	   mv.addObject("sellno",sellno);
 	   mv.addObject("sellWriter",sellWriter);
 	   mv.setViewName("sell/sellReport");
+	   return mv;
+   }
+   
+   //신고하는것 처리
+   @RequestMapping("/sell/sellReportEnd")
+   public ModelAndView sellReprotEnd(int sellno,String reportId,String reportContent)
+   {
+	   ModelAndView mv= new ModelAndView();
+	   Map reportMap=new HashMap();
+	   String msg="";
+	   reportMap.put("sellno", sellno);
+	   reportMap.put("reportId", reportId);
+	   reportMap.put("reportContent",reportContent);
+	   int result=service.insertReport(reportMap);	   	   
+	   msg="신고내용이 접수되었습니다.";
+	   mv.addObject("msg",msg);
+	   mv.addObject("script","window.close();opener.location.reload();");
+	   mv.setViewName("common/msg");
+
 	   return mv;
    }
    
