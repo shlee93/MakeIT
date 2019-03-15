@@ -24,25 +24,46 @@
    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/contestdetail/contestDetail.css" />
-	
+   <link rel='stylesheet' href='${pageContext.request.contextPath }/resources/css/boardCommon/boardCommon.css'/>
+   
+   <jsp:include page="/WEB-INF/views/common/header.jsp">
+	  <jsp:param value="HelloSpring" name="pageTitle"/>
+   </jsp:include>
+   	
 	<style>
 		/* div
 		{
 			border:1px solid red;
 		} */
+		header
+		{
+	       	margin-bottom:-150px;
+	       }
+	       
+	       	html,body{
+			height: 100%;
+		}   
+		
+	   /* div
+	   {
+	    border:1px solid red;  
+	   } */	
+	   
+	
+	    
 	</style>
 </head>
+
 <body>
- <div class='container-fluid' id="total">
+  <div class='container-fluid' id="total">
     <div class='row'>
-        <div class='col-md-1' id='nav'></div>
-	    
-        <div class='col-md-10' id='section' >
+    	<div class='col-md-1' id='left-nav' ></div>    
+        <div class='col-md-10' id='section' style='padding:50px' >
             <div class='row'>
             	
                 <div class="col-md-6" id="img-container" style='padding:1px; width: 100%; height: 600px;'>
                 	<div class='row' id='mainImgContainer'>
-                	   	<img class="mainImg" id='${contestMainImg.CONTESTIMGNO}' src="${path}/resources/upload/contest/${contestMainImg.CONTESTIMGRE}" style='width: 100%; height: 100%;'>
+                	   	<img class="mainImg" id='${contestMainImg.CONTESTIMGNO}' src="${path}/resources/upload/contest/${contestMainImg.CONTESTIMGRE}" style='max-height: 400px; min-height: 600px; width: 100%;'>
                     </div>
                     <div class='row'>
                     	<c:forEach items="${contestSubImgList}" var="contestSubImgList">
@@ -86,79 +107,238 @@
                     </div>                   
                 </div>
                 
-                <div class="col-md-6 fixed" style='position:fixed'>
-        
-                    <nav class="navbar navbar-toggleable-md navbar-light bg-faded"  style='justify-content:center; margin-right: 130px;'>
-                        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                        <span>작성자 정보확인</span>
-                        </button>
-                        
-                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                            <div class="navbar-nav">
-                                <a class="nav-item nav-link active xx" href="#">평점|후기 보기</a>
-                                <a class="nav-item nav-link xx" href="#">다른 글보기</a>
-                                
-                                <a class="nav-item nav-link disabled xx" href="#">Disabled</a>
-                            </div>
-                        </div>                                            
-                    </nav>
-                   
-                    <div class="row " style="text-align:center">
+                <div class="col-md-6 fixed" style='position:fixed; margin-top: -5em; margin-right: 50em;'>                  
+                    
+                    <div class="row " style="text-align:center; margin-left:-5em;" >
                         <div class="col-md-10">
-                        	<img class="subImgs userImg" src='${path}/resources/upload/member/${contestObj.REIMG}'>     
-                          	<c:set var='currentId' value='${memberMap.get("MEMBERID")}'/>								
-	                          	<c:choose>
-		                          	<c:when test="${currentId eq contestObj.MEMBERID}">
-		                          		<input type='button' class="btn btn-primary" onclick='fn_applicantList_modal(${contestObj.CONTESTNO})' value='지원자보기'>
-		                          	</c:when>
-						      		<c:otherwise>	
-		                          		<button type=button class="btn btn-primary"> <i class="far fa-star">찜하기</i></button>
-		                          	</c:otherwise>
-	                          	</c:choose>
-                          	<p>${contestObj.INTRODUCTION}</p>
-                          	
-	                          	<c:set var='currentId' value='${memberMap.get("MEMBERID")}'/>								
-	                          	<c:choose>
-							    	<c:when test="${currentId eq contestObj.MEMBERID}">
-							    		<form id='contestDetailFrm'>
-							    			<input id='contestDelNo' name='contestDelNo' type='hidden' value='${contestObj.CONTESTNO}'/>
-							    		</form>
-								    	<input type='button' class='btn btn-primary' onclick='fn_contestDelSubmit()' value='삭제하기'/>
-								    	<script>
-								    		function fn_contestDelSubmit()
-								    		{
-								    			$('#contestDetailFrm').attr('action','${path}/contest/contestDel.do');
-								    			$('#contestDetailFrm').submit();
-								    		}
-								    	</script>   
-							      	</c:when>
-							      	<c:otherwise>
-							      		<button class="btn btn-primary">쪽지보내기</button>
-							      	</c:otherwise>
-							 	</c:choose>  								
-	                          	<c:choose>
-							    	<c:when test="${currentId eq contestObj.MEMBERID}">
-								    	<button class='btn btn-primary' onclick='fn_contestModify()'>수정하기</button>
-								    	<script>
-								    		function fn_contestModify()
-								    		{
-								    			$('#contestDetailFrm').attr('action','${path}/contest/contestModify.do');
-								    			$('#contestDetailFrm').submit();
-								    		}
-								    	</script>									    							    	   
-							      	</c:when>
-						      		<c:otherwise>
-						      			<input type='button' class="btn btn-primary" onclick='fn_applicantAccess_modal()' value='지원하기'>
-						      			
-						      		</c:otherwise>
-						 		</c:choose>
-                        </div>
-                    	<div class="col-md-2"></div>
+ 			                   <!-- 동글뱅이 -->
+                        	  <div class="row align-items-center">
+			                  
+			                     <div class="holderCircle">
+			                        <div class="round"></div>
+			                        <div class="dotCircle">
+			                           <span class="itemDot active itemDot1" data-tab="1">
+	       			                       <i class="far fa-heart donggeulI"></i>
+				                           <span class="forActive"></span>
+			                           </span>
+			                           <span class="itemDot itemDot2" data-tab="2">
+				                           <i class="fa fa-comments donggeulI"></i>
+				                           <span class="forActive"></span>
+			                           </span>
+			                           <span class="itemDot itemDot3" data-tab="3">
+				                           <i class="fa fa-user donggeulI"></i>
+				                           <span class="forActive"></span>
+			                           </span>
+			                           <span class="itemDot itemDot4" data-tab="4">
+				                           <i class="fa fa-tags donggeulI"></i>
+				                           <span class="forActive"></span>
+			                           </span>
+				                       <span class="itemDot itemDot5" data-tab="5">
+				                           <i class="fa fa-upload donggeulI"></i>
+			                           	   <span class="forActive"></span>
+			                           </span>
+			                           <span class="itemDot itemDot6" data-tab="6">
+				                           <i class="fa fa-briefcase donggeulI"></i>
+			                           	   <span class="forActive"></span>
+			                           </span>
+			                        </div>
+			                        <div class="contentCircle">
+			                           <div class="CirItem title-box active CirItem1">
+			                                <!-- 작성자 이미지 컨테이너 -->			                        	
+				                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+												<div class="image_outer_container">
+													<div class="image_inner_container">
+														<img src="${path}/resources/upload/member/${contestObj.REIMG}">
+													</div>
+												</div>
+											</div>
+											<br/>
+											<button class='btn btn-primary'>찜하기</button>
+			                              <!-- <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p> -->
+			                              <i class="fa fa-clock-o"></i>
+			                           </div>
+			                           
+			                           <div class="CirItem title-box active CirItem2">
+			                              <!-- 작성자 이미지 컨테이너 -->			                        	
+			                        	  <div class="d-flex justify-content-center h-100" style='margin-bottom:-8em;'>
+											 <div class="image_outer_container">
+												 <div class="image_inner_container">
+													<img src="${path}/resources/upload/member/${contestObj.REIMG}">
+												</div>
+											 </div>
+										  </div>
+											
+										  </br>
+											
+											<c:set var='currentId' value='${memberMap.get("MEMBERID")}'/>								
+				                          	<c:choose>
+										    	<c:when test="${currentId eq contestObj.MEMBERID}">
+										    		<form id='contestDetailFrm'>
+										    			<input id='contestDelNo' name='contestDelNo' type='hidden' value='${contestObj.CONTESTNO}'/>
+										    		</form>
+											    	<input type='button' class='btn btn-primary' onclick='fn_contestDelSubmit()' value='삭제하기'/>
+											    	<script>
+											    		function fn_contestDelSubmit()
+											    		{
+											    			$('#contestDetailFrm').attr('action','${path}/contest/contestDel.do');
+											    			$('#contestDetailFrm').submit();
+											    		}
+											    	</script>   
+										      	</c:when>
+										      	<c:otherwise>
+										      		<button class="btn btn-primary">쪽지보내기</button>
+										      	</c:otherwise>
+										 	</c:choose>
+			                              <!-- <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p> -->
+			                              <!-- <i class="fa fa-clock-o"></i> -->
+			                           </div>
+			                           
+			                           <div class="CirItem title-box CirItem3">
+			                              <!-- 작성자 이미지 컨테이너 -->
+			                        	
+				                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -5em;'>
+												<div class="image_outer_container">
+													<div class="image_inner_container">
+														<img src="${path}/resources/upload/member/${contestObj.REIMG}">
+													</div>
+												</div>
+											</div>
+			                              <!-- <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p> -->
+			                              <i class="fa fa-user"></i>
+			                           </div>
+			                           <div class="CirItem title-box CirItem4">
+			                              <!-- 작성자 이미지 컨테이너 -->
+			                        	
+				                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -5em;'>
+												<div class="image_outer_container">
+													<div class="image_inner_container">
+														<img src="${path}/resources/upload/member/${contestObj.REIMG}">
+													</div>
+												</div>
+											</div>
+			                              <!-- <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p> -->
+			                              <i class="fa fa-tags"></i>
+			                           </div>
+			                           <div class="CirItem title-box CirItem5">
+			                              <!-- 작성자 이미지 컨테이너 -->
+			                        	
+				                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -5em;'>
+												<div class="image_outer_container">
+													<div class="image_inner_container">
+														<img src="${path}/resources/upload/member/${contestObj.REIMG}">
+													</div>
+												</div>
+											</div>
+			                              <!-- <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p> -->
+			                              <i class="fa fa-upload"></i>
+			                           </div>
+			                           <div class="CirItem title-box CirItem6">
+			                              <!-- 작성자 이미지 컨테이너 -->
+			                        	
+				                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+												<div class="image_outer_container">
+													<div class="image_inner_container">
+														<img src="${path}/resources/upload/member/${contestObj.REIMG}">
+													</div>
+												</div>
+											</div>
+											
+											</br>
+											<c:choose>
+										    	<c:when test="${currentId eq contestObj.MEMBERID}">
+											    	<button type="button" class='btn btn-primary' onclick='fn_contestModify()'>수정하기</button>
+											    	<script>
+											    		function fn_contestModify()
+											    		{
+											    			$('#contestDetailFrm').attr('action','${path}/contest/contestModify.do');
+											    			$('#contestDetailFrm').submit();
+											    		}
+											    	</script>									    							    	   
+										      	</c:when>
+									      		<c:otherwise>
+									      			<input type='button' class="btn btn-primary" onclick='fn_applicantAccess_modal()' value='지원하기'>									      			
+									      		</c:otherwise>
+									 		</c:choose>
+			                              <!-- <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p> -->			                              
+			                           </div>
+			                        </div>
+			                     </div>
+			                  
+			               </div>
+			               
+               			   <!-- 동글뱅이 끝-->	
+			               
+			               <!-- 동글뱅이 스크립트 -->
+			               <script>
+			               
+							let i=2;
+						
+							
+							$(document).ready(function(){
+								var radius = 200;
+								var fields = $('.itemDot');
+								var container = $('.dotCircle');
+								var width = container.width();
+						 		radius = width/2.5;
+						 
+								 var height = container.height();
+								var angle = 0, step = (2*Math.PI) / fields.length;
+								fields.each(function() {
+									var x = Math.round(width/2 + radius * Math.cos(angle) - $(this).width()/2);
+									var y = Math.round(height/2 + radius * Math.sin(angle) - $(this).height()/2);
+									if(window.console) {
+										console.log($(this).text(), x, y);
+									}
+									
+									$(this).css({
+										left: x + 'px',
+										top: y + 'px'
+									});
+									angle += step;
+								});
+								
+								
+								$('.itemDot').click(function(){
+									
+									var dataTab= $(this).data("tab");
+									$('.itemDot').removeClass('active');
+									$(this).addClass('active');
+									$('.CirItem').removeClass('active');
+									$( '.CirItem'+ dataTab).addClass('active');
+									i=dataTab;
+									
+									$('.dotCircle').css({
+										"transform":"rotate("+(360-(i-1)*36)+"deg)",
+										"transition":"2s"
+									});
+									$('.itemDot').css({
+										"transform":"rotate("+((i-1)*36)+"deg)",
+										"transition":"1s"
+									});									
+								});								
+							});
+						         
+							</script>
+                        	
+                        	<!-- 동글뱅이 스크립트 끝 -->                             	
+	                        
+                          	<div class='row' style='margin-top: -4em;'>
+                          		<div class='col-md-2'></div>
+	                        	
+	                        	<!-- 작성자 소개 -->  	
+                          		<div class='col-md-8'>
+                          			<p>${contestObj.INTRODUCTION}</p>
+                          		</div>
+                          		<!-- 작성자 소개 끝 -->
+                          		
+                          		<div class='col-md-2'></div>                          		
+                          	</div>                          	
+                        </div>                    	
                     </div>                      
       			</div>        
            </div>
-       </div>   
+       </div>
+          
     
     <div class='col-md-1' id='right-nav' ></div>
     <script>
