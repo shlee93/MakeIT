@@ -15,7 +15,7 @@
 	
 	<a class="dropdown-item" href="${path }/member/memberMyPage.do">마이페이지</a>
 	
-	<a class="dropdown-item" href="${path }/member/memberMyPage.do">주재범</a>
+	
 	
 	
 	<a class="dropdown-item" href="${path }/buy/volList.do">지원자 리스트</a>
@@ -28,6 +28,7 @@
 	<a class="dropdown-item" href="${path }/contest/contestDetail.do">컨테스트상세</a>
 	<a class="dropdown-item" href="${path }/contest/contestWrite.do">컨테스트글작성</a>
 	<a class="dropdown-item" href="${path }/mainpage/mainpage.do">메인페이지</a>
+	<a class="dropdown-item" href="${path }/admin/adminView.do">관리자</a>
 		<a class="dropdown-item" href="${path }/intropage/intropage.do">인트로페이지</a>
 
 
