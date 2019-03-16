@@ -461,41 +461,44 @@ public class ContestController
 		contest.put("interestNo", interestNo);
 		contest.put("memberId", memberId);
 		
-		String savDir=request.getSession().getServletContext().getRealPath("/resources/upload/contest");
-		ArrayList<ContestImg> files=new ArrayList<>();		
-		
-		  
-	      MultipartFile index = upFile[mainImgNo];
-	      upFile[mainImgNo] = upFile[0];
-	      upFile[0] = index;
-		
-		for(MultipartFile f:upFile)
-		{  
-			ContestImg contestImg=new ContestImg();
-			if(!f.isEmpty())
-			{
-				//파일명을 생성(rename)
-				String oriFileName=f.getOriginalFilename();
-				String ext=oriFileName.substring(oriFileName.lastIndexOf("."));
-				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
-				int rdv=(int)(Math.random()*1000);
-				String reName=sdf.format(System.currentTimeMillis())+"_"+rdv+ext;
-				
-				try
+		if(upFile!=null)
+		{
+			String savDir=request.getSession().getServletContext().getRealPath("/resources/upload/contest");
+			ArrayList<ContestImg> files=new ArrayList<>();		
+			  
+		      MultipartFile index = upFile[mainImgNo];
+		      upFile[mainImgNo] = upFile[0];
+		      upFile[0] = index;
+			
+			for(MultipartFile f:upFile)
+			{  
+				ContestImg contestImg=new ContestImg();
+				if(!f.isEmpty())
 				{
-					f.transferTo(new File(savDir+"/"+reName));
+					//파일명을 생성(rename)
+					String oriFileName=f.getOriginalFilename();
+					String ext=oriFileName.substring(oriFileName.lastIndexOf("."));
+					SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+					int rdv=(int)(Math.random()*1000);
+					String reName=sdf.format(System.currentTimeMillis())+"_"+rdv+ext;
+					
+					try
+					{
+						f.transferTo(new File(savDir+"/"+reName));
+					}
+					catch(IllegalStateException | IOException e)
+					{
+						e.printStackTrace();
+					}
+					contestImg.setContestNo(contestNo);
+					contestImg.setContestImgRe(reName);
+					contestImg.setContestImgOri(oriFileName);
+					files.add(contestImg);				
 				}
-				catch(IllegalStateException | IOException e)
-				{
-					e.printStackTrace();
-				}
-				contestImg.setContestNo(contestNo);
-				contestImg.setContestImgRe(reName);
-				contestImg.setContestImgOri(oriFileName);
-				files.add(contestImg);				
 			}
+			cs.contestModifyEndService(contest, files);
 		}
-		cs.contestModifyEndService(contest, files);
+		
 		
 		return "redirect:/contest/contestMain.do";
 	} 

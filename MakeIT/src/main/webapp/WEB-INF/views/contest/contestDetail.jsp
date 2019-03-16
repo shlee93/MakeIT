@@ -108,39 +108,56 @@
                     	</div>                   
                 	</div>
                 
-                	<div class="col-md-6 fixed" style='position:fixed; margin-top: -6.5em;'>                   
+                	<div class="col-md-6 fixed" style='position:fixed; margin-top: -8em;'>                   
                     	<div class="row " style="text-align:center; margin-left:-5em;" >
                         	<div class="col-md-10">
-                        	
+                        		<h4>${contestObj.GRADENAME} ${contestObj.MEMBERNAME}</h4>
  			                   	<!-- 똥글뱅이 -->
-                        		<div class="row align-items-center" style='margin-bottom: 1em;'>			                  
+                        		<div class="row align-items-center" style='margin-top: -2em;'>			                  
 			                  		<div class="holderCircle">
 			                        	<div class="round"></div>
 			                        	<div class="dotCircle">
-			                           		<span class="itemDot active itemDot1" data-tab="1">
-	       			                       		<i class="far fa-heart donggeulI"></i>
+			                        		<span class="itemDot active itemDot1" data-tab="1">
+				                           	    <c:set var='currentId' value='${memberMap.get("MEMBERID")}'/>								
+				                           	   	   	<c:choose>
+									    	   		   	<c:when test="${currentId eq contestObj.MEMBERID}">
+									    	   		   		<i class="fas fa-edit donggeulI"></i>				 			                          										    	   		   
+									    	   		   	</c:when>
+												       	<c:otherwise>
+								                        	<i class="fas fa-kiss-wink-heart donggeulI"></i>   				     		
+												       	</c:otherwise>
+										 		   	</c:choose>	   	
 				                           		<span class="forActive"></span>
-			                           		</span>
-				                           <span class="itemDot itemDot2" data-tab="2">
-					                           <i class="fa fa-comments donggeulI"></i>
-					                           <span class="forActive"></span>
-				                           </span>
+				                            </span>
+			                           		
+				                            <span class="itemDot itemDot2" data-tab="2">
+				                           	    <c:set var='currentId' value='${memberMap.get("MEMBERID")}'/>								
+				                           	   	   	<c:choose>
+									    	   		   	<c:when test="${currentId eq contestObj.MEMBERID}">
+				 			                          		<i class="fas fa-trash-alt donggeulI"></i>								    	   		   
+									    	   		   	</c:when>
+												       	<c:otherwise>
+								                           	<i class="fa fa-comments donggeulI"></i>			     		
+												       	</c:otherwise>
+										 		   	</c:choose>	   	
+				                           		<span class="forActive"></span>
+				                            </span>
 				                           <span class="itemDot itemDot3" data-tab="3">
-					                           <i class="fa fa-user donggeulI"></i>
-					                           <span class="forActive"></span>
-				                           </span>
-				                           <span class="itemDot itemDot4" data-tab="4">
-					                           <i class="fa fa-tags donggeulI"></i>
-					                           <span class="forActive"></span>
-				                           </span>
-					                       <span class="itemDot itemDot5" data-tab="5">
-					                           <i class="fa fa-upload donggeulI"></i>
-				                           	   <span class="forActive"></span>
-				                           </span>
-				                           <span class="itemDot itemDot6" data-tab="6">
 					                           <i class="fa fa-briefcase donggeulI"></i>
 				                           	   <span class="forActive"></span>
 				                           </span>
+				                           <!-- <span class="itemDot itemDot3" data-tab="3">
+					                           <i class="fa fa-user donggeulI"></i>
+					                           <span class="forActive"></span>
+				                           </span> -->
+				                           <!-- <span class="itemDot itemDot4" data-tab="4">
+					                           <i class="fa fa-tags donggeulI"></i>
+					                           <span class="forActive"></span>
+				                           </span> -->
+					                       <!-- <span class="itemDot itemDot5" data-tab="5">
+					                       	   <i class="fas fa-edit donggeulI"></i>
+				                           	   <span class="forActive"></span>
+				                           </span> -->
 				                        </div>
 			                        	<div class="contentCircle">
 				                           <div class="CirItem title-box active CirItem1">
@@ -152,8 +169,25 @@
 												   </div>
 											   </div>
 											</div>
+											
 											<br/>
-											<button class='btn btn-primary'>찜하기</button>
+											
+											<c:set var='currentId' value='${memberMap.get("MEMBERID")}'/>								
+				                          	<c:choose>
+										    	<c:when test="${currentId eq contestObj.MEMBERID}">												
+													<button type="button" class='btn btn-primary' onclick='fn_contestModify()'>수정하기</button>
+											    	<script>
+											    		function fn_contestModify()
+											    		{
+											    			$('#contestDetailFrm').attr('action','${path}/contest/contestModify.do');
+											    			$('#contestDetailFrm').submit();
+											    		}
+											    	</script>
+										    	</c:when>
+										    	<c:otherwise>										    		
+													<button class='btn btn-primary'>찜하기</button>
+										    	</c:otherwise>
+									    	</c:choose>
 			                              	<!-- <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p> -->
 			                              	<!-- <i class="fa fa-clock-o"></i> -->
 			                            </div>
@@ -196,48 +230,8 @@
 			                              	<!-- <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p> -->
 			                              	<!-- <i class="fa fa-clock-o"></i> -->
 		                           		</div>
-			                           
-			                           	<div class="CirItem title-box CirItem3">
-		                              		
-		                              		<!-- 작성자 이미지 컨테이너 -->
-			                        	
-				                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -5em;'>
-												<div class="image_outer_container">
-													<div class="image_inner_container">
-														<img src="${path}/resources/upload/member/${contestObj.REIMG}">
-													</div>
-												</div>
-											</div>
-			                              	<!-- <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p> -->
-			                              	<!-- <i class="fa fa-user"></i> -->
-			                           	</div>
-			                           	<div class="CirItem title-box CirItem4">
-			                              	<!-- 작성자 이미지 컨테이너 -->
-			                        	
-				                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -5em;'>
-												<div class="image_outer_container">
-													<div class="image_inner_container">
-														<img src="${path}/resources/upload/member/${contestObj.REIMG}">
-													</div>
-												</div>
-											</div>
-			                              	<!-- <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p> -->
-			                              	<!-- <i class="fa fa-tags"></i> -->
-			                           	</div>
-			                           	<div class="CirItem title-box CirItem5">
-			                              	<!-- 작성자 이미지 컨테이너 -->
-			                        	
-				                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -5em;'>
-												<div class="image_outer_container">
-													<div class="image_inner_container">
-														<img src="${path}/resources/upload/member/${contestObj.REIMG}">
-													</div>
-												</div>
-											</div>
-			                              	<!-- <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p> -->
-			                              	<!-- <i class="fa fa-upload"></i> -->
-			                           	</div>
-			                           	<div class="CirItem title-box CirItem6">
+		                           		
+		                           		<div class="CirItem title-box CirItem3">
 			                              	<!-- 작성자 이미지 컨테이너 -->
 			                        	
 				                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
@@ -251,14 +245,7 @@
 											</br>
 											<c:choose>
 										    	<c:when test="${currentId eq contestObj.MEMBERID}">
-											    	<button type="button" class='btn btn-primary' onclick='fn_contestModify()'>수정하기</button>
-											    	<script>
-											    		function fn_contestModify()
-											    		{
-											    			$('#contestDetailFrm').attr('action','${path}/contest/contestModify.do');
-											    			$('#contestDetailFrm').submit();
-											    		}
-											    	</script>									    							    	   
+										    		<input type='button' class='btn btn-primary' onclick='fn_applicantList_modal(${contestObj.CONTESTNO});' value='지원자보기'>											    										    							    	   
 										      	</c:when>
 									      		<c:otherwise>
 									      			<input type='button' class="btn btn-primary" onclick='fn_applicantAccess_modal()' value='지원하기'>									      			
@@ -266,6 +253,54 @@
 									 		</c:choose>
 			                              <!-- <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p> -->			                              
 		                           		</div>
+			                           
+			                           	<div class="CirItem title-box CirItem4">
+		                              		
+		                              		<!-- 작성자 이미지 컨테이너 -->
+			                        	
+				                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+												<div class="image_outer_container">
+													<div class="image_inner_container">
+														<img src="${path}/resources/upload/member/${contestObj.REIMG}">
+													</div>
+												</div>
+											</div>
+											
+											</br>
+											
+							
+			                              	<!-- <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p> -->
+			                              	<!-- <i class="fa fa-user"></i> -->
+			                           	</div>
+			                           	<div class="CirItem title-box CirItem5">
+			                              	<!-- 작성자 이미지 컨테이너 -->
+			                        	
+				                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -5em;'>
+												<div class="image_outer_container">
+													<div class="image_inner_container">
+														<img src="${path}/resources/upload/member/${contestObj.REIMG}">
+													</div>
+												</div>
+											</div>
+			                              	<!-- <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p> -->
+			                              	<!-- <i class="fa fa-tags"></i> -->
+			                           	</div>
+			                           	<div class="CirItem title-box CirItem6">
+			                              	<!-- 작성자 이미지 컨테이너 -->
+			                        	
+				                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+												<div class="image_outer_container">
+													<div class="image_inner_container">
+														<img src="${path}/resources/upload/member/${contestObj.REIMG}">
+													</div>
+												</div>
+											</div>
+											
+											<br/>											
+											
+			                              	<!-- <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p> -->
+			                              	<!-- <i class="fa fa-upload"></i> -->
+			                           	</div>			                           	
 		                        	</div>
 		                     	</div>			                  
 			               </div>			               
