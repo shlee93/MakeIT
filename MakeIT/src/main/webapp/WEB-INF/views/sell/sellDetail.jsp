@@ -1,34 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 	<c:set var="path" value="${pageContext.request.contextPath }"/>
-	    <!-- Latest compiled and minified CSS -->
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-   
-   <!-- jQuery library -->
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-   
-   <!-- Popper JS -->
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-   
-   <!-- Latest compiled JavaScript -->
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+	
+<jsp:include page="/WEB-INF/views/common/header.jsp">
+	<jsp:param value="HelloSpring" name="pageTitle"/>
+</jsp:include>
    
    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-   
-	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/selldetail/selldetail.css" />
+   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/selldetail/selldetail.css" />   
+   <link rel='stylesheet' href='${pageContext.request.contextPath }/resources/css/boardCommon/boardCommon.css'/>
 </head>
 
-
 <script>
-     $(document).on('click','.subImgs',function(){
+    $(document).on('click','.subImgs',function(){
        var imgIndex = $(this).parent('.subImg').prevAll().length;   
        console.log(imgIndex);
        /* console.log(('.subImg:eq('+0+') .subImgs').attr('src'));  */
@@ -49,8 +36,10 @@
  
 </style>   
  
-<body>
-<div class='container-fluid' id="total">
+
+ 
+                               
+<div class='container-fluid' id="total" style=min-height:1700px; >
     <div class='row'>
         <div class='col-md-1' id='nav'></div>
         <div class='col-md-10' id='section' >
@@ -123,18 +112,27 @@
                             	<br/>
                                 <h4>${detailList.get(0).GRADENAME} ${detailList.get(0).MEMBERNAME}</h4>
                                 <a class="nav-item nav-link active xx" href="#">쪽지보내기</a>
-                                <a class="nav-item nav-link active xx" href="#">다른 글보기</a>                                
+                                <a class="nav-item nav-link active xx" href="#">다른 글보기</a>   
+                                <a class="nav-item nav-link active xx" href="#" onclick="fn_reportPop(); return false;">신고하기</a>                                
                             </div>
                         </div>                                            
                     </nav>
                     <div class="row " style="text-align:center">
                         <div class="col-md-10">
                         
-                            <img  class="userImg" src="${path}/resources/upload/member/${detailList.get(0).REIMG}">     
+                            <img  class="userImg" src="${path}/resources/upload/member/${detailList.get(0).REIMG}" style="max-width:200px;max-height:200px;">     
                             <br/>
                             <div class='row' style='margin-top: 1.2em'>
                                 <div class='col-md-7'>
-                                    <button class="btn btn-primary" onclick="fn_outbox();" style='padding-left:17px; padding-right:17px; float:right;'><i class='far fa-star'></i>찜하기</button>
+                                	<c:if test="${empty outBoxYn and detailList.get(0).MEMBERID ne session.MEMBERID }">
+                                    	<button class="btn btn-primary" onclick="fn_outboxDo();" style='padding-left:17px; padding-right:17px; float:right;'><i class='far fa-star'></i>찜하기</button>
+                                    </c:if>
+                                    <c:if test="${!empty outBoxYn and detailList.get(0).MEMBERID ne session.MEMBERID }">
+                                   		<button class="btn btn-primary" onclick="fn_outboxNo();" style='padding-left:17px; padding-right:17px; float:right;'><i class='far fa-star'></i>찜풀기</button>
+                                   	</c:if>
+                                   	<c:if test="${detailList.get(0).MEMBERID eq session.MEMBERID and session!=null}">
+                                   		<button class="btn btn-primary" onclick=";" style='padding-left:17px; padding-right:17px; float:right;'><i class='far fa-star'></i>구매자 보기</button>
+                                   	</c:if>
                                 </div>
                                 
                                             
@@ -155,19 +153,35 @@
                             </div>
                             <div class='row' style='margin-top: 1.2em'>
                                 <div class='col-md-6'>
-                                    <button class="btn btn-primary" style='padding-left:17px; padding-right:17px; float:right;'>구매하기</button>
+                               
+                                	<c:if test="${session.MEMBERID eq detailList.get(0).MEMBERID}">
+                                		<button class="btn btn-primary" onclick="fn_sellModify();" id="sellModify" style='padding-left:17px; padding-right:17px; float:right;'>수정하기</button>
+                                	</c:if>
+                                	<c:if test="${session.MEMBERID ne detailList.get(0).MEMBERID}">
+                                    	<button class="btn btn-primary" style='padding-left:17px; padding-right:17px; float:right;'>구매하기</button>
+                                    </c:if>
                                 </div>
                                 <div class='col-md-6' style='float:left'>
                                     <button onclick='fn_starPop()'; class='btn btn-primary' style='float:left;' disabled>후기남기기</button>
                                 </div>
+                                <form id='sellDetailFrm'>
+                                	<input type="hidden" id="sellno" name="sellno" value="${detailList.get(0).SELLNO}">
+                                </form>
+                                <form id="sellOutBoxInFrm">
+                                	<input type="hidden" name="sellno" value="${detailList.get(0).SELLNO}">
+                                </form>
+                                <form id="sellOutBoxDelFrm">
+                                	<input type="hidden" name="sellno" value="${detailList.get(0).SELLNO}">
+                                </form>
                                 <script>
+                                	console.log($("#sellno").val());
+                                	
                                     function fn_starPop()
                                     {
                                         var starPop=open("starPop.html","별점/후기","top=200px, left=200px, width=400px, height=150px");
-                                    }
-                                    
-                                    
-                                </script>                              
+                                    }                                                                       
+                                </script>
+                                <input type="hidden" id="loginCheck" name="sellWriter" value="${session.MEMBERID}">                                                             
                             </div>
                         <div class="col-md-2"></div>
                     </div>                      
@@ -175,8 +189,36 @@
           </div>
       </div>
     <div class='col-md-1' id='right-nav' ></div>                   
-</div>   
-</div>
-</div>
+	</div>   
+	</div>
+	</div>
+	<script>
+		var loginCheck=$("#loginCheck").val();
+		var sellno=$("#sellno").val();
+		function fn_sellModify(){
+			$('#sellDetailFrm').attr('action',"${path}/sell/sellModify");
+			$('#sellDetailFrm').submit();
+		}
+		function fn_outboxDo(){
+			$('#sellOutBoxInFrm').attr('action',"${path}/sell/sellOutBox.do");
+			$('#sellOutBoxInFrm').submit();
+		}
+	
+		function fn_outboxNo(){
+			$('#sellOutBoxDelFrm').attr('action',"${path}/sell/sellOutBoxDel.do");
+			$('#sellOutBoxDelFrm').submit();
+		}
+		function fn_reportPop(){
+			if(${sessionScope.member.MEMBERID!=null}){
+				var url="${path}/sell/sellReport";
+				var name="판매글 신고";			
+				window.open("${path}/sell/sellReport?sellWriter=${detailList.get(0).MEMBERID}&&sellno=${detailList.get(0).SELLNO}",name,'width=490, height=300, menubar=no, status=no, toolbar=no');
+			}else{
+				alert('로그인 후 이용해 주세요 ');
+				location.href="${path}/member/memberLogin.do";
+			}
+			
+		}
+	</script>
 </body>
 </html>

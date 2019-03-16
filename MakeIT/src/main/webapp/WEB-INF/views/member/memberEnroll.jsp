@@ -8,11 +8,73 @@
 	<jsp:param value="HelloSpring" name="pageTitle"/>
 </jsp:include>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
+<style>
+.filebox input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip:rect(0,0,0,0);
+    border: 0;
+}
 
+.filebox label {
+    display: inline-block;
+    padding: .5em .75em;
+    color: #999;
+    font-size: inherit;
+    line-height: normal;
+    vertical-align: middle;
+    background-color: #fdfdfd;
+    cursor: pointer;
+    border: 1px solid #ebebeb;
+    border-bottom-color: #e2e2e2;
+    border-radius: .25em;
+}
+
+
+
+/* imaged preview */
+.filebox .upload-display {
+    margin-bottom: 5px;
+}
+
+@media(min-width: 768px) {
+    .filebox .upload-display {
+        display: inline-block;
+        margin-right: 5px;
+        margin-bottom: 0;
+    }
+}
+
+.filebox .upload-thumb-wrap {
+    display: inline-block;
+    width: 54px;
+    padding: 2px;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.filebox .upload-display img {
+    display: block;
+    max-width: 100%;
+    width: 100% \9;
+    height: auto;
+}
+
+.filebox.bs3-primary label {
+  color: #fff;
+  background-color: #337ab7;
+    border-color: #2e6da4;
+}
+</style>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-1">
-            nav
         </div>
         <div class="col-md-10">
             <form name='signupform' action="${path }/member/memberEnrollEnd.do" method="POST" onsubmit='return fn_enroll_validate()' enctype="multipart/form-data">
@@ -37,7 +99,10 @@
 						</c:if>
 					</div>
                     <div class="col-md-6 mb-2">
-                        <input type="file" accept="image/*" id='memberProfile' name='memberProfile' class='form-control' value=''required>
+                        <div class="filebox bs3-primary preview-image">
+				           <label for="memberProfile">사진 선택</label> 
+				           <input type="file" name="memberProfile" id="memberProfile" class="upload-hidden" accept=".gif, .jpg, .png" required> 
+				        </div>
                     </div>
                     <div class="col-md-3 mb-2">
                     </div>
@@ -107,7 +172,7 @@
                         </c:if>
                     </div>
                     <div class="col-md-6 mb-2">
-                        <input type="text" id='birth' name='birth' class='form-control' value='' maxlength="6" placeholder="예시 : 900123" required>
+                        <input type="date" id='birth' name='birth' class='form-control' value='' maxlength="6" placeholder="예시 : 900123" required>
                     </div>
                     <div class="col-md-3 mb-2">
                     </div>
@@ -119,11 +184,27 @@
                     </div>
                     <div class="col-md-2 mb-2">
                         <select class="form-control" id="bank" name="bank">
-                            <option value="069">국민은행</option>
-                            <option value="071">우리은행</option>
-                            <option value="068">신한은행</option>
-                            <option value="070">하나은행</option>
-                            <option value="072">농협은행</option>
+                        	<option disabled selected>은행을 선택하세요</option>
+                            <option value="001">한국은행</option>
+                            <option value="010">KDB산업은행</option>
+                            <option value="011">IBK기업은행</option>
+                            <option value="012">한국수출입</option>
+                            <option value="020">NH농협은행</option>
+                            <option value="021">SH수협은행</option>
+                            <option value="030">신한은행</option>
+                            <option value="031">KB국민은행</option>
+                            <option value="032">우리은행</option>
+                            <option value="033">SC제일은행</option>
+                            <option value="034">씨티은행</option>
+                            <option value="035">KEB하나은행</option>
+                            <option value="040">DGB대구은행</option>
+                            <option value="041">BNK부산은행</option>
+                            <option value="042">광주은행</option>
+                            <option value="043">제주은행</option>
+                            <option value="044">전북은행</option>
+                            <option value="045">BNK경남은행</option>
+                            <option value="050">케이뱅크</option>
+                            <option value="051">카카오뱅크</option>
                         </select>
                     </div>
                     <div class="col-md-4 mb-2">
@@ -131,6 +212,7 @@
                     </div>
                     <div class="col-md-3 mb-2">
                         <input type='button' onclick='fn_accountCheck();' class='btn btn-primary' value='계좌인증'>
+                        <input type='hidden' name='accountValid' id="accountValid" value='0'>
                     </div>
                 </div>
                 <div class="row">
@@ -221,7 +303,7 @@
                         <label for="networkProtect">네트워크보안</label><input type='checkbox' name='interest' id="networkProtect" value="네트워크보안">
                     </div>
                     <div class="col-md-2 mb-2">
-                        <label for="programming">개발</label><input type='checkbox' name='interest' id="programming" value="프로그래밍">
+                        <label for="programming">개발</label><input type='checkbox' name='interest' id="programming" value="개발">
                     </div>
                     <div class="col-md-3 mb-2">
                     </div>
@@ -239,7 +321,6 @@
             </form>
         </div>
         <div class="col-md-1">
-            aside
         </div>
 		<form action="" name="checkIdDuplicateFrm">
 			<input type="hidden" name="memberId"/>
@@ -247,11 +328,78 @@
 		<form action="" name="emailCheckFrm">
 			<input type="hidden" name="email"/>
 		</form>
+		<form action="" name="accountCheckFrm">
+			<input type="hidden" name="accountNo"/>
+			<input type="hidden" name="bankCode"/>
+		</form>
     </div>
     
     
 <script>
+	function fn_accountCheck(){
+		var bankCode=$("#bank").val().trim();
+	       
+		if(!bankCode || bankCode.length<=0)
+		{
+		   alert("은행을 선택하세요.");
+		   return;   
+		   
+		}
+		var accountNo=$('#memberAccount').val().trim();
+		if(!accountNo || accountNo.length<=0)
+		{
+		   alert("계좌번호를 입력하세요.");
+		   return;   
+		}
+		var url="${path}/member/checkAccount";
+		var title="계좌 인증";
+		var shape="left=200px, top=100px, width=500px, height=300px";
+		
+		var popup=open("",title,shape);
+		
+		accountCheckFrm.accountNo.value=accountNo;
+		accountCheckFrm.bankCode.value=bankCode;
+		accountCheckFrm.target=title;
+		accountCheckFrm.action=url;
+		accountCheckFrm.method="post";
+		accountCheckFrm.submit();    
+	}
+	var sel_files=[];
+	$(document).ready(function(){
+       //preview image 
+       var imgTarget = $('.preview-image .upload-hidden');
 
+       imgTarget.on('change', function(e){
+          var files=e.target.files;
+           var filesArr=Array.prototype.slice.call(files);
+           console.log(files);
+           var parent = $(this).parent();
+           parent.children('.upload-display').remove();
+           console.log("수 : " + filesArr.length);
+         if(filesArr.length > 5)
+         {
+            alert("사진은 5개 제한입니다.");
+            return;
+         }
+           filesArr.forEach(function(f){
+               if(!f.type.match("image.*")){
+                  alert("확장자는 이미지 확장자만 가능합니다.");
+                  return;
+          
+               }
+               console.log(f)
+               sel_files.push(f);
+               
+               var reader=new FileReader();
+               reader.onload=function(e){
+                  var src = e.target.result;
+                   parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+               }
+               
+               reader.readAsDataURL(f);
+            })
+        });
+   });
 	function fn_checkEmail(){
 		var email=$("#memberEmail").val().trim();
 	       
@@ -322,6 +470,11 @@
             
             if($('input[name=emailValid]')[0].value=='0'){
             	alert('이메일 인증을 해주세요');
+            	return false;
+            }
+            
+            if($('input[name=accountValid]')[0].value=='0'){
+            	alert('계좌 인증을 해주세요');
             	return false;
             }
             
@@ -403,7 +556,7 @@
             
             if($('#memberNo').val().trim().length==0)
             {
-                alert("주민등록번호를 입력하세요");
+                alert("생년월일 입력하세요");
                 $('#memberNo').focus();
                 return false;
             }
@@ -473,6 +626,18 @@
     		checkIdDuplicateFrm.method="post";
     		checkIdDuplicateFrm.submit();    
     	}
+    	$(function()
+		{
+		    fn_setDatePickerMax();
+		});
+		
+		function fn_setDatePickerMax()
+		{
+		    var datePicker1 = document.getElementById('birth');
+		    datePicker1.max = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
+		    console.log(datePicker1.val);
+		   	    	
+		 }
 </script>
 
 

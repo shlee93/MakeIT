@@ -3,6 +3,8 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.kh.makeit.common.StringArrayTypeHandler" alias="strArray"/>
+		<typeAlias type='com.kh.makeit.contest.vo.Contest' alias='contest'/>
+		<typeAlias type='com.kh.makeit.contest.vo.ContestImg' alias='contestImg'/>
 	</typeAliases>
 	<typeHandlers>
 		<package name="com.kh.makeit.common"/>

@@ -16,7 +16,7 @@
 </insert>
 
 <insert id="insertOption" parameterType="map">
-   insert into SELLOPTION values(#{selloptionNo},#{sellNo},'S',#{sellPrice},#{sellOptionContent},#{selldeadLine})
+   insert into SELLOPTION values(SEQ_SELLOPTIONCODE.NEXTVAL,#{selloptionNo},#{sellNo},'S',#{sellPrice},#{sellOptionContent},#{selldeadLine})
 </insert>
 
 <select id="sellMainGrade" resultType="map" parameterType="map">
@@ -164,4 +164,49 @@ select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.g
 <select id="sellsubImg" parameterType="_int" resultType="map">
     select * from sellimg where sellno=#{sellno} and sellimgno not in (select min(sellimgno) from sellimg where sellno=#{sellno})
 </select>
+
+<!-- 수정값가져오기 -->
+<select id="sellModify" parameterType="_int" resultType="map">
+	select * from sell where sellno=#{sellno}
+</select>
+<select id="sellImgModify" parameterType="_int" resultType="map">
+	select * from sellimg where sellno=#{sellno}
+</select>
+<select id="sellOptionModify" parameterType="_int" resultType="map">
+	select * from sellOption where sellno=#{sellno}
+</select>
+
+<!-- 본격적 수정하기 -->
+<update id="updateDataMap" parameterType="map">
+	update sell set interestno=#{interest},detailinterestno=#{detailInterest},selltitle=#{title},sellcontent=#{content} where sellno=#{sellno}
+</update>
+<delete id="deleteAttach" parameterType="map">
+	delete from sellimg where sellno=#{sellno}
+</delete>
+<insert id="insertAttach2" parameterType="com.kh.makeit.sell.model.vo.SellAttach">
+	insert into sellimg values(SEQ_SELLIMG.nextval,#{sellNo},'S',#{sellImgOri},#{sellImgRe})
+</insert>
+<delete id="deleteOption" parameterType="map">
+	delete from selloption where sellno=#{sellno}
+</delete>
+<insert id="insertOption2" parameterType="map">
+insert into SELLOPTION values(SEQ_SELLOPTIONCODE.NEXTVAL,#{selloptionNo},#{sellno},'S',#{sellPrice},#{sellOptionContent},#{selldeadLine})
+</insert>
+
+<select id="sellOutBoxYn" parameterType="map" resultType="map">
+	select * from selloutbox where sellno=#{sellno} and categorycode='S'and memberid=#{loginMember}
+</select>
+
+<!-- 찜하기 인서트 -->
+<insert id="sellOutBoxInsert" parameterType="map">
+	insert into selloutbox values(#{sellno},#{memberId},'S')
+</insert>
+<!-- 찜하기 딜리트 ㅎ -->
+<delete id="sellOutBoxDelete" parameterType="map">
+	delete from selloutbox where sellno=#{sellno} and categorycode='S' and memberid=#{memberId}
+</delete>
+<!-- 신고하기 인서트 -->
+<insert id="insertReport" parameterType="map">
+	insert into SELLREPORT values(SEQ_SELLREPORTNO.NEXTVAL,#{sellno},#{reportId},'S',#{reportContent},default,default)
+</insert>
 </mapper>
