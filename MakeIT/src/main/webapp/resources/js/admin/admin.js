@@ -328,7 +328,7 @@ $(document).on('click','.update-interest',function(){
 	}
 	
 	for(var i=0;i<$deInterest.length;i++){
-		if(deInterestVal==$deInterest.eq(i).val()){
+		if(deInterestVal==$deInterest.eq(i).val()&&i!=$deInterest.index($(this).parent().siblings('.deInterest-info').children('.deInterest-val'))){
 			alert("이미 등록된 카테고리 입니다.");
 			$curr_deInterest.focus();
 			return false;

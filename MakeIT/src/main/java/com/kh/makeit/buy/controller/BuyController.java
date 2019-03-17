@@ -169,9 +169,12 @@ public class BuyController {
 	
 	
 	@RequestMapping("/buy/buyDetail")
-	public ModelAndView buyDetail(int buyNo)
+	public ModelAndView buyDetail(int buyNo, HttpServletRequest request)
 	{
 		ModelAndView mv = new ModelAndView();
+		
+		HttpSession session = request.getSession();
+		Map sessionMap=(Map)session.getAttribute("member");
 		
 		Map<String,String> detailList = service.buyDetail(buyNo);
 		Map<String,String> mainimgList = service.selectMainImg(buyNo); 
@@ -271,9 +274,12 @@ public class BuyController {
 	}
 	
 	@RequestMapping("/buy/writeReview.do")
-	public String writeReview()
+	public ModelAndView writeReview(String buyNo)
 	{
-		return "buy/buyStarPop";
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("buyNo", buyNo);
+		mv.setViewName("buy/buyStarPop");
+		return mv;
 	}
 	
 	@RequestMapping("/buy/writeReviewEnd.do")
@@ -297,7 +303,7 @@ public class BuyController {
 		if(result > 0)
 		{
 			msg = "후기가 등록되었습니다.";
-			loc = "buy/buyDetail?buyNo="+buyNo;
+			loc = "/buy/buyDetail?buyNo="+buyNo;
 			mv.addObject("msg",msg);
 			mv.addObject("loc",loc);
 			mv.addObject("script","window.close();opener.location.reload();");
@@ -306,7 +312,7 @@ public class BuyController {
 		else
 		{
 			msg = "후기 등록에 실패하였습니다.";
-			loc = "buy/buyDetail?buyNo="+buyNo;
+			loc = "/buy/buyDetail?buyNo="+buyNo;
 			mv.addObject("msg",msg);
 			mv.addObject("loc",loc);
 			mv.setViewName("common/msg");
@@ -315,7 +321,87 @@ public class BuyController {
 		return mv;
 	}
 	
+	@RequestMapping("/buy/buyReviewDel.do")
+	public ModelAndView buyReviewDel(String reviewNo, String buyNo)
+	{
+		ModelAndView mv = new ModelAndView();
+		
+		Map<String,String> map = new HashMap();
+		map.put("reviewNo", reviewNo);
+		map.put("buyNo", buyNo);
+		
+		int result = service.deleteReview(map);
+		
+		String msg = "";
+		String loc = "";
+		
+		if(result > 0)
+		{
+			msg = "후기가 삭제되었습니다.";
+			loc = "/buy/buyDetail?buyNo="+buyNo;
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+		}
+		else
+		{
+			msg = "후기 삭제에 실패하였습니다.";
+			loc = "/buy/buyDetail?buyNo="+buyNo;
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+		}
+		mv.setViewName("common/msg");
+		return mv;
+	}
 	
+	@RequestMapping("/buy/modReview.do")
+	public ModelAndView modReview(String buyNo, String reviewNo)
+	{
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("buyNo", buyNo);
+		mv.addObject("reviewNo", reviewNo);
+		mv.setViewName("buy/buyStarPop");
+		return mv;
+	}
+	
+	@RequestMapping("/buy/modReviewEnd.do")
+	public ModelAndView modReviewEnd(String buyNo, String reviewContent, String starCount, String reviewNo, HttpServletRequest request)
+	{
+		ModelAndView mv = new ModelAndView();
+		
+		HttpSession session = request.getSession();
+		Map<String,String> sessionMap = (Map)session.getAttribute("member");
+		
+		Map<String,String> map = new HashMap();
+		map.put("buyNo", buyNo);
+		map.put("reviewContent", reviewContent);
+		map.put("starCount", starCount);
+		map.put("memberId", sessionMap.get("MEMBERID"));
+		map.put("reviewNo", reviewNo);
+		int result = service.updateReview(map);
+		
+		String msg = "";
+		String loc = "";
+		
+		if(result > 0)
+		{
+			msg = "후기가 변경되었습니다.";
+			loc = "/buy/buyDetail?buyNo="+buyNo;
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+			mv.addObject("script","window.close();opener.location.reload();");
+			mv.setViewName("common/msg");
+		}
+		else
+		{
+			msg = "후기 변경에 실패하였습니다.";
+			loc = "/buy/buyDetail?buyNo="+buyNo;
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+			mv.setViewName("common/msg");
+		}
+		
+		return mv;
+	}
 	
 	@RequestMapping("/buy/volList.do")
 	public ModelAndView selectVolList()

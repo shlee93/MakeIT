@@ -4,20 +4,9 @@
             border: 1px solid red;
         } */
   
-        .subImgs
-        {
-            max-width: 100px;
-            height: 120px;
-            display: inline-block;
-            margin-top: 3%;
-            margin-left: 2%;
-        }
-
         .subImg        
-        {
-        
-            display: inline;
-      
+        {        
+            display: inline;      
         }
 
         #mainImg
@@ -114,10 +103,30 @@
         {
             border-radius: 6em;
         }
-        
+        #rate-div
+        {
+        	padding-left:20px;
+        	padding-bottom:20px;
+        }
         #review-table
         {
         	padding:20px;
+        }
+        #reviewAvg
+        {
+        	display:inline;
+        	padding-left:10px;
+        	font-size:25pt;
+        	color:rgb(250,82,82);
+        	vertical-align: middle;
+        }
+        #reviewCnt
+        {
+        	display:inline;
+        	padding-left:30px;
+        	font-size:15pt;
+        	color:grey;
+        	vertical-align:middle;
         }
         .tab-id
         {
