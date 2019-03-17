@@ -132,7 +132,7 @@
                                    		<button class="btn btn-primary" onclick="fn_outboxNo();" style='padding-left:17px; padding-right:17px; float:right;'><i class='far fa-star'></i>찜풀기</button>
                                    	</c:if>
                                    	<c:if test="${detailList.get(0).MEMBERID eq session.MEMBERID and session!=null}">
-                                   		<button class="btn btn-primary" onclick=";" style='padding-left:17px; padding-right:17px; float:right;'><i class='far fa-star'></i>구매자 보기</button>
+                                   		<button class="btn btn-primary" onclick="fn_purchaseListShow();" style='padding-left:17px; padding-right:17px; float:right;'><i class='far fa-star'></i>구매자 보기</button>
                                    	</c:if>
                                 </div>
                                 
@@ -143,10 +143,10 @@
                             <div class="row">
                                 <div class="col-md-1"></div>
                                 <div class="col-md-10" style="text-align:center;">
-                                    <select class="form-control" style="width:100%">
-                                        <c:forEach items="${optionList}" var="optionList" >
-                                        <option value="${optionList.SELLOPTIONNO}">${optionList.SELLOPTIONNO}  ${optionList.SELLOPTIONCONTENT}  소요기간  ${optionList.SELLDEADLINE}</option>
-                                        
+                                    <select id="optionSelector" class="form-control required" style="width:100%" onchange="fn_selected(this.value)" required>                      
+                                        <option disabled="disabled" selected="selected">구매할 옵션을 선택해주세요</option>
+                                        <c:forEach items="${optionList}" var="optionList">
+                                        	<option value="${optionList.SELLOPTIONNO}">${optionList.SELLOPTIONNO}  ${optionList.SELLOPTIONCONTENT}  소요기간  ${optionList.SELLDEADLINE}</option>                             
                                         </c:forEach>
                                     </select>
                                 </div>
@@ -159,12 +159,26 @@
                                 		<button class="btn btn-primary" onclick="fn_sellModify();" id="sellModify" style='padding-left:17px; padding-right:17px; float:right;'>수정하기</button>
                                 	</c:if>
                                 	<c:if test="${session.MEMBERID ne detailList.get(0).MEMBERID}">
-                                    	<button class="btn btn-primary" style='padding-left:17px; padding-right:17px; float:right;'>구매하기</button>
+                                		<form id="sellBuyFrm">
+                                    		<input type="hidden" id="sellno" name="sellno" value="${detailList.get(0).SELLNO}">
+                                    		<input type="hidden" id="selcOption" name="selcOption" value="">
+                                    		<input type="hidden" name="sellerId" value="${detailList.get(0).MEMBERID}">
+                                    		<button class="btn btn-primary" onclick="fn_sellBoardBuy();" style='padding-left:17px; padding-right:17px; float:right;'>구매하기</button>
+                                    	</form>
                                     </c:if>
+                                    <c:if test="${session.MEMBERID eq detailList.get(0).MEMBERID}">
+                                		<button class="btn btn-primary" onclick="fn_sellDelete();" id="sellDelete" style='padding-left:17px; padding-right:17px; float:right;'>삭제하기</button>
+                                	</c:if>
+                                	<c:forEach items="${purchaseList}" var="purchaseList">
+	                                	<c:if test="${session.MEMBERID eq purchaseList.MEMBERID and purchaseList.STATUSNO == '2'}">
+	                                		<button class="btn btn-primary" onclick="fn_sellRefund();">환불하기</button>
+	                                	</c:if>
+                                	</c:forEach>
                                 </div>
                                 <div class='col-md-6' style='float:left'>
                                     <button onclick='fn_starPop()'; class='btn btn-primary' style='float:left;' disabled>후기남기기</button>
                                 </div>
+                                
                                 <form id='sellDetailFrm'>
                                 	<input type="hidden" id="sellno" name="sellno" value="${detailList.get(0).SELLNO}">
                                 </form>
@@ -174,8 +188,18 @@
                                 <form id="sellOutBoxDelFrm">
                                 	<input type="hidden" name="sellno" value="${detailList.get(0).SELLNO}">
                                 </form>
+                                <form id="sellDetailDelete">
+                                	<input type="hidden" id="sellno" name="sellno" value="${detailList.get(0).SELLNO}">
+                                </form>
+                                <form id="buyerShow">
+                                	<input type="hidden" id="sellno" name="sellno" value="${detailList.get(0).SELLNO}">
+                                </form>
+                                <form id="sellRefund">
+                                	<input type="hidden" id="sellno" name="sellno" value="${detailList.get(0).SELLNO}">
+                                	<input type="hidden" id="refundId" name="refundId" value="${purchaseList.get(0).MEMBERID}">
+                                </form>
                                 <script>
-                                	console.log($("#sellno").val());
+                                	
                                 	
                                     function fn_starPop()
                                     {
@@ -194,8 +218,15 @@
 	</div>
 	</div>
 	<script>
+	function fn_selected(str) {	   
+	    $("#selcOption").attr("value",str)
+	    console.log($("#selcOption").val());
+
+	}
+	
 		var loginCheck=$("#loginCheck").val();
 		var sellno=$("#sellno").val();
+			
 		function fn_sellModify(){
 			$('#sellDetailFrm').attr('action',"${path}/sell/sellModify");
 			$('#sellDetailFrm').submit();
@@ -213,12 +244,31 @@
 			if(${sessionScope.member.MEMBERID!=null}){
 				var url="${path}/sell/sellReport";
 				var name="판매글 신고";			
-				window.open("${path}/sell/sellReport?sellWriter=${detailList.get(0).MEMBERID}&&sellno=${detailList.get(0).SELLNO}",name,'width=490, height=300, menubar=no, status=no, toolbar=no');
+				window.open("${path}/sell/sellReport?refundId=${detailList.get(0).MEMBERID}&&sellno=${detailList.get(0).SELLNO}",name,'width=490, height=300, menubar=no, status=no, toolbar=no');
 			}else{
 				alert('로그인 후 이용해 주세요 ');
 				location.href="${path}/member/memberLogin.do";
-			}
+			};
 			
+		}
+		function fn_sellBoardBuy(){
+			$("#sellBuyFrm").attr('action',"${path}/sell/sellPurchase.do");
+			$("#sellBuyFrm").submit();
+		}
+		function fn_sellDelete(){
+			$("#sellDetailDelete").attr('action',"${path}/sell/sellDelete.do");
+			$("#sellDetailDelete").submit();
+		}
+		function fn_purchaseListShow(){
+			$("#buyerShow").attr('action',"${path}/sell/sellBuyerShow.do");
+			$("#buyerShow").submit();
+		}
+		function fn_sellRefund(){
+			/* $("#sellRefund").attr('action',"${path}/sell/sellRefund.do");
+			$("#sellRefund").submit(); */
+			var url="${path}/sell/sellReport";
+			var name="판매글 신고";			
+			 window.open("${path}/sell/sellRefund.do?sellWriter=${detailList.get(0).MEMBERID}&&refundId=${sessionScope.member.MEMBERID}&&sellno=${detailList.get(0).SELLNO}",name,'width=490, height=300, menubar=no, status=no, toolbar=no'); 
 		}
 	</script>
 </body>

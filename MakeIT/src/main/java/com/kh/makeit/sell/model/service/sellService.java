@@ -64,6 +64,24 @@ int sellOutBoxDelete(Map outBoxDelete);
 
 int insertReport(Map reportMap);
 
+Map selectedOption(Map optionMap);
+
+int sellDetailDelete(int sellno);
+
+Map selectSeller(Map optionMap);
+
+int purchaseComplete(Map purchaseInfo);
+
+Map optionInfo(Map purchaseInfo);
+
+List<Map<String, String>> sellBuyerShow(int sellno);
+
+int sellSpecUpdate(int no);
+
+List<Map<String, String>> purchaseList(int sellno);
+
+int sellRefundEnd(Map payBack);
+
 
 
 }

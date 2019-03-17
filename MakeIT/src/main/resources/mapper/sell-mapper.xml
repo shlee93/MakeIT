@@ -209,4 +209,41 @@ insert into SELLOPTION values(SEQ_SELLOPTIONCODE.NEXTVAL,#{selloptionNo},#{selln
 <insert id="insertReport" parameterType="map">
 	insert into SELLREPORT values(SEQ_SELLREPORTNO.NEXTVAL,#{sellno},#{reportId},'S',#{reportContent},default,default)
 </insert>
+
+<!-- 구매 선택한옵션 띄우주는것 -->
+<select id="selctedOption" parameterType="map" resultType="map">
+	select * from selloption where sellno=#{sellno} and selloptionno=#{selcOption}
+</select>
+<delete id="sellDetailDelete" parameterType="_int">
+	delete from sell where sellno=#{sellno}
+</delete>
+<!-- 구매자 띄워주기 -->
+<select id="selectSeller" parameterType="map" resultType="map">
+	select * from member where memberid=#{sellerId}
+</select>
+<!-- 결재값 인서트 -->
+<insert id="purchaseComplete" parameterType="map">
+	insert into sellspec values(seq_sellspecno.nextval,#{memberId},#{optionCode},#{optionNo},#{sellno},#{su},'S',default,2,default)
+</insert>
+<!-- 결재 완료후 선택한 옵션 띄우주기 -->
+<select id="optionInfo" parameterType="map" resultType="map">
+	select * from selloption where selloptioncode=#{optionCode}
+</select>
+
+<!-- 구매자들띄워주기 -->
+<select id="sellBuyerShow" parameterType="_int" resultType="map">
+	select sp.selloptioncode,sp.sellspecno,sp.memberid,sp.selloptionno,sp.sellno,sp.selloptionper,sp.sellspecdate,so.selloptioncontent,so.selldeadline,st.statusname from sellspec sp join selloption so on (so.selloptioncode=sp.selloptioncode) join status st on(sp.statusno=st.statusno) where sp.statusno=2 and sp.sellno=#{sellno} order by sp.sellspecdate desc
+</select>
+<!-- 판매자가 작업완료 누름 -->
+<update id="sellSpectUpdate" parameterType="_int">
+	update sellspec set statusno='3' where selloptioncode=#{no}
+</update>
+<!-- 메인화면에 환불하기 띄워주는것 선택하기 -->
+<select id="purcahseList" parameterType="map" resultType="map">
+	select * from sellspec where sellno=#{sellno}
+</select>
+<!-- 환불하기 -->
+<update id="sellRefundEnd" parameterType="map">
+ 	update sellspec set statusno='6' where memberid=#{refundId} and sellno=#{sellno}
+</update>
 </mapper>

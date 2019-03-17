@@ -350,7 +350,7 @@ public class sellController {
 	   List<Map<String,String>> optionList=service.selldetailOption(sellno);
 	   List<Map<String,String>> sellReivew=service.sellReview(sellno);
 	   List<Map<String,String>> subimgList=service.sellsubImg(sellno);
-	  
+	   List<Map<String,String>> purchaseList=service.purchaseList(sellno);
 	   HttpSession session = request.getSession();
 	   ModelAndView mv = new ModelAndView();
 	   if((Map)session.getAttribute("member")!=null)
@@ -371,6 +371,7 @@ public class sellController {
 	   mv.addObject("mainimgList",mainimgList);
 	   mv.addObject("optionList",optionList);
 	   mv.addObject("sellReivew",sellReivew);
+	   mv.addObject("purchaseList",purchaseList);
 	   mv.setViewName("sell/sellDetail");
 	   return mv;
    }
@@ -557,6 +558,148 @@ public class sellController {
 
 	   return mv;
    }
-   
+   //구매하기 눌러서 결제 정보창으로 넘어가는것
+   @RequestMapping("/sell/sellPurchase.do")
+   public ModelAndView sellPurchase(int sellno,String selcOption,String sellerId)
+   {
+	   ModelAndView mv = new ModelAndView();
+	   Map optionMap=new HashMap();
+	   optionMap.put("sellno", sellno);
+	   optionMap.put("selcOption", selcOption);
+	   optionMap.put("sellerId", sellerId);
+	   Map purchase=service.selectedOption(optionMap);
+	   Map seller=service.selectSeller(optionMap);
+	   mv.addObject("purchase",purchase);
+	   mv.addObject("purchaseMember",seller);
+	   mv.setViewName("sell/payInfoPage2");
+	   return mv;
+   }
+   @RequestMapping("/sell/sellDelete.do")
+   public ModelAndView sellDelete(int sellno)
+   {
+	   ModelAndView mv = new ModelAndView();
+	   int result = service.sellDetailDelete(sellno);
+	   String msg="";
+	      String loc="";	      
+	      if(result>0)
+	      {
+	         msg="판매글 삭제를 완료하였습니다.";
+	         loc="/sell/sellmain.do";
+	         mv.addObject("msg",msg);
+	         mv.addObject("loc",loc);
+	         mv.setViewName("common/msg");
+	         return mv;
+	      }else {
+	         msg="판매글 삭제에 실패하였습니다. 다시 시도해 주세요.";
+	         loc="/sell/selldetail?sellno="+sellno;
+	         mv.addObject("msg",msg);
+	         mv.addObject("loc",loc);
+	         mv.setViewName("common/msg");
+	         return mv;
+	      }
+   }
+   @RequestMapping("/sell/purchaseComplete.do")
+   public ModelAndView purchaseComplete(int sellno,int optionCode,int amount,int su,String memberId,String optionNo)
+   {
+	/*   System.out.println("셀노"+sellno);
+	   System.out.println("옵코"+optionCode);	   
+	   System.out.println("금액"+amount);
+	   System.out.println("수량"+su);
+	   System.out.println("아이디"+memberId);
+	   System.out.println("옵셔번호"+optionNo);*/
+	   Map purchaseInfo = new HashMap();
+	   purchaseInfo.put("sellno",sellno);
+	   purchaseInfo.put("optionCode", optionCode);
+	   purchaseInfo.put("amount", amount);
+	   purchaseInfo.put("su", su);
+	   purchaseInfo.put("memberId", memberId);
+	   purchaseInfo.put("optionNo",optionNo);
+	   int result=service.purchaseComplete(purchaseInfo);
+	   Map optionInfo=service.optionInfo(purchaseInfo);
+	   List<Map<String,String>> detailList=service.selldetailView(sellno);
+	   ModelAndView mv = new ModelAndView();
+	   mv.addObject("purchaseInfo",purchaseInfo);
+	   mv.addObject("detailList",detailList);
+	   mv.addObject("optionInfo",optionInfo);
+	   mv.setViewName("sell/payComplete2");
+	   return mv;
+   }
+   //구매자들 보는창연결 
+   @RequestMapping("/sell/sellBuyerShow.do")
+   public ModelAndView sellBuyerShow(int sellno)
+   {
+	   ModelAndView mv =new ModelAndView();
+	   List<Map<String,String>> buyerList = service.sellBuyerShow(sellno);
+	   mv.addObject("buyerList",buyerList);
+	   mv.setViewName("sell/sellBuyerShow");
+	   return mv;
+   }
+   @RequestMapping("sell/sellSpecUpdate.do")
+   public ModelAndView sellSpecUpdate(int no,int sellno)
+   {	
+	   System.out.println(no+"그냥노");
+	   System.out.println(sellno+"셀노");
+	   int result=service.sellSpecUpdate(no);
+	   String msg="";
+	      String loc="";
+	      ModelAndView mv = new ModelAndView();
+	      if(result>0)
+	      {
+	         msg="작업완료가 반영되었습니다.";
+	         loc="sell/sellBuyerShow?sellno="+sellno;
+	         mv.addObject("msg",msg);
+	         mv.addObject("loc",loc);
+	         mv.setViewName("common/msg");
+	         return mv;
+	      }else {
+	         msg="요청하신 응답에 실패하였습니다. 다시 시도해주세요.";
+	         loc="${path}/sell/sellBuyerShow?sellno="+sellno;
+	         mv.addObject("msg",msg);
+	         mv.addObject("loc",loc);
+	         mv.setViewName("common/msg");
+	         return mv;
+	      }
+   }
+   @RequestMapping("/sell/sellRefund.do")
+	 public ModelAndView sellRefund(int sellno,String refundId,String sellWriter)
+	 {
+		 ModelAndView mv = new ModelAndView();
+		 Map refundMap=new HashMap();
+		 refundMap.put("sellno", sellno);
+		 refundMap.put("refundId", refundId);
+		 refundMap.put("sellWriter", sellWriter);
+		 mv.addObject("refundMap",refundMap);
+		 mv.setViewName("sell/sellRefund");
+		 return mv;
+	 }
+   @RequestMapping("/sell/sellRefundEnd")
+   public ModelAndView sellRefundEnd(int sellno,String refundId)
+   {
+	   System.out.println(sellno);
+	   System.out.println("shdjkfljksdl"+refundId);
+	   ModelAndView mv = new ModelAndView();
+	   Map payBack=new HashMap();
+	   payBack.put("sellno", sellno);
+	   payBack.put("refundId", refundId);
+	   int result=service.sellRefundEnd(payBack);
+	   String msg="";
+	   String loc="";	   
+	      if(result>0)
+	      {
+	         msg="환불요청을 접수하였습니다..";
+	         mv.addObject("msg",msg);
+	         mv.addObject("script","window.close();opener.location.reload();");
+	         mv.setViewName("common/msg");
+	         return mv;
+	      }else {
+	         msg="환불요청 실패하였습니다. 다시 시도해 주세요.";
+	       
+	         mv.addObject("msg",msg);
+	         mv.addObject("script","window.close();opener.location.reload();");
+	         mv.setViewName("common/msg");
+	         return mv;
+	      }
+	   
+   }
 }
 

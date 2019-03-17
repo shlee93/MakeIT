@@ -1,29 +1,27 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+	<c:set var="path" value="${pageContext.request.contextPath }"/>
 	
-	<c:set var="path" value="${pageContext.request.contextPath}"/>
-	<%@ page import="java.util.*" %> 
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css" integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA" crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js" integrity="sha384-7aThvCh9TypR7fIc2HV4O/nFMVCBwyIUKL8XCtKE+8xgCgl/PQGuFsvShjr74PBp" crossorigin="anonymous"></script>
+<jsp:include page="/WEB-INF/views/common/header.jsp">
+	<jsp:param value="HelloSpring" name="pageTitle"/>
+</jsp:include>
+	
+	
 	<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <style>
 	div
 	{
 		/* border: 1px solid yellow; */
 	}
+	input[type="number"]::-webkit-outer-spin-button,
+	input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 </style>
 </head>
 <body>
@@ -32,84 +30,131 @@
 		<div class='col-md-10'>
 			<div style='width: 100%; min-height: 350px; padding: 2em;'>
 				<div class='row'>
-					<div class='col-md-6'>
-						<div class='row' style='padding: 1em;'>
-							<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNHelJu84DeOFYM_f_HuWC_dVEoYwyqW3z1Tdz6xeYYmzTGS6Q" style='width: 100%; height: 350px;'>
-						</div>
-						<div class='row'>
-							<div class='col-md-3' style='padding: 1px;'>
-								<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo4OnPzedTH7ZAEajSaiA2RTcWn-FQTkQA9JdA60hXit7xiV0q" style='width: 100%; height: 100px;'>
-							</div>
-							<div class='col-md-3' style='padding: 1px;'>
-								<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo4OnPzedTH7ZAEajSaiA2RTcWn-FQTkQA9JdA60hXit7xiV0q" style='width: 100%; height: 100px;'>
-							</div>
-							<div class='col-md-3' style='padding: 1px;'>
-								<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo4OnPzedTH7ZAEajSaiA2RTcWn-FQTkQA9JdA60hXit7xiV0q" style='width: 100%; height: 100px;'>
-							</div>
-							<div class='col-md-3' style='padding: 1px;'>
-								<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo4OnPzedTH7ZAEajSaiA2RTcWn-FQTkQA9JdA60hXit7xiV0q" style='width: 100%; height: 100px;'>
-							</div>
-						</div>
-					</div>
-					<div class='col-md-6'style='padding-top: 70px;'>
+					<input type="hidden" id="sellno" value="${purchase.SELLNO}">
+					<div class='col-md-12'style='padding-top: 70px;'>
 						<div style='text-align:center;'>
-							<img src="https://www.kclf.org/wp-content/uploads/2016/12/IMG_64732-e1482971378190.jpg" style='width: 21%; height: 100px; border-radius: 1800px;'>
+							<img src="${path}/resources/upload/member/${purchaseMember.REIMG}" style='width: 200px; height: 100px; border-radius: 100%;'>
 						</div>
-						<div style='padding-right: 100px; padding-left: 100px; padding-top: 30px;'>
-							<p>개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리개소리</p>
+						<div style="text-align:center;  padding-top: 30px;">
+						<!-- style='padding-right: 100px; padding-left: 100px; padding-top: 30px;' -->
+							<h3>판매자 이름 :${purchaseMember.MEMBERNAME} </h3><br>
+							<h4>${purchaseMember.INTRODUCTION}</h4>
 						</div>
 					</div>
 				</div>		
 			</div>
-			<div style='width: 100%; margin-top: 3em; margin-bottom:3em;'>
-				<h1 style='text-align:center; margin-bottom:1em;'>선택 상품 정보</h1>
+			<div style='width: 100%; margin-bottom:1em;'>
+				<h1 style='text-align:center; margin-bottom:1em;'>선택 상품 정보 </h1>
 				<div style='width:100%; border-top: 1px solid black; border-bottom:1px solid black; padding:20px;' >
 					<div class='row'>
 						<div class='col-md-6' style='padding-left: 100px;'>
-							<h4>선택옵션 : <p style='display:inline; float:right; margin-right: 3.5em;'><%= "프리미엄(400,000)" %></p></h4>
-							
+							<h4>선택옵션 : <p  id="selectedOption" style='display:inline; float:right; margin-right: 3.5em;'>${purchase.SELLOPTIONNO}  ${purchase.SELLOPTIONCONTENT}  소요기간  ${purchase.SELLDEADLINE}</p></h4>
+							<input type="hidden" id="opPrice" value="${purchase.SELLPRICE}">
+							<input type="hidden" id="optionCode" value="${purchase.SELLOPTIONCODE}">
+							<input type="hidden" id="optionNo" value="${purchase.SELLOPTIONNO}">
+							<input type="hidden" id="memberId" value="${sessionScope.member.MEMBERID}">						
 						</div>
 						<div class='col-md-6' style='padding-left: 100px;'>
-							<h4>구매수량 : <input type='number' class='form-control' style='width: 30%; float:right; margin-right: 5em;'></h4>
-							<h4 style='margin-top: 1.2em;'>금액 : <p style='display:inline; float:right; margin-right: 3.5em;'><%= "800,000원" %></p></h4>
+							<h4>구매수량 : <input type='number' id="purchaseAccount" min="1" step="1" pattern="^[0-9]" class='form-control' style='width: 30%; float:right; margin-right: 5em;'></h4>
+							<h4 style='margin-top: 1.2em;'>옵션별 금액 : <p style='display:inline; float:right; margin-right: 3.5em;'>${purchase.SELLPRICE}</p></h4>
+							<h4 style='margin-top: 1.2em;'>총 금액 : <p id="totalPrice" style='display:inline; float:right; margin-right: 3.5em;'></p></h4>
+							<input type="hidden" id="hiddenTotal" value="">
 						</div>						
 					</div>
 				</div>
 			</div>	
-			<div style='width: 100%; margin-bottom:3em;'>
-				<h1 style='text-align:center; margin-bottom:1em;'>결제 수단 선택</h1>
-				<div style='width:100%; border-top: 1px solid black; border-bottom:1px solid black; padding:20px;'  >
-					<div class='row' style='width: 100%;'>
-						<div class='col-md-4' style='text-align:center'>
-							<input type='radio' name='pay' id='kakao'/>
-							<label for='kakao'>카카오페이</label>
-						</div>
-						<div class='col-md-4' style='text-align:center'>
-							<input type='radio' name='pay' id='nobank'/>
-							<label for='kakao'>무통장입금</label>
-						</div>
-						<div class='col-md-4' style='text-align:center'>
-							<input type='radio' name='pay' id='account'/>
-							<label for='account'>계좌결제</label>
-						</div>
-					</div>
-				</div>
-			</div>
+			<div style='width: 100%; margin-bottom:3em;'>						
 			<div class='row' style='margin-top:4em; justify-content:center;'>
 				<div>
-					<input type='button' class='btn btn-primary' style='margin-right: 1.3em; width: 5.3em;' value='취소'>
-					<input type='button' onclick='payPop();' class='btn btn-primary' value='구매결정'/>
-					<script>
-						function payPop()
-	                	{
-	                		var popup=open("${path}/views/payPop.jsp","paypage","left=200px, top=100px, width=350px, height=450px");
-	                	}
-					</script>
-				</div>
+					<input type='button' class='btn btn-primary' id="cancelPurchase" style='margin-right: 1.3em; width: 5.3em;' value='취소'>
+					<input type='button' id="decidePurchase" class='btn btn-primary' value='구매결정'/>
+				
+				</div>				
 			</div>			
 		</div>
 		<div class='col-md-1'></div>
 	</div>
+	<script>
+		var sellno=$("#sellno").val();
+		var optionCode=$("#optionCode").val();
+		var optionNo=$('#optionNo').val();
+		var opPrice=$("#opPrice").val();
+		var amount=(opPrice*$('#purchaseAccount').val());
+		var memberId=$("#memberId").val();
+		$('#purchaseAccount').keypress(function (event) { if (event.which && (event.which <= 47 || event.which >= 58) && event.which != 8) { event.preventDefault(); } });
 
+		
+		
+			$('#purchaseAccount').on('keyup',function(e){
+				 var amount2=(opPrice*$('#purchaseAccount').val());				
+				$("#totalPrice").empty();
+				$("#totalPrice").append(amount2+'원');
+				$("#hiddenTotal").attr("value",amount2);		
+				var price=$("#hiddenTotal").val();
+				var su=$("#purchaseAccount").val();
+				$(document).on('click','#decidePurchase',function(){
+					var title=$('#selectedOption').text();
+					var specNo=$('#end-spec-no').val();					
+					console.log(title);
+					console.log(price);
+		
+					var IMP = window.IMP; // 생략가능
+					IMP.init('imp51275730');
+					IMP.request_pay({
+						pg : 'kcp', // version 1.1.0부터 지원.
+						pay_method : 'trans',
+						merchant_uid : 'merchant_' + new Date().getTime(),
+						name : title,
+						amount : price,
+						buyer_email : 'make_it@gmail.kr',
+						buyer_name : 'MakeIT(메이크잇)',
+						buyer_tel : '010-1234-5678',
+						buyer_addr : '서울특별시 강남구 역삼동',
+						buyer_postcode : '123-456',
+						m_redirect_url : 'adminView.do'
+					}, function(rsp) {
+						if ( rsp.success ) {
+							var msg = '결제가 완료되었습니다.';
+							msg += '고유ID : ' + rsp.imp_uid;
+							msg += '<br>상점 거래ID : ' + rsp.merchant_uid;
+							msg += '<br>결제 금액 : ' + rsp.paid_amount;
+							msg += '<br>카드 승인번호 : ' + rsp.apply_num;
+							alert(msg);
+							location.href="${path}/sell/purchaseComplete.do?sellno="+sellno+"&&optionCode="+optionCode+"&&amount="+price+"&&memberId="+memberId+"&&su="+su+"&&optionNo="+optionNo;
+						  /*  $.ajax({
+								
+								url:"${path}/sell/purchaseComplete.do",
+								data:{
+									"sellno":sellno,
+									"optionno":optionno,
+									"cardYnno":rsp.apply_num,
+									"payAmount":rsp.paid_amount;
+									
+								},
+								dataType:"json",
+								success:function(data){
+									$('.modal-body').children('.row').remove();
+									$payment_Tab.html(data);
+								} 
+							})
+							 */ 
+						} else {
+							var msg = '결제에 실패하였습니다.';
+							msg += '에러내용 : ' + rsp.error_msg;
+							alert(msg);
+						}
+						
+					});
+					
+				});
+			});
+			//취소하기 버튼 클릭시 메인으로~
+			$(document).on('click','#cancelPurchase',function(){
+				location.href="${path}/sell/selldetail?sellno="+sellno;
+			})
+	
+		
+
+	</script>
 </body>
 </html>
