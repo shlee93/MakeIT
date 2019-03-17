@@ -197,9 +197,9 @@ public class ContestController
 		ArrayList<ContestImg> files=new ArrayList<>();		
 		
 		  
-	      MultipartFile index = upFile[mainImgNo];
-	      upFile[mainImgNo] = upFile[0];
-	      upFile[0] = index;
+		MultipartFile index = upFile[mainImgNo];
+		upFile[mainImgNo] = upFile[0];
+		upFile[0] = index;
 		
 		for(MultipartFile f:upFile)
 		{  

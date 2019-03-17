@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/contestwrite/contestwrite.css" />
 
 </head>
+
 <style>
 	.sero-center
 		{
@@ -103,6 +104,11 @@
 		    border-color: #2e6da4;
 		}
 </style>
+
+	<jsp:include page="/WEB-INF/views/common/header.jsp">
+	  	<jsp:param value="HelloSpring" name="pageTitle"/>
+   	</jsp:include>
+
 <body>
  <div class="row">
  	<div class="col-sm-1"></div>
@@ -117,13 +123,12 @@
 	        	<option value='3'>네트워크보안</option>         
 	        </select>
 	         
-	        <select class="form-control col-sm-1" id='detailInterestNo' name='detailInterestNo' style="display: inline;"/>
+	        <select class="form-control col-sm-1" id='detailInterestNo' name='detailInterestNo' style="display: inline;" required/>
 	        	       
 	        </select> 
-	        
 	        <script>
 	       		$(function()
-	      			{
+	      			{	       				
 	            		$("#interestNo").change(function()
 	       				{
 	           				console.log(this.value);
@@ -157,8 +162,20 @@
 	           		 }    		
 	    		 );
 	        </script>
-	       
-			<input type="text" class="form-control col-sm-6" id='contestTitle' name='contestTitle' style="display: inline;" placeholder="제목을 입력하세요." value='${contest.get("CONTESTTITLE")}'/> 
+	       	
+	       	<input type='hidden' id='interestHidden' value='${contest.INTERESTNO}'>
+	        <input type='hidden' id='detailInterestHidden' value='${contest.DETAILINTERESTNO}'>
+	        
+	        <script>
+	        	$(function()
+      			{	        		
+	        		$('#interestNo').val($('#interestHidden').val()).trigger('change');
+	        		$('#detailInterestNo').val($('#detailInterestHidden').val()).trigger('change');
+      			})
+	        	
+	        </script>
+	        
+			<input type="text" class="form-control col-sm-6" id='contestTitle' name='contestTitle' style="display: inline;" placeholder="제목을 입력하세요." value='${contest.get("CONTESTTITLE")}' required/> 
 	        
 	        <!-- 콘테스트 이름 -->      
 	        
@@ -173,13 +190,13 @@
 	       	<br/>
 	       	
 	       	<label>상금</label>
-	     	<input type="text" class="form-control col-sm-2" id='contestPrice' name='contestPrice' style="display: inline;" placeholder="상금 총액"  value='${contest.get("CONTESTPRICE")}'/>
+	     	<input type="text" class="form-control col-sm-2" id='contestPrice' name='contestPrice' style="display: inline;" placeholder="상금 총액"  value='${contest.get("CONTESTPRICE")}' required/>
 	       	
 	       	<br/>
 	       	  
 	        <label>기한</label> 
-	        <input type="date" id='contestDate' name='contestDate' class="form-control col-sm-2" style="display: inline" value="${contest.get('CONTESTDATE')}" >~
-	        <input type="date" id='contestDeadLine' name='contestDeadLine' class="form-control col-sm-2" style="display: inline" value="${contest.get('CONTESTDEADLINE')}">
+	        <input type="date" id='contestDate' name='contestDate' class="form-control col-sm-2" style="display: inline" value="${contest.get('CONTESTDATE')}" required>~
+	        <input type="date" id='contestDeadLine' name='contestDeadLine' class="form-control col-sm-2" style="display: inline" value="${contest.get('CONTESTDEADLINE')}" required>
 			<script>        
 		        $(function()
         		{
@@ -223,7 +240,7 @@
 	        <br/> 
 	         
 	        <label>상세 설명</label>
-	        <textarea class="form-control" id='contestContent' name='contestContent' rows="10">${contest.CONTESTCONTENT}</textarea>
+	        <textarea class="form-control" id='contestContent' name='contestContent' rows="10" required>${contest.CONTESTCONTENT}</textarea>
 	        <br>
 	        <div id="null">
          		<span class='nullimg'>메인에 노출될 사진을 선택해주세요</span>
@@ -286,7 +303,13 @@
 			</script>
 	        <br>
 	        <div id="btn-container">
-	           <button class="btn btn-secondary">취소</button>
+	           <button type='button' class="btn btn-secondary" onclick='fn_back()'>취소</button>
+	           <script>
+	           		function fn_back()
+	           		{
+	           			history.back();
+	           		}
+	           </script>
 	           <input type='submit' class="btn btn-secondary" value='수정'/>
 	        </div>
         </form>
