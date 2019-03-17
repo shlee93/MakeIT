@@ -110,6 +110,37 @@ public class BuyDaoImpl implements BuyDao {
 	}
 
 	@Override
+	public Map<String, String> selectSpec(Map specMap) {
+		// TODO Auto-generated method stub
+		return session.selectOne("buy.selectSpec", specMap);
+	}
+
+	@Override
+	public List<Map<String, String>> selectAnother(String memberId, int numPerPage, int contentCount, int cPage) {
+		// TODO Auto-generated method stub
+		RowBounds rb=new RowBounds((cPage-1)*numPerPage,numPerPage);
+		return session.selectList("buy.selectAnother", memberId, rb);
+	}
+
+	@Override
+	public int anotherCount(String memberId) {
+		// TODO Auto-generated method stub
+		return session.selectOne("buy.anotherCount", memberId);
+	}
+
+	@Override
+	public int insertVol(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return session.insert("buy.insertVol", map);
+	}
+
+	@Override
+	public int insertVolImg(Map<String, String> a) {
+		// TODO Auto-generated method stub
+		return session.insert("buy.insertVolImg", a);
+	}
+
+	@Override
 	public int insertReview(Map<String, String> map) {
 		// TODO Auto-generated method stub
 		return session.insert("buy.insertReview", map);

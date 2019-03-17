@@ -24,5 +24,10 @@ public interface BuyDao {
 	int selectReviewCnt(int buyNo);
 	int deleteReview(Map<String, String> map);
 	int updateReview(Map<String, String> map);
+	Map<String, String> selectSpec(Map specMap);
+	List<Map<String, String>> selectAnother(String memberId, int numPerPage, int contentCount, int cPage);
+	int anotherCount(String memberId);
+	int insertVol(Map<String, String> map);
+	int insertVolImg(Map<String, String> a);
 	
 }

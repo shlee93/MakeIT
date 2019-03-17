@@ -64,16 +64,24 @@
 	$(document).on('click','#nav-profile-tab',function() 
 	{
 		var reviewTotal = 0;
-		var reviewCnt = ${reviewCnt};
+		var reviewCnt = 0;
 		var reviewAvg = 0;
 	
+		if(${reviewCnt} != null)
+		{
+			reviewCnt = ${reviewCnt};
+		}
 		for(var i = 0; i < reviewCnt; i++)
 		{
 			reviewTotal += Number(reviewList[i]);
 		}
+		if(reviewCnt != 0)
+		{
+			reviewAvg = (reviewTotal / reviewCnt);	
+		}
 		
-		reviewAvg = reviewTotal / reviewCnt;
-		
+		console.log(reviewCnt);
+		console.log(reviewAvg);
 		var html = "<img id='rateStar' src='${path }/resources/image/star.png'>"
 		+"<p id='reviewAvg'>" + reviewAvg.toFixed(2) + "</p>"
 		+"<p id='reviewCnt'>" + reviewCnt + "명 참여</p>";
@@ -97,6 +105,8 @@
 	{
  	 	var starPop=open("${path}/buy/modReview.do?buyNo=${param.buyNo}&reviewNo="+reviewNo,"buyStarForm","top=200px, left=200px, width=400px, height=190px");
 	}
+    
+  
      
 	function fn_reviewDel(reviewNo, buyNo)
 	{
@@ -194,8 +204,8 @@
 				                           <span class="itemDot itemDot3" data-tab="3">
 					                           <i class="fa fa-user donggeulI"></i>
 					                           <span class="forActive"></span>
-				                           </span
-				                           >
+				                           </span>
+
 				                           <span class="itemDot itemDot4" data-tab="4">
 					                           <i class="fa fa-tags donggeulI"></i>
 					                           <span class="forActive"></span>

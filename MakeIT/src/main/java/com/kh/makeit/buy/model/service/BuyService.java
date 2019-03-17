@@ -24,4 +24,8 @@ public interface BuyService {
 	int selectReviewCnt(int buyNo);
 	int deleteReview(Map<String, String> map);
 	int updateReview(Map<String, String> map);
+	Map<String, String> selectSpec(Map specMap);
+	List<Map<String, String>> selectAnother(String memberId, int numPerPage, int contentCount, int cPage);
+	int anotherCount(String memberId);
+	int buyVolEnd(List<Map<String, String>> files, Map<String, String> map);
 }

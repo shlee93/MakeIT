@@ -27,7 +27,6 @@
 </head>
 
 
-
 <script>
 	
 	
@@ -37,22 +36,30 @@
 	</c:forEach>
 	console.log("${sessionScope.member.MEMBERID}");
 	 $(document).on('click','#nav-profile-tab',function() {
-		var reviewTotal = 0;
-		var reviewCnt = ${reviewCnt};
-		var reviewAvg = 0;
-	
-		for(var i = 0; i < reviewCnt; i++)
-		{
-			reviewTotal += Number(reviewList[i]);
-		}
+		 var reviewTotal = 0;
+			var reviewCnt = 0;
+			var reviewAvg = 0;
 		
-		reviewAvg = reviewTotal / reviewCnt;
-		
-		var html = "<img id='rateStar' src='${path }/resources/image/star.png'>"
-		+"<p id='reviewAvg'>" + reviewAvg.toFixed(2) + "</p>"
-		+"<p id='reviewCnt'>" + reviewCnt + "명 참여</p>";
-		$("#rate-div").html(html);
-		reviewCnt = 0;
+			if(${reviewCnt != null})
+			{
+				reviewCnt = ${reviewCnt};
+			}
+			for(var i = 0; i < reviewCnt; i++)
+			{
+				reviewTotal += Number(reviewList[i]);
+			}
+			if(reviewCnt != 0)
+			{
+				reviewAvg = (reviewTotal / reviewCnt);	
+			}
+			
+			console.log(reviewCnt);
+			console.log(reviewAvg);
+			var html = "<img id='rateStar' src='${path }/resources/image/star.png'>"
+			+"<p id='reviewAvg'>" + reviewAvg.toFixed(2) + "</p>"
+			+"<p id='reviewCnt'>" + reviewCnt + "명 참여</p>";
+			$("#rate-div").html(html);
+			reviewCnt = 0;
 	 });
  
      $(document).on('click','.subImgs',function(){
@@ -162,7 +169,7 @@
                             	<br/>
                                 <h4>${detailList.GRADENAME} ${detailList.MEMBERNAME}</h4>
                                 <a class="nav-item nav-link active xx" href="#">쪽지보내기</a>
-                                <a class="nav-item nav-link active xx" href="#">다른 글보기</a>                                
+                                <a class="nav-item nav-link active xx" href="${path}/buy/anotherView.do?memberId=${detailList.MEMBERID }">다른 글보기</a>                                
                             </div>
                         </div>                                            
                     </nav>
@@ -186,15 +193,36 @@
                             </div>
                             <div class='row' style='margin-top: 1.2em'>
                                 <div class='col-md-6'>
-                                    <button class="btn btn-primary" style='padding-left:17px; padding-right:17px; float:right;'>구매하기</button>
+                                    <button onclick='location.href="${path}/buy/buyVol.do?buyNo=${detailList.BUYNO}"' class="btn btn-primary" style='padding-left:17px; padding-right:17px; float:right;'>지원하기</button>
                                 </div>
                                 <div class='col-md-6' style='float:left'>
-                                    <button onclick='fn_starPop();' class='btn btn-primary' style='float:left;'>후기남기기</button>
+                                	<c:if test="${sessionScope.member.MEMBERID == detailList.MEMBERID }">
+                                		<button onclick='location.href="${path}/buy/volList.do?buyNo=${detailList.BUYNO }"' class='btn btn-primary' style='float:left;'>지원자보기</button>
+                                	</c:if>
+                                    <c:if test="${sessionScope.member.MEMBERID != detailList.MEMBERID }">
+                                   		<button onclick='fn_starPop();' class='btn btn-primary' style='float:left;'>후기남기기</button>
+                                    </c:if>
                                 </div>
                                 <script>
                                     function fn_starPop()
-                                    {
-                                        var starPop=open("${path}/buy/writeReview.do?buyNo=${param.buyNo}","buyStarForm","top=200px, left=200px, width=400px, height=190px");
+                                    {                  	
+                                        if(${sessionScope.member.MEMBERID==null}){
+                                        	alert('로그인 후 이용해 주세요 ');
+                                            location.href="${path}/member/memberLogin.do";
+                                            return;
+                                        		  
+                                        }
+                                        else if(${specList.STATUSNO != '4' || specList.STATUSNO != '5'})
+                                        {
+                                        	alert("구매 확정 이후에 작성할 수 있습니다.");
+                                        	return
+                                        }
+                                        else{
+                                        	var starPop=open("${path}/buy/writeReview.do?buyNo=${param.buyNo}","buyStarForm","top=200px, left=200px, width=400px, height=190px");
+                                        }
+                                        
+                                        
+                                        
                                     }
                                     
                                     

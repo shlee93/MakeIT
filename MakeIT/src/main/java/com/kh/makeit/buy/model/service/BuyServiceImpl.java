@@ -120,6 +120,51 @@ public class BuyServiceImpl implements BuyService {
 		// TODO Auto-generated method stub
 		return dao.selectReviewCnt(buyNo);
 	}
+	
+	@Override
+	public Map<String, String> selectSpec(Map specMap) {
+		// TODO Auto-generated method stub
+		return dao.selectSpec(specMap);
+	}
+
+	@Override
+	public List<Map<String, String>> selectAnother(String memberId, int numPerPage, int contentCount, int cPage) {
+		// TODO Auto-generated method stub
+		return dao.selectAnother(memberId, numPerPage, contentCount, cPage);
+	}
+
+	@Override
+	public int anotherCount(String memberId) {
+		// TODO Auto-generated method stub
+		return dao.anotherCount(memberId);
+	}
+	
+	@Override
+	public int buyVolEnd(List<Map<String, String>> files, Map<String, String> map) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		try {
+			result = dao.insertVol(map);
+			if(result < 1)
+			{
+				throw new MakeitException("지원에 실패하였습니다.");
+			}
+			for(Map<String,String> a : files)
+			{
+				result = dao.insertVolImg(a);
+				if(result < 1)
+				{
+					throw new MakeitException("파일 업로드에 실패하였습니다.");
+				}
+			}
+
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 
 	@Override
 	public int insertReview(Map<String, String> map) {

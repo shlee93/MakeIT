@@ -100,6 +100,21 @@
 	<select id="selectReviewCnt" parameterType="_int" resultType="_int">
 		SELECT COUNT(*) FROM BUYREVIEW WHERE BUYNO=#{buyNo}
 	</select>
+	<select id="selectSpec" parameterType="map" resultType="map">
+		SELECT * FROM BUYSPEC WHERE BUYNO = #{buyNo} AND MEMBERID = #{memberId} AND CATEGORYCODE = 'B'
+	</select>
+	<select id="selectAnother" parameterType="string" resultType="map">
+		select buy.buyno,buy.categorycode, buy.memberid,mem.introduction,gr.gradename,gr.gradeno, buy.detailinterestno, buy.interestno, buy.buytitle, buy.buyprice, buy.buydate, buy.buydeleteyn, buy.buycheckyn from buy join member mem on(buy.memberid=mem.memberid) join grade gr on(mem.gradeno=gr.gradeno) where buy.memberid = #{memberId} and categorycode = 'B' order by buydate desc
+	</select>
+	<select id="anotherCount" parameterType="string" resultType="_int">
+		SELECT COUNT(DISTINCT BUYNO) FROM BUY WHERE MEMBERID = #{memberId}
+	</select>
+	<insert id="insertVol" parameterType="map">
+		INSERT INTO BUYCANDIDATE VALUES(#{memberId}, #{buyNo}, 'B', #{title}, #{content}, DEFAULT)
+	</insert>
+	<insert id="insertVolImg" parameterType="map">
+		INSERT INTO BUYCANDIDATEFILE VALUES(SEQ_BUYCANDIDATENO.NEXTVAL, #{memberId}, #{buyNo}, 'B', #{oriName}, #{reName})
+	</insert>
 	<delete id="deleteReview" parameterType="map">
 		DELETE FROM BUYREVIEW WHERE BUYNO = #{buyNo} AND BUYREVIEWNO = #{reviewNo} AND CATEGORYCODE = 'B'
 	</delete>

@@ -175,6 +175,16 @@ public class BuyController {
 		
 		HttpSession session = request.getSession();
 		Map sessionMap=(Map)session.getAttribute("member");
+		Map<String,String> specList = new HashMap();
+		Map specMap = new HashMap();
+		if(sessionMap != null)
+		{
+			specMap.put("memberId", sessionMap.get("MEMBERID"));
+			specMap.put("buyNo", buyNo);
+			specList = service.selectSpec(specMap);
+			mv.addObject("specList", specList);
+		}
+		
 		
 		Map<String,String> detailList = service.buyDetail(buyNo);
 		Map<String,String> mainimgList = service.selectMainImg(buyNo); 
@@ -182,12 +192,14 @@ public class BuyController {
 		List<Map<String,String>> reviewList = service.selectReview(buyNo);
 		int reviewCnt = service.selectReviewCnt(buyNo);
 		
+				
 		mv.addObject("detailList",detailList);
 		mv.addObject("mainimgList", mainimgList);
 		mv.addObject("subimgList", subimgList);
 		mv.addObject("reviewList", reviewList);
 		mv.addObject("reviewCnt", reviewCnt);
-		mv.setViewName("buy/buydetail");
+		
+		mv.setViewName("buy/buydetail2");
 		return mv;
 	}
 	@RequestMapping("/buy/buyWrite.do")
@@ -403,17 +415,95 @@ public class BuyController {
 		return mv;
 	}
 	
-	@RequestMapping("/buy/volList.do")
-	public ModelAndView selectVolList()
+	@RequestMapping("/buy/buyVol.do")
+	public ModelAndView buyVol(String buyNo)
 	{
-		int buyNo = 1;
-		String categoryCode = "B";
+		ModelAndView mv = new ModelAndView();
 		
+		mv.addObject("buyNo", buyNo);
+		mv.setViewName("buy/buyVol");
+		return mv;
+	}
+	
+	@RequestMapping("/buy/buyVolEnd.do")
+	public ModelAndView buyVolEnd(String title, String content, String buyNo, MultipartFile[] input_file, HttpServletRequest request)
+	{
+		System.out.println(title);
+		System.out.println(content);
+		System.out.println(buyNo);
+		for(MultipartFile a : input_file)
+		{
+			System.out.println("asdf" + a.getOriginalFilename());
+		}
+		HttpSession session = request.getSession();
+		Map<String,String> sessionMap = (Map)session.getAttribute("member");
+		Map<String,String> map = new HashMap();
+		map.put("title", title);
+		map.put("content", content);
+		map.put("memberId", sessionMap.get("MEMBERID"));
+		map.put("buyNo", buyNo);
+	
+		List<Map<String,String>> files=new ArrayList();
+		String savDir = request.getSession().getServletContext().getRealPath("/resources/upload/buyVol");
+		
+	    
+		for(MultipartFile f: input_file)
+		{
+			if(!f.isEmpty()) {
+				//파일명 생성(rename)
+				String orifileName=f.getOriginalFilename();
+				String ext=orifileName.substring(orifileName.lastIndexOf(".")); //.부터 확장자까지 가져오기
+				//rename규칙 설정
+				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSSS");
+				int rdv=(int)(Math.random()*1000); //랜덤값설정
+				String reName=sdf.format(System.currentTimeMillis())+"_"+rdv+ext;  //새이름
+				//파일입출력ㅎ
+				try {
+					f.transferTo(new File(savDir+"/"+reName)); //저경로에다가 파일을 생성해주는것
+				}catch(IllegalStateException | IOException e) {  //일리갈은 세이브디아이알 못찾을때 뜨는것
+					e.printStackTrace();
+				}
+				Map sa = new HashMap();
+				sa.put("reName",reName);
+				sa.put("oriName", orifileName);
+				sa.put("memberId", sessionMap.get("MEMBERID"));
+				sa.put("buyNo", buyNo);
+				files.add(sa);
+			}
+		}
+		
+		int result = service.buyVolEnd(files, map);
+		String msg = "";
+		String loc = "";
+		ModelAndView mv = new ModelAndView();
+		if(result > 0)
+		{
+			msg="지원을 완료하였습니다.";
+			loc="/buy/buyDetail.do?buyNo=" + buyNo;
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+			mv.setViewName("common/msg");
+		}
+		else
+		{
+			msg="지원에 실패하였습니다. 다시 시도해 주세요.";
+			loc="/buy/buyDetail.do?buyNo=" + buyNo;
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+			mv.setViewName("common/msg");
+			
+		}
+		return mv;
+	}
+	
+	@RequestMapping("/buy/volList.do")
+	public ModelAndView selectVolList(String buyNo)
+	{
 		ModelAndView mv = new ModelAndView();
 		
 		Map<String,String> map = new HashMap();
-		map.put("buyNo", String.valueOf(buyNo));
-		map.put("category", categoryCode);
+		map.put("buyNo", buyNo);
+		map.put("category", "B");
 		
 		List<Map<String, String>> volList = service.selectVolList(map);
 		mv.addObject("volList", volList);
@@ -437,5 +527,27 @@ public class BuyController {
 		mv.setViewName("buy/buyVolView");
 		return mv;
 	}
-
+	
+	@RequestMapping("/buy/anotherView.do")
+	@ResponseBody
+	public ModelAndView anotherView(@RequestParam(value = "cPage", required = false, defaultValue = "0") int cPage, String memberId ) 
+	{
+		
+		Map map = new HashMap();
+		
+		int numPerPage = 6;
+		int contentCount = 0;
+		
+		List<Map<String, String>> anotherList = service.selectAnother(memberId, numPerPage, contentCount, cPage);
+		
+		ModelAndView mv = new ModelAndView();
+		
+		contentCount = service.anotherCount(memberId);
+		
+		mv.addObject("newList", anotherList);
+		mv.setViewName("buy/buyAnother");
+		mv.addObject("pageBar", PageFactory.getPageBar2(contentCount, cPage, numPerPage, "/makeit/buy/anotherView.do"));
+		
+		return mv;
+	}
 }
