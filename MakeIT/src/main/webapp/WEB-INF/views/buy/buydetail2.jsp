@@ -25,15 +25,6 @@
    
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/buydetail/buydetail.css" />
 </head>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/remotes/origin/JCH
-=======
-
->>>>>>> refs/remotes/origin/JCH
 
 
 <script>

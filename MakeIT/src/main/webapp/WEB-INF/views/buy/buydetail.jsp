@@ -194,17 +194,7 @@
 				                           <span class="itemDot itemDot3" data-tab="3">
 					                           <i class="fa fa-user donggeulI"></i>
 					                           <span class="forActive"></span>
-<<<<<<< HEAD
-<<<<<<< HEAD
 				                           </span>
-=======
-				                           </span
-				                           >
->>>>>>> refs/remotes/origin/JCH
-=======
-				                           </span
-				                           >
->>>>>>> refs/remotes/origin/JCH
 				                           <span class="itemDot itemDot4" data-tab="4">
 					                           <i class="fa fa-tags donggeulI"></i>
 					                           <span class="forActive"></span>
