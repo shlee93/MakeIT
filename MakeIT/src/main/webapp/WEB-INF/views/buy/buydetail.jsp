@@ -195,7 +195,12 @@
 					                           <i class="fa fa-user donggeulI"></i>
 					                           <span class="forActive"></span>
 <<<<<<< HEAD
+<<<<<<< HEAD
 				                           </span>
+=======
+				                           </span
+				                           >
+>>>>>>> refs/remotes/origin/JCH
 =======
 				                           </span
 				                           >
