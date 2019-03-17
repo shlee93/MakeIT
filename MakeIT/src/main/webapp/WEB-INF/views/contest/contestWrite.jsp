@@ -190,8 +190,7 @@
 				    var datePicker2 = document.getElementById('contestDeadLine');
 				    if(datePicker2.val==null)
 			    	{
-					    datePicker1.min = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
-					    console.log(datePicker1.val);
+					    datePicker1.min = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];					    
 			    	}     	
 				 }
 				

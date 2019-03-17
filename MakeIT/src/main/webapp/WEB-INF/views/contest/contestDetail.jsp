@@ -96,7 +96,7 @@
                         	</nav>
                         	<div class="tab-content" id="nav-tabContent" style='width: 100%;'>
                             	<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                            		<textarea class='contentTextArea' rows="34">
+                            		<textarea class='contentTextArea' rows="34" readonly>
                             			${contestObj.CONTESTCONTENT }
                             		</textarea>                                
                             	</div>
@@ -113,7 +113,7 @@
                         	<div class="col-md-10">
                         		<h4>${contestObj.GRADENAME} ${contestObj.MEMBERNAME}</h4>
  			                   	<!-- 똥글뱅이 -->
-                        		<div class="row align-items-center" style='margin-top: -2em;'>			                  
+                        		<div class="row align-items-center" style='margin-top: -5em;'>			                  
 			                  		<div class="holderCircle">
 			                        	<div class="round"></div>
 			                        	<div class="dotCircle">
