@@ -110,7 +110,7 @@
     	<form action='${path}/contest/contestModifyEnd.do' method='post' enctype="multipart/form-data">    
 			<label>제목</label> 
 	
-			<select class="form-control col-sm-1" id='interestNo' name='interestNo' style="display: inline;"/>
+			<select class="form-control col-sm-1" id='interestNo' name='interestNo' style="display: inline;" required/>
 	        	<option>카테고리</option>
 	        	<option value='1'>개발자</option>
 	        	<option value='2'>웹디자이너</option>

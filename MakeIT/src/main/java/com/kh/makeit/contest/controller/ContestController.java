@@ -499,7 +499,6 @@ public class ContestController
 			cs.contestModifyEndService(contest, files);
 		}
 		
-		
 		return "redirect:/contest/contestMain.do";
 	} 
 	
