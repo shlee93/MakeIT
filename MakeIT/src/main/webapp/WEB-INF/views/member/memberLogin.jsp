@@ -67,7 +67,6 @@
                                 <form action="${path }/member/naverLogin" id="naverLoginform" name="naverLoginform">
                                 	<input type="hidden" id="email" name="email" value="">
                                 	<input type="hidden" id="name" name="name" value="">
-                                	<input type="hidden" id="img" name="img" value="">
                                 	<input type="hidden" id="token" name="token" value="">
                                 </form>
                                 <script>

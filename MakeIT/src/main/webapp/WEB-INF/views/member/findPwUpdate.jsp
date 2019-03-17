@@ -27,7 +27,7 @@
 	    	    
 </head>
 <style>
-	#checkEmail-container 
+	.checkEmail-container 
 	{
 		margin-top:3em;
 		text-align:center;
@@ -36,9 +36,32 @@
 </style>
 
 <body>
-	<div id="checkEmail-container">
+	<div class="container-fluid checkEmail-container">
 		<form action="${path }/member/findPwEnd.do" id="emailFrm" method="post"onsubmit='return fn_enroll_validate()'>
-			<input type="password" id='password' name='password' class='form-control' value='' placeholder="새 비밀번호 입력" required>
+			<div class="row">
+                	<div class="col-md-1 mb-2"></div>
+                    <div class="col-md-2 mb-2">
+                        <span>비밀번호</span><span class="text-danger">*</span>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <input type="password" id='password' name='password' class='form-control' value='' placeholder="비밀번호 입력" required>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                    </div>
+                </div>
+                <div class="row">
+                	<div class="col-md-1 mb-2"></div>
+                    <div class="col-md-2 mb-2">
+                        <span>비밀번호확인</span><span class="text-danger">*</span>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <input type="password" id='cpassword' name='cpassword' class='form-control' value='' placeholder="비밀번호 확인" required>
+                    </div>
+                    <div class="col-md-3 mb-2" id="ck_password">
+						<div id="alert-success" style="color: green;">비밀번호가 일치합니다.</div>
+						<div id="alert-danger" style="color: red;">비밀번호가 일치하지 않습니다. 비밀번호는 영문, 숫자, 특수문자 조합 8~20자리 입니다.</div>
+                    </div>
+                </div>
 			<input type="hidden" name="id" id="id" value="${id }">
 		</form>
 		<input type="button" onclick="closeView();" class="btn btn-outline-info slidetopleft" value="확인">
@@ -52,7 +75,7 @@
 	}
 	function fn_enroll_validate()
     {
-        if($('#password').val().trim().length==0)
+		if($('#password').val().trim().length==0)
         {
             alert("패스워드를 입력하세요!");
             $('#password').focus();
@@ -62,14 +85,93 @@
         var joinPw=$("#password").val().trim();
         
 
-        if(!/^[a-zA-Z0-9]{8,20}$/.test(joinPw))
+        if(!/^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(joinPw))
         { 
-            alert('비밀번호는 숫자와 영문자 조합으로 8~20자리를 사용해야 합니다.'); 
+            alert('비밀번호는 숫자와 영문자, 특수문자 조합으로 8~20자리를 사용해야 합니다.'); 
             $('#password').focus();
+            return false;
+        }
+        
+        var chk_num = joinPw.search(/[0-9]/g); 
+        var chk_eng = joinPw.search(/[a-z]/ig);
+        var chk_spe = joinPw.search(/[$@$!%*#?&]/);
+    
+        if(chk_num < 0 || chk_eng < 0 || chk_spe < 0)
+    
+        { 
+            alert('비밀번호는 숫자와 영문자를 혼용하여야 합니다.');
+            $('#password').focus();
+            return false;
+        }    
+
+        if($('#cpassword').val().trim().length==0)
+        {
+            alert("패스워드를 입력하세요!");
+            $('#cpassword').focus();
+            return false;
+        }
+        
+        var joincPw=$("#cpassword").val().trim();
+        
+        if(!/^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(joincPw))
+        { 
+            alert('비밀번호는 숫자와 영문자, 특수문자 조합으로 8~20자리를 사용해야 합니다.'); 
+            $('#cpassword').focus();
             return false;
         }
         return true;
     }
+	$(function(){
+        $("#alert-success").hide();
+        $("#alert-danger").hide();
+    	$("input").keyup(function(){
+    		var joincPw=$("#cpassword").val().trim();
+			var joinPw=$("#password").val().trim();
+			var chk_num = joinPw.search(/[0-9]/g); 
+            var chk_eng = joinPw.search(/[a-z]/ig);
+            var chk_spe = joinPw.search(/[$@$!%*#?&]/);
+            
+            if(chk_num < 0 && chk_eng < 0 && chk_spe < 0){
+            	$("#alert-success").hide();
+	            $("#alert-danger").show();
+            } else{
+            	if(/^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(joinPw))
+                { 
+                	if(joincPw != "" || joinPw != ""){
+            	        if(joinPw == joincPw){
+            	            $("#alert-success").show();
+            	            $("#alert-danger").hide();
+            	        }else{
+            	            $("#alert-success").hide();
+            	            $("#alert-danger").show();
+            	        }    
+            	    }
+                } else{
+                	$("#alert-success").hide();
+     	            $("#alert-danger").show();
+                }
+    			
+                if(/^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(joincPw))
+                { 
+                	if(joinPw != "" || joincPw != ""){
+            	        if(joinPw == joincPw){
+            	            $("#alert-success").show();
+            	            $("#alert-danger").hide();
+            	        }else{
+            	            $("#alert-success").hide();
+            	            $("#alert-danger").show();
+            	        }    
+            	    }
+                } else{
+               		$("#alert-success").hide();
+     	            $("#alert-danger").show();
+                }
+            	
+            }
+            
+    	    
+    	});
+    });
 	</script>
 </body>
 </html>

@@ -159,8 +159,7 @@ public class MemberController {
 	public ModelAndView navLoginEnd(HttpServletRequest request,HttpSession session) {
 		String email = request.getParameter("email");
 		String name = request.getParameter("name");
-		String img = request.getParameter("img");
-		String token = request.getParameter("access_token");
+		String token = request.getParameter("token");
 		logger.debug(token);
 		String[] idStr = email.split("@");
 		String id = idStr[0];
@@ -171,7 +170,6 @@ public class MemberController {
 		map.put("memberId", id);
 		map.put("email", email);
 		map.put("name", name);
-		map.put("img", img);
 		int result = 0;
 		logger.debug(memberId);
 		Map<Object,Object> member = null;
@@ -239,47 +237,6 @@ public class MemberController {
 		return mv;
 	}
 	
-	@RequestMapping("/member/checkAccount")
-	public ModelAndView checkAccount(String accountNo, String bankCode) {
-		logger.debug(accountNo);
-		logger.debug(bankCode);
-		Map<String,String> account = new HashMap<>();
-		account.put("accountNo", accountNo);
-		account.put("bankCode", bankCode);
-		Map<String,Object> returnAccount = service.getAccount(account);
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("account",returnAccount);
-		mv.setViewName("member/checkAccountInput");
-		return mv;
-	}
-	
-	@RequestMapping("/member/accountCheckEnd")
-	public ModelAndView checkAccountEnd(String accountNo, String bankCode, String accountName, Date accountBirth) {
-		Map<String,String> account = new HashMap<>();
-		account.put("accountNo", accountNo);
-		account.put("bankCode", bankCode);
-		logger.debug(accountName);
-		logger.debug(accountBirth.toString());
-		Map<String,Object> returnAccount = service.getAccount(account);
-		ModelAndView mv = new ModelAndView();
-		logger.debug(returnAccount.get("ACCOUNTNAME"));
-		logger.debug(returnAccount.get("ACCOUNTBIRTH").toString());
-		String birth = returnAccount.get("ACCOUNTBIRTH").toString().substring(0,10);
-		if(returnAccount.get("ACCOUNTNAME").equals(accountName)) {
-			if(birth.equals(accountBirth.toString())) {
-				mv.addObject("msg","계좌인증 완료되었습니다.");
-				mv.addObject("isAble",true);
-			} else {
-				mv.addObject("msg","생년월일이 일치하지 않습니다.");
-				mv.addObject("isAble",false);
-			}
-		}else {
-			mv.addObject("msg","이름이 일치하지 않습니다.");
-			mv.addObject("isAble",false);
-		}
-		mv.setViewName("member/checkAccountEnd");
-		return mv;
-	}
 
 	@RequestMapping("/member/memberEnrollEnd.do")
 	public ModelAndView memberEnrollEnd(HttpServletRequest request, MultipartFile memberProfile, HttpSession session) {
@@ -454,7 +411,7 @@ public class MemberController {
 		for(String i : id) {
 			int idLength = i.length();
 			String idStr = i.substring(0, 4);
-			for(int j = 0; j<idLength-idStr.length();j++) {
+			for(int j = 0; j<idLength-idStr.length()+1;j++) {
 				idStr+="*";
 			}
 			idView.add(idStr);

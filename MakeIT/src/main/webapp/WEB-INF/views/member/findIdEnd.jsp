@@ -32,12 +32,17 @@
 	margin-top:3em;
 	text-align:center;
 }
-.emailBody{
-	width: 97%;
+.timer-container{
+	text-align:center;
+}
+#timer{
+	color : #138496;
+	font-size: 2em;
+	font-weight: 700;
 }
 </style>
 <body class='emailBody'>
-	<div class='checkMail-container'>
+	<div class='container-fluid checkMail-container'>
     	<div class="row">
     		<div class="col-md-12">
     			<h5>아이디 찾기</h5>

@@ -196,8 +196,7 @@
                         <input type="text" class='form-control' id='memberAccount' name='memberAccount' placeholder="계좌번호 입력" value="${member.ACCOUNT }" required>   
                     </div>
                     <div class="col-md-3 mb-2">
-                        <input type='button' onclick='fn_accountCheck();' class="btn btn-outline-info slidetopleft" value='계좌인증'>
-                        <input type='hidden' name='accountValid' id="accountValid" value='1'>
+                        <div id="account-danger" style="color: red;">입금받을 계좌번호를 입력하세요. 잘못 입력하여 생기는 불이익은 본 사이트는 책임지지 않습니다.</div>
                     </div>
                 </div>
                 <div class="row">
@@ -419,23 +418,11 @@ $('#addSearch').click(function(){
 });
 
 $(function(){
-    $("#alert-success").hide();
-    $("#alert-danger").hide();
-	$("input").keyup(function(){
-	    var pwd1=$("#password").val();
-	    var pwd2=$("#cpassword").val();
-	    if(pwd1 != "" || pwd2 != ""){
-	        if(pwd1 == pwd2){
-	            $("#alert-success").show();
-	            $("#alert-danger").hide();
-	        }else{
-	            $("#alert-success").hide();
-	            $("#alert-danger").show();
-	        }    
-	    }
+    $("#account-danger").hide();
+	$("#memberAccount").keyup(function(){
+		$("#account-danger").show();
 	});
 });
-
 
 			
     function fn_enroll_validate()
@@ -445,12 +432,7 @@ $(function(){
         	alert('이메일 인증을 해주세요');
         	return false;
         }
-        
-        if($('input[name=accountValid]')[0].value=='0'){
-        	alert('계좌 인증을 해주세요');
-        	return false;
-        }
-        
+
         if($('#memberName').val().trim().length==0)
         {
             alert("이름을 입력하세요");

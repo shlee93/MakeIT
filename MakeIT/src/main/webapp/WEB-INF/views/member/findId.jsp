@@ -30,12 +30,12 @@
 	margin-top:3em;
 	text-align:center;
 }
-.emailBody{
-	width: 97%;
+#emailBox{
+	margin-bottom: 5%;
 }
 </style>
 <body class='emailBody'>
-	<div class='checkMail-container'>
+	<div class="container-fluid checkMail-container">
 		<form name="contact-form" action="${path }/findIdCheck.do" method="POST">
 	    	<div class="row">
 	    		<div class="col-md-12">
@@ -44,7 +44,7 @@
 	    	</div>
 	    	<div class="row">
 	    		<div class="col-md-1"></div>
-	    		<div class="col-md-6">
+	    		<div class="col-md-6" id="emailBox">
 	    			<input type="email" name="email" placeholder="가입시 등록한 이메일을 입력하세요." class="form-control">
 	    		</div>
 	    		<div class="col-md-5">

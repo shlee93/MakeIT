@@ -212,9 +212,8 @@
                     <div class="col-md-4 mb-2">
                         <input type="text" class='form-control' id='memberAccount' name='memberAccount' placeholder="계좌번호 입력" required>   
                     </div>
-                    <div class="col-md-3 mb-2">
-                        <input type='button' onclick='fn_accountCheck();' class="btn btn-outline-info slidetopleft" value='계좌인증'>
-                        <input type='hidden' name='accountValid' id="accountValid" value='0'>
+                    <div class="col-md-3 mb-2" id="ck_Account">
+						<div id="account-danger" style="color: red;">입금받을 계좌번호를 입력하세요. 잘못 입력하여 생기는 불이익은 본 사이트는 책임지지 않습니다.</div>
                     </div>
                 </div>
                 <div class="row">
@@ -341,34 +340,7 @@
 	function main(){
 		location.href = "${path}/member/mainPage";
 	}
-	function fn_accountCheck(){
-		var bankCode=$("#bank").val().trim();
-	       
-		if(!bankCode || bankCode.length<=0)
-		{
-		   alert("은행을 선택하세요.");
-		   return;   
-		   
-		}
-		var accountNo=$('#memberAccount').val().trim();
-		if(!accountNo || accountNo.length<=0)
-		{
-		   alert("계좌번호를 입력하세요.");
-		   return;   
-		}
-		var url="${path}/member/checkAccount";
-		var title="계좌 인증";
-		var shape="left=200px, top=100px, width=500px, height=300px";
-		
-		var popup=open("",title,shape);
-		
-		accountCheckFrm.accountNo.value=accountNo;
-		accountCheckFrm.bankCode.value=bankCode;
-		accountCheckFrm.target=title;
-		accountCheckFrm.action=url;
-		accountCheckFrm.method="post";
-		accountCheckFrm.submit();    
-	}
+	
 	var sel_files=[];
 	$(document).ready(function(){
        //preview image 
@@ -448,6 +420,7 @@
     $(function(){
         $("#alert-success").hide();
         $("#alert-danger").hide();
+        $("#account-danger").hide();
     	$("input").keyup(function(){
     		var joincPw=$("#cpassword").val().trim();
 			var joinPw=$("#password").val().trim();
@@ -495,6 +468,9 @@
             
     	    
     	});
+    	$("#memberAccount").keyup(function(){
+    		$("#account-danger").show();
+    	});
     });
 
 
@@ -509,11 +485,6 @@
             
             if($('input[name=emailValid]')[0].value=='0'){
             	alert('이메일 인증을 해주세요');
-            	return false;
-            }
-            
-            if($('input[name=accountValid]')[0].value=='0'){
-            	alert('계좌 인증을 해주세요');
             	return false;
             }
             
