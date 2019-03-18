@@ -80,6 +80,15 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-1">
+        	<div style='position:fixed; margin-top: 10em;'>
+    			<span onclick='fn_back()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
+          	 	<script>
+           			function fn_back()
+	           		{
+	           			history.back();
+	           		}
+	           	</script>
+           	</div>
         </div>
         <div class="col-md-10">
             <form name='updateFrm' id="updateFrm" action="${path }/member/memberUpdateEnd.do" method="POST" onsubmit='return fn_enroll_validate()' enctype="multipart/form-data">
@@ -298,7 +307,7 @@
                 <div class="row">
                     <div class="col-md-4"></div>
                     <div class="col-md-2">
-                        <input type="button" id="updateBtn" class="btn btn-outline-info slidetopleft" value="수정">
+                        <input type="submit" id="updateBtn" class="btn btn-outline-info slidetopleft" value="수정">
                     </div>
                     <div class="col-md-2">
                         <input type="button" id="cancleBtn" class="btn btn-outline-info slidetopleft" value="취소">
@@ -319,40 +328,19 @@
     
     
 <script>	
-
 $('#emailDomain').change(function(){
 	var domain = $('#emailDomain').val().trim();
-	$('#joinEmailDomain').attr('value',domain);
+	
+	$('#joinEmailDomain').val('');
+	$('#joinEmailDomain').val(domain);
+	
+	if(domain != ''){
+		$('#joinEmailDomain').attr('readonly','readonly');
+	} else{
+		$('#joinEmailDomain').removeAttr('readonly');
+	}
 });
 
-function fn_accountCheck(){
-	var bankCode=$("#bank").val().trim();
-       
-	if(!bankCode || bankCode.length<=0)
-	{
-	   alert("은행을 선택하세요.");
-	   return;   
-	   
-	}
-	var accountNo=$('#memberAccount').val().trim();
-	if(!accountNo || accountNo.length<=0)
-	{
-	   alert("계좌번호를 입력하세요.");
-	   return;   
-	}
-	var url="${path}/member/checkAccount";
-	var title="계좌 인증";
-	var shape="left=200px, top=100px, width=500px, height=300px";
-	
-	var popup=open("",title,shape);
-	
-	accountCheckFrm.accountNo.value=accountNo;
-	accountCheckFrm.bankCode.value=bankCode;
-	accountCheckFrm.target=title;
-	accountCheckFrm.action=url;
-	accountCheckFrm.method="post";
-	accountCheckFrm.submit();    
-}
 var sel_files=[];
 $(document).ready(function(){
    //preview image 

@@ -37,6 +37,11 @@
 
 <body>
 	<div class="container-fluid checkEmail-container">
+		<div class="row">
+    		<div class="col-md-12">
+    			<h5>비밀번호 찾기</h5>
+    		</div>
+    	</div>
 		<form action="${path }/member/findPwEnd.do" id="emailFrm" method="post"onsubmit='return fn_enroll_validate()'>
 			<div class="row">
                 	<div class="col-md-1 mb-2"></div>

@@ -77,6 +77,15 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-1">
+        	<div style='position:fixed; margin-top: 10em;'>
+    			<span onclick='fn_back()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
+          	 	<script>
+           			function fn_back()
+	           		{
+	           			history.back();
+	           		}
+	           	</script>
+           	</div>
         </div>
         <div class="col-md-10">
             <form name='signupform' action="${path }/member/memberEnrollEnd.do" method="POST" onsubmit='return fn_enroll_validate()' enctype="multipart/form-data">
@@ -330,15 +339,15 @@
 	
 	$('#emailDomain').change(function(){
 		var domain = $('#emailDomain').val().trim();
-		console.log(domain);
+		
 		$('#joinEmailDomain').val('');
-		$('#joinEmailDomain').attr('value',domain);
-		console.log($('#joinEmailDomain').val());
-		/* if(domain != ''){
+		$('#joinEmailDomain').val(domain);
+		
+		if(domain != ''){
 			$('#joinEmailDomain').attr('readonly','readonly');
 		} else{
-			$('#joinEmailDomain').attr('readonly','readonly');
-		} */
+			$('#joinEmailDomain').removeAttr('readonly');
+		}
 	});
 	
 	var sel_files=[];
@@ -574,10 +583,10 @@
                 return false;
             }
             
-            if($('#memberNo').val().trim().length==0)
+            if($('#birth').val().trim().length==0)
             {
                 alert("생년월일 입력하세요");
-                $('#memberNo').focus();
+                $('#birth').focus();
                 return false;
             }
 

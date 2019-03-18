@@ -42,6 +42,11 @@
 
 <body>
 	<div id="checkId-container">
+		<div class="row">
+    		<div class="col-md-12">
+    			<h5>아이디 중복검사</h5>
+    		</div>
+    	</div>
 		<c:if test="${isAble==true }">
 			<p style="color:green;"><span style="color:#516055">[${memberId }]</span>는 사용가능합니다.</p>
 			<br><br>

@@ -30,6 +30,15 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-1">
+        	<div style='position:fixed; margin-top: 10em;'>
+    			<span onclick='fn_back()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
+          	 	<script>
+           			function fn_back()
+	           		{
+	           			history.back();
+	           		}
+	           	</script>
+           	</div>
         </div>
         <div class="col-md-10">     
             <div id="login">
@@ -58,7 +67,7 @@
                                     <div id="register-link" class="text-right">
                                         <a onclick="findId();" class="text-info">ID찾기</a><span class="text-info">/</span>
                                         <a onclick="findPw();" class="text-info">비밀번호 찾기</a><span class="text-info">/</span>
-                                        <a href="${path }/member/memberEnroll.do" class="text-info">회원가입</a>
+                                        <a href="${path }/member/memberEnrollck.do" class="text-info">회원가입</a>
                                     </div>
                                 </form>
                                 <div class="socialLogin" id="naver_id_login">
