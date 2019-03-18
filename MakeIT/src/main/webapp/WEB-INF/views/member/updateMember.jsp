@@ -91,24 +91,19 @@
            	</div>
         </div>
         <div class="col-md-10">
-            <form name='updateFrm' id="updateFrm" action="${path }/member/memberUpdateEnd.do" method="POST" onsubmit='return fn_enroll_validate()' enctype="multipart/form-data">
-                <div class="row">
-                    <div class="col-md-12 signUpTitle">
-                    	<c:if test="${memberLevel==1 }">
-							<h1>개인회원가입</h1>
-						</c:if>
-						<c:if test="${memberLevel==2 }">
-							<h1>기업회원가입</h1>
-						</c:if>
-                    </div>
+            <div class="row">
+                <div class="col-md-12 signUpTitle">
+					<h1>정보수정</h1>
                 </div>
+            </div>
+            <form name='updateFrm' id="updateFrm" action="${path }/member/memberUpdateEnd.do" method="POST" onsubmit='return fn_enroll_validate()' enctype="multipart/form-data">
                 <div class="row">
                 	<div class="col-md-1 mb-2"></div>
                 	<div class="col-md-2 mb-2">
-	                    <c:if test="${memberLevel==1 }">
+	                    <c:if test="${member.MEMBERLEVEL==1 }">
 							<span>프로필사진</span><span class="text-danger">*</span>
 						</c:if>
-						<c:if test="${memberLevel==2 }">
+						<c:if test="${member.MEMBERLEVEL==2 }">
 							<span>회사사진</span><span class="text-danger">*</span>
 						</c:if>
 					</div>
@@ -116,11 +111,16 @@
 	                    <div class="filebox bs3-primary preview-image">
 	                    	<div class="upload-display">
 	                    		<div class="upload-thumb-wrap">
-	                    			<img src="${path }/resources/upload/member/${member.REIMG}" class="upload-thumb">
+	                    			<c:if test="${member.REIMG != null }">
+		                    			<img src="${path }/resources/upload/member/${member.REIMG}" class="upload-thumb">
+		                            </c:if>
+		                            <c:if test="${member.REIMG == null }">
+		                            	<img src="${path }/resources/image/logo1.png" alt=""/>
+		                            </c:if>
                     			</div>
                    			</div>
 				            <label for="memberProfile">사진 선택</label> 
-				            <input type="file" name="memberProfile" id="memberProfile" class="upload-hidden" accept=".gif, .jpg, .png" required> 
+				            <input type="file" name="memberProfile" id="memberProfile" class="upload-hidden" accept=".gif, .jpg, .png" required="required"> 
 				        </div>
                     </div>
                     <div class="col-md-3 mb-2">
@@ -134,7 +134,7 @@
                     <div class="col-md-6 mb-2">
                         <input type="text" id='memberId' name='memberId' class='form-control' value='${member.MEMBERID }' placeholder="아이디 입력" readonly>
                         <input type='hidden' name='idValid' value='1'>
-                        <input type="hidden" name="memberLevel" value="${memberLevel }">
+                        <input type="hidden" name="memberLevel" value="${member.MEMBERLEVEL }">
                     </div>
                     <div class="col-md-3 mb-2">
                     </div>
@@ -142,10 +142,10 @@
                 <div class="row">
                 	<div class="col-md-1 mb-2"></div>
                     <div class="col-md-2 mb-2">
-                        <c:if test="${memberLevel==1 }">
+                        <c:if test="${member.MEMBERLEVEL==1 }">
                         	<span>이름</span><span class="text-danger">*</span>
                         </c:if>
-                        <c:if test="${memberLevel==2 }">
+                        <c:if test="${member.MEMBERLEVEL==2 }">
                         	<span>회사명</span><span class="text-danger">*</span>
                         </c:if>
                     </div>
@@ -158,10 +158,10 @@
                 <div class="row">
                 	<div class="col-md-1 mb-2"></div>
                     <div class="col-md-2 mb-2">
-                    	<c:if test="${memberLevel==1 }">
+                    	<c:if test="${member.MEMBERLEVEL==1 }">
                         	<span>생년월일</span><span class="text-danger">*</span>
                         </c:if>
-                        <c:if test="${memberLevel==2 }">
+                        <c:if test="${member.MEMBERLEVEL==2 }">
                         	<span>사업개시일</span><span class="text-danger">*</span>
                         </c:if>
                     </div>
@@ -211,10 +211,10 @@
                 <div class="row">
                 	<div class="col-md-1 mb-2"></div>
                     <div class="col-md-2 mb-2">
-                        <c:if test="${memberLevel==1 }">
+                        <c:if test="${member.MEMBERLEVEL==1 }">
                         	<span>연락처</span><span class="text-danger">*</span>
                         </c:if>
-                        <c:if test="${memberLevel==2 }">
+                        <c:if test="${member.MEMBERLEVEL==2 }">
                         	<span>대표연락처</span><span class="text-danger">*</span>
                         </c:if>
                     </div>
@@ -227,10 +227,10 @@
                 <div class="row">
                 	<div class="col-md-1 mb-2"></div>
                 	<div class="col-md-2 mb-2">
-                        <c:if test="${memberLevel==1 }">
+                        <c:if test="${member.MEMBERLEVEL==1 }">
                         	<span>이메일</span><span class="text-danger">*</span>
                         </c:if>
-                        <c:if test="${memberLevel==2 }">
+                        <c:if test="${member.MEMBERLEVEL==2 }">
                         	<span>대표이메일</span><span class="text-danger">*</span>
                         </c:if>
                     </div>
@@ -273,10 +273,10 @@
                 <div class="row">
                 	<div class="col-md-1 mb-2"></div>
                     <div class="col-md-2 mb-2">
-                        <c:if test="${memberLevel==1 }">
+                        <c:if test="${member.MEMBERLEVEL==1 }">
                         	<span>주소</span><span class="text-danger">*</span>
                         </c:if>
-                        <c:if test="${memberLevel==2 }">
+                        <c:if test="${member.MEMBERLEVEL==2 }">
                         	<span>회사주소</span><span class="text-danger">*</span>
                         </c:if>
                     </div>
@@ -428,20 +428,17 @@ $(function(){
 			
     function fn_enroll_validate()
     {
-        
-        if($('input[name=emailValid]')[0].value=='0'){
+    	if($('#memberProfile').val().trim() == ""){
+    		alert("사진을 선택해주세요");
+    		$('#memberProfile').focus();
+    		return false;
+    	}
+    	if($('input[name=emailValid]')[0].value=='0'){
         	alert('이메일 인증을 해주세요');
         	return false;
         }
 
-        if($('#memberName').val().trim().length==0)
-        {
-            alert("이름을 입력하세요");
-            $('#memberName').focus();
-            return false;
-        }
-
-        if($('#addSearch').val().trim().length==0)
+    	if($('#addSearch').val().trim().length==0)
         {
             alert("주소를 검색해주세요");
             $('#addSearch').focus();
@@ -455,6 +452,15 @@ $(function(){
             return false;
         }
         
+        var memberPhone = $('#memberPhone').val().trim();
+
+        if(!/^[0-9]+$/.test(memberPhone))
+        { 
+            alert('핸드폰 번호는 숫자만 사용해야 합니다.'); 
+            $('#memberPhone').focus();
+            return false;
+        }
+        
         if($('#memberPhone').val().trim().length==0)
         {
             alert("핸드폰 번호를 입력해주세요");
@@ -462,13 +468,13 @@ $(function(){
             return false;
         }
         
+        
         if($('#memberEmail').val().trim().length==0)
         {
             alert("메일 아이디를 입력해주세요");
             $('#memberEmail').focus();
             return false;
         }
-        
         if($('#joinEmailDomain').val().trim().length==0)
         {
             alert("이메일 도메인을 입력해주세요");
@@ -482,6 +488,20 @@ $(function(){
         { 
             alert('계좌번호는 숫자만 사용해야 합니다.'); 
             $('#memberAccount').focus();
+            return false;
+        }
+        
+        if($('#memberName').val().trim().length==0)
+        {
+            alert("이름을 입력하세요");
+            $('#memberName').focus();
+            return false;
+        }
+        
+        if($('#birth').val().trim().length==0)
+        {
+            alert("생년월일 입력하세요");
+            $('#birth').focus();
             return false;
         }
 

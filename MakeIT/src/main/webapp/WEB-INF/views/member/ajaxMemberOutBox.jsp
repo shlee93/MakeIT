@@ -8,7 +8,12 @@ pageEncoding="UTF-8"%>
 <div class="row" id="toprow">
 	<div class="col-md-4">
 	    <div class="profile-img">
-	        <img src="${path }/resources/upload/member/${map.REIMG}" alt=""/>
+	        <c:if test="${map.REIMG != null }">
+            	<img src="${path }/resources/upload/member/${map.REIMG}" alt=""/>
+            </c:if>
+            <c:if test="${map.REIMG == null }">
+            	<img src="${path }/resources/image/logo1.png" alt=""/>
+            </c:if>
 	   	</div>
 	</div>
 	<div class="col-md-6">

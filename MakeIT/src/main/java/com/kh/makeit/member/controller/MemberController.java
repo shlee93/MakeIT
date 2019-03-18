@@ -653,26 +653,94 @@ public class MemberController {
 
 	@RequestMapping("/member/memberInfoAjax.do")
 	@ResponseBody
-	public ModelAndView memberInfo(String memberId) {
-		Map<Object, Object> map = service.selectOne(memberId);
-		int fadeStatus = 1;
-		int buyCount = service.selectBuyCount(memberId);
-		int sellCount = service.boardSellCount(memberId);
-		double buyAvg = service.buyAvg(memberId);
-		double sellAvg = service.sellAvg(memberId);
-		String[] addressSplit = ((String) map.get("ADDRESS")).split("/");
-		String address = addressSplit[0] + " " + addressSplit[1];
-		map.put("ADDRESS", address);
-		String birth = map.get("BIRTH").toString().substring(0, 10);
-		map.put("BIRTH", birth);
+	public ModelAndView memberInfo(String memberId, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		Map<Object, Object> map = new HashMap();
+		int buyCount = 0;
+		int sellCount = 0;
+		double buyAvg = 0;
+		double sellAvg = 0;
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("buyCount", buyCount);
-		mv.addObject("sellCount", sellCount);
-		mv.addObject("buyAvg", buyAvg);
-		mv.addObject("sellAvg", sellAvg);
-		mv.addObject("map", map);
-		mv.addObject("fadeStatus",fadeStatus);
-		mv.setViewName("member/ajaxMemberInfo");
+		logger.debug(session.getAttribute("member"));
+		map = (Map<Object, Object>) session.getAttribute("member");
+		if(map != null && map.get("PASSWORD") != null) {
+			String id = (String) map.get("MEMBERID");
+			logger.debug(id);
+			map = service.selectOne(id);
+			buyCount = service.selectBuyCount(id);
+			sellCount = service.boardSellCount(id);
+			buyAvg = service.buyAvg(id);
+			sellAvg = service.sellAvg(id);
+			int noReadMessage = service.noReadMessage(id);
+			logger.debug(noReadMessage);
+			String[] addressSplit = ((String) map.get("ADDRESS")).split("/");
+			String address = addressSplit[0] + " " + addressSplit[1];
+			map.put("ADDRESS", address);
+			logger.debug(buyCount);
+			logger.debug(sellCount);
+			logger.debug(buyAvg);
+			logger.debug(sellAvg);
+			logger.debug(map);
+			String birth = map.get("BIRTH").toString().substring(0, 10);
+			map.put("BIRTH", birth);
+			mv.setViewName("member/ajaxMemberInfo");
+			mv.addObject("noReadMessage",noReadMessage);
+			mv.addObject("buyCount", buyCount);
+			mv.addObject("sellCount", sellCount);
+			mv.addObject("buyAvg", buyAvg);
+			mv.addObject("sellAvg", sellAvg);
+			mv.addObject("map", map);
+			mv.addObject("sellcPage",0);
+			mv.addObject("buycPage",0);
+			mv.addObject("freecPage",0);
+			mv.addObject("qnacPage",0);
+			mv.addObject("contestcPage",0);
+			mv.addObject("fadeStatus",1);
+		} else if(map != null && map.get("PASSWORD") == null){
+			String id = (String) map.get("MEMBERID");
+			logger.debug(id);
+			map = service.selectNaverOne(id);
+			if(map.get("BANKCODE")!=null) {
+				map = service.selectOne(id);
+			}
+			if(map.get("ADDRESS")!=null) {
+				String[] addressSplit = ((String) map.get("ADDRESS")).split("/");
+				String address = addressSplit[0] + " " + addressSplit[1];
+				map.put("ADDRESS", address);
+			}
+			if(map.get("BIRTH")!=null) {
+				String birth = map.get("BIRTH").toString().substring(0, 10);
+				map.put("BIRTH", birth);
+			}
+			buyCount = service.selectBuyCount(id);
+			sellCount = service.boardSellCount(id);
+			buyAvg = service.buyAvg(id);
+			sellAvg = service.sellAvg(id);
+			int noReadMessage = service.noReadMessage(id);
+			logger.debug(noReadMessage);
+			mv.setViewName("member/ajaxMemberInfo");
+			mv.addObject("noReadMessage",noReadMessage);
+			mv.addObject("buyCount", buyCount);
+			mv.addObject("sellCount", sellCount);
+			mv.addObject("buyAvg", buyAvg);
+			mv.addObject("sellAvg", sellAvg);
+			mv.addObject("map", map);
+			mv.addObject("sellcPage",0);
+			mv.addObject("buycPage",0);
+			mv.addObject("freecPage",0);
+			mv.addObject("qnacPage",0);
+			mv.addObject("contestcPage",0);
+			mv.addObject("fadeStatus",1);
+		}else {
+			String msg = "로그인 후 이용해주세요";
+			String loc = "/";
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+			mv.setViewName("common/msg");
+		}
+		
+		
 		return mv;
 	}
 	
