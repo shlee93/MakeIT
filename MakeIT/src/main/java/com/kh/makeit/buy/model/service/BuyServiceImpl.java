@@ -53,14 +53,21 @@ public class BuyServiceImpl implements BuyService {
 	}
 
 	@Override
-	public List<Map<String, String>> selectVolList(Map m) {
-		return dao.selectVolList(m);
+	public List<Map<String, String>> selectVolList(Map m, int numPerPage, int cPage) {
+		return dao.selectVolList(m, numPerPage, cPage);
 	}
 
 	@Override
 	public Map<String, String> selectVolView(Map map) {
 		// TODO Auto-generated method stub
 		return dao.selectVolView(map);
+	}
+	
+
+	@Override
+	public int insertBuySpec(Map map) {
+		// TODO Auto-generated method stub
+		return dao.insertBuySpec(map);
 	}
 
 	@Override
@@ -164,6 +171,12 @@ public class BuyServiceImpl implements BuyService {
 		}
 		
 		return result;
+	}
+
+	@Override
+	public int selectVolCount(String buyNo) {
+		// TODO Auto-generated method stub
+		return dao.selectVolCount(buyNo);
 	}
 
 	@Override

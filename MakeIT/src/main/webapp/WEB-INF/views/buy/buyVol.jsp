@@ -134,7 +134,7 @@ div {
    <div class="row">
       <div class="col-sm-1"></div>
       <div class="col-sm-10" id="apply-container">
-       <form id="volFrm" action="${path }/buy/buyVolEnd.do">
+       <form id="volFrm" action="${path }/buy/buyVolEnd.do" method="post">
          <div id="intro-div">
         
             <label>제목</label> 
@@ -146,16 +146,17 @@ div {
          </div>
          <div class="filebox bs3-primary preview-image">
 			<label for="input_file">사진 선택</label> <input type="file"
-				name="input_file" id="input_file" class="upload-hidden"
+				name="input_file12" id="input_file" class="upload-hidden"
 				multiple="multiple" accept=".gif, .jpg, .png">
+		
 		</div>
 		<input type="hidden" name="buyNo" value="${param.buyNo }"/>
-		</form>
+		
          <div id="btn-container">
-            <button class="btn btn-secondary" onclick="fn_volEnd();">지원하기</button>
+            <input type="submit" class="btn btn-secondary" value="지원하기"/>
          </div>
       </div>
-      
+      </form>
       <div class="col-sm-1"></div>
 </body>
 
@@ -167,7 +168,9 @@ $(document).ready(function(){
        
        var imgTarget = $('.preview-image .upload-hidden');
        imgTarget.on('change', function(e){
+    	  
           var files=e.target.files;
+          console.log(files);
            var filesArr=Array.prototype.slice.call(files);
            console.log(files);
            var parent = $(this).parent();

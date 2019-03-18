@@ -7,7 +7,7 @@ import java.util.Map;
 import com.kh.makeit.buy.model.vo.BuyAttach;
 
 public interface BuyService {
-	List<Map<String, String>> selectVolList(Map m);
+	List<Map<String, String>> selectVolList(Map m, int numPerPage, int cPage);
 	Map<String,String> selectVolView(Map map);
 	int buyCount(Map<String, String> map);
 	List<Map<String, String>> buyMainGrade(Map<String, String> map, int cPage, int numPerPage);
@@ -28,4 +28,6 @@ public interface BuyService {
 	List<Map<String, String>> selectAnother(String memberId, int numPerPage, int contentCount, int cPage);
 	int anotherCount(String memberId);
 	int buyVolEnd(List<Map<String, String>> files, Map<String, String> map);
+	int selectVolCount(String buyNo);
+	int insertBuySpec(Map map);
 }

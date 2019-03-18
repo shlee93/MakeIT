@@ -89,26 +89,10 @@
 			</div>
 		</div>
 		<div id="btn-div">
-			<button class="btn btn-secondary" onclick="loacation.href='${path}/buy/'">결정하기</button>
-			<button class="btn btn-secondary" onclick="location.href='${path}/buy/volList.do'">뒤로가기</button>
+			<button class="btn btn-secondary" onclick="location.href='${path}/buy/volCommit.do?buyNo=${buyNo }&memberId=${vol.MEMBERID }&cPage=${cPage }'">결정하기</button>
+			<button class="btn btn-secondary" onclick="location.href='${path}/buy/volList.do?buyNo=${buyNo }&cPage=${cPage }'">뒤로가기</button>
 		</div>
 		
-		<!-- <table class="table table-hover" style="width: 100%">
-			<tr class="volTr">
-				<td>이전</td>
-				<td>창과 방패가 서로 강하기를 주장하니 어찌 세상이 평화로울 수 있겠습니까</td>
-				<td>제갈공명</td>
-			</tr>
-			<tr class="volTr">
-				<td>다음</td>
-				<td>암튼 다이아몬드가 젤 단단함 반박시 빙시</td>
-				<td>관종</td>
-			</tr>
-			<tr>
-				<td><td><td>
-			</tr>
-
-		</table> -->
 		
 		
 		<div class="col-sm-1"></div>

@@ -122,10 +122,16 @@
 		UPDATE BUYREVIEW SET BUYREVIEWCONTENT = #{reviewContent}, BUYREVIEWSTAR = #{starCount} WHERE BUYNO = #{buyNo} AND BUYREVIEWNO = #{reviewNo} AND CATEGORYCODE = 'B'
 	</update>
 	<select id="selectVolList" parameterType="map" resultType="map">
-		SELECT * FROM BUYCANDIDATE WHERE BUYNO = ${buyNo} AND CATEGORYCODE = #{category} ORDER BY BUYCANDIDATEDATE
+		SELECT * FROM BUYCANDIDATE WHERE BUYNO = #{buyNo} AND CATEGORYCODE = #{category} ORDER BY BUYCANDIDATEDATE
 	</select>
-	<select id="selectVolView" parameterType="map" resultType="_int">
-		SELECT * FROM BUYCANDIDATE WHERE MEMBERID = #{memberId} AND BUYNO = ${buyNo} AND CATEGORYCODE = #{category}
+	<select id="selectVolView" parameterType="map" resultType="map">
+		SELECT * FROM BUYCANDIDATE WHERE MEMBERID = #{memberId} AND BUYNO = #{buyNo} AND CATEGORYCODE = #{category}
+	</select>
+	<insert id="insertBuySpec" parameterType="map">
+		INSERT INTO BUYSPEC VALUES(SEQ_BUYSPECNO.NEXTVAL, #{memberId}, #{buyNo}, 'B', DEFAULT, 1)
+	</insert>
+	<select id="selectVolCount" parameterType="string" resultType="int">
+		SELECT COUNT(*) FROM BUYCANDIDATE WHERE BUYNO = #{buyNo} AND CATEGORYCODE = 'B'
 	</select>
 	
 </mapper>

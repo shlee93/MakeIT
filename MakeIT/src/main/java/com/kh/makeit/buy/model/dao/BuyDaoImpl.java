@@ -68,15 +68,21 @@ public class BuyDaoImpl implements BuyDao {
 	}
 
 	@Override
-	public List<Map<String, String>> selectVolList(Map m) {
-		
-		return session.selectList("buy.selectVolList",m);
+	public List<Map<String, String>> selectVolList(Map m, int numPerPage, int cPage) {
+		RowBounds rb=new RowBounds((cPage-1)*numPerPage,numPerPage);
+		return session.selectList("buy.selectVolList",m,rb);
 	}
 
 	@Override
 	public Map<String, String> selectVolView(Map map) {
 		// TODO Auto-generated method stub
 		return session.selectOne("buy.selectVolView", map);
+	}
+
+	@Override
+	public int insertBuySpec(Map map) {
+		// TODO Auto-generated method stub
+		return session.insert("buy.insertBuySpec", map);
 	}
 
 	@Override
@@ -138,6 +144,12 @@ public class BuyDaoImpl implements BuyDao {
 	public int insertVolImg(Map<String, String> a) {
 		// TODO Auto-generated method stub
 		return session.insert("buy.insertVolImg", a);
+	}
+
+	@Override
+	public int selectVolCount(String buyNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("buy.selectVolCount", buyNo);
 	}
 
 	@Override

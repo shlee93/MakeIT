@@ -6,7 +6,7 @@ import java.util.Map;
 import com.kh.makeit.buy.model.vo.BuyAttach;
 
 public interface BuyDao {
-	List<Map<String, String>> selectVolList(Map m);
+	List<Map<String, String>> selectVolList(Map m, int numPerPage, int cPage);
 	Map<String,String> selectVolView(Map map);
 	int buyCount(Map<String, String> map);
 	List<Map<String, String>> buyMainGrade(Map<String, String> map, int cPage, int numPerPage);
@@ -29,5 +29,7 @@ public interface BuyDao {
 	int anotherCount(String memberId);
 	int insertVol(Map<String, String> map);
 	int insertVolImg(Map<String, String> a);
+	int selectVolCount(String buyNo);
+	int insertBuySpec(Map map);
 	
 }

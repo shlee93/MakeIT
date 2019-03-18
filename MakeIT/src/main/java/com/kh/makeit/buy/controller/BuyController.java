@@ -426,12 +426,12 @@ public class BuyController {
 	}
 	
 	@RequestMapping("/buy/buyVolEnd.do")
-	public ModelAndView buyVolEnd(String title, String content, String buyNo, MultipartFile[] input_file, HttpServletRequest request)
+	public ModelAndView buyVolEnd(String title, String content, String buyNo, MultipartFile[] input_file12, HttpServletRequest request)
 	{
 		System.out.println(title);
 		System.out.println(content);
 		System.out.println(buyNo);
-		for(MultipartFile a : input_file)
+		for(MultipartFile a : input_file12)
 		{
 			System.out.println("asdf" + a.getOriginalFilename());
 		}
@@ -447,7 +447,7 @@ public class BuyController {
 		String savDir = request.getSession().getServletContext().getRealPath("/resources/upload/buyVol");
 		
 	    
-		for(MultipartFile f: input_file)
+		for(MultipartFile f: input_file12)
 		{
 			if(!f.isEmpty()) {
 				//파일명 생성(rename)
@@ -497,23 +497,29 @@ public class BuyController {
 	}
 	
 	@RequestMapping("/buy/volList.do")
-	public ModelAndView selectVolList(String buyNo)
+	@ResponseBody
+	public ModelAndView selectVolList(@RequestParam(value = "cPage", required = false, defaultValue = "0") int cPage, String buyNo)
 	{
 		ModelAndView mv = new ModelAndView();
+		
+		int numPerPage = 10;
+		int contentCount = service.selectVolCount(buyNo);
 		
 		Map<String,String> map = new HashMap();
 		map.put("buyNo", buyNo);
 		map.put("category", "B");
 		
-		List<Map<String, String>> volList = service.selectVolList(map);
+		List<Map<String, String>> volList = service.selectVolList(map, numPerPage,cPage);
+		
 		mv.addObject("volList", volList);
 		mv.setViewName("buy/buyVolList");
+		mv.addObject("pageBar", PageFactory.getPageBarVol(contentCount, cPage, numPerPage, buyNo, "/makeit/buy/volList.do"));
 		return mv;
 
-	}
+	}	
 	
 	@RequestMapping("/buy/buyVolView.do")
-	public ModelAndView selectVolView(String memberId, String buyNo, String categoryCode)
+	public ModelAndView selectVolView(String memberId, String buyNo, String categoryCode, String cPage)
 	{
 		ModelAndView mv = new ModelAndView();
 		Map<String,String> map = new HashMap();
@@ -524,7 +530,42 @@ public class BuyController {
 		
 		Map<String,String> vol = service.selectVolView(map);
 		mv.addObject("vol", vol);
+		mv.addObject("buyNo", buyNo);
+		mv.addObject("cPage", cPage);
 		mv.setViewName("buy/buyVolView");
+		return mv;
+	}
+	
+	@RequestMapping("/buy/volCommit.do")
+	public ModelAndView volCommit(String buyNo, String memberId, int cPage)
+	{
+		ModelAndView mv = new ModelAndView();
+		
+		Map map = new HashMap();
+		map.put("buyNo", buyNo);
+		map.put("memberId", memberId);
+		
+		int result = service.insertBuySpec(map);
+		
+		String msg = "";
+		String loc = "";
+		if(result > 0)
+		{
+			msg="지원자를 결정 완료하였습니다.";
+			loc="/buy/buyDetail.do?buyNo=" + buyNo;
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+			mv.setViewName("common/msg");
+		}
+		else
+		{
+			msg="지원자 결정에 실패하였습니다. 다시 시도해 주세요.";
+			loc="/buy/buyVolView.do?buyNo=" + buyNo + "&memberId=" + memberId + "&categoryCode=B&cPage="+cPage;
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+			mv.setViewName("common/msg");
+			
+		}
 		return mv;
 	}
 	
