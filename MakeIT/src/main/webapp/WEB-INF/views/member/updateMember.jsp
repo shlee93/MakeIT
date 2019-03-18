@@ -217,7 +217,7 @@
                 </div>
                 <div class="row">
                 	<div class="col-md-1 mb-2"></div>
-                    <div class="col-md-2 mb-2">
+                	<div class="col-md-2 mb-2">
                         <c:if test="${memberLevel==1 }">
                         	<span>이메일</span><span class="text-danger">*</span>
                         </c:if>
@@ -225,14 +225,20 @@
                         	<span>대표이메일</span><span class="text-danger">*</span>
                         </c:if>
                     </div>
-                    <div class="col-md-3 mb-2">
+                    <div class="col-md-1 mb-2">
                         <input type="text" id='memberEmail' name='memberEmail' class='form-control' value='${email }' placeholder="이메일" required>
                     </div>
                     <div class="col-md-1 mb-2 memberNo-center">
                         <span>@</span>
                     </div>
                     <div class="col-md-2 mb-2">
-                        <select class='form-control' id='joinEmailDomain' name='joinEmailDomain' required>
+                    	<input type="text" class="form-control" id="joinEmailDomain" name="joinEmailDomain" value='${domain }' placeholder="직접입력" required>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <select class='form-control' id='emailDomain' name='emailDomain'>
+                            <option value='' selected>
+								직접입력
+                            </option>
                             <option value='naver.com' ${domain=='naver.com'?'selected':'' }>
                                 naver.com
                             </option>   
@@ -313,6 +319,12 @@
     
     
 <script>	
+
+$('#emailDomain').change(function(){
+	var domain = $('#emailDomain').val().trim();
+	$('#joinEmailDomain').attr('value',domain);
+});
+
 function fn_accountCheck(){
 	var bankCode=$("#bank").val().trim();
        
@@ -387,11 +399,12 @@ function fn_checkEmail(){
 	   
 	}
 	var domain=$('#joinEmailDomain').val().trim();
-	if(!domain || domain.length<=0)
-	{
-	   alert("도메인을 선택하세요.");
-	   return;   
-	}
+	if($('#joinEmailDomain').val().trim().length==0)
+    {
+        alert("이메일 도메인을 입력해주세요");
+        $('#joinEmailDomain').focus();
+        return false;
+    }   
 	var fullEmail = email+'@'+domain;
 	console.log(fullEmail);
 	var url="${path}/member/checkEmail";
@@ -467,6 +480,13 @@ $(function(){
             $('#memberEmail').focus();
             return false;
         }
+        
+        if($('#joinEmailDomain').val().trim().length==0)
+        {
+            alert("이메일 도메인을 입력해주세요");
+            $('#joinEmailDomain').focus();
+            return false;
+        }   
         
         var memberAccount = $('#memberAccount').val().trim();
         

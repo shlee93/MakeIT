@@ -95,4 +95,6 @@ public interface MemberService {
 
 	int deleteNaverMember(String updateId);
 
+	List<Map<String, String>> bankList();
+
 }

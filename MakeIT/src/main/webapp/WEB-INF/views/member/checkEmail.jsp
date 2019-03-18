@@ -32,7 +32,14 @@
 		margin-top:3em;
 		text-align:center;
 	}
-
+	.timer-container{
+		text-align:center;
+	}
+	#timer{
+		color : #138496;
+		font-size: 2em;
+		font-weight: 700;
+	}
 </style>
 
 <body>

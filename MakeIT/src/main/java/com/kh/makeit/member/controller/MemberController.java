@@ -139,7 +139,9 @@ public class MemberController {
 	public ModelAndView memberEnroll(String memberLevel) {
 		logger.debug(memberLevel);
 		ModelAndView mv = new ModelAndView();
+		List<Map<String,String>> list = service.bankList();
 		mv.addObject("memberLevel", memberLevel);
+		mv.addObject("bank",list);
 		mv.setViewName("member/memberEnroll");
 		return mv;
 	}
@@ -282,12 +284,13 @@ public class MemberController {
 		}
 		logger.debug(map);
 		int result = service.insertMember(map);
+		Map<Object,Object> resultMap = service.selectOne(memberId);
 		String msg = "";
 		String loc = "";
 		if (result > 0) {
 			msg = "회원가입이 완료되었습니다.";
 			loc = "/";
-			session.setAttribute("member", result);
+			session.setAttribute("member", resultMap);
 		} else {
 			msg = "회원가입이 실패했습니다.";
 			loc = "/";
@@ -474,12 +477,15 @@ public class MemberController {
 	public ModelAndView updateMember(String updateId) throws ParseException {
 		Map<Object, Object> map = service.selectOne(updateId);
 		ModelAndView mv = new ModelAndView();
+		String[] interest = null;
 		if(map != null) {
 			logger.debug(map);
-			String[] interest = ((String) map.get("INTERESTNO")).split(",");
 			List<String> interestList = new ArrayList();
-			for (int i = 0; i < interest.length; i++) {
-				interestList.add(interest[i]);
+			if(map.get("INTERESTNO")!=null) {
+				interest = ((String) map.get("INTERESTNO")).split(",");
+				for (int i = 0; i < interest.length; i++) {
+					interestList.add(interest[i]);
+				}
 			}
 			String[] emailList = ((String) map.get("EMAIL")).split("@");
 			String[] addressList = ((String) map.get("ADDRESS")).split("/");

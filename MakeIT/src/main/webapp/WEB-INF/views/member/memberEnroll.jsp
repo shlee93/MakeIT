@@ -185,28 +185,12 @@
                         <span>계좌번호</span><span class="text-danger">*</span>
                     </div>
                     <div class="col-md-2 mb-2">
-                        <select class="form-control" id="bank" name="bank">
+                        <select class="form-control" id="bank" name="bank" required>
                         	<option disabled selected>은행을 선택하세요</option>
-                            <option value="001">한국은행</option>
-                            <option value="010">KDB산업은행</option>
-                            <option value="011">IBK기업은행</option>
-                            <option value="012">한국수출입</option>
-                            <option value="020">NH농협은행</option>
-                            <option value="021">SH수협은행</option>
-                            <option value="030">신한은행</option>
-                            <option value="031">KB국민은행</option>
-                            <option value="032">우리은행</option>
-                            <option value="033">SC제일은행</option>
-                            <option value="034">씨티은행</option>
-                            <option value="035">KEB하나은행</option>
-                            <option value="040">DGB대구은행</option>
-                            <option value="041">BNK부산은행</option>
-                            <option value="042">광주은행</option>
-                            <option value="043">제주은행</option>
-                            <option value="044">전북은행</option>
-                            <option value="045">BNK경남은행</option>
-                            <option value="050">케이뱅크</option>
-                            <option value="051">카카오뱅크</option>
+                        	<c:forEach var="bank" items="${bank }">
+                        		<option value="${bank.BANKCODE }">${bank.BANKNAME }</option>
+                        	</c:forEach>
+                            
                         </select>
                     </div>
                     <div class="col-md-4 mb-2">
@@ -242,16 +226,19 @@
                         	<span>대표이메일</span><span class="text-danger">*</span>
                         </c:if>
                     </div>
-                    <div class="col-md-3 mb-2">
+                    <div class="col-md-1 mb-2">
                         <input type="text" id='memberEmail' name='memberEmail' class='form-control' value='' placeholder="이메일" required>
                     </div>
                     <div class="col-md-1 mb-2 memberNo-center">
                         <span>@</span>
                     </div>
                     <div class="col-md-2 mb-2">
-                        <select class='form-control' id='joinEmailDomain' name='joinEmailDomain' required>
-                            <option value=''disabled selected>
-                                domain.com
+                    	<input type="text" class="form-control" id="joinEmailDomain" name="joinEmailDomain" placeholder="직접입력" required>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <select class='form-control' id='emailDomain' name='emailDomain'>
+                            <option value='' selected>
+								직접입력
                             </option>
                             <option value='naver.com'>
                                 naver.com
@@ -341,6 +328,19 @@
 		location.href = "${path}/member/mainPage";
 	}
 	
+	$('#emailDomain').change(function(){
+		var domain = $('#emailDomain').val().trim();
+		console.log(domain);
+		$('#joinEmailDomain').val('');
+		$('#joinEmailDomain').attr('value',domain);
+		console.log($('#joinEmailDomain').val());
+		/* if(domain != ''){
+			$('#joinEmailDomain').attr('readonly','readonly');
+		} else{
+			$('#joinEmailDomain').attr('readonly','readonly');
+		} */
+	});
+	
 	var sel_files=[];
 	$(document).ready(function(){
        //preview image 
@@ -389,7 +389,7 @@
 		var domain=$('#joinEmailDomain').val().trim();
 		if(!domain || domain.length<=0)
 		{
-		   alert("도메인을 선택하세요.");
+		   alert("도메인을 입력하세요.");
 		   return;   
 		}
 		var fullEmail = email+'@'+domain;
@@ -595,12 +595,22 @@
                 return false;
             }
             
+			var memberPhone = $('#memberPhone').val().trim();
+
+            if(!/^[0-9]+$/.test(memberPhone))
+            { 
+                alert('핸드폰 번호는 숫자만 사용해야 합니다.'); 
+                $('#memberPhone').focus();
+                return false;
+            }
+            
             if($('#memberPhone').val().trim().length==0)
             {
                 alert("핸드폰 번호를 입력해주세요");
                 $('#memberPhone').focus();
                 return false;
             }
+            
             
             if($('#memberEmail').val().trim().length==0)
             {
@@ -609,9 +619,9 @@
                 return false;
             }
             var f=document.signupform;
-            if(f.joinEmailDomain.value=='')
+            if($('#joinEmailDomain').val().trim().length==0)
             {
-                alert("이메일 도메인을 선택해주세요");
+                alert("이메일 도메인을 입력해주세요");
                 $('#joinEmailDomain').focus();
                 return false;
             }   
