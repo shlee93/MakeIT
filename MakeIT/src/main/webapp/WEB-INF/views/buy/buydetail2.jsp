@@ -121,7 +121,7 @@
                             </div>
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                             	<div id="rate-div"></div>
-                            	<table id="review-table" class="table" style="width:100%; ">
+                            	<table id="review-table" class="table" style="; ">
                             		
                                 <c:forEach items="${reviewList }" var="review">
                                 	<tr style="font-size:20pt">
@@ -200,7 +200,7 @@
                                 		<button onclick='location.href="${path}/buy/volList.do?buyNo=${detailList.BUYNO }"' class='btn btn-primary' style='float:left;'>지원자보기</button>
                                 	</c:if>
                                     <c:if test="${sessionScope.member.MEMBERID != detailList.MEMBERID }">
-                                   		<button onclick='fn_starPop();' class='btn btn-primary' style='float:left;'>후기남기기</button>
+                                   		<button onclick='fn_starPop();' class='btn btn-primary' s  tyle='float:left;'>후기남기기</button>
                                     </c:if>
                                 </div>
                                 <script>
@@ -215,7 +215,7 @@
                                         else if(${specList.STATUSNO != '4' || specList.STATUSNO != '5'})
                                         {
                                         	alert("구매 확정 이후에 작성할 수 있습니다.");
-                                        	return
+                                        	return;
                                         }
                                         else{
                                         	var starPop=open("${path}/buy/writeReview.do?buyNo=${param.buyNo}","buyStarForm","top=200px, left=200px, width=400px, height=190px");
