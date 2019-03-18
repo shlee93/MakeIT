@@ -1,9 +1,9 @@
 @charset "UTF-8";
- /* div
+  /* div
         {
             border: 1px solid red;
         } */
-
+  
         .subImg        
         {        
             display: inline;      
@@ -60,8 +60,13 @@
             border-top:5px solid #e74c3c;
             border-bottom:5px solid #e74c3c;
             padding:30px 25px;
+            width:100%;
         }
-
+		
+		.tab-pane
+		{
+			padding:10px;
+		}
         .detail:hover
         {
             border: none;
@@ -91,10 +96,43 @@
 
         #subImg1
         {
-        margin-right:0;
+        	margin-right:0;
         }
 
         .userImg
         {
             border-radius: 6em;
+        }
+      #rate-div
+        {
+           padding-left:20px;
+           padding-bottom:20px;
+        }
+        #review-table
+        {
+           padding:20px;
+        }
+        #reviewAvg
+        {
+           display:inline;
+           padding-left:10px;
+           font-size:25pt;
+           color:rgb(250,82,82);
+           vertical-align: middle;
+        }
+        #reviewCnt
+        {
+           display:inline;
+           padding-left:30px;
+           font-size:15pt;
+           color:grey;
+           vertical-align:middle;
+        }
+        .tab-id
+        {
+           width:20%;
+        }
+        .tab-star
+        {
+           width:30%;
         }

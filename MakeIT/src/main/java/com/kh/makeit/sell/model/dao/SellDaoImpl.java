@@ -252,9 +252,9 @@ public class SellDaoImpl implements SellDao {
 	}
 
 	@Override
-	public List<Map<String, String>> purcahseList(int sellno) {
+	public List<Map<String, String>> purcahseList(Map refund) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("sell.purcahseList",sellno);
+		return sqlSession.selectList("sell.purcahseList",refund);
 	}
 
 	@Override
@@ -263,13 +263,48 @@ public class SellDaoImpl implements SellDao {
 		return sqlSession.update("sell.sellRefundEnd",payBack);
 	}
 
+	@Override
+	   public int insertReview(Map<String, String> map) {
+	      // TODO Auto-generated method stub
+	      return sqlSession.insert("sell.insertReview", map);
+	   }
 
-	
-	
-	
-	
+	  /* @Override
+	   public int deleteReview(Map<String, String> map) {
+	      // TODO Auto-generated method stub
+	      return session.delete("buy.deleteReview",map);
+	   }
 
+	   @Override
+	   public int updateReview(Map<String, String> map) {
+	      // TODO Auto-generated method stub
+	      return session.update("buy.updateReview",map);
+	   }*/
 	
+	@Override
+	   public int selectReviewCnt(int sellno) {
+	      // TODO Auto-generated method stub
+	      return sqlSession.selectOne("sell.selectReviewCnt", sellno);
+	   }
+	
+	@Override
+	   public int updateReview(Map<String, String> map) {
+	      // TODO Auto-generated method stub
+	      return sqlSession.update("sell.updateReview",map);
+	   }
+	@Override
+	   public int deleteReview(Map<String, String> map) {
+	      // TODO Auto-generated method stub
+	      return sqlSession.delete("sell.deleteReview",map);
+	   }
+
+	//구매확정
+	@Override
+	public int sellCommit(int sellSpecNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("sell.sellCommit",sellSpecNo);
+	}
+
 	
 
 }

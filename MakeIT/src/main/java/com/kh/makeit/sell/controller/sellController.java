@@ -346,32 +346,47 @@ public class sellController {
    public ModelAndView selldeatailView(int sellno,HttpServletRequest request)
    {
 	   List<Map<String,String>> detailList=service.selldetailView(sellno);
+	   System.out.println(detailList+"디테일!!!!!!!!!!!!!!!!!!!!");
 	   List<Map<String,String>> mainimgList=service.selldetailImg(sellno);
 	   List<Map<String,String>> optionList=service.selldetailOption(sellno);
 	   List<Map<String,String>> sellReivew=service.sellReview(sellno);
 	   List<Map<String,String>> subimgList=service.sellsubImg(sellno);
-	   List<Map<String,String>> purchaseList=service.purchaseList(sellno);
+	 
+	   
+	   int reviewCnt = service.selectReviewCnt(sellno);
 	   HttpSession session = request.getSession();
-	   ModelAndView mv = new ModelAndView();
+	   ModelAndView mv = new ModelAndView();	   	   
 	   if((Map)session.getAttribute("member")!=null)
 	   {
-		   
 		   Map<String,String> sessionMap=(Map)session.getAttribute("member");
 		   String loginMember=String.valueOf(sessionMap.get("MEMBERID"));
+		   Map refund =new HashMap();
+		   refund.put("sellno", sellno);
+		   refund.put("loginMember", loginMember);
+		   List<Map<String,String>> purchaseList=service.purchaseList(refund);
+		   System.out.println(purchaseList+"펄체이스!!@#@!$");
+		   
+		   for(Map map : purchaseList) {
+			   String date = map.get("SELLSPECDATE").toString().substring(0,10);
+			   map.put("SELLSPECDATE", date);		   
+		   }
+		  
+		   mv.addObject("purchaseList",purchaseList);
 		   Map outBoxc= new HashMap();
 		   outBoxc.put("sellno",sellno);
 		   outBoxc.put("loginMember", loginMember);
 		   Map outBoxYn=service.sellOutBoxYn(outBoxc);
 		   mv.addObject("outBoxYn",outBoxYn);
 		   mv.addObject("session", sessionMap);
-	   }
-	  
+	   }    
+	     
 	   mv.addObject("subimgList",subimgList);
 	   mv.addObject("detailList",detailList);
 	   mv.addObject("mainimgList",mainimgList);
 	   mv.addObject("optionList",optionList);
 	   mv.addObject("sellReivew",sellReivew);
-	   mv.addObject("purchaseList",purchaseList);
+	   
+	   mv.addObject("reviewCnt", reviewCnt);
 	   mv.setViewName("sell/sellDetail");
 	   return mv;
    }
@@ -646,14 +661,14 @@ public class sellController {
 	      if(result>0)
 	      {
 	         msg="작업완료가 반영되었습니다.";
-	         loc="sell/sellBuyerShow?sellno="+sellno;
+	         loc="/sell/sellBuyerShow.do?sellno="+sellno;
 	         mv.addObject("msg",msg);
 	         mv.addObject("loc",loc);
 	         mv.setViewName("common/msg");
 	         return mv;
 	      }else {
 	         msg="요청하신 응답에 실패하였습니다. 다시 시도해주세요.";
-	         loc="${path}/sell/sellBuyerShow?sellno="+sellno;
+	         loc="/sell/sellBuyerShow.do?sellno="+sellno;
 	         mv.addObject("msg",msg);
 	         mv.addObject("loc",loc);
 	         mv.setViewName("common/msg");
@@ -701,5 +716,155 @@ public class sellController {
 	      }
 	   
    }
+   @RequestMapping("/sell/writeReview.do")
+   public ModelAndView writeReview(String sellno)
+   {
+      ModelAndView mv = new ModelAndView();
+      mv.addObject("sellno", sellno);
+      System.out.println(sellno+"글쓰기에서 바로온놈");
+      mv.setViewName("sell/sellStarPop");
+      return mv;
+   }
+   @RequestMapping("/sell/writeReviewEnd.do")
+   public ModelAndView writeReviewEnd(String sellno, String reviewContent, String starCount, HttpServletRequest request)
+   {
+      ModelAndView mv = new ModelAndView();
+      
+      HttpSession session = request.getSession();
+      Map<String,String> sessionMap = (Map)session.getAttribute("member");
+      System.out.println(sellno+"엔드!");
+      Map<String,String> map = new HashMap();
+      map.put("sellno", sellno);
+      map.put("reviewContent", reviewContent);
+      map.put("starCount", starCount);
+      map.put("memberId", sessionMap.get("MEMBERID"));
+      int result = service.insertReview(map);
+      
+      String msg = "";
+      String loc = "";
+      
+      if(result > 0)
+      {
+         msg = "후기가 등록되었습니다.";
+         loc = "/sell/selldetail?sellno="+sellno;
+         mv.addObject("msg",msg);
+         mv.addObject("loc",loc);
+         mv.addObject("script","window.close();opener.location.reload();");
+         mv.setViewName("common/msg");
+      }
+      else
+      {
+         msg = "후기 등록에 실패하였습니다.";
+         loc = "/sell/selldetail?sellno="+sellno;
+         mv.addObject("msg",msg);
+         mv.addObject("loc",loc);
+         mv.setViewName("common/msg");
+      }
+      
+      return mv;
+   }
+   @RequestMapping("/sell/modReview.do")
+   public ModelAndView modReview(String sellno, String reviewNo)
+   {
+      ModelAndView mv = new ModelAndView();
+      mv.addObject("sellno", sellno);
+      mv.addObject("reviewNo", reviewNo);
+      mv.setViewName("sell/sellStarPop");
+      return mv;
+   }
+   @RequestMapping("/sell/modReviewEnd.do")
+   public ModelAndView modReviewEnd(String sellno, String reviewContent, String starCount, String reviewNo, HttpServletRequest request)
+   {
+      ModelAndView mv = new ModelAndView();
+      
+      HttpSession session = request.getSession();
+      Map<String,String> sessionMap = (Map)session.getAttribute("member");
+      
+      Map<String,String> map = new HashMap();
+      map.put("sellno", sellno);
+      map.put("reviewContent", reviewContent);
+      map.put("starCount", starCount);
+      map.put("memberId", sessionMap.get("MEMBERID"));
+      map.put("reviewNo", reviewNo);
+      int result = service.updateReview(map);
+      
+      String msg = "";
+      String loc = "";
+      
+      if(result > 0)
+      {
+         msg = "후기가 변경되었습니다.";
+         loc = "/sell/selldetail?sellno="+sellno;
+         mv.addObject("msg",msg);
+         mv.addObject("loc",loc);
+         mv.addObject("script","window.close();opener.location.reload();");
+         mv.setViewName("common/msg");
+      }
+      else
+      {
+         msg = "후기 변경에 실패하였습니다.";
+         loc = "/sell/selldetail?sellno="+sellno;
+         mv.addObject("msg",msg);
+         mv.addObject("loc",loc);
+         mv.setViewName("common/msg");
+      }
+      
+      return mv;
+   }
+   @RequestMapping("/sell/sellReviewDel.do")
+   public ModelAndView sellReviewDel(String reviewNo, String sellno)
+   {
+      ModelAndView mv = new ModelAndView();
+      
+      Map<String,String> map = new HashMap();
+      map.put("reviewNo", reviewNo);
+      map.put("sellno", sellno);
+      
+      int result = service.deleteReview(map);
+      
+      String msg = "";
+      String loc = "";
+      
+      if(result > 0)
+      {
+         msg = "후기가 삭제되었습니다.";
+         loc = "/sell/selldetail?sellno="+sellno;
+         mv.addObject("msg",msg);
+         mv.addObject("loc",loc);
+      }
+      else
+      {
+         msg = "후기 삭제에 실패하였습니다.";
+         loc = "/sell/selldetail?sellno="+sellno;
+         mv.addObject("msg",msg);
+         mv.addObject("loc",loc);
+      }
+      mv.setViewName("common/msg");
+      return mv;
+   }
+ @RequestMapping("/sell/sellCommit.do")
+ public ModelAndView sellCommit(int sellSpecNo,int sellno)
+ {
+	 ModelAndView mv = new ModelAndView();
+	 int result =service.sellCommit(sellSpecNo);
+	 String msg="";
+     String loc="";     
+     if(result>0)
+     {
+        msg="구매확정을 완료하였습니다.";
+        loc="/sell/sellmain.do";
+        mv.addObject("msg",msg);
+        mv.addObject("loc",loc);
+        mv.setViewName("common/msg");
+        return mv;
+     }else {
+        msg="구매확정을 실패하였습니다. 다시 시도해 주세요.";
+        loc="/sell/selldetail.do?sellno="+sellno;
+        mv.addObject("msg",msg);
+        mv.addObject("loc",loc);
+        mv.setViewName("common/msg");
+        return mv;
+     }
+ }
 }
 

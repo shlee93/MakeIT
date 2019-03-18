@@ -9,7 +9,17 @@
 </jsp:include>
 
 	<div class='row'>
-	    <div class='col-md-1' id='nav'></div>
+	    <div class='col-md-1' id='nav'>
+	     	<div style='position:fixed; margin-top: 10em;'>
+	    			<span onclick='fn_back()' style='cursor:pointer; font-size: 6em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
+	          	 	<script>
+	           			function fn_back()
+		           		{
+		           			history.back();
+		           		}
+		           	</script>
+	           	</div>
+	     </div>
 	    <div class='col-md-10' id='section' >
 				<table id="example" class="table table-striped table-bordered" style="text-align:center;">
 	                    <thead>
@@ -46,7 +56,7 @@
                 function fn_statusChange(no, sellno){
                 	console.log(no);
                 	console.log(sellno);
-                	 location.href="${path}/sell/sellSpecUpdate.do?no="+no+"&&sellno="+sellno; 
+                	location.href="${path}/sell/sellSpecUpdate.do?no="+no+"&&sellno="+sellno; 
                 } 
                 </script>  
 	    </div>

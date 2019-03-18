@@ -158,7 +158,7 @@ select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.g
    select * from selloption where sellno=#{sellno}
 </select>
 <select id="sellReview" parameterType="_int" resultType="map">
-   select * from sellReview where sellno=#{sellno}
+   select * from sellReview where sellno=#{sellno} order by sellreviewno desc
 </select>
 
 <select id="sellsubImg" parameterType="_int" resultType="map">
@@ -240,10 +240,29 @@ insert into SELLOPTION values(SEQ_SELLOPTIONCODE.NEXTVAL,#{selloptionNo},#{selln
 </update>
 <!-- 메인화면에 환불하기 띄워주는것 선택하기 -->
 <select id="purcahseList" parameterType="map" resultType="map">
-	select * from sellspec where sellno=#{sellno}
+	select sp.sellspecno,sp.memberid,sp.selloptioncode,sp.selloptionno,sp.sellno,sp.selloptionper,sp.categorycode,sp.sellspecdate,sp.statusno,so.sellprice from sellspec sp join selloption so on(sp.selloptioncode=so.selloptioncode) where sp.sellno=#{sellno} and memberid=#{loginMember}
 </select>
 <!-- 환불하기 -->
 <update id="sellRefundEnd" parameterType="map">
  	update sellspec set statusno='6' where memberid=#{refundId} and sellno=#{sellno}
 </update>
+<insert id="insertReview" parameterType="map">
+      INSERT INTO SELLREVIEW VALUES(SEQ_REVIEWNO.NEXTVAL, #{reviewContent}, #{starCount}, #{sellno}, #{memberId}, 'S')
+   </insert>
+   
+   <select id="selectReviewCnt" parameterType="_int" resultType="_int">
+      SELECT COUNT(*) FROM SELLREVIEW WHERE sellno=#{sellno}
+   </select>
+   
+   <update id="updateReview" parameterType="map">
+      UPDATE SELLREVIEW SET SELLREVIEWCONTENT = #{reviewContent}, SELLREVIEWSTAR = #{starCount} WHERE SELLNO = #{sellno} AND SELLREVIEWNO = #{reviewNo} AND CATEGORYCODE = 'S'
+   </update>
+   
+   <delete id="deleteReview" parameterType="map">
+      DELETE FROM SELLREVIEW WHERE SELLNO = #{sellno} AND SELLREVIEWNO = #{reviewNo} AND CATEGORYCODE = 'S'
+   </delete>
+   
+ <update id="sellCommit" parameterType="_int">
+ 	update sellspec set statusno=4 where sellspecno=#{sellSpecNo}
+ </update>
 </mapper>

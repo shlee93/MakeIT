@@ -275,9 +275,9 @@ public class sellServiceImpl implements sellService {
 	}
 
 	@Override
-	public List<Map<String, String>> purchaseList(int sellno) {
+	public List<Map<String, String>> purchaseList(Map refund) {
 		// TODO Auto-generated method stub
-		return dao.purcahseList(sellno);
+		return dao.purcahseList(refund);
 	}
 
 	@Override
@@ -285,8 +285,34 @@ public class sellServiceImpl implements sellService {
 		// TODO Auto-generated method stub
 		return dao.sellRefundEnd(payBack);
 	}
-	
+	@Override
+	   public int insertReview(Map<String, String> map) {
+	      // TODO Auto-generated method stub
+	      return dao.insertReview(map);
+	   }
+	@Override
+	   public int selectReviewCnt(int sellno) {
+	      // TODO Auto-generated method stub
+	      return dao.selectReviewCnt(sellno);
+	   }
 
+	@Override
+	   public int updateReview(Map<String, String> map) {
+	      // TODO Auto-generated method stub
+	      return dao.updateReview(map);
+	   }
 	
+	@Override
+	   public int deleteReview(Map<String, String> map) {
+	      // TODO Auto-generated method stub
+	      return dao.deleteReview(map);
+	   }
+
+	@Override
+	public int sellCommit(int sellSpecNo) {
+		// TODO Auto-generated method stub
+		return dao.sellCommit(sellSpecNo);
+	}
+
 	
 }

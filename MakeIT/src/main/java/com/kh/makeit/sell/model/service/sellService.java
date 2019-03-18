@@ -78,10 +78,19 @@ List<Map<String, String>> sellBuyerShow(int sellno);
 
 int sellSpecUpdate(int no);
 
-List<Map<String, String>> purchaseList(int sellno);
+List<Map<String, String>> purchaseList(Map refund);
 
 int sellRefundEnd(Map payBack);
 
+int insertReview(Map<String, String> map);
+
+int selectReviewCnt(int sellno);
+
+int updateReview(Map<String, String> map);
+
+int deleteReview(Map<String, String> map);
+
+int sellCommit(int sellSpecNo);
 
 
 }
