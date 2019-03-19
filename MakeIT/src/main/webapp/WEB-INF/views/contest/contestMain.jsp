@@ -26,7 +26,7 @@
 
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/buywrite/buywrite.css" />
 	<style>
-		/* 어드민 네비 */
+	  /* 어드민 네비 */
 
 	  .hide
 	  {

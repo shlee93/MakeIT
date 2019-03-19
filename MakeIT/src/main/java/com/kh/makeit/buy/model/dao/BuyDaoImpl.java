@@ -114,6 +114,18 @@ public class BuyDaoImpl implements BuyDao {
 		// TODO Auto-generated method stub
 		return session.insert("buy.insertReview", map);
 	}
+
+	@Override
+	public int deleteReview(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return session.delete("buy.deleteReview",map);
+	}
+
+	@Override
+	public int updateReview(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return session.update("buy.updateReview",map);
+	}
 	
 	
 	

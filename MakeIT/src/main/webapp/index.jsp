@@ -11,7 +11,7 @@
 
 	<a class="dropdown-item" href="${path }/member/memberEnrollck.do">회원가입</a>
 	<a class="dropdown-item" href="${path }/member/memberLogin.do">로그인</a>
-	<a class="dropdown-item" href="${path }/member/memberMyPage.do">마이페이지</a>
+	<a class="dropdown-item" href="${path }/member/memberMyPage.do">마이페이지</a>	
 	<a class="dropdown-item" href="${path }/buy/volList.do">지원자 리스트</a>
 	<a class="dropdown-item" href="${path }/sell/sellmain.do">판매메인</a>
 	<a class="dropdown-item" href="${path }/sell/sellDetail.do">판매디테일</a>
@@ -24,7 +24,6 @@
 	<a class="dropdown-item" href="${path }/mainpage/mainpage.do">메인페이지</a>
 	<a class="dropdown-item" href="${path }/admin/adminView.do">관리자</a>
 	<a class="dropdown-item" href="${path }/intropage/intropage.do">인트로페이지</a>
-
 
    <div id="famousContentWrap">
         <P id="famousContentTitle">인기 컨텐츠!<br/><p id="famousContentTitle2">시간 되시면 둘러보세요 :)</p>
@@ -244,7 +243,7 @@
         var major = "프로그래밍";
 
         if($('#rankingViewBody').css('height') == '639px'){
-            viewPosition = viewPosition-535;
+            viewPosition = vi	ewPosition-535;
             $('#rankingDetailViewBody').css('top',viewPosition+'px');
             $('#rankingDetailViewBody').css('width','300px');
             $('#rankingDetailViewBody').css('opacity','1');

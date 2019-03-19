@@ -220,5 +220,99 @@ public class sellServiceImpl implements sellService {
 		// TODO Auto-generated method stub
 		return dao.sellOutBoxDelete(outBoxDelete);
 	}
+//신고 인서트
+	@Override
+	public int insertReport(Map reportMap) {
+		// TODO Auto-generated method stub
+		return dao.insertReport(reportMap);
+	}
+//구매 선택한 옵션띄우주게 셀렉트
 
+	@Override
+	public Map selectedOption(Map optionMap) {
+		// TODO Auto-generated method stub
+		return dao.selctedOption(optionMap);
+	}
+//셀글삭제
+
+	@Override
+	public int sellDetailDelete(int sellno) {
+		// TODO Auto-generated method stub
+		return dao.sellDetailDelete(sellno);
+	}
+//판매글올린사람 서치
+	@Override
+	public Map selectSeller(Map optionMap) {
+		// TODO Auto-generated method stub
+		return dao.selectSeller(optionMap);
+	}
+//결재종료후 값 인서트
+	@Override
+	public int purchaseComplete(Map purchaseInfo) {
+		// TODO Auto-generated method stub
+		return dao.purchaseComplete(purchaseInfo);
+	}
+//결재완료창에서 옵션뭐선택했는지 띄워준다
+
+	@Override
+	public Map optionInfo(Map purchaseInfo) {
+		// TODO Auto-generated method stub
+		return dao.optionInfo(purchaseInfo);
+	}
+//구매자들 띄워주기
+
+	@Override
+	public List<Map<String, String>> sellBuyerShow(int sellno) {
+		// TODO Auto-generated method stub
+		return dao.sellBuyerShow(sellno);
+	}
+	//판매자가 작업상태변경
+
+	@Override
+	public int sellSpecUpdate(int no) {
+		// TODO Auto-generated method stub
+		return dao.sellSpectUpdate(no);
+	}
+
+	@Override
+	public List<Map<String, String>> purchaseList(Map refund) {
+		// TODO Auto-generated method stub
+		return dao.purcahseList(refund);
+	}
+
+	@Override
+	public int sellRefundEnd(Map payBack) {
+		// TODO Auto-generated method stub
+		return dao.sellRefundEnd(payBack);
+	}
+	@Override
+	   public int insertReview(Map<String, String> map) {
+	      // TODO Auto-generated method stub
+	      return dao.insertReview(map);
+	   }
+	@Override
+	   public int selectReviewCnt(int sellno) {
+	      // TODO Auto-generated method stub
+	      return dao.selectReviewCnt(sellno);
+	   }
+
+	@Override
+	   public int updateReview(Map<String, String> map) {
+	      // TODO Auto-generated method stub
+	      return dao.updateReview(map);
+	   }
+	
+	@Override
+	   public int deleteReview(Map<String, String> map) {
+	      // TODO Auto-generated method stub
+	      return dao.deleteReview(map);
+	   }
+
+	@Override
+	public int sellCommit(int sellSpecNo) {
+		// TODO Auto-generated method stub
+		return dao.sellCommit(sellSpecNo);
+	}
+
+	
 }

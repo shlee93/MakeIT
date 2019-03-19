@@ -94,6 +94,7 @@ public interface MemberService {
 	Map<Object, Object> selectNaverOne(String id);
 
 	int deleteNaverMember(String updateId);
+	
 
 	List<Map<String, String>> bankList();
 

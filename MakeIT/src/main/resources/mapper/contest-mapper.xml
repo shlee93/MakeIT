@@ -83,7 +83,7 @@
 	
 	<!-- 컨테스트 상세 가져오기 -->
 	<select id='contestDetail' parameterType="_int" resultType='map'>
-		select a.*, b.* from contest a join member b on a.memberId=b.memberId where contestNo=#{contestNo}
+		select a.*, b.*, c.gradeName from contest a, member b, grade c where a.memberId=b.memberId and b.gradeNo=c.gradeNo and contestNo=#{contestNo}
 	</select>
 	
 	<!-- 컨테스트 당 첫번째 이미지 가져오기 -->	
