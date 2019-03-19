@@ -1,31 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>판매 게시글 작성</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-   href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+	<c:set var="path" value="${pageContext.request.contextPath }"/>
+	
+<jsp:include page="/WEB-INF/views/common/header.jsp">
+	<jsp:param value="HelloSpring" name="pageTitle"/>
+</jsp:include>
 
-<!-- jQuery library -->
-<script
-   src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<!-- Popper JS -->
-<script
-   src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script
-   src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-   
-<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-   <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-   <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<c:set var="path" value="${pageContext.request.contextPath}"/>
 <link rel="stylesheet"
    href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
    integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
@@ -74,10 +57,20 @@
            );
         </script>
 </head>
-<body>
+
    <form id="sellWriteFrm" enctype="multipart/form-data">
    <div class="row">
-      <div class="col-md-1"></div>
+      <div class="col-md-1">
+      	<div style='position:fixed; margin-top: 10em;'>
+	    			<span onclick='fn_back()' style='cursor:pointer; font-size: 6em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
+	          	 	<script>
+	           			function fn_back()
+		           		{
+		           			history.back();
+		           		}
+		           	</script>
+	           	</div>
+      </div>
       <div id="buy-container" class="col-md-10">
          <div class="row">
             <div class="col-md-2">

@@ -52,7 +52,15 @@
 	
 	function fn_submit()
 	{
-		
+		var reviewNo = $("#reviewNo").val();
+		if(reviewNo != null && reviewNo != "")
+		{
+			reviewFrm.action="${path }/buy/modReviewEnd.do";
+		}
+		else
+		{
+			reviewFrm.action="${path }/buy/writeReviewEnd.do";
+		}
 		reviewFrm.submit();
 		
 		
@@ -74,7 +82,8 @@
 		<div style="padding:10px">
 			<input type="text" class="form-control" name="reviewContent">
 			<input type="hidden" id="starCount" name="starCount" value="0">
-			<input type="hidden" id="buyNo" name="buyNo" value="${param.buyNo }">
+			<input type="hidden" id="buyNo" name="buyNo" value="${buyNo }">
+			<input type="hidden" id="reviewNo" name="reviewNo" value="${reviewNo }">
 		
 		</div>
 		<div style="float:right; padding:10px;">

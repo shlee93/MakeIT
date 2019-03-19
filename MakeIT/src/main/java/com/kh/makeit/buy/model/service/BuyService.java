@@ -22,4 +22,6 @@ public interface BuyService {
 	int insertReview(Map<String, String> map);
 	List<Map<String, String>> selectReview(int buyNo);
 	int selectReviewCnt(int buyNo);
+	int deleteReview(Map<String, String> map);
+	int updateReview(Map<String, String> map);
 }

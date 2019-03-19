@@ -126,6 +126,18 @@ public class BuyServiceImpl implements BuyService {
 		// TODO Auto-generated method stub
 		return dao.insertReview(map);
 	}
+
+	@Override
+	public int deleteReview(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return dao.deleteReview(map);
+	}
+
+	@Override
+	public int updateReview(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return dao.updateReview(map);
+	}
 	
 	
 	
