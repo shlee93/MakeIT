@@ -156,8 +156,16 @@
 	<update id="buyRefund" parameterType="map">
 		UPDATE BUYSPEC SET STATUSNO = 6, BUYREASONREFUND = #{refundContent} WHERE BUYSPECNO = #{specNo}
 	</update>
+	<!-- 구매확정 -->
+	<update id="buyCommit" parameterType="string">
+		UPDATE BUYSPEC SET STATUSNO = 4 WHERE BUYSPECNO = #{specNo}
+	</update>
 	<!-- 작업완료 -->
 	<update id="finishWork" parameterType="map">
 		UPDATE BUYSPEC SET STATUSNO = 3 WHERE BUYNO = #{buyNo} AND MEMBERID = #{sellerId}
 	</update>
+	
+	<select id="selectSpec2" parameterType="_int" resultType="map">
+		SELECT * FROM BUYSPEC WHERE BUYNO = #{buyNo}
+	</select>
 </mapper>

@@ -239,11 +239,24 @@ public class BuyServiceImpl implements BuyService {
 		// TODO Auto-generated method stub
 		return dao.buyRefund(map);
 	}
+	
+
+	@Override
+	public int buyCommit(String specNo) {
+		// TODO Auto-generated method stub
+		return dao.buyCommit(specNo);
+	}
 
 	@Override
 	public int finishWork(Map<String, String> map) {
 		// TODO Auto-generated method stub
 		return dao.finishWork(map);
+	}
+
+	@Override
+	public Map<String, String> selectSpec2(int buyNo) {
+		// TODO Auto-generated method stub
+		return dao.selectSpec2(buyNo);
 	}
 
 	

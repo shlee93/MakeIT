@@ -233,9 +233,9 @@ public class PageFactory {
 		String pageBar = "";
 		int pageBarSize = 5;
 		
-		int pageNo = ((cPage-1)/pageBarSize)*pageBarSize+1;
-		int pageEnd = pageNo+pageBarSize-1;
-		int totalPage = (int)Math.ceil((double)totalCon/numPerPage); 
+		int pageNo = ((cPage-1)/pageBarSize)*pageBarSize+1; //1
+		int pageEnd = pageNo+pageBarSize-1; //5
+		int totalPage = (int)Math.ceil((double)totalCon/numPerPage); //3
 		pageBar+="<ul class='pagination pagination-sm' style='justify-content:center'>";
 		// 이전
 		System.out.println("pagination cPage :"+ cPage);

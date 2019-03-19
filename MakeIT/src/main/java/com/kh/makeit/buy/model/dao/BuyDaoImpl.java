@@ -213,9 +213,21 @@ public class BuyDaoImpl implements BuyDao {
 	}
 
 	@Override
+	public int buyCommit(String specNo) {
+		// TODO Auto-generated method stub
+		return session.update("buy.buyCommit",specNo);
+	}
+
+	@Override
 	public int finishWork(Map<String, String> map) {
 		// TODO Auto-generated method stub
 		return session.update("buy.finishWork",map);
+	}
+
+	@Override
+	public Map<String, String> selectSpec2(int buyNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("buy.selectSpec2", buyNo);
 	}
 
 	

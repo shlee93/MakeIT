@@ -70,6 +70,7 @@
 	<div class="row">
 		<div class="col-sm-1"></div>
 		<div id="vol-container" class="col-sm-10">
+		<div style="padding:50px;"><h2>지원자 상세보기</h2></div>
 		<div id="vol-title">
 		<div>
 			<h3 class="font-weight-bold text-left" style="display:inline"><c:out value="${vol.BUYCANDIDATETITLE }"/></h3>
@@ -88,11 +89,13 @@
 				<p>${vol.BUYCANDIDATECONTENT }</p>
 			</div>
 		</div>
-		<!-- <!-- 여기해야됨 -->
+		<div style="border:1px solid black; padding: 10px; margin:10px;">
+		<h4>첨부파일</h4>
 		<c:forEach items="${downImg }" var="img">
-			<a onclick="fileDownload();">${img.BUYCANDIDATEFILEORI }</a>
+			<img src="${path }/resources/images/file.png" width="16px"><a style="padding-right:10px;cursor: pointer"onclick="fileDownload('${img.BUYCANDIDATEFILEORI}','${img.BUYCANDIDATEFILERE }');"> ${img.BUYCANDIDATEFILEORI } </a>
 		
 		</c:forEach>
+		</div>
 		<div id="btn-div">
 			<button class="btn btn-secondary" onclick="location.href='${path}/buy/payInfoView.do?buyNo=${buyNo }&memberId=${vol.MEMBERID }'">결정 및 결제하기</button>
 			<button class="btn btn-secondary" onclick="location.href='${path}/buy/volList.do?buyNo=${buyNo }&cPage=${cPage }'">뒤로가기</button>
@@ -110,7 +113,7 @@
 	function fileDownload(oName, rName)
 	{
 		oName=encodeURIComponent(oName);
-		location.href="${path}/board/filedownLoad.do?oName="+oName+"&rName="+rName;
+		location.href="${path}/buy/filedownLoad.do?oName="+oName+"&rName="+rName;
 	}
 </script>
 </body>

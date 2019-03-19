@@ -32,7 +32,7 @@
 		if(starCount != 5)
 		{			
 			starCount++;
-			$("#star"+starCount).attr("src","${path }/resources/image/star.png");
+			$("#star"+starCount).attr("src","${path }/resources/images/star.png");
 			$("#starCount").val(starCount);
 		}
 		
@@ -43,7 +43,7 @@
 		
 		if(starCount != 0)
 		{
-			$("#star"+starCount).attr("src","${path }/resources/image/emptyStar.png");
+			$("#star"+starCount).attr("src","${path }/resources/images/emptyStar.png");
 			starCount--;
 			$("#starCount").val(starCount);
 		}
@@ -71,13 +71,13 @@
 	<p>여러분이 남긴 후기가 makeIt을 발전 시킵니다</p>
 	<form action="${path }/buy/writeReviewEnd.do" method="post" name="reviewFrm">
 		<div style="text-align:center; padding:10px;">
-			<img id="minus" src="${path }/resources/image/minus.png" style="margin-right:10px;" onclick="fn_minusStar();" >
-			<img id="star1" src="${path }/resources/image/emptyStar.png">
-			<img id="star2" src="${path }/resources/image/emptyStar.png">
-			<img id="star3" src="${path }/resources/image/emptyStar.png">
-			<img id="star4" src="${path }/resources/image/emptyStar.png">
-			<img id="star5" src="${path }/resources/image/emptyStar.png">
-			<img id="plus" src="${path }/resources/image/plus.png" style="margin-left:10px;" onclick="fn_plusStar();">
+			<img id="minus" src="${path }/resources/images/minus.png" style="margin-right:10px;" onclick="fn_minusStar();" >
+			<img id="star1" src="${path }/resources/images/emptyStar.png">
+			<img id="star2" src="${path }/resources/images/emptyStar.png">
+			<img id="star3" src="${path }/resources/images/emptyStar.png">
+			<img id="star4" src="${path }/resources/images/emptyStar.png">
+			<img id="star5" src="${path }/resources/images/emptyStar.png">
+			<img id="plus" src="${path }/resources/images/plus.png" style="margin-left:10px;" onclick="fn_plusStar();">
 		</div>	
 		<div style="padding:10px">
 			<input type="text" class="form-control" name="reviewContent">

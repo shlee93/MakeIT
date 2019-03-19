@@ -128,10 +128,10 @@
                                 		<td class="tab-id">${review.MEMBERID }</td>
                                 		<td class="tab-star">
                                 			<c:forEach begin="1" end="${review.BUYREVIEWSTAR}">
-                                				<img src="${path }/resources/image/star.png">
+                                				<img src="${path }/resources/images/star.png">
                                 			</c:forEach>
                                 			<c:forEach begin="1" end="${5 - review.BUYREVIEWSTAR}">
-                                				<img src="${path }/resources/image/emptyStar.png">
+                                				<img src="${path }/resources/images/emptyStar.png">
                                 			</c:forEach>
                                 		</td>
                                 		<td style="text-align: right">
@@ -187,6 +187,7 @@
                             </div>
                             <div class='row' style='margin-top: 1.2em'>
                             	<div class='col-md-4'>
+                            		<!-- 찜하기 -->
 									<form id="buyOutBoxInFrm">
 										<input type="hidden" name="buyNo" value="${detailList.BUYNO}">
 									</form>
@@ -201,33 +202,50 @@
 										test="${!empty outBoxYn and detailList.MEMBERID ne sessionScope.member.MEMBERID }">
 										<button class="btn btn-primary" onclick="fn_outboxNo();">찜풀기</button>
 									</c:if>
+									
 									<!-- 환불신청 -->
 									<button class="bn btn-primary" onclick="fn_refundPop()">환불하기</button>
+									<!-- 구매확정 -->
+									<button class="bn btn-primary" onclick="fn_buyCommit()">구매확정</button>
 									<!-- 작업완료 -->
 									<button class="bn btn-primary" onclick="location.href='${path}/buy/finishWork.do?buyNo=${detailList.BUYNO }&sellerId=${sessionScope.member.MEMBERID }'">작업완료</button>
+									
+								
 									<script>
+									/* 찜하기 */
                                     function fn_outboxDo(){
                                 		$('#buyOutBoxInFrm').attr('action',"${path}/buy/buyOutBox.do");
                                    		$('#buyOutBoxInFrm').submit();
                                		}
-                             
+                             		/* 찜풀기 */
                                 	function fn_outboxNo(){
                                    		$('#buyOutBoxDelFrm').attr('action',"${path}/buy/buyOutBoxDel.do");
                                    		$('#buyOutBoxDelFrm').submit();
                                		}
-                                	
+                                	/* 환불신청 */
                                     function fn_refundPop(){
                                        if(${sessionScope.member.MEMBERID!=null}){
-                                          var name="환불하기";         
-                                          window.open("${path}/buy/buyRefundView.do?sellerId=${specList.MEMBERID}&&buyNo=${detailList.BUYNO}&&specNo=${specList.BUYSPECNO}",name,'width=490, height=300, menubar=no, status=no, toolbar=no');
+                                          var name="환불신청";         
+                                          window.open("${path}/buy/buyRefundView.do?sellerId=${specList2.MEMBERID}&&buyNo=${detailList.BUYNO}&&specNo=${specList2.BUYSPECNO}",name,'width=490, height=300, menubar=no, status=no, toolbar=no');
                                        }else{
                                           alert('로그인 후 이용해 주세요 ');
                                           location.href="${path}/member/memberLogin.do";
                                        };         
                                     }
+                                	/* 구매확정 */
+                                	function fn_buyCommit()
+                                	{
+                                		if(confirm("구매 확정하시겠습니까? 확정한 이후에는 환불이 불가합니다."))
+                                		{
+                                			location.href="${path}/buy/buyCommit.do?buyNo=${detailList.BUYNO }&specNo=${specList2.BUYSPECNO }";
+                                			
+                                		}
+                                	}
+                                	
                                  
                                 	
                                  </script>
+                                 	<!-- 신고하기 -->
                                  	<button class="btn btn-primary" onclick="fn_reportPop();">신고하기</button>
                                  
                                     <script>   
@@ -244,12 +262,16 @@
                                     </script>
 									</div>
                                 <div class='col-md-4'>
+                                	<!-- 지원하기 -->
                                     <button onclick='location.href="${path}/buy/buyVol.do?buyNo=${detailList.BUYNO}"' class="btn btn-primary" style='padding-left:17px; padding-right:17px; float:right;'>지원하기</button>
                                 </div>
+                                
                                 <div class='col-md-4' style='float:left'>
+                                <!-- 지원자보기 -->
                                 	<c:if test="${sessionScope.member.MEMBERID == detailList.MEMBERID }">
                                 		<button onclick='location.href="${path}/buy/volList.do?buyNo=${detailList.BUYNO }"' class='btn btn-primary' style='float:left;'>지원자보기</button>
                                 	</c:if>
+                                	<!-- 후기남기기 -->
                                     <c:if test="${sessionScope.member.MEMBERID != detailList.MEMBERID }">
                                    		<button onclick='fn_starPop();' class='btn btn-primary' style='float:left;'>후기남기기</button>
                                     </c:if>
@@ -265,14 +287,12 @@
                                         }
                                         else if(${specList.STATUSNO != '4' || specList.STATUSNO != '5'})
                                         {
-                                        	alert("구매 확정 이후에 작성할 수 있습니다.");
+                                        	alert("구매 이후에 작성할 수 있습니다.");
                                         	return;
                                         }
                                         else{
                                         	var starPop=open("${path}/buy/writeReview.do?buyNo=${param.buyNo}","buyStarForm","top=200px, left=200px, width=400px, height=190px");
                                         }
-                                        
-                                        
                                         
                                     }
                                     

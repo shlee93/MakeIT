@@ -39,5 +39,7 @@ public interface BuyDao {
 	int buyRefund(Map map);
 	int finishWork(Map<String, String> map);
 	List<Map<String, String>> selectDownImg(Map<String, String> map);
+	int buyCommit(String specNo);
+	Map<String, String> selectSpec2(int buyNo);
 	
 }

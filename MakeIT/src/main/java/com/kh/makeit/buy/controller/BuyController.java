@@ -1,14 +1,19 @@
 package com.kh.makeit.buy.controller;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -199,9 +204,17 @@ public class BuyController {
 		Map<String,String> mainimgList = service.selectMainImg(buyNo); 
 		List<Map<String,String>> subimgList = service.selectSubImg(buyNo);
 		List<Map<String,String>> reviewList = service.selectReview(buyNo);
+		
+		if(sessionMap != null)
+		{
+			if(sessionMap.get("MEMBERID").equals(detailList.get("MEMBERID")))
+			{
+				Map<String,String> specList2 = service.selectSpec2(buyNo);
+				mv.addObject("specList2", specList2);
+			}
+			
+		}
 		int reviewCnt = service.selectReviewCnt(buyNo);
-		
-		
 		
 		
 		mv.addObject("detailList",detailList);
@@ -751,6 +764,33 @@ public class BuyController {
 		}
 	}
 	
+	@RequestMapping("/buy/buyCommit.do")
+	public ModelAndView buyCommit(String buyNo, String specNo)
+	{
+		ModelAndView mv = new ModelAndView();
+		System.out.println("specNo" + specNo);
+		int result = service.buyCommit(specNo);
+		
+		String msg = "";
+		String loc = "";
+		
+		if (result > 0) {
+			msg = "구매확정을 하였습니다.";
+			loc = "/buy/buyDetail.do?buyNo=" + buyNo;
+			mv.addObject("msg", msg);
+			mv.addObject("loc", loc);
+			mv.setViewName("common/msg");
+			return mv;
+		} else {
+			msg = "구매확정에 실패하였습니다. 다시 시도해 주세요 ";
+			loc = "/buy/buyDetail.do?buyNo=" + buyNo;
+			mv.addObject("msg", msg);
+			mv.addObject("loc", loc);
+			mv.setViewName("common/msg");
+			return mv;
+		}
+	}
+	
 	@RequestMapping("/buy/finishWork.do")
 	public ModelAndView finishWork(String buyNo, String sellerId)
 	{
@@ -781,4 +821,60 @@ public class BuyController {
 		}
 		return mv;
 	}
+	
+	//첨부파일 다운로드
+	@RequestMapping("/buy/filedownLoad.do")
+	public void fileDownLoad(String oName, String rName, HttpServletRequest request, HttpServletResponse response)
+	{
+		BufferedInputStream bis=null;
+		ServletOutputStream sos=null;
+		
+		String dir=request.getSession().getServletContext().getRealPath("/resources/upload/buyVol");
+		File savedFile=new File(dir+"/"+rName);
+		try {
+			FileInputStream fis=new FileInputStream(savedFile);
+			bis=new BufferedInputStream(fis);
+			sos=response.getOutputStream();
+			
+			String resFilename="";
+			boolean isMSIE=request.getHeader("user-agent").indexOf("MSIE")!=-1
+					||request.getHeader("user-agent").indexOf("Trident")!=-1;
+			if(isMSIE)
+			{
+				resFilename=URLEncoder.encode(oName, "UTF-8");
+				resFilename=resFilename.replaceAll("\\+", "%20");
+			}
+			else
+			{
+				resFilename=new String(oName.getBytes("UTF-8"),"ISO-8859-1");
+				
+			}
+			response.setContentType("application/octet-stream;charset=utf-8");
+			response.addHeader("Content-Disposition", 
+					"attachment;filename=\""+resFilename+"\"");
+			//파일길이 설정
+			response.setContentLength((int)savedFile.length());
+			
+			int read=0;
+			while((read=bis.read())!=-1)
+			{
+				sos.write(read);
+			}
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				sos.close();
+				bis.close();
+			}
+			catch(IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
 }
+
+
