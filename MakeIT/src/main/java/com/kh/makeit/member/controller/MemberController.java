@@ -920,20 +920,26 @@ public class MemberController {
 	public ModelAndView messageReceiveSelectDel(HttpServletRequest request) {
 		String[] deleteCk = request.getParameterValues("receiveDeleteCk");
 		logger.debug(deleteCk);
-		int result = 0;
-		int[] delListInt = new int[deleteCk.length];
-		for(int i = 0; i < deleteCk.length; i++) {
-			delListInt[i] = Integer.parseInt(deleteCk[i]);
-			result += service.deleteReceiveMessages(delListInt[i]);
-		}
 		String msg = "";
 		String loc = "";
-		logger.debug(result);
-		if(result > 0) {
-			msg = "메시지가 정상적으로 삭제되었습니다. 마이페이지로 돌아갑니다.";
-			loc = "/member/memberMyPage.do";
+		int result = 0;
+		if(deleteCk != null) {
+			logger.debug(deleteCk);
+			int[] delListInt = new int[deleteCk.length];
+			for(int i = 0; i < deleteCk.length; i++) {
+				delListInt[i] = Integer.parseInt(deleteCk[i]);
+				result += service.deleteReceiveMessages(delListInt[i]);
+			}
+			logger.debug(result);
+			if(result > 0) {
+				msg = "메시지가 정상적으로 삭제되었습니다. 마이페이지로 돌아갑니다.";
+				loc = "/member/memberMyPage.do";
+			} else {
+				msg = "메시지가 정상적으로 삭제되지 않았습니다. 다시 시도해주세요.";
+				loc = "/member/memberMyPage.do";
+			}
 		} else {
-			msg = "메시지가 정상적으로 삭제되지 않았습니다. 다시 시도해주세요.";
+			msg = "메시지 선택 후 이용해주세요.";
 			loc = "/member/memberMyPage.do";
 		}
 		ModelAndView mv = new ModelAndView();
