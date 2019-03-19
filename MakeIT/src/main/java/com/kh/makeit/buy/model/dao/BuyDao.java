@@ -31,5 +31,13 @@ public interface BuyDao {
 	int insertVolImg(Map<String, String> a);
 	int selectVolCount(String buyNo);
 	int insertBuySpec(Map map);
+	Map<String, String> selectMemberImg(String memberId);
+	Map buyOutBoxYn(Map outBoxc);
+	int buyOutBoxInsert(Map outBoxInsert);
+	int buyOutBoxDelete(Map outBoxDelete);
+	int insertReport(Map reportMap);
+	int buyRefund(Map map);
+	int finishWork(Map<String, String> map);
+	List<Map<String, String>> selectDownImg(Map<String, String> map);
 	
 }

@@ -172,11 +172,24 @@ public class BuyServiceImpl implements BuyService {
 		
 		return result;
 	}
+	
+	@Override
+	public List<Map<String, String>> selectDownImg(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return dao.selectDownImg(map);
+	}
 
 	@Override
 	public int selectVolCount(String buyNo) {
 		// TODO Auto-generated method stub
 		return dao.selectVolCount(buyNo);
+	}
+	
+
+	@Override
+	public Map<String, String> selectMemberImg(String memberId) {
+		// TODO Auto-generated method stub
+		return dao.selectMemberImg(memberId);
 	}
 
 	@Override
@@ -197,6 +210,42 @@ public class BuyServiceImpl implements BuyService {
 		return dao.updateReview(map);
 	}
 	
+	@Override
+	public Map buyOutBoxYn(Map outBoxc) {
+		// TODO Auto-generated method stub
+		return dao.buyOutBoxYn(outBoxc);
+	}
+
+	@Override
+	public int buyOutBoxInsert(Map outBoxInsert) {
+		// TODO Auto-generated method stub
+		return dao.buyOutBoxInsert(outBoxInsert);
+	}
+
+	@Override
+	public int buyOutBoxDelete(Map outBoxDelete) {
+		// TODO Auto-generated method stub
+		return dao.buyOutBoxDelete(outBoxDelete);
+	}
+
+	@Override
+	public int insertReport(Map reportMap) {
+		// TODO Auto-generated method stub
+		return dao.insertReport(reportMap);
+	}
+
+	@Override
+	public int buyRefund(Map map) {
+		// TODO Auto-generated method stub
+		return dao.buyRefund(map);
+	}
+
+	@Override
+	public int finishWork(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return dao.finishWork(map);
+	}
+
 	
 	
 	

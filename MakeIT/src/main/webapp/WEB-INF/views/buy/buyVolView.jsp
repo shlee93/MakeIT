@@ -81,15 +81,20 @@
 		</div>
 		<div>
 			<hr>
-			<img id="vol-img" alt="" src="https://img.sbs.co.kr/newimg/news/20180503/201178297_1280.jpg">
+			<img id="vol-img" alt="" src="${path}/resources/upload/member/${volImg.REIMG}">
 			<p id="vol-id"><c:out value="${vol.MEMBERID }"/></p>
 		
 			<div id="vol-content">
 				<p>${vol.BUYCANDIDATECONTENT }</p>
 			</div>
 		</div>
+		<!-- <!-- 여기해야됨 -->
+		<c:forEach items="${downImg }" var="img">
+			<a onclick="fileDownload();">${img.BUYCANDIDATEFILEORI }</a>
+		
+		</c:forEach>
 		<div id="btn-div">
-			<button class="btn btn-secondary" onclick="location.href='${path}/buy/volCommit.do?buyNo=${buyNo }&memberId=${vol.MEMBERID }&cPage=${cPage }'">결정하기</button>
+			<button class="btn btn-secondary" onclick="location.href='${path}/buy/payInfoView.do?buyNo=${buyNo }&memberId=${vol.MEMBERID }'">결정 및 결제하기</button>
 			<button class="btn btn-secondary" onclick="location.href='${path}/buy/volList.do?buyNo=${buyNo }&cPage=${cPage }'">뒤로가기</button>
 		</div>
 		
@@ -100,5 +105,13 @@
 		
 	</div>
 	</div>
+	
+<script>
+	function fileDownload(oName, rName)
+	{
+		oName=encodeURIComponent(oName);
+		location.href="${path}/board/filedownLoad.do?oName="+oName+"&rName="+rName;
+	}
+</script>
 </body>
 </html>

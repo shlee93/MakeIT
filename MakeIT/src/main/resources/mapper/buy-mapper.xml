@@ -113,7 +113,7 @@
 		INSERT INTO BUYCANDIDATE VALUES(#{memberId}, #{buyNo}, 'B', #{title}, #{content}, DEFAULT)
 	</insert>
 	<insert id="insertVolImg" parameterType="map">
-		INSERT INTO BUYCANDIDATEFILE VALUES(SEQ_BUYCANDIDATENO.NEXTVAL, #{memberId}, #{buyNo}, 'B', #{oriName}, #{reName})
+		INSERT INTO BUYCANDIDATEFILE VALUES(SEQ_BUYCANDIDATEFILENO.NEXTVAL, #{memberId}, #{buyNo}, 'B', #{oriName}, #{reName})
 	</insert>
 	<delete id="deleteReview" parameterType="map">
 		DELETE FROM BUYREVIEW WHERE BUYNO = #{buyNo} AND BUYREVIEWNO = #{reviewNo} AND CATEGORYCODE = 'B'
@@ -127,11 +127,37 @@
 	<select id="selectVolView" parameterType="map" resultType="map">
 		SELECT * FROM BUYCANDIDATE WHERE MEMBERID = #{memberId} AND BUYNO = #{buyNo} AND CATEGORYCODE = #{category}
 	</select>
+	<select id="selectDownImg" parameterType="map" resultType="map">
+		SELECT * FROM BUYCANDIDATEFILE WHERE MEMBERID = #{memberId} AND BUYNO = #{buyNo} AND CATEGORYCODE = #{category}
+	</select>
 	<insert id="insertBuySpec" parameterType="map">
-		INSERT INTO BUYSPEC VALUES(SEQ_BUYSPECNO.NEXTVAL, #{memberId}, #{buyNo}, 'B', DEFAULT, 1)
+		INSERT INTO BUYSPEC VALUES(SEQ_BUYSPECNO.NEXTVAL, #{memberId}, #{buyNo}, 'B', DEFAULT, 2, DEFAULT)
 	</insert>
 	<select id="selectVolCount" parameterType="string" resultType="int">
 		SELECT COUNT(*) FROM BUYCANDIDATE WHERE BUYNO = #{buyNo} AND CATEGORYCODE = 'B'
 	</select>
-	
+	<select id="selectMemberImg" parameterType="string" resultType="map">
+		SELECT * FROM MEMBER WHERE MEMBERID = #{memberId}
+	</select>
+	<select id="buyOutBoxYn" parameterType="map" resultType="map">
+		select * from buyoutbox where buyno=#{buyNo} and categorycode='B'and memberid=#{memberId}
+	</select>
+	<insert id="buyOutBoxInsert" parameterType="map">
+		insert into buyoutbox values(#{buyNo},'B',#{memberId})
+	</insert>
+	<delete id="buyOutBoxDelete" parameterType="map">
+		delete from buyoutbox where buyno=#{buyNo} and categorycode='B' and memberid=#{memberId}
+	</delete>
+	<!-- 신고하기 인서트 -->
+	<insert id="insertReport" parameterType="map">
+		insert into BUYREPORT values(SEQ_BUYREPORTNO.NEXTVAL,#{buyNo},'B',#{reportId},#{reportContent},default,default)
+	</insert>
+	<!-- 환불신청 -->
+	<update id="buyRefund" parameterType="map">
+		UPDATE BUYSPEC SET STATUSNO = 6, BUYREASONREFUND = #{refundContent} WHERE BUYSPECNO = #{specNo}
+	</update>
+	<!-- 작업완료 -->
+	<update id="finishWork" parameterType="map">
+		UPDATE BUYSPEC SET STATUSNO = 3 WHERE BUYNO = #{buyNo} AND MEMBERID = #{sellerId}
+	</update>
 </mapper>

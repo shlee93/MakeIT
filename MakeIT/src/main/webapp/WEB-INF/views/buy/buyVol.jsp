@@ -134,7 +134,7 @@ div {
    <div class="row">
       <div class="col-sm-1"></div>
       <div class="col-sm-10" id="apply-container">
-       <form id="volFrm" action="${path }/buy/buyVolEnd.do" method="post">
+       <form id="volFrm" action="${path }/buy/buyVolEnd.do" enctype="multipart/form-data" method="post">
          <div id="intro-div">
         
             <label>제목</label> 
@@ -144,10 +144,8 @@ div {
             <label>내용</label>
             <textarea name="content" class="form-control" rows="10"></textarea>
          </div>
-         <div class="filebox bs3-primary preview-image">
-			<label for="input_file">사진 선택</label> <input type="file"
-				name="input_file12" id="input_file" class="upload-hidden"
-				multiple="multiple" accept=".gif, .jpg, .png">
+         <div class="filebox bs3-primary preview-image" style="padding-top:10px;">
+			<label for="input_file">파일 선택</label> <input type="file" name="input_file" id="input_file" class="upload-hidden" multiple="multiple" >
 		
 		</div>
 		<input type="hidden" name="buyNo" value="${param.buyNo }"/>
@@ -155,9 +153,11 @@ div {
          <div id="btn-container">
             <input type="submit" class="btn btn-secondary" value="지원하기"/>
          </div>
+          </form>
       </div>
-      </form>
+     
       <div class="col-sm-1"></div>
+     </div>
 </body>
 
 <script>
@@ -174,28 +174,24 @@ $(document).ready(function(){
            var filesArr=Array.prototype.slice.call(files);
            console.log(files);
            var parent = $(this).parent();
-           parent.children('.upload-display').remove();
+           parent.children('p').remove();
           
            console.log("수 : " + filesArr.length);
          if(filesArr.length > 5)
          {
-            alert("사진은 5개 제한입니다.");
+            alert("파일은 5개 제한입니다.");
             return;
          }
            filesArr.forEach(function(f){
               count = 0;
-               if(!f.type.match("image.*")){
-                  alert("확장자는 이미지 확장자만 가능합니다.");
-                  return;
-          
-               }
-               console.log(f)
+               
+               console.log("Asdf" + f.name)
                sel_files.push(f);
                
                var reader=new FileReader();
                reader.onload=function(e){
                   var src = e.target.result;
-                   parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+                   parent.prepend('<p style="padding-right:20px;">'+ f.name +'</p>');
                }
                
                reader.readAsDataURL(f);

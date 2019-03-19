@@ -14,7 +14,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -183,6 +185,13 @@ public class BuyController {
 			specMap.put("buyNo", buyNo);
 			specList = service.selectSpec(specMap);
 			mv.addObject("specList", specList);
+			
+			Map outBoxc= new HashMap();
+			outBoxc.put("buyNo",buyNo);
+			outBoxc.put("memberId", sessionMap.get("MEMBERID"));
+			
+			Map outBoxYn=service.buyOutBoxYn(outBoxc);
+			mv.addObject("outBoxYn",outBoxYn);
 		}
 		
 		
@@ -192,7 +201,9 @@ public class BuyController {
 		List<Map<String,String>> reviewList = service.selectReview(buyNo);
 		int reviewCnt = service.selectReviewCnt(buyNo);
 		
-				
+		
+		
+		
 		mv.addObject("detailList",detailList);
 		mv.addObject("mainimgList", mainimgList);
 		mv.addObject("subimgList", subimgList);
@@ -425,13 +436,14 @@ public class BuyController {
 		return mv;
 	}
 	
-	@RequestMapping("/buy/buyVolEnd.do")
-	public ModelAndView buyVolEnd(String title, String content, String buyNo, MultipartFile[] input_file12, HttpServletRequest request)
+	@RequestMapping(value="/buy/buyVolEnd.do")
+	public ModelAndView buyVolEnd(String title, String content, String buyNo, MultipartFile[] input_file, HttpServletRequest request)
 	{
 		System.out.println(title);
 		System.out.println(content);
 		System.out.println(buyNo);
-		for(MultipartFile a : input_file12)
+		System.out.println(input_file);
+		for(MultipartFile a : input_file)
 		{
 			System.out.println("asdf" + a.getOriginalFilename());
 		}
@@ -447,7 +459,7 @@ public class BuyController {
 		String savDir = request.getSession().getServletContext().getRealPath("/resources/upload/buyVol");
 		
 	    
-		for(MultipartFile f: input_file12)
+		for(MultipartFile f: input_file)
 		{
 			if(!f.isEmpty()) {
 				//파일명 생성(rename)
@@ -527,17 +539,44 @@ public class BuyController {
 		map.put("buyNo", buyNo);
 		map.put("category", categoryCode);
 		
-		
+		Map<String,String> volImg = service.selectMemberImg(memberId);
 		Map<String,String> vol = service.selectVolView(map);
+		List<Map<String,String>> downImg = service.selectDownImg(map);
+		
 		mv.addObject("vol", vol);
+		mv.addObject("volImg", volImg);
+		mv.addObject("downImg", downImg);
 		mv.addObject("buyNo", buyNo);
 		mv.addObject("cPage", cPage);
 		mv.setViewName("buy/buyVolView");
+		
 		return mv;
 	}
 	
+	@RequestMapping("/buy/payInfoView.do")
+	public ModelAndView payInfoView(String buyNo, String memberId)
+	{
+		ModelAndView mv = new ModelAndView();
+		
+		Map<String,String> map = new HashMap();
+		map.put("buyNo", buyNo);
+		map.put("memberId", memberId);
+		map.put("category", "B");
+		
+		Map<String,String> seller =  service.selectVolView(map);
+		Map<String,String> sellerImg = service.selectMemberImg(memberId);
+		Map<String,String> buyer = service.buyDetail(Integer.parseInt(buyNo));
+		
+		mv.addObject("seller", seller);
+		mv.addObject("buyer", buyer);
+		mv.addObject("sellerImg", sellerImg);
+		mv.setViewName("buy/buyInfoPage");
+		return mv;
+		
+	}
+	
 	@RequestMapping("/buy/volCommit.do")
-	public ModelAndView volCommit(String buyNo, String memberId, int cPage)
+	public ModelAndView volCommit(String buyNo, String memberId, int price, String title)
 	{
 		ModelAndView mv = new ModelAndView();
 		
@@ -547,25 +586,12 @@ public class BuyController {
 		
 		int result = service.insertBuySpec(map);
 		
-		String msg = "";
-		String loc = "";
-		if(result > 0)
-		{
-			msg="지원자를 결정 완료하였습니다.";
-			loc="/buy/buyDetail.do?buyNo=" + buyNo;
-			mv.addObject("msg",msg);
-			mv.addObject("loc",loc);
-			mv.setViewName("common/msg");
-		}
-		else
-		{
-			msg="지원자 결정에 실패하였습니다. 다시 시도해 주세요.";
-			loc="/buy/buyVolView.do?buyNo=" + buyNo + "&memberId=" + memberId + "&categoryCode=B&cPage="+cPage;
-			mv.addObject("msg",msg);
-			mv.addObject("loc",loc);
-			mv.setViewName("common/msg");
-			
-		}
+		mv.addObject("memberId", memberId);
+		mv.addObject("title", title);
+		mv.addObject("price", price);
+		mv.setViewName("buy/buyPayEnd");
+		
+		
 		return mv;
 	}
 	
@@ -589,6 +615,170 @@ public class BuyController {
 		mv.setViewName("buy/buyAnother");
 		mv.addObject("pageBar", PageFactory.getPageBar2(contentCount, cPage, numPerPage, "/makeit/buy/anotherView.do"));
 		
+		return mv;
+	}
+	
+	@RequestMapping("buy/buyOutBox.do")
+	public ModelAndView buyOutBoxInsert(int buyNo,HttpServletRequest request)
+	{
+		ModelAndView mv = new ModelAndView();
+		HttpSession session = request.getSession();
+		Map sessionMap = (Map) session.getAttribute("member");
+		Map outBoxInsert = new HashMap();
+		outBoxInsert.put("buyNo", buyNo);
+		outBoxInsert.put("memberId", sessionMap.get("MEMBERID"));
+		int result = service.buyOutBoxInsert(outBoxInsert);
+		String msg = "";
+		String loc = "";
+
+		if (result > 0) {
+			msg = "구매글 찜을 완료하였습니다.";
+			loc = "/buy/buyDetail.do?buyNo=" + buyNo;
+			mv.addObject("msg", msg);
+			mv.addObject("loc", loc);
+			mv.setViewName("common/msg");
+			return mv;
+		} else {
+			msg = "구매글 찜에 실패하였습니다. 다시 시도해 주세요";
+			loc = "/buy/buyDetail.do?buyNo=" + buyNo;
+			mv.addObject("msg", msg);
+			mv.addObject("loc", loc);
+			mv.setViewName("common/msg");
+			return mv;
+		}
+
+	}
+	
+	// 찜풀기 메소드 ㅎ
+	@RequestMapping("/buy/buyOutBoxDel.do")
+	public ModelAndView buyOutBoxDelete(int buyNo, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		HttpSession session = request.getSession();
+		Map sessionMap = (Map) session.getAttribute("member");
+		Map outBoxDelete = new HashMap();
+		outBoxDelete.put("buyNo", buyNo);
+		outBoxDelete.put("memberId", sessionMap.get("MEMBERID"));
+		int result = service.buyOutBoxDelete(outBoxDelete);
+		String msg = "";
+		String loc = "";
+
+		if (result > 0) {
+			msg = "구매글 찜을 해제하였습니다.";
+			loc = "/buy/buyDetail.do?buyNo=" + buyNo;
+			mv.addObject("msg", msg);
+			mv.addObject("loc", loc);
+			mv.setViewName("common/msg");
+			return mv;
+		} else {
+			msg = "구매글 찜을 해제하지 못하였습니다. 다시 시도해 주세요 ";
+			loc = "/buy/buyDetail.do?buyNo=" + buyNo;
+			mv.addObject("msg", msg);
+			mv.addObject("loc", loc);
+			mv.setViewName("common/msg");
+			return mv;
+		}
+	}
+	
+	// 신고하는창 띄워주기
+	@RequestMapping("/buy/buyReport")
+	public ModelAndView sellReportPop(int buyNo, HttpServletRequest request, String buyWriter) {
+		ModelAndView mv = new ModelAndView();
+		Map reportMap = new HashMap();
+	
+		mv.addObject("buyNo", buyNo);
+		mv.addObject("buyWriter", buyWriter);
+		mv.setViewName("buy/buyReport");
+		return mv;
+	}
+
+	// 신고하는것 처리
+	@RequestMapping("/buy/buyReportEnd")
+	public ModelAndView buyReprotEnd(int buyNo, String reportId, String reportContent) {
+		ModelAndView mv = new ModelAndView();
+		Map reportMap = new HashMap();
+		String msg = "";
+		reportMap.put("buyNo", buyNo);
+		reportMap.put("reportId", reportId);
+		reportMap.put("reportContent", reportContent);
+		int result = service.insertReport(reportMap);
+		msg = "신고내용이 접수되었습니다.";
+		mv.addObject("msg", msg);
+		mv.addObject("script", "window.close();opener.location.reload();");
+		mv.setViewName("common/msg");
+
+		return mv;
+	}
+
+	
+	//환불
+	@RequestMapping("/buy/buyRefundView.do")
+	public ModelAndView buyRefundView(String sellerId, String buyNo, String specNo)
+	{
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("sellerId", sellerId);
+		mv.addObject("buyNo", buyNo);
+		mv.addObject("specNo", specNo);
+		mv.setViewName("buy/buyRefund");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/buy/buyRefund.do")
+	public ModelAndView buyRefund(String specNo, String buyNo, String refundContent)
+	{
+		
+		ModelAndView mv = new ModelAndView();
+		Map<String,String> map = new HashMap();
+		map.put("specNo", specNo);
+		map.put("refundContent", refundContent);
+		int result = service.buyRefund(map);
+		
+		String msg = "";
+		
+		if (result > 0) {
+			msg = "환불 신청을 완료하였습니다.";
+			mv.addObject("msg", msg);
+			mv.addObject("script", "window.close();opener.location.reload();");
+			mv.setViewName("common/msg");
+			return mv;
+		} else {
+			msg = "환불 신청에 실패하였습니다. 다시 시도해 주세요 ";
+			mv.addObject("msg", msg);
+			mv.addObject("script", "window.close();opener.location.reload();");
+			mv.setViewName("common/msg");
+			return mv;
+		}
+	}
+	
+	@RequestMapping("/buy/finishWork.do")
+	public ModelAndView finishWork(String buyNo, String sellerId)
+	{
+		ModelAndView mv = new ModelAndView();
+		
+		Map<String,String> map = new HashMap();
+		map.put("buyNo",buyNo);
+		map.put("sellerId",	sellerId);
+		
+		int result = service.finishWork(map);
+		
+		String msg = "";
+		String loc = "";
+		if (result > 0) {
+			msg = "작업 완료하였습니다.";
+			loc = "/buy/buyDetail.do?buyNo="+buyNo;
+			mv.addObject("msg", msg);
+			mv.addObject("loc",loc);
+			mv.setViewName("common/msg");
+			
+		} else {
+			msg = "작업 완료에 실패하였습니다. 다시 시도해 주세요 ";
+			loc = "/buy/buyDetail.do?buyNo="+buyNo;
+			mv.addObject("msg", msg);
+			mv.addObject("loc",loc);
+			mv.setViewName("common/msg");
+			
+		}
 		return mv;
 	}
 }

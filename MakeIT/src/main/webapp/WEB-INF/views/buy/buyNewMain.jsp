@@ -41,14 +41,18 @@
 
 															var imgReName = data["buyImgRe"];
 															var imgContainer = $('#${newList.BUYNO}');
-															imgContainer.append("<img src='${path}/resources/upload/buy/"+ data["buyImgRe"]+ "' style='width: 100%; height: 200px;'>");
+															imgContainer.append("<img src='${path}/resources/upload/buy/"+ data["buyImgRe"]+ "' style='width: 100%; height: 200px;cursor:pointer;' onclick='fn_detailView(${newList.BUYNO})'>");
 
 														}
 													});
 												});
+												function fn_detailView(buyNo)
+												{
+													location.href="${path}/buy/buyDetail?buyNo="+buyNo;
+												}
 											</script>
 										</div>
-                                       <div class="box-content">
+                                       <div class="box-content" onclick="fn_detailView(${newList.BUYNO})">
                                             <h3 class="title">${newList.MEMBERID}</h3>                                                                                      
                                            <p class="description">${newList.INTRODUCTION } </p>
                                        </div>

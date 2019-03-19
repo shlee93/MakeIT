@@ -178,13 +178,7 @@
                         
                             <img  class="userImg" src="${path}/resources/upload/member/${detailList.REIMG}">     
                             <br/>
-                            <div class='row' style='margin-top: 1.2em'>
-                                <div class='col-md-7'>
-                                    <button class="btn btn-primary" onclick="fn_outbox();" style='padding-left:17px; padding-right:17px; float:right;'><i class='far fa-star'></i>찜하기</button>
-                                </div>
-                                
-                                            
-                            </div>
+                           
                             <br/>
                             <p> ${detailList.INTRODUCTION}</p>
                             <div class="row">
@@ -192,15 +186,72 @@
                                 <div class='col-md-1'></div>
                             </div>
                             <div class='row' style='margin-top: 1.2em'>
-                                <div class='col-md-6'>
+                            	<div class='col-md-4'>
+									<form id="buyOutBoxInFrm">
+										<input type="hidden" name="buyNo" value="${detailList.BUYNO}">
+									</form>
+									<form id="buyOutBoxDelFrm">
+										<input type="hidden" name="buyNo" value="${detailList.BUYNO}">
+									</form>
+									<c:if
+										test="${empty outBoxYn and detailList.MEMBERID ne sessionScope.member.MEMBERID }">
+										<button class="btn btn-primary" onclick="fn_outboxDo();">찜하기</button>
+									</c:if>
+									<c:if
+										test="${!empty outBoxYn and detailList.MEMBERID ne sessionScope.member.MEMBERID }">
+										<button class="btn btn-primary" onclick="fn_outboxNo();">찜풀기</button>
+									</c:if>
+									<!-- 환불신청 -->
+									<button class="bn btn-primary" onclick="fn_refundPop()">환불하기</button>
+									<!-- 작업완료 -->
+									<button class="bn btn-primary" onclick="location.href='${path}/buy/finishWork.do?buyNo=${detailList.BUYNO }&sellerId=${sessionScope.member.MEMBERID }'">작업완료</button>
+									<script>
+                                    function fn_outboxDo(){
+                                		$('#buyOutBoxInFrm').attr('action',"${path}/buy/buyOutBox.do");
+                                   		$('#buyOutBoxInFrm').submit();
+                               		}
+                             
+                                	function fn_outboxNo(){
+                                   		$('#buyOutBoxDelFrm').attr('action',"${path}/buy/buyOutBoxDel.do");
+                                   		$('#buyOutBoxDelFrm').submit();
+                               		}
+                                	
+                                    function fn_refundPop(){
+                                       if(${sessionScope.member.MEMBERID!=null}){
+                                          var name="환불하기";         
+                                          window.open("${path}/buy/buyRefundView.do?sellerId=${specList.MEMBERID}&&buyNo=${detailList.BUYNO}&&specNo=${specList.BUYSPECNO}",name,'width=490, height=300, menubar=no, status=no, toolbar=no');
+                                       }else{
+                                          alert('로그인 후 이용해 주세요 ');
+                                          location.href="${path}/member/memberLogin.do";
+                                       };         
+                                    }
+                                 
+                                	
+                                 </script>
+                                 	<button class="btn btn-primary" onclick="fn_reportPop();">신고하기</button>
+                                 
+                                    <script>   
+                                       function fn_reportPop(){
+                                          if(${sessionScope.member.MEMBERID!=null}){
+                                             var name="구매글 신고";         
+                                             window.open("${path}/buy/buyReport?buyWriter=${detailList.MEMBERID}&&buyNo=${detailList.BUYNO}",name,'width=490, height=300, menubar=no, status=no, toolbar=no');
+                                          }else{
+                                             alert('로그인 후 이용해 주세요 ');
+                                             location.href="${path}/member/memberLogin.do";
+                                          };        
+                                          
+                                       }
+                                    </script>
+									</div>
+                                <div class='col-md-4'>
                                     <button onclick='location.href="${path}/buy/buyVol.do?buyNo=${detailList.BUYNO}"' class="btn btn-primary" style='padding-left:17px; padding-right:17px; float:right;'>지원하기</button>
                                 </div>
-                                <div class='col-md-6' style='float:left'>
+                                <div class='col-md-4' style='float:left'>
                                 	<c:if test="${sessionScope.member.MEMBERID == detailList.MEMBERID }">
                                 		<button onclick='location.href="${path}/buy/volList.do?buyNo=${detailList.BUYNO }"' class='btn btn-primary' style='float:left;'>지원자보기</button>
                                 	</c:if>
                                     <c:if test="${sessionScope.member.MEMBERID != detailList.MEMBERID }">
-                                   		<button onclick='fn_starPop();' class='btn btn-primary' s  tyle='float:left;'>후기남기기</button>
+                                   		<button onclick='fn_starPop();' class='btn btn-primary' style='float:left;'>후기남기기</button>
                                     </c:if>
                                 </div>
                                 <script>
