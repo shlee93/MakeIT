@@ -31,12 +31,12 @@
 	margin-top:3em;
 	text-align:center;
 }
-.emailBody{
-	width: 97%;
+#emailBox{
+	margin-bottom: 5%;
 }
 </style>
 <body class='emailBody'>
-	<div class='checkMail-container'>
+	<div class='container-fluid checkMail-container'>
 		<form name="contact-form" action="${path }/findPwCheck.do" method="POST">
 	    	<div class="row">
 	    		<div class="col-md-12">
@@ -45,11 +45,11 @@
 	    	</div>
 	    	<div class="row">
 	    		<div class="col-md-1"></div>
-	    		<div class="col-md-6">
+	    		<div class="col-md-6" id="emailBox">
 	    			<input type="text" name="id" placeholder="가입시 등록한 아이디를 입력하세요." class="form-control">
 	    		</div>
 	    		<div class="col-md-5">
-	    			<input type="submit" class="btn btn-primary" value="인증번호 발송">
+	    			<input type="submit" class="btn btn-outline-info slidetopleft" value="인증번호 발송">
 	    		</div>
 	    	</div>
 		</form>

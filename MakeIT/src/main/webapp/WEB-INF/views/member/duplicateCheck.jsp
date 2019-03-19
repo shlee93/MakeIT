@@ -42,15 +42,20 @@
 
 <body>
 	<div id="checkId-container">
+		<div class="row">
+    		<div class="col-md-12">
+    			<h5>아이디 중복검사</h5>
+    		</div>
+    	</div>
 		<c:if test="${isAble==true }">
 			<p style="color:green;"><span style="color:#516055">[${memberId }]</span>는 사용가능합니다.</p>
 			<br><br>
-			<button class='btn btn-primary' type="button" onclick="setUserId('${memberId }');">닫기</button>
+			<button class="btn btn-outline-info slidetopleft" type="button" onclick="setUserId('${memberId }');">닫기</button>
 		</c:if>
 		<c:if test="${isAble==false }">
-			<p style="color:red;"><span style="color:#516055">[${memberId }]</span>는 사용할 수 없습니다.</p>
+			<p style="color:red;"><span style="color:#516055">[${memberId }]</span>은/는 사용할 수 없습니다.</p>
 			<br><br>
-			<button class='btn btn-primary' type="button" onclick="setUserId(1);">닫기</button>
+			<button class="btn btn-outline-info slidetopleft" type="button" onclick="setUserId(1);">닫기</button>
 		</c:if>
 	</div>
 	<script>

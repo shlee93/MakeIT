@@ -1,5 +1,84 @@
 @charset "UTF-8";
+/* ============================버튼================================= */
+.btn{
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+  transition: all .5s;
+}
+.btn:before,
+.btn:after{
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  z-index: -1;
+  transition: all .5s;
+}
+.btn:hover{
+	color: white;
+}
+.btn:hover:after{
+  transform: translate3D(0,0,0);
+  transition: all .5s;
+}
+.btn-info:before{
+  background: #17a2b8;
+}
+.btn-info:after{
+  background: #138496;
+}
+.btn-info:hover{
+  background: #138496;
+}
+/* //// Slide Down  //// */
+.slidedown:after{
+  top: 0;
+  z-index: -1;
+      transform: translate3D(0,-100%,0); /* move elements above button so they don't appear initially */
+  transition: all .5s;/* onhover background color */
+}
 
+.slidedown:hover:after{
+  transform: translate3D(0,0,0);
+  transition: all .5s;
+}
+/* //// Slide Top Left //// */
+.slidetopleft:after{
+  transform: translate3D(100%,-100%,0);
+}
+.slidetopleft:hover:after{
+	transform: translate3D(0,0,0);
+  transition: all .5s;
+}
+/* //// Slide Corner Right //// */
+.slidetopright:after{
+  transform: translate3D(-100%,-100%,0);
+}
+.slidetopright:hover:after{
+	transform: translate3D(0,0,0);
+  transition: all .5s;
+}
+
+/* //// Slide Corner Left //// */
+.slidebottomleft:after{
+  transform: translate3D(100%,100%,0);
+}
+.slidebottomleft:hover:after{
+	transform: translate3D(0,0,0);
+  transition: all .5s;
+}
+/* //// Slide Corner Right //// */
+.slidebottomright:after{
+  transform: translate3D(-100%,100%,0);
+}
+.slidebottomright:hover:after{
+	transform: translate3D(0,0,0);
+  transition: all .5s;
+}
 /* ===========================서브 헤더=============================== */
         #body, html{
             padding: 0;

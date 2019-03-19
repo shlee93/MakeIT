@@ -27,19 +27,31 @@
 	    	    
 </head>
 <style>
-	#checkEmail-container 
+	.checkEmail-container 
 	{
 		margin-top:3em;
 		text-align:center;
 	}
-
+	.timer-container{
+		text-align:center;
+	}
+	#timer{
+		color : #138496;
+		font-size: 2em;
+		font-weight: 700;
+	}
 </style>
 
 <body>
-	<div id="checkEmail-container">
+	<div class="container-fluid checkEmail-container">
+		<div class="row">
+    		<div class="col-md-12">
+    			<h5>인증번호 입력</h5>
+    		</div>
+    	</div>
 		<input type="text" name="inputRandomNo" id="inputRandomNo" maxlength="6" placeholder="인증번호를 입력하세요."/>
 		<input type="hidden" name="randomNo" id="randomNo" value="${randomNo }">
-		<input type="button" onclick="checkEmail();" class="btn btn-primary" value="확인">
+		<input type="button" onclick="checkEmail();" class="btn btn-outline-info slidetopleft" value="확인">
 		<form action="${path }/member/findIdEnd.do" id="emailFrm" method="post">
 			<input type="hidden" name="email" id="email" value="${email }">
 		</form>

@@ -11,6 +11,8 @@
 <%
 	List<String> interestList = (List)request.getAttribute("interestList");
 %>
+<!-- Member CSS -->
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/member/member.css" />
 <style>
 .filebox input[type="file"] {
     position: absolute;
@@ -78,26 +80,30 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-1">
+        	<div style='position:fixed; margin-top: 10em;'>
+    			<span onclick='fn_back()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
+          	 	<script>
+           			function fn_back()
+	           		{
+	           			history.back();
+	           		}
+	           	</script>
+           	</div>
         </div>
         <div class="col-md-10">
-            <form name='updateFrm' id="updateFrm" action="${path }/member/memberUpdateEnd.do" method="POST" onsubmit='return fn_enroll_validate()' enctype="multipart/form-data">
-                <div class="row">
-                    <div class="col-md-12 signUpTitle">
-                    	<c:if test="${memberLevel==1 }">
-							<h1>개인회원가입</h1>
-						</c:if>
-						<c:if test="${memberLevel==2 }">
-							<h1>기업회원가입</h1>
-						</c:if>
-                    </div>
+            <div class="row">
+                <div class="col-md-12 signUpTitle">
+					<h1>정보수정</h1>
                 </div>
+            </div>
+            <form name='updateFrm' id="updateFrm" action="${path }/member/memberUpdateEnd.do" method="POST" onsubmit='return fn_enroll_validate()' enctype="multipart/form-data">
                 <div class="row">
                 	<div class="col-md-1 mb-2"></div>
                 	<div class="col-md-2 mb-2">
-	                    <c:if test="${memberLevel==1 }">
+	                    <c:if test="${member.MEMBERLEVEL==1 }">
 							<span>프로필사진</span><span class="text-danger">*</span>
 						</c:if>
-						<c:if test="${memberLevel==2 }">
+						<c:if test="${member.MEMBERLEVEL==2 }">
 							<span>회사사진</span><span class="text-danger">*</span>
 						</c:if>
 					</div>
@@ -105,11 +111,16 @@
 	                    <div class="filebox bs3-primary preview-image">
 	                    	<div class="upload-display">
 	                    		<div class="upload-thumb-wrap">
-	                    			<img src="${path }/resources/upload/member/${member.REIMG}" class="upload-thumb">
+	                    			<c:if test="${member.REIMG != null }">
+		                    			<img src="${path }/resources/upload/member/${member.REIMG}" class="upload-thumb">
+		                            </c:if>
+		                            <c:if test="${member.REIMG == null }">
+		                            	<img src="${path }/resources/image/logo1.png" alt=""/>
+		                            </c:if>
                     			</div>
                    			</div>
 				            <label for="memberProfile">사진 선택</label> 
-				            <input type="file" name="memberProfile" id="memberProfile" class="upload-hidden" accept=".gif, .jpg, .png" required> 
+				            <input type="file" name="memberProfile" id="memberProfile" class="upload-hidden" accept=".gif, .jpg, .png" required="required"> 
 				        </div>
                     </div>
                     <div class="col-md-3 mb-2">
@@ -123,7 +134,7 @@
                     <div class="col-md-6 mb-2">
                         <input type="text" id='memberId' name='memberId' class='form-control' value='${member.MEMBERID }' placeholder="아이디 입력" readonly>
                         <input type='hidden' name='idValid' value='1'>
-                        <input type="hidden" name="memberLevel" value="${memberLevel }">
+                        <input type="hidden" name="memberLevel" value="${member.MEMBERLEVEL }">
                     </div>
                     <div class="col-md-3 mb-2">
                     </div>
@@ -131,10 +142,10 @@
                 <div class="row">
                 	<div class="col-md-1 mb-2"></div>
                     <div class="col-md-2 mb-2">
-                        <c:if test="${memberLevel==1 }">
+                        <c:if test="${member.MEMBERLEVEL==1 }">
                         	<span>이름</span><span class="text-danger">*</span>
                         </c:if>
-                        <c:if test="${memberLevel==2 }">
+                        <c:if test="${member.MEMBERLEVEL==2 }">
                         	<span>회사명</span><span class="text-danger">*</span>
                         </c:if>
                     </div>
@@ -147,10 +158,10 @@
                 <div class="row">
                 	<div class="col-md-1 mb-2"></div>
                     <div class="col-md-2 mb-2">
-                    	<c:if test="${memberLevel==1 }">
+                    	<c:if test="${member.MEMBERLEVEL==1 }">
                         	<span>생년월일</span><span class="text-danger">*</span>
                         </c:if>
-                        <c:if test="${memberLevel==2 }">
+                        <c:if test="${member.MEMBERLEVEL==2 }">
                         	<span>사업개시일</span><span class="text-danger">*</span>
                         </c:if>
                     </div>
@@ -194,17 +205,16 @@
                         <input type="text" class='form-control' id='memberAccount' name='memberAccount' placeholder="계좌번호 입력" value="${member.ACCOUNT }" required>   
                     </div>
                     <div class="col-md-3 mb-2">
-                        <input type='button' onclick='fn_accountCheck();' class='btn btn-primary' value='계좌인증'>
-                        <input type='hidden' name='accountValid' id="accountValid" value='1'>
+                        <div id="account-danger" style="color: red;">입금받을 계좌번호를 입력하세요. 잘못 입력하여 생기는 불이익은 본 사이트는 책임지지 않습니다.</div>
                     </div>
                 </div>
                 <div class="row">
                 	<div class="col-md-1 mb-2"></div>
                     <div class="col-md-2 mb-2">
-                        <c:if test="${memberLevel==1 }">
+                        <c:if test="${member.MEMBERLEVEL==1 }">
                         	<span>연락처</span><span class="text-danger">*</span>
                         </c:if>
-                        <c:if test="${memberLevel==2 }">
+                        <c:if test="${member.MEMBERLEVEL==2 }">
                         	<span>대표연락처</span><span class="text-danger">*</span>
                         </c:if>
                     </div>
@@ -216,22 +226,28 @@
                 </div>
                 <div class="row">
                 	<div class="col-md-1 mb-2"></div>
-                    <div class="col-md-2 mb-2">
-                        <c:if test="${memberLevel==1 }">
+                	<div class="col-md-2 mb-2">
+                        <c:if test="${member.MEMBERLEVEL==1 }">
                         	<span>이메일</span><span class="text-danger">*</span>
                         </c:if>
-                        <c:if test="${memberLevel==2 }">
+                        <c:if test="${member.MEMBERLEVEL==2 }">
                         	<span>대표이메일</span><span class="text-danger">*</span>
                         </c:if>
                     </div>
-                    <div class="col-md-3 mb-2">
+                    <div class="col-md-1 mb-2">
                         <input type="text" id='memberEmail' name='memberEmail' class='form-control' value='${email }' placeholder="이메일" required>
                     </div>
                     <div class="col-md-1 mb-2 memberNo-center">
                         <span>@</span>
                     </div>
                     <div class="col-md-2 mb-2">
-                        <select class='form-control' id='joinEmailDomain' name='joinEmailDomain' required>
+                    	<input type="text" class="form-control" id="joinEmailDomain" name="joinEmailDomain" value='${domain }' placeholder="직접입력" required>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <select class='form-control' id='emailDomain' name='emailDomain'>
+                            <option value='' selected>
+								직접입력
+                            </option>
                             <option value='naver.com' ${domain=='naver.com'?'selected':'' }>
                                 naver.com
                             </option>   
@@ -250,17 +266,17 @@
                         </select>
                     </div>
                     <div class="col-md-3 mb-2">
-                    	<input type='button' onclick='fn_checkEmail();' class='btn btn-primary' value='이메일 인증'>
+                    	<input type='button' onclick='fn_checkEmail();' class="btn btn-outline-info slidetopleft" value='이메일 인증'>
                     	<input type='hidden' name='emailValid' id="emailValid" value='1'>
                     </div>
                 </div>
                 <div class="row">
                 	<div class="col-md-1 mb-2"></div>
                     <div class="col-md-2 mb-2">
-                        <c:if test="${memberLevel==1 }">
+                        <c:if test="${member.MEMBERLEVEL==1 }">
                         	<span>주소</span><span class="text-danger">*</span>
                         </c:if>
-                        <c:if test="${memberLevel==2 }">
+                        <c:if test="${member.MEMBERLEVEL==2 }">
                         	<span>회사주소</span><span class="text-danger">*</span>
                         </c:if>
                     </div>
@@ -291,10 +307,10 @@
                 <div class="row">
                     <div class="col-md-4"></div>
                     <div class="col-md-2">
-                        <input type="button" id="updateBtn" class="btn btn-primary" value="수정">
+                        <input type="submit" id="updateBtn" class="btn btn-outline-info slidetopleft" value="수정">
                     </div>
                     <div class="col-md-2">
-                        <input type="button" id="cancleBtn" class="btn btn-primary" value="취소">
+                        <input type="button" id="cancleBtn" class="btn btn-outline-info slidetopleft" value="취소">
                     </div>
                     <div class="col-md-4"></div>
                 </div>
@@ -312,34 +328,19 @@
     
     
 <script>	
-function fn_accountCheck(){
-	var bankCode=$("#bank").val().trim();
-       
-	if(!bankCode || bankCode.length<=0)
-	{
-	   alert("은행을 선택하세요.");
-	   return;   
-	   
-	}
-	var accountNo=$('#memberAccount').val().trim();
-	if(!accountNo || accountNo.length<=0)
-	{
-	   alert("계좌번호를 입력하세요.");
-	   return;   
-	}
-	var url="${path}/member/checkAccount";
-	var title="계좌 인증";
-	var shape="left=200px, top=100px, width=500px, height=300px";
+$('#emailDomain').change(function(){
+	var domain = $('#emailDomain').val().trim();
 	
-	var popup=open("",title,shape);
+	$('#joinEmailDomain').val('');
+	$('#joinEmailDomain').val(domain);
 	
-	accountCheckFrm.accountNo.value=accountNo;
-	accountCheckFrm.bankCode.value=bankCode;
-	accountCheckFrm.target=title;
-	accountCheckFrm.action=url;
-	accountCheckFrm.method="post";
-	accountCheckFrm.submit();    
-}
+	if(domain != ''){
+		$('#joinEmailDomain').attr('readonly','readonly');
+	} else{
+		$('#joinEmailDomain').removeAttr('readonly');
+	}
+});
+
 var sel_files=[];
 $(document).ready(function(){
    //preview image 
@@ -386,11 +387,12 @@ function fn_checkEmail(){
 	   
 	}
 	var domain=$('#joinEmailDomain').val().trim();
-	if(!domain || domain.length<=0)
-	{
-	   alert("도메인을 선택하세요.");
-	   return;   
-	}
+	if($('#joinEmailDomain').val().trim().length==0)
+    {
+        alert("이메일 도메인을 입력해주세요");
+        $('#joinEmailDomain').focus();
+        return false;
+    }   
 	var fullEmail = email+'@'+domain;
 	console.log(fullEmail);
 	var url="${path}/member/checkEmail";
@@ -417,46 +419,26 @@ $('#addSearch').click(function(){
 });
 
 $(function(){
-    $("#alert-success").hide();
-    $("#alert-danger").hide();
-	$("input").keyup(function(){
-	    var pwd1=$("#password").val();
-	    var pwd2=$("#cpassword").val();
-	    if(pwd1 != "" || pwd2 != ""){
-	        if(pwd1 == pwd2){
-	            $("#alert-success").show();
-	            $("#alert-danger").hide();
-	        }else{
-	            $("#alert-success").hide();
-	            $("#alert-danger").show();
-	        }    
-	    }
+    $("#account-danger").hide();
+	$("#memberAccount").keyup(function(){
+		$("#account-danger").show();
 	});
 });
-
 
 			
     function fn_enroll_validate()
     {
-        
-        if($('input[name=emailValid]')[0].value=='0'){
+    	if($('#memberProfile').val().trim() == ""){
+    		alert("사진을 선택해주세요");
+    		$('#memberProfile').focus();
+    		return false;
+    	}
+    	if($('input[name=emailValid]')[0].value=='0'){
         	alert('이메일 인증을 해주세요');
         	return false;
         }
-        
-        if($('input[name=accountValid]')[0].value=='0'){
-        	alert('계좌 인증을 해주세요');
-        	return false;
-        }
-        
-        if($('#memberName').val().trim().length==0)
-        {
-            alert("이름을 입력하세요");
-            $('#memberName').focus();
-            return false;
-        }
 
-        if($('#addSearch').val().trim().length==0)
+    	if($('#addSearch').val().trim().length==0)
         {
             alert("주소를 검색해주세요");
             $('#addSearch').focus();
@@ -470,6 +452,15 @@ $(function(){
             return false;
         }
         
+        var memberPhone = $('#memberPhone').val().trim();
+
+        if(!/^[0-9]+$/.test(memberPhone))
+        { 
+            alert('핸드폰 번호는 숫자만 사용해야 합니다.'); 
+            $('#memberPhone').focus();
+            return false;
+        }
+        
         if($('#memberPhone').val().trim().length==0)
         {
             alert("핸드폰 번호를 입력해주세요");
@@ -477,10 +468,40 @@ $(function(){
             return false;
         }
         
+        
         if($('#memberEmail').val().trim().length==0)
         {
             alert("메일 아이디를 입력해주세요");
             $('#memberEmail').focus();
+            return false;
+        }
+        if($('#joinEmailDomain').val().trim().length==0)
+        {
+            alert("이메일 도메인을 입력해주세요");
+            $('#joinEmailDomain').focus();
+            return false;
+        }   
+        
+        var memberAccount = $('#memberAccount').val().trim();
+        
+        if(!/^[0-9]+$/.test(memberAccount))
+        { 
+            alert('계좌번호는 숫자만 사용해야 합니다.'); 
+            $('#memberAccount').focus();
+            return false;
+        }
+        
+        if($('#memberName').val().trim().length==0)
+        {
+            alert("이름을 입력하세요");
+            $('#memberName').focus();
+            return false;
+        }
+        
+        if($('#birth').val().trim().length==0)
+        {
+            alert("생년월일 입력하세요");
+            $('#birth').focus();
             return false;
         }
 

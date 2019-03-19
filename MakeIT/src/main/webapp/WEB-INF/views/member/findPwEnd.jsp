@@ -31,12 +31,14 @@
 	margin-top:3em;
 	text-align:center;
 }
-.emailBody{
-	width: 97%;
+#timer{
+	color : #138496;
+	font-size: 2em;
+	font-weight: 700;
 }
 </style>
 <body class='emailBody'>
-	<div class='checkMail-container'>
+	<div class='container-fluid checkMail-container'>
     	<div class="row">
     		<div class="col-md-12">
     			<h5>비밀번호 찾기</h5>
@@ -48,7 +50,7 @@
    				<p>${msg }</p>
     		</div>
     		<div class="col-md-5">
-    			<input type="button" onclick="closeView();" value="닫기">
+    			<input type="button" class="btn btn-outline-info slidetopleft" onclick="closeView();" value="닫기">
     		</div>
     	</div>
     	<script>
