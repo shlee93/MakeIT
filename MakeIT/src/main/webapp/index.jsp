@@ -29,6 +29,7 @@
 	<a class="dropdown-item" href="${path }/contest/contestWrite.do">컨테스트글작성</a>
 	<a class="dropdown-item" href="${path }/mainpage/mainpage.do">메인페이지</a>
 	<a class="dropdown-item" href="${path }/admin/adminView.do">관리자</a>
+	<a class="dropdown-item" href="${path }/support/supportView.do">고객센터</a>
 	<a class="dropdown-item" href="${path }/intropage/intropage.do">인트로페이지</a>
 
    <div id="famousContentWrap">

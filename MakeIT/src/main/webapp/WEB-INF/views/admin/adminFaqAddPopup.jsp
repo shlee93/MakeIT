@@ -53,7 +53,7 @@
             </div>
         <br style="clear:both">
         <div class="form-group col-md-2">
-        	<button class="form-control input-sm btn btn-success" id="insertQna" name="insertQna">등록</button>    
+        	<button class="form-control input-sm btn btn-outline-info slidetopleft" id="insertQna" name="insertQna">등록</button>    
     	</div>
 	</div>
 </div>

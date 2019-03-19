@@ -101,8 +101,8 @@
 
 									</tbody>
 								</table>
-								<button class="btn btn-primary">닫기</button>
-								<button class="btn btn-primary" id="member-update">수정</button>
+								<button class="btn btn-outline-info slidetopleft">닫기</button>
+								<button class="btn btn-outline-info slidetopleft" id="member-update">수정</button>
 
 							</div>
 						</div>
