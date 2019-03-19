@@ -205,11 +205,106 @@ public class SellDaoImpl implements SellDao {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("sell.insertReport",reportMap);
 	}
+	/*선택된 옵션 가져가는것 결재위해*/
+	@Override
+	public Map selctedOption(Map optionMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("sell.selctedOption",optionMap);
+	}
 
-	
-	
+	@Override
+	public int sellDetailDelete(int sellno) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("sell.sellDetailDelete",sellno);
+	}
+	//셀판매자 찾기
+	@Override
+	public Map selectSeller(Map optionMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("sell.selectSeller",optionMap);
+	}
+	//결재완료
 
+	@Override
+	public int purchaseComplete(Map purchaseInfo) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("sell.purchaseComplete",purchaseInfo);
+	}
+	//결재완료창 선택한옵션 조회
+
+	@Override
+	public Map optionInfo(Map purchaseInfo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("sell.optionInfo",purchaseInfo);
+	}
+	//구매자들띄워주기
+
+	@Override
+	public List<Map<String, String>> sellBuyerShow(int sellno) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("sell.sellBuyerShow",sellno);
+	}
+	//판매자가 작업상태변경
+	@Override
+	public int sellSpectUpdate(int no) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("sell.sellSpectUpdate",no);
+	}
+
+	@Override
+	public List<Map<String, String>> purcahseList(Map refund) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("sell.purcahseList",refund);
+	}
+
+	@Override
+	public int sellRefundEnd(Map payBack) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("sell.sellRefundEnd",payBack);
+	}
+
+	@Override
+	   public int insertReview(Map<String, String> map) {
+	      // TODO Auto-generated method stub
+	      return sqlSession.insert("sell.insertReview", map);
+	   }
+
+	  /* @Override
+	   public int deleteReview(Map<String, String> map) {
+	      // TODO Auto-generated method stub
+	      return session.delete("buy.deleteReview",map);
+	   }
+
+	   @Override
+	   public int updateReview(Map<String, String> map) {
+	      // TODO Auto-generated method stub
+	      return session.update("buy.updateReview",map);
+	   }*/
 	
+	@Override
+	   public int selectReviewCnt(int sellno) {
+	      // TODO Auto-generated method stub
+	      return sqlSession.selectOne("sell.selectReviewCnt", sellno);
+	   }
+	
+	@Override
+	   public int updateReview(Map<String, String> map) {
+	      // TODO Auto-generated method stub
+	      return sqlSession.update("sell.updateReview",map);
+	   }
+	@Override
+	   public int deleteReview(Map<String, String> map) {
+	      // TODO Auto-generated method stub
+	      return sqlSession.delete("sell.deleteReview",map);
+	   }
+
+	//구매확정
+	@Override
+	public int sellCommit(int sellSpecNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("sell.sellCommit",sellSpecNo);
+	}
+
 	
 
 }

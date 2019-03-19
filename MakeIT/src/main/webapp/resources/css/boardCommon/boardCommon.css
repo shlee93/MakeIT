@@ -33,15 +33,15 @@
   	
     .image_outer_container
     {
-     	 /* margin-top: auto; */
-     	 /* margin-bottom: auto; */
+     	 /* margin-top: auto;
+     	 margin-bottom: auto; */
      	 border-radius: 50%;
      	 position: relative;
      }
 
      .image_inner_container
      {
-     	 border-radius: 50%;
+     	 border-radius: 50% !important;
      	 padding: 5px;
       	 background: #833ab4; 
       	 background: -webkit-linear-gradient(to bottom, #fcb045, #fd1d1d, #833ab4); 
