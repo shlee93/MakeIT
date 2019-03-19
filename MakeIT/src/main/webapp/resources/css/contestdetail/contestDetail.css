@@ -65,13 +65,8 @@
 		    color:#fff;
 		    border-radius:0;
 		    transition:background 0.20s linear;		   
-		}
-    
-	    .fixed
-	    {
-	    	margin-left:45%;
-	        position: fixed;
-	    }
+		}    
+	    
 	    #total
 	    {
 	      margin-top: 5%;

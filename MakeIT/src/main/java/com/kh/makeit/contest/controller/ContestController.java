@@ -152,6 +152,12 @@ public class ContestController
 			mv.addObject("contestSubImgList", contestSubImgList);
 			mv.addObject("contestObj", contestObj);
 			mv.addObject("memberMap", memberMap);
+			Map outBoxc= new HashMap();
+			outBoxc.put("contestNo",contestNo);
+			outBoxc.put("loginMember", memberMap.get("memberId"));
+			Map outBoxYn=service.sellOutBoxYn(outBoxc);
+			mv.addObject("outBoxYn",outBoxYn);
+			mv.addObject("session", sessionMap);
 		}
 		else
 		{

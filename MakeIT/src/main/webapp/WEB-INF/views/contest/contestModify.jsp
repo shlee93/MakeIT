@@ -303,14 +303,14 @@
 			</script>
 	        <br>
 	        <div id="btn-container">
-	           <button type='button' class="btn btn-secondary" onclick='fn_back()'>취소</button>
+	           <button type='button' class="btn btn-outline-info slidetopleft" onclick='fn_back()'>취소</button>
 	           <script>
 	           		function fn_back()
 	           		{
 	           			history.back();
 	           		}
 	           </script>
-	           <input type='submit' class="btn btn-secondary" value='수정'/>
+	           <input type='submit' class="btn btn-outline-info slidetopleft" value='수정'/>
 	        </div>
         </form>
     </div>

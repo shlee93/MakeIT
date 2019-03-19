@@ -54,7 +54,34 @@
 	{
 		var scmove = $('#mainNavi').offset().top;
 		$('html, body').animate( { scrollTop : scmove }, 400 );
+		
 	});
+	
+	/* $(window).scroll(function(){
+        if($(this).scrollTop() < 140) 
+        {
+    		$('#donggeulNav').addClass("fixed");
+    		$('#donggeulNav').removeClass("fixed-fixed")
+        }
+        if($(this).scrollTop() > 140) 
+        {
+    		$('#donggeulNav').addClass("fixed-fixed");
+    		$('#donggeulNav').removeClass("fixed")
+        }
+	}); */
+	$(window).scroll(function(){
+		if($(this).scrollTop() > 140)
+		{
+			var windowVal = $(this).scrollTop();
+			$('#donggeulNav').css('top',windowVal);
+		}
+		if($(this).scrollTop() < 140) 
+        {
+			var windowVal = $(this).scrollTop();
+			$('#donggeulNav').css('top','100px');
+        }		
+	})	
+	
 </script>
 
 <body>
@@ -116,16 +143,32 @@
                     	</div>                   
                 	</div>
                 
-                	<div class="col-md-6 fixed" style='position:fixed; margin-top: -8em;'>                   
+                	<div id='donggeulNav' class="col-md-6" style="position:absolute; margin-left:60%;transition:ease-in-out; transition-duration:0.7s;">                   
                     	<div class="row " style="text-align:center; margin-left:-5em;" >
                         	<div class="col-md-10">
-                        		<h4>${contestObj.GRADENAME} ${contestObj.MEMBERNAME}</h4>
+                        		<c:if test="${contestObj.GRADENAME == '브론즈' }">
+                               	<p style='display: inline;'><img alt="" src="${path }/resources/image/bronzeGrade.png" style="max-width: 50px;max-height: 50px;"><c:out value="${map.GRADENAME }"></c:out></p>
+                               	</c:if>
+                               	<c:if test="${contestObj.GRADENAME == '실버' }">
+                               	<p><img alt="" src="${path }/resources/image/silverGrade.png" style="max-width: 50px;max-height: 50px;"><c:out value="${map.GRADENAME }"></c:out></p>
+                               	</c:if>
+                               	<c:if test="${contestObj.GRADENAME == '골드' }">
+                               	<p><img alt="" src="${path }/resources/image/goldGrade.png" style="max-width: 50px;max-height: 50px;"><c:out value="${map.GRADENAME }"></c:out></p>
+                               	</c:if>
+                               	<c:if test="${contestObj.GRADENAME == '플래티넘' }">
+                               	<p><img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;"><c:out value="${map.GRADENAME }"></c:out></p>
+                               	</c:if>
+                               	<c:if test="${contestObj.GRADENAME == '다이아몬드' }">
+                               	<p><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"><c:out value="${map.GRADENAME }"></c:out></p>
+                               	</c:if>
+                        		<h4 style='display: inline;'><strong>${contestObj.GRADENAME}</strong> ${contestObj.MEMBERNAME}</h4>
+ 			                   	
  			                   	<!-- 똥글뱅이 -->
                         		<div class="row align-items-center" style='margin-top: -5em;'>			                  
 			                  		<div class="holderCircle">
 			                        	<div class="round"></div>
 			                        	<div class="dotCircle">
-			                        		<span class="itemDot active itemDot1" data-tab="1">
+			                        		<span class="itemDot itemDot1" data-tab="1">
 				                           	    <c:set var='currentId' value='${memberMap.get("MEMBERID")}'/>								
 				                           	   	   	<c:choose>
 									    	   		   	<c:when test="${currentId eq contestObj.MEMBERID}">
@@ -150,7 +193,7 @@
 										 		   	</c:choose>	   	
 				                           		<span class="forActive"></span>
 				                            </span>
-				                           	<span class="itemDot itemDot3" data-tab="3">
+				                           	<span class="itemDot itemDot3 active" data-tab="3">
 					                           	<i class="fa fa-briefcase donggeulI"></i>
 				                           	   	<span class="forActive"></span>
 				                           	</span>
@@ -168,7 +211,7 @@
 				                           	</span> -->
 			                        	</div>
 			                        	<div class="contentCircle">
-				                           	<div class="CirItem title-box active CirItem1">
+				                           	<div class="CirItem title-box CirItem1">
 			                           		   	<!-- 작성자 이미지 컨테이너 -->			                        	
 				                        	   	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
 											   	<div class="image_outer_container">
@@ -183,7 +226,7 @@
 											<c:set var='currentId' value='${memberMap.get("MEMBERID")}'/>								
 				                          	<c:choose>
 									    		<c:when test="${currentId eq contestObj.MEMBERID}">												
-													<button type="button" class='btn btn-primary' onclick='fn_contestModify()'>수정하기</button>
+													<button type="button" class='btn btn-outline-info slidetopleft' onclick='fn_contestModify()'>수정하기</button>
 											    	<script>
 											    		function fn_contestModify()
 											    		{
@@ -192,15 +235,26 @@
 											    		}
 											    	</script>
 									    		</c:when>
-										    	<c:otherwise>										    		
-													<button class='btn btn-primary'>찜하기</button>
+										    	<c:otherwise>
+										    		<form id="sellOutBoxInFrm">
+	                                                  	<input type="hidden" name="sellno" value="${contestObj.CONTESTNO}">
+	                                               	</form>
+	                                               	<form id="sellOutBoxDelFrm">
+	                                                  	<input type="hidden" name="sellno" value="${contestObj.CONTESTNO}">
+	                                               	</form> 										    		
+													<c:if test="${empty outBoxYn and contestObj.MEMBERID ne currentId}">
+                                                   		<button class="btn btn-outline-info slidetopleft" onclick="fn_outboxDo();">찜하기</button>
+                                                	</c:if>
+                                                	<c:if test="${!empty outBoxYn and contestObj.MEMBERID ne currentId}">
+                                                     	<button class=" btn btn-outline-info slidetopleft" onclick="fn_outboxNo();" >찜풀기</button>
+                                                  	</c:if>
 										    	</c:otherwise>
 									    	</c:choose>
 			                              	<!-- <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p> -->
 			                              	<!-- <i class="fa fa-clock-o"></i> -->
 			                            </div>
 			                           
-			                           	<div class="CirItem title-box active CirItem2">
+			                           	<div class="CirItem title-box CirItem2">
 			                              	<!-- 작성자 이미지 컨테이너 -->			                        	
 			                        	  	<div class="d-flex justify-content-center h-100" style='margin-bottom:-8em;'>
 											 	<div class="image_outer_container">
@@ -218,7 +272,7 @@
 										    		<form id='contestDetailFrm'>
 										    			<input id='contestDelNo' name='contestDelNo' type='hidden' value='${contestObj.CONTESTNO}'/>
 										    		</form>
-											    	<input type='button' class='btn btn-primary' onclick='fn_contestDelSubmit()' value='삭제하기'/>
+											    	<input type='button' class='btn btn-outline-info slidetopleft' onclick='fn_contestDelSubmit()' value='삭제하기'/>
 											    	
 											    	<!-- 컨테스트 삭제 스크립트 -->
 											    	
@@ -236,7 +290,7 @@
 										      			<input type='hidden' id='sendId' name='sendId' value='${memberMap.get("MEMBERID")}'/>
 										      			<input type='hidden' id='receiveId' name='receiveId' value='${contestObj.MEMBERID }'/>
 										      		</form>
-									      			<button class="btn btn-primary" onclick='fn_message()'>쪽지보내기</button>
+									      			<button class="btn btn-outline-info slidetopleft" onclick='fn_message()'>쪽지보내기</button>
 									      			
 									      			<script>									      			
 									      				function fn_message()
@@ -260,7 +314,7 @@
 			                              	<!-- <i class="fa fa-clock-o"></i> -->
 		                           		</div>
 		                           		
-		                           		<div class="CirItem title-box CirItem3">
+		                           		<div class="CirItem title-box active CirItem3">
 			                              	<!-- 작성자 이미지 컨테이너 -->
 			                        	
 				                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
@@ -274,10 +328,10 @@
 											</br>
 											<c:choose>
 										    	<c:when test="${currentId eq contestObj.MEMBERID}">
-										    		<input type='button' class='btn btn-primary' onclick='fn_applicantList_modal(${contestObj.CONTESTNO});' value='지원자보기'>											    										    							    	   
+										    		<input type='button' class='btn btn-outline-info slidetopleft' onclick='fn_applicantList_modal(${contestObj.CONTESTNO});' value='지원자보기'>											    										    							    	   
 										      	</c:when>
 									      		<c:otherwise>
-									      			<input type='button' class="btn btn-primary" onclick='fn_applicantAccess_modal()' value='지원하기'>									      			
+									      			<input type='button' class="btn btn-outline-info slidetopleft" onclick='fn_applicantAccess_modal()' value='지원하기'>									      			
 									      		</c:otherwise>
 									 		</c:choose>
 	                              		<!-- <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p> -->			                              
@@ -406,7 +460,7 @@
        		</div>
 		</div>   		    
     	<div class='col-md-1' id='right-nav' >
-    		<div style='position:fixed; margin-top: 10em;'>
+    		<!-- <div style='position:fixed; margin-top: 10em;'>
     			<span onclick='fn_forward()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-right"></i></span>    				           
           	 	<script>
            			function fn_forward()
@@ -414,7 +468,7 @@
 	           			history.forward();
 	           		}
 	           	</script>
-           	</div>
+           	</div> -->
     	</div>
     	<script>
 		    function fn_applicantAccess_modal()
@@ -595,7 +649,7 @@
 		               		<tr>
 	                  			<th>첨부파일</th>
 	                  			<td>
-		                  	 		<input type="button" id='downLoadBtn' class="btn btn-primary btn-block" onclick="fileDownload();" disabled>
+		                  	 		<input type="button" id='downLoadBtn' class="btn btn-outline-info slidetopleft btn-block" onclick="fileDownload();" disabled>
 			                
 				             		<script>
 										function fileDownload()

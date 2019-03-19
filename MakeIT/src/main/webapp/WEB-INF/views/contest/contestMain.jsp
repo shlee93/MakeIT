@@ -352,7 +352,7 @@
 				       		    			});
 					       		    	</script>
 						                <input type="text" id='contestKeywordInput' class='form-control' placeholder="검색할 아이디를 입력하세요" style='width: 300px; display: inline;'/>
-						                <input class="btn btn-primary" type='button' id='contestSearchBtn' style='margin-bottom: 0.3em' value='검색'/>
+						                <input class="btn btn-outline-info slidetopleft" type='button' id='contestSearchBtn' style='margin-bottom: 0.3em' value='검색'/>
 						                <script>
 						                	$(function()
 				                			{
@@ -476,7 +476,7 @@
 					                    </div>                           
 					                    <div class="row">
 					                        <div class="col-md-12">
-					                        	<a href="${path}/contest/contestDetail.do?contestNo=${contest.CONTESTNO}" class="btn btn-primary garo-center" style="width: 100%; height:45%; margin-top: 3em;">상세보기</a>    
+					                        	<a href="${path}/contest/contestDetail.do?contestNo=${contest.CONTESTNO}" class="btn btn-outline-info slidetopleft garo-center" style="width: 100%; height:45%; margin-top: 3em;">상세보기</a>    
 					                        </div>
 					                    </div>
 			                    	 </div>			                   
@@ -492,7 +492,7 @@
 			              <div class='row' style='margin-bottom:1em;'>
 			              	  <div class='col-md-10'></div>
 			              	  <div class='col-md-2'>
-			              	  	  <a class="btn btn-primary" style='float:right;'href="${path }/contest/contestWrite.do">글작성</a>
+			              	  	  <a class="btn btn-outline-info slidetopleft" style='float:right;'href="${path }/contest/contestWrite.do">글작성</a>
 			              	  </div>
 			              </div>
 			              
