@@ -27,9 +27,6 @@
 <!-- 아이콘 CSS -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
-<!-- Member CSS -->
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/member/member.css" /> --%>
-
 <link rel="stylesheet" type="text/css" href="${path }/resources/css/mainpage/style.css"/>
 
 <!-- 관리자 CSS,JS -->

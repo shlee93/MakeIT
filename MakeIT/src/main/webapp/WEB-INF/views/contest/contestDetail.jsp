@@ -231,8 +231,29 @@
 											    	</script> 
 											    	  
 										      	</c:when>
-										      	<c:otherwise>
-									      			<button class="btn btn-primary">쪽지보내기</button>
+										      	<c:otherwise>										      		
+										      		<form id='contestMsgFrm' action='${path }/message/messagePop.do'>
+										      			<input type='hidden' id='sendId' name='sendId' value='${memberMap.get("MEMBERID")}'/>
+										      			<input type='hidden' id='receiveId' name='receiveId' value='${contestObj.MEMBERID }'/>
+										      		</form>
+									      			<button class="btn btn-primary" onclick='fn_message()'>쪽지보내기</button>
+									      			
+									      			<script>									      			
+									      				function fn_message()
+									      				{
+									      					var sendId=$('#sendId').val();
+									      					if($('#sendId').val()!=null&&$('#sendId').val()!='')
+								      						{
+										      					var receiveId=$('#receiveId').val();
+									                    		var popup=open("${path}/message/messagePop.do?sendId="+sendId+"&receiveId="+receiveId,"contestMsgSendPop","left=250px, top=200px, width=450px, height=350px");									                    	
+											      				$('#contestMsgFrm').target=popup;
+								      						}
+									      					else
+								      						{
+									      						alert("로그인해주세요");
+								      						}
+									      				} 
+									      			</script>
 										      	</c:otherwise>
 										 	</c:choose>
 			                              	<!-- <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p> -->
@@ -384,7 +405,17 @@
   				</div>        
        		</div>
 		</div>   		    
-    	<div class='col-md-1' id='right-nav' ></div>
+    	<div class='col-md-1' id='right-nav' >
+    		<div style='position:fixed; margin-top: 10em;'>
+    			<span onclick='fn_forward()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-right"></i></span>    				           
+          	 	<script>
+           			function fn_forward()
+	           		{
+	           			history.forward();
+	           		}
+	           	</script>
+           	</div>
+    	</div>
     	<script>
 		    function fn_applicantAccess_modal()
 			{  

@@ -4,4 +4,7 @@
 	<select id='interestSel' parameterType='_int' resultType='map'>
 		select * from DETAILINTEREST where INTERESTNO=#{interestNo}
 	</select>
+	<insert id='messageSend' parameterType='map'>
+		insert into message values(seq_messageNo.nextval,#{messageContent},sysdate,null,default,default,#{receiveId},#{sendId})
+	</insert>
 </mapper>

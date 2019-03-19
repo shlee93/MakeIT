@@ -10,11 +10,8 @@
 
 
 	<a class="dropdown-item" href="${path }/member/memberEnrollck.do">회원가입</a>
-	
 	<a class="dropdown-item" href="${path }/member/memberLogin.do">로그인</a>
-	
 	<a class="dropdown-item" href="${path }/member/memberMyPage.do">마이페이지</a>	
-	
 	<a class="dropdown-item" href="${path }/buy/volList.do">지원자 리스트</a>
 	<a class="dropdown-item" href="${path }/sell/sellmain.do">판매메인</a>
 	<a class="dropdown-item" href="${path }/sell/sellDetail.do">판매디테일</a>
@@ -246,7 +243,7 @@
         var major = "프로그래밍";
 
         if($('#rankingViewBody').css('height') == '639px'){
-            viewPosition = vi	ewPosition-535;
+            viewPosition = viewPosition-535;
             $('#rankingDetailViewBody').css('top',viewPosition+'px');
             $('#rankingDetailViewBody').css('width','300px');
             $('#rankingDetailViewBody').css('opacity','1');

@@ -11,14 +11,14 @@
         width: 100%;
         height: auto;
         max-height: 600px;
-        min-height: 500px;
-        background-color: midnightblue;
+        min-height: 525px;
+        background-color: #138496;
     }
     #mainVideo img{
         width: 100%;
         height: auto;
         max-height: 400px;
-        min-height: 500px;
+        min-height: 525px;
     }
 
     #topWrap{
@@ -28,30 +28,35 @@
         transform: translate(-50%,-0.1%);
         width: 100%;
         height: 60px;
-        background-color: midnightblue;
+        background-color: #138496;
     }
     #logoIcon{
         position: absolute;
-        width: 50px;
-        height: 50px;
+        width: 110px;
+        height: 110px;
         left: 50%;
-        top:50%;
-        transform: translate(-50%,-50%);
-        background-color: white;
-        border-radius: 20%;
+        top: 0%;
+        transform: translate(-50%,-0%);
+/*         background-color: white; */
+        border-radius: 100%;
+    }
+    #logoIcon img{
+    	width: 100%;
+    	height: 100%;
     }
     #serviceWrap{
         position: absolute;
         left: 50%;
-        top: 10%;
-        transform: translate(-50%,-10%);
-        /* background-color: blue;  */
+        top: 15%;
+        transform: translate(-50%,-15%);
+        cursor: default;
+        /* background-color: blue;  */	
     }
     #tradeService{
         position: relative;
-        font-size: 30px;
+        font-size: 35px;
         height: 35px;
-        
+        font-family: 'Sunflower', sans-serif;
         color: white;
         /* overflow: hidden; */
         /* background-color: blue;  */
@@ -64,8 +69,9 @@
         position: relative;
         top: -7%;
         transform: translateY(7%);
-        font-size: 30px;
+        font-size: 35px;
         color: white;
+        font-family: 'Sunflower', sans-serif;      
         white-space: nowrap;
 
     }
@@ -82,15 +88,17 @@
         white-space: nowrap;
     }
     #login{
-        font-size: 20px;
+        font-size: 35px;
         color: white;
         text-decoration: none;
+		font-family: 'Nanum Pen Script', cursive;
     }
     #join{
-        font-size: 20px;
+        font-size: 35px;
         color: white;
         white-space: nowrap;
         text-decoration: none;
+		font-family: 'Nanum Pen Script', cursive;
     }
 
     #mainWrite{
@@ -98,17 +106,18 @@
         left: 50%;
         top: 220px;
         transform: translateX(-50%); 
-        /* background-color: red;   */
+        cursor: default;
+/*          background-color: red;    */
     }
     #write1{
-        
         position: relative;
         left: 50%;
-        top: 1%;
-        transform: translate(-50%,-1%);
-        font-size: 35px;
-        font-weight: bold;
+        top: 10px;
+        transform: translateX(-50%);
+        font-size: 45px;
+        text-align:center;
         color: white;
+		font-family: 'Nanum Pen Script', cursive;
         white-space: nowrap;
     }
     #write2{
@@ -116,10 +125,13 @@
         left: 50%;
         top: -30;
         transform: translate(-50%, -30%);
-        font-size: 70px;
+        font-size: 100px;
         font-weight: bold;
         color: gold;
+  		font-family: 'Sunflower', sans-serif;
         white-space: nowrap;
+        letter-spacing: -10px;
+        cursor: default;
     }
 
     #mainNavi{
@@ -128,7 +140,7 @@
         min-width: 800px;
         height: 200px;
         left: 50%;
-        top: -130px;
+        top: -120px;
         transform: translate(-50%);
         background-color: white;
         border-top-left-radius:100px; 

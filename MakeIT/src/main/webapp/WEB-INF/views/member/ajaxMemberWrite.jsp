@@ -8,7 +8,12 @@ pageEncoding="UTF-8"%>
 <div class="row" id="toprow">
 	<div class="col-md-4">
 	    <div class="profile-img">
-	        <img src="${path }/resources/upload/member/${map.REIMG}" alt=""/>
+	        <c:if test="${map.REIMG != null }">
+            	<img src="${path }/resources/upload/member/${map.REIMG}" alt=""/>
+            </c:if>
+            <c:if test="${map.REIMG == null }">
+            	<img src="${path }/resources/image/logo1.png" alt=""/>
+            </c:if>
 	   	</div>
 	</div>
 	<div class="col-md-6">
@@ -108,8 +113,8 @@ pageEncoding="UTF-8"%>
     <div class="col-md-2">
 		<form id="hiddenFrm" action="" method="post">
 			<input type="hidden" id="updateId" name="updateId" value="${map.MEMBERID }"/>
-			<input type="button" onclick="updateMember();" class="profile-edit-btn" name="updateBtn" value="정보수정"/>
-			<input type="button" onclick="deleteMember();" class="profile-edit-btn" name="deleteBtn" value="회원탈퇴"/>
+			<input type="button" onclick="updateMember();" class="btn btn-outline-info slidetopleft" name="updateBtn" value="정보수정"/>
+			<input type="button" onclick="deleteMember();" class="btn btn-outline-info slidetopleft" name="deleteBtn" value="회원탈퇴"/>
 		</form>
     </div>
 </div>
@@ -141,7 +146,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="bo" items="${buyList }">
 		                    			<tr>
 		                    				<td><c:out value="${bo.BUYNO }"/></td>
-											<td><a href="#"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
 											<td><c:out value="${bo.MEMBERID }"/></td>
 											<td><c:out value="${bo.BUYDATE }"/></td>
 		                    			</tr>
@@ -173,7 +178,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="so" items="${sellList }">
 		                    			<tr>
 		                    				<td><c:out value="${so.SELLNO }"/></td>
-											<td><a href="#"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
 											<td><c:out value="${so.MEMBERID }"/></td>
 											<td><c:out value="${so.SELLDATE }"/></td>
 		                    			</tr>
@@ -303,7 +308,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="bo" items="${buyList }">
 		                    			<tr>
 		                    				<td><c:out value="${bo.BUYNO }"/></td>
-											<td><a href="#"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
 											<td><c:out value="${bo.MEMBERID }"/></td>
 											<td><c:out value="${bo.BUYDATE }"/></td>
 		                    			</tr>
@@ -335,7 +340,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="so" items="${sellList }">
 		                    			<tr>
 		                    				<td><c:out value="${so.SELLNO }"/></td>
-											<td><a href="#"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
 											<td><c:out value="${so.MEMBERID }"/></td>
 											<td><c:out value="${so.SELLDATE }"/></td>
 		                    			</tr>
@@ -465,7 +470,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="bo" items="${buyList }">
 		                    			<tr>
 		                    				<td><c:out value="${bo.BUYNO }"/></td>
-											<td><a href="#"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
 											<td><c:out value="${bo.MEMBERID }"/></td>
 											<td><c:out value="${bo.BUYDATE }"/></td>
 		                    			</tr>
@@ -497,7 +502,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="so" items="${sellList }">
 		                    			<tr>
 		                    				<td><c:out value="${so.SELLNO }"/></td>
-											<td><a href="#"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
 											<td><c:out value="${so.MEMBERID }"/></td>
 											<td><c:out value="${so.SELLDATE }"/></td>
 		                    			</tr>
@@ -627,7 +632,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="bo" items="${buyList }">
 		                    			<tr>
 		                    				<td><c:out value="${bo.BUYNO }"/></td>
-											<td><a href="#"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
 											<td><c:out value="${bo.MEMBERID }"/></td>
 											<td><c:out value="${bo.BUYDATE }"/></td>
 		                    			</tr>
@@ -659,7 +664,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="so" items="${sellList }">
 		                    			<tr>
 		                    				<td><c:out value="${so.SELLNO }"/></td>
-											<td><a href="#"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
 											<td><c:out value="${so.MEMBERID }"/></td>
 											<td><c:out value="${so.SELLDATE }"/></td>
 		                    			</tr>
@@ -789,7 +794,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="bo" items="${buyList }">
 		                    			<tr>
 		                    				<td><c:out value="${bo.BUYNO }"/></td>
-											<td><a href="#"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
 											<td><c:out value="${bo.MEMBERID }"/></td>
 											<td><c:out value="${bo.BUYDATE }"/></td>
 		                    			</tr>
@@ -821,7 +826,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="so" items="${sellList }">
 		                    			<tr>
 		                    				<td><c:out value="${so.SELLNO }"/></td>
-											<td><a href="#"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
 											<td><c:out value="${so.MEMBERID }"/></td>
 											<td><c:out value="${so.SELLDATE }"/></td>
 		                    			</tr>
@@ -938,6 +943,7 @@ pageEncoding="UTF-8"%>
             </c:if>
         </div>
     </div>
+    <input type="hidden" id="fadeStatus" name="fadeStatus" value="${fadeStatus }">
 </div>
 <script>
 	function buytab(){

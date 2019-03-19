@@ -8,8 +8,9 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+	
 	<c:set var="path" value="${pageContext.request.contextPath }"/>
-	 <!-- Latest compiled and minified CSS -->
+ 	<!-- Latest compiled and minified CSS -->
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
    
@@ -25,207 +26,200 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/buywrite/buywrite.css" />
+	
+	<jsp:include page="/WEB-INF/views/common/header.jsp">
+	  	<jsp:param value="HelloSpring" name="pageTitle"/>
+   	</jsp:include>	
+	
 	<style>
-	  /* 어드민 네비 */
+	  	/* 어드민 네비 */
 
-	  .hide
-	  {
-	  	  display: none;
-	  }
-
-      /* 네비 사이드 */    
-
-      .nav-side-menu 
-      {
-          overflow: auto;
-          font-family: verdana;
-          font-size: 20px;
-          font-weight: 200;
-          background-color: #2e353d;
-          position: relative;
-          top: 0px;
-          width: 100%;
-          height: 100%;
-          color: #e1ffff;
-      }
-      
-      .nav-side-menu .brand 
-      {
-          background-color: #23282e;
-          line-height: 50px;
-          display: block;
-          text-align: center;
-          font-size: 14px;
-      }
-      
-      .nav-side-menu .toggle-btn 
-      {
-          display: none;
-      }
-      
-      .nav-side-menu ul,      
-      .nav-side-menu li 
-      {
-          list-style: none;
-          padding: 0px;
-          margin: 0px;
-          line-height: 35px;
-          cursor: pointer;
-          /*    
-            .collapsed{
-               .arrow:before{
-                         font-family: FontAwesome;
-                         content: "\f053";
-                         display: inline-block;
-                         padding-left:10px;
-                         padding-right: 10px;
-                         vertical-align: middle;
-                         float:right;
-                    }
-             }
-          */
-      }
-      
-      .nav-side-menu ul :not(collapsed) .arrow:before,
-      .nav-side-menu li :not(collapsed) .arrow:before 
-      {
-          font-family: FontAwesome;
-          content: "\f078";
-          display: inline-block;
-          padding-left: 10px;
-          padding-right: 10px;
-          vertical-align: middle;
-          float: right;
-      }
-      
-      .nav-side-menu ul .active,
-      .nav-side-menu li .active 
-      {
-          border-left: 3px solid #d19b3d;
-          /* background-color: blue; */
-      }
-      
-      .nav-side-menu ul .sub-menu li.active,
-      .nav-side-menu li .sub-menu li.active 
-      {
-          color: #d19b3d;
-      }
-      
-      .nav-side-menu ul .sub-menu li.active a,
-      .nav-side-menu li .sub-menu li.active a 
-      {
-          color: #d19b3d;
-      }
-      
-      .nav-side-menu ul .sub-menu li,
-      .nav-side-menu li .sub-menu li 
-      {
-          background-color: #181c20;
-          border: none;
-          line-height: 28px;
-          border-bottom: 1px solid #23282e;
-          margin-left: 0px;
-      }
-      
-      .nav-side-menu ul .sub-menu li:hover,
-      .nav-side-menu li .sub-menu li:hover 
-      {
-          background-color: #020203;
-      }
-      
-      .nav-side-menu ul .sub-menu li:before,
-      .nav-side-menu li .sub-menu li:before 
-      {
-          font-family: FontAwesome;
-          content: "\f105";
-          display: inline-block;
-          padding-left: 10px;
-          padding-right: 10px;
-          vertical-align: middle;
-      }
-      
-      .nav-side-menu li 
-      {
-          padding-left: 0px;
-          border-left: 3px solid #2e353d;
-          border-bottom: 1px solid #23282e;
-      }
-      
-      .nav-side-menu li a 
-      {
-          text-decoration: none;
-          color: #e1ffff;
-      }
-      
-      .nav-side-menu li a i 
-      {
-          padding-left: 10px;
-          width: 20px;
-          padding-right: 20px;
-      }
-      
-      .nav-side-menu li:hover 
-      {
-          border-left: 3px solid #d19b3d;
-          /* background-color: blue; */
-          -webkit-transition: all 1s ease;
-          -moz-transition: all 1s ease;
-          -o-transition: all 1s ease;
-          -ms-transition: all 1s ease;
-          transition: all 1s ease;
-      }
-      
-      @media (max-width: 767px) 
-      {
-          .nav-side-menu 
-          {
-              position: relative;
-              width: 100%;
-              margin-bottom: 10px;
-          }
-          
-          .nav-side-menu .toggle-btn 
-          {
-              display: block;
-              cursor: pointer;
-              position: absolute;
-              right: 10px;
-              top: 10px;
-              z-index: 10 !important;
-              padding: 3px;
-              background-color: #ffffff;
-              color: #000;
-              width: 40px;
-              text-align: center;
-          }
-          
-          .brand 
-          {
-              text-align: left !important;
-              font-size: 22px;
-              padding-left: 20px;
-              line-height: 50px !important;
-          }
-      }
-      
-      @media (min-width: 767px) 
-      {
-          .nav-side-menu .menu-list .menu-content 
-          {
-              display: block;
-          }
-      }
-      
-      .side-nav-li
-      {
-         font-size: 1.5em;
-         margin-top: 2em;
-      }
-      
-      .side-nav-li a
-      {
-         line-height: 4em;   
-      }    
+	  	.hide
+ 		{	
+	  	  	display: none;
+	  	}
+	
+     	/* 네비 사이드 */    
+	
+     	.nav-side-menu 
+     	{
+	        overflow: auto;
+	        font-family: verdana;
+	        font-size: 20px;
+	        font-weight: 200;
+	        background-color: #2e353d;
+	        position: relative;
+	        top: 0px;
+	        width: 100%;
+	        height: 100%;
+	        color: #e1ffff;
+     	}
+	     
+     	.nav-side-menu .brand 
+     	{
+	        background-color: #23282e;
+	        line-height: 50px;
+	        display: block;
+	        text-align: center;
+	        font-size: 14px;
+     	}
+	     
+     	.nav-side-menu .toggle-btn 
+     	{
+         	display: none;
+     	}
+	     
+     	.nav-side-menu ul,      
+     	.nav-side-menu li 
+     	{
+	        list-style: none;
+	        padding: 0px;
+	        margin: 0px;
+	        line-height: 35px;
+	        cursor: pointer;
+	        
+     	}
+	     
+     	.nav-side-menu ul :not(collapsed) .arrow:before,
+     	.nav-side-menu li :not(collapsed) .arrow:before 
+     	{
+	        font-family: FontAwesome;
+	        content: "\f078";
+	        display: inline-block;
+	        padding-left: 10px;
+	        padding-right: 10px;
+	        vertical-align: middle;
+	        float: right;
+     	}
+	     
+    	.nav-side-menu ul .active,
+     	.nav-side-menu li .active 
+     	{
+       		border-left: 3px solid #d19b3d;
+         	/* background-color: blue; */
+     	}
+	     
+     	.nav-side-menu ul .sub-menu li.active,
+     	.nav-side-menu li .sub-menu li.active 
+     	{
+         	color: #d19b3d;
+     	}
+	     
+     	.nav-side-menu ul .sub-menu li.active a,
+     	.nav-side-menu li .sub-menu li.active a 
+     	{
+         	color: #d19b3d;
+     	}
+	     
+     	.nav-side-menu ul .sub-menu li,
+     	.nav-side-menu li .sub-menu li 
+     	{
+         	background-color: #181c20;
+         	border: none;
+         	line-height: 28px;
+         	border-bottom: 1px solid #23282e;
+         	margin-left: 0px;
+     	}
+	     
+     	.nav-side-menu ul .sub-menu li:hover,
+     	.nav-side-menu li .sub-menu li:hover 
+     	{
+         	background-color: #020203;
+     	}
+	     
+     	.nav-side-menu ul .sub-menu li:before,
+     	.nav-side-menu li .sub-menu li:before 
+     	{
+         	font-family: FontAwesome;
+         	content: "\f105";
+         	display: inline-block;
+         	padding-left: 10px;
+         	padding-right: 10px;
+         	vertical-align: middle;
+     	}
+	     
+     	.nav-side-menu li 
+     	{
+         	padding-left: 0px;
+         	border-left: 3px solid #2e353d;
+         	border-bottom: 1px solid #23282e;
+     	}
+	     
+     	.nav-side-menu li a 
+     	{
+         	text-decoration: none;
+         	color: #e1ffff;
+     	}
+	     
+     	.nav-side-menu li a i 
+     	{
+         	padding-left: 10px;
+         	width: 20px;
+         	padding-right: 20px;
+     	}
+	     
+     	.nav-side-menu li:hover 
+     	{
+         	border-left: 3px solid #d19b3d;
+         	/* background-color: blue; */
+         	-webkit-transition: all 1s ease;
+         	-moz-transition: all 1s ease;
+         	-o-transition: all 1s ease;
+         	-ms-transition: all 1s ease;
+         	transition: all 1s ease;
+     	}
+	     
+     	@media (max-width: 767px) 
+     	{
+         	.nav-side-menu 
+         	{
+           		position: relative;
+             	width: 100%;
+             	margin-bottom: 10px;
+         	}
+	         
+         	.nav-side-menu .toggle-btn 
+         	{
+            	display: block;
+            	cursor: pointer;
+            	position: absolute;
+            	right: 10px;
+            	top: 10px;
+            	z-index: 10 !important;
+            	padding: 3px;
+            	background-color: #ffffff;
+            	color: #000;
+            	width: 40px;
+            	text-align: center;
+         	}
+	         
+         	.brand 
+        	{
+            	text-align: left !important;
+            	font-size: 22px;
+            	padding-left: 20px;
+            	line-height: 50px !important;
+        	}
+    	}
+	     
+    	@media (min-width: 767px) 
+    	{
+        	.nav-side-menu .menu-list .menu-content 
+        	{
+            	display: block;
+        	}
+    	}
+	     
+    	.side-nav-li
+   		{
+        	font-size: 1.5em;
+	        margin-top: 2em;
+    	}
+	     
+    	.side-nav-li a
+    	{
+       		line-height: 4em;   
+    	}    
 		
 	</style>
 
@@ -242,7 +236,17 @@
 
  	<div class='container-fluid' id="total">
   		<div class='row'>
-       		<div class='col-md-1' id='nav'></div>
+       		<div class='col-md-1' id='nav'>
+       			<div style='position:fixed; margin-top: 10em;'>
+	    			<span onclick='fn_back()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
+	          	 	<script>
+	           			function fn_back()
+		           		{
+		           			history.back();
+		           		}
+		           	</script>
+	           	</div>
+       		</div>
 				<div class='col-md-10'>
 					<div class='row'>
 						<div class='col-md-2'>
@@ -496,7 +500,15 @@
 			                
 	            	</div>
 		            <div class='col-md-1' id='right-nav' >		               
-		                      
+		            	<div style='position:fixed; margin-top: 10em;'>
+			    			<span onclick='fn_forward()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-right"></i></span>    				           
+			          	 	<script>
+			           			function fn_forward()
+				           		{
+				           			history.forward();
+				           		}
+				           	</script>
+			           	</div>          
 	            	</div>		            
 		        </div>   	
 	        </div>    

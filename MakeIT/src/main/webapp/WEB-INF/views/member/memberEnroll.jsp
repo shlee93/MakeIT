@@ -8,6 +8,8 @@
 	<jsp:param value="HelloSpring" name="pageTitle"/>
 </jsp:include>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
+<!-- Member CSS -->
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/member/member.css" />
 <style>
 .filebox input[type="file"] {
     position: absolute;
@@ -75,6 +77,15 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-1">
+        	<div style='position:fixed; margin-top: 10em;'>
+    			<span onclick='fn_back()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
+          	 	<script>
+           			function fn_back()
+	           		{
+	           			history.back();
+	           		}
+	           	</script>
+           	</div>
         </div>
         <div class="col-md-10">
             <form name='signupform' action="${path }/member/memberEnrollEnd.do" method="POST" onsubmit='return fn_enroll_validate()' enctype="multipart/form-data">
@@ -118,7 +129,7 @@
                         <input type="hidden" name="memberLevel" value="${memberLevel }">
                     </div>
                     <div class="col-md-3 mb-2">
-                        <input type='button' onclick='fn_checkduplicate();' class='btn btn-primary' value='중복체크'>
+                        <input type='button' onclick='fn_checkduplicate();' class="btn btn-outline-info slidetopleft" value='중복체크'>
                     </div>
                 </div>
                 <div class="row">
@@ -142,7 +153,7 @@
                     </div>
                     <div class="col-md-3 mb-2" id="ck_password">
 						<div id="alert-success" style="color: green;">비밀번호가 일치합니다.</div>
-						<div id="alert-danger" style="color: red;">비밀번호가 일치하지 않습니다.</div>
+						<div id="alert-danger" style="color: red;">비밀번호가 일치하지 않습니다. 비밀번호는 영문, 숫자, 특수문자 조합 8~20자리 입니다.</div>
                     </div>
                 </div>
                 <div class="row">
@@ -183,36 +194,19 @@
                         <span>계좌번호</span><span class="text-danger">*</span>
                     </div>
                     <div class="col-md-2 mb-2">
-                        <select class="form-control" id="bank" name="bank">
+                        <select class="form-control" id="bank" name="bank" required>
                         	<option disabled selected>은행을 선택하세요</option>
-                            <option value="001">한국은행</option>
-                            <option value="010">KDB산업은행</option>
-                            <option value="011">IBK기업은행</option>
-                            <option value="012">한국수출입</option>
-                            <option value="020">NH농협은행</option>
-                            <option value="021">SH수협은행</option>
-                            <option value="030">신한은행</option>
-                            <option value="031">KB국민은행</option>
-                            <option value="032">우리은행</option>
-                            <option value="033">SC제일은행</option>
-                            <option value="034">씨티은행</option>
-                            <option value="035">KEB하나은행</option>
-                            <option value="040">DGB대구은행</option>
-                            <option value="041">BNK부산은행</option>
-                            <option value="042">광주은행</option>
-                            <option value="043">제주은행</option>
-                            <option value="044">전북은행</option>
-                            <option value="045">BNK경남은행</option>
-                            <option value="050">케이뱅크</option>
-                            <option value="051">카카오뱅크</option>
+                        	<c:forEach var="bank" items="${bank }">
+                        		<option value="${bank.BANKCODE }">${bank.BANKNAME }</option>
+                        	</c:forEach>
+                            
                         </select>
                     </div>
                     <div class="col-md-4 mb-2">
                         <input type="text" class='form-control' id='memberAccount' name='memberAccount' placeholder="계좌번호 입력" required>   
                     </div>
-                    <div class="col-md-3 mb-2">
-                        <input type='button' onclick='fn_accountCheck();' class='btn btn-primary' value='계좌인증'>
-                        <input type='hidden' name='accountValid' id="accountValid" value='0'>
+                    <div class="col-md-3 mb-2" id="ck_Account">
+						<div id="account-danger" style="color: red;">입금받을 계좌번호를 입력하세요. 잘못 입력하여 생기는 불이익은 본 사이트는 책임지지 않습니다.</div>
                     </div>
                 </div>
                 <div class="row">
@@ -241,16 +235,19 @@
                         	<span>대표이메일</span><span class="text-danger">*</span>
                         </c:if>
                     </div>
-                    <div class="col-md-3 mb-2">
+                    <div class="col-md-1 mb-2">
                         <input type="text" id='memberEmail' name='memberEmail' class='form-control' value='' placeholder="이메일" required>
                     </div>
                     <div class="col-md-1 mb-2 memberNo-center">
                         <span>@</span>
                     </div>
                     <div class="col-md-2 mb-2">
-                        <select class='form-control' id='joinEmailDomain' name='joinEmailDomain' required>
-                            <option value=''disabled selected>
-                                domain.com
+                    	<input type="text" class="form-control" id="joinEmailDomain" name="joinEmailDomain" placeholder="직접입력" required>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <select class='form-control' id='emailDomain' name='emailDomain'>
+                            <option value='' selected>
+								직접입력
                             </option>
                             <option value='naver.com'>
                                 naver.com
@@ -270,7 +267,7 @@
                         </select>
                     </div>
                     <div class="col-md-3 mb-2">
-                    	<input type='button' onclick='fn_checkEmail();' class='btn btn-primary' value='이메일 인증'>
+                    	<input type='button' onclick='fn_checkEmail();' class="btn btn-outline-info slidetopleft" value='이메일 인증'>
                     	<input type='hidden' name='emailValid' id="emailValid" value='0'>
                     </div>
                 </div>
@@ -311,10 +308,10 @@
                 <div class="row">
                     <div class="col-md-4"></div>
                     <div class="col-md-2">
-                        <input type="submit" class="btn btn-primary" value="회원가입">
+                        <input type="submit" class="btn btn-outline-info slidetopleft" value="회원가입">
                     </div>
                     <div class="col-md-2">
-                        <input type="button" class="btn btn-primary" value="취소">
+                        <input type="button" onclick="main();" class="btn btn-outline-info slidetopleft" value="취소">
                     </div>
                     <div class="col-md-4"></div>
                 </div>
@@ -336,34 +333,23 @@
     
     
 <script>
-	function fn_accountCheck(){
-		var bankCode=$("#bank").val().trim();
-	       
-		if(!bankCode || bankCode.length<=0)
-		{
-		   alert("은행을 선택하세요.");
-		   return;   
-		   
-		}
-		var accountNo=$('#memberAccount').val().trim();
-		if(!accountNo || accountNo.length<=0)
-		{
-		   alert("계좌번호를 입력하세요.");
-		   return;   
-		}
-		var url="${path}/member/checkAccount";
-		var title="계좌 인증";
-		var shape="left=200px, top=100px, width=500px, height=300px";
-		
-		var popup=open("",title,shape);
-		
-		accountCheckFrm.accountNo.value=accountNo;
-		accountCheckFrm.bankCode.value=bankCode;
-		accountCheckFrm.target=title;
-		accountCheckFrm.action=url;
-		accountCheckFrm.method="post";
-		accountCheckFrm.submit();    
+	function main(){
+		location.href = "${path}/member/mainPage";
 	}
+	
+	$('#emailDomain').change(function(){
+		var domain = $('#emailDomain').val().trim();
+		
+		$('#joinEmailDomain').val('');
+		$('#joinEmailDomain').val(domain);
+		
+		if(domain != ''){
+			$('#joinEmailDomain').attr('readonly','readonly');
+		} else{
+			$('#joinEmailDomain').removeAttr('readonly');
+		}
+	});
+	
 	var sel_files=[];
 	$(document).ready(function(){
        //preview image 
@@ -412,7 +398,7 @@
 		var domain=$('#joinEmailDomain').val().trim();
 		if(!domain || domain.length<=0)
 		{
-		   alert("도메인을 선택하세요.");
+		   alert("도메인을 입력하세요.");
 		   return;   
 		}
 		var fullEmail = email+'@'+domain;
@@ -443,18 +429,56 @@
     $(function(){
         $("#alert-success").hide();
         $("#alert-danger").hide();
+        $("#account-danger").hide();
     	$("input").keyup(function(){
-    	    var pwd1=$("#password").val();
-    	    var pwd2=$("#cpassword").val();
-    	    if(pwd1 != "" || pwd2 != ""){
-    	        if(pwd1 == pwd2){
-    	            $("#alert-success").show();
-    	            $("#alert-danger").hide();
-    	        }else{
-    	            $("#alert-success").hide();
-    	            $("#alert-danger").show();
-    	        }    
-    	    }
+    		var joincPw=$("#cpassword").val().trim();
+			var joinPw=$("#password").val().trim();
+			var chk_num = joinPw.search(/[0-9]/g); 
+            var chk_eng = joinPw.search(/[a-z]/ig);
+            var chk_spe = joinPw.search(/[$@$!%*#?&]/);
+            
+            if(chk_num < 0 && chk_eng < 0 && chk_spe < 0){
+            	$("#alert-success").hide();
+	            $("#alert-danger").show();
+            } else{
+            	if(/^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(joinPw))
+                { 
+                	if(joincPw != "" || joinPw != ""){
+            	        if(joinPw == joincPw){
+            	            $("#alert-success").show();
+            	            $("#alert-danger").hide();
+            	        }else{
+            	            $("#alert-success").hide();
+            	            $("#alert-danger").show();
+            	        }    
+            	    }
+                } else{
+                	$("#alert-success").hide();
+     	            $("#alert-danger").show();
+                }
+    			
+                if(/^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(joincPw))
+                { 
+                	if(joinPw != "" || joincPw != ""){
+            	        if(joinPw == joincPw){
+            	            $("#alert-success").show();
+            	            $("#alert-danger").hide();
+            	        }else{
+            	            $("#alert-success").hide();
+            	            $("#alert-danger").show();
+            	        }    
+            	    }
+                } else{
+               		$("#alert-success").hide();
+     	            $("#alert-danger").show();
+                }
+            	
+            }
+            
+    	    
+    	});
+    	$("#memberAccount").keyup(function(){
+    		$("#account-danger").show();
     	});
     });
 
@@ -470,11 +494,6 @@
             
             if($('input[name=emailValid]')[0].value=='0'){
             	alert('이메일 인증을 해주세요');
-            	return false;
-            }
-            
-            if($('input[name=accountValid]')[0].value=='0'){
-            	alert('계좌 인증을 해주세요');
             	return false;
             }
             
@@ -496,17 +515,18 @@
             var joinPw=$("#password").val().trim();
             
 
-            if(!/^[a-zA-Z0-9]{8,20}$/.test(joinPw))
+            if(!/^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(joinPw))
             { 
-                alert('비밀번호는 숫자와 영문자 조합으로 8~20자리를 사용해야 합니다.'); 
+                alert('비밀번호는 숫자와 영문자, 특수문자 조합으로 8~20자리를 사용해야 합니다.'); 
                 $('#password').focus();
                 return false;
             }
             
             var chk_num = joinPw.search(/[0-9]/g); 
             var chk_eng = joinPw.search(/[a-z]/ig);
+            var chk_spe = joinPw.search(/[$@$!%*#?&]/);
         
-            if(chk_num < 0 || chk_eng < 0)
+            if(chk_num < 0 || chk_eng < 0 || chk_spe < 0)
         
             { 
                 alert('비밀번호는 숫자와 영문자를 혼용하여야 합니다.');
@@ -523,18 +543,27 @@
             
             var joincPw=$("#cpassword").val().trim();
             
-            if(!/^[a-zA-Z0-9]{8,20}$/.test(joinPw))
+            if(!/^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(joincPw))
             { 
-                alert('비밀번호는 숫자와 영문자 조합으로 8~20자리를 사용해야 합니다.'); 
+                alert('비밀번호는 숫자와 영문자, 특수문자 조합으로 8~20자리를 사용해야 합니다.'); 
                 $('#cpassword').focus();
+                return false;
+            }
+            
+            var memberAccount = $('#memberAccount').val().trim();
+            
+            if(!/^[0-9]+$/.test(memberAccount))
+            { 
+                alert('계좌번호는 숫자만 사용해야 합니다.'); 
+                $('#memberAccount').focus();
                 return false;
             }
             
             var chk_cnum = joincPw.search(/[0-9]/g); 
             var chk_ceng = joincPw.search(/[a-z]/ig);
-        
+            var chk_cspe = joincPw.search(/[$@$!%*#?&]/);
 
-            if(chk_cnum < 0 || chk_ceng < 0)
+            if(chk_cnum < 0 || chk_ceng < 0 || chk_cspe < 0)
             { 
                 alert('비밀번호는 숫자와 영문자를 혼용하여야 합니다.');
                 $('#cpassword').focus();
@@ -554,10 +583,10 @@
                 return false;
             }
             
-            if($('#memberNo').val().trim().length==0)
+            if($('#birth').val().trim().length==0)
             {
                 alert("생년월일 입력하세요");
-                $('#memberNo').focus();
+                $('#birth').focus();
                 return false;
             }
 
@@ -575,12 +604,22 @@
                 return false;
             }
             
+			var memberPhone = $('#memberPhone').val().trim();
+
+            if(!/^[0-9]+$/.test(memberPhone))
+            { 
+                alert('핸드폰 번호는 숫자만 사용해야 합니다.'); 
+                $('#memberPhone').focus();
+                return false;
+            }
+            
             if($('#memberPhone').val().trim().length==0)
             {
                 alert("핸드폰 번호를 입력해주세요");
                 $('#memberPhone').focus();
                 return false;
             }
+            
             
             if($('#memberEmail').val().trim().length==0)
             {
@@ -589,9 +628,9 @@
                 return false;
             }
             var f=document.signupform;
-            if(f.joinEmailDomain.value=='')
+            if($('#joinEmailDomain').val().trim().length==0)
             {
-                alert("이메일 도메인을 선택해주세요");
+                alert("이메일 도메인을 입력해주세요");
                 $('#joinEmailDomain').focus();
                 return false;
             }   

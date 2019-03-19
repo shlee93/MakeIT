@@ -39,7 +39,7 @@ public class ContestController
 	
 	
 	@RequestMapping("/contest/contestMain.do")
-	public ModelAndView contestMain(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, HttpServletRequest request)
+	public ModelAndView contestMain(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, HttpServletRequest request, String sortTypeFlag)
 	{
 		System.out.println("현재P"+cPage);
 		int numPerPage=5;
@@ -67,7 +67,7 @@ public class ContestController
 		Map searchFlag=new HashMap();
 		ModelAndView mv=new ModelAndView();
 		int numPerPage=5;
-		
+		List<Map<String,String>> contestList = null;
 		if(interestFlag!=null)
 		{
 			System.out.println("인터레스트플래그 : "+interestFlag);
@@ -101,9 +101,9 @@ public class ContestController
 		
 		int contentCount=cs.sortCountService(searchFlag);		
 		
-		List<Map<String,String>> contestList=cs.contestSortService(cPage,numPerPage,searchFlag);
+		contestList=cs.contestSortService(cPage,numPerPage,searchFlag);
 		
-		mv.addObject("pageBar",PageFactory.getPageBar(contentCount, cPage, numPerPage, request.getContextPath()+"/contest/contestMain.do"));
+		mv.addObject("pageBar",PageFactory.getSearchPageBar(contentCount, cPage, numPerPage, interestFlag,  detailInterestFlag,  searchTypeFlag,  searchTypeKeyword,  sortTypeFlag, request.getContextPath()+"/contest/sort.do"));
 		for(int i=0; i<contestList.size(); i++)
 		{
 			String contestDate=String.valueOf(contestList.get(i).get("CONTESTDATE")).substring(0, 10);
@@ -500,6 +500,5 @@ public class ContestController
 		}
 		
 		return "redirect:/contest/contestMain.do";
-	} 
-	
+	}
 }

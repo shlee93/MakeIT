@@ -260,5 +260,10 @@ public class MemberDaoImpl implements MemberDao {
 		return sqlSession.delete("member.deleteNaverMember",updateId);
 	}
 
+	@Override
+	public List<Map<String, String>> bankList() {
+		return sqlSession.selectList("member.bankList");
+	}
+
 
 }

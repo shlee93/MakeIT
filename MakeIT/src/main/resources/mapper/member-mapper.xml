@@ -56,7 +56,7 @@
 		SELECT COUNT(*) FROM SELLOUTBOX O JOIN SELL S USING(SELLNO) WHERE O.MEMBERID=#{memberId}
 	</select>
 	<select id="buyList" parameterType="string" resultType="map">
-		SELECT * FROM BUY WHERE MEMBERID=#{memberId} AND BUYDELYN='N' ORDER BY BUYDATE DESC
+		SELECT * FROM BUY WHERE MEMBERID=#{memberId} AND BUYDELETEYN='N' ORDER BY BUYDATE DESC
 	</select>
 	<select id="sellList" parameterType="string" resultType="map">
 		SELECT * FROM SELL WHERE MEMBERID=#{memberId} AND SELLDELETEYN='N' ORDER BY SELLDATE DESC
@@ -128,7 +128,7 @@
 		SELECT SUM(SELLPRICE),MEMBERNAME,M.MEMBERID FROM MEMBER M JOIN(SELECT S.MEMBERID, SELLPRICE FROM SELL S JOIN(SELECT SELLPRICE,P.SELLNO FROM SELLOPTION P, (SELECT SELLOPTIONNO,SELLNO FROM SELLSPEC JOIN STATUS ON SELLSPEC.STATUSNO = STATUS.STATUSNO WHERE STATUS.STATUSNO =4) S WHERE P.SELLNO = S.SELLNO AND P.SELLOPTIONNO = S.SELLOPTIONNO) P ON S.SELLNO = P.SELLNO) P ON M.MEMBERID = P.MEMBERID GROUP BY MEMBERNAME,M.MEMBERID ORDER BY SUM(SELLPRICE) DESC
 	</select>
 	<insert id="insertNaverMember" parameterType="map">
-		INSERT INTO MEMBER VALUES(#{memberId},null,#{name},null,#{email},null,DEFAULT,DEFAULT,#{img},#{img},NULL,DEFAULT,null,null,null,null,DEFAULT,2)
+		INSERT INTO MEMBER VALUES(#{memberId},NULL,#{name},NULL,#{email},NULL,DEFAULT,DEFAULT,NULL,NULL,NULL,DEFAULT,NULL,NULL,NULL,NULL,DEFAULT,1)
 	</insert>
 	<select id="selectNaverOne" parameterType="string" resultType="map">
 		SELECT * FROM MEMBER WHERE MEMBERID=#{id}
@@ -136,6 +136,9 @@
 	<delete id="deleteNaverMember" parameterType="string">
 		DELETE FROM MEMBER WHERE MEMBERID=#{updateId}
 	</delete>
+	<select id="bankList" resultType="map">
+		SELECT * FROM BANK
+	</select>
 	<resultMap type="map" id="memberMap">
 		<result column="interest" property="interest" typeHandler="strArray"/>
 	</resultMap>

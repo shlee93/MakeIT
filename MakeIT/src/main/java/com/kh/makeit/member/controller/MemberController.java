@@ -3,7 +3,6 @@ package com.kh.makeit.member.controller;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -140,7 +139,9 @@ public class MemberController {
 	public ModelAndView memberEnroll(String memberLevel) {
 		logger.debug(memberLevel);
 		ModelAndView mv = new ModelAndView();
+		List<Map<String,String>> list = service.bankList();
 		mv.addObject("memberLevel", memberLevel);
+		mv.addObject("bank",list);
 		mv.setViewName("member/memberEnroll");
 		return mv;
 	}
@@ -160,8 +161,7 @@ public class MemberController {
 	public ModelAndView navLoginEnd(HttpServletRequest request,HttpSession session) {
 		String email = request.getParameter("email");
 		String name = request.getParameter("name");
-		String img = request.getParameter("img");
-		String token = request.getParameter("access_token");
+		String token = request.getParameter("token");
 		logger.debug(token);
 		String[] idStr = email.split("@");
 		String id = idStr[0];
@@ -172,7 +172,6 @@ public class MemberController {
 		map.put("memberId", id);
 		map.put("email", email);
 		map.put("name", name);
-		map.put("img", img);
 		int result = 0;
 		logger.debug(memberId);
 		Map<Object,Object> member = null;
@@ -240,47 +239,6 @@ public class MemberController {
 		return mv;
 	}
 	
-	@RequestMapping("/member/checkAccount")
-	public ModelAndView checkAccount(String accountNo, String bankCode) {
-		logger.debug(accountNo);
-		logger.debug(bankCode);
-		Map<String,String> account = new HashMap<>();
-		account.put("accountNo", accountNo);
-		account.put("bankCode", bankCode);
-		Map<String,Object> returnAccount = service.getAccount(account);
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("account",returnAccount);
-		mv.setViewName("member/checkAccountInput");
-		return mv;
-	}
-	
-	@RequestMapping("/member/accountCheckEnd")
-	public ModelAndView checkAccountEnd(String accountNo, String bankCode, String accountName, Date accountBirth) {
-		Map<String,String> account = new HashMap<>();
-		account.put("accountNo", accountNo);
-		account.put("bankCode", bankCode);
-		logger.debug(accountName);
-		logger.debug(accountBirth.toString());
-		Map<String,Object> returnAccount = service.getAccount(account);
-		ModelAndView mv = new ModelAndView();
-		logger.debug(returnAccount.get("ACCOUNTNAME"));
-		logger.debug(returnAccount.get("ACCOUNTBIRTH").toString());
-		String birth = returnAccount.get("ACCOUNTBIRTH").toString().substring(0,10);
-		if(returnAccount.get("ACCOUNTNAME").equals(accountName)) {
-			if(birth.equals(accountBirth.toString())) {
-				mv.addObject("msg","계좌인증 완료되었습니다.");
-				mv.addObject("isAble",true);
-			} else {
-				mv.addObject("msg","생년월일이 일치하지 않습니다.");
-				mv.addObject("isAble",false);
-			}
-		}else {
-			mv.addObject("msg","이름이 일치하지 않습니다.");
-			mv.addObject("isAble",false);
-		}
-		mv.setViewName("member/checkAccountEnd");
-		return mv;
-	}
 
 	@RequestMapping("/member/memberEnrollEnd.do")
 	public ModelAndView memberEnrollEnd(HttpServletRequest request, MultipartFile memberProfile, HttpSession session) {
@@ -326,11 +284,13 @@ public class MemberController {
 		}
 		logger.debug(map);
 		int result = service.insertMember(map);
+		Map<Object,Object> resultMap = service.selectOne(memberId);
 		String msg = "";
 		String loc = "";
 		if (result > 0) {
 			msg = "회원가입이 완료되었습니다.";
 			loc = "/";
+			session.setAttribute("member", resultMap);
 		} else {
 			msg = "회원가입이 실패했습니다.";
 			loc = "/";
@@ -454,7 +414,7 @@ public class MemberController {
 		for(String i : id) {
 			int idLength = i.length();
 			String idStr = i.substring(0, 4);
-			for(int j = 0; j<idLength-idStr.length();j++) {
+			for(int j = 0; j<idLength-idStr.length()+1;j++) {
 				idStr+="*";
 			}
 			idView.add(idStr);
@@ -517,12 +477,15 @@ public class MemberController {
 	public ModelAndView updateMember(String updateId) throws ParseException {
 		Map<Object, Object> map = service.selectOne(updateId);
 		ModelAndView mv = new ModelAndView();
+		String[] interest = null;
 		if(map != null) {
 			logger.debug(map);
-			String[] interest = ((String) map.get("INTERESTNO")).split(",");
 			List<String> interestList = new ArrayList();
-			for (int i = 0; i < interest.length; i++) {
-				interestList.add(interest[i]);
+			if(map.get("INTERESTNO")!=null) {
+				interest = ((String) map.get("INTERESTNO")).split(",");
+				for (int i = 0; i < interest.length; i++) {
+					interestList.add(interest[i]);
+				}
 			}
 			String[] emailList = ((String) map.get("EMAIL")).split("@");
 			String[] addressList = ((String) map.get("ADDRESS")).split("/");
@@ -690,26 +653,94 @@ public class MemberController {
 
 	@RequestMapping("/member/memberInfoAjax.do")
 	@ResponseBody
-	public ModelAndView memberInfo(String memberId) {
-		Map<Object, Object> map = service.selectOne(memberId);
-		int fadeStatus = 1;
-		int buyCount = service.selectBuyCount(memberId);
-		int sellCount = service.boardSellCount(memberId);
-		double buyAvg = service.buyAvg(memberId);
-		double sellAvg = service.sellAvg(memberId);
-		String[] addressSplit = ((String) map.get("ADDRESS")).split("/");
-		String address = addressSplit[0] + " " + addressSplit[1];
-		map.put("ADDRESS", address);
-		String birth = map.get("BIRTH").toString().substring(0, 10);
-		map.put("BIRTH", birth);
+	public ModelAndView memberInfo(String memberId, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		Map<Object, Object> map = new HashMap();
+		int buyCount = 0;
+		int sellCount = 0;
+		double buyAvg = 0;
+		double sellAvg = 0;
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("buyCount", buyCount);
-		mv.addObject("sellCount", sellCount);
-		mv.addObject("buyAvg", buyAvg);
-		mv.addObject("sellAvg", sellAvg);
-		mv.addObject("map", map);
-		mv.addObject("fadeStatus",fadeStatus);
-		mv.setViewName("member/ajaxMemberInfo");
+		logger.debug(session.getAttribute("member"));
+		map = (Map<Object, Object>) session.getAttribute("member");
+		if(map != null && map.get("PASSWORD") != null) {
+			String id = (String) map.get("MEMBERID");
+			logger.debug(id);
+			map = service.selectOne(id);
+			buyCount = service.selectBuyCount(id);
+			sellCount = service.boardSellCount(id);
+			buyAvg = service.buyAvg(id);
+			sellAvg = service.sellAvg(id);
+			int noReadMessage = service.noReadMessage(id);
+			logger.debug(noReadMessage);
+			String[] addressSplit = ((String) map.get("ADDRESS")).split("/");
+			String address = addressSplit[0] + " " + addressSplit[1];
+			map.put("ADDRESS", address);
+			logger.debug(buyCount);
+			logger.debug(sellCount);
+			logger.debug(buyAvg);
+			logger.debug(sellAvg);
+			logger.debug(map);
+			String birth = map.get("BIRTH").toString().substring(0, 10);
+			map.put("BIRTH", birth);
+			mv.setViewName("member/ajaxMemberInfo");
+			mv.addObject("noReadMessage",noReadMessage);
+			mv.addObject("buyCount", buyCount);
+			mv.addObject("sellCount", sellCount);
+			mv.addObject("buyAvg", buyAvg);
+			mv.addObject("sellAvg", sellAvg);
+			mv.addObject("map", map);
+			mv.addObject("sellcPage",0);
+			mv.addObject("buycPage",0);
+			mv.addObject("freecPage",0);
+			mv.addObject("qnacPage",0);
+			mv.addObject("contestcPage",0);
+			mv.addObject("fadeStatus",1);
+		} else if(map != null && map.get("PASSWORD") == null){
+			String id = (String) map.get("MEMBERID");
+			logger.debug(id);
+			map = service.selectNaverOne(id);
+			if(map.get("BANKCODE")!=null) {
+				map = service.selectOne(id);
+			}
+			if(map.get("ADDRESS")!=null) {
+				String[] addressSplit = ((String) map.get("ADDRESS")).split("/");
+				String address = addressSplit[0] + " " + addressSplit[1];
+				map.put("ADDRESS", address);
+			}
+			if(map.get("BIRTH")!=null) {
+				String birth = map.get("BIRTH").toString().substring(0, 10);
+				map.put("BIRTH", birth);
+			}
+			buyCount = service.selectBuyCount(id);
+			sellCount = service.boardSellCount(id);
+			buyAvg = service.buyAvg(id);
+			sellAvg = service.sellAvg(id);
+			int noReadMessage = service.noReadMessage(id);
+			logger.debug(noReadMessage);
+			mv.setViewName("member/ajaxMemberInfo");
+			mv.addObject("noReadMessage",noReadMessage);
+			mv.addObject("buyCount", buyCount);
+			mv.addObject("sellCount", sellCount);
+			mv.addObject("buyAvg", buyAvg);
+			mv.addObject("sellAvg", sellAvg);
+			mv.addObject("map", map);
+			mv.addObject("sellcPage",0);
+			mv.addObject("buycPage",0);
+			mv.addObject("freecPage",0);
+			mv.addObject("qnacPage",0);
+			mv.addObject("contestcPage",0);
+			mv.addObject("fadeStatus",1);
+		}else {
+			String msg = "로그인 후 이용해주세요";
+			String loc = "/";
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+			mv.setViewName("common/msg");
+		}
+		
+		
 		return mv;
 	}
 	
@@ -889,20 +920,26 @@ public class MemberController {
 	public ModelAndView messageReceiveSelectDel(HttpServletRequest request) {
 		String[] deleteCk = request.getParameterValues("receiveDeleteCk");
 		logger.debug(deleteCk);
-		int result = 0;
-		int[] delListInt = new int[deleteCk.length];
-		for(int i = 0; i < deleteCk.length; i++) {
-			delListInt[i] = Integer.parseInt(deleteCk[i]);
-			result += service.deleteReceiveMessages(delListInt[i]);
-		}
 		String msg = "";
 		String loc = "";
-		logger.debug(result);
-		if(result > 0) {
-			msg = "메시지가 정상적으로 삭제되었습니다. 마이페이지로 돌아갑니다.";
-			loc = "/member/memberMyPage.do";
+		int result = 0;
+		if(deleteCk != null) {
+			logger.debug(deleteCk);
+			int[] delListInt = new int[deleteCk.length];
+			for(int i = 0; i < deleteCk.length; i++) {
+				delListInt[i] = Integer.parseInt(deleteCk[i]);
+				result += service.deleteReceiveMessages(delListInt[i]);
+			}
+			logger.debug(result);
+			if(result > 0) {
+				msg = "메시지가 정상적으로 삭제되었습니다. 마이페이지로 돌아갑니다.";
+				loc = "/member/memberMyPage.do";
+			} else {
+				msg = "메시지가 정상적으로 삭제되지 않았습니다. 다시 시도해주세요.";
+				loc = "/member/memberMyPage.do";
+			}
 		} else {
-			msg = "메시지가 정상적으로 삭제되지 않았습니다. 다시 시도해주세요.";
+			msg = "메시지 선택 후 이용해주세요.";
 			loc = "/member/memberMyPage.do";
 		}
 		ModelAndView mv = new ModelAndView();
@@ -1095,10 +1132,21 @@ public class MemberController {
 			mv.addObject("sellcPage",sellcPage);
 			mv.addObject("buycPage",buycPage);
 			mv.addObject("fadeStatus",fadeStatus);
+			System.out.println(fadeStatus);
+			System.out.println(buycPage);
+			System.out.println(sellcPage);
+			logger.debug(fadeStatus);
+			logger.debug(buycPage);
+			logger.debug(sellcPage);
 			mv.setViewName("member/ajaxMemberMessage");
 		}
 		mv.addObject("map",map);
 		return mv;
+	}
+	
+	@RequestMapping("/member/mainPage")
+	public String mainPageView() {
+		return "redirect:/";
 	}
 	
 	@RequestMapping("/member/mainajax.do")

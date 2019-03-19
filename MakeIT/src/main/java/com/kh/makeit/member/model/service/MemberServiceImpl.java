@@ -240,6 +240,11 @@ public class MemberServiceImpl implements MemberService {
 	public int deleteNaverMember(String updateId) {
 		return dao.deleteNaverMember(updateId);
 	}
+
+	@Override
+	public List<Map<String, String>> bankList() {
+		return dao.bankList();
+	}
 	
 }
 
