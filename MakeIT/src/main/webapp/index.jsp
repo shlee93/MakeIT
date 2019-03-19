@@ -243,7 +243,7 @@
         var major = "프로그래밍";
 
         if($('#rankingViewBody').css('height') == '639px'){
-            viewPosition = vi	ewPosition-535;
+            viewPosition = viewPosition-535;
             $('#rankingDetailViewBody').css('top',viewPosition+'px');
             $('#rankingDetailViewBody').css('width','300px');
             $('#rankingDetailViewBody').css('opacity','1');
