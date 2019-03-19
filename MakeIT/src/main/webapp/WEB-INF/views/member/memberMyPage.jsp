@@ -157,7 +157,21 @@
                                         <label>등급</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <p><c:out value="${map.GRADENAME }"></c:out></p>
+                                    	<c:if test="${map.GRADENAME == '브론즈' }">
+                                        	<p><img alt="" src="${path }/resources/image/bronzeGrade.png" style="max-width: 50px;max-height: 50px;"><c:out value="${map.GRADENAME }"></c:out></p>
+                                        </c:if>
+                                        <c:if test="${map.GRADENAME == '실버' }">
+                                        	<p><img alt="" src="${path }/resources/image/silverGrade.png" style="max-width: 50px;max-height: 50px;"><c:out value="${map.GRADENAME }"></c:out></p>
+                                        </c:if>
+                                        <c:if test="${map.GRADENAME == '골드' }">
+                                        	<p><img alt="" src="${path }/resources/image/goldGrade.png" style="max-width: 50px;max-height: 50px;"><c:out value="${map.GRADENAME }"></c:out></p>
+                                        </c:if>
+                                        <c:if test="${map.GRADENAME == '플래티넘' }">
+                                        	<p><img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;"><c:out value="${map.GRADENAME }"></c:out></p>
+                                        </c:if>
+                                        <c:if test="${map.GRADENAME == '다이아몬드' }">
+                                        	<p><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"><c:out value="${map.GRADENAME }"></c:out></p>
+                                        </c:if>
                                     </div>
                                 </div>
                                 <div class="row">

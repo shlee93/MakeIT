@@ -48,12 +48,16 @@
         width: 100%;
         height: 100%;
     }
-    #whiteImg{
+    #whiteImgBox{
         position: absolute;
         width: 100%;
         height: 100%;
         background-color: white;
         opacity: 0;
+    }
+    #whiteImg{
+    width: 100%;
+    height: 100%;
     }
     #footer{
         position: absolute;
@@ -74,17 +78,33 @@
         display: none;
         opacity: 1;
     }
+    @keyframes goMainAni{
+    
+    	0%{
+    		top:15%;
+    		transform: translate(-50%,-15%);
+    	}
+    	50%{
+    		top:20%;
+    		transform: translate(-50%,-20%);
+    	}
+    	100%{
+    	    top:15%;
+    		transform: translate(-50%,-15%);
+    	}
+    }
     #goMain{
     	position:absolute;
     	width: 0px;
     	height: 0px;
     	left: 50%;
-    	top: 80%;
-    	transform: translate(-50%,-80%);
-    	background-color: cornflowerblue;
+    	top: 15%;
+    	transform: translate(-50%,-15%);
     	border-radius: 100%;
-   		transition: ease-in-out;
-        transition-duration: 0.7s;
+
+        animation-name:goMainAni;
+        animation-duration:1s;
+        animation-iteration-count: infinite;
     	opacity: 0;
     }
     #goMainText{
@@ -95,10 +115,20 @@
  	    left: 50%;
  	    top: -45px;
 	    transform: translateX(-50%); 
-	    font-size: 60px;
+	    font-size: 80px;
 	    font-family: 'Sunflower', sans-serif;
-	    color: white;
-	    cursor: pointer;
+	    color: black;
+    }
+    #whiteImghref{
+    	position: absolute;
+    	width:0px;
+    	height:0px;
+    	left: 50%;
+ 	    top: 50%;
+	    transform: translate(-50%,-50%);
+	    border-radius:100%;
+	    cursor:pointer;
+	    opacity:0;
     }
     </style>
 
@@ -107,13 +137,14 @@
 
     <div id="wrap">
         <div id="video"> <img id="videoImg"/></div>
-        <div id="whiteImg"></div>
+        <div id="whiteImgBox"><img id="whiteImg" src="${path }/resources/introSource/image/finalintrojpg.jpg"></img></div>
+        <div id="whiteImghref"></div>
         <div id="header"></div>
         <div id="footer"></div>
         
         <div id="goMain"><p id="goMainText">go!</p></div>
 
-        <a id="skip" href="main"><u>SKIP intro</u></a>
+        <a id="skip" href="${path}/index.jsp"><u>SKIP intro</u></a>
     </div> 
 
 
@@ -134,25 +165,32 @@
     $(function(){
         setTimeout(function(){
  
-            $('#videoImg').attr('src','${path }/resources/introSource/video/Intro2GIF.gif');
+            $('#videoImg').attr('src','${path }/resources/introSource/video/finalintro.gif');
         },1000);
     })
 
-    $(function(){
+     $(function(){
         setTimeout(function(){
-            $('#whiteImg').css('opacity','1');
-        },5000);
-    })
+            $('#whiteImgBox').css('opacity','1');
+        },12500);
+    }) 
     
-    $(function(){
+     $(function(){
     	setTimeout(function(){
-    		$('#goMain').css('width','100px');
-    		$('#goMain').css('height','100px');
+     		$('#goMain').css('width','100px');
+    		$('#goMain').css('height','100px'); 
     		$('#goMain').css('opacity','1');
-    	},5000)
-    })
+    	},13500)
+    });
     
-    $('#goMain').click(function(){
+    
+
+	$(function(){
+		setTimeout(function(){
+			$('#whiteImghref').css({'width':'500px','height':'350px'});	
+		},13000)
+	});
+    $('#whiteImghref').click(function(){
     	console.log("gogo!");
     	location.href="${path}/index.jsp";
     });
