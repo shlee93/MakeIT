@@ -125,78 +125,152 @@
     #mainNavi{
         position: relative;
         width: 40%;
-        min-width: 600px;
-        height: 130px;
+        min-width: 800px;
+        height: 200px;
         left: 50%;
-        top: -80px;
+        top: -130px;
         transform: translate(-50%);
         background-color: white;
-        border-radius:200px;
+        border-top-left-radius:100px; 
+        border-top-right-radius:5px; 
     }
 
     #iconWrap{
         position: relative;
-        display: inline-block;
+        width:max-content;
+        height: max-content;
         left: 50%;
-        top:70%;
-        transform: translate(-50%,-70%);
-        /* background-color: black; */
+        top:15%;
+        transform: translate(-50%,-15%);
+        white-space:nowrap;
+/*         background-color: black;  */
     }
     #icon1{
         position: relative;
-        display: inline-block;
-        width: 60px;
-        height: 60px;
-        top: 50%;
-        transform: translateY(-50%);
-        background-color: gold;
-        border-radius: 100%;
+		display:inline-block;
+        width: 100px;
+        height: 100px;
+    	cursor:pointer;
     }
+    #icon1 img{
+    	position:relative;
+    	width: 100%;
+    	height: 100%;
+    	top:0px;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    #icon1 p{
+		font-family: 'Nanum Pen Script', cursive;
+		font-size: 30px;
+		color: black;
+		text-align: center;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    
     #icon2{
         position: relative;
-        display: inline-block;
-        width: 60px;
-        height: 60px;
-        top: 50%;
-        transform: translateY(-50%);
-        background-color: gold;
-        border-radius: 100%;
-        margin-left: 40px;
+        display:inline-block;
 
+        width: 100px;
+        height: 100px;
+        margin-left: 40px;
+		cursor:pointer;
     }
+    #icon2 img{
+    	position:relative;
+    	width: 100%;
+    	height: 100%;
+    	top:0px;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    #icon2 p{
+		font-family: 'Nanum Pen Script', cursive;
+		font-size: 30px;
+		color: black;
+		text-align: center;
+        transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    
+    
     #icon3{
         position: relative;
-        display: inline-block;
-        width: 60px;
-        height: 60px;
-        top: 50%;
-        transform: translateY(-50%);
-        background-color: gold;
-        border-radius: 100%;
+        display:inline-block;
+        width: 100px;
+        height: 100px;
         margin-left: 40px;
+        cursor:pointer;
     }
+    #icon3 img{
+    	position:relative;
+    	width: 100%;
+    	height: 100%;
+    	top:0px;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    #icon3 p{
+		font-family: 'Nanum Pen Script', cursive;
+		font-size: 30px;
+		color: black;
+		text-align: center;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    
     #icon4{
         position: relative;
-        display: inline-block;
-        width: 60px;
-        height: 60px;
-        top: 50%;
-        transform: translateY(-50%);
-        background-color: gold;
-        border-radius: 100%;
+        display:inline-block;
+        width: max-content;
+        height: max-content;
         margin-left: 40px;
+        cursor:pointer;
     }
+    #icon4 img{
+    	position:relative;
+    	width: 100px;
+    	height: 100px;
+    	top:0px;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    #icon4 p{
+		font-family: 'Nanum Pen Script', cursive;
+		font-size: 30px;
+		color: black;
+		text-align: center;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    
     #icon5{
         position: relative;
-        display: inline-block;
-        width: 60px;
-        height: 60px;
-        top: 50%;
-        transform: translateY(-50%);
-        background-color: gold;
-        border-radius: 100%;
+        display:inline-block;
+        width: max-content;
+        height: max-content;
         margin-left: 40px;
+        cursor:pointer;
     }
+    #icon5 img{
+    	position:relative;
+    	width: 100px;
+    	height: 100px;
+    	top:0px;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    #icon5 p{
+		font-family: 'Nanum Pen Script', cursive;
+		font-size: 30px;
+		color: black;
+		text-align: center;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    
 /* =============================헤더 끝 */
 
 /* ===============================푸터 */
