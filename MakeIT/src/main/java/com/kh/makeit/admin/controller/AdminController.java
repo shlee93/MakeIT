@@ -89,7 +89,7 @@ public class AdminController {
 		//회원 아이디 검색
 		
 		int numPerPage=5;
-		int memberCount=adminService.selectMemberCountAdmin();
+		int memberCount=adminService.selectSearchMemberCountAdmin(searchId);
 		String pageBar=PageFactory.getPageBarAdmin(memberCount, cPage, numPerPage,"/makeit/admin/adminView.do");
 		List<Map<String,String>> memberList=adminService.selectMemberSearchAdmin(searchId,cPage,numPerPage);
 		
@@ -256,12 +256,11 @@ public class AdminController {
 		ModelAndView mav=new ModelAndView();
 		
 		int result=adminService.insertFaqCategory(category);
-		List<Map<String,String>> faqList=adminService.selectFaqListAdmin();
+		
 		List<Map<String,String>> categoryList=adminService.selectFaqCategoryAdmin();
 		
-		mav.addObject("faqList", faqList);
 		mav.addObject("categoryList", categoryList);
-		mav.setViewName("admin/adminFaqView");
+		mav.setViewName("admin/adminFaqCategoryView");
 		return mav;
 	}
 	
@@ -337,7 +336,6 @@ public class AdminController {
 		
 		ModelAndView mav=new ModelAndView();
 		int result=adminService.deleteFaqnaAdmin(faqNo);
-		
 		List<Map<String,String>> faqList=adminService.selectFaqListAdmin();
 		List<Map<String,String>> categoryList=adminService.selectFaqCategoryAdmin();
 
@@ -355,16 +353,33 @@ public class AdminController {
 		ModelAndView mav=new ModelAndView();
 		
 		int result=adminService.deleteFaqCategoryAdmin(faqCategoryNo);
-		
-		List<Map<String,String>> faqList=adminService.selectFaqListAdmin();
+
 		List<Map<String,String>> categoryList=adminService.selectFaqCategoryAdmin();
 
-		mav.addObject("faqList", faqList);
 		mav.addObject("categoryList", categoryList);
-		mav.setViewName("admin/adminFaqView");
+		mav.setViewName("admin/adminFaqCategoryView");
 
 		return mav;
 	}
+	
+	//관리자 페이지 FAQ카테고리 수정
+	@RequestMapping("/admin/updateFaqCategoryAdmin.do")
+	public ModelAndView updateFaqCategoryAdmin(int faqCategoryNo,String category) {
+		
+		ModelAndView mav=new ModelAndView();
+		Map<Object,Object> update=new HashMap();
+		update.put("faqCategoryNo", faqCategoryNo);
+		update.put("category", category);
+		int result=adminService.updateFaqCategoryAdmin(update);
+
+		List<Map<String,String>> categoryList=adminService.selectFaqCategoryAdmin();
+
+		mav.addObject("categoryList", categoryList);
+		mav.setViewName("admin/adminFaqCategoryView");
+
+		return mav;
+	}
+	
 	//신고승인, 카운트 증가, 신고데이터 스테이터스 변경
 	@RequestMapping("/admin/updateReportCount.do")
 	public ModelAndView updateReportCount(String reportStatus,int contentNo,String reportId,
@@ -540,6 +555,18 @@ public class AdminController {
 					
 		return mav;
 		
+	}
+	//faq 카테고리 등록.수정 화면
+	@RequestMapping("/admin/adminFaqCategoryView.do")
+	public ModelAndView adminFaqCategoryView() {
+		
+		ModelAndView mav=new ModelAndView();
+		
+		List<Map<String,String>> categoryList=adminService.selectFaqCategoryAdmin();
+		
+		mav.addObject("categoryList", categoryList);
+		mav.setViewName("admin/adminFaqCategoryView");
+		return mav;
 	}
 
 	

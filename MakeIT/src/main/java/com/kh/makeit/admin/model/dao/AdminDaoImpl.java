@@ -235,21 +235,21 @@ public class AdminDaoImpl implements AdminDao {
 		
 		return sqlSession.update("admin.updateRefundEnd", refund);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	//관리자 페이지 FAQ카테고리 수정
+	@Override
+	public int updateFaqCategoryAdmin(Map<Object, Object> update) {
+		
+		return sqlSession.update("admin.updateFaqCategoryAdmin", update);
+	}
+
+	//관리자 페이지 회원 수(검색)
+	@Override
+	public int selectSearchMemberCountAdmin(String searchId) {
+		
+		return sqlSession.selectOne("admin.selectSearchMemberCountAdmin",searchId);
+	}
+
 	
 
 }

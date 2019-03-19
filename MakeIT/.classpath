@@ -28,6 +28,10 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="D:/Work/Spring/mail-1.4.7/mail-1.4.7.jar"/>
+=======
+	<classpathentry kind="lib" path="C:/Users/Ncu422/Desktop/mail-1.4.7.jar"/>
+>>>>>>> refs/remotes/origin/KDC2
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

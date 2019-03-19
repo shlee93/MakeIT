@@ -235,22 +235,20 @@ public class AdminServiceImpl implements AdminService {
 		
 		return dao.updateRefundEnd(refund);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	//관리자 페이지 FAQ카테고리 수정
+	@Override
+	public int updateFaqCategoryAdmin(Map<Object, Object> update) {
+		
+		return dao.updateFaqCategoryAdmin(update);
+	}
+
+	//관리자 페이지 회원 수(검색)
+	@Override
+	public int selectSearchMemberCountAdmin(String searchId) {
+		
+		return dao.selectSearchMemberCountAdmin(searchId);
+	}
 	
 	
 }

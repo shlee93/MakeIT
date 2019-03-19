@@ -30,11 +30,14 @@
 
 <link rel="stylesheet" type="text/css" href="${path }/resources/css/mainpage/style.css"/>
 
+<<<<<<< HEAD
 <!-- 관리자 CSS,JS -->
 <%-- <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/admin/admin.css" /> --%>
 <script src="${pageContext.request.contextPath }/resources/js/admin/admin.js"></script>
 
 
+=======
+>>>>>>> refs/remotes/origin/KDC2
 
 </head>
 <body>
