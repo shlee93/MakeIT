@@ -127,7 +127,7 @@
                     	<div class='row'>
                         	<nav id=tab-list>
                            		<div class="nav nav-tabs nav-fill detail" id="nav-tab" role="tablist">
-                               		<a class="nav-item nav-link active detail" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">상세설명</a>                              	                                    
+                               		<a class="nav-item nav-link active detail " id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">상세설명</a>                              	                                    
                             	</div>
                         	</nav>
                         	<div class="tab-content" id="nav-tabContent" style='width: 100%;'>

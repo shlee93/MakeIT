@@ -23,7 +23,7 @@
 	    {
 		  	border: none;
 		    color:#fff;
-		    background:#272e38;
+		    background:#17a2b8;
 		    border-radius:0;
 		    text-align: center;
 		    /* font-size: 0.965em; */
@@ -36,7 +36,7 @@
 		  	border: none;
 		    padding: 18px 25px;
 		    color:#fff;
-		    background:#272e38;
+		    background:#17a2b8;
 		    border-radius:0;
 		}
 		
@@ -47,15 +47,15 @@
 			  bottom: -60px;
 			  left: -10%; */
 			  border: 15px solid transparent;
-			  border-top-color: #e74c3c ;
+			  border-top-color: #138496 ;
 		 } 
 		.tab-content
 		{
 		  	background: #fdfdfd;
 		    line-height: 25px;
 		    border: 1px solid #ddd;
-		    border-top:5px solid #e74c3c;
-		    border-bottom:5px solid #e74c3c;
+		    border-top:5px solid #138496;
+		    border-bottom:5px solid #138496;
 		    padding:30px 25px;
 		}
 		.detail:hover
