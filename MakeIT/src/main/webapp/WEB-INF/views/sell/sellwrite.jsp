@@ -14,12 +14,12 @@
    integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
    crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/sellwrite/sellwrite.css" />
-<style>
+<!-- <style>
 #priceProduct{
    height:100%;
 }
 
-</style>
+</style> -->
 <script>
              $(function()
                {

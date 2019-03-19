@@ -53,6 +53,19 @@
 		$('html, body').animate( { scrollTop : scmove }, 400 );
 	});
 	
+	$(window).scroll(function(){
+		if($(this).scrollTop() > 140)
+		{
+			var windowVal = $(this).scrollTop();
+			$('#donggeulNav').css('top',windowVal);
+		}
+		if($(this).scrollTop() < 140) 
+        {
+			var windowVal = $(this).scrollTop();
+			$('#donggeulNav').css('top','100px');
+        }		
+	});	
+	
 	$(document).on('click','.subImgs',function()
 	{
 		var imgIndex = $(this).parent('.subImg').prevAll().length;   
@@ -125,8 +138,8 @@
                                       		</td>
                                       		<td style="text-align: right">                                         
 	                                  			<c:if test="${review.MEMBERID eq sessionScope.member.MEMBERID }">
-	                                            	<button class="btn btn-primary review-mod" onclick="fn_reviewMod('${review.SELLREVIEWNO}','${review.SELLNO }')">수정</button>
-	                                            	<button class="btn btn-primary review-del" onclick="fn_reviewDel('${review.SELLREVIEWNO}','${review.SELLNO }')">삭제</button>
+	                                            	<button class="btn btn-outline-info slidetopleft review-mod" onclick="fn_reviewMod('${review.SELLREVIEWNO}','${review.SELLNO }')">수정</button>
+	                                            	<button class="btn btn-outline-info slidetopleft review-del" onclick="fn_reviewDel('${review.SELLREVIEWNO}','${review.SELLNO }')">삭제</button>
 	                                         	</c:if>                                         
                                       		</td>
                                    		</tr>
@@ -209,10 +222,27 @@
                         </div>
                     </div>                       
                 </div>
-                <div class="col-md-6 fixed" style='position:fixed; margin-top: -8em;'>                   
+                <div id='donggeulNav' class="col-md-6" style="position:absolute; margin-left:60%;transition:ease-in-out; transition-duration:0.7s;">                   
                    	<div class="row " style="text-align:center; margin-left:-5em;" >
               			<div class="col-md-10">
-              				<h4>${detailList.get(0).GRADENAME} ${detailList.get(0).MEMBERNAME}</h4>
+      						<c:if test="${detailList.get(0).GRADENAME == '브론즈' }">
+                           		<p style='display: inline;'><img alt="" src="${path }/resources/image/bronzeGrade.png" style="max-width: 50px;max-height: 50px;"><c:out value="${map.GRADENAME }"></c:out></p>
+                           	</c:if>
+                           	<c:if test="${detailList.get(0).GRADENAME == '실버' }">
+                           		<p><img alt="" src="${path }/resources/image/silverGrade.png" style="max-width: 50px;max-height: 50px;"><c:out value="${map.GRADENAME }"></c:out></p>
+                           	</c:if>
+                           	<c:if test="${detailList.get(0).GRADENAME == '골드' }">
+                           		<p><img alt="" src="${path }/resources/image/goldGrade.png" style="max-width: 50px;max-height: 50px;"><c:out value="${map.GRADENAME }"></c:out></p>
+                           	</c:if>
+                           	<c:if test="${detailList.get(0).GRADENAME == '플래티넘' }">
+                           		<p><img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;"><c:out value="${map.GRADENAME }"></c:out></p>
+                           	</c:if>
+                           	<c:if test="${detailList.get(0).GRADENAME == '다이아몬드' }">
+                           		<p><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"><c:out value="${map.GRADENAME }"></c:out></p>
+                           	</c:if>
+                              	
+                       		<h4 style='display: inline;'><strong>${detailList.get(0).GRADENAME}</strong>${detailList.get(0).MEMBERNAME}</h4>
+              					
  			                   	<!-- 똥글뱅이 -->
                        			<div class="row align-items-center" style='margin-top: -5em;'>			                  
 		                  			<div class="holderCircle">
@@ -338,7 +368,7 @@
 				                          	
 				                        		<!-- 수정하기 찜하기 찜풀기 -->
 									    		<c:if test="${session.MEMBERID eq detailList.get(0).MEMBERID}">												
-													<button class="btn btn-primary" onclick="fn_sellModify();" id="sellModify">수정하기</button>										    	
+													<button class="btn btn-outline-info slidetopleft" onclick="fn_sellModify();" id="sellModify">수정하기</button>										    	
 								    			</c:if>
 								    				<form id='sellDetailFrm'>
 					                                	<input type="hidden" id="sellno" name="sellno" value="${detailList.get(0).SELLNO}">
@@ -357,10 +387,10 @@
 					                                	<input type="hidden" name="sellno" value="${detailList.get(0).SELLNO}">
 					                                </form>								    		
 													<c:if test="${empty outBoxYn and detailList.get(0).MEMBERID ne session.MEMBERID }">
-				                                    	<button class="btn btn-primary" onclick="fn_outboxDo();">찜하기</button>
+				                                    	<button class="btn btn-outline-info slidetopleft" onclick="fn_outboxDo();">찜하기</button>
 				                                    </c:if>
 				                                    <c:if test="${!empty outBoxYn and detailList.get(0).MEMBERID ne session.MEMBERID }">
-				                                   		<button class="btn btn-primary" onclick="fn_outboxNo();" >찜풀기</button>
+				                                   		<button class="btn btn-outline-info slidetopleft" onclick="fn_outboxNo();" >찜풀기</button>
 				                                   	</c:if>
 				                                   	
 				                                   	<script>
@@ -378,7 +408,7 @@
 			                            	<!-- 첫번째 법륜 기능 끝 -->
 			                            	
 			                            	<!-- 두번째 법륜 기능 시작 -->
-			                           		<div class="CirItem title-box active CirItem2">			                              			                        	
+			                           		<div class="CirItem title-box CirItem2">			                              			                        	
 				                        	  	<div class="d-flex justify-content-center h-100" style='margin-bottom:-8em;'>
 												 	<div class="image_outer_container">
 													 	<div class="image_inner_container">
@@ -391,7 +421,7 @@
 										  													
 			                           			<!-- 삭제하기 쪽지보내기 -->			                          
 									    		<c:if test="${session.MEMBERID eq detailList.get(0).MEMBERID}">
-                                					<button class="btn btn-primary" onclick="fn_sellDelete();" id="sellDelete">삭제하기</button>
+                                					<button class="btn btn-outline-info slidetopleft" onclick="fn_sellDelete();" id="sellDelete">삭제하기</button>
                                 				</c:if>
                                 				<script>
 	                                				function fn_sellDelete(){
@@ -442,7 +472,7 @@
 		                           				<!-- 구매자보기 구매하기 -->
 											
 										    	<c:if test="${session.MEMBERID eq detailList.get(0).MEMBERID}">
-										    		<button class="btn btn-primary" onclick="fn_purchaseListShow();">구매자 보기</button>											    										    							    	   
+										    		<button class="btn btn-outline-info slidetopleft" onclick="fn_purchaseListShow();">구매자 보기</button>											    										    							    	   
 										      	   	<form id="buyerShow">
 					                         		 	<input type="hidden" id="sellno" name="sellno" value="${detailList.get(0).SELLNO}">
 					                               	</form>
@@ -471,8 +501,8 @@
 															    console.log($("#selcOption").val());														
 															}
 					                                    </script>	
-					                                    <input class="btn btn-primary" type="submit" value="구매하기">				                                    
-			                                    		<!-- <button class="btn btn-primary" onclick="fn_sellBoardBuy();">구매하기</button> -->
+					                                    <input class="btn btn-outline-info slidetopleft" type="submit" value="구매하기">				                                    
+			                                    		<!-- <button class="btn btn-outline-info slidetopleft" onclick="fn_sellBoardBuy();">구매하기</button> -->
 			                                    	</form>
 			                                    </c:if>
 			                                 
@@ -525,7 +555,7 @@
 																	}
 							                                    </script>	
 							                                   
-							                                    <input class="btn btn-primary" type="submit" value="구매확정">				                                    
+							                                    <input class="btn btn-outline-info slidetopleft" type="submit" value="구매확정">				                                    
 					                                    		
 					                                    	</form>
 					                                    </c:if>
@@ -548,7 +578,7 @@
 											
 			                           			<!-- 신고하기 -->
 			                           		
-												<button class="btn btn-primary" onclick="fn_reportPop();">신고하기</button>
+												<button class="btn btn-outline-info slidetopleft" onclick="fn_reportPop();">신고하기</button>
 											
 												<script>	
 													function fn_reportPop(){
@@ -592,7 +622,7 @@
 							                                        </c:if>
 						                                        </c:forEach>
 					                                    </select>
-					                                    <input class="btn btn-primary" type="button" onclick='fn_refundPop()' value="환불하기">				                                    
+					                                    <input class="btn btn-outline-info slidetopleft" type="button" onclick='fn_refundPop()' value="환불하기">				                                    
 					                                    <script>	
 															function fn_refundPop(){
 																if(${sessionScope.member.MEMBERID!=null}){
@@ -627,7 +657,7 @@
 																							
 												<br/>
 																						
-	                                			<button class="btn btn-primary" onclick="fn_starPop();">후기남기기</button>
+	                                			<button class="btn btn-outline-info slidetopleft" onclick="fn_starPop();">후기남기기</button>
 	                                			
 				                           	</div>
 		                               											
