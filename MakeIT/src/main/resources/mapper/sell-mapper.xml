@@ -26,10 +26,10 @@
    </if> -->
    <choose>
          <when test='sCategoryFlag!=null and sCategoryFlag!=""'> 
-         and se.detailinterestno = #{sCategoryFlag} <!-- order by gr.gradeno desc -->
+         and se.detailinterestno = #{sCategoryFlag}  <!-- order by gr.gradeno desc -->
          </when>
    </choose>
-   order by gr.gradeno desc
+   and se.sellcheckyn='Y' order by gr.gradeno desc
 </select>
 
 <select id="sellMainPerformance" resultType="map" parameterType="map">
@@ -40,10 +40,10 @@
    </if> -->
    <choose>
          <when test='sCategoryFlag!=null and sCategoryFlag!=""'> 
-         and se.detailinterestno = #{sCategoryFlag} <!-- order by pf.totalsale desc -->
+         and se.detailinterestno = #{sCategoryFlag}  <!-- order by pf.totalsale desc -->
          </when>
    </choose>
-   order by pf.totalsale desc
+   and se.sellcheckyn='Y' order by pf.totalsale desc
 </select>
 
 <select id="sellMainNew" resultType="map" parameterType="map">
@@ -52,9 +52,9 @@ select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.g
       and se.interestno=1  order by selldate desc
    </if> -->
    <choose>
-         <when test='sCategoryFlag!=null and sCategoryFlag!=""'> and se.detailinterestno = #{sCategoryFlag} <!-- order by selldate desc --></when>
+         <when test='sCategoryFlag!=null and sCategoryFlag!=""'> and se.detailinterestno = #{sCategoryFlag}  <!-- order by selldate desc --></when>
    </choose>
-   order by selldate desc
+    and se.sellcheckyn='Y' order by selldate desc
 </select> 
 
 <select id="sellCount" resultType="_int" parameterType="map">
@@ -63,8 +63,9 @@ select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.g
       and interestno = 1
    </if> -->
    <choose>
-         <when test='sCategoryFlag!=null and sCategoryFlag!=""'> and detailinterestno = #{sCategoryFlag}</when>
+         <when test='sCategoryFlag!=null and sCategoryFlag!=""'> and detailinterestno = #{sCategoryFlag} </when>
    </choose>
+   and sellcheckyn='Y'
 </select>
 
 <select id="imageDiv" parameterType="com.kh.makeit.sell.model.vo.SellAttach" resultType="com.kh.makeit.sell.model.vo.SellAttach">
@@ -86,6 +87,7 @@ select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.g
    <choose>
          <when test='sCategoryFlag!=null and sCategoryFlag!=""'> and detailinterestno = #{sCategoryFlag} and totalsale is not null</when>
    </choose>
+   and se.sellcheckyn='Y'
 </select>
 
 <select id="sellSearch" parameterType="map" resultType="map">
@@ -108,13 +110,13 @@ select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.g
    and detailinterestno=#{sCategoryFlag}
    </if>
    <if test='newValue=="1"'>
-      order by selldate desc
+     and se.sellcheckyn='Y'  order by selldate desc
    </if>
    <if test='gradeValue=="1"'>
-      order by mem.gradeno desc
+      and se.sellcheckyn='Y' order by mem.gradeno desc
    </if>
    <if test='sellValue=="1"'>
-      order by pf.totalsale desc
+     and se.sellcheckyn='Y'  order by pf.totalsale desc
    </if>
 </select>
 
@@ -130,7 +132,7 @@ select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.g
    <if test='searchtype=="writer"'>
       and memberid like '%'||#{searchValue}||'%'
    </if>
-  
+  and sellcheckyn='Y'
 </select>
 <select id="searchPerCount" parameterType="map" resultType="_int">
    select count(distinct sellno) from sell se join member mb on(se.memberid=mb.memberid) join performance pf on(se.memberid=pf.memberid)  where 1=1
@@ -143,6 +145,7 @@ select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.g
    <if test='searchtype=="writer"'>
       and se.memberid like '%'||#{searchValue}||'%'
    </if>
+   and se.sellcheckyn='Y'
 </select>
 
 <!--메인창에서 상세창으로 데이터 가져오는 매퍼  -->
@@ -235,8 +238,8 @@ insert into SELLOPTION values(SEQ_SELLOPTIONCODE.NEXTVAL,#{selloptionNo},#{selln
 	select sp.selloptioncode,sp.sellspecno,sp.memberid,sp.selloptionno,sp.sellno,sp.selloptionper,sp.sellspecdate,so.selloptioncontent,so.selldeadline,st.statusname from sellspec sp join selloption so on (so.selloptioncode=sp.selloptioncode) join status st on(sp.statusno=st.statusno) where sp.statusno=2 and sp.sellno=#{sellno} order by sp.sellspecdate desc
 </select>
 <!-- 판매자가 작업완료 누름 -->
-<update id="sellSpectUpdate" parameterType="_int">
-	update sellspec set statusno='3' where selloptioncode=#{no}
+<update id="sellSpectUpdate" parameterType="map">
+	update sellspec set statusno='3' where sellno=#{sellno} and memberid=#{memberId}
 </update>
 <!-- 메인화면에 환불하기 띄워주는것 선택하기 -->
 <select id="purcahseList" parameterType="map" resultType="map">
@@ -265,4 +268,9 @@ insert into SELLOPTION values(SEQ_SELLOPTIONCODE.NEXTVAL,#{selloptionNo},#{selln
  <update id="sellCommit" parameterType="_int">
  	update sellspec set statusno=4 where sellspecno=#{sellSpecNo}
  </update>
+ 
+ <select id="sellBuyerCount" parameterType="_int" resultType="_int">
+ 	select count(*) from sellspec where sellno=#{sellno} and statusno=2
+ </select>
+ 
 </mapper>

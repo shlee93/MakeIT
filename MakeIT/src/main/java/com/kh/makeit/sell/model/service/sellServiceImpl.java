@@ -262,16 +262,16 @@ public class sellServiceImpl implements sellService {
 //구매자들 띄워주기
 
 	@Override
-	public List<Map<String, String>> sellBuyerShow(int sellno) {
+	public List<Map<String, String>> sellBuyerShow(int sellno,int cPage, int numPerPage) {
 		// TODO Auto-generated method stub
-		return dao.sellBuyerShow(sellno);
+		return dao.sellBuyerShow(sellno,cPage,numPerPage);
 	}
 	//판매자가 작업상태변경
 
 	@Override
-	public int sellSpecUpdate(int no) {
+	public int sellSpecUpdate(Map sellSpecMap) {
 		// TODO Auto-generated method stub
-		return dao.sellSpectUpdate(no);
+		return dao.sellSpectUpdate(sellSpecMap);
 	}
 
 	@Override
@@ -312,6 +312,12 @@ public class sellServiceImpl implements sellService {
 	public int sellCommit(int sellSpecNo) {
 		// TODO Auto-generated method stub
 		return dao.sellCommit(sellSpecNo);
+	}
+
+	@Override
+	public int sellBuyerCount(int sellno) {
+		// TODO Auto-generated method stub
+		return dao.sellBuyerCount(sellno);
 	}
 
 	

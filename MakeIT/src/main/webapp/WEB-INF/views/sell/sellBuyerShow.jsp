@@ -41,7 +41,7 @@
 	                            <td>${buyerList.SELLDEADLINE}</td>
 	                            <td>${buyerList.STATUSNAME}</td>
 	                            <td>
-	                            	<button type="button" onclick="fn_statusChange(${buyerList.SELLOPTIONCODE},${buyerList.SELLNO})">작업완료</button>
+	                            	<button type="button" onclick="fn_statusChange(${buyerList.SELLOPTIONCODE},${buyerList.SELLNO},'${buyerList.MEMBERID}')">작업완료</button>
 	                            	
 	                            </td>
 	                        </tr>
@@ -53,12 +53,13 @@
                 	<input type="hidden" id="statusInput">
                 </form>  
                 <script>                
-                function fn_statusChange(no, sellno){
+                function fn_statusChange(no,sellno,memberId){
                 	console.log(no);
                 	console.log(sellno);
-                	location.href="${path}/sell/sellSpecUpdate.do?no="+no+"&&sellno="+sellno; 
+                	location.href="${path}/sell/sellSpecUpdate.do?no="+no+"&&sellno="+sellno+"&&memberId="+memberId; 
                 } 
                 </script>  
+                ${pageBar}
 	    </div>
         <div class='col-md-1'></div>
 	</div>

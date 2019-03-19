@@ -2,7 +2,7 @@ package com.kh.makeit.common;
 
 public class PageFactory {
 	
-	public static String getPageBar(int totalCon, int cPage, int numPerPage, String url) {
+	public static String getPageBar3(int totalCon, int cPage, int numPerPage, String url,int sellno) {
 		String pageBar = "";
 		int pageBarSize = 5;
 		
@@ -54,7 +54,7 @@ public class PageFactory {
 		// 페이징처리 스크립트
 		pageBar+="<script>";
 		pageBar+="function fn_paging(cPage)";
-		pageBar+="{location.href='"+url+"?cPage='+cPage";
+		pageBar+="{location.href='"+url+"?cPage='+cPage+'&sellno="+sellno+"'";
 		pageBar+="}";
 		pageBar+="</script>";
 		return pageBar;

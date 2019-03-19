@@ -345,8 +345,7 @@ public class sellController {
    @RequestMapping("/sell/selldetail")
    public ModelAndView selldeatailView(int sellno,HttpServletRequest request)
    {
-	   List<Map<String,String>> detailList=service.selldetailView(sellno);
-	   System.out.println(detailList+"디테일!!!!!!!!!!!!!!!!!!!!");
+	   List<Map<String,String>> detailList=service.selldetailView(sellno);	   
 	   List<Map<String,String>> mainimgList=service.selldetailImg(sellno);
 	   List<Map<String,String>> optionList=service.selldetailOption(sellno);
 	   List<Map<String,String>> sellReivew=service.sellReview(sellno);
@@ -364,7 +363,7 @@ public class sellController {
 		   refund.put("sellno", sellno);
 		   refund.put("loginMember", loginMember);
 		   List<Map<String,String>> purchaseList=service.purchaseList(refund);
-		   System.out.println(purchaseList+"펄체이스!!@#@!$");
+		  
 		   
 		   for(Map map : purchaseList) {
 			   String date = map.get("SELLSPECDATE").toString().substring(0,10);
@@ -641,20 +640,28 @@ public class sellController {
    }
    //구매자들 보는창연결 
    @RequestMapping("/sell/sellBuyerShow.do")
-   public ModelAndView sellBuyerShow(int sellno)
+   public ModelAndView sellBuyerShow(int sellno,@RequestParam(value="cPage",required=false,defaultValue="0") int cPage)
    {
 	   ModelAndView mv =new ModelAndView();
-	   List<Map<String,String>> buyerList = service.sellBuyerShow(sellno);
+	   int numPerPage=6;
+	   int contentCount=service.sellBuyerCount(sellno);	     	     
+	   mv.addObject("pageBar",PageFactory.getPageBar3(contentCount, cPage, numPerPage,"/makeit/sell/sellBuyerShow.do",sellno));
+	   
+	   List<Map<String,String>> buyerList = service.sellBuyerShow(sellno,cPage,numPerPage);
 	   mv.addObject("buyerList",buyerList);
 	   mv.setViewName("sell/sellBuyerShow");
 	   return mv;
    }
    @RequestMapping("sell/sellSpecUpdate.do")
-   public ModelAndView sellSpecUpdate(int no,int sellno)
+   public ModelAndView sellSpecUpdate(int no,int sellno,String memberId)
    {	
 	   System.out.println(no+"그냥노");
 	   System.out.println(sellno+"셀노");
-	   int result=service.sellSpecUpdate(no);
+	   Map sellSpecMap = new HashMap();
+	   sellSpecMap.put("sellno", sellno);
+	   sellSpecMap.put("memberId", memberId);
+	   System.out.println(memberId+"멤버");
+	   int result=service.sellSpecUpdate(sellSpecMap);
 	   String msg="";
 	      String loc="";
 	      ModelAndView mv = new ModelAndView();
@@ -690,8 +697,7 @@ public class sellController {
    @RequestMapping("/sell/sellRefundEnd")
    public ModelAndView sellRefundEnd(int sellno,String refundId)
    {
-	   System.out.println(sellno);
-	   System.out.println("shdjkfljksdl"+refundId);
+	
 	   ModelAndView mv = new ModelAndView();
 	   Map payBack=new HashMap();
 	   payBack.put("sellno", sellno);
