@@ -25,6 +25,7 @@
            	</div>
         </div>
         <div class="col-md-10">
+        	<input type="hidden" id="memberId" value="${map.MEMBERID }">
             <div class="container emp-profile" id="ajaxHtml">
                 <div class="row" id="toprow">
                     <div class="col-md-4">
@@ -66,7 +67,6 @@
                 <div class="row" id="bottomrow">
                     <div class="col-md-4">
                         <div class="profile-work">
-                        	<input type="hidden" id="memberId" value="${map.MEMBERID }">
                             <p>마이페이지</p>
                             <a class="myPageInfo" onclick="memberInfoAjax();">회원정보</a><br/>
                             <a class="myPageInfo" onclick="memberOutBoxAjax();">찜한 목록</a><br/>

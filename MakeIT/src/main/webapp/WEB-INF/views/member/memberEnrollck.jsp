@@ -23,7 +23,7 @@
 		           	</script>
 	           	</div>
             </div>
-            <div class="col-md-10">
+            <div class="col-md-10" id="text-area">
             	<div class="row">
             		<div class="col-md-12" id="welcome">
             			<h1><b>MakeIT</b>의 회원가입을 환영합니다!</h1>

@@ -87,7 +87,7 @@
 	           	</script>
            	</div>
         </div>
-        <div class="col-md-10">
+        <div class="col-md-10" id="text-area">
             <form name='signupform' action="${path }/member/memberEnrollEnd.do" method="POST" onsubmit='return fn_enroll_validate()' enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-12 signUpTitle">

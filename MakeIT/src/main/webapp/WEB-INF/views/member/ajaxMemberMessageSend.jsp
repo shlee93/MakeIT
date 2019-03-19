@@ -54,10 +54,10 @@ pageEncoding="UTF-8"%>
                     	<table class="table">
                     		<tr>
                     			<th>보낸사람</th>
-                    			<td><input type="text" id="sendId" name="sendId" class="form-control" value="<c:out value="${map.MEMBERID }"></c:out>"></td>
+                    			<td><input type="text" id="sendId" name="sendId" class="form-control" value="<c:out value="${map.MEMBERID }"></c:out>" readonly></td>
                     			<th>받는사람</th>
                     			<td>
-                   					<input type="text" id="receiveId" name="receiveId" class="form-control" value="">
+                   					<input type="text" id="receiveId" name="receiveId" class="form-control" placeholder="받는사람 ID를 입력하세요" value="">
                     			</td>
                     		</tr>
                    			<tr>
@@ -82,6 +82,7 @@ pageEncoding="UTF-8"%>
         </div>
     </div>
 </div>
+<input type="hidden" id="fadeStatus" name="fadeStatus" value="${fadeStatus }">
 <script>
 	function backMessage(){
 		$.ajax({

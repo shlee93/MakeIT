@@ -1,6 +1,11 @@
 @charset "UTF-8";
+#text-area{
+	/* font-family: 'Sunflower', sans-serif; */
+	font-weight: 600;
+}
 .signUpTitle{
     text-align: center;
+    font-family: 'Sunflower', sans-serif;
 }
 .memberNo-center{
     text-align: center;
@@ -14,6 +19,7 @@
 
 #progress{
 	text-align: center;
+	font-family: 'Sunflower', sans-serif;
 }
 
 
@@ -142,6 +148,7 @@
 /* 로그인 */
 .text-info{
 	cursor: pointer;
+	font-family: 'Sunflower', sans-serif;
 }
 #login .container #login-row #login-column .login-box {
   margin-top: 120px;

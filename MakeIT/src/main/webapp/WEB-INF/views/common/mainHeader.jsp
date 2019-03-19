@@ -38,19 +38,17 @@
 <header>
        <div id="mainVideo"><img src=""></div>
     <div id="topWrap">
-        <div id="logoIcon"><img src=""/></div>
+        <div id="logoIcon"><img src="${path }/resources/image/logo1main.png"/></div>
         <%if(session.getAttribute("member") == null){ %>
         <div id="loginWrap">
 
             	<a href="${path }/member/memberLogin.do" id="login">Login |</a>
-            	<a href="${path }/member/memberEnrollck.do" id="join"> Join us :)</a>
-
-
+            	<a href="${path }/member/memberEnrollck.do" id="join"> Join us </a>
         </div>
         <%}else{ %>
         <div id="loginWrap">
             <a href="${path }/member/memberMyPage.do" id="login">Mypage |</a>
-            <a href="${path }/member/memberLogout.do" id="join"> Logout :(</a>
+            <a href="${path }/member/memberLogout.do" id="join"> Logout </a>
         </div>
         <%} %>
     </div>
@@ -61,7 +59,7 @@
 
     <div id="mainWrite">
         <p id="write1">국내 최대 IT스토어</p>
-        <p id="write2">재능 마켓</p>
+        <p id="write2">MAKE&nbsp;&nbsp;IT</p>
     </div>
 
     <nav id="mainNavi">
