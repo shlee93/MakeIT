@@ -93,6 +93,7 @@ pageEncoding="UTF-8"%>
 		                    		</c:if>
 		                    	</table>
 		                    	<input type="submit" class="btn btn-outline-info slidetopleft" value="삭제">
+		                    	<input type="button"class="btn btn-outline-info slidetopleft" onclick="fn_sendBtn();" value="보내기">
 	                    	</form>
 	                    	${sendPageBar }
 	                    </div>
@@ -128,6 +129,7 @@ pageEncoding="UTF-8"%>
 		                    		</c:if>
 		                    	</table>
 		                    	<input type="submit" class="btn btn-outline-info slidetopleft" value="삭제">
+		                    	<input type="button"class="btn btn-outline-info slidetopleft" onclick="fn_sendBtn();" value="보내기">
 	                    	</form>
 	                    	${receivePageBar }
 	                    </div>
@@ -165,6 +167,7 @@ pageEncoding="UTF-8"%>
 		                    		</c:if>
 		                    	</table>
 		                    	<input type="submit"class="btn btn-outline-info slidetopleft" value="삭제">
+		                    	<input type="button"class="btn btn-outline-info slidetopleft" onclick="fn_sendBtn();" value="보내기">
 	                    	</form>
 	                    	${sendPageBar }
 	                    </div>
@@ -202,6 +205,7 @@ pageEncoding="UTF-8"%>
 		                    		</c:if>
 		                    	</table>
 		                    	<input type="submit"class="btn btn-outline-info slidetopleft" value="삭제">
+		                    	<input type="button"class="btn btn-outline-info slidetopleft" onclick="fn_sendBtn();" value="보내기">
 		                    </form>
 	                    	${receivePageBar }
 	                    </div>
@@ -213,6 +217,16 @@ pageEncoding="UTF-8"%>
     <input type="hidden" id="fadeStatus" name="fadeStatus" value="${fadeStatus }">
 </div>
 <script>
+	function fn_sendBtn(){
+		$.ajax({
+			url:"${path}/member/sendMessage.do",
+			dataType:"html",
+			data:{"memberId":$('#memberId').val()},
+			success:function(data){
+				$('#ajaxHtml').html(data);
+			}
+		});
+	}
 	function sendtab(){
 		$('#fadeStatus').attr("value","1");
 		$('#send').attr("class","tab-pane fade show active");

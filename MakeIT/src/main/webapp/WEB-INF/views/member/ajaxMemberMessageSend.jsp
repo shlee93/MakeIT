@@ -51,21 +51,13 @@ pageEncoding="UTF-8"%>
            	 <div class="tab-pane fade show active" id="send" role="tabpanel" aria-labelledby="send-tab">
                 <div class="row">
                     <div class="col-md-12">
-           				<input type="hidden" id="sendId" name="sendId" value="${map.MEMBERID }">
-           				<input type="hidden" id="receiveId" name="receiveId" value="${sendId }">
-           				<input type="hidden" id="messageNo" name="messageNo" value="${messageNo }">
                     	<table class="table">
                     		<tr>
                     			<th>보낸사람</th>
-                    			<td><input type="text" class="form-control" value="<c:out value="${map.MEMBERID }"></c:out>"></td>
+                    			<td><input type="text" id="sendId" name="sendId" class="form-control" value="<c:out value="${map.MEMBERID }"></c:out>"></td>
                     			<th>받는사람</th>
                     			<td>
-                    				<c:if test="${sendId != null }">
-                    					<input type="text" class="form-control" value="<c:out value="${sendId }"></c:out>">
-                    				</c:if>
-                    				<c:if test="${sendId == null }">
-                    					<input type="text" class="form-control" value="">
-                    				</c:if>
+                   					<input type="text" id="receiveId" name="receiveId" class="form-control" value="">
                     			</td>
                     		</tr>
                    			<tr>
@@ -93,10 +85,9 @@ pageEncoding="UTF-8"%>
 <script>
 	function backMessage(){
 		$.ajax({
-			url:"${path}/member/memberMessageDetailAjax.do",
+			url:"${path}/member/memberMessageAjax.do",
 			dataType:"html",
-			data:{"memberId":$('#sendId').val(),
-				"messageNo":$('#messageNo').val()},
+			data:{"memberId":$('#memberId').val()},
 			success:function(data){
 				console.log(data);
 				$('#ajaxHtml').html(data);
@@ -105,24 +96,35 @@ pageEncoding="UTF-8"%>
 	}
 	function sendMessage(){
 		$('#naviBarStatus').attr("value","4");
-		$.ajax({
-			url:"${path}/member/reSendMessageEnd.do",
-			dataType:"html",
-			data:{"sendId":$('#sendId').val(),
-				"receiveId":$('#receiveId').val(),
-				"messageContent":$('#messageContent').val()},
-			success:function(data){
+		var receiveId = $('#receiveId').val().trim();
+		if(receiveId.length == 0){
+			alert('수신자를 입력해주세요');
+			return false;
+		} else {
+			if($('#messageContent').val().trim().length == 0){
+				alert('내용을 입력해주세요');
+				return false;
+			} else{
 				$.ajax({
-					url:"${path}/member/memberMessageAjax.do",
+					url:"${path}/member/reSendMessageEnd.do",
 					dataType:"html",
-					data:{"memberId":$('#sendId').val()},
+					data:{"sendId":$('#sendId').val(),
+						"receiveId":$('#receiveId').val(),
+						"messageContent":$('#messageContent').val()},
 					success:function(data){
-						console.log(data);
-						$('#ajaxHtml').html(data);
+						$.ajax({
+							url:"${path}/member/memberMessageAjax.do",
+							dataType:"html",
+							data:{"memberId":$('#sendId').val()},
+							success:function(data){
+								console.log(data);
+								$('#ajaxHtml').html(data);
+							}
+						});
 					}
 				});
 			}
-		});
+		}
 	}
 
 </script>
