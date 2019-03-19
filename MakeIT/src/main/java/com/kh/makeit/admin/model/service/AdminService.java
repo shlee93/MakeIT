@@ -23,6 +23,9 @@ public interface AdminService {
 	//관리자 페이지 회원 수
 	int selectMemberCountAdmin();
 	
+	//관리자 페이지 회원 수(검색)
+	int selectSearchMemberCountAdmin(String searchId);
+	
 	//관리자 페이지 카테고리 리스트
 	List<Map<String,String>> selectInterestAdmin();
 	List<Map<String,String>> selectDeInterestAdmin();
@@ -60,6 +63,9 @@ public interface AdminService {
 	
 	//관리자 페이지 FAQ카테고리 삭제
 	int deleteFaqCategoryAdmin(int faqCategoryNo);
+	
+	//관리자 페이지 FAQ카테고리 수정
+	int updateFaqCategoryAdmin(Map<Object,Object> update);
 	
 	//관리자 페이지 신고 리스트
 	List<Map<Object,Object>> selectReportListAdmin(String reportStatus,int cPage, int numPerPage);

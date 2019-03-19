@@ -9,12 +9,13 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="HelloSpring" name="pageTitle"/>
 </jsp:include>
-
+<!-- 관리자 CSS,JS -->
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/admin/admin.css" />
+<script src="${pageContext.request.contextPath }/resources/js/admin/admin.js"></script>
 	<section id="tabs" class="project-tab">
 		<div class="container">
     		<div class="row">
-        		<div class="col-md-1"></div>
-            		<div class="col-md-10">
+            	<div class="col-md-12">
                 	<nav>
                         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                             <a class="nav-item nav-link active" id="nav-member-tab" data-toggle="tab" href="#nav-member"
@@ -360,7 +361,7 @@
 													<c:forEach items='${reportList }' var="report">
 													
 													<div class="panel-body">
-														<div class="report-tab-back">
+														<div class="report-tab-back btn btn-outline-info slidetopleft">
 															<ul class="report-tab">
 																<li><strong>피신고인:</strong>
 																	<span class="report-id">${report.MEMBERID }</span>
@@ -438,8 +439,8 @@
 																				<td></td>
 																				<td>
 																					<input type="hidden" class="content-no" value="${report.BUYNO }"/>
-																					<button class="report-btn-cancel btn btn-primary">신고 거부</button>
-																					<button class="report-btn btn btn-primary">신고 승인</button>
+																					<button class="report-btn-cancel btn btn-outline-info slidetopleft">신고 거부</button>
+																					<button class="report-btn btn btn-outline-info slidetopleft">신고 승인</button>
 																				</td>
 																			</tr>
 	
@@ -521,7 +522,7 @@
 									</div>
 									<div class="col-md-9 col-xs-9 payment-view-div">
 										<!-- 결제현황 -->
-										<button class="btn btn-primary" id="paymentSort-btn">구매확정▼</button>
+										<button class="btn btn-outline-info slidetopleft" id="paymentSort-btn">구매확정▼</button>
 									<c:choose>
 										<c:when test="${not empty paymentList }">
 										
@@ -842,7 +843,11 @@
                                             		</c:choose>
                                             	</c:forEach>
                                             </c:if>
-                                               
+                                                <li class='side-nav-li' id="faq-category-view" data-toggle="collapse" data-target="#new" class="collapsed">
+			                                    	<a href="#" class="interest">
+														FAQ 
+													</a>
+			                                    </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -855,7 +860,7 @@
                                     <table class="table" id="second-interest-tbl" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>2차 카테고리</th>
+                                                <th>카테고리</th>
                                                 <th>카테고리 이동</th>
                                                 <th>수정</th>
                                                 <th>삭제</th>
@@ -880,34 +885,34 @@
                                                 </td>
                                                 <td>
                                                 	<!-- 2차 카테고리명, 1차 카테고리 변경 -->
-                                                    <button class='btn btn-primary update-interest'>수정</button>
+                                                    <button class='btn btn-outline-info slidetopleft update-interest'>수정</button>
                                                 </td>
                                                 <td>
                                                 	<!-- 2차 카테고리 삭제 -->
-                                                    <button class='btn btn-primary delete-btn-view'>삭제</button>
+                                                    <button class='btn btn-outline-info slidetopleft delete-btn-view'>삭제</button>
                                                 </td>
                                             </tr>
                                             <tr class='delete-btn-back-tr'>
                                                 <td colspan="4">
                                                     <div class='delete-btn-back'>
                                                         	정말 삭제하시겠습니까?
-                                                        <button class="btn btn-primary category-delete-btn">삭제</button>
-                                                        <button class='btn btn-primary category-delete-cancel'>취소</button>
+                                                        <button class="btn btn-outline-info slidetopleft category-delete-btn">삭제</button>
+                                                        <button class='btn btn-outline-info slidetopleft category-delete-cancel'>취소</button>
                                                     </div>
                                                 </td>
                                             </tr>
                                         </c:forEach>
                                             <tr>
                                             	<td colspan="4">
-                                            		<button class="btn btn-primary" id="insert-interest-view">+추가</button>
+                                            		<button class="btn btn-outline-info slidetopleft" id="insert-interest-view">+추가</button>
                                             	</td>
                                             </tr>
                                             <tr id="insert-interest-back">
                                             	<td id="insert-interest-input" colspan="4">
                                             		<div id="insert-interest-div">
 	                                            		<input type="text" id="insert-deInterest-val" size="30" placeholder="등록할 카테고리를 입력해 주세요" />
-	                                            		<button class="btn btn-primary" id="insert-interest-btn">등록</button>
-	                                            		<button class="btn btn-primary" id="insert-interest-btn-cancel">취소</button>
+	                                            		<button class="btn btn-outline-info slidetopleft" id="insert-interest-btn">등록</button>
+	                                            		<button class="btn btn-outline-info slidetopleft" id="insert-interest-btn-cancel">취소</button>
                                             		</div>
                                             	</td>
                                             </tr>
@@ -932,43 +937,43 @@
 								<div class="col-md-6"></div>
                                 <div class="col-md-6 faq-add-back">
                                 
-                                    <button class="faq-category-insert btn btn-primary">
-                                        +카테고리 추가
-                                    </button>
                                     &nbsp; &nbsp;
-                                    <button class="add-qna btn btn-primary">
+                                    <button class="add-qna btn btn-outline-info slidetopleft">
                                     	+질문&답변 추가
                                     </button>
                                     
                                 </div>
                             </div>
                             <br>
-                            <c:if test="${not empty faqList }">
+                            <c:if test="${not empty categoryList }">
                             	<c:forEach items="${categoryList }" var="category">
 	                            <div class="faq-back">
-	                                <div class="faq-category">${category.FAQNACATEGORYNAME }
+	                                <div class="faq-category btn btn-outline-info slidetopleft">${category.FAQNACATEGORYNAME }
 	                                	<input type="hidden" class="faq-category-no" value="${category.FAQNACATEGORYNO }"/>
 	                                	<input type="hidden" class="faq-category-name" value="${category.FAQNACATEGORYNAME }"/>
-	                                    <button class="faq-slide">▼</button>
-	                                    <button class="faq-category-delete">삭제</button>
+	                                    <button class="faq-slide btn btn-outline-info slidetopleft">▼</button>
+
 	                                </div>
 	                                <div class="faq-list-back">
 	                                    <ul class="faq-list">
 	                                    <c:forEach items="${faqList }" var="faq">
 	                                    	<c:if test="${faq.FAQNACATEGORYNO==category.FAQNACATEGORYNO }">
 	                                    	
-	                                        <li class="faq-question">${faq.FAQTITLE }
+	                                        <li class="faq-question">
+	                                        	<textarea cols="65" style="resize:none; border:0;" readonly="readonly">${faq.FAQTITLE }</textarea>
 												<input type="hidden" class="faq-no" value="${faq.FAQNO }"/>
 												<input type="hidden" class="faq-title" value="${faq.FAQTITLE }"/>
 	                                            <button class="answer-slide">▼</button>
 	                                            <button class="qna-delete-view">삭제</button>
 	                                            <button class="qna-update">수정</button>
 	                                            <hr>
-	                                            <div class="faq-answer">${faq.FAQCONTENT }</div>
+	                                            <div class="faq-answer">
+	                                            	<textarea cols="65" style="resize:none; border:0;" readonly="readonly">${faq.FAQCONTENT }</textarea>
+	                                            </div>
 	                                            <div class='qna-delete-back'>
 	                                                	답변과 함께 삭제 됩니다. 
-	                                                <button class='qna-delete-cancel btn btn-primary'>취소</button>
-	                                                <button class='qna-delete btn btn-primary'>삭제</button>
+	                                                <button class='qna-delete-cancel btn btn-outline-info slidetopleft'>취소</button>
+	                                                <button class='qna-delete btn btn-outline-info slidetopleft'>삭제</button>
 	                                                <hr>
 	                                            </div>
 	                                        </li>
@@ -985,15 +990,15 @@
                             <div id="faq-insert-back">
                             	<div id="add-faq-category">
                             		<input type="text" id="input-faq-category"/>
-                            		<button type="button" class="btn btn-primary" id="add-faq-category-btn">추가</button>
-                            		<button type="button" class="btn btn-primary" id="add-faq-category-cancel">취소</button>
+                            		<button type="button" class="btn btn-outline-info slidetopleft" id="add-faq-category-btn">추가</button>
+                            		<button type="button" class="btn btn-outline-info slidetopleft" id="add-faq-category-cancel">취소</button>
                             	</div>
                             </div>
                         </div>
 
                     </div>
                 </div>
-                <div class="col-md-1"></div>
+               
             </div>
         </div>
         <!-- 추가 사항

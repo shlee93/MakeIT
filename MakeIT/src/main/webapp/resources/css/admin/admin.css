@@ -1,8 +1,4 @@
 /* 관리자 페이지 메인 */
-.project-tab {
-	padding: 10%;
-	margin-top: -8%;
-}
 
 .project-tab #tabs {
 	background: #007b5e;
@@ -195,7 +191,7 @@
 .report-tab-back {
 	border: 1px solid gray;
     border-radius: 5px;
-    background-color: rgba(0, 0, 0, .3);
+    width:100%;
 }
 
 .report-btn {
@@ -833,7 +829,6 @@ translate
 .faq-category {
 	border: 1px solid gray;
 	border-radius: 5px;
-	background-color: rgba(0, 0, 0, .3);
 	width: 90%;
 }
 
@@ -905,6 +900,9 @@ translate
 .qna-delete-back {
 	display: none;
 	height: 50%
+}
+.add-qna{
+	float:right;
 }
 
 /* 게시판 카테고리 */

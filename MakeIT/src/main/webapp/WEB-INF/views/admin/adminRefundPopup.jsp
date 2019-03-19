@@ -47,10 +47,10 @@
 
 		<div class="space-ten"></div>
 		<div class="btn-ground">
-			<button type="button" class="btn btn-primary payment-end">
+			<button type="button" class="btn btn-outline-info slidetopleft payment-end">
 				<span class="glyphicon glyphicon-shopping-cart"></span> 결제
 			</button>
-			<button type="button" class="btn btn-primary">
+			<button type="button" class="btn btn-outline-info slidetopleft">
 				<span class="glyphicon glyphicon-remove">X</span>
 			</button>
 		</div>
@@ -103,10 +103,10 @@
 
 		<div class="space-ten"></div>
 		<div class="btn-ground">
-			<button type="button" class="btn btn-primary payment-end">
+			<button type="button" class="btn btn-outline-info slidetopleft payment-end">
 				<span class="glyphicon glyphicon-shopping-cart"></span> 결제
 			</button>
-			<button type="button" class="btn btn-primary">
+			<button type="button" class="btn btn-outline-info slidetopleft">
 				<span class="glyphicon glyphicon-remove">X</span>
 			</button>
 		</div>
