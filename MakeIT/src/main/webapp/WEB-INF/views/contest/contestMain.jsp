@@ -234,19 +234,19 @@
 	</form>
 	<div id="total" style='padding:1.1em;'>
 
- 	<div class='container-fluid' id="total">
-  		<div class='row'>
-       		<div class='col-md-1' id='nav'>
-       			<div style='position:fixed; margin-top: 10em;'>
-	    			<span onclick='fn_back()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
-	          	 	<script>
-	           			function fn_back()
-		           		{
-		           			history.back();
-		           		}
-		           	</script>
-	           	</div>
-       		</div>
+	 	<div class='container-fluid' id="total">
+	  		<div class='row'>
+	       		<div class='col-md-1' id='nav'>
+	       			<div style='position:fixed; margin-top: 10em;'>
+		    			<span onclick='fn_back()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
+		          	 	<script>
+		           			function fn_back()
+			           		{
+			           			history.back();
+			           		}
+			           	</script>
+		           	</div>
+	       		</div>
 				<div class='col-md-10'>
 					<div class='row'>
 						<div class='col-md-2'>
@@ -295,17 +295,17 @@
 		                            	{
 		                            		/* console.log(typeof(interestFlagNo)); */
 		                            		if(0<interestFlagNo && interestFlagNo<7 )
-	                            			{	
+		                           			{	
 		                            			$('#interestFlag').attr('value',1);
-	                            			}
+		                           			}
 		                            		else if(6<interestFlagNo && interestFlagNo<10)
-	                            			{
+		                           			{
 		                            			$('#interestFlag').attr('value',2);
-	                            			}
+		                           			}
 		                            		else if(9<interestFlagNo && interestFlagNo<14)
-	                            			{
+		                           			{
 		                            			$('#interestFlag').attr('value',3);
-	                            			} 
+		                           			} 
 		                            		
 		                            		$('#detailInterestFlag').attr('value',interestFlagNo);
 		                            		
@@ -318,7 +318,7 @@
 		                    </div>
 		                    <script>
 			                    $(document).ready(function(){
-	         
+		        
 							        $(".menu>a").click(function(){
 							            var submenu = $(this).next("ul");
 							 			console.log(submenu)
@@ -333,7 +333,7 @@
 		                    </script>
 						</div>
 		            	<div class='col-md-10' id='section'>
-	            			<div class='row'>
+		           			<div class='row'>
 			       		  	    <div class='col-md-8'>	
 					       		    <div style='margin-left:2em;'>
 					       		    	<select id='searchTypeSel' class='form-control' style='display:inline; width: 100px;'>
@@ -429,90 +429,91 @@
 			                </div>
 			               	<c:forEach items="${contestList}" var="contest">
 			              
-			              	<div class="card" id="contestMain" style='margin-top:1em; margin-left:2em; margin-bottom:2em; padding: 1em;'>
-			                  	<div class="row ">
-			                  	<div class="col-md-3" id="${contest.CONTESTNO}" class='imgContainer'>
-		                  	    <script>
-			                  	     $(function()
-					      			 {
-			                  		  	var contestNo=${contest.CONTESTNO};
-			            				$.ajax({
-				            				url:"${path}/contest/contestPerFirstImg.do",
-				            	            data:{"contestNo": contestNo},
-				            				dataType:"json",
-				            	            success:function(data)
-				            	            {
-				            	               console.log(data["contestImgRe"]);
-				            	               
-				            	               var imgReName=data["contestImgRe"];
-				            	               var imgContainer=$('#${contest.CONTESTNO}');
-				            	               imgContainer.append("<img src='${path}/resources/upload/contest/"+data["contestImgRe"]+ "' class='w-100' style='height:100%'>");
-				            	            }
-				            			});			       					    		
-					      			 });	
-			               	  	</script>
-			                    </div>
-			                    <div class='col-md-9'>
-			                       <div class="row" style='margin-top:0.3em;'>
-			                       <h5 class="card-title" >컨테스트 제목: ${contest.CONTESTTITLE} </h5>
-			                    </div>
-			                    <div class='row'>
-			                    	<div class='col-md-6'>
-			                    		<strong>주최자: ${contest.MEMBERNAME }</strong>
-			                            <p class="card-text" style="overflow:auto; height:200px;">${contest.CONTESTCONTENT }</p>
-			                    	</div>
-			                    	<div class='col-md-6'>
-			                    		<div class="form-control righthandle" >
-					                        <strong>상금</strong>
-					                        <span>${contest.CONTESTPRICE}</span>
+				              	<div class="card" id="contestMain" style='margin-top:1em; margin-left:2em; margin-bottom:2em; padding: 1em;'>
+				                  	<div class="row ">
+					                  	<div class="col-md-3" id="${contest.CONTESTNO}" class='imgContainer'>
+				                  	    <script>
+					                  	     $(function()
+							      			 {
+					                  		  	var contestNo=${contest.CONTESTNO};
+					            				$.ajax({
+						            				url:"${path}/contest/contestPerFirstImg.do",
+						            	            data:{"contestNo": contestNo},
+						            				dataType:"json",
+						            	            success:function(data)
+						            	            {
+						            	               console.log(data["contestImgRe"]);
+						            	               
+						            	               var imgReName=data["contestImgRe"];
+						            	               var imgContainer=$('#${contest.CONTESTNO}');
+						            	               imgContainer.append("<img src='${path}/resources/upload/contest/"+data["contestImgRe"]+ "' class='w-100' style='height:100%'>");
+						            	            }
+						            			});			       					    		
+							      			 });	
+					               	  	</script>
 					                    </div>
-					                    <div class="form-control righthandle" style='margin-top: 1.1em'>
-					                        <strong>기한</strong>
-					                        <span>${contest.CONTESTDATE} ~ ${contest.CONTESTDEADLINE}</span>
-					                    </div>    
-					                    <div class="form-control righthandle" style='margin-top: 1.1em'>
-					                        <strong>현재 참여자</strong>
-					                        <span>${contest.CONTESTAPPLICANTCOUNT}명</span>
-					                    </div>                           
-					                    <div class="row">
-					                        <div class="col-md-12">
-					                        	<a href="${path}/contest/contestDetail.do?contestNo=${contest.CONTESTNO}" class="btn btn-outline-info slidetopleft garo-center" style="width: 100%; height:45%; margin-top: 3em;">상세보기</a>    
-					                        </div>
-					                    </div>
-			                    	 </div>			                   
-			                      </div>			                    
-			                  </div>
-			                  <div class="col-md-4">
-			                    
-			                  </div>
-			          
-			                  </div>
-			              </div>
-			       		  </c:forEach>				       		  	              
-			              <div class='row' style='margin-bottom:1em;'>
-			              	  <div class='col-md-10'></div>
-			              	  <div class='col-md-2'>
-			              	  	  <a class="btn btn-outline-info slidetopleft" style='float:right;'href="${path }/contest/contestWrite.do">글작성</a>
-			              	  </div>
-			              </div>
-			              
-			              ${pageBar}		            
-			                
-	            	</div>
-		            <div class='col-md-1' id='right-nav' >		               
-		            	<div style='position:fixed; margin-top: 10em;'>
-			    			<span onclick='fn_forward()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-right"></i></span>    				           
-			          	 	<script>
-			           			function fn_forward()
-				           		{
-				           			history.forward();
-				           		}
-				           	</script>
-			           	</div>          
-	            	</div>		            
-		        </div>   	
-	        </div>    
-        </div>
-    </div>       
+					                    <div class='col-md-9'>
+					                       	<div class="row" style='margin-top:0.3em;'>
+						                       <h5 class="card-title" >컨테스트 제목: ${contest.CONTESTTITLE} </h5>
+						                    </div>				                   
+						                    <div class='row'>
+						                    	<div class='col-md-6'>
+						                    		<strong>주최자: ${contest.MEMBERNAME }</strong>
+						                            <p class="card-text" style="overflow:auto; height:200px;">${contest.CONTESTCONTENT }</p>
+						                    	</div>
+						                    	<div class='col-md-6'>
+						                    		<div class="form-control righthandle" >
+								                        <strong>상금</strong>
+								                        <span>${contest.CONTESTPRICE}</span>
+								                    </div>
+								                    <div class="form-control righthandle" style='margin-top: 1.1em'>
+								                        <strong>기한</strong>
+								                        <span>${contest.CONTESTDATE} ~ ${contest.CONTESTDEADLINE}</span>
+								                    </div>    
+								                    <div class="form-control righthandle" style='margin-top: 1.1em'>
+								                        <strong>현재 참여자</strong>
+								                        <span>${contest.CONTESTAPPLICANTCOUNT}명</span>
+								                    </div>                           
+								                    <div class="row">
+								                        <div class="col-md-12">
+								                        	<a href="${path}/contest/contestDetail.do?contestNo=${contest.CONTESTNO}" class="btn btn-outline-info slidetopleft garo-center" style="width: 100%; height:45%; margin-top: 3em;">상세보기</a>    
+								                        </div>
+								                    </div>
+				                    	    	</div>			                   
+				                        	</div>			                    
+				                  		</div>
+					                  	<div class="col-md-3">
+					                    
+					                  	</div>				          
+		                 	  		</div>
+		              			</div>
+	       		  			</c:forEach> 							       		  	              
+              			
+			              	<div class='row' style='margin-bottom:1em;'>
+			              	  	<div class='col-md-10'></div>
+			              	  	<div class='col-md-2'>
+			              	  	  	<a class="btn btn-outline-info slidetopleft" style='float:right;'href="${path }/contest/contestWrite.do">글작성</a>
+			              	  	</div>
+			              	</div>
+	              
+	              			${pageBar}		            
+				                
+            			</div>
+           			</div>
+       			</div>
+	            <div class='col-md-1' id='right-nav' >		               
+	            	<div style='position:fixed; margin-top: 10em;'>
+		    			<!-- <span onclick='fn_forward()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-right"></i></span>    				           
+		          	 	<script>
+		           			function fn_forward()
+			           		{
+			           			history.forward();
+			           		}
+			           	</script> -->
+	           		</div>          
+            	</div>
+      		</div>
+		</div>            			            
+	</div>			              
 </body>
 </html>

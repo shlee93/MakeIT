@@ -400,7 +400,28 @@
 													}
                                 				</script>
 										      	<c:if test="${session.MEMBERID ne detailList.get(0).MEMBERID}">
-									      			<button class="btn btn-primary">쪽지보내기</button>
+									      			<%-- <form id='contestMsgFrm' action='${path }/message/messagePop.do'> --%>
+										      			<input type='hidden' id='sendId' name='sendId' value='${session.MEMBERID}'/>
+										      			<input type='hidden' id='receiveId' name='receiveId' value='${detailList.get(0).MEMBERID }'/>
+										      		<%-- </form> --%> 
+									      			<button class="btn btn-outline-info slidetopleft" onclick='fn_message()'>쪽지보내기</button>
+									      			
+									      			<script>									      			
+									      				function fn_message()
+									      				{
+									      					var sendId=$('#sendId').val();
+									      					if($('#sendId').val()!=null&&$('#sendId').val()!='')
+								      						{
+										      					var receiveId=$('#receiveId').val();
+									                    		var popup=open("${path}/message/messagePop.do?sendId="+sendId+"&receiveId="+receiveId,"contestMsgSendPop","left=250px, top=200px, width=450px, height=350px");									                    	
+											      				$('#contestMsgFrm').target=popup;
+								      						}
+									      					else
+								      						{
+									      						alert("로그인해주세요");
+								      						}
+									      				} 
+									      			</script>
 										      	</c:if>		                              	
 		                           			</div>
 		                           			<!-- 두번째 법륜 기능 끝 -->

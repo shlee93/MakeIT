@@ -29,14 +29,14 @@ import com.kh.makeit.common.PageFactory;
 import com.kh.makeit.common.exception.BoardException;
 import com.kh.makeit.contest.service.ContestService;
 import com.kh.makeit.contest.vo.ContestImg;
+import com.kh.makeit.sell.model.service.sellService;
 
 @Controller
 
 public class ContestController 
 {
 	@Autowired 
-	ContestService cs;
-	
+	ContestService cs;	
 	
 	@RequestMapping("/contest/contestMain.do")
 	public ModelAndView contestMain(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, HttpServletRequest request, String sortTypeFlag)
@@ -129,13 +129,22 @@ public class ContestController
 	@RequestMapping("/contest/contestDetail.do")
 	public ModelAndView contestDetail(HttpServletRequest request, int contestNo)
 	{
+		ModelAndView mv=new ModelAndView();
 		HttpSession session= request.getSession();
 		Map<String,String> memberMap=(Map)session.getAttribute("member");
+		
 		if(memberMap!=null)
 		{
-			String currentAccessId=memberMap.get("memberId");
+			System.out.println("아이디시ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ바ㅓㄷ리ㅏㅁ누읾나이러ㅣㅏㅁㄴㅇ"+memberMap.get("MEMBERID"));
+			Map outBoxc= new HashMap();
+			outBoxc.put("contestNo",contestNo);
+			outBoxc.put("memberId", memberMap.get("MEMBERID"));
+			Map outBoxYn=cs.contestOutBoxYnService(outBoxc);
+			mv.addObject("outBoxYn",outBoxYn);
+			
+			String currentAccessId=memberMap.get("MEMBERID");
 		}
-		ModelAndView mv=new ModelAndView();
+		
 		List<Map<String,String>> contestContainer=cs.contestDetailService(contestNo);
 		if(contestContainer.size()>1)
 		{
@@ -151,13 +160,8 @@ public class ContestController
 			mv.addObject("contestMainImg", contestMainImg);
 			mv.addObject("contestSubImgList", contestSubImgList);
 			mv.addObject("contestObj", contestObj);
-			mv.addObject("memberMap", memberMap);
-			Map outBoxc= new HashMap();
-			outBoxc.put("contestNo",contestNo);
-			outBoxc.put("loginMember", memberMap.get("memberId"));
-			Map outBoxYn=service.sellOutBoxYn(outBoxc);
-			mv.addObject("outBoxYn",outBoxYn);
-			mv.addObject("session", sessionMap);
+			mv.addObject("memberMap", memberMap);			
+			
 		}
 		else
 		{
@@ -506,5 +510,102 @@ public class ContestController
 		}
 		
 		return "redirect:/contest/contestMain.do";
+	}
+	
+	//찜하기 메소드 ㅎ
+	@RequestMapping("contest/contestOutBox.do")
+	public ModelAndView contestOutBoxInsert(int contestNo,HttpServletRequest request)
+	{
+		ModelAndView mv= new ModelAndView();
+		HttpSession session = request.getSession();
+		Map sessionMap=(Map)session.getAttribute("member");
+		Map outBoxInsert =new HashMap();
+		outBoxInsert.put("contestNo", contestNo);
+		outBoxInsert.put("memberId", sessionMap.get("MEMBERID"));
+		int result =cs.contestOutBoxInsertService(outBoxInsert);
+    	String msg="";
+    	String loc="";
+        
+     	if(result>0)
+     	{
+            msg="컨테스트 찜을 완료하였습니다.";
+            loc="/contest/contestDetail.do?contestNo="+contestNo;
+            mv.addObject("msg",msg);
+            mv.addObject("loc",loc);
+            mv.setViewName("common/msg");
+            return mv;
+     	}         	
+     	else 
+     	{
+            msg="컨테스트 찜에 실패하였습니다. 다시 시도해 주세요";
+            loc="/contest/contestDetail.do?contestNo="+contestNo;
+            mv.addObject("msg",msg);
+            mv.addObject("loc",loc);
+            mv.setViewName("common/msg");
+            return mv;
+     	}	      
+    }
+	//찜풀기 메소드 ㅎ
+	@RequestMapping("/contest/contestOutBoxDel.do")
+	public ModelAndView contestOutBoxDelete(int contestNo,HttpServletRequest request)
+	{
+		ModelAndView mv= new ModelAndView();
+		HttpSession session = request.getSession();
+		Map sessionMap=(Map)session.getAttribute("member");
+		Map outBoxDelete =new HashMap();
+		outBoxDelete.put("contestNo", contestNo);
+		outBoxDelete.put("memberId", sessionMap.get("MEMBERID"));
+		int result =cs.contestOutBoxDeleteService(outBoxDelete);
+        String msg="";
+        String loc="";
+        
+        if(result>0)
+        {
+        	msg="컨테스트 찜을 해제하였습니다.";
+            loc="/contest/contestDetail.do?contestNo="+contestNo;
+            mv.addObject("msg",msg);
+            mv.addObject("loc",loc);
+            mv.setViewName("common/msg");
+            return mv;
+        }
+        else 
+        {
+            msg="컨테스트 찜을 해제하지 못하였습니다. 다시 시도해 주세요 ";
+            loc="/contest/contestDetail.do?contestNo="+contestNo;
+            mv.addObject("msg",msg);
+            mv.addObject("loc",loc);
+            mv.setViewName("common/msg");
+            return mv;
+        }
+	}
+	
+	@RequestMapping("/contest/contestReport")
+	public ModelAndView sellReportPop(int contestNo,HttpServletRequest request,String contestWriter)
+	{		
+		ModelAndView mv = new ModelAndView();      
+		Map reportMap=new HashMap();
+		mv.addObject("contestNo",contestNo);
+		mv.addObject("contestWriter",contestWriter);
+		mv.setViewName("contest/contestReport");
+		return mv;
+	}
+   
+	//신고하는것 처리
+	@RequestMapping("/contest/contestReportEnd")
+	public ModelAndView contestReprotEnd(int contestNo,String reportId,String reportContent)
+	{
+		ModelAndView mv= new ModelAndView();
+		Map reportMap=new HashMap();
+		String msg="";
+		reportMap.put("contestNo", contestNo);
+		reportMap.put("reportId", reportId);
+		reportMap.put("reportContent",reportContent);
+		int result=cs.insertReportService(reportMap);            
+		msg="신고내용이 접수되었습니다.";
+		mv.addObject("msg",msg);
+		mv.addObject("script","window.close();opener.location.reload();");
+		mv.setViewName("common/msg");
+
+		return mv;
 	}
 }

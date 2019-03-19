@@ -24,4 +24,8 @@ public interface ContestService
 	Map contestModifyService(int contestNo);
 	List<Map<String,String>> contestModifyImgService(int contestNo);
 	int contestModifyEndService(Map<String,String> contest, List<ContestImg> files) throws BoardException;
+	Map contestOutBoxYnService(Map outBoxc);
+	int contestOutBoxInsertService(Map outBoxInsert);
+	int contestOutBoxDeleteService(Map outBoxDelete);
+	int insertReportService(Map reportMap);
 }

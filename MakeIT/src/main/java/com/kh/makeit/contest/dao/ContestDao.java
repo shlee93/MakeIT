@@ -27,5 +27,9 @@ public interface ContestDao
 	int contestModifyEndDao(Map<String,String> contest);
 	int contestModifyForeDelImg(int contestNo);
 	int contestUpdateImg(ContestImg contestImg);
+	Map contestOutBoxYnDao(Map outBoxc);
+	int contestOutBoxInsertDao(Map outBoxInsert);
+	int contestOutBoxDeleteDao(Map outBoxDelete);
+	int insertReportDao(Map reportMap);
 	
 }
