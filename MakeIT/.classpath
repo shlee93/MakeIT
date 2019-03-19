@@ -29,6 +29,6 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/jaebum/git/MakeIT/MakeIT/src/main/webapp/WEB-INF/lib/mail-1.4.7.jar"/>
+	<classpathentry kind="lib" path="D:/Work/Spring/mail-1.4.7/mail-1.4.7.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
