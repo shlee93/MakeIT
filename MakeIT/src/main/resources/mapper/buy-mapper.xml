@@ -2,10 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="buy">
 	<select id="buyCount" resultType="_int" parameterType="map">
-		select count(distinct buyno) from buy where 1=1
+		select count(distinct buyno) from buy join buyspec on (buyspec.buyno = buy.buyno) where 1=1
 		<choose>
 			<when test='sCategoryFlag!=null and sCategoryFlag!=""'> and detailinterestno = #{sCategoryFlag}</when>
 		</choose>
+		
 	</select>
 	
 	<select id="buyMainGrade" resultType="map" parameterType="map">
