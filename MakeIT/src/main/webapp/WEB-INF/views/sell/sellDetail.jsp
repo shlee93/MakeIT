@@ -289,7 +289,7 @@
 				                           			<c:if test="${not loop_flag }">
 				                           				<c:if test="${purchaseList.STATUSNO eq '3'}">                           		
 								                           	<span class="itemDot itemDot4" data-tab="4">
-								                           		<i class="fa fa-tags donggeulI"></i>
+								                           		<i class="fas fa-file-signature donggeulI"></i>
 									                           	<span class="forActive"></span>
 								                           	</span>
 								                           	<c:set var="loop_flag" value="true" />
@@ -550,7 +550,7 @@
 						                                        	</c:forEach>
 							                                    </select>
 							                                    <script>
-								                                    function fn_selectedSpec(str) {	   
+								                                    function fn_selectedSpec(str) {	   								                                    	
 																	    $("#sellSpecNo").attr("value",str);																	   														
 																	}
 							                                    </script>	

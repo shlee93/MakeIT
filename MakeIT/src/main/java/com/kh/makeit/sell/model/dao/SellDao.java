@@ -83,7 +83,7 @@ int purchaseComplete(Map purchaseInfo);
 
 Map optionInfo(Map purchaseInfo);
 
-List<Map<String, String>> sellBuyerShow(int sellno);
+List<Map<String, String>> sellBuyerShow(int sellno, int cPage, int numPerPage);
 
 int sellSpectUpdate(int no);
 
@@ -100,6 +100,8 @@ int updateReview(Map<String, String> map);
 int deleteReview(Map<String, String> map);
 
 int sellCommit(int sellSpecNo);
+
+int sellBuyerCount(int sellno);
 
 }
 

@@ -238,8 +238,8 @@ insert into SELLOPTION values(SEQ_SELLOPTIONCODE.NEXTVAL,#{selloptionNo},#{selln
 	select sp.selloptioncode,sp.sellspecno,sp.memberid,sp.selloptionno,sp.sellno,sp.selloptionper,sp.sellspecdate,so.selloptioncontent,so.selldeadline,st.statusname from sellspec sp join selloption so on (so.selloptioncode=sp.selloptioncode) join status st on(sp.statusno=st.statusno) where sp.statusno=2 and sp.sellno=#{sellno} order by sp.sellspecdate desc
 </select>
 <!-- 판매자가 작업완료 누름 -->
-<update id="sellSpectUpdate" parameterType="map">
-	update sellspec set statusno='3' where sellno=#{sellno} and memberid=#{memberId}
+<update id="sellSpectUpdate" parameterType="_int">
+	update sellspec set statusno='3' where sellspecno=#{specno} 
 </update>
 <!-- 메인화면에 환불하기 띄워주는것 선택하기 -->
 <select id="purcahseList" parameterType="map" resultType="map">
@@ -272,5 +272,7 @@ insert into SELLOPTION values(SEQ_SELLOPTIONCODE.NEXTVAL,#{selloptionNo},#{selln
  <select id="sellBuyerCount" parameterType="_int" resultType="_int">
  	select count(*) from sellspec where sellno=#{sellno} and statusno=2
  </select>
+ 
+ 
  
 </mapper>

@@ -101,7 +101,7 @@
 								<option value='title'>제목</option>
 								<option value='writer'>작성자</option>
 							</select> <input class="form-control mr-sm-2" type="text" id="searchValue" placeholder="Search" aria-label="Search">
-							<button class="btn btn-primary my-2 my-sm-0" onclick="fn_searchtw();" type="button">Search</button>
+							<button class="btn btn-outline-info my-2 my-sm-0" onclick="fn_searchtw();" type="button">Search</button>
 						</form>
 					</div>
 					<nav>

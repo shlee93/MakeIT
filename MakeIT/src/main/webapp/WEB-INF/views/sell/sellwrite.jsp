@@ -112,8 +112,8 @@
                <br/><br/>
             </div>
             <div class="col-md-2">
-           <button class="btn btn-secondary" type="button" onclick="fn_optionPlus();" style="width: 45px; font-size: 20px">+</button>
-            <button class="btn btn-secondary" type="button" onclick="fn_otionDelete();" style="width: 45px; font-size: 20px">-</button> 
+           <button class="btn btn-outline-info" type="button" onclick="fn_optionPlus();" style="width: 45px; font-size: 20px">+</button>
+            <button class="btn btn-outline-info" type="button" onclick="fn_otionDelete();" style="width: 45px; font-size: 20px">-</button> 
             </div>
          <br/>
          </div>
@@ -138,8 +138,8 @@
 
          <br/>
          <div id="btn-container">
-            <button class="btn btn-secondary">취소</button>
-            <button class="btn btn-secondary" onclick="writeEnd();">작성</button>
+            <button class="btn btn-outline-info">취소</button>
+            <button class="btn btn-outline-info" onclick="writeEnd();">작성</button>
          </div>
       </div>
       <div class="col-md-1"></div>

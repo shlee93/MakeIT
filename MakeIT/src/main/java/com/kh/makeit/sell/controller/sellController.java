@@ -641,20 +641,22 @@ public class sellController {
    }
    //구매자들 보는창연결 
    @RequestMapping("/sell/sellBuyerShow.do")
-   public ModelAndView sellBuyerShow(int sellno)
+   public ModelAndView sellBuyerShow(@RequestParam(value="cPage",required=false,defaultValue="0") int cPage,int sellno)
    {
+	   System.out.println(cPage);
 	   ModelAndView mv =new ModelAndView();
-	   List<Map<String,String>> buyerList = service.sellBuyerShow(sellno);
+	   int contentCount=service.sellBuyerCount(sellno);
+	   int numPerPage=6;
+	   List<Map<String,String>> buyerList = service.sellBuyerShow(sellno,cPage,numPerPage);
 	   mv.addObject("buyerList",buyerList);
+	   mv.addObject("pageBar",PageFactory.getPageBar3(contentCount, cPage, numPerPage,"/makeit/sell/sellBuyerShow.do",sellno));
 	   mv.setViewName("sell/sellBuyerShow");
 	   return mv;
    }
    @RequestMapping("sell/sellSpecUpdate.do")
-   public ModelAndView sellSpecUpdate(int no,int sellno)
+   public ModelAndView sellSpecUpdate(int sellno,int specNo)
    {	
-	   System.out.println(no+"그냥노");
-	   System.out.println(sellno+"셀노");
-	   int result=service.sellSpecUpdate(no);
+	   int result=service.sellSpecUpdate(specNo);
 	   String msg="";
 	      String loc="";
 	      ModelAndView mv = new ModelAndView();

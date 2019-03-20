@@ -81,7 +81,7 @@
 				</div>
 				<div class="row">
 					<br/>
-					<button type="button" onclick="fn_sellRefundEnd();" class="btn btn-primary">환불하기</button>
+					<button type="button" onclick="fn_sellRefundEnd();" class="btn btn-outline-info">환불하기</button>
 
 				</div>
 				
