@@ -210,87 +210,107 @@
 										<div class="dotCircle">
 
 											<!-- 첫번째 법륜 (수정)-->
+											<c:if test="${sessionScope.member.MEMBERID eq detailList.MEMBERID}">
 											<span class="itemDot active itemDot1" data-tab="1"> 
 												<!-- 작성자면 -->
-												<c:if test="${sessionScope.member.MEMBERID eq detailList.MEMBERID}">
+												
 													<i class="fas fa-edit donggeulI"></i>
-												</c:if> <span class="forActive"></span>
+												<span class="forActive"></span>
 											</span>
+											</c:if> 
 											<!-- 첫번째 법륜 끝 -->
 											<!-- 두번째 법륜 (찜)-->
+											<c:if test="${sessionScope.member != null and sessionScope.member.MEMBERID ne detailList.MEMBERID}">
 											<span class="itemDot active itemDot1" data-tab="2"> 
 												<!-- 작성자가 아니면 -->
-												<c:if test="${sessionScope.member != null and sessionScope.member.MEMBERID ne detailList.MEMBERID}">
+												
 													<i class="fas fa-kiss-wink-heart donggeulI"></i>
-												</c:if> <span class="forActive"></span>
+												 <span class="forActive"></span>
 											</span>
+											</c:if>
 											<!-- 두번째 법륜 끝 -->
 											<!-- 세번째 법륜 (삭제하기)-->
+											<c:if test="${sessionScope.member.MEMBERID eq detailList.MEMBERID}">
 											<span class="itemDot active itemDot1" data-tab="3"> 
 												<!-- 작성자면 -->
-												<c:if test="${sessionScope.member.MEMBERID eq detailList.MEMBERID}">
+												
 													<i class="fas fa-edit donggeulI"></i>
-												</c:if> <span class="forActive"></span>
+												<span class="forActive"></span>
 											</span>
+											</c:if> 
 											<!-- 세번째 법륜 끝 -->
 											<!-- 네번째 법륜 (쪽지)-->
+											<c:if test="${sessionScope.member != null and sessionScope.member.MEMBERID ne detailList.MEMBERID}">
 											<span class="itemDot active itemDot1" data-tab="4"> 
 											<!-- 작성자가 아니면 -->
-												<c:if test="${sessionScope.member != null and sessionScope.member.MEMBERID ne detailList.MEMBERID}">
+												
 												<i class="fas fa-kiss-wink-heart donggeulI"></i> 
-												</c:if>
+												
 												<span class="forActive"></span>
 											</span>
+											</c:if>
 											<!-- 네번째 법륜 끝 -->
 											<!-- 다섯번째 법륜 (지원자보기)-->
+											<c:if test="${sessionScope.member.MEMBERID eq detailList.MEMBERID }">
 											<span class="itemDot active itemDot1" data-tab="5">
 											 <!-- 작성자면 -->
-												<c:if test="${sessionScope.member.MEMBERID eq detailList.MEMBERID and !empty specList2 }">
+												
 													<i class="fas fa-edit donggeulI"></i>
-												</c:if> <span class="forActive"></span>
+												 <span class="forActive"></span>
 											</span>
+											</c:if>
 											<!-- 다섯번째 법륜 끝 -->
 											<!-- 여섯번째 법륜 (지원하기)-->
+											<c:if test="${sessionScope.member != null and sessionScope.member.MEMBERID ne detailList.MEMBERID}">
 											<span class="itemDot active itemDot1" data-tab="6"> 
 											<!-- 작성자가 아니면 --> 
-												<c:if test="${sessionScope.member != null and sessionScope.member.MEMBERID ne detailList.MEMBERID}">
+												
 													<i class="fas fa-kiss-wink-heart donggeulI"></i>
-												</c:if> <span class="forActive"></span>
+												 <span class="forActive"></span>
 											</span>
+											</c:if>
 											<!-- 여섯번째 법륜 끝 -->
 											<!-- 일곱번째 법륜 (환불요청)-->
+											<c:if test="${sessionScope.member.MEMBERID eq detailList.MEMBERID and specList2.STATUSNO == 3}">
 											<span class="itemDot active itemDot1" data-tab="7"> 
 												<!-- 작성자면 -->
-												<c:if test="${sessionScope.member.MEMBERID eq detailList.MEMBERID and specList2.STATUSNO == 3}">
+												
 													<i class="fas fa-edit donggeulI"></i>
-												</c:if>
+												
 												<span class="forActive"></span>
 											</span>
+											</c:if>
 											<!-- 일곱번째 법륜 끝 -->
 											<!-- 여덟번째 법륜 (신고하기)-->
+											<c:if test="${sessionScope.member.MEMBERID ne detailList.MEMBERID}">
 											<span class="itemDot active itemDot1" data-tab="8"> 
 												<!-- 작성자가 아니면 --> 
-												<c:if test="${sessionScope.member.MEMBERID ne detailList.MEMBERID}">
+												
 													<i class="fas fa-kiss-wink-heart donggeulI"></i>
-												</c:if> <span class="forActive"></span>
+												 <span class="forActive"></span>
 											</span>
+											</c:if>
 											<!-- 여덟번째 법륜 끝 -->
 											<!-- 아홉번째 법륜 (구매확정)-->
+											<c:if test="${sessionScope.member.MEMBERID eq detailList.MEMBERID and specList2.STATUSNO == 3}">
 											<span class="itemDot active itemDot1" data-tab="9"> 
 												<!-- 작성자면 -->
-												<c:if test="${sessionScope.member.MEMBERID eq detailList.MEMBERID and specList2.STATUSNO == 3}">
+												
 													<i class="fas fa-edit donggeulI"></i>
-												</c:if> 
+												
 												<span class="forActive"></span>
 											</span>
+											</c:if> 
 											<!-- 아홉번째 법륜 끝 -->
 											<!-- 열번째 법륜 (작업완료)-->
+											<c:if test="${sessionScope.member.MEMBERID ne detailList.MEMBERID and specList.STATUS == 2}">
 											<span class="itemDot active itemDot1" data-tab="10">
 												<!-- 작성자가 아니면 -->
-												<c:if test="${sessionScope.member.MEMBERID ne detailList.MEMBERID and specList.STATUS == 2}">
+												
 													<i class="fas fa-kiss-wink-heart donggeulI"></i>
-												</c:if> <span class="forActive"></span>
+												<span class="forActive"></span>
 											</span>
+											</c:if> 
 											<!-- 열번째 법륜 끝 -->
 
 
@@ -314,7 +334,7 @@
 												<button class="btn btn-primary" >수정하기</button>
 											</div>
 											<!-- 두번째 법륜 기능 시작 (찜)-->
-											<div class="CirItem title-box active CirItem1">
+											<div class="CirItem title-box active CirItem2">
 												<!-- 작성자 이미지 컨테이너 -->
 												<div class="d-flex justify-content-center h-100"
 													style='margin-bottom: -8em;'>
@@ -340,7 +360,7 @@
 												</c:if>
 											</div>
 											<!-- 세번째 법륜 기능 시작 (삭제)-->
-											<div class="CirItem title-box active CirItem1">
+											<div class="CirItem title-box active CirItem3">
 												<!-- 작성자 이미지 컨테이너 -->
 												<div class="d-flex justify-content-center h-100"
 													style='margin-bottom: -8em;'>
@@ -354,7 +374,7 @@
 												<button class="btn btn-primary" >삭제하기</button>
 											</div>
 											<!-- 네번째 법륜 기능 시작 (쪽지)-->
-											<div class="CirItem title-box active CirItem1">
+											<div class="CirItem title-box active CirItem4">
 												<!-- 작성자 이미지 컨테이너 -->
 												<div class="d-flex justify-content-center h-100"
 													style='margin-bottom: -8em;'>
@@ -369,7 +389,7 @@
 												<button class="btn btn-primary" >쪽지보내기</button>
 											</div>
 											<!-- 다섯번째 법륜 기능 시작 (지원자보기)-->
-											<div class="CirItem title-box active CirItem1">
+											<div class="CirItem title-box active CirItem5">
 												<!-- 작성자 이미지 컨테이너 -->
 												<div class="d-flex justify-content-center h-100"
 													style='margin-bottom: -8em;'>
@@ -384,7 +404,7 @@
 												<button onclick='location.href="${path}/buy/volList.do?buyNo=${detailList.BUYNO }"' class='btn btn-primary'>지원자보기</button>
 											</div>
 											<!-- 여섯번째 법륜 기능 시작 (지원하기)-->
-											<div class="CirItem title-box active CirItem1">
+											<div class="CirItem title-box active CirItem6">
 												<!-- 작성자 이미지 컨테이너 -->
 												<div class="d-flex justify-content-center h-100"
 													style='margin-bottom: -8em;'>
@@ -399,7 +419,7 @@
 												<button onclick='location.href="${path}/buy/buyVol.do?buyNo=${detailList.BUYNO}"' class="btn btn-primary">지원하기</button>
 											</div>
 											<!-- 일곱번째 법륜 기능 시작 (환불요청)-->
-											<div class="CirItem title-box active CirItem1">
+											<div class="CirItem title-box active CirItem7">
 												<!-- 작성자 이미지 컨테이너 -->
 												<div class="d-flex justify-content-center h-100"
 													style='margin-bottom: -8em;'>
@@ -414,7 +434,7 @@
 												<button class="bn btn-primary" onclick="fn_refundPop()">환불하기</button>
 											</div>
 											<!-- 여덟번째 법륜 기능 시작 (신고하기)-->
-											<div class="CirItem title-box active CirItem1">
+											<div class="CirItem title-box active CirItem8">
 												<!-- 작성자 이미지 컨테이너 -->
 												<div class="d-flex justify-content-center h-100"
 													style='margin-bottom: -8em;'>
@@ -429,7 +449,7 @@
 												<button class="btn btn-primary" onclick="fn_reportPop();">신고하기</button>
 											</div>
 											<!-- 아홉번째 법륜 기능 시작 (구매확정)-->
-											<div class="CirItem title-box active CirItem1">
+											<div class="CirItem title-box active CirItem9">
 												<!-- 작성자 이미지 컨테이너 -->
 												<div class="d-flex justify-content-center h-100"
 													style='margin-bottom: -8em;'>
@@ -444,7 +464,7 @@
 												<button class="bn btn-primary" onclick="fn_buyCommit()">구매확정</button>
 											</div>
 											<!-- 열번째 법륜 기능 시작 (작업완료)-->
-											<div class="CirItem title-box active CirItem1">
+											<div class="CirItem title-box active CirItem10">
 												<!-- 작성자 이미지 컨테이너 -->
 												<div class="d-flex justify-content-center h-100"
 													style='margin-bottom: -8em;'>
@@ -456,7 +476,7 @@
 													</div>
 												</div>
 												<br />
-												<button class="bn btn-primary" onclick="location.href='${path}/buy/finishWork.do?buyNo=${detailList.BUYNO }&sellerId=${sessionScope.member.MEMBERID }'">작업완료</button>
+												<button class="bn btn-primary" onclick="location.href='${path}/buy/finishWork.do?buyNo=${detailList.BUYNO }&sellerId=${sessionScope.member.MEMBERID }'">작업완료</button> 
 											</div>
 											
 											
