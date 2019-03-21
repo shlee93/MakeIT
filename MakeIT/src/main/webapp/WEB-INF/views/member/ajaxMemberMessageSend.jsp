@@ -66,10 +66,8 @@ pageEncoding="UTF-8"%>
 								</td>
                    			</tr>
                    			<tr>
-                   				<td>
+                   				<td colspan='2'>
                    					<button class="btn btn-outline-info slidetopleft" onclick="backMessage();">이전</button>
-                   				</td>
-                   				<td>
                    					<button class="btn btn-outline-info slidetopleft" onclick="sendMessage();">보내기</button>
                    				</td>
                    				<td></td>

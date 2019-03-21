@@ -24,17 +24,20 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 <!-- 아이콘 CSS -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Sunflower:300" rel="stylesheet">
 </head>
 <style>
 .checkMail-container
 {
 	margin-top:3em;
 	text-align:center;
+	font-family: 'Sunflower', sans-serif;
 }
 #timer{
 	color : #138496;
 	font-size: 2em;
 	font-weight: 700;
+	font-family: 'Sunflower', sans-serif;
 }
 </style>
 <body class='emailBody'>
