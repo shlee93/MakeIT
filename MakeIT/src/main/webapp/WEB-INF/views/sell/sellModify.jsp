@@ -208,7 +208,7 @@
                   var reader=new FileReader();
                   reader.onload=function(e){
                      var src = e.target.result;
-                      parent.prepend('<div class="upload-display"><input type="radio" name="mainImgNo" value='+ (count++) +'><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+                      parent.prepend('<div class="upload-display"><input type="radio" required name="mainImgNo" value='+ (count++) +'><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
                   }
                   
                   reader.readAsDataURL(f);
