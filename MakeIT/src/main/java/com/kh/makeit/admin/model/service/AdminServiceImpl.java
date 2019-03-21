@@ -249,6 +249,71 @@ public class AdminServiceImpl implements AdminService {
 		
 		return dao.selectSearchMemberCountAdmin(searchId);
 	}
+
+	//미승인 게시글 리스트
+	@Override
+	public List<Map<Object, Object>> selectApprovalList(String approvalStatus, int cPage, int numPerPage) {
+		
+		return dao.selectApprovalList(approvalStatus, cPage, numPerPage);
+	}
+
+	//삭제된 게시글 리스트
+	@Override
+	public List<Map<Object, Object>> selectDeleteList(String deleteStatus, int cPage, int numPerPage) {
+		
+		return dao.selectDeleteList(deleteStatus, cPage, numPerPage);
+	}
+
+	//미승인 게시글 리스트
+	@Override
+	public int selectApprovalCount(String approvalStatus) {
+		
+		return dao.selectApprovalCount(approvalStatus);
+	}
+
+	//삭제된 게시글 카운트
+	@Override
+	public int selectDeleteCount(String deleteStatus) {
+		
+		return dao.selectDeleteCount(deleteStatus);
+	}
+
+	//검색한 미승인 게시글 카운트
+	@Override
+	public int selectSearchApprovalCount(Map<String, String> approval) {
+		
+		return dao.selectSearchApprovalCount(approval);
+	}
+
+	//검색한 삭제된 게시글 카운트
+	@Override
+	public int selectSearchDeleteCount(Map<String, String> delete) {
+		
+		return dao.selectSearchDeleteCount(delete);
+	}
+
+	//검색한 미승인 게시글 리스트
+	@Override
+	public List<Map<Object, Object>> selectSearchApprovalList(Map<String, String> approval, int cPage, int numPerPage) {
+		
+		return dao.selectSearchApprovalList(approval, cPage, numPerPage);
+	}
+
+	//검색한 삭제된 게시글 리스트
+	@Override
+	public List<Map<Object, Object>> selectSearchDeleteList(Map<String, String> delete, int cPage, int numPerPage) {
+		
+		return dao.selectSearchDeleteList(delete, cPage, numPerPage);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

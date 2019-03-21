@@ -364,7 +364,7 @@
 				                        	
 				                           	<div class="CirItem title-box CirItem5">                                          
 	                                    
-	                                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -5em;'>
+	                                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${contestObj.REIMG}">

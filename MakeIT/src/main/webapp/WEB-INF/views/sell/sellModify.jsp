@@ -75,7 +75,6 @@
         </script>
 </head>
 <body>
-   <form id="sellWriteFrm" enctype="multipart/form-data">
    <div class="row">
       <div class="col-md-1">
       	<div style='position:fixed; margin-top: 10em;'>
@@ -89,18 +88,20 @@
 	           	</div>
       </div>
       <div id="buy-container" class="col-md-10">
+   <form id="sellWriteFrm" enctype="multipart/form-data" action="${pageContext.request.contextPath}/sell/sellModifyEnd" method="post">
+
          <div class="row">
             <div class="col-md-2">
             <label>분류</label> 
             </div>
             <div class="col-md-8">
-               <select class="form-control col-md-4" id="interest" name="interest" style="display: inline">
-                    <option>카테고리</option>
+               <select class="form-control col-md-4" id="interest" name="interest" required style="display: inline">
+                 <option>카테고리</option>
                  <option value='1'>개발자</option>
                  <option value='2'>웹디자이너</option>
                  <option value='3'>네트워크보안</option>    
                </select> 
-               <select class="form-control col-md-4" id="detailInterest" name="detailInterest"  style="display: inline; margin-right: 10px">
+               <select class="form-control col-md-4" id="detailInterest" name="detailInterest" required  style="display: inline; margin-right: 10px">
                   
                  
                </select>
@@ -113,7 +114,7 @@
                <label>제목</label> 
             </div>
             <div class="col-md-8">
-               <input type="text" name="writeTitle" class="form-control" style="display: inline;" value="${modifyMap.SELLTITLE}" /> 
+               <input type="text" name="writeTitle" class="form-control" style="display: inline;" value="${modifyMap.SELLTITLE}" required /> 
                <br> 
             </div>
       </div>
@@ -126,9 +127,9 @@
              <div id="priceProduct" class="col-md-8">
              	<c:forEach items="${modifyOption}" var="modifyOption">
              	<div>
-	               <input type="number" class="form-control col-md-2" id='firstPrice' name="price" style="display: inline" value="${modifyOption.SELLPRICE}">
-	               <input type="text" class="form-control col-md-2" id='endDate' name="endDate" style="display: inline" value="${modifyOption.SELLDEADLINE}"> 
-	               <input type="text" class="form-control  col-md-8" id="firstOption" name="productOption" style="display: inline" value="${modifyOption.SELLOPTIONCONTENT }">
+	               <input type="number" class="form-control col-md-2" id='firstPrice' name="price" style="display: inline" required value="${modifyOption.SELLPRICE}">
+	               <input type="text" class="form-control col-md-2" id='endDate' name="endDate" style="display: inline" required value="${modifyOption.SELLDEADLINE}"> 
+	               <input type="text" class="form-control  col-md-8" id="firstOption" name="productOption" required style="display: inline" value="${modifyOption.SELLOPTIONCONTENT }">
 	               <br/><br/>
 	            </div>
 	       		 </c:forEach>        	                           
@@ -148,7 +149,7 @@
             </div> 
          
        </div>
-         <textarea class="form-control" name="sellContent" rows="10">${modifyMap.SELLCONTENT}</textarea>
+         <textarea class="form-control" name="sellContent" rows="10"  required>${modifyMap.SELLCONTENT}</textarea>
          <br/> 
          <div id="null">
          <span class='nullimg'>메인에 노출될 사진을 선택해주세요</span>
@@ -165,9 +166,10 @@
 			<input type="hidden" id="sellno" name="sellno" value="${modifyMap.SELLNO}">
          <br/>
          <div id="btn-container">
-            <button class="btn btn-secondary">취소</button>
-            <button class="btn btn-secondary" onclick="writeEnd();">작성</button>
+            <button class="btn btn-outline-info slidetopleft">취소</button>
+            <button  type="submit" class="btn btn-outline-info slidetopleft" >수정완료</button>
          </div>
+         </form>
       </div>
       <div class="col-md-1"></div>
    </div>
@@ -219,11 +221,11 @@
       });
 
       
-   function writeEnd(){
+ /*   function writeEnd(){
       $('#sellWriteFrm').attr("action","${pageContext.request.contextPath}/sell/sellModifyEnd");
       $('#sellWriteFrm').attr("method","post");
       $('#sellWriteFrm').submit();
-   }
+   } */
       function fn_optionPlus(){
          var addOption="<div class=addoption><input type='number' class='form-control col-md-3' name='price' style='display: inline' placeholder='금액(원)'><input type='text' class='form-control col-md-2' name='endDate' style='display: inline' placeholder='작업기한'><input type='text' class='form-control  col-md-8' name='productOption' style='display: inline' placeholder='상품에 대한 설명을 입력하세요.'><br/><br/></div>";
          $('#priceProduct').append(addOption); 

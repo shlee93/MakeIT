@@ -24,7 +24,7 @@
                         </nav>
                      </div>
               <div class="container mt-40">                            
-                          <h3 class="text-center">실적별</h3>
+                          <h3 class="text-center" style="font-family: 'Sunflower', sans-serif;">실적별</h3>
                            <div class="row mt-30">                             
                               <c:forEach items="${performanceList}" var="performanceList">
                                <div class="col-md-4 col-sm-6 col-xs-10">

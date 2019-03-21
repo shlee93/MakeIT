@@ -102,4 +102,28 @@ public interface AdminDao {
 	
 	//관리자 페이지 환불 확정 업데이트
 	int updateRefundEnd(Map<Object,Object> refund);
+	
+	//미승인 게시글 리스트
+	List<Map<Object,Object>> selectApprovalList(String approvalStatus,int cPage, int numPerPage);
+		
+	//삭제된 게시글 리스트
+	List<Map<Object,Object>> selectDeleteList(String deleteStatus,int cPage,int numPerPage);
+	
+	//미승인 게시글 카운트
+	int selectApprovalCount(String approvalStatus);
+		
+	//삭제된 게시글 카운트
+	int selectDeleteCount(String deleteStatus);
+	
+	//검색한 미승인 게시글 카운트
+	int selectSearchApprovalCount(Map<String,String> approval);
+	
+	//검색한 미승인 게시글 리스트
+	List<Map<Object,Object>> selectSearchApprovalList(Map<String,String> approval,int cPage,int numPerPage);
+	
+	//검색한 삭제된 게시글 카운트
+	int selectSearchDeleteCount(Map<String,String> delete);
+	
+	//검색한 삭제된 게시글 리스트
+	List<Map<Object,Object>> selectSearchDeleteList(Map<String,String> delete,int cPage,int numPerPage);
 }

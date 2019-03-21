@@ -113,10 +113,8 @@
                                 <thead>
                                     <tr>
                                         <th>미승인 게시글 리스트</th>
-
                                     </tr>
                                 </thead>
-
                             </table>
                             <div class='row'>
 
@@ -131,33 +129,32 @@
                                                 <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse"
                                                     data-target="#menu-content"></i>
                                                 <div class="menu-list">
+                                                   	
+                                                   	<input type="hidden" id="approval-tab-status" value="approval"/>
                                                     <ul id="menu-content" class="menu-content collapse out">
-
-                                                        <li class='side-nav-li' data-toggle="collapse" data-target="#new"
+	
+                                                        <li class='side-nav-li approval-li' data-toggle="collapse" data-target="#new"
                                                             class="collapsed">
                                                             <a href="#">
                                                                 <i class="fas fa-credit-card fa-lg"></i> 구매
                                                             </a>
+                                                            <input type="hidden" class="approval-status" value="BUY"/>
                                                         </li>
-                                                        <li class='side-nav-li' data-toggle="collapse" data-target="#new"
+                                                        <li class='side-nav-li approval-li' data-toggle="collapse" data-target="#new"
                                                             class="collapsed">
                                                             <a href="#">
                                                                 <i class="fa fas fa-trophy fa-lg"></i> 판매
                                                             </a>
+                                                            <input type="hidden" class="approval-status" value="SELL"/>
                                                         </li>
-                                                        <li class='side-nav-li' data-toggle="collapse" data-target="#new"
+                                                        <li class='side-nav-li approval-li' data-toggle="collapse" data-target="#new"
                                                             class="collapsed">
                                                             <a href="#">
-                                                                <i class="fas fa-address-card"></i> 블라인드채용
+                                                                <i class="fas fa-address-card"></i>컨테스트
                                                             </a>
+                                                            <input type="hidden" class="approval-status" value="CONTEST"/>
                                                         </li>
-                                                        <li class='side-nav-li' data-toggle="collapse" data-target="#new"
-                                                            class="collapsed">
-                                                            <a href="#">
-                                                                <i class="fas fa-fax fa-lg"></i> 고객센터
-                                                            </a>
-                                                        </li>
-
+                                                        
                                                     </ul>
                                                 </div>
                                             </div>
@@ -170,115 +167,182 @@
 
                                         <div class='col-md-9 col-xs-9' style='position:relative; min-width: 400px'>
 
-                                            <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent" style='border-top:2px solid #337ab7;'>
-
-                                                <!-- 앨범 뷰 탭 컨텐츠1 -->
-
-                                                <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
-                                                    aria-labelledby="nav-home-tab">
-
-                                                    <div class="container mt-40">
-
-                                                        <h3 class="text-center">미승인 게시글 리스트</h3>
-                                                        <div class="row mt-30">
-                                                            <div class="col-md-4 col-sm-6 col-xs-10">
-                                                                <div class="box3" style='margin: 20px;'>
-                                                                    <img src="https://www.kclf.org/wp-content/uploads/2016/12/IMG_64732-e1482971378190.jpg"
-                                                                        style='width: 100%; height: 200px;'>
-                                                                    <div class="box-content">
-                                                                        <h3 class="title">Williamson</h3>
-                                                                        <span class="post">Web Developer</span>
-                                                                        <p class="description">
-                                                                            Lorem ipsum dolor sit amet, consectetur
-                                                                            adipisicing elit. A ad adipisci pariatur
-                                                                            qui.
-                                                                        </p>
-                                                                        <ul class="icon">
-                                                                            <li><a href="#" class="fa fa-search"></a></li>
-                                                                            <li><a href="#" class="fa fa-link"></a></li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <div class='sub-description'>
-                                                                    <div style='float:left;'>
-                                                                        <p>asdfdsfsdfasdfasdfasdfad</p>
-                                                                    </div>
-                                                                    <div class='infobox' style='float:right; display: inline;'>
-                                                                        <p>단가: 100000</p>
-                                                                        <p>등급: 280000</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-4 col-sm-6 col-xs-10">
-                                                                <div class="box3" style='margin: 20px;'>
-                                                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo4OnPzedTH7ZAEajSaiA2RTcWn-FQTkQA9JdA60hXit7xiV0q"
-                                                                        style='width: 100%; height: 200px;'>
-                                                                    <div class="box-content">
-                                                                        <h3 class="title">Kristiana</h3>
-                                                                        <span class="post">Web Designer</span>
-                                                                        <p class="description">
-                                                                            Lorem ipsum dolor sit amet, consectetur
-                                                                            adipisicing elit. A ad adipisci pariatur
-                                                                            qui.
-                                                                        </p>
-                                                                        <ul class="icon">
-                                                                            <li><a href="#" class="fa fa-search"></a></li>
-                                                                            <li><a href="#" class="fa fa-link"></a></li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <div class='sub-description'>
-                                                                    asdfdsfsdfasdfsad
-                                                                    <div class='infobox' style='float:right;'>
-                                                                        <p>단가: 100000</p>
-                                                                        <p>등급: 280000</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-4 col-sm-6 col-xs-10">
-                                                                <div class="box3" style='margin: 20px;'>
-                                                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNHelJu84DeOFYM_f_HuWC_dVEoYwyqW3z1Tdz6xeYYmzTGS6Q"
-                                                                        style='width: 100%; height: 200px;'>
-                                                                    <div class="box-content">
-                                                                        <h3 class="title">Kristiana</h3>
-                                                                        <span class="post">Web Designer</span>
-                                                                        <p class="description">
-                                                                            Lorem ipsum dolor sit amet, consectetur
-                                                                            adipisicing elit. A ad adipisci pariatur
-                                                                            qui.
-                                                                        </p>
-                                                                        <ul class="icon">
-                                                                            <li><a href="#" class="fa fa-search"></a></li>
-                                                                            <li><a href="#" class="fa fa-link"></a></li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <div class='sub-description'>
-                                                                    asdfdsfsdfasdfsadadsfasdfasdfsadfsadfsdafsdafasdfasdf
-                                                                    <div class='infobox' style='float:right;'>
-                                                                        <p>단가: 100000</p>
-                                                                        <p>등급: 280000</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- 앨범 뷰 텝 컨탠츠1 끝 -->
-
-                                            </div>
+                                          
+							            	<div class="container">
+							            	
+								                <div class="row">
+								                    <div class="col-md-12">
+								                        <nav>
+								                            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+								                                <a class="nav-item nav-link active" id="nav-approval2-tab" data-toggle="tab" href="#nav-approval2" role="tab" aria-controls="nav-approval2" aria-selected="true">미승인 게시글</a>
+								                                <a class="nav-item nav-link" id="nav-delete-tab" data-toggle="tab" href="#nav-delete" role="tab" aria-controls="nav-delete" aria-selected="false">삭제된 게시글</a>
+								                                <input type="hidden" id="tab-status" value="approval"/>
+								                                <input type="hidden" id="approval-status" value="BUY"/>
+								                                <input type="hidden" id="delete-status" value="BUY"/>
+								                            </div>
+								                        </nav>
+								                        <div class="tab-content" id="nav-tabContent">
+								                            <div class="tab-pane fade show active" id="nav-approval2" role="tabpanel" aria-labelledby="nav-approval2-tab">
+								                            	<div id="search-div">
+								                            		<select id="approval-select">
+								                            			
+								                            			<option class="approval-select-option" value="TITLE">제목</option>
+								                            			<option class="approval-select-option" value="MEMBERID">작성자</option>
+								                            		</select>
+								                            		<input type="text" id="approval-search-inp" placeholder="검색내용을 입력해주세요" />
+								                            	</div>
+								                                <table class="table approval-tbl" cellspacing="0">
+								                                    <thead>
+								                                        <tr>
+								                                            <th>제목</th>
+								                                            <th>작성자</th>
+								                                            <th>작성날짜</th>
+								                                            <th>분야</th>
+								                                        </tr>
+								                                    </thead>
+								                                    <tbody>
+								                                    <c:choose>
+								                                    	<c:when test="${not empty approvalList }">
+								                                    		<c:forEach items="${approvalList }" var="approval">
+								                                    			<c:choose>
+								                                    				<c:when test="${approval.CATEGORYCODE eq 'B' }">
+								                                    					<tr>
+												                                            <td>
+												                                            	<a href="${path }/buy/buyDetail?buyNo=${approval.BUYNO }" >${approval.BUYTITLE }</a>
+												                                            	<input type="hidden" class="number" value="${approval.BUYNO }"/>
+												                                            </td>
+												                                            <td>${approval.MEMBERID }</td>
+												                                            <td>${approval.BUYDATE }</td>
+												                                            <td>${approval.INTEREST }</td>
+												                                        </tr>
+								                                    				</c:when>
+								                                    				<c:when test="${approval.CATEGORYCODE eq 'S' }">
+								                                    					<tr>
+												                                            <td>
+												                                            	<a>${approval.SELLTITLE }</a>
+												                                            	<input type="hidden" class="number" value="${approval.SELLNO }"/>
+												                                            </td>
+												                                            <td>${approval.MEMBERID }</td>
+												                                            <td>${approval.SELLDATE }</td>
+												                                            <td>${approval.INTEREST }</td>
+												                                        </tr>
+								                                    				</c:when>
+								                                    				<c:when test="${approval.CATEGORYCODE eq 'C' }">
+								                                    					<tr>
+												                                            <td>
+												                                            	<a>${approval.CONTESTTITLE }</a>
+												                                            	<input type="hidden" class="number" value="${approval.CONTESTNO }"/>
+												                                            </td>
+												                                            <td>${approval.MEMBERID }</td>
+												                                            <td>${approval.CONTESTDATE }</td>
+												                                            <td>${approval.INTEREST }</td>
+												                                        </tr>
+								                                    				</c:when>
+								                                    				
+								                                    			</c:choose>
+								                                    			
+								                                    		</c:forEach>
+								                                    	</c:when>
+								                                    	<c:otherwise>
+								                                    	<tr>
+								                                    		<td colspan="4">데이터가 없습니다!</td>
+								                                    	<tr>
+								                                    	</c:otherwise>
+								                                    </c:choose>
+								                                        
+								                                        <tr>
+								                                        	<td colspan="4">
+								                                        		${pageBarApproval }
+								                                        	</td>
+								                                        </tr>
+								                                        
+								                                    </tbody>
+								                                </table>
+								                            </div>
+								                            <div class="tab-pane fade" id="nav-delete" role="tabpanel" aria-labelledby="nav-delete-tab">
+							                                	<div id="search-div">
+								                            		<select id="delete-select">
+								                            			
+								                            			<option class="delete-select-option" value="TITLE">제목</option>
+								                            			<option class="delete-select-option" value="MEMBERID">작성자</option>
+								                            		</select>
+								                            		<input type="text" id="delete-search-inp" placeholder="검색내용을 입력해주세요" />
+								                            	</div>
+								                                <table class="table delete-tbl" cellspacing="0">
+								                                    <thead>
+								                                        <tr>
+								                                            <th>제목</th>
+								                                            <th>작성자</th>
+								                                            <th>작성날짜</th>
+								                                            <th>분야</th>
+								                                        </tr>
+								                                    </thead>
+								                                    <tbody>
+								                                    <c:choose>
+								                                    	<c:when test="${not empty deleteList }">
+								                                    		<c:forEach items="${deleteList }" var="approval">
+								                                    			<c:choose>
+								                                    				<c:when test="${delete.CATEGORYCODE eq 'B' }">
+								                                    					<tr>
+												                                            <td>
+												                                            	<a>${delete.BUYTITLE }</a>
+												                                            	<input type="hidden" class="number" value="${delete.BUYNO }"/>
+												                                            </td>
+												                                            <td>${delete.MEMBERID }</td>
+												                                            <td>${delete.BUYDATE }</td>
+												                                            <td>${delete.INTEREST }</td>
+												                                        </tr>
+								                                    				</c:when>
+								                                    				<c:when test="${delete.CATEGORYCODE eq 'S' }">
+								                                    					<tr>
+												                                            <td>
+												                                            	<a>${delete.SELLTITLE }</a>
+												                                            	<input type="hidden" class="number" value="${delete.SELLNO }"/>
+												                                            </td>
+												                                            <td>${delete.MEMBERID }</td>
+												                                            <td>${delete.SELLDATE }</td>
+												                                            <td>${delete.INTEREST }</td>
+												                                        </tr>
+								                                    				</c:when>
+								                                    				<c:when test="${delete.CATEGORYCODE eq 'C' }">
+								                                    					<tr>
+												                                            <td>
+												                                            	<a>${delete.CONTESTTITLE }</a>
+												                                            	<input type="hidden" class="number" value="${delete.CONTESTNO }"/>
+												                                            </td>
+												                                            <td>${delete.MEMBERID }</td>
+												                                            <td>${delete.CONTESTDATE }</td>
+												                                            <td>${delete.INTEREST }</td>
+												                                        </tr>
+								                                    				</c:when>
+								                                    				
+								                                    			</c:choose>
+								                                    			
+								                                    		</c:forEach>
+								                                    	</c:when>
+								                                    	<c:otherwise>
+								                                    	<tr>
+								                                    		<td colspan="4">데이터가 없습니다!</td>
+								                                    	<tr>
+								                                    	</c:otherwise>
+								                                    </c:choose>
+								                                        
+								                                        <tr>
+								                                        	<td colspan="4">
+								                                        		${pageBarDelete }
+								                                        	</td>
+								                                        </tr>
+								                                    </tbody>
+								                                </table>
+								                            </div>
+								                        </div>
+								                    </div>
+								                </div>
+							            	</div>
+									            
 
                                             <!-- 페이지네이션 -->
-                                            <div class="container">
-                                                <ul class="pagination" style='justify-content:center;'>
-                                                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                    <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                                </ul>
-                                            </div>
+                                            
                                         </div>
 
                                         <!-- 앨범뷰 끝 -->
@@ -343,7 +407,9 @@
 													</div>
 												</div>
 			
-												<!-- 네비 사이드 끝 -->
+												
+									            
+									        
 			
 											</div>
 		

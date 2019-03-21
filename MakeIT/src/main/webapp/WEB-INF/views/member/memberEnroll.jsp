@@ -325,10 +325,6 @@
 		<form action="" name="emailCheckFrm">
 			<input type="hidden" name="email"/>
 		</form>
-		<form action="" name="accountCheckFrm">
-			<input type="hidden" name="accountNo"/>
-			<input type="hidden" name="bankCode"/>
-		</form>
     </div>
     
     
