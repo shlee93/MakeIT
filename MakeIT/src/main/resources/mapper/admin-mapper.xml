@@ -18,7 +18,7 @@
 		resultType="map">
 		SELECT M.*,GRADENAME FROM MEMBER M
 		JOIN GRADE G ON(G.GRADENO=M.GRADENO) WHERE MEMBERID LIKE
-		'%'||#{searchId}||'%'
+		'%'||${searchId}||'%'
 	</select>
 
 	<!-- 관리자 페이지 회원 상세보기 -->
@@ -403,5 +403,108 @@
 	<update id="updateRefundEnd" parameterType="map">
 		UPDATE ${refundStatus}SPEC SET STATUSNO=7
 	</update>
+	
+	<!-- 미승인 게시글 카운트 -->
+	<select id="selectApprovalCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM ${_parameter}
+		<choose>
+			<when test="_parameter=='CONTEST'">
+				WHERE ${_parameter}YN='N'
+			</when>
+			<otherwise>
+				WHERE ${_parameter}CHECKYN='N'
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 미승인 게시글 리스트 -->
+	<select id="selectApprovalList" parameterType="string" resultType="map">
+		SELECT I.INTEREST,A.* FROM ${_parameter} A JOIN INTEREST I ON(I.INTERESTNO=A.INTERESTNO)
+		
+		<choose>
+			<when test="_parameter=='CONTEST'">
+				WHERE ${_parameter}YN='N'
+			</when>
+			<otherwise>
+				WHERE ${_parameter}CHECKYN='N'
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 삭제된 게시글 카운트 -->
+	<select id="selectDeleteCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM ${_parameter} WHERE ${_parameter}DELETEYN='Y'
+	</select>
+	
+	<!-- 삭제된 게시글 리스트 -->
+	<select id="selectDeleteList" parameterType="string" resultType="map">
+		SELECT I.INTEREST,A.* FROM ${_parameter} A JOIN INTEREST I ON(I.INTERESTNO=A.INTERESTNO) WHERE ${_parameter}DELETEYN='Y'
+	</select>
+	
+	<!-- 검색한 미승인 게시글 카운트 -->
+	<select id="selectSearchApprovalCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM ${approvalStatus} 
+		
+		<choose>
+			<when test="approvalStatus=='CONTEST'">
+				WHERE ${approvalStatus}YN='N'
+			</when>
+			<otherwise>
+				WHERE ${approvalStatus}CHECKYN='N'
+			</otherwise>
+		</choose>
+		<if test="approvalSearch!='' and approvalOption!='nosort' and approvalOption!='MEMBERID'">
+			AND ${approvalStatus}${approvalOption} LIKE '%'||#{approvalSearch}||'%'
+		</if>
+		<if test="approvalSearch!='' and approvalOption=='MEMBERID'">
+			AND ${approvalOption} LIKE '%'||#{approvalSearch}||'%'
+		</if>
+	</select>
+	
+	<!-- 검색한 삭제된 게시글 카운트 -->
+	<select id="selectSearchDeleteCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM ${deleteStatus} WHERE ${deleteStatus}DELETEYN='Y'
+		<if test="deleteSearch!='' and deleteOption!='nosort' and deleteOption!='MEMBERID'">
+			AND ${deleteStatus}${deleteOption} LIKE '%'||#{deleteSearch}||'%'
+		</if>
+		<if test="deleteSearch!='' and deleteOption=='MEMBERID'">
+			AND ${deleteOption} LIKE '%'||#{deleteSearch}||'%'
+		</if>
+	</select>
+	
+	<!-- 검색한 미승인 게시글 리스트 -->
+	<select id="selectSearchApprovalList" parameterType="map" resultType="map">
+		SELECT I.INTEREST,A.* FROM ${approvalStatus} A JOIN INTEREST I ON(I.INTERESTNO=A.INTERESTNO)
+		
+		<choose>
+			<when test="approvalStatus=='CONTEST'">
+				WHERE ${approvalStatus}YN='N'
+			</when>
+			<otherwise>
+				WHERE ${approvalStatus}CHECKYN='N'
+			</otherwise>
+		</choose>
+		
+		<if test="approvalSearch!='' and approvalOption!='nosort' and approvalOption!='MEMBERID'">
+			AND ${approvalStatus}${approvalOption} LIKE '%'||#{approvalSearch}||'%'
+		</if>
+		<if test="approvalSearch!='' and approvalOption=='MEMBERID'">
+			AND ${approvalOption} LIKE '%'||#{approvalSearch}||'%'
+		</if>
+	</select>
+	
+	<!-- 검색한 삭제된 게시글 리스트 -->
+	<select id="selecSearchtDeleteList" parameterType="map" resultType="map">
+		SELECT I.INTEREST,A.* FROM ${deleteStatus} A JOIN INTEREST I ON(I.INTERESTNO=A.INTERESTNO) WHERE ${deleteStatus}DELETEYN='Y'
+		
+		<if test="deleteSearch!='' and deleteOption!='nosort' and deleteOption!='MEMBERID'">
+			AND ${deleteStatus}${deleteOption} LIKE '%'||#{deleteSearch}||'%'
+		</if>
+		<if test="deleteSearch!='' and deleteOption=='MEMBERID'">
+			AND ${deleteOption} LIKE '%'||#{deleteSearch}||'%'
+		</if>
+		
+	</select>
+	
 	
 </mapper>
