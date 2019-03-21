@@ -32,11 +32,8 @@
 
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
-	integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
-	crossorigin="anonymous">
 
+<link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Sunflower:300" rel="stylesheet">
 <style>
 .hide {
 	display: none;
@@ -44,7 +41,7 @@
 #container{
  width:97%;
 }
-.btn-primary{
+.btn-outline-info{
 	position:relative;
 	left:83%;
 	top:3px;
@@ -57,7 +54,7 @@
 			<div>
 				<div class="row" >
 					<div class="col-md-12" style="text-align:center" >
-						<h3 >신고하기</h3>
+						<h3 style="font-family: 'Sunflower', sans-serif;" >신고하기</h3>
 					</div>
 				</div>
 				<div class="row">
@@ -81,7 +78,7 @@
 				<div class="row">
 					<br/>
 
-					<button type="button" onclick="fn_sellReportEnd();" class="btn btn-primary">신고하기</button>
+					<button type="button" onclick="fn_sellReportEnd();" class="btn btn-outline-info slidetopleft">신고하기</button>
 
 				</div>
 		<input type="hidden" name="sellno" value="${sellno}">		

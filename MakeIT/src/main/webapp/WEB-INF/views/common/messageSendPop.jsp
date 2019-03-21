@@ -41,10 +41,8 @@
 		            </td>
                 </tr>
                 <tr>
-                   	<td>
+                   	<td colspan='2'>
                       	<button type='button' class="btn btn-outline-info slidetopleft" onclick="fn_closeMessage();">취소</button>
-                   	</td>
-                   	<td>
                       	<button type='button' class="btn btn-outline-info slidetopleft" onclick="fn_messageSend();">보내기</button>
                    	</td>
                    	<td></td>

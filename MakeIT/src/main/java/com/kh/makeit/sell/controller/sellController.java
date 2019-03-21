@@ -98,8 +98,9 @@ public class sellController {
    }
    @RequestMapping("/sell/sellWriteEnd")
    public ModelAndView sellWriteEnd(String[] price,int interest, int detailInterest,String writeTitle,String[] endDate,String[] productOption,String sellContent,MultipartFile[] input_file, int mainImgNo, HttpServletRequest request )
-   {   
-     System.out.println(mainImgNo + "메인이미지값");
+   {
+	   System.out.println("인풋파일"+input_file);
+	   System.out.println(mainImgNo + "메인이미지값");
       System.out.println(interest+"대분류");
       System.out.println(detailInterest+"소분류");
       HttpSession session = request.getSession();
@@ -117,7 +118,6 @@ public class sellController {
       ArrayList<SellAttach> files=new ArrayList();
       String savDir=request.getSession().getServletContext().getRealPath("/resources/upload/sell");
       Map imgMap=new HashMap();
-      
       
       MultipartFile index = input_file[mainImgNo];
       input_file[mainImgNo] = input_file[0];

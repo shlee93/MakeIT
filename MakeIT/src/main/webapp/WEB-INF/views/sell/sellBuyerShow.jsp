@@ -23,8 +23,7 @@
 	    <div class='col-md-10' id='section' >
 				<table id="example" class="table table-striped table-bordered" style="text-align:center;">
 	                    <thead>
-	                        <tr>
-	                        	<th>옵션셀스펙노</th>
+	                        <tr>	                        	
 	                         	<th>구매자ID</th>
 	                            <th>선택한 옵션</th>
 	                            <th>옵션내용</th>
@@ -36,14 +35,14 @@
 	                     <tbody>
 	                      <c:forEach items="${buyerList}" var="buyerList" varStatus="status">
 	                        <tr> 
-	                        	<td>${buyerList.SELLSPECNO}</td>
+	                        	
 	                            <td>${buyerList.MEMBERID}</td>
 	                            <td>${buyerList.SELLOPTIONNO}</td>
 	                            <td>${buyerList.SELLOPTIONCONTENT}</td>
 	                            <td>${buyerList.SELLDEADLINE}</td>
 	                            <td>${buyerList.STATUSNAME}</td>
 	                            <td>
-	                            	<button type="button" onclick="fn_statusChange(${buyerList.SELLSPECNO},${buyerList.SELLNO})">작업완료</button>
+	                            	<button type="button" class="btn btn-outline-info slidetopleft" onclick="fn_statusChange(${buyerList.SELLSPECNO},${buyerList.SELLNO})">작업완료</button>
 	                            	
 	                            </td>
 	                        </tr>
