@@ -1000,7 +1000,18 @@ public class MemberController {
 	
 	@RequestMapping("/member/sendMessage.do")
 	@ResponseBody
-	public void sendMessage(String sendId, String receiveId, String messageContent) {
+	public ModelAndView sendMessage(String memberId) {
+		Map<Object, Object> map = service.selectOne(memberId);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("map",map);
+		mv.addObject("memberId",memberId);
+		mv.setViewName("member/ajaxMemberMessageSend");
+		return mv;
+	}
+	
+	@RequestMapping("/member/reSendMessageEnd.do")
+	@ResponseBody
+	public void sendMessageEnd(String sendId, String receiveId, String messageContent) {
 		Map<String,String> message = new HashMap();
 		message.put("sendId", sendId);
 		message.put("receiveId", receiveId);

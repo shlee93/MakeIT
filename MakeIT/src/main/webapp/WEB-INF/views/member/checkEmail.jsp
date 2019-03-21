@@ -23,7 +23,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 <!-- 아이콘 CSS -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
+<link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Sunflower:300" rel="stylesheet">
 	    	    
 </head>
 <style>
@@ -39,11 +39,17 @@
 		color : #138496;
 		font-size: 2em;
 		font-weight: 700;
+		font-family: 'Sunflower', sans-serif;
 	}
 </style>
 
 <body>
 	<div id="checkEmail-container">
+		<div class="row">
+    		<div class="col-md-12">
+    			<h5 style="font-family: 'Sunflower', sans-serif;">이메일 인증</h5>
+    		</div>
+    	</div>
 		<input type="text" name="inputRandomNo" id="inputRandomNo" maxlength="6" placeholder="인증번호를 입력하세요."/>
 		<input type="hidden" name="randomNo" id="randomNo" value="${randomNo }">
 		<input type="button" onclick="checkEmail();" class="btn btn-outline-info slidetopleft" value="확인">
