@@ -32,6 +32,11 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/buywrite/buywrite.css" />
+	 <link rel='stylesheet' href='${pageContext.request.contextPath }/resources/css/boardCommon/boardCommon.css'/>
+   
+      <jsp:include page="/WEB-INF/views/common/header.jsp">
+        <jsp:param value="HelloSpring" name="pageTitle"/>
+      </jsp:include>
 <style>
 #priceProduct {
 	height: 100%;

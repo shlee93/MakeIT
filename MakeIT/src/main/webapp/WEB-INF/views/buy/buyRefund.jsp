@@ -36,6 +36,7 @@
    href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
    integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
    crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Sunflower:300" rel="stylesheet">
 
 <style>
 .hide {
@@ -81,7 +82,7 @@
             </div>
             <div class="row">
                <br/>
-               <button type="button" onclick="fn_buyRefundEnd();" class="btn btn-primary">환불신청</button>
+               <button type="button" onclick="fn_buyRefundEnd();" class="btn btn-outline-info slidetopleft">환불신청</button>
 
             </div>
             

@@ -36,7 +36,7 @@
    href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
    integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
    crossorigin="anonymous">
-
+<link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Sunflower:300" rel="stylesheet">
 <style>
 .hide {
    display: none;
@@ -81,7 +81,7 @@
             <div class="row">
                <br/>
 
-               <button type="button" onclick="fn_buyReportEnd();" class="btn btn-primary">신고하기</button>
+               <button type="button" onclick="fn_buyReportEnd();" class="btn btn-outline-info slidetopleft">신고하기</button>
 
             </div>
       <input type="hidden" name="buyNo" value="${buyNo}">      

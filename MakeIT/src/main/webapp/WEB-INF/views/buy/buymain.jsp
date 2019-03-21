@@ -39,6 +39,11 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/buymain/buymain.css" />
+	 <link rel='stylesheet' href='${pageContext.request.contextPath }/resources/css/boardCommon/boardCommon.css'/>
+   
+      <jsp:include page="/WEB-INF/views/common/header.jsp">
+        <jsp:param value="HelloSpring" name="pageTitle"/>
+      </jsp:include>
 <style>
 .hide {
 	display: none;
@@ -114,13 +119,13 @@
 								<option value='title'>제목</option>
 								<option value='writer'>작성자</option>
 							</select> <input class="form-control mr-sm-2" type="text" id="searchValue" placeholder="Search" aria-label="Search">
-							<button class="btn btn-primary my-2 my-sm-0" onclick="fn_searchtw();" type="button">Search</button>
+							<button class="btn btn-outline-info slidetopleft my-2 my-sm-0" onclick="fn_searchtw();" type="button">Search</button>
 						</form>
 					</div>
 					<nav>
 						<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-							<a class="nav-item nav-link active" id="nav-home-tab" onclick="fn_valueChangeNew();" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">신규등록</a> 
-							<a class="nav-item nav-link" id="nav-profile-tab" onclick="fn_valueChangeGrade();" data-toggle="tab" href="#nav-profile" role="tab"	aria-controls="nav-profile" aria-selected="false">등급별</a> 
+							<a class="nav-item nav-link active" id="nav-home-tab" onclick="fn_valueChangeNew();" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" style="font-family: 'Sunflower', sans-serif;">신규등록</a> 
+							<a class="nav-item nav-link" id="nav-profile-tab" onclick="fn_valueChangeGrade();" data-toggle="tab" href="#nav-profile" role="tab"	aria-controls="nav-profile" aria-selected="false" style="font-family: 'Sunflower', sans-serif;">등급별</a> 
 						</div>
 					</nav>
 					<script>
@@ -395,7 +400,7 @@
 							<!-- 앨범 뷰 상단 네비 끝 -->
 
 							<div class="container mt-40">
-								<h3 class="text-center">신규등록</h3>
+								<h3 class="text-center" style="font-family: 'Sunflower', sans-serif;">신규등록</h3>
 								<div class="row mt-30">
 
 									<c:forEach items="${newList}" var="newList">

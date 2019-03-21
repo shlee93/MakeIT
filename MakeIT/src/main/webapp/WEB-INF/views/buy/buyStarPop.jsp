@@ -87,7 +87,7 @@
 		
 		</div>
 		<div style="float:right; padding:10px;">
-			<input type="button" class="btn btn-primary" value="작성" onclick="fn_submit()">
+			<input type="button" class="btn btn-outline-info slidetopleft" value="작성" onclick="fn_submit()">
 		</div>
 	</form>
 	</div>

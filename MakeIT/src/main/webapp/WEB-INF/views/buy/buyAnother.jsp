@@ -39,6 +39,11 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/buymain/buymain.css" />
+	 <link rel='stylesheet' href='${pageContext.request.contextPath }/resources/css/boardCommon/boardCommon.css'/>
+   
+      <jsp:include page="/WEB-INF/views/common/header.jsp">
+        <jsp:param value="HelloSpring" name="pageTitle"/>
+      </jsp:include>
 <style>
 .hide {
 	display: none;

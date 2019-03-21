@@ -36,7 +36,7 @@
          </div>
          <div style='margin-top:2em; justify-content:center;'>
             <div>               
-               <input type='button' onclick='payComplete();' class='btn btn-primary' value='메인으로 이동'/>               
+               <input type='button' onclick='payComplete();' class='btn btn-outline-info slidetopleft' value='메인으로 이동'/>               
             </div>
          </div>
       </div>

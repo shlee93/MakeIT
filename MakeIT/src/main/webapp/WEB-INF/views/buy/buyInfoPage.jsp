@@ -72,8 +72,8 @@
          <div style='width: 100%; margin-bottom:3em;'>                  
          <div class='row' style='margin-top:4em; justify-content:center;'>
             <div>
-               <input type='button' class='btn btn-primary' id="cancelPurchase" style='margin-right: 1.3em; width: 5.3em;' value='취소'>
-               <input type='button' id="decidePurchase" class='btn btn-primary' value='구매결정'/>
+               <input type='button' class='btn btn-outline-info slidetopleft' id="cancelPurchase" style='margin-right: 1.3em; width: 5.3em;' value='취소'>
+               <input type='button' id="decidePurchase" class='btn btn-outline-info slidetopleft' value='구매결정'/>
             
             </div>            
          </div>         

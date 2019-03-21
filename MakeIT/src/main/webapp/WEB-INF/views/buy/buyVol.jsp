@@ -30,8 +30,11 @@
 	href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
 	integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
 	crossorigin="anonymous">
-<%-- <link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/buywrite/buywrite.css" /> --%>
+ <link rel='stylesheet' href='${pageContext.request.contextPath }/resources/css/boardCommon/boardCommon.css'/>
+   
+      <jsp:include page="/WEB-INF/views/common/header.jsp">
+        <jsp:param value="HelloSpring" name="pageTitle"/>
+      </jsp:include>
 <style>
 div {
    /* border: 1px solid black; */

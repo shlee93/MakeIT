@@ -17,7 +17,7 @@
                      </div>
                      <div class="container mt-40">
                          
-                           <h3 class="text-center">등급별</h3>
+                           <h3 class="text-center" style="font-family: 'Sunflower', sans-serif;">등급별</h3>
                            <div class="row mt-30">                                                                              	  
                               <c:forEach items="${gradeList}" var="gradeList">
                                <div class="col-md-4 col-sm-6 col-xs-10">

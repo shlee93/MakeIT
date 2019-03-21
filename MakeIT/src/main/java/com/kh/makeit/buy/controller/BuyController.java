@@ -205,6 +205,8 @@ public class BuyController {
 		List<Map<String,String>> subimgList = service.selectSubImg(buyNo);
 		List<Map<String,String>> reviewList = service.selectReview(buyNo);
 		
+		
+		
 		if(sessionMap != null)
 		{
 			if(sessionMap.get("MEMBERID").equals(detailList.get("MEMBERID")))
@@ -214,6 +216,8 @@ public class BuyController {
 			}
 			
 		}
+		Map<String,String> specList3 = service.selectSpec2(buyNo);
+		mv.addObject("specList3", specList3);
 		int reviewCnt = service.selectReviewCnt(buyNo);
 		
 		
