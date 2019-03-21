@@ -29,6 +29,11 @@
 
 
 <style>
+ <link rel='stylesheet' href='${pageContext.request.contextPath }/resources/css/boardCommon/boardCommon.css'/>
+   
+      <jsp:include page="/WEB-INF/views/common/header.jsp">
+        <jsp:param value="HelloSpring" name="pageTitle"/>
+      </jsp:include>
 
 
 div {padding: 10px;}
@@ -139,13 +144,17 @@ thead {
 				<input type="hidden" name="memberId"/>
 				<input type="hidden" name="buyNo"/>
 				<input type="hidden" name="categoryCode"/>
+				<input type="hidden" name="cPage"/>
 			</form>	
 			<!--
 			<div class="filebox bs3-primary preview-image">
 				<label for="input_file">사진 선택</label> 
 				<input type="file" id="input_file" class="upload-hidden" multiple="multiple" accept=".gif, .jpg, .png"> 
 			</div> -->
-			</div>
+		<div>
+			${pageBar }
+		</div>
+		</div>
 		
 		<div class="col-sm-1"></div>
 	</div>
@@ -194,6 +203,7 @@ $(document).ready(function(){
 		volViewFrm.memberId.value=memberId;
 		volViewFrm.buyNo.value=buyNo;
 		volViewFrm.categoryCode.value=categoryCode;
+		volViewFrm.cPage.value=${param.cPage==null?1:param.cPage};
 		volViewFrm.action=url;
 		volViewFrm.method="post";
 		volViewFrm.submit();

@@ -21,7 +21,7 @@
                      <!-- 앨범 뷰 상단 네비 끝 -->
                      
                      <div class="container mt-40">                              
-                        <h3 class="text-center">신규등록</h3>
+                        <h3 class="text-center" style="font-family: 'Sunflower', sans-serif;">신규등록</h3>
                            <div class="row mt-30">                                                                              	  
                               <c:forEach items="${newList}" var="newList">
                                <div class="col-md-4 col-sm-6 col-xs-10">
@@ -41,14 +41,18 @@
 
 															var imgReName = data["buyImgRe"];
 															var imgContainer = $('#${newList.BUYNO}');
-															imgContainer.append("<img src='${path}/resources/upload/buy/"+ data["buyImgRe"]+ "' style='width: 100%; height: 200px;'>");
+															imgContainer.append("<img src='${path}/resources/upload/buy/"+ data["buyImgRe"]+ "' style='width: 100%; height: 200px;cursor:pointer;' onclick='fn_detailView(${newList.BUYNO})'>");
 
 														}
 													});
 												});
+												function fn_detailView(buyNo)
+												{
+													location.href="${path}/buy/buyDetail?buyNo="+buyNo;
+												}
 											</script>
 										</div>
-                                       <div class="box-content">
+                                       <div class="box-content" onclick="fn_detailView(${newList.BUYNO})">
                                             <h3 class="title">${newList.MEMBERID}</h3>                                                                                      
                                            <p class="description">${newList.INTRODUCTION } </p>
                                        </div>
