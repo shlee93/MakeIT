@@ -246,6 +246,7 @@ public class BuyController {
 		for(MultipartFile a : input_file)
 		{
 			System.out.println("asdf" + a.getOriginalFilename());
+			
 		}
 		
 		
