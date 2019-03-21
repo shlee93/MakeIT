@@ -203,7 +203,7 @@
                         </select>
                     </div>
                     <div class="col-md-4 mb-2">
-                        <input type="text" class='form-control' id='memberAccount' name='memberAccount' placeholder="계좌번호 입력" required>   
+                        <input type="text" class='form-control' id='memberAccount' name='memberAccount' placeholder="계좌번호 입력" maxlength="20" required>   
                     </div>
                     <div class="col-md-3 mb-2" id="ck_Account">
 						<div id="account-danger" style="color: red;">입금받을 계좌번호를 입력하세요. 잘못 입력하여 생기는 불이익은 본 사이트는 책임지지 않습니다.</div>

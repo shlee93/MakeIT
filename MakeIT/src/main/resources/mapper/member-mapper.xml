@@ -139,6 +139,9 @@
 	<select id="bankList" resultType="map">
 		SELECT * FROM BANK
 	</select>
+	<select id="memberSearch" parameterType="string" resultType="map">
+		SELECT MEMBERID FROM MEMBER WHERE MEMBERID LIKE '%'||#{receiveId}||'%'
+	</select>
 	<resultMap type="map" id="memberMap">
 		<result column="interest" property="interest" typeHandler="strArray"/>
 	</resultMap>
