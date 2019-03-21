@@ -31,7 +31,6 @@
 	{
 		margin-top:3em;
 		text-align:center;
-		font-family: 'Sunflower', sans-serif;
 	}
 	.timer-container{
 		text-align:center;
@@ -48,7 +47,7 @@
 	<div class="container-fluid checkEmail-container">
 		<div class="row">
     		<div class="col-md-12">
-    			<h5>인증번호 입력</h5>
+    			<h5 style="font-family: 'Sunflower', sans-serif;">인증번호 입력</h5>
     		</div>
     	</div>
 		<input type="text" name="inputRandomNo" id="inputRandomNo" maxlength="6" placeholder="인증번호를 입력하세요."/>

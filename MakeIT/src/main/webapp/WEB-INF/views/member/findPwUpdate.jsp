@@ -31,7 +31,6 @@
 	{
 		margin-top:3em;
 		text-align:center;
-		font-family: 'Sunflower', sans-serif;
 	}
 
 </style>
@@ -40,7 +39,7 @@
 	<div class="container-fluid checkEmail-container">
 		<div class="row">
     		<div class="col-md-12">
-    			<h5>비밀번호 찾기</h5>
+    			<h5 style="font-family: 'Sunflower', sans-serif;">비밀번호 찾기</h5>
     		</div>
     	</div>
 		<form action="${path }/member/findPwEnd.do" id="emailFrm" method="post"onsubmit='return fn_enroll_validate()'>

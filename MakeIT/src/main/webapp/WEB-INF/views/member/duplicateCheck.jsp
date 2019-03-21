@@ -36,7 +36,6 @@
 	{
 		margin-top:3em;
 		text-align:center;
-		font-family: 'Sunflower', sans-serif;
 	}
 	
 </style>
@@ -45,7 +44,7 @@
 	<div id="checkId-container">
 		<div class="row">
     		<div class="col-md-12">
-    			<h5>아이디 중복검사</h5>
+    			<h5 style="font-family: 'Sunflower', sans-serif;">아이디 중복검사</h5>
     		</div>
     	</div>
 		<c:if test="${isAble==true }">

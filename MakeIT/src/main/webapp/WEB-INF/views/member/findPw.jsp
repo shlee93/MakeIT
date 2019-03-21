@@ -31,7 +31,6 @@
 {
 	margin-top:3em;
 	text-align:center;
-	font-family: 'Sunflower', sans-serif;
 }
 #emailBox{
 	margin-bottom: 5%;
@@ -42,7 +41,7 @@
 		<form name="contact-form" action="${path }/findPwCheck.do" method="POST">
 	    	<div class="row">
 	    		<div class="col-md-12">
-	    			<h5>비밀번호 찾기</h5>
+	    			<h5 style="font-family: 'Sunflower', sans-serif;">비밀번호 찾기</h5>
 	    		</div>
 	    	</div>
 	    	<div class="row">

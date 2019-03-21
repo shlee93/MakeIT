@@ -32,7 +32,6 @@
 {
 	margin-top:3em;
 	text-align:center;
-	font-family: 'Sunflower', sans-serif;
 }
 .timer-container{
 	text-align:center;
@@ -48,7 +47,7 @@
 	<div class='container-fluid checkMail-container'>
     	<div class="row">
     		<div class="col-md-12">
-    			<h5>아이디 찾기</h5>
+    			<h5 style="font-family: 'Sunflower', sans-serif;">아이디 찾기</h5>
     		</div>
     	</div>
     	<div class="row">
