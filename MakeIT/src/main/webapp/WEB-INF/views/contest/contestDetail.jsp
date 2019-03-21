@@ -24,10 +24,13 @@
    	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
    	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/contestdetail/contestDetail.css" />
    	<link rel='stylesheet' href='${pageContext.request.contextPath }/resources/css/boardCommon/boardCommon.css'/>
+   	
    
    	<jsp:include page="/WEB-INF/views/common/header.jsp">
 	  	<jsp:param value="HelloSpring" name="pageTitle"/>
    	</jsp:include>
+   	
+   	<link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Sunflower:300" rel="stylesheet">
    	
    	<style>
 		/* div
@@ -43,9 +46,7 @@
        	html,body
        	{
 			height: 100%;
-		}   
-		
-	   		    
+		} 		    
 	</style>
 </head>
 
@@ -148,22 +149,22 @@
                     	<div class="row " style="text-align:center; margin-left:-5em;" >
                         	<div class="col-md-10">
                         		<c:if test="${contestObj.GRADENAME == '브론즈' }">
-                               		<p style='display: inline;'><img alt="" src="${path }/resources/image/bronzeGrade.png" style="max-width: 50px;max-height: 50px;"><c:out value="${map.GRADENAME }"></c:out></p>
+                               		<p style='display: inline;'><img alt="" src="${path }/resources/image/bronzeGrade.png" style="max-width: 50px;max-height: 50px;"></p>
                                	</c:if>
                                	<c:if test="${contestObj.GRADENAME == '실버' }">
-                               		<p><img alt="" src="${path }/resources/image/silverGrade.png" style="max-width: 50px;max-height: 50px;"><c:out value="${map.GRADENAME }"></c:out></p>
+                               		<p style='display: inline;'><img alt="" src="${path }/resources/image/silverGrade.png" style="max-width: 50px;max-height: 50px;"></p>
                                	</c:if>
                                	<c:if test="${contestObj.GRADENAME == '골드' }">
-                               		<p><img alt="" src="${path }/resources/image/goldGrade.png" style="max-width: 50px;max-height: 50px;"><c:out value="${map.GRADENAME }"></c:out></p>
+                               		<p style='display: inline;'><img alt="" src="${path }/resources/image/goldGrade.png" style="max-width: 50px;max-height: 50px;"></p>
                                	</c:if>
                                	<c:if test="${contestObj.GRADENAME == '플래티넘' }">
-                               		<p><img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;"><c:out value="${map.GRADENAME }"></c:out></p>
+                               		<p style="display:inline;"><img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;"></p>
                                	</c:if>
                                	<c:if test="${contestObj.GRADENAME == '다이아몬드' }">
-                               		<p><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"><c:out value="${map.GRADENAME }"></c:out></p>
+                               		<p style='display: inline;'><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"></p>
                                	</c:if>
                                	
-                        		<h4 style='display: inline;'><strong>${contestObj.GRADENAME}</strong> ${contestObj.MEMBERNAME}</h4>
+                        		<h4 style="display: inline; font-family: 'Sunflower', sans-serif;"><strong>${contestObj.GRADENAME}</strong> ${contestObj.MEMBERNAME}</h4>
  			                   	
  			                   	<!-- 똥글뱅이 -->
                         		<div class="row align-items-center" style='margin-top: -5em;'>			                  
