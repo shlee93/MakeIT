@@ -93,7 +93,7 @@
 	
 	<!-- 컨테스트 쓰기 -->
 	<insert id='insertContest' parameterType='map'>
-		insert into CONTEST values(seq_contestNo.nextval,'C',#{contestTitle}, #{contestContent}, #{contestDate}, #{contestDeadLine}, #{contestPrice}, default, #{detailInterestNo}, #{interestNo}, #{memberId})
+		insert into CONTEST values(seq_contestNo.nextval,'C',#{contestTitle}, #{contestContent}, #{contestDate}, #{contestDeadLine}, #{contestPrice}, default, default, #{detailInterestNo}, #{interestNo}, #{memberId})
 		<selectKey keyProperty='contestNo' resultType='String' order='AFTER'>
 			select seq_contestNo.currval from dual
 		</selectKey>
