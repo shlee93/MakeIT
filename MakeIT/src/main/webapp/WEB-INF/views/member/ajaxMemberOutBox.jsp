@@ -79,7 +79,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="bo" items="${buyOutBoxList }">
 		                    			<tr>
 		                    				<td><c:out value="${bo.BUYNO }"/></td>
-											<td><a href="#"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
 											<td><c:out value="${bo.BUYWRITER }"/></td>
 											<td><c:out value="${bo.BUYDATE }"/></td>
 		                    			</tr>
@@ -110,8 +110,8 @@ pageEncoding="UTF-8"%>
 	                    		<c:if test="${totalSellCount != 0 }">
 		                    		<c:forEach var="so" items="${sellOutBoxList }">
 		                    			<tr>
-		                    				<td><c:out value="${so.BUYNO }"/></td>
-											<td><a href="#"><c:out value="${so.SELLTITLE }"/></a></td>
+		                    				<td><c:out value="${so.SELLNO }"/></td>
+											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
 											<td><c:out value="${so.MEMBERID }"/></td>
 											<td><c:out value="${so.SELLDATE }"/></td>
 		                    			</tr>
@@ -145,7 +145,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="bo" items="${buyOutBoxList }">
 		                    			<tr>
 		                    				<td><c:out value="${bo.BUYNO }"/></td>
-											<td><a href="#"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
 											<td><c:out value="${bo.BUYWRITER }"/></td>
 											<td><c:out value="${bo.BUYDATE }"/></td>
 		                    			</tr>
@@ -176,8 +176,8 @@ pageEncoding="UTF-8"%>
 	                    		<c:if test="${totalSellCount != 0 }">
 		                    		<c:forEach var="so" items="${sellOutBoxList }">
 		                    			<tr>
-		                    				<td><c:out value="${so.BUYNO }"/></td>
-											<td><a href="#"><c:out value="${so.SELLTITLE }"/></a></td>
+		                    				<td><c:out value="${so.SELLNO }"/></td>
+											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
 											<td><c:out value="${so.MEMBERID }"/></td>
 											<td><c:out value="${so.SELLDATE }"/></td>
 		                    			</tr>
