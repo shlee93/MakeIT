@@ -208,7 +208,7 @@
 								                                    				<c:when test="${approval.CATEGORYCODE eq 'B' }">
 								                                    					<tr>
 												                                            <td>
-												                                            	<a>${approval.BUYTITLE }</a>
+												                                            	<a href="${path }/buy/buyDetail?buyNo=${approval.BUYNO }" >${approval.BUYTITLE }</a>
 												                                            	<input type="hidden" class="number" value="${approval.BUYNO }"/>
 												                                            </td>
 												                                            <td>${approval.MEMBERID }</td>
