@@ -1,3 +1,111 @@
+//게시글 승인 탭 세부 메뉴 버튼 클릭 화면전환
+$(document).on('click','.approval-li',function(){
+	
+	var approval_Tab_Status=$('#approval-tab-status').val();
+	
+	if(approval_Tab_Status=='approval'){
+		$('#approval-status').val($(this).children('input').val());
+		var approvalStatus=$('#approval-status').val();
+		var $click_Li=$(this);
+		var $all_Li=$('.approval-li');
+		
+		
+		$.ajax({
+			url:"approvalView.do",
+			data:{
+				"approvalStatus":approvalStatus
+			},
+			dataType:"html",
+			success:function(data){
+				console.log(data);
+				$('#nav-approval2').html(data);
+				$all_Li.removeClass('active');
+				$click_Li.addClass('active');
+				
+			}
+		})
+		
+	}else if(approval_Tab_Status=='delete'){
+		$('#approval-status').val($(this).children('input').val());
+		var deleteStatus=$('#approval-status').val();
+		
+		var $click_Li=$(this);
+		var $all_Li=$('.approval-li');
+		
+		$.ajax({
+			url:"deleteView.do",
+			data:{
+				"deleteStatus":deleteStatus
+			},
+			dataType:"html",
+			success:function(data){
+				console.log(data);
+				$('#nav-delete').html(data);
+				$all_Li.removeClass('active');
+				$click_Li.addClass('active');
+			}
+		})
+	}
+})
+
+//미승인 게시글 검색
+$(document).on('keyup','#approval-search-inp',function(){
+	
+	var approvalStatus=$('#approval-status').val();
+	var approvalSearch=$('#approval-search-inp').val();
+	var approvalOption=$('#approval-select option:selected').val();
+	var $approval_Tbl=$('.approval-tbl');
+	console.log(approvalSearch);
+	if(approvalOption!='nosort'){
+		
+		$.ajax({
+			url:"search2ApprovalView.do",
+			data:{
+				
+				"approvalStatus":approvalStatus,
+				"approvalSearch":approvalSearch,
+				"approvalOption":approvalOption
+			},
+			dataType:"html",
+			success:function(data){
+				console.log(data);
+				$approval_Tbl.html(data);
+			}
+		})
+	}else{
+
+		return false;
+	}
+})
+
+//삭제된 게시물
+$(document).on('keyup','#delete-search-inp',function(){
+	
+	//삭제된 게시글 리스트에 필요한 변수
+	var deleteStatus=$('#delete-status').val();
+	var deleteSearch=$('#delete-search-inp').val();
+	var deleteOption=$('#delete-select option:selected').val();
+	var $delete_Tbl=$('.delete-tbl');
+	
+	if(deleteOption!='nosort'){
+		
+		$.ajax({
+			url:"search2DeleteView.do",
+			data:{
+				
+				"deleteStatus":deleteStatus,
+				"deleteSearch":deleteSearch,
+				"deleteOption":deleteOption
+			},
+			dataType:"html",
+			success:function(data){
+				console.log(data);
+				$delete_Tbl.html(data);
+			}
+		})
+	}
+})
+
 //결제 시스템
 $(document).on('click','.click-refund',function(){
 	
@@ -41,7 +149,21 @@ $(document).on('click','#nav-member-tab',function(){
 });
 $(document).on('click','#nav-approval-tab',function(){
 	var $view_Status=$("#view-status");
+	var $approval_View_Status=$('#approval-tab-status');
 	$view_Status.val("approval");
+	$approval_View_Status.val("approval");
+});
+$(document).on('click','#nav-approval2-tab',function(){
+	var $view_Status=$("#view-status");
+	var $approval_View_Status=$('#approval-tab-status');
+	$view_Status.val("approval");
+	$approval_View_Status.val("approval");
+});
+$(document).on('click','#nav-delete-tab',function(){
+	var $view_Status=$("#view-status");
+	var $approval_View_Status=$('#approval-tab-status');
+	$view_Status.val("delete");
+	$approval_View_Status.val("delete");
 });
 $(document).on('click','#nav-report-tab',function(){
 	var $view_Status=$("#view-status");
@@ -211,10 +333,18 @@ $(document).on('click','.member-page',function(){
 	//신고관리에 필요한 변수
 	var reportStatus=$('#report-view-status').val();
 	//결제현황리스트에 필요한 변수
-	
 	var paymentStatus=$('#payment-view-status').val();
 	var $payment_Tab=$('.payment-view-div');
-	
+	//미승인 게시글 리스트에 필요한 변수
+	var approvalStatus=$('#approval-status').val();
+	var approvalSearch=$('#approval-search-inp').val();
+	var approvalOption=$('#approval-select option:selected').val();
+	var $approval_Tbl=$('#nav-approval2');
+	//삭제된 게시글 리스트에 필요한 변수
+	var deleteStatus=$('#delete-status').val();
+	var deleteSearch=$('#delete-search-inp').val();
+	var deleteOption=$('#delete-select option:selected').val();
+	var $delete_Tbl=$('#nav-delete');
 	if(viewStatus=='member'){
 		
 		if(memberSort=='memberid'){
@@ -279,6 +409,34 @@ $(document).on('click','.member-page',function(){
 			dataType:"html",
 			success:function(data){
 				$payment_Tab.html(data);
+			}
+		})
+	}else if(viewStatus=="approval"){
+		$.ajax({
+			url:"searchApprovalView.do",
+			data:{
+				"cPage":cPage,
+				"approvalStatus":approvalStatus,
+				"approvalSearch":approvalSearch,
+				"approvalOption":approvalOption
+			},
+			dataType:"html",
+			success:function(data){
+				$approval_Tbl.html(data);
+			}
+		})
+	}else if(viewStatus=="delete"){
+		$.ajax({
+			url:"searchDeleteView.do",
+			data:{
+				"cPage":cPage,
+				"deleteStatus":deleteStatus,
+				"deleteSearch":deleteSearch,
+				"deleteOption":deleteOption
+			},
+			dataType:"html",
+			success:function(data){
+				$delete_Tbl.html(data);
 			}
 		})
 	}

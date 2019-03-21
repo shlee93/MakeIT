@@ -32,19 +32,26 @@ public class AdminController {
 				@RequestParam(value="reportStatus", required=false, defaultValue="BUY") String reportStatus,
 				@RequestParam(value="paymentStatus",required=false,defaultValue="BUY") String paymentStatus,
 				@RequestParam(value="sortCheck", required=false, defaultValue="0") int sortCheck,
-				@RequestParam(value="refundStatus", required=false, defaultValue="BUY") String refundStatus
+				@RequestParam(value="refundStatus", required=false, defaultValue="BUY") String refundStatus,
+				@RequestParam(value="approvalStatus", required=false, defaultValue="BUY") String approvalStatus,
+				@RequestParam(value="deleteStatus", required=false, defaultValue="BUY") String deleteStatus
 			) {
 		
 		//회원 리스트 출력
 		int numPerPage=5;
+		int numPerPage2=10;
 		int memberCount=adminService.selectMemberCountAdmin();
 		int reportCount=adminService.selectReportCountAdmin(reportStatus);
 		int paymentCount=adminService.selectPaymentCountAdmin(paymentStatus);
 		int refundCount=adminService.selectRefundCountAdmin(refundStatus);
+		int approvalCount=adminService.selectApprovalCount(approvalStatus);
+		int deleteCount=adminService.selectDeleteCount(deleteStatus);
 		String pageBar=PageFactory.getPageBarAdmin(memberCount, cPage, numPerPage,"/makeit/admin/adminView.do");
 		String pageBarReport=PageFactory.getPageBarAdmin(reportCount, cPage, numPerPage,"/makeit/admin/adminView.do");
 		String pageBarPayment=PageFactory.getPageBarAdmin(paymentCount, cPage, numPerPage,"/makeit/admin/adminView.do");
 		String pageBarRefund=PageFactory.getPageBarAdmin(refundCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+		String pageBarApproval=PageFactory.getPageBarAdmin(approvalCount, cPage, numPerPage2,"/makeit/admin/adminView.do");
+		String pageBarDelete=PageFactory.getPageBarAdmin(deleteCount, cPage, numPerPage2,"/makeit/admin/adminView.do");
 		ModelAndView mav=new ModelAndView();
 		//회원정보 출력
 		List<Map<String,String>> memberList=adminService.selectMemberListAdmin(cPage,numPerPage);		
@@ -64,6 +71,16 @@ public class AdminController {
 		//환불요청 리스트 출력
 		List<Map<Object,Object>> refundList=adminService.selectRefundListAdmin(refundStatus,cPage,numPerPage);
 		
+		//미승인 게시글 리스트
+		List<Map<Object,Object>> approvalList=adminService.selectApprovalList(approvalStatus,cPage,numPerPage2);
+		
+		//삭제된 게시글 리스트
+		List<Map<Object,Object>> deleteList=adminService.selectDeleteList(deleteStatus,cPage,numPerPage2);
+		
+		mav.addObject("pageBarApproval", pageBarApproval);
+		mav.addObject("approvalList", approvalList);
+		mav.addObject("pageBarDelete", pageBarDelete);
+		mav.addObject("deleteList", deleteList);
 		mav.addObject("pageBarRefund", pageBarRefund);
 		mav.addObject("refundList", refundList);
 		mav.addObject("pageBarPayment", pageBarPayment);
@@ -566,6 +583,157 @@ public class AdminController {
 		
 		mav.addObject("categoryList", categoryList);
 		mav.setViewName("admin/adminFaqCategoryView");
+		return mav;
+	}
+	
+	//게시글 승인 뷰
+	@RequestMapping("/admin/approvalView.do")
+	public ModelAndView approvalView(String approvalStatus,
+			@RequestParam(value="approvalSearch",required=false, defaultValue="") String approvalSearch,
+			@RequestParam(value="approvalOption",required=false, defaultValue="nosort") String approvalOption,
+			@RequestParam(value="cPage",required=false, defaultValue="1") int cPage
+			) {
+		
+		int numPerPage=10;
+		ModelAndView mav=new ModelAndView();
+		int approvalCount=adminService.selectApprovalCount(approvalStatus);
+		String pageBarApproval=PageFactory.getPageBarAdmin(approvalCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+		List<Map<Object,Object>> approvalList=adminService.selectApprovalList(approvalStatus,cPage,numPerPage);
+		mav.addObject("pageBarApproval", pageBarApproval);
+		mav.addObject("approvalList", approvalList);
+		mav.addObject("approvalSearch", approvalSearch);
+		mav.addObject("approvalOption", approvalOption);
+
+		mav.setViewName("admin/adminApprovalView");
+		
+		return mav;
+	}
+	
+	//게시글 승인 뷰
+	@RequestMapping("/admin/deleteView.do")
+	public ModelAndView deleteView(String deleteStatus,
+			@RequestParam(value="deleteSearch",required=false, defaultValue="") String deleteSearch,
+			@RequestParam(value="deleteOption",required=false, defaultValue="nosort") String deleteOption,
+			@RequestParam(value="cPage",required=false, defaultValue="1") int cPage
+			) {
+		
+		int numPerPage=10;
+		ModelAndView mav=new ModelAndView();
+		int deleteCount=adminService.selectDeleteCount(deleteStatus);
+		String pageBarDelete=PageFactory.getPageBarAdmin(deleteCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+		List<Map<Object,Object>> deleteList=adminService.selectDeleteList(deleteStatus,cPage,numPerPage);
+		mav.addObject("pageBarDelete", pageBarDelete);
+		mav.addObject("deleteList", deleteList);
+		mav.addObject("deleteSearch",deleteSearch);
+		mav.addObject("deleteOption",deleteOption);
+		mav.setViewName("admin/adminDeleteView");
+		
+		return mav;
+	}
+	
+	//미승인 게시물 검색
+	@RequestMapping("/admin/searchApprovalView.do")
+	public ModelAndView searchApprovalView(
+			@RequestParam(value="approvalStatus",required=false, defaultValue="BUY") String approvalStatus,
+			@RequestParam(value="approvalSearch",required=false, defaultValue="") String approvalSearch,
+			@RequestParam(value="approvalOption",required=false, defaultValue="nosort") String approvalOption,
+			@RequestParam(value="cPage",required=false, defaultValue="1") int cPage
+			) {
+		int numPerPage=10;
+		Map<String,String> approval=new HashMap();
+		approval.put("approvalStatus",approvalStatus);
+		approval.put("approvalSearch",approvalSearch);
+		approval.put("approvalOption",approvalOption);
+		
+		ModelAndView mav=new ModelAndView();
+		int approvalCount=adminService.selectSearchApprovalCount(approval);
+		String pageBarApproval=PageFactory.getPageBarAdmin(approvalCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+		List<Map<Object,Object>> approvalList=adminService.selectSearchApprovalList(approval,cPage,numPerPage);
+		
+		mav.addObject("approvalSearch", approvalSearch);
+		mav.addObject("approvalOption", approvalOption);
+		mav.addObject("pageBarApproval", pageBarApproval);
+		mav.addObject("approvalList", approvalList);
+		mav.setViewName("admin/adminApprovalView");
+		return mav;
+	}
+	
+	//미승인 게시물 검색
+	@RequestMapping("/admin/searchDeleteView.do")
+	public ModelAndView searchDeleteView(
+			@RequestParam(value="deleteStatus",required=false, defaultValue="BUY") String deleteStatus,
+			@RequestParam(value="deleteSearch",required=false, defaultValue="") String deleteSearch,
+			@RequestParam(value="deleteOption",required=false, defaultValue="nosort") String deleteOption,
+			@RequestParam(value="cPage",required=false, defaultValue="1") int cPage
+			) {
+		int numPerPage=10;
+		Map<String,String> delete=new HashMap();
+		delete.put("deleteStatus",deleteStatus);
+		delete.put("deleteSearch",deleteSearch);
+		delete.put("deleteOption",deleteOption);
+		
+		ModelAndView mav=new ModelAndView();
+		int deleteCount=adminService.selectSearchDeleteCount(delete);
+		String pageBarDelete=PageFactory.getPageBarAdmin(deleteCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+		List<Map<Object,Object>> deleteList=adminService.selectSearchDeleteList(delete,cPage,numPerPage);
+		mav.addObject("pageBarDelete", pageBarDelete);
+		mav.addObject("deleteList", deleteList);
+		mav.addObject("deleteSearch",deleteSearch);
+		mav.addObject("deleteOption",deleteOption);
+		mav.setViewName("admin/adminDeleteView");
+		return mav;
+	}
+	
+	//미승인 게시물 검색
+	@RequestMapping("/admin/search2ApprovalView.do")
+	public ModelAndView search2ApprovalView(
+			@RequestParam(value="approvalStatus",required=false, defaultValue="BUY") String approvalStatus,
+			@RequestParam(value="approvalSearch",required=false, defaultValue="") String approvalSearch,
+			@RequestParam(value="approvalOption",required=false, defaultValue="nosort") String approvalOption,
+			@RequestParam(value="cPage",required=false, defaultValue="1") int cPage
+			) {
+		int numPerPage=10;
+		Map<String,String> approval=new HashMap();
+		approval.put("approvalStatus",approvalStatus);
+		approval.put("approvalSearch",approvalSearch);
+		approval.put("approvalOption",approvalOption);
+		
+		ModelAndView mav=new ModelAndView();
+		int approvalCount=adminService.selectSearchApprovalCount(approval);
+		String pageBarApproval=PageFactory.getPageBarAdmin(approvalCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+		List<Map<Object,Object>> approvalList=adminService.selectSearchApprovalList(approval,cPage,numPerPage);
+		
+		mav.addObject("approvalSearch", approvalSearch);
+		mav.addObject("approvalOption", approvalOption);
+		mav.addObject("pageBarApproval", pageBarApproval);
+		mav.addObject("approvalList", approvalList);
+		mav.setViewName("admin/adminApprovalTblView");
+		return mav;
+	}
+	
+	//미승인 게시물 검색
+	@RequestMapping("/admin/search2DeleteView.do")
+	public ModelAndView search2DeleteView(
+			@RequestParam(value="deleteStatus",required=false, defaultValue="BUY") String deleteStatus,
+			@RequestParam(value="deleteSearch",required=false, defaultValue="") String deleteSearch,
+			@RequestParam(value="deleteOption",required=false, defaultValue="nosort") String deleteOption,
+			@RequestParam(value="cPage",required=false, defaultValue="1") int cPage
+			) {
+		int numPerPage=10;
+		Map<String,String> delete=new HashMap();
+		delete.put("deleteStatus",deleteStatus);
+		delete.put("deleteSearch",deleteSearch);
+		delete.put("deleteOption",deleteOption);
+		
+		ModelAndView mav=new ModelAndView();
+		int deleteCount=adminService.selectSearchDeleteCount(delete);
+		String pageBarDelete=PageFactory.getPageBarAdmin(deleteCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+		List<Map<Object,Object>> deleteList=adminService.selectSearchDeleteList(delete,cPage,numPerPage);
+		mav.addObject("pageBarDelete", pageBarDelete);
+		mav.addObject("deleteList", deleteList);
+		mav.addObject("deleteSearch",deleteSearch);
+		mav.addObject("deleteOption",deleteOption);
+		mav.setViewName("admin/adminDeleteTblView");
 		return mav;
 	}
 

@@ -26,7 +26,7 @@
   <select id="selectSearchQnaCount" parameterType="map" resultType="_int">
   	SELECT COUNT(*) FROM QNA WHERE QNADELETEYN='N'
   	<if test="searchQna!=''">
-  		AND ${filter} LIKE '%{searchQna}%'
+  		AND ${filter} LIKE '%'||${searchQna}||'%'
   	</if>
   	<if test="sortCheck!=0">
   		AND FAQNACATEGORYNO=#{sortCheck}
@@ -45,7 +45,7 @@
     WHERE QNADELETEYN='N'
    
     <if test="searchQna!=''">
-  		AND Q.${filter} LIKE '%${searchQna}%'    
+  		AND Q.${filter} LIKE '%'||${searchQna}||'%'    
     </if>   
   	<if test="sortCheck!=0">
   		AND Q.FAQNACATEGORYNO=#{sortCheck}
