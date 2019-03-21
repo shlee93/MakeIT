@@ -93,22 +93,24 @@ $(function()
 		           	</script>
 	           	</div>
     		  </div>
-			</div>
-			<form id="buyWriteFrm" action="${pageContext.request.contextPath}/buy/buyModifyEnd.do" enctype="multipart/form-data" method="post">
+			
+			
 			<div id="buy-container" class="col-md-10">
+			<form id="buyWriteFrm" action="${pageContext.request.contextPath}/buy/buyModifyEnd.do" enctype="multipart/form-data" method="post">
 				<div class="row">
+					<input type="hidden" name="buyNo" value="${buyNo }"/>
 					<div class="col-md-2">
 						<label>분류</label>
 					</div>
 					<div class="col-md-8">
-						<select class="form-control col-md-4" id="interest"
-							name="interest" style="display: inline">
+						<select class="form-control col-md-4" required id="interest"
+							name="interest" style="display: inline" >
 							<option>카테고리</option>
 							<option value='1'>개발자</option>
 							<option value='2'>웹디자이너</option>
 							<option value='3'>네트워크보안</option>
 						</select> <select class="form-control col-md-4" id="detailInterest"
-							name="detailInterest" style="display: inline; margin-right: 10px">
+							name="detailInterest" style="display: inline; margin-right: 10px" required>
 
 
 						</select>
@@ -154,7 +156,7 @@ $(function()
 				<div class="filebox bs3-primary preview-image">
 					<c:forEach items="${imgList}" var="modifyImg" varStatus="st">
 			            <div class="upload-display"><input type="radio" name="mainImgNo" value='${st.index}'>
-			           		 <div class="upload-thumb-wrap"><img src="${path}/resources/upload/buy/${modifyImg.SELLIMGRE}" class="upload-thumb"></div>
+			           		 <div class="upload-thumb-wrap"><img src="${path}/resources/upload/buy/${modifyImg.BUYIMGRE}" class="upload-thumb"></div>
 			            </div>
 		            </c:forEach>
 					<label for="input_file">사진 선택</label> <input type="file"
@@ -167,55 +169,57 @@ $(function()
 					<button class="btn btn-outline-info slidetopleft" onclick="fn_bac()k">취소</button>
 					<input type="submit" class="btn btn-outline-info slidetopleft" value="수정"/>
 				</div>
+				</form>
 			</div>
-			</form>
+			
 			<div class="col-md-1"></div>
 		</div>
-	
+		
 	<script>
-   var sel_files=[];
-   var count = 0;
-   $(document).ready(function(){
-          //preview image 
-          
-          var imgTarget = $('.preview-image .upload-hidden');
-          imgTarget.on('change', function(e){
-             var files=e.target.files;
-              var filesArr=Array.prototype.slice.call(files);
-              console.log(files);
-              var parent = $(this).parent();
-              parent.children('.upload-display').remove();
-             
-              console.log("수 : " + filesArr.length);
-            if(filesArr.length > 5)
-            {
-               alert("사진은 5개 제한입니다.");
-               return;
-            }
-              filesArr.forEach(function(f){
-                 count = 0;
-                  if(!f.type.match("image.*")){
-                     alert("확장자는 이미지 확장자만 가능합니다.");
-                     return;
-             
-                  }
-                  console.log(f)
-                  sel_files.push(f);
-                  
-                  var reader=new FileReader();
-                  reader.onload=function(e){
-                     var src = e.target.result;
-                      parent.prepend('<div class="upload-display"><input type="radio" name="mainImgNo" value='+ (count++) +' required><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
-                  }
-                  
-                  reader.readAsDataURL(f);
-                  
-                  
-               })
-                
-           });
-         
-      });
+	var sel_files=[];
+	   var count = 0;
+	   $(document).ready(function(){
+	          //preview image 
+	          
+	          var imgTarget = $('.preview-image .upload-hidden');
+	         
+	          imgTarget.on('change', function(e){
+	             var files=e.target.files;
+	              var filesArr=Array.prototype.slice.call(files);
+	              console.log(files);
+	              var parent = $(this).parent();
+	              parent.children('.upload-display').remove();
+	             
+	              console.log("수 : " + filesArr.length);
+	            if(filesArr.length > 5)
+	            {
+	               alert("사진은 5개 제한입니다.");
+	               return;
+	            }
+	              filesArr.forEach(function(f){
+	                 count = 0;
+	                  if(!f.type.match("image.*")){
+	                     alert("확장자는 이미지 확장자만 가능합니다.");
+	                     return;
+	             
+	                  }
+	                  console.log(f)
+	                  sel_files.push(f);
+	                  
+	                  var reader=new FileReader();
+	                  reader.onload=function(e){
+	                     var src = e.target.result;
+	                      parent.prepend('<div class="upload-display"><input type="radio" name="mainImgNo" value='+ (count++) +'><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+	                  }
+	                  
+	                  reader.readAsDataURL(f);
+	                  
+	                  
+	               })
+	                
+	           });
+	         
+	      });
 
      
      

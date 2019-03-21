@@ -348,7 +348,7 @@
 													</div>
 												</div>
 												<br />
-												<button class="btn btn-outline-info slidetopleft" >수정하기</button>
+												<button class="btn btn-outline-info slidetopleft" onclick="location.href='${path}/buy/buyModify.do?buyNo=${detailList.BUYNO }'">수정하기</button>
 											</div>
 											<!-- 두번째 법륜 기능 시작 (찜)-->
 											<div class="CirItem title-box CirItem2">
@@ -388,7 +388,7 @@
 													</div>
 												</div>
 												<br />
-												<button class="btn btn-outline-info slidetopleft" >삭제하기</button>
+												<button class="btn btn-outline-info slidetopleft" onclick="fn_delete();">삭제하기</button>
 											</div>
 											<!-- 네번째 법륜 기능 시작 (쪽지)-->
 											<div class="CirItem title-box CirItem4">
@@ -577,7 +577,15 @@
 					                        location.href="${path}/member/memberLogin.do";
 				                    	}
 									}
-									
+									/* 삭제 */
+				                	function fn_delete()
+				                	{
+				                		if(confirm("게시글을 삭제하시겠습니까?"))
+				                		{
+				                			location.href="${path}/buy/buyDelete.do?buyNo=${detailList.BUYNO }";
+				                			
+				                		}
+				                	}
 									/* 찜하기 */
 				                    function fn_outboxDo(){
 				                    	if(${sessionScope.member.MEMBERID!=null}){
@@ -664,7 +672,13 @@
               </div>
 		</div>
 	</div>   
-	<div class='col-md-1' id='right-nav' ></div>                   
+	<div class='col-md-1' id='right-nav' >
+		<c:if test="${sessionScope.member.MEMBERID==admin}">             
+			<div style='position:fixed; margin-top: 10em;'>
+				<button class=" btn btn-outline-info slidetopleft" >승인</button>
+			</div>
+		</c:if>
+	</div>                   
 </div>
 </div>
 </body>

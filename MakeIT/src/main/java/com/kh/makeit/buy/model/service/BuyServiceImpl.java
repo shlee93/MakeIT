@@ -265,6 +265,41 @@ public class BuyServiceImpl implements BuyService {
 		return dao.buyModifyImg(buyNo);
 	}
 
+	@Override
+	public int buyModifyEnd(ArrayList<BuyAttach> files, Map<String, String> map) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		try {
+			result = dao.ModifyBuy(map);
+			if(result < 1)
+			{
+				throw new MakeitException("게시글 수정에 실패하였습니다.");
+			}
+			result = dao.deleteAttach(map);
+			for(BuyAttach a : files)
+			{
+				a.setBuyNo(Integer.parseInt(map.get("buyNo")));
+				result = dao.insertAttach(a);
+				if(result < 1)
+				{
+					throw new MakeitException("파일 업로드에 실패하였습니다.");
+				}
+			}
+
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int buyDelete(int buyNo) {
+		// TODO Auto-generated method stub
+		return dao.buyDelete(buyNo);
+	}
+
 	
 	
 	

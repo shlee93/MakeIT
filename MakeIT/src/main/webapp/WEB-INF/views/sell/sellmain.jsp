@@ -96,6 +96,7 @@
 
 					<!-- 앨범 뷰 상단 탭 -->
 					<div style="margin-right: 0; text-align: right">
+					
 						<form class="form-inline my-2 my-lg-0">
 							<i class='fa fa-search'></i>&nbsp; <select id="searchtype" name="searchtype" class="form-control">
 								<option value='title'>제목</option>

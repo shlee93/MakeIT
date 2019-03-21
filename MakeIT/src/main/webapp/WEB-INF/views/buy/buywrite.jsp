@@ -90,13 +90,13 @@
 					</div>
 					<div class="col-md-8">
 						<select class="form-control col-md-4" id="interest"
-							name="interest" style="display: inline">
+							name="interest" style="display: inline" required>
 							<option>카테고리</option>
 							<option value='1'>개발자</option>
 							<option value='2'>웹디자이너</option>
 							<option value='3'>네트워크보안</option>
 						</select> <select class="form-control col-md-4" id="detailInterest"
-							name="detailInterest" style="display: inline; margin-right: 10px">
+							name="detailInterest" style="display: inline; margin-right: 10px" required>
 
 
 						</select>
@@ -155,49 +155,52 @@
 		</div>
 	</form>
 	<script>
-   var sel_files=[];
-   var count = 0;
-   $(document).ready(function(){
-          //preview image 
-          
-          var imgTarget = $('.preview-image .upload-hidden');
-          imgTarget.on('change', function(e){
-             var files=e.target.files;
-              var filesArr=Array.prototype.slice.call(files);
-              console.log(files);
-              var parent = $(this).parent();
-              parent.children('.upload-display').remove();
-             
-              console.log("수 : " + filesArr.length);
-            if(filesArr.length > 5)
-            {
-               alert("사진은 5개 제한입니다.");
-               return;
-            }
-              filesArr.forEach(function(f){
-                 count = 0;
-                  if(!f.type.match("image.*")){
-                     alert("확장자는 이미지 확장자만 가능합니다.");
-                     return;
-             
-                  }
-                  console.log(f)
-                  sel_files.push(f);
-                  
-                  var reader=new FileReader();
-                  reader.onload=function(e){
-                     var src = e.target.result;
-                      parent.prepend('<div class="upload-display"><input type="radio" name="mainImgNo" value='+ (count++) +' required><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
-                  }
-                  
-                  reader.readAsDataURL(f);
-                  
-                  
-               })
-                
-           });
-         
-      });
+	var sel_files=[];
+	   var count = 0;
+	   $(document).ready(function(){
+	          //preview image 
+	          
+	          var imgTarget = $('.preview-image .upload-hidden');
+	         
+	          imgTarget.on('change', function(e){
+	        	  console.log("$(#input_file).val()")
+	             var files=e.target.files;
+	              var filesArr=Array.prototype.slice.call(files);
+	              console.log(files);
+	              var parent = $(this).parent();
+	              parent.children('.upload-display').remove();
+	             
+	              console.log("수 : " + filesArr.length);
+	            if(filesArr.length > 5)
+	            {
+	               alert("사진은 5개 제한입니다.");
+	               return;
+	            }
+	              filesArr.forEach(function(f){
+	                 count = 0;
+	                  if(!f.type.match("image.*")){
+	                     alert("확장자는 이미지 확장자만 가능합니다.");
+	                     return;
+	             
+	                  }
+	                  console.log(f)
+	                  sel_files.push(f);
+	                  
+	                  var reader=new FileReader();
+	                  reader.onload=function(e){
+	                     var src = e.target.result;
+	                      parent.prepend('<div class="upload-display"><input type="radio" name="mainImgNo" value='+ (count++) +'><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+	                  }
+	                  
+	                  reader.readAsDataURL(f);
+	                  
+	                  
+	               })
+	                
+	           });
+	         
+	      });
+
 
       
    function writeEnd(){

@@ -176,7 +176,7 @@
       		location.href="${path}/board.jsp";
       	})
       	$('#icon5').click(function(){
-      		location.href="${path}/qna.jsp";
+      		location.href="${path}/support/supportView.do";
       	})
         $(document).ready(function(){
         	

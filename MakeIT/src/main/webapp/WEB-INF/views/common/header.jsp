@@ -37,7 +37,7 @@
 
 <!-- 관리자 CSS,JS -->
 <%-- <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/admin/admin.css" /> --%>
-<script src="${pageContext.request.contextPath }/resources/js/admin/admin.js"></script>
+
 
 </head>
 <body>

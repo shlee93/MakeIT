@@ -6,7 +6,7 @@
 		<choose>
 			<when test='sCategoryFlag!=null and sCategoryFlag!=""'> and detailinterestno = #{sCategoryFlag}</when>
 		</choose>
-		
+		<!-- and buy.buycheckyn='Y' and buy.buydeleteyn='N' -->
 	</select>
 	
 	<select id="buyMainGrade" resultType="map" parameterType="map">
@@ -16,7 +16,7 @@
 				and buy.detailinterestno = #{sCategoryFlag}
 			</when>
 		</choose>
-		order by gr.gradeno desc
+		and buy.buycheckyn='Y' and buy.buydeleteyn='N' order by gr.gradeno desc
 	</select>
 	
 	<select id="buyMainNew" resultType="map" parameterType="map">
@@ -26,7 +26,7 @@
 				and buy.detailinterestno = #{sCategoryFlag} 
 			</when>
 		</choose>
-		order by buydate desc
+		<!-- and buy.buycheckyn='Y' and buy.buydeleteyn='N' order by buydate desc -->
 	</select> 
 	
 	<select id="imageDiv2" parameterType="com.kh.makeit.buy.model.vo.BuyAttach" resultType="com.kh.makeit.buy.model.vo.BuyAttach">
@@ -45,7 +45,7 @@
 		<if test='searchtype=="writer"'>
 			and memberid like '%'||#{searchValue}||'%'
 		</if>
-
+		and buy.buycheckyn='Y' and buy.buydeleteyn='N'
 	</select>
 	
 	<select id="buySearch" parameterType="map" resultType="map">
@@ -65,10 +65,10 @@
 			and detailinterestno=#{sCategoryFlag}
 		</if>
 		<if test='newValue=="1"'>
-			order by buydate desc
+			and buy.buycheckyn='Y' and buy.buydeleteyn='N' order by buydate desc
 		</if>
 		<if test='gradeValue=="1"'>
-			order by mem.gradeno desc
+			and buy.buycheckyn='Y' and buy.buydeleteyn='N' order by mem.gradeno desc
 		</if>
 	</select>
 	
@@ -172,4 +172,14 @@
 	<select id="buyModifyImg" parameterType="_int" resultType="map">
 		SELECT * FROM BUYIMG WHERE BUYNO = #{buyNo}
 	</select>
+	
+	<update id="modifyBuy" parameterType="map">
+		UPDATE BUY SET BUYTITLE = #{title}, BUYCONTENT = #{content}, BUYPRICE = #{price}, DETAILINTERESTNO = #{detailInterest}, INTERESTNO = #{interest} WHERE BUYNO = #{buyNo}
+	</update>
+	<delete id="deleteAttach" parameterType="map">
+		DELETE FROM BUYIMG WHERE BUYNO = #{buyNo}
+	</delete>
+	<update id="buyDelete" parameterType="_int">
+		UPDATE BUY SET BUYDELETEYN = 'Y' WHERE BUYNO = #{buyNo}
+	</update>
 </mapper>

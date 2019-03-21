@@ -41,5 +41,6 @@ public interface BuyService {
 	int buyCommit(String specNo);
 	Map<String, String> selectSpec2(int buyNo);
 	List<Map<String, String>> buyModifyImg(int buyNo);
+	int buyModifyEnd(ArrayList<BuyAttach> files, Map<String, String> map);
 	
 }
