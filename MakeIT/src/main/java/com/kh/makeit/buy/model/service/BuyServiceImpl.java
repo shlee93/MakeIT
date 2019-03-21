@@ -259,6 +259,12 @@ public class BuyServiceImpl implements BuyService {
 		return dao.selectSpec2(buyNo);
 	}
 
+	@Override
+	public List<Map<String, String>> buyModifyImg(int buyNo) {
+		// TODO Auto-generated method stub
+		return dao.buyModifyImg(buyNo);
+	}
+
 	
 	
 	

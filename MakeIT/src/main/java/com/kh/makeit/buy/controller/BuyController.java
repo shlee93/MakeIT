@@ -879,6 +879,21 @@ public class BuyController {
 			}
 		}
 	}
+	
+	@RequestMapping("/buy/buyModify.do")
+	public ModelAndView buyModify(int buyNo)
+	{
+		ModelAndView mv = new ModelAndView();
+		
+		Map<String,String> detailList = service.buyDetail(buyNo);
+		List<Map<String,String>> imgList = service.buyModifyImg(buyNo);
+		
+		mv.addObject("detailList", detailList);
+		mv.addObject("imgList", imgList);
+		mv.setViewName("buy/buyModify");
+		
+		return mv;
+	}
 }
 
 

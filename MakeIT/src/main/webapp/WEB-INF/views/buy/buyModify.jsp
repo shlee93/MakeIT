@@ -43,46 +43,58 @@
 }
 </style>
 <script>
-             $(function()
+$(function()
+        {
+           $("#interest").change(function()
+            {
+                console.log(this.value);
+                if(this.value!='카테고리')
                {
-                  $("#interest").change(function()
-                   {
-                       console.log(this.value);
-                       if(this.value!='카테고리')
-                      {
-                        $.ajax({
-                           url:"${path}/categoryOneSel.do",
-                              data:{"interestNo":this.value},
-                           dataType:"json",
-                              success:function(data)
-                              {
-                                 console.log(data);
-                                 var detailInterest=$('#detailInterest');
-                                 
-                                    for(var i=0; i<data.length; i++)
-                                 {
-                                       
-                                         optionValue='DETAILINTEREST';
-                                      optionInter='DETAILINTERESTNO';
-                                                 
-                                        var option
-                                        option+="<option value='"+data[i][optionInter]+"'>"+data[i][optionValue]+"</option>";
-                                      
-                                          detailInterest.html(option);
-                                    
-                                      }
-                              }
-                        });
-                      }
-                    })
-                  }          
-           );
-        </script>
+                 $.ajax({
+                    url:"${path}/categoryOneSel.do",
+                       data:{"interestNo":this.value},
+                    dataType:"json",
+                       success:function(data)
+                       {
+                          console.log(data);
+                          var detailInterest=$('#detailInterest');
+                          
+                             for(var i=0; i<data.length; i++)
+                          {
+                                
+                                  optionValue='DETAILINTEREST';
+                               optionInter='DETAILINTERESTNO';
+                                          
+                                 var option
+                                 option+="<option value='"+data[i][optionInter]+"'>"+data[i][optionValue]+"</option>";
+                               
+                                   detailInterest.html(option);
+                             
+                               }
+                       }
+                 });
+               }
+             })
+           }          
+    );
+ </script>
 </head>
 <body>
-	<form id="buyWriteFrm" enctype="multipart/form-data">
+	
 		<div class="row">
-			<div class="col-md-1"></div>
+			<div class="col-md-1">
+				<div style='position:fixed; margin-top: 10em;'>
+	    			<span onclick='fn_back()' style='cursor:pointer; font-size: 6em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
+	          	 	<script>
+	           			function fn_back()
+		           		{
+		           			history.back();
+		           		}
+		           	</script>
+	           	</div>
+    		  </div>
+			</div>
+			<form id="buyWriteFrm" action="${pageContext.request.contextPath}/buy/buyModifyEnd.do" enctype="multipart/form-data" method="post">
 			<div id="buy-container" class="col-md-10">
 				<div class="row">
 					<div class="col-md-2">
@@ -110,7 +122,7 @@
 					</div>
 					<div class="col-md-8">
 						<input type="text" name="writeTitle" class="form-control"
-							style="display: inline;" placeholder="제목을 입력하세요." /> <br>
+							style="display: inline;" placeholder="제목을 입력하세요." value="${detailList.BUYTITLE }"/> <br>
 					</div>
 				</div>
 				<br>
@@ -120,7 +132,7 @@
 					</div>
 					<div id="priceProduct" class="col-md-8">
 						<input type="number" class="form-control col-md-2" id='firstPrice'
-							name="price" style="display: inline" placeholder="금액(원)">
+							name="price" style="display: inline" placeholder="금액(원)" value="${detailList.BUYPRICE }">
 						 <br /> <br />
 					</div>
 
@@ -134,12 +146,17 @@
 					</div>
 
 				</div>
-				<textarea class="form-control" name="buyContent" rows="10"></textarea>
+				<textarea class="form-control" name="buyContent" rows="10" >${detailList.BUYCONTENT }</textarea>
 				<br />
 				<div id="null">
 					<span class='nullimg'>메인에 노출될 사진을 선택해주세요</span>
 				</div>
 				<div class="filebox bs3-primary preview-image">
+					<c:forEach items="${imgList}" var="modifyImg" varStatus="st">
+			            <div class="upload-display"><input type="radio" name="mainImgNo" value='${st.index}'>
+			           		 <div class="upload-thumb-wrap"><img src="${path}/resources/upload/buy/${modifyImg.SELLIMGRE}" class="upload-thumb"></div>
+			            </div>
+		            </c:forEach>
 					<label for="input_file">사진 선택</label> <input type="file"
 						name="input_file" id="input_file" class="upload-hidden"
 						multiple="multiple" accept=".gif, .jpg, .png">
@@ -147,13 +164,14 @@
 
 				<br />
 				<div id="btn-container">
-					<button class="btn btn-outline-info slidetopleft">취소</button>
-					<button class="btn btn-outline-info slidetopleft" onclick="writeEnd();">작성</button>
+					<button class="btn btn-outline-info slidetopleft" onclick="fn_bac()k">취소</button>
+					<input type="submit" class="btn btn-outline-info slidetopleft" value="수정"/>
 				</div>
 			</div>
+			</form>
 			<div class="col-md-1"></div>
 		</div>
-	</form>
+	
 	<script>
    var sel_files=[];
    var count = 0;
@@ -199,12 +217,7 @@
          
       });
 
-      
-   function writeEnd(){
-      $('#buyWriteFrm').attr("action","${pageContext.request.contextPath}/buy/buyWriteEnd.do");
-      $('#buyWriteFrm').attr("method","post");
-      $('#buyWriteFrm').submit();
-   }
+     
      
          
       

@@ -169,4 +169,7 @@
 	<select id="selectSpec2" parameterType="_int" resultType="map">
 		SELECT * FROM BUYSPEC WHERE BUYNO = #{buyNo}
 	</select>
+	<select id="buyModifyImg" parameterType="_int" resultType="map">
+		SELECT * FROM BUYIMG WHERE BUYNO = #{buyNo}
+	</select>
 </mapper>

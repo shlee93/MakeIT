@@ -40,5 +40,6 @@ public interface BuyService {
 	List<Map<String, String>> selectDownImg(Map<String, String> map);
 	int buyCommit(String specNo);
 	Map<String, String> selectSpec2(int buyNo);
+	List<Map<String, String>> buyModifyImg(int buyNo);
 	
 }

@@ -403,7 +403,7 @@
 													</div>
 												</div>
 												<br />
-												<button class="btn btn-outline-info slidetopleft" >쪽지보내기</button>
+												<button class="btn btn-outline-info slidetopleft" onclick='fn_message()'>쪽지보내기</button>
 											</div>
 											<!-- 다섯번째 법륜 기능 시작 (지원자보기)-->
 											<div class="CirItem title-box ${sessionScope.member.MEMBERID ne detailList.MEMBERID?"":"active" } CirItem5">
@@ -624,7 +624,24 @@
 				                           location.href="${path}/member/memberLogin.do";
 				                        };        
 				                        
-				                   	}      
+				                   	}   
+				                	/* 쪽지보내기 */
+				                	function fn_message()
+				      				{
+				      					
+				      					if(${sessionScope.member.MEMBERID!=null})
+			      						{
+				      						var sendId="${sessionScope.member.MEMBERID}";
+					      					var receiveId=${detailList.MEMBERID};
+				                    		var popup=open("${path}/message/messagePop.do?sendId="+sendId+"&receiveId="+receiveId,"contestMsgSendPop","left=250px, top=200px, width=450px, height=350px");									                    	
+						      				
+			      						}
+				      					else
+			      						{
+				      						alert("로그인해주세요");
+				      						location.href="${path}/member/memberLogin.do";
+			      						}
+				      				} 
 				                
 								</script>                        	
 	                       		<!-- 동글뱅이 스크립트 끝 -->                            
