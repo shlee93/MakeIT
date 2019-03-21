@@ -41,10 +41,10 @@
                             
                         </div>
                             <hr>
-                        <c:if test="${member.MEMBERLEVEL==0 }">
-                           	<button id="qna-status" style="display:none">미답변글</button> 
+                        <c:if test="${member.MEMBERLEVEL==0 and not empty qnaList}">
+                           	<button id="qna-status" class="btn btn-outline-info slidetopleft">미답변글</button> 
                         </c:if>
-                        <c:if test="${not empty member and member.MEMBERLEVEL!=0 }">                         	 
+                        <c:if test="${not empty member and member.MEMBERLEVEL!=0 and not empty categoryList }">                         	 
 							<button class="btn btn-outline-info slidetopleft" id="insert-qna-view">문의하기</button>
                         </c:if>
 						<table class="table" id="qna-table" cellspacing="0">
@@ -67,7 +67,7 @@
 												<td><%=i %></td>
 												<td>${qna.FAQNACATEGORYNAME }</td>
 												<td colspan="3">
-													<a class="qna-title">${qna.QNATITLE }</a>
+													<a class="qna-pass" data-toggle="modal" data-target="#squarespaceModal">${qna.QNATITLE }</a>
 													<input type="hidden" value="${qna.QNANO }"/>
 												</td>
 												<td>${qna.MEMBERID }</td>
@@ -81,7 +81,7 @@
 												<td><%=i %></td>
 												<td></td>
 												<td colspan="3">
-													&nbsp;&nbsp;→[답변]<a class="qna-title-reple">${qna.QNATITLE }</a>
+													&nbsp;&nbsp;→[답변]<a class="qna-title-reple qna-pass" data-toggle="modal" data-target="#squarespaceModal">${qna.QNATITLE }</a>
 													<input type="hidden" value="${qna.QNANO }"/>
 												</td>
 												<td>&nbsp;&nbsp;${qna.MEMBERID }</td>
@@ -101,7 +101,7 @@
 							</c:if>
 							<c:if test="${empty qnaList }">
 								<tr>
-									<td>첫 게시물을 등록해주세요!</td>
+									<td colspan="7">첫 게시물을 등록해주세요!</td>
 								</tr>
 							</c:if>	
 							</tbody>
@@ -109,65 +109,92 @@
 					</div>
 					<div class="tab-pane fade" id="nav-faq" role="tabpanel"
 						aria-labelledby="nav-faq-tab">
+						
 						<table class="table" cellspacing="0">
-							<thead>
-								<tr>
-									<th>Project Name</th>
-									<th>Employer</th>
-									<th>Time</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td><a href="#">Work 1</a></td>
-									<td>Doe</td>
-									<td>john@example.com</td>
-								</tr>
-								<tr>
-									<td><a href="#">Work 2</a></td>
-									<td>Moe</td>
-									<td>mary@example.com</td>
-								</tr>
-								<tr>
-									<td><a href="#">Work 3</a></td>
-									<td>Dooley</td>
-									<td>july@example.com</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div class="tab-pane fade" id="nav-contact" role="tabpanel"
-						aria-labelledby="nav-contact-tab">
-						<table class="table" cellspacing="0">
-							<thead>
-								<tr>
-									<th>Contest Name</th>
-									<th>Date</th>
-									<th>Award Position</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td><a href="#">Work 1</a></td>
-									<td>Doe</td>
-									<td>john@example.com</td>
-								</tr>
-								<tr>
-									<td><a href="#">Work 2</a></td>
-									<td>Moe</td>
-									<td>mary@example.com</td>
-								</tr>
-								<tr>
-									<td><a href="#">Work 3</a></td>
-									<td>Dooley</td>
-									<td>july@example.com</td>
-								</tr>
-							</tbody>
-						</table>
+                            <thead>
+                                <tr>
+                                    <th>FAQ-자주 묻는 질문</th>
+                                </tr>
+                            </thead>
+
+                        </table>
+                        
+                        <c:if test="${not empty categoryList }">
+                        	<c:forEach items="${categoryList }" var="category">
+                         <div class="faq-back">
+                             <div class="faq-category btn btn-outline-info slidetopleft">${category.FAQNACATEGORYNAME }
+
+		                         <button class="faq-slide btn btn-outline-info slidetopleft">▼</button>
+
+                             </div>
+                             <div class="faq-list-back">
+                                 <ul class="faq-list">
+                                 <c:forEach items="${faqList }" var="faq">
+                                 	<c:if test="${faq.FAQNACATEGORYNO==category.FAQNACATEGORYNO }">
+                                 	
+	                                    <li class="faq-question">
+	                                    	<textarea cols="65" style="resize:none; border:0;" readonly="readonly">${faq.FAQTITLE }</textarea>
+											
+	                                       	<button class="answer-slide">▼</button>
+	                                       
+	                                       	<hr>
+	                                       	<div class="faq-answer">
+	                                       		<textarea cols="65" style="resize:none; border:0;" readonly="readonly">${faq.FAQCONTENT }</textarea>
+	                                       	</div>
+	                                        
+	                                    </li>
+                                 	</c:if>
+                                     
+                                 </c:forEach>
+                                 </ul>
+                                 
+                             </div>
+                         </div>
+                        	
+                        	</c:forEach>
+                        </c:if>
+                        <c:if test="${empty categoryList }">
+                        	<div class="col-md-12">
+                        		준비중입니다.
+                        	</div>
+                        </c:if>
+                       
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
+<!-- line modal -->
+<div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">비밀번호 입력</h3>
+		</div>
+		<div class="modal-body">
+			
+            <!-- content goes here -->
+			
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+
+		</div>
+		<div class="modal-footer">
+			<div class="btn-group btn-group-justified" role="group" aria-label="group button">
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-outline-info slidetopleft qna-title" data-action="save" role="button">확인</button>
+				</div>
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-outline-info slidetopleft" id="pass-check-close" data-dismiss="modal"  role="button">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+  </div>
+</div>
+
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

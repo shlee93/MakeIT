@@ -437,6 +437,6 @@
    			</div>
 			<div class='col-md-1' id='right-nav' ></div>
 		</div>
-	</div>                   
+	</div>                
 </body>
 </html>

@@ -83,6 +83,31 @@ public class SupportDaoImpl implements SupportDao {
 		
 		return sqlSession.update("support.updateQnaReple", qnaRefNo);
 	}
+
+	//qna 게시글 미답변 카운트
+	@Override
+	public int selectSearchQnaCheckCount(Map<String, String> search) {
+		
+		return sqlSession.selectOne("support.selectSearchQnaCheckCount", search);
+	}
+
+	//qna 게시글 미답변 리스트
+	@Override
+	public List<Map<String, String>> selectSearchQnaCheckList(Map<String, String> search, int cPage, int numPerPage) {
+		RowBounds rb=new RowBounds((cPage-1)*numPerPage,numPerPage);
+		return sqlSession.selectList("support.selectSearchQnaCheckList", search, rb);
+	}
+
+	//qna 게시글 비밀번호 체크
+	@Override
+	public String selectQnaPassCheck(int qnaNo) {
+		
+		return sqlSession.selectOne("support.selectQnaPassCheck", qnaNo);
+	}
+	
+	
+	
+	
 	
 	
 	

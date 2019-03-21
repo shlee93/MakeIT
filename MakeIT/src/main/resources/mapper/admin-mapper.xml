@@ -494,7 +494,7 @@
 	</select>
 	
 	<!-- 검색한 삭제된 게시글 리스트 -->
-	<select id="selecSearchtDeleteList" parameterType="map" resultType="map">
+	<select id="selectSearchDeleteList" parameterType="map" resultType="map">
 		SELECT I.INTEREST,A.* FROM ${deleteStatus} A JOIN INTEREST I ON(I.INTERESTNO=A.INTERESTNO) WHERE ${deleteStatus}DELETEYN='Y'
 		
 		<if test="deleteSearch!='' and deleteOption!='nosort' and deleteOption!='MEMBERID'">
@@ -505,6 +505,26 @@
 		</if>
 		
 	</select>
+	
+	<!-- 구매글 승인 -->
+	<update id="updateBuyCheck" parameterType="_int">
+		UPDATE BUY SET BUYCHECKYN='Y' WHERE BUYNO=#{buyNo}
+	</update>
+	
+	<!-- 판매글 승인 -->
+	<update id="updateSellCheck" parameterType="_int">
+		UPDATE SELL SET SELLCHECKYN='Y' WHERE SELLNO=#{sellNo}
+	</update>
+	
+	<!-- 컨테스트글 승인 -->
+	<update id="updateContestCheck" parameterType="_int">
+		UPDATE CONTEST SET CONTESTYN='Y' WHERE CONTESTNO=#{contestNo}
+	</update>
+	
+	<!-- 게시글 복구 -->
+	<update id="updateDeleteCheck" parameterType="map">
+		UPDATE ${deleteStatus} SET ${deleteStatus}DELETEYN='N' WHERE ${deleteStatus}NO=#{contentNo}
+	</update>
 	
 	
 </mapper>

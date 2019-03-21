@@ -77,6 +77,31 @@
        	$('.mainImg').attr('src',url1);
        	$(this).attr('src',url2);
 	})
+	
+	//관리자 게시물 승인 이벤트
+	$(document).on('click','#approval-btn',function(){
+		var sellNo=$('#sellno').val();
+		var approvalStatus=$(opener.document).find('#approval-status').val();
+		var approvalSearch=$(opener.document).find('#approval-search-inp').val();
+		var approvalOption=$(opener.document).find('#approval-select option:selected').val();
+		var $approval_tbl=$(opener.document).find('.approval-tbl');
+		$.ajax({
+			url:"${path}/admin/sellApprovalCheck.do",
+			data:{
+				"sellNo":sellNo,
+				"approvalStatus":approvalStatus,
+				"approvalSearch":approvalSearch,
+				"approvalOption":approvalOption
+				
+			},
+			dataType:"html",
+			success:function(data){
+				alert("승인 되었습니다!");
+				$approval_tbl.html(data);
+				self.close();
+			}
+		})
+	})
 </script>
                                
 <div class='container-fluid' id="total">

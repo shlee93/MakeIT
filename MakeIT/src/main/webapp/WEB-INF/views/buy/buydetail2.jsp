@@ -650,5 +650,31 @@
 	<div class='col-md-1' id='right-nav' ></div>                   
 </div>
 </div>
+	<script>
+		//관리자 게시물 승인 이벤트
+		$(document).on('click','#approval-btn',function(){
+			var buyNo=${detailist.BUYNO};
+			var approvalStatus=$(opener.document).find('#approval-status').val();
+			var approvalSearch=$(opener.document).find('#approval-search-inp').val();
+			var approvalOption=$(opener.document).find('#approval-select option:selected').val();
+			var $approval_tbl=$(opener.document).find('.approval-tbl');
+			$.ajax({
+				url:"${path}/admin/buyApprovalCheck.do",
+				data:{
+					"buyNo":buyNo,
+					"approvalStatus":approvalStatus,
+					"approvalSearch":approvalSearch,
+					"approvalOption":approvalOption
+					
+				},
+				dataType:"html",
+				success:function(data){
+					alert("승인 되었습니다!");
+					$approval_tbl.html(data);
+					self.close();
+				}
+			})
+		})
+	</script>   
 </body>
 </html>
