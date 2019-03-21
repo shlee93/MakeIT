@@ -4,7 +4,6 @@
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 	<c:set var="path" value="${pageContext.request.contextPath }"/>
-	
 
 <!DOCTYPE html>
 
@@ -13,6 +12,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>재능 마켓</title>
+
 <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Sunflower:300" rel="stylesheet">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
