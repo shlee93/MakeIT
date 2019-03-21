@@ -72,7 +72,7 @@
 						<label style="">신고내용</label> 
 					</div>
 					<div class="col-md-9">
-						<textarea name="reportContent" class="form-control" rows="5"></textarea>
+						<textarea  id="reportContent"name="reportContent" class="form-control" rows="5"></textarea>
 					</div>
 				</div>
 				<div class="row">
@@ -93,6 +93,14 @@
 			$('#popForm').submit();
 			
 		}
+		$('#reportContent').on('keyup', function() {
+		      if($(this).val().length > 1339) {
+		    	  console.log($(this).val());
+		         alert("글자수는 1339자로 이내로 제한됩니다.");
+		         $(this).val($(this).val().substring(0, 1339));
+		      }
+		   
+		   });
 		
 	</script>
 </body>
