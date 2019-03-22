@@ -453,25 +453,30 @@ public class ContestController
 	}
 	
 	@RequestMapping("/contest/contestModifyEnd.do")
-	public String contestModifyEnd(int contestNo, String contestTitle, String contestContent, String contestDate, String contestDeadLine, String contestPrice, String detailInterestNo, String interestNo, String mainImgReInsert, HttpServletRequest request, int mainImgNo, MultipartFile[] upFile) throws BoardException
+	public String contestModifyEnd(int contestNo, String contestTitle, String contestContent, String contestDate, String contestDeadLine, String contestPrice, String detailInterestNo, String interestNo, String mainImgReInsert, HttpServletRequest request,@RequestParam(value="mainImgNo", required=false, defaultValue="0") int mainImgNo, MultipartFile[] upFile) throws BoardException
 	{
-		ModelAndView mv=new ModelAndView();
-		HttpSession session=request.getSession();
-		Map<String,String> memberMap=(Map)session.getAttribute("member");
-		Map contest=new HashMap();
-		String memberId=memberMap.get("MEMBERID");
-		contest.put("contestNo", contestNo);
-		contest.put("contestTitle", contestTitle);
-		contest.put("contestContent", contestContent);
-		contest.put("contestDate",contestDate);
-		contest.put("contestDeadLine", contestDeadLine);
-		contest.put("contestPrice", contestPrice);
-		contest.put("detailInterestNo",detailInterestNo);
-		contest.put("interestNo", interestNo);
-		contest.put("memberId", memberId);
 		
-		if(upFile!=null)
+		
+		System.out.println("업파일 머가 있니?"+upFile[0].getOriginalFilename());
+		
+		if(!upFile[0].getOriginalFilename().equals(""))
 		{
+			System.out.println("이거는 그림값까지 수정했을때");
+			ModelAndView mv=new ModelAndView();
+			HttpSession session=request.getSession();
+			Map<String,String> memberMap=(Map)session.getAttribute("member");
+			Map contest=new HashMap();
+			String memberId=memberMap.get("MEMBERID");
+			contest.put("contestNo", contestNo);
+			contest.put("contestTitle", contestTitle);
+			contest.put("contestContent", contestContent);
+			contest.put("contestDate",contestDate);
+			contest.put("contestDeadLine", contestDeadLine);
+			contest.put("contestPrice", contestPrice);
+			contest.put("detailInterestNo",detailInterestNo);
+			contest.put("interestNo", interestNo);
+			contest.put("memberId", memberId);
+			
 			String savDir=request.getSession().getServletContext().getRealPath("/resources/upload/contest");
 			ArrayList<ContestImg> files=new ArrayList<>();		
 			  
@@ -509,16 +514,40 @@ public class ContestController
 		}
 		else
 		{
+			System.out.println("이거는 메인이미지만 수정했을때 ");
+			ModelAndView mv=new ModelAndView();
+			HttpSession session=request.getSession();
+			Map<String,String> memberMap=(Map)session.getAttribute("member");
+			Map contest=new HashMap();
+			String memberId=memberMap.get("MEMBERID");
+			contest.put("contestNo", contestNo);
+			contest.put("contestTitle", contestTitle);
+			contest.put("contestContent", contestContent);
+			contest.put("contestDate",contestDate);
+			contest.put("contestDeadLine", contestDeadLine);
+			contest.put("contestPrice", contestPrice);
+			contest.put("detailInterestNo",detailInterestNo);
+			contest.put("interestNo", interestNo);
+			contest.put("memberId", memberId);
+			
 			List<ContestImg> files=cs.contestPreModifyImgService(contestNo);
+			ContestImg preMainImg=null;
+			int picker=0;
 			for(int i=0;i<files.size();i++)
 			{
+				System.out.println("메인이미지 재삽입:"+mainImgReInsert);
+				System.out.println("기존 메인이미지 불러오기:"+String.valueOf(files.get(i).getContestImgRe()));
 				if(mainImgReInsert.equals(String.valueOf(files.get(i).getContestImgRe())))
 				{
-					ContestImg preMainImg=files.get(0);
-					files.add(0, files.get(i));
-					files.add(i, preMainImg);
+					preMainImg=files.get(0);
+					picker=i;					
 				}
 			}
+			System.out.println("픽커"+picker);
+			System.out.println("이전이미지"+preMainImg);
+			
+			files.add(0, files.get(picker));
+			files.add(picker, preMainImg);
 			cs.contestModifyEndService(contest,files);
 		}
 		

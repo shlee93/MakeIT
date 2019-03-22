@@ -269,11 +269,11 @@
 	         	</div>
 		       	<div id='modifyFilePreview' class="filebox bs3-primary preview-image">
 		       		<c:forEach items="${contestImgList}" var="contestImgList" varStatus='status'>
-		       			<div class="upload-display"><input type="radio" name="mainImgReInsult" value='${path}/resources/upload/contest/${contestImgList.CONTESTIMGRE}' required><div class="upload-thumb-wrap"><img src="${path}/resources/upload/contest/${contestImgList.CONTESTIMGRE}" class="upload-thumb"></div></div>	
+		       			<div class="upload-display"><input type="radio" name="mainImgReInsert" value='${contestImgList.CONTESTIMGRE}' required><div class="upload-thumb-wrap"><img src="${path}/resources/upload/contest/${contestImgList.CONTESTIMGRE}" class="upload-thumb"></div></div>	
 		       		</c:forEach>
 		            <label for="upFile">사진 선택</label> 
 		            
-		            <input type="file" name="upFile" id="upFile" class="upload-hidden" multiple="multiple" accept=".gif, .jpg, .png"> 
+		            <input type="file" name="upFile" id="upFile" class="upload-hidden" multiple="multiple" accept=".gif, .jpg, .png" > 
 		        </div>
             	
 	            <script>
