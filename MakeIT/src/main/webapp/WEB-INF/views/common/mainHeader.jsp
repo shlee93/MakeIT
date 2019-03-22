@@ -154,9 +154,77 @@
 	        </div>
     	</nav>
     </c:if>
+    
+    	<%
+    		Cookie[] cookies = request.getCookies();
+    		boolean cCheck = false;
+			if(cookies != null) {
+				for(int i=0; i<cookies.length; i++) {
+					Cookie c = cookies[i];
+					String cName = c.getName();
+					System.out.println("쿠키 이름 ~~ : "+cName);
+					
+					if(cName == "intro"){
+						cCheck = true;
+					}
+				}
+				
+				if(cCheck == true){
+			    	%>
+			    	<script>location.href="${path }/intropage/intropage.do";</script>
+			    	<%
+				}
+				
+			}
+			else{
+		    	%>
+		    	<script>location.href="${path }/intropage/intropage.do";</script>
+		    	<%
+			}
+    	%>
+<%--     <%
+	    Cookie[] cookies = request.getCookies();
+		System.out.println(cookies);
+		boolean cCheck = false;
+		if(cookies != null) {
+			for(int i=0; i<cookies.length; i++) {
+				Cookie c = cookies[i];
+				String cName = c.getName();
+				System.out.println("쿠키 이름 ~~ : "+cName);
+				if(cName == "intro") {
+					cCheck = true;
+	
+				}
+			}
+			
+			if(cCheck == false) {
+				System.out.println("펄스~~ 실행~~~~~~~~~");
+				
+				Cookie cookie = new Cookie("intro", "intro");
+		    	cookie.setMaxAge(60*60);
+		    	response.addCookie(cookie);
+		    	%>
+		    	<script>location.href="${path }/intropage/intropage.do";</script>
+		    	<%
+			}
+			else {
+				System.out.println("트루 실행~~~~~~~~~");
+			}
+		}
+		else{
+			System.out.println("널값 뜸~~~~~~~~~~~~~~~~~~~~~~");
+			Cookie cookie = new Cookie("intro", "intro");
+	    	cookie.setMaxAge(60*60);
+	    	response.addCookie(cookie);
+	    	%>
+	    	<script>location.href="${path }/intropage/intropage.do";</script>
+	    	<%
+		}
+    %> --%>
 
     
       <script>
+      	
       	$(function(){
       		setTimeout(function(){
           		$('#bubble1').css({'width':'75px','height':'auto'});
