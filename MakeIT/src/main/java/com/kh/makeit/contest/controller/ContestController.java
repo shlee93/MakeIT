@@ -545,9 +545,11 @@ public class ContestController
 			}
 			/*System.out.println("픽커"+picker);
 			System.out.println("이전이미지"+preMainImg);*/
-			
-			files.add(0, files.get(picker));
-			files.add(picker, preMainImg);
+			ContestImg modiMain=files.get(picker);
+			files.remove(picker);
+			files.remove(0);
+			files.add(0,modiMain);
+			files.add(preMainImg);
 			cs.contestModifyEndService(contest,files);
 		}
 		
