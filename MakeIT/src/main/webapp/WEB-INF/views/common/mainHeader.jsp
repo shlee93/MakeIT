@@ -73,18 +73,19 @@
     
     <div id="topWrap">
         <div id="logoIcon"><img src="${path }/resources/image/logo1main.png"/></div>
-        <%if(session.getAttribute("member") == null){ %>
+        <%if(session.getAttribute("member") == null){%>
         <div id="loginWrap">
 
             	<a href="${path }/member/memberLogin.do" id="login">Login |</a>
             	<a href="${path }/member/memberEnrollck.do" id="join"> Join us :) </a>
         </div>
-        <%}else{ %>
+        <%}else{%>
         <div id="loginWrap">
             <a href="${path }/member/memberMyPage.do" id="login">Mypage |</a>
             <a href="${path }/member/memberLogout.do" id="join"> Logout :(</a>
         </div>
         <%} %>
+
     </div>
     <div id="serviceWrap">
         <div id="tradeService"><p>거래 서비스 | </p><p id="tradeNum"></p><p id="tradeUnit">만건+</p></div>
@@ -96,30 +97,64 @@
         <p id="write2">MAKE&nbsp;&nbsp;IT</p>
     </div>
 
-    <nav id="mainNavi">
-        <div id="iconWrap">
-            <div id="icon1">
-            	<img src="${path }/resources/mainSource/image/sell.png"/>
-            	<p>판매하기</p>
-            </div>
-            <div id="icon2">
-            	<img src="${path }/resources/mainSource/image/buy.png"/>
-            	<p>구매하기</p>
-            </div>
-            <div id="icon3">
-            	<img src="${path }/resources/mainSource/image/contest.png"/>
-            	<p>콘테스트</p>
-            </div>
-            <div id="icon4">
-            	<img src="${path }/resources/mainSource/image/board.png"/>
-            	<p>게시판</p>
-            </div>
-            <div id="icon5">
-            	<img src="${path }/resources/mainSource/image/qna.png"/>
-            	<p>QNA</p>
-            </div>
-        </div>
-    </nav>
+    <c:if test="${sessionScope.member.MEMBERLEVEL != 0}">
+        <nav id="mainNavi">
+	        <div id="iconWrap">
+	            <div id="icon1">
+	            	<img src="${path }/resources/mainSource/image/sell.png"/>
+	            	<p>판매하기</p>
+	            </div>
+	            <div id="icon2">
+	            	<img src="${path }/resources/mainSource/image/buy.png"/>
+	            	<p>구매하기</p>
+	            </div>
+	            <div id="icon3">
+	            	<img src="${path }/resources/mainSource/image/contest.png"/>
+	            	<p>콘테스트</p>
+	            </div>
+	            <div id="icon4">
+	            	<img src="${path }/resources/mainSource/image/board.png"/>
+	            	<p>게시판</p>
+	            </div>
+	            <div id="icon5">
+	            	<img src="${path }/resources/mainSource/image/qna.png"/>
+	            	<p>QNA</p>
+	            </div>
+	        </div>
+    	</nav>
+    </c:if>
+    
+    <c:if test="${sessionScope.member.MEMBERLEVEL == 0}">
+        <nav id="mainNavi">
+	        <div id="iconWrap">
+	            <div id="icon1">
+	            	<img src="${path }/resources/mainSource/image/sell.png"/>
+	            	<p>판매하기</p>
+	            </div>
+	            <div id="icon2">
+	            	<img src="${path }/resources/mainSource/image/buy.png"/>
+	            	<p>구매하기</p>
+	            </div>
+	            <div id="icon3">
+	            	<img src="${path }/resources/mainSource/image/contest.png"/>
+	            	<p>콘테스트</p>
+	            </div>
+	            <div id="icon4">
+	            	<img src="${path }/resources/mainSource/image/board.png"/>
+	            	<p>게시판</p>
+	            </div>
+	            <div id="icon5">
+	            	<img src="${path }/resources/mainSource/image/qna.png"/>
+	            	<p>QNA</p>
+	            </div>
+	            <div id="icon6">
+	            	<img src="${path }/resources/mainSource/image/manager.png"/>
+	            	<p>관리자</p>
+	            </div>
+	        </div>
+    	</nav>
+    </c:if>
+
     
       <script>
       	$(function(){
@@ -205,6 +240,21 @@
 			$('#icon5 img').css('top','0px');
       	})
       	
+      	$('#icon6').mouseenter(function(){
+			$('#icon6 p').css('color','#138496');
+			$('#icon6 p').css('top','-22px');
+			$('#icon6 p').css('transform','scale(1.5)');
+			$('#icon6 img').css('transform','scale(1.5)');
+			$('#icon6 img').css('top','-35px')
+      	})
+      	$('#icon6').mouseleave(function(){
+			$('#icon6 p').css('color','black');
+			$('#icon6 p').css('top','0px');
+			$('#icon6 p').css('transform','scale(1)');
+			$('#icon6 img').css('transform','scale(1)');
+			$('#icon6 img').css('top','0px');
+      	})
+      	
       	$('#icon1').click(function(){
       		location.href="${path}/sell/sellmain.do";
       	})
@@ -219,6 +269,9 @@
       	})
       	$('#icon5').click(function(){
       		location.href="${path}/support/supportView.do";
+      	})
+      	$('#icon6').click(function(){
+      		location.href="${path }/admin/adminView.do";
       	})
         $(document).ready(function(){
         	
