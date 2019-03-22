@@ -179,4 +179,8 @@
 	   insert into CONTESTREPORT values(SEQ_CONTESTREPORTNO.NEXTVAL,#{contestNo},#{reportId},'C',#{reportContent},default,default)
 	</insert>
 	
+	<select id='contestPreModifyImg' parameterType='int' resultType='contestImg'>
+		select * from contestImg where contestNo=#{contestNo}
+	</select>
+	
 </mapper>

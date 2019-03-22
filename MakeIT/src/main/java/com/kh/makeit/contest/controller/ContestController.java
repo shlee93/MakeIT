@@ -29,7 +29,6 @@ import com.kh.makeit.common.PageFactory;
 import com.kh.makeit.common.exception.BoardException;
 import com.kh.makeit.contest.service.ContestService;
 import com.kh.makeit.contest.vo.ContestImg;
-import com.kh.makeit.sell.model.service.sellService;
 
 @Controller
 
@@ -454,7 +453,7 @@ public class ContestController
 	}
 	
 	@RequestMapping("/contest/contestModifyEnd.do")
-	public String contestModifyEnd(int contestNo, String contestTitle, String contestContent, String contestDate, String contestDeadLine, String contestPrice, String detailInterestNo, String interestNo, HttpServletRequest request, int mainImgNo, MultipartFile[] upFile) throws BoardException
+	public String contestModifyEnd(int contestNo, String contestTitle, String contestContent, String contestDate, String contestDeadLine, String contestPrice, String detailInterestNo, String interestNo, String mainImgReInsert, HttpServletRequest request, int mainImgNo, MultipartFile[] upFile) throws BoardException
 	{
 		ModelAndView mv=new ModelAndView();
 		HttpSession session=request.getSession();
@@ -507,6 +506,20 @@ public class ContestController
 				}
 			}
 			cs.contestModifyEndService(contest, files);
+		}
+		else
+		{
+			List<ContestImg> files=cs.contestPreModifyImgService(contestNo);
+			for(int i=0;i<files.size();i++)
+			{
+				if(mainImgReInsert.equals(String.valueOf(files.get(i).getContestImgRe())))
+				{
+					ContestImg preMainImg=files.get(0);
+					files.add(0, files.get(i));
+					files.add(i, preMainImg);
+				}
+			}
+			cs.contestModifyEndService(contest,files);
 		}
 		
 		return "redirect:/contest/contestMain.do";

@@ -184,6 +184,14 @@ public class ContestServiceImpl implements ContestService
 		
 		return result;
 	}
+	
+	@Override
+	public int contestModifyEndService(Map contest) {
+		// TODO Auto-generated method stub
+		int result=cd.contestModifyEndDao(contest);
+		return result;
+	}
+	
 
 	@Override
 	public Map contestOutBoxYnService(Map outBoxc) {
@@ -207,5 +215,12 @@ public class ContestServiceImpl implements ContestService
 	public int insertReportService(Map reportMap) {
 		// TODO Auto-generated method stub
 		return cd.insertReportDao(reportMap);
+	}
+
+	@Override
+	public List<ContestImg> contestPreModifyImgService(int contestNo) {
+		// TODO Auto-generated method stub
+		return cd.contestPreModifyImgDao(contestNo);
 	}	
+	
 }
