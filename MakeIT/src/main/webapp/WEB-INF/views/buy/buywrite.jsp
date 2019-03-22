@@ -80,9 +80,19 @@
         </script>
 </head>
 <body>
-	<form id="buyWriteFrm" enctype="multipart/form-data">
+	<form id="buyWriteFrm" action="${pageContext.request.contextPath}/buy/buyWriteEnd.do" method="post" enctype="multipart/form-data">
 		<div class="row">
-			<div class="col-md-1"></div>
+			<div class="col-md-1">
+				<div style='position:fixed; margin-top: 10em;'>
+   			<span onclick='fn_back()' style='cursor:pointer; font-size: 6em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
+         	 	<script>
+          			function fn_back()
+           		{
+           			history.back();
+           		}
+           		</script>
+	   		</div>
+			</div>
 			<div id="buy-container" class="col-md-10">
 				<div class="row">
 					<div class="col-md-2">
@@ -134,7 +144,7 @@
 					</div>
 
 				</div>
-				<textarea class="form-control" name="buyContent" rows="10"></textarea>
+				<textarea class="form-control" id="buyContent" name="buyContent" rows="10"></textarea>
 				<br />
 				<div id="null">
 					<span class='nullimg'>메인에 노출될 사진을 선택해주세요</span>
@@ -148,7 +158,7 @@
 				<br />
 				<div id="btn-container">
 					<button class="btn btn-outline-info slidetopleft">취소</button>
-					<button class="btn btn-outline-info slidetopleft" onclick="writeEnd();">작성</button>
+					<input type="submit" class="btn btn-outline-info slidetopleft" value="작성">
 				</div>
 			</div>
 			<div class="col-md-1"></div>
@@ -202,12 +212,14 @@
 	      });
 
 
-      
-   function writeEnd(){
-      $('#buyWriteFrm').attr("action","${pageContext.request.contextPath}/buy/buyWriteEnd.do");
-      $('#buyWriteFrm').attr("method","post");
-      $('#buyWriteFrm').submit();
-   }
+   $('#buyContent').on('keyup', function() {
+	      if($(this).val().length > 1339) {
+	    	  console.log($(this).val());
+	         alert("글자수는 1339자로 이내로 제한됩니다.");
+	         $(this).val($(this).val().substring(0, 1339));
+	      }
+	   
+	   });
      
          
       

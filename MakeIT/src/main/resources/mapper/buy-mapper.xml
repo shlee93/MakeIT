@@ -6,7 +6,7 @@
 		<choose>
 			<when test='sCategoryFlag!=null and sCategoryFlag!=""'> and detailinterestno = #{sCategoryFlag}</when>
 		</choose>
-		<!-- and buy.buycheckyn='Y' and buy.buydeleteyn='N' -->
+		and buy.buycheckyn='Y' and buy.buydeleteyn='N'
 	</select>
 	
 	<select id="buyMainGrade" resultType="map" parameterType="map">

@@ -41,7 +41,18 @@
 	<input type="hidden" id="sellValue" value="0">
 	<input type="hidden" id="isSearch" value="0">
 	<div class='row'>
-		<div class='col-md-1'></div>
+		<div class='col-md-1'>
+			<div style='position:fixed; margin-top: 10em;'>
+	    			<span onclick='fn_back()' style='cursor:pointer; font-size: 6em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
+	          	 	<script>
+	           			function fn_back()
+		           		{
+		           			history.back();
+		           		}
+		           	</script>
+	        </div>
+      </div>
+		
 		<div class='col-md-10'>
 			<div class='row'>
 				<div class='col-md-2 col-xs-2'>
@@ -96,14 +107,15 @@
 
 					<!-- 앨범 뷰 상단 탭 -->
 					<div style="margin-right: 0; text-align: right">
-					
-						<form class="form-inline my-2 my-lg-0">
+
+						<div class="form-inline my-2 my-lg-0">
+
 							<i class='fa fa-search'></i>&nbsp; <select id="searchtype" name="searchtype" class="form-control">
 								<option value='title'>제목</option>
 								<option value='writer'>작성자</option>
 							</select> <input class="form-control mr-sm-2" type="text" id="searchValue" placeholder="Search" aria-label="Search">
 							<button class="btn btn-outline-info my-2 my-sm-0" onclick="fn_searchtw();" type="button">Search</button>
-						</form>
+						</div>
 					</div>
 					<nav>
 						<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
@@ -750,6 +762,9 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		
 			<div class='col-md-1'></div>
+			</div>
 </body>
 </html>

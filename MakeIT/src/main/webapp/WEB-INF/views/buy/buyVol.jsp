@@ -135,8 +135,18 @@ div {
 </head>
 <body>
    <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-10" id="apply-container">
+      <div class="col-md-1">
+      	<div style='position:fixed; margin-top: 10em;'>
+   			<span onclick='fn_back()' style='cursor:pointer; font-size: 6em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
+         	 	<script>
+          			function fn_back()
+           		{
+           			history.back();
+           		}
+           		</script>
+	   		</div>
+      </div>
+      <div class="col-md-10" id="apply-container">
        <form id="volFrm" action="${path }/buy/buyVolEnd.do" enctype="multipart/form-data" method="post">
          <div id="intro-div">
         
@@ -159,7 +169,7 @@ div {
           </form>
       </div>
      
-      <div class="col-sm-1"></div>
+      <div class="col-md-1"></div>
      </div>
 </body>
 

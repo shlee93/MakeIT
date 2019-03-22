@@ -97,8 +97,8 @@
 		           	</script>
 	           	</div>
         </div>
-        <div class='col-md-10' id='section' style='padding:50px'>
-            <div class='row'>
+        <div class='col-md-10' id='section' style='padding:50px'>        	
+            <div class='row'>         
                 <div class="col-md-6" id="img-container"  style='padding:1px; width: 100%; height: 600px;'>                	
                     <div class='row mainImgContainer' id='mainImgContainer'>
                     	<img id="mainImg" class="mainImg" src="${path}/resources/upload/sell/${mainimgList.get(0).SELLIMGRE}" style='max-height: 400px; min-height: 600px; width: 100%;'>
@@ -239,6 +239,7 @@
                     </div>                       
                 </div>
                 <div id='donggeulNav' class="col-md-6" style="position:absolute; margin-left:60%;transition:ease-in-out; transition-duration:0.7s;">                   
+                                  
                    	<div class="row " style="text-align:center; margin-left:-5em;" >
               			<div class="col-md-10">
       						<c:if test="${detailList.get(0).GRADENAME == '브론즈' }">
@@ -780,7 +781,10 @@
                 
       		</div>
 		</div>   
-   		<div class='col-md-1' id='right-nav' ></div>                   
+   		<div class='col-md-1' id='right-nav'>
+   			
+   			
+   		</div>                   
 	</div>
 </div>
 	<script>		
