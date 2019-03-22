@@ -65,6 +65,9 @@
 	    </div>
 	    </div>
 		<div class='col-md-10'>
+			<div id="pageTitle" style="padding-bottom:20px;">
+				<h2 style="font-family: 'Sunflower', sans-serif;">구매 게시글 작성</h2>
+			</div>
 			<div class='row'>
 				<div style='position: relative; min-width: 400px'>
 

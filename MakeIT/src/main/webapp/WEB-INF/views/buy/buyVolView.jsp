@@ -111,8 +111,8 @@
 		</c:forEach>
 		</div>
 		<div id="btn-div">
-			<button class="btn btn-secondary" onclick="location.href='${path}/buy/payInfoView.do?buyNo=${buyNo }&memberId=${vol.MEMBERID }'">결정 및 결제하기</button>
-			<button class="btn btn-secondary" onclick="location.href='${path}/buy/volList.do?buyNo=${buyNo }&cPage=${cPage }'">뒤로가기</button>
+			<button class="btn btn-secondary" onclick="volCommit();">결정 및 결제하기</button>
+			<button class="btn btn-secondary" onclick="fn_back()">뒤로가기</button>
 		</div>
 		
 		
@@ -128,6 +128,20 @@
 	{
 		oName=encodeURIComponent(oName);
 		location.href="${path}/buy/filedownLoad.do?oName="+oName+"&rName="+rName;
+	}
+	function volCommit()
+	{
+		var specFlag = ${param.specFlag};
+		console.log(specFlag);
+		if(specFlag == true)
+		{
+			alert("이미 지원자를 결정했습니다.");
+		}
+		else
+		{
+			location.href="${path}/buy/payInfoView.do?buyNo=${buyNo }&memberId=${vol.MEMBERID }";	
+		}
+		
 	}
 </script>
 </body>

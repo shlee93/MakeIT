@@ -26,7 +26,7 @@
 				and buy.detailinterestno = #{sCategoryFlag} 
 			</when>
 		</choose>
-		<!-- and buy.buycheckyn='Y' and buy.buydeleteyn='N' order by buydate desc -->
+		and buy.buycheckyn='Y' and buy.buydeleteyn='N' order by buydate desc
 	</select> 
 	
 	<select id="imageDiv2" parameterType="com.kh.makeit.buy.model.vo.BuyAttach" resultType="com.kh.makeit.buy.model.vo.BuyAttach">

@@ -80,7 +80,8 @@ $(function()
  </script>
 </head>
 <body>
-	
+<input type="hidden" id="interest" value="${detailList.INTERESTNO }">
+<input type="hidden" id="detailInterest" value="${detailList.DETAILINTERESTNO }">
 		<div class="row">
 			<div class="col-md-1">
 				<div style='position:fixed; margin-top: 10em;'>
@@ -96,6 +97,9 @@ $(function()
 			
 			
 			<div id="buy-container" class="col-md-10">
+			<div id="pageTitle" style="padding-bottom:20px;">
+				<h2 style="font-family: 'Sunflower', sans-serif;">구매 게시글 수정</h2>
+			</div>
 			<form id="buyWriteFrm" action="${pageContext.request.contextPath}/buy/buyModifyEnd.do" enctype="multipart/form-data" method="post">
 				<div class="row">
 					<input type="hidden" name="buyNo" value="${buyNo }"/>
@@ -229,7 +233,14 @@ $(function()
 		   
 		   });
      
-     
+	  
+   	$(function()
+	{	        		
+ 		$('#interest').val($('#interest').val()).trigger('change');
+ 		$('#detailInterest').val($('#detailInterest').val()).trigger('change');
+	})
+   	
+  
          
       
    </script>

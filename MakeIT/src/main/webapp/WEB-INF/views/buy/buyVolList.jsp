@@ -208,8 +208,8 @@ $(document).ready(function(){
 	
 	function fn_volView(memberId, buyNo, categoryCode)
 	{
-		var url="${path}/buy/buyVolView.do";
-				
+		var url="${path}/buy/buyVolView.do?specFlag=${param.specFlag}";
+		
 		volViewFrm.memberId.value=memberId;
 		volViewFrm.buyNo.value=buyNo;
 		volViewFrm.categoryCode.value=categoryCode;

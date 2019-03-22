@@ -147,6 +147,9 @@ div {
 	   		</div>
       </div>
       <div class="col-md-10" id="apply-container">
+     	 <div id="pageTitle" style="padding-bottom:20px;">
+			<h2 style="font-family: 'Sunflower', sans-serif;">지원글 작성</h2>
+		</div>
        <form id="volFrm" action="${path }/buy/buyVolEnd.do" enctype="multipart/form-data" method="post">
          <div id="intro-div">
         
