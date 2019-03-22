@@ -44,7 +44,7 @@
 		UPDATE MEMBER SET WITHDRAWYN='Y' WHERE MEMBERID=#{id}
 	</update>
 	<select id="buyOutBoxList" parameterType="string" resultType="map">
-		SELECT * FROM BUYOUTBOX O JOIN BUY B USING(BUYNO) WHERE O.MEMBERID=#{memberId} ORDER BY B.BUYDATE DESC
+		SELECT * FROM BUY B JOIN BUYOUTBOX O USING(BUYNO) WHERE O.MEMBERID=#{memberId} ORDER BY B.BUYDATE DESC
 	</select>
 	<select id="sellOutBoxList" parameterType="string" resultType="map">
 		SELECT * FROM SELL O JOIN SELLOUTBOX S USING(SELLNO) WHERE S.MEMBERID=#{memberId} ORDER BY O.SELLDATE DESC
@@ -116,7 +116,7 @@
 		SELECT COUNT(*) FROM CONTEST WHERE MEMBERID=#{memberId} AND CONTESTYN='N'
 	</select>
 	<select id="noReadMessage" parameterType="string" resultType="_int">
-		SELECT COUNT(*) FROM MESSAGE WHERE RECEIVEID=#{memberId} AND READDATE IS NULL
+		SELECT COUNT(*) FROM MESSAGE WHERE RECEIVEID=#{memberId} AND READDATE IS NULL AND RECEIVEDELETEYN = 'N'
 	</select>
 	<select id="selectServiceNum" parameterType='string' resultType="_int">
 		SELECT COUNT(SELLNO) FROM SELL 
@@ -141,6 +141,12 @@
 	</select>
 	<select id="memberSearch" parameterType="string" resultType="map">
 		SELECT MEMBERID FROM MEMBER WHERE MEMBERID LIKE '%'||#{receiveId}||'%'
+	</select>
+	<select id="contestOutBoxList" parameterType="string" resultType="map">
+		SELECT * FROM CONTEST C JOIN CONTESTOUTBOX O USING(CONTESTNO) WHERE O.MEMBERID=#{memberId}
+	</select>
+	<select id="selectOutBoxContestCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM CONTESTOUTBOX WHERE MEMBERID=#{memberId}
 	</select>
 	<resultMap type="map" id="memberMap">
 		<result column="interest" property="interest" typeHandler="strArray"/>

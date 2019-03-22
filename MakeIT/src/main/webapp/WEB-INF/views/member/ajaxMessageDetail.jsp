@@ -51,11 +51,9 @@ pageEncoding="UTF-8"%>
            	 <div class="tab-pane fade show active" id="send" role="tabpanel" aria-labelledby="send-tab">
                 <div class="row">
                     <div class="col-md-12">
-                    	<form id="messageFrm">
-                    		<input type="hidden" id="messageNo" name="messageNo" value="${message.MESSAGENO }">
-               				<input type="hidden" id="memberId" name="memberId" value="${map.MEMBERID }">
-               				<input type="hidden" id="sendId" name="sendId" value="${message.SENDID }">
-                    	</form>
+                   		<input type="hidden" id="messageNo" name="messageNo" value="${message.MESSAGENO }">
+            			<input type="hidden" id="memberId" name="memberId" value="${map.MEMBERID }">
+              			<input type="hidden" id="sendId" name="sendId" value="${message.SENDID }">
                     	<table class="table">
                     		<tr>
                     			<th>번호</th>
@@ -104,8 +102,24 @@ pageEncoding="UTF-8"%>
 		});
 	}
 	function deleteMessage(){
-		$('#messageFrm').attr("action","${path }/member/deleteMessage.do");
-		$('#messageFrm').submit();
+		$.ajax({
+			url:"${path }/member/deleteMessage.do",
+			dataType:"html",
+			data:{"memberId":$('#memberId').val(),
+				"messageNo":$('#messageNo').val()},
+			success:function(data){
+				alert(data);
+				$.ajax({
+					url:"${path}/member/memberMessageAjax.do",
+					dataType:"html",
+					data:{"memberId":$('#memberId').val()},
+					success:function(data){
+						console.log(data);
+						$('#ajaxHtml').html(data);
+					}
+				});
+			}
+		});
 	}
 	function reMessage(){
 		$.ajax({

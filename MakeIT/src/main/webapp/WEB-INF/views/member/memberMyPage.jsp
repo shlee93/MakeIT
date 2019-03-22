@@ -275,9 +275,9 @@
         <input type="hidden" id="noReadMessage" name = "noReadMessage" value="${noReadMessage }">
 		<script>
 			$('#appealContent').on('keyup', function() {
-				if($(this).val().length > 2000) {
-					alert("글자수는 2000자로 이내로 제한됩니다.");
-					$(this).val($(this).val().substring(0, 2000));
+				if($(this).val().length > 1333) {
+					alert("글자수는 1333자로 이내로 제한됩니다.");
+					$(this).val($(this).val().substring(0, 1333));
 				}
 			
 			});
@@ -315,6 +315,7 @@
 					url:"${path}/member/memberOutBoxAjax.do",
 					dataType:"html",
 					data:{"memberId":$('#memberId').val()
+						,"contestcPage":$('#contestcPage').val()
 						,"sellcPage":$('#sellcPage').val()
 						,"buycPage":$('#buycPage').val()},
 					success:function(data){
