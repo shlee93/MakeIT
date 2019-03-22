@@ -266,7 +266,7 @@ public class BuyServiceImpl implements BuyService {
 	}
 
 	@Override
-	public int buyModifyEnd(ArrayList<BuyAttach> files, Map<String, String> map) {
+	public int buyModifyEnd(ArrayList<BuyAttach> files, List<Map<String, String>> imgList, Map<String, String> map) {
 		// TODO Auto-generated method stub
 		int result = 0;
 		try {
@@ -276,16 +276,34 @@ public class BuyServiceImpl implements BuyService {
 				throw new MakeitException("게시글 수정에 실패하였습니다.");
 			}
 			result = dao.deleteAttach(map);
-			for(BuyAttach a : files)
+			if(imgList.size() < 1)
 			{
-				a.setBuyNo(Integer.parseInt(map.get("buyNo")));
-				result = dao.insertAttach(a);
-				if(result < 1)
+				System.out.println("1번");
+				for(BuyAttach a : files)
 				{
-					throw new MakeitException("파일 업로드에 실패하였습니다.");
+					
+					a.setBuyNo(Integer.parseInt(map.get("buyNo")));
+					result = dao.insertAttach(a);
+					if(result < 1)
+					{
+						throw new MakeitException("파일 업로드에 실패하였습니다.");
+					}
+				}
+
+			}
+			else if(files.size() < 1)
+			{
+				System.out.println("2번");
+				for(Map<String,String> m : imgList)
+				{
+					result = dao.insertBuyImg(m);
+					if(result < 1)
+					{
+						throw new MakeitException("파일 업로드에 실패하였습니다.");
+					}
 				}
 			}
-
+			
 		}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -298,6 +316,12 @@ public class BuyServiceImpl implements BuyService {
 	public int buyDelete(int buyNo) {
 		// TODO Auto-generated method stub
 		return dao.buyDelete(buyNo);
+	}
+
+	@Override
+	public List<Map<String, String>> selectBuyImg(int buyNo) {
+		// TODO Auto-generated method stub
+		return dao.selectBuyImg(buyNo);
 	}
 
 	

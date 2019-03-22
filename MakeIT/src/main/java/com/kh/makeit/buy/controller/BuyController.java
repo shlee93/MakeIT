@@ -905,15 +905,10 @@ public class BuyController {
 		System.out.println("소분류" + detailInterest);
 		System.out.println("제목" + writeTitle);
 		System.out.println("가격" + price);
-		for(MultipartFile a : input_file)
-		{
-			System.out.println("asdf" + a.getOriginalFilename());
-		}
-		
-		
 		
 		HttpSession session = request.getSession();
 		Map<String,String> sessionMap = (Map)session.getAttribute("member");
+		
 		Map<String,String> map = new HashMap();
 		map.put("interest", interest);
 		map.put("detailInterest", detailInterest);
@@ -922,37 +917,69 @@ public class BuyController {
 		map.put("price", price);
 		map.put("content", buyContent);
 		map.put("buyNo", buyNo);
-		ArrayList<BuyAttach> files=new ArrayList();
-		String savDir = request.getSession().getServletContext().getRealPath("/resources/upload/buy");
 		
-		MultipartFile index = input_file[mainImgNo];
-		input_file[mainImgNo] = input_file[0];
-	    input_file[0] = index;
-	    
-		for(MultipartFile f: input_file)
+		for(MultipartFile a : input_file)
 		{
-			if(!f.isEmpty()) {
-				//파일명 생성(rename)
-				String orifileName=f.getOriginalFilename();
-				String ext=orifileName.substring(orifileName.lastIndexOf(".")); //.부터 확장자까지 가져오기
-				//rename규칙 설정
-				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSSS");
-				int rdv=(int)(Math.random()*1000); //랜덤값설정
-				String reName=sdf.format(System.currentTimeMillis())+"_"+rdv+ext;  //새이름
-				//파일입출력ㅎ
-				try {
-					f.transferTo(new File(savDir+"/"+reName)); //저경로에다가 파일을 생성해주는것
-				}catch(IllegalStateException | IOException e) {  //일리갈은 세이브디아이알 못찾을때 뜨는것
-					e.printStackTrace();
-				}
-				BuyAttach sa = new BuyAttach();
-				sa.setBuyImgRe(reName);
-				sa.setBuyImgOri(orifileName);
-				files.add(sa);
-			}
+			System.out.println("asdf" + a.getOriginalFilename());
 		}
 		
-		int result = service.buyModifyEnd(files, map);
+		List<Map<String,String>> imgList = new ArrayList();
+		ArrayList<BuyAttach> files=new ArrayList();
+		//넘어오는 이미지가 없을때(기존 이미지에서 변경이 없을 경우)-->이미지 변경없이 넘기면 0번 인덱스에 이름 공백으로 뭔가 넘어와서 이렇게 비교함
+		if(input_file[0].getOriginalFilename().equals(""))
+		{
+			System.out.println("여기1");
+			imgList = service.selectBuyImg(Integer.parseInt(buyNo)); //해당 글의 이미지를 다 가져옴
+			Map<String,String> indexMap = new HashMap(); //메인이미지로 변경할 이미지 임시 저장할 맵
+			indexMap = imgList.get(mainImgNo); //임시 저장
+			imgList.remove(mainImgNo); //그 위치에 있던 이미지 삭제 
+			imgList.add(0, indexMap);  //0번 위치에 둬서 메인이미지로 설정
+			
+		}
+		else// 이미지를 싹 변경할 경우 (원래하던 방법)
+		{
+			System.out.println("여기2");
+			String savDir = request.getSession().getServletContext().getRealPath("/resources/upload/buy");
+			
+			MultipartFile index = input_file[mainImgNo];
+			input_file[mainImgNo] = input_file[0];
+		    input_file[0] = index;
+		    
+			for(MultipartFile f: input_file)
+			{
+				if(!f.isEmpty()) {
+					//파일명 생성(rename)
+					String orifileName=f.getOriginalFilename();
+					String ext=orifileName.substring(orifileName.lastIndexOf(".")); //.부터 확장자까지 가져오기
+					//rename규칙 설정
+					SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSSS");
+					int rdv=(int)(Math.random()*1000); //랜덤값설정
+					String reName=sdf.format(System.currentTimeMillis())+"_"+rdv+ext;  //새이름
+					//파일입출력ㅎ
+					try {
+						f.transferTo(new File(savDir+"/"+reName)); //저경로에다가 파일을 생성해주는것
+					}catch(IllegalStateException | IOException e) {  //일리갈은 세이브디아이알 못찾을때 뜨는것
+						e.printStackTrace();
+					}
+					BuyAttach sa = new BuyAttach();
+					sa.setBuyImgRe(reName);
+					sa.setBuyImgOri(orifileName);
+					files.add(sa);
+				}
+			}
+			
+			
+		}
+		for(Map<String,String> m : imgList)
+		{
+			System.out.println("imgList : " + m);
+		}
+		for(BuyAttach b : files)
+		{
+			System.out.println("files : " + b);
+		}
+		int result = service.buyModifyEnd(files, imgList, map);
+		
 		String msg = "";
 		String loc = "";
 		ModelAndView mv = new ModelAndView();
