@@ -43,6 +43,7 @@
 	<div class='row'>
 		<div class='col-md-1'>
 			<div style='position:fixed; margin-top: 10em;'>
+
 	    			<span onclick='fn_back()' style='cursor:pointer; font-size: 6em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
 	          	 	<script>
 	           			function fn_back()
@@ -52,7 +53,7 @@
 		           	</script>
 	        </div>
       </div>
-		
+
 		<div class='col-md-10'>
 			<div class='row'>
 				<div class='col-md-2 col-xs-2'>

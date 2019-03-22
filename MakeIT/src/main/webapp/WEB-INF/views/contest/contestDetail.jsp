@@ -485,17 +485,12 @@
   					</div>        
        			</div>
 			</div>
-			   		    
-	    	<div class='col-md-1' id='right-nav' >
-	    		<!-- <div style='position:fixed; margin-top: 10em;'>
-	    			<span onclick='fn_forward()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-right"></i></span>    				           
-	          	 	<script>
-	           			function fn_forward()
-		           		{
-		           			history.forward();
-		           		}
-		           	</script>
-	           	</div> -->
+	    	<div class='col-md-1' id='right-nav' >	    	
+				<c:if test="${sessionScope.member.MEMBERID==admin}">   		    
+		    		<div style='position:fixed; margin-top: 10em;'>
+		    			<button class=" btn btn-outline-info slidetopleft" >승인</button>
+		           	</div>
+	    		</c:if>
 	    	</div>
 	    	<script>
 			    function fn_applicantAccess_modal()
