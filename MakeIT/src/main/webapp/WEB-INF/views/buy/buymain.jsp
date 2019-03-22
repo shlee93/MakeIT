@@ -49,7 +49,6 @@
 	display: none;
 
 }
-
 </style>
 </head>
 <body>
@@ -122,7 +121,9 @@
 				<!-- 앨범뷰 -->
 
 				<div class='col-md-10 col-xs-10' style='position: relative; min-width: 400px'>
-
+					<div id="pageTitle" style="padding-bottom:20px;">
+						<h1 style="font-family: 'Sunflower', sans-serif;">구매하기</h2>
+					</div>
 					<!-- 앨범 뷰 상단 탭 -->
 					<div style="margin-right: 0; ">
 						<div class="form-inline my-2 my-lg-0" >

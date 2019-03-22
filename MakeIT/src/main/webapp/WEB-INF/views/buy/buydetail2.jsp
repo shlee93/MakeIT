@@ -23,7 +23,7 @@
    
    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
    
-	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/buydetail/buydetail.css" />
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/contestdetail/contestDetail.css" />
 	 <link rel='stylesheet' href='${pageContext.request.contextPath }/resources/css/boardCommon/boardCommon.css'/>
    
       <jsp:include page="/WEB-INF/views/common/header.jsp">
@@ -46,7 +46,6 @@
 		height: 100%;
 	}  
 </style>
-
 </head>
 
 
@@ -160,14 +159,16 @@
            		</script>
 	   		</div>
         </div>
-        <div class='col-md-10' id='section' >
-            <div class='row'>
-                <div class="col-md-7" id="img-container">                	
-                    <img id="mainImg" class="mainImg" src="${path}/resources/upload/buy/${mainimgList.BUYIMGRE}" style="min-height:600px;max-height:400px;">
-                    
+        <div class='col-md-10' id='section' style='padding:50px' >
+       		
+            <div class='row' style='padding:1px; width: 100%; height: 600px;'>
+            	<div class="col-md-6" id="img-container">
+            		<div class='row mainImgContainer' id='mainImgContainer'>  	                	
+	                   <img id="mainImg" class="mainImg" src="${path}/resources/upload/buy/${mainimgList.BUYIMGRE}" style="min-height:600px;max-height:400px;">
+	               	</div>
                     <div class='row'>              
                       <c:forEach items="${subimgList}" var="subimgList">                          
-                        <div class="col-md-3 subImg1" id="subImg-container">
+                        <div class="col-md-3 subImg">
                             <img  class="subImgs" src="${path}/resources/upload/buy/${subimgList.BUYIMGRE}" style="cursor:pointer" >     
                         </div>
                       </c:forEach>                                             
@@ -175,18 +176,17 @@
                        
                     <div class='row'>
                         <nav id=tab-list>
-                            <div class="nav nav-tabs nav-fill detail" id="nav-tab" role="tablist">
+                            <div class="nav nav-tabs nav-fill detail" id="nav-tab" role="tablist" style="width:100%; font-size:1.1em;">
                                 <a class="nav-item nav-link active detail" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">상세설명</a>
                                 <a class="nav-item nav-link detail" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">취소 / 환불규정</a>
                             </div>
                         </nav>
-                        <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" style='min-width: 656px'>
-                              
-                               <h4>${detailList.BUYCONTENT}</h4>
+                        <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent" style="width:100%;">
+                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" style='width: 100%'>
+                              	<textarea class='contentTextArea' rows="34" readonly='readonly' style="font-size:14pt; border:0px">${detailList.BUYCONTENT}</textarea>
                             </div>
                             
-                            <div class="tab-pane fade" style="width:100%" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                               
 								<p style="text-align:center">취소 및 환불 규정취소 및 환불 규정</p>
 								<p>가. 기본 환불 규정</p>                     
@@ -237,7 +237,7 @@
 										<div class="dotCircle">
 
 											<!-- 첫번째 법륜 (수정)-->
-											<c:if test="${sessionScope.member.MEMBERID eq detailList.MEMBERID}">
+											<c:if test="${sessionScope.member.MEMBERID eq detailList.MEMBERID and empty specList3 }">
 											<span class="itemDot itemDot1" data-tab="1"> 
 												<!-- 작성자면 -->
 												
@@ -257,21 +257,21 @@
 											</c:if>
 											<!-- 두번째 법륜 끝 -->
 											<!-- 세번째 법륜 (삭제하기)-->
-											<c:if test="${sessionScope.member.MEMBERID eq detailList.MEMBERID}">
+											<c:if test="${sessionScope.member.MEMBERID eq detailList.MEMBERID and empty specList3}">
 											<span class="itemDot itemDot1" data-tab="3"> 
 												<!-- 작성자면 -->
 												
-													<i class="fas fa-edit donggeulI"></i>
+													<i class="fas fa-trash-alt donggeulI"></i>
 												<span class="forActive"></span>
 											</span>
 											</c:if> 
 											<!-- 세번째 법륜 끝 -->
 											<!-- 네번째 법륜 (쪽지)-->
 											<c:if test="${sessionScope.member.MEMBERID ne detailList.MEMBERID}">
-											<span class="itemDot itemDot1" data-tab="4"> 
+											<span class="itemDot ${sessionScope.member.MEMBERID ne detailList.MEMBERID and empty specList3? "":"active" } itemDot1" data-tab="4"> 
 											<!-- 작성자가 아니면 -->
 												
-												<i class="fas fa-kiss-wink-heart donggeulI"></i> 
+												<i class="fas fa-comments donggeulI"></i> 
 												
 												<span class="forActive"></span>
 											</span>
@@ -282,17 +282,17 @@
 											<span class="itemDot ${sessionScope.member.MEMBERID ne detailList.MEMBERID?"":"active" } itemDot1" data-tab="5">
 											 <!-- 작성자면 -->
 												
-													<i class="fas fa-edit donggeulI"></i>
+													<i class="fas fa-briefcase donggeulI"></i>
 												 <span class="forActive"></span>
 											</span>
 											</c:if>
 											<!-- 다섯번째 법륜 끝 -->
 											<!-- 여섯번째 법륜 (지원하기)-->
-											<c:if test="${sessionScope.member.MEMBERID ne detailList.MEMBERID}">
+											<c:if test="${sessionScope.member.MEMBERID ne detailList.MEMBERID and empty specList3}">
 											<span class="itemDot ${sessionScope.member.MEMBERID ne detailList.MEMBERID?"active":"" } itemDot1" data-tab="6"> 
 											<!-- 작성자가 아니면 --> 
 												
-													<i class="fas fa-kiss-wink-heart donggeulI"></i>
+													<i class="fas fa-briefcase donggeulI"></i>
 												 <span class="forActive"></span>
 											</span>
 											</c:if>
@@ -302,7 +302,7 @@
 											<span class="itemDot itemDot1" data-tab="7"> 
 												<!-- 작성자면 -->
 												
-													<i class="fas fa-edit donggeulI"></i>
+													<i class="fas fa-hand-holding-usd donggeulI"></i>
 												
 												<span class="forActive"></span>
 											</span>
@@ -313,7 +313,7 @@
 											<span class="itemDot itemDot1" data-tab="8"> 
 												<!-- 작성자가 아니면 --> 
 												
-													<i class="fas fa-kiss-wink-heart donggeulI"></i>
+													<i class="fas fa-angry donggeulI"></i>
 												 <span class="forActive"></span>
 											</span>
 											</c:if>
@@ -323,18 +323,19 @@
 											<span class="itemDot itemDot1" data-tab="9"> 
 												<!-- 작성자면 -->
 												
-													<i class="fas fa-edit donggeulI"></i>
+													<i class="fas fa-file-signature donggeulI"></i>
 												
 												<span class="forActive"></span>
 											</span>
 											</c:if> 
 											<!-- 아홉번째 법륜 끝 -->
 											<!-- 열번째 법륜 (작업완료)-->
-											<c:if test="${sessionScope.member.MEMBERID ne detailList.MEMBERID and specList.STATUS == 2}">
+											<c:if test="${sessionScope.member.MEMBERID ne detailList.MEMBERID and specList.STATUSNO == 2}">
 											<span class="itemDot itemDot1" data-tab="10">
 												<!-- 작성자가 아니면 -->
 												
-													<i class="fas fa-kiss-wink-heart donggeulI"></i>
+													<i class="fas fa-briefcase donggeulI"></i>
+													
 												<span class="forActive"></span>
 											</span>
 											</c:if> 
@@ -401,7 +402,7 @@
 												<button class="btn btn-outline-info slidetopleft" onclick="fn_delete();">삭제하기</button>
 											</div>
 											<!-- 네번째 법륜 기능 시작 (쪽지)-->
-											<div class="CirItem title-box CirItem4">
+											<div class="CirItem title-box ${sessionScope.member.MEMBERID ne detailList.MEMBERID and empty specList3? "":"active" } CirItem4">
 												<!-- 작성자 이미지 컨테이너 -->
 												<div class="d-flex justify-content-center h-100"
 													style='margin-bottom: -8em;'>
@@ -428,10 +429,10 @@
 													</div>
 												</div>
 												<br />
-												<button onclick='location.href="${path}/buy/volList.do?buyNo=${detailList.BUYNO }"' class='btn btn-outline-info slidetopleft'>지원자보기</button>
+												<button onclick='location.href="${path}/buy/volList.do?buyNo=${detailList.BUYNO }&specFlag=${empty specList3?"false":"true" }"' class='btn btn-outline-info slidetopleft'>지원자보기</button>
 											</div>
 											<!-- 여섯번째 법륜 기능 시작 (지원하기)-->
-											<div class="CirItem title-box ${sessionScope.member.MEMBERID ne detailList.MEMBERID?"active":"" } CirItem6">
+											<div class="CirItem title-box ${sessionScope.member.MEMBERID ne detailList.MEMBERID and empty specList3? "active":"" } CirItem6">
 												<!-- 작성자 이미지 컨테이너 -->
 												<div class="d-flex justify-content-center h-100"
 													style='margin-bottom: -8em;'>
@@ -504,7 +505,7 @@
 													</div>
 												</div>
 												<br />
-												<button class="btn btn-outline-info slidetopleft" onclick="location.href='${path}/buy/finishWork.do?buyNo=${detailList.BUYNO }&sellerId=${sessionScope.member.MEMBERID }'">작업완료</button> 
+												<button class="btn btn-outline-info slidetopleft" onclick="fn_finishWork()">작업완료</button> 
 											</div>
 											
 											
@@ -522,7 +523,7 @@
 										if(${!empty specList3})
 										{ 
 											console.log("여까진 들어오겠지");
-											if(${sessionScope.member.MEMBERID ne detailList.MEMBERID or sessionScope.member.MEMBERID ne specList3.MEMBERID })
+											if(${sessionScope.member.MEMBERID ne detailList.MEMBERID and sessionScope.member.MEMBERID ne specList3.MEMBERID })
 											{
 												alert("이 구매 게시글은 현재 거래중입니다. 구매 게시판으로 이동합니다.")
 												location.href="${path}/buy/buymain.do";
@@ -660,7 +661,15 @@
 				      						location.href="${path}/member/memberLogin.do";
 			      						}
 				      				} 
-				                
+				                	
+				                	function fn_finishWork()
+				                	{
+				                		if(confirm("작업 완료 처리하시겠습니까?"))
+				                		{
+				                			location.href="${path}/buy/finishWork.do?buyNo=${detailList.BUYNO }&sellerId=${sessionScope.member.MEMBERID }";
+				                			
+				                		}
+				                	}
 								</script>                        	
 	                       		<!-- 동글뱅이 스크립트 끝 -->                            
                             
@@ -691,6 +700,7 @@
 	</div>                   
 </div>
 </div>
+
 	<script>
 		//관리자 게시물 승인 이벤트
 		$(document).on('click','#approval-btn',function(){

@@ -80,7 +80,7 @@
         </script>
 </head>
 <body>
-	<form id="buyWriteFrm" action="${pageContext.request.contextPath}/buy/buyWriteEnd.do" method="post" enctype="multipart/form-data">
+		
 		<div class="row">
 			<div class="col-md-1">
 				<div style='position:fixed; margin-top: 10em;'>
@@ -93,7 +93,12 @@
            		</script>
 	   		</div>
 			</div>
+		
 			<div id="buy-container" class="col-md-10">
+			<div id="pageTitle" style="padding-bottom:20px;">
+				<h2 style="font-family: 'Sunflower', sans-serif;">구매 게시글 작성</h2>
+			</div>
+			<form id="buyWriteFrm" action="${pageContext.request.contextPath}/buy/buyWriteEnd.do" method="post" enctype="multipart/form-data">
 				<div class="row">
 					<div class="col-md-2">
 						<label>분류</label>
@@ -152,7 +157,7 @@
 				<div class="filebox bs3-primary preview-image">
 					<label for="input_file">사진 선택</label> <input type="file"
 						name="input_file" id="input_file" class="upload-hidden"
-						multiple="multiple" accept=".gif, .jpg, .png">
+						multiple="multiple" accept=".gif, .jpg, .png" required>
 				</div>
 
 				<br />
@@ -160,10 +165,12 @@
 					<button class="btn btn-outline-info slidetopleft">취소</button>
 					<input type="submit" class="btn btn-outline-info slidetopleft" value="작성">
 				</div>
+				</form>
 			</div>
+			
 			<div class="col-md-1"></div>
 		</div>
-	</form>
+	
 	<script>
 	var sel_files=[];
 	   var count = 0;

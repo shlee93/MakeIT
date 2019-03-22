@@ -755,6 +755,7 @@ public class BuyController {
 		
 		if (result > 0) {
 			msg = "환불 신청을 완료하였습니다.";
+			int result2 = service.buyDelete(Integer.parseInt(buyNo));
 			mv.addObject("msg", msg);
 			mv.addObject("script", "window.close();opener.location.reload();");
 			mv.setViewName("common/msg");
@@ -781,6 +782,7 @@ public class BuyController {
 		if (result > 0) {
 			msg = "구매확정을 하였습니다.";
 			loc = "/buy/buyDetail.do?buyNo=" + buyNo;
+			int result2 = service.buyDelete(Integer.parseInt(buyNo));
 			mv.addObject("msg", msg);
 			mv.addObject("loc", loc);
 			mv.setViewName("common/msg");

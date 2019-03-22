@@ -535,16 +535,16 @@ public class ContestController
 			int picker=0;
 			for(int i=0;i<files.size();i++)
 			{
-				System.out.println("메인이미지 재삽입:"+mainImgReInsert);
-				System.out.println("기존 메인이미지 불러오기:"+String.valueOf(files.get(i).getContestImgRe()));
+				/*System.out.println("메인이미지 재삽입:"+mainImgReInsert);
+				System.out.println("기존 메인이미지 불러오기:"+String.valueOf(files.get(i).getContestImgRe()));*/
 				if(mainImgReInsert.equals(String.valueOf(files.get(i).getContestImgRe())))
 				{
 					preMainImg=files.get(0);
 					picker=i;					
 				}
 			}
-			System.out.println("픽커"+picker);
-			System.out.println("이전이미지"+preMainImg);
+			/*System.out.println("픽커"+picker);
+			System.out.println("이전이미지"+preMainImg);*/
 			
 			files.add(0, files.get(picker));
 			files.add(picker, preMainImg);
