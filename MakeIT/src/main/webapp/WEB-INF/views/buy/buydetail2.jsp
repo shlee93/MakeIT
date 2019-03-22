@@ -348,7 +348,7 @@
 													</div>
 												</div>
 												<br />
-												<button class="btn btn-outline-info slidetopleft" >수정하기</button>
+												<button class="btn btn-outline-info slidetopleft" onclick="location.href='${path}/buy/buyModify.do?buyNo=${detailList.BUYNO }'">수정하기</button>
 											</div>
 											<!-- 두번째 법륜 기능 시작 (찜)-->
 											<div class="CirItem title-box CirItem2">
@@ -388,7 +388,7 @@
 													</div>
 												</div>
 												<br />
-												<button class="btn btn-outline-info slidetopleft" >삭제하기</button>
+												<button class="btn btn-outline-info slidetopleft" onclick="fn_delete();">삭제하기</button>
 											</div>
 											<!-- 네번째 법륜 기능 시작 (쪽지)-->
 											<div class="CirItem title-box CirItem4">
@@ -403,7 +403,7 @@
 													</div>
 												</div>
 												<br />
-												<button class="btn btn-outline-info slidetopleft" >쪽지보내기</button>
+												<button class="btn btn-outline-info slidetopleft" onclick='fn_message()'>쪽지보내기</button>
 											</div>
 											<!-- 다섯번째 법륜 기능 시작 (지원자보기)-->
 											<div class="CirItem title-box ${sessionScope.member.MEMBERID ne detailList.MEMBERID?"":"active" } CirItem5">
@@ -577,7 +577,15 @@
 					                        location.href="${path}/member/memberLogin.do";
 				                    	}
 									}
-									
+									/* 삭제 */
+				                	function fn_delete()
+				                	{
+				                		if(confirm("게시글을 삭제하시겠습니까?"))
+				                		{
+				                			location.href="${path}/buy/buyDelete.do?buyNo=${detailList.BUYNO }";
+				                			
+				                		}
+				                	}
 									/* 찜하기 */
 				                    function fn_outboxDo(){
 				                    	if(${sessionScope.member.MEMBERID!=null}){
@@ -624,7 +632,24 @@
 				                           location.href="${path}/member/memberLogin.do";
 				                        };        
 				                        
-				                   	}      
+				                   	}   
+				                	/* 쪽지보내기 */
+				                	function fn_message()
+				      				{
+				      					
+				      					if(${sessionScope.member.MEMBERID!=null})
+			      						{
+				      						var sendId="${sessionScope.member.MEMBERID}";
+					      					var receiveId=${detailList.MEMBERID};
+				                    		var popup=open("${path}/message/messagePop.do?sendId="+sendId+"&receiveId="+receiveId,"contestMsgSendPop","left=250px, top=200px, width=450px, height=350px");									                    	
+						      				
+			      						}
+				      					else
+			      						{
+				      						alert("로그인해주세요");
+				      						location.href="${path}/member/memberLogin.do";
+			      						}
+				      				} 
 				                
 								</script>                        	
 	                       		<!-- 동글뱅이 스크립트 끝 -->                            
@@ -647,7 +672,13 @@
               </div>
 		</div>
 	</div>   
-	<div class='col-md-1' id='right-nav' ></div>                   
+	<div class='col-md-1' id='right-nav' >
+		<c:if test="${sessionScope.member.MEMBERID==admin}">             
+			<div style='position:fixed; margin-top: 10em;'>
+				<button class=" btn btn-outline-info slidetopleft" >승인</button>
+			</div>
+		</c:if>
+	</div>                   
 </div>
 </div>
 </body>

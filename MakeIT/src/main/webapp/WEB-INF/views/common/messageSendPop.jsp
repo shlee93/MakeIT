@@ -56,6 +56,13 @@
                    		{
                    			self.close();
                    		}
+                   		$('#messageContent').on('keyup', function() {
+                   	      if($(this).val().length > 450) {
+                   	         alert("글자수는 450자로 이내로 제한됩니다.");
+                   	         $(this).val($(this).val().substring(0, 450));
+                   	      }
+                   	   
+                   	   });
                    	</script>
                	</tr>
            	</table>

@@ -49,6 +49,7 @@
 	display: none;
 
 }
+
 </style>
 </head>
 <body>
@@ -113,14 +114,15 @@
 				<div class='col-md-10 col-xs-10' style='position: relative; min-width: 400px'>
 
 					<!-- 앨범 뷰 상단 탭 -->
-					<div style="margin-right: 0; text-align: right">
-						<form class="form-inline my-2 my-lg-0">
+					<div style="margin-right: 0; ">
+						<div class="form-inline my-2 my-lg-0" >
 							<i class='fa fa-search'></i>&nbsp; <select id="searchtype" name="searchtype" class="form-control">
 								<option value='title'>제목</option>
 								<option value='writer'>작성자</option>
 							</select> <input class="form-control mr-sm-2" type="text" id="searchValue" placeholder="Search" aria-label="Search">
 							<button class="btn btn-outline-info slidetopleft my-2 my-sm-0" onclick="fn_searchtw();" type="button">Search</button>
-						</form>
+						</div>
+				
 					</div>
 					<nav>
 						<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
@@ -129,6 +131,13 @@
 						</div>
 					</nav>
 					<script>
+					
+						$(document).on('keydown','#searchValue',function(key){
+							if(key.keyCode==13){
+								fn_searchtw();
+							}
+						})
+					
 						function fn_valueChangeNew() {
 		
 							$("#newValue").attr("value", "1");
@@ -304,7 +313,6 @@
 										});
 
 						$(document).ready(function() {
-
 							pageFrm.sCategoryFlag.value = "${sCategoryFlag}";
 
 							$(".menu>a").click(function() {
@@ -319,7 +327,7 @@
 						});
 
 						function fn_changeCategory(sCtgr) {
-
+	
 							$("#isSearch").attr("value", "0");
 							console.log($("#sCategoryFlag").val());
 							var url = "${path}/buy/buymain.do";

@@ -26,14 +26,14 @@
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-
-
-<style>
- <link rel='stylesheet' href='${pageContext.request.contextPath }/resources/css/boardCommon/boardCommon.css'/>
-   
-      <jsp:include page="/WEB-INF/views/common/header.jsp">
+<link rel='stylesheet' href='${pageContext.request.contextPath }/resources/css/boardCommon/boardCommon.css'/>
+    <jsp:include page="/WEB-INF/views/common/header.jsp">
         <jsp:param value="HelloSpring" name="pageTitle"/>
       </jsp:include>
+
+<style>
+ 
+      
 
 
 div {padding: 10px;}
