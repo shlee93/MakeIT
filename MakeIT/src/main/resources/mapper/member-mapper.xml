@@ -1,5 +1,154 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="member">
-
+	<select resultType="map" parameterType="string" id="idDuplicate"> 
+		SELECT * FROM MEMBER WHERE MEMBERID=#{memberId} 
+	</select>
+	<insert id="insertMember" parameterType="map">
+		INSERT INTO MEMBER VALUES(#{memberId},#{password},#{name},#{phone},#{email},#{address},DEFAULT,DEFAULT,#{oriImg},#{reImg},NULL,DEFAULT,#{bankCode},#{account},#{birth},#{interest, typeHandler=strArray},DEFAULT,#{memberLevel}) 
+	</insert>
+	<select id="login" parameterType="map" resultType="map">
+		SELECT * FROM MEMBER WHERE MEMBERID=#{memberId}
+	</select>
+	<select id="selectOne" parameterType="map" resultType="map">
+		SELECT * FROM MEMBER JOIN GRADE USING(GRADENO) JOIN BANK USING(BANKCODE) WHERE MEMBERID=#{id}
+	</select>
+	<update id="memberIntroduction" parameterType="string">
+		UPDATE MEMBER SET INTRODUCTION = #{appealContent} WHERE MEMBERID=#{appealId}
+	</update>
+	<select id="selectBuyCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM BUY WHERE MEMBERID=#{id}
+	</select>
+	<select id="boardSellCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM SELL WHERE MEMBERID=#{id}
+	</select>
+	<select id="buyAvg" parameterType="string" resultType="_double">
+		SELECT AVG(BUYPRICE) FROM BUY WHERE MEMBERID=#{id}
+	</select>
+	<select id="sellAvg" parameterType="string" resultType="_double">
+		SELECT AVG(SELLPRICE) FROM SELLOPTION O JOIN SELL S USING(SELLNO) WHERE S.MEMBERID=#{id}
+	</select>
+	<select id="searchId" parameterType="string" resultType="string">
+		SELECT MEMBERID FROM MEMBER WHERE EMAIL=#{email}
+	</select>
+	<select id="searchEmail" parameterType="string" resultType="string">
+		SELECT EMAIL FROM MEMBER WHERE MEMBERID=#{id}
+	</select>
+	<update id="updatePw" parameterType="map">
+		UPDATE MEMBER SET PASSWORD = #{password} WHERE MEMBERID = #{id}
+	</update>
+	<update id="memberUpdate" parameterType="map">
+		UPDATE MEMBER SET MEMBERNAME=#{name},BIRTH=#{birth},BANKCODE=#{bankCode},ACCOUNT=#{account},PHONE=#{phone},EMAIL=#{email},ADDRESS=#{address},INTERESTNO=#{interest, typeHandler=strArray},ORIIMG=#{oriImg},REIMG=#{reImg} WHERE MEMBERID=#{memberId}
+	</update>
+	<update id="deleteMember" parameterType="string">
+		UPDATE MEMBER SET WITHDRAWYN='Y' WHERE MEMBERID=#{id}
+	</update>
+	<select id="buyOutBoxList" parameterType="string" resultType="map">
+		SELECT * FROM BUY B JOIN BUYOUTBOX O USING(BUYNO) WHERE O.MEMBERID=#{memberId} ORDER BY B.BUYDATE DESC
+	</select>
+	<select id="sellOutBoxList" parameterType="string" resultType="map">
+		SELECT * FROM SELL O JOIN SELLOUTBOX S USING(SELLNO) WHERE S.MEMBERID=#{memberId} ORDER BY O.SELLDATE DESC
+	</select>
+	<select id="selectOutBoxBuyCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM BUYOUTBOX O JOIN BUY B USING(BUYNO) WHERE O.MEMBERID=#{memberId}
+	</select>
+	<select id="selectOutBoxSellCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM SELLOUTBOX O JOIN SELL S USING(SELLNO) WHERE O.MEMBERID=#{memberId}
+	</select>
+	<select id="buyList" parameterType="string" resultType="map">
+		SELECT * FROM BUY WHERE MEMBERID=#{memberId} AND BUYDELETEYN='N' ORDER BY BUYDATE DESC
+	</select>
+	<select id="sellList" parameterType="string" resultType="map">
+		SELECT * FROM SELL WHERE MEMBERID=#{memberId} AND SELLDELETEYN='N' ORDER BY SELLDATE DESC
+	</select>
+	<select id="sendMessage" parameterType="string" resultType="map">
+		SELECT * FROM MESSAGE WHERE SENDID=#{memberId} AND SENDDELETEYN = 'N' ORDER BY SENDDATE DESC
+	</select>
+	<select id="receiveMessage" parameterType="string" resultType="map">
+		SELECT * FROM MESSAGE WHERE RECEIVEID=#{memberId} AND RECEIVEDELETEYN = 'N'  ORDER BY SENDDATE DESC
+	</select>
+	<select id="totalSendCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM MESSAGE WHERE SENDID=#{memberId} AND SENDDELETEYN = 'N'
+	</select>
+	<select id="totalReceiveCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM MESSAGE WHERE RECEIVEID=#{memberId} AND RECEIVEDELETEYN = 'N'
+	</select>
+	<select id="messageDetail" parameterType="_int" resultType="map">
+		SELECT * FROM MESSAGE WHERE MESSAGENO=#{messageNo}
+	</select>
+	<update id="updateMessageDate" parameterType="_int">
+		UPDATE MESSAGE SET READDATE = SYSTIMESTAMP WHERE MESSAGENO=#{messageNo}
+	</update>
+	<update id="deleteReceiveMessage" parameterType="map">
+		UPDATE MESSAGE SET RECEIVEDELETEYN = 'Y' WHERE MESSAGENO=#{messageNo}
+	</update>
+	<update id="deleteSendMessage" parameterType="map">
+		UPDATE MESSAGE SET SENDDELETEYN = 'Y' WHERE MESSAGENO=#{messageNo}
+	</update>
+	<update id="deleteReceiveMessages" parameterType="_int">
+		UPDATE MESSAGE SET RECEIVEDELETEYN = 'Y' WHERE MESSAGENO=#{delListInt}
+	</update>
+	<update id="deleteSendMessages" parameterType="_int">
+		UPDATE MESSAGE SET SENDDELETEYN = 'Y' WHERE MESSAGENO=#{delListInt}
+	</update>
+	<insert id="sendMessageEnd" parameterType="map">
+		INSERT INTO MESSAGE VALUES(SEQ_MESSAGENO.NEXTVAL,#{messageContent},DEFAULT,DEFAULT,DEFAULT,DEFAULT,#{receiveId},#{sendId})
+	</insert>
+	<select id="selectFreeCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM FREE WHERE MEMBERID=#{memberId} AND FREEYN='N'
+	</select>
+	<select id="freeList" parameterType="string" resultType="map">
+		SELECT * FROM FREE WHERE MEMBERID=#{memberId} AND FREEYN='N'
+	</select>
+	<select id="selectQnaCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM QNA WHERE MEMBERID=#{memberId} AND QNADELETEYN='N' ORDER BY QNADATE DESC
+	</select>
+	<select id="qnaList" parameterType="string" resultType="map">
+		SELECT * FROM QNA WHERE MEMBERID=#{memberId} AND QNADELETEYN='N'
+	</select>
+	<select id="getAccount" parameterType="map" resultType="map">
+		SELECT * FROM ACCOUNT WHERE ACCOUNTNO=#{accountNo} AND BANKCODE=#{bankCode}
+	</select>
+	<select id="contestList" parameterType="string" resultType="map">
+		SELECT * FROM CONTEST WHERE MEMBERID=#{memberId} AND CONTESTYN='N' ORDER BY CONTESTDATE DESC
+	</select>
+	<select id="selectContestCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM CONTEST WHERE MEMBERID=#{memberId} AND CONTESTYN='N'
+	</select>
+	<select id="noReadMessage" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM MESSAGE WHERE RECEIVEID=#{memberId} AND READDATE IS NULL AND RECEIVEDELETEYN = 'N'
+	</select>
+	<select id="selectServiceNum" parameterType='string' resultType="_int">
+		SELECT COUNT(SELLNO) FROM SELL 
+	</select>
+	<select id="selectTradeNum" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM SELLSPEC JOIN STATUS ON SELLSPEC.STATUSNO = STATUS.STATUSNO WHERE STATUS.STATUSNO = 4
+	</select>
+	<select id="selectRanking" parameterType="string" resultType="map">
+		SELECT SUM(SELLPRICE),MEMBERNAME,M.MEMBERID FROM MEMBER M JOIN(SELECT S.MEMBERID, SELLPRICE FROM SELL S JOIN(SELECT SELLPRICE,P.SELLNO FROM SELLOPTION P, (SELECT SELLOPTIONNO,SELLNO FROM SELLSPEC JOIN STATUS ON SELLSPEC.STATUSNO = STATUS.STATUSNO WHERE STATUS.STATUSNO =4) S WHERE P.SELLNO = S.SELLNO AND P.SELLOPTIONNO = S.SELLOPTIONNO) P ON S.SELLNO = P.SELLNO) P ON M.MEMBERID = P.MEMBERID GROUP BY MEMBERNAME,M.MEMBERID ORDER BY SUM(SELLPRICE) DESC
+	</select>
+	<insert id="insertNaverMember" parameterType="map">
+		INSERT INTO MEMBER VALUES(#{memberId},NULL,#{name},NULL,#{email},NULL,DEFAULT,DEFAULT,NULL,NULL,NULL,DEFAULT,NULL,NULL,NULL,NULL,DEFAULT,1)
+	</insert>
+	<select id="selectNaverOne" parameterType="string" resultType="map">
+		SELECT * FROM MEMBER WHERE MEMBERID=#{id}
+	</select>
+	<delete id="deleteNaverMember" parameterType="string">
+		DELETE FROM MEMBER WHERE MEMBERID=#{updateId}
+	</delete>
+	<select id="bankList" resultType="map">
+		SELECT * FROM BANK
+	</select>
+	<select id="memberSearch" parameterType="string" resultType="map">
+		SELECT MEMBERID FROM MEMBER WHERE MEMBERID LIKE '%'||#{receiveId}||'%'
+	</select>
+	<select id="contestOutBoxList" parameterType="string" resultType="map">
+		SELECT * FROM CONTEST C JOIN CONTESTOUTBOX O USING(CONTESTNO) WHERE O.MEMBERID=#{memberId}
+	</select>
+	<select id="selectOutBoxContestCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM CONTESTOUTBOX WHERE MEMBERID=#{memberId}
+	</select>
+	<resultMap type="map" id="memberMap">
+		<result column="interest" property="interest" typeHandler="strArray"/>
+	</resultMap>
 </mapper>
