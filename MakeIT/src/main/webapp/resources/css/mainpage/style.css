@@ -89,30 +89,33 @@
         #navWrap{
             position: relative;
             width: 100%;
-            height: 200px;
+            height: 250px;
             left: 0;
             top: 0;
-            background-color: midnightblue;
+        	background-color: #138496;
         }
         #navBody{
             position: relative;
             left: 50%;
-            top: 0%;
+            top: 5%;
             width: 300px;
             height: 100px;
-            transform: translate(-50%,-0%);
-            /* background-color: red; */
+            transform: translate(-50%,-5%);
+/*             background-color: red;  */
         }
         #logoIcon{
             position: relative;
-            width: 60px;
-            height: 60px;
+	        width: 110px;
+	        height: 110px;
             left: 50%;
             top: 20%;
             transform: translate(-50%,-20%);
-            background-color: white;
-            border-radius: 10%;
+            cursor:pointer;
         }
+	    #logoIcon img{
+	    	width: 100%;
+	    	height: 100%;
+	    }
         #logoWrite{
             margin-top: 5px;
             font-size: 50px;
@@ -129,96 +132,179 @@
             white-space: nowrap;
             /* background-color: red; */
         }
-        #login{
-            font-size: 20px;
-            color: white;
-            white-space: nowrap;
-            text-decoration: none;
-        }
-        #join{
-            font-size: 20px;
-            color: white;
-            white-space: nowrap;
-            text-decoration: none;
-        }
+	    #login{
+	        font-size: 35px;
+	        color: white;
+	        text-decoration: none;
+			font-family: 'Nanum Pen Script', cursive;
+			transition: ease-in-out;
+			transition-duration: 0.7s;
+	    }
+	    #login:hover{
+	    	color: gold;
+	    }
+	    #join{
+	        font-size: 35px;
+	        color: white;
+	        white-space: nowrap;
+	        text-decoration: none;
+			font-family: 'Nanum Pen Script', cursive;
+			transition: ease-in-out;
+			transition-duration: 0.7s;
+	    }
+	    #join:hover{
+	    	color: gold;
+	    }
 
 
-
-        #mainNavi{
+    #mainNavi{
         position: relative;
-        width: 30%;
-        min-width: 450px;
-        height: 100px;
+        width: 40%;
+        min-width: 800px;
+        height: 200px;
         left: 50%;
-        top: -60px;
+        top: -120px;
         transform: translate(-50%);
         background-color: white;
-        border-radius:200px;
-        }
+        border-top-left-radius:100px; 
+        border-top-right-radius:5px; 
+    }
 
-        #iconWrap{
-            position: relative;
-            display: inline-block;
-            left: 50%;
-            top:80%;
-            transform: translate(-50%,-80%);
-            /* background-color: black; */
-        }
-        #icon1{
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: gold;
-            border-radius: 100%;
-        }
-        #icon2{
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: gold;
-            border-radius: 100%;
-            margin-left: 20px;
+    #iconWrap{
+        position: relative;
+        width:max-content;
+        height: max-content;
+        left: 50%;
+        top:15%;
+        transform: translate(-50%,-15%);
+        white-space:nowrap;
+/*         background-color: black;  */
+    }
+    #icon1{
+        position: relative;
+		display:inline-block;
+        width: 100px;
+        height: 100px;
+    	cursor:pointer;
+    }
+    #icon1 img{
+    	position:relative;
+    	width: 100%;
+    	height: 100%;
+    	top:0px;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    #icon1 p{
+		font-family: 'Nanum Pen Script', cursive;
+		font-size: 30px;
+		color: black;
+		text-align: center;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    
+    #icon2{
+        position: relative;
+        display:inline-block;
 
-        }
-        #icon3{
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: gold;
-            border-radius: 100%;
-            margin-left: 20px;
-        }
-        #icon4{
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: gold;
-            border-radius: 100%;
-            margin-left: 20px;
-        }
-        #icon5{
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: gold;
-            border-radius: 100%;
-            margin-left: 20px;
-        } 
+        width: 100px;
+        height: 100px;
+        margin-left: 40px;
+		cursor:pointer;
+    }
+    #icon2 img{
+    	position:relative;
+    	width: 100%;
+    	height: 100%;
+    	top:0px;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    #icon2 p{
+		font-family: 'Nanum Pen Script', cursive;
+		font-size: 30px;
+		color: black;
+		text-align: center;
+        transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    
+    
+    #icon3{
+        position: relative;
+        display:inline-block;
+        width: 100px;
+        height: 100px;
+        margin-left: 40px;
+        cursor:pointer;
+    }
+    #icon3 img{
+    	position:relative;
+    	width: 100%;
+    	height: 100%;
+    	top:0px;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    #icon3 p{
+		font-family: 'Nanum Pen Script', cursive;
+		font-size: 30px;
+		color: black;
+		text-align: center;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    
+    #icon4{
+        position: relative;
+        display:inline-block;
+        width: max-content;
+        height: max-content;
+        margin-left: 40px;
+        cursor:pointer;
+    }
+    #icon4 img{
+    	position:relative;
+    	width: 100px;
+    	height: 100px;
+    	top:0px;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    #icon4 p{
+		font-family: 'Nanum Pen Script', cursive;
+		font-size: 30px;
+		color: black;
+		text-align: center;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    
+    #icon5{
+        position: relative;
+        display:inline-block;
+        width: max-content;
+        height: max-content;
+        margin-left: 40px;
+        cursor:pointer;
+    }
+    #icon5 img{
+    	position:relative;
+    	width: 100px;
+    	height: 100px;
+    	top:0px;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    #icon5 p{
+		font-family: 'Nanum Pen Script', cursive;
+		font-size: 30px;
+		color: black;
+		text-align: center;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
         
 /* ===========================푸터 및 기타=============================== */
 	    #widthBar{
