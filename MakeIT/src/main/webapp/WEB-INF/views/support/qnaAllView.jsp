@@ -21,12 +21,14 @@
 
 	</select> 
 	<input id="search-qna" type="text" placeholder="검색 내용을 입력해주세요" size="50" value="${searchQna }" />
-	<c:if test="${member.MEMBERLEVEL==0 }">
-		<button id="qna-status" style="display: none">미답변글</button>
-	</c:if>
 </div>
 <hr>
-<button class="btn btn-outline-info slidetopleft" id="insert-qna-view">문의하기</button>
+<c:if test="${member.MEMBERLEVEL==0 }">
+	<button id="qna-status" class="btn btn-outline-info slidetopleft">미답변글</button>
+</c:if>
+<c:if test="${not empty member and member.MEMBERLEVEL!=0 and not empty categoryList }">                         	 
+	<button class="btn btn-outline-info slidetopleft" id="insert-qna-view">문의하기</button>
+</c:if>
 <table class="table" id="qna-table" cellspacing="0">
 	<thead>
 		<tr>
@@ -46,7 +48,7 @@
 						<tr class="qna-question">
 							<td><%=i %></td>
 							<td>${qna.FAQNACATEGORYNAME }</td>
-							<td colspan="3"><a class="qna-title">${qna.QNATITLE }</a> <input
+							<td colspan="3"><a class="qna-pass" data-toggle="modal" data-target="#squarespaceModal">${qna.QNATITLE }</a> <input
 								type="hidden" value="${qna.QNANO }" /></td>
 							<td>${qna.MEMBERID }</td>
 							<td>${qna.QNADATE }</td>
@@ -58,7 +60,7 @@
 						<tr class="qna-answer">
 							<td><%=i %></td>
 							<td></td>
-							<td colspan="3">&nbsp;&nbsp;→[답변]<a class="qna-title-reple">${qna.QNATITLE }</a>
+							<td colspan="3">&nbsp;&nbsp;→[답변]<a class="qna-title-reple qna-pass" data-toggle="modal" data-target="#squarespaceModal">${qna.QNATITLE }</a>
 								<input type="hidden" value="${qna.QNANO }" />
 							</td>
 							<td>&nbsp;&nbsp;${qna.MEMBERID }</td>
@@ -76,7 +78,7 @@
 		</c:if>
 		<c:if test="${empty qnaList }">
 			<tr>
-				<td>첫 게시물을 등록해주세요!</td>
+				<td colspan="7">첫 게시물을 등록해주세요!</td>
 			</tr>
 		</c:if>
 	</tbody>

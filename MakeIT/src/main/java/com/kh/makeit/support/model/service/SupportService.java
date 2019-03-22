@@ -34,5 +34,13 @@ public interface SupportService {
 	
 	//qna 게시글 답변 여부 변경
 	int updateQnaReple(int qnaRefNo);
+	
+	//qna 게시글 미답변 카운트
+	int selectSearchQnaCheckCount(Map<String,String> search);
+	
+	//qna 게시글 미답변 리스트
+	List<Map<String,String>> selectSearchQnaCheckList(Map<String,String> search,int cPage,int numPerPage);
 
+	//qna 게시글 비밀번호 체크
+	String selectQnaPassCheck(int qnaNo);
 }

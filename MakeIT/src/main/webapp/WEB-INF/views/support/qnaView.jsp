@@ -14,7 +14,7 @@
 					<td><%=i %></td>
 					<td>${qna.FAQNACATEGORYNAME }</td>
 					<td colspan="3">
-						<a class="qna-title">${qna.QNATITLE }</a> 
+						<a class="qna-pass" data-toggle="modal" data-target="#squarespaceModal">${qna.QNATITLE }</a> 
 						<input type="hidden" value="${qna.QNANO }" />
 					</td>
 					<td>${qna.MEMBERID }</td>
@@ -28,7 +28,7 @@
 					<td><%=i %></td>
 					<td></td>
 					<td colspan="3" style="color:gray;">
-						&nbsp;&nbsp;→[답변]<a class="qna-title-reple">${qna.QNATITLE }</a>
+						&nbsp;&nbsp;→[답변]<a class="qna-title-reple qna-pass" data-toggle="modal" data-target="#squarespaceModal">${qna.QNATITLE }</a>
 						<input type="hidden" value="${qna.QNANO }" />
 					</td>
 					<td>&nbsp;&nbsp;${qna.MEMBERID }</td>
@@ -46,6 +46,6 @@
 </c:if>
 <c:if test="${empty qnaList }">
 	<tr>
-		<td>첫 게시물을 등록해주세요!</td>
+		<td colspan="7">첫 게시물을 등록해주세요!</td>
 	</tr>
 </c:if>

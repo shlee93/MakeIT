@@ -305,6 +305,38 @@ public class AdminServiceImpl implements AdminService {
 		
 		return dao.selectSearchDeleteList(delete, cPage, numPerPage);
 	}
+
+	//구매글 승인
+	@Override
+	public int updateBuyCheck(int buyNo) {
+		
+		return dao.updateBuyCheck(buyNo);
+	}
+
+	//판매글 승인
+	@Override
+	public int updateSellCheck(int sellNo) {
+		
+		return dao.updateSellCheck(sellNo);
+	}
+
+	//컨테스트글 승인
+	@Override
+	public int updateContestCheck(int contestNo) {
+		
+		return dao.updateContestCheck(contestNo);
+	}
+
+	//삭제된 게시글 복구
+	@Override
+	public int updateDeleteCheck(Map<Object, Object> returnD) {
+		
+		return dao.updateDeleteCheck(returnD);
+	}
+	
+	
+	
+	
 	
 	
 	

@@ -85,53 +85,59 @@ $(document).on('click','#insert-qna-view',function(){
 	})
 })
 
+
+
 //qna 게시글 상세보기
+var qnaPass;
+var qnaCheckNo;
+//비밀번호 체크
+$(document).on('click','.qna-pass',function(){
+	$('#exampleInputPassword1').val('');
+	var qnaNo=$(this).siblings('input').val();
+	
+	$.ajax({
+		url:"qnaPassCheck.do",
+		data:{
+			"qnaNo":qnaNo
+		},
+		success:function(data){
+			qnaPass=data;
+			qnaCheckNo=qnaNo;
+		}
+	
+	})
+})
+
 $(document).on('click','.qna-title',function(){
 	
 	var cPage=$('.active').children('.page-link').text();
 	var searchQna=$('#search-qna').val();
 	var filter=$('#search-filter option:selected').val();
 	var sortCheck=$('#qna-sort option:selected').val();
-	var qnaNo=$(this).siblings('input').val();
 	
-	$.ajax({
-		url:"detailQnaView.do",
-		data:{
-			"cPage":cPage,
-			"searchQna":searchQna,
-			"filter":filter,
-			"sortCheck":sortCheck,
-			"qnaNo":qnaNo
-		},
-		dataType:"html",
-		success:function(data){
-			$('#nav-qna').html(data);
-		}
-	})
-});
-//qna 게시글 상세보기
-$(document).on('click','.qna-title-reple',function(){
+	//비번 체크
+	if(qnaPass==$('#exampleInputPassword1').val()){
+		$.ajax({
+			url:"detailQnaView.do",
+			data:{
+				"cPage":cPage,
+				"searchQna":searchQna,
+				"filter":filter,
+				"sortCheck":sortCheck,
+				"qnaNo":qnaCheckNo
+			},
+			dataType:"html",
+			success:function(data){
+				$('#pass-check-close').click();
+				$('#nav-qna').html(data);
+				
+			}
+		})
+	}else{
+		alert("비밀번호가 일치하지 않습니다!")
+		return false;
+	}
 	
-	var cPage=$('.active').children('.page-link').text();
-	var searchQna=$('#search-qna').val();
-	var filter=$('#search-filter option:selected').val();
-	var sortCheck=$('#qna-sort option:selected').val();
-	var qnaNo=$(this).siblings('input').val();
-	
-	$.ajax({
-		url:"detailQnaView.do",
-		data:{
-			"cPage":cPage,
-			"searchQna":searchQna,
-			"filter":filter,
-			"sortCheck":sortCheck,
-			"qnaNo":qnaNo
-		},
-		dataType:"html",
-		success:function(data){
-			$('#nav-qna').html(data);
-		}
-	})
 });
 
 //qna 뒤로가기 버튼
@@ -424,3 +430,55 @@ $(document).on('click','#nav-qna-tab',function(){
 		}
 	})
 })
+
+//미답변 글만 출력
+$(document).on('click','#qna-status',function(){
+	
+	$.ajax({
+		url:"repleCheck.do",
+		dataType:"html",
+		success:function(data){
+			$('#nav-qna').html(data);
+		}
+	})
+	
+})
+
+//faq 카테고리 클릭 이벤트
+$(document).on('click', '.faq-slide', function () {
+
+	var $faq_list = $(this).parent().next();
+
+	if ($faq_list.is(':hidden')) {
+
+		$faq_list.slideDown('slow');
+		$(this).html("▲");
+
+	} else {
+
+		$faq_list.slideUp('slow');
+		$(this).html("▼");
+
+	}
+
+});
+
+
+//faq 답변 보기 이벤트
+$(document).on('click', '.answer-slide', function () {
+
+	var $slide_btn = $(this);
+	var $answer = $slide_btn.siblings('.faq-answer');
+
+	if ($answer.is(':hidden')) {
+		$answer.slideDown('slow');
+		$(this).html("▲");
+
+	} else {
+		$answer.slideUp('slow');
+		$(this).html("▼");
+
+
+	}
+
+});

@@ -305,6 +305,38 @@ public class AdminDaoImpl implements AdminDao {
 		RowBounds rb=new RowBounds((cPage-1)*numPerPage,numPerPage);
 		return sqlSession.selectList("admin.selectSearchDeleteList", delete, rb);
 	}
+
+	//구매글 승인
+	@Override
+	public int updateBuyCheck(int buyNo) {
+		
+		return sqlSession.update("admin.updateBuyCheck", buyNo);
+	}
+
+	//판매글 승인
+	@Override
+	public int updateSellCheck(int sellNo) {
+		
+		return sqlSession.update("admin.updateSellCheck", sellNo);
+	}
+
+	//컨테스트글 승인
+	@Override
+	public int updateContestCheck(int contestNo) {
+		
+		return sqlSession.update("admin.updateContestCheck", contestNo);
+	}
+
+	//삭제된 게시글 복구
+	@Override
+	public int updateDeleteCheck(Map<Object, Object> returnD) {
+
+		return sqlSession.update("admin.updateDeleteCheck", returnD);
+	}
+	
+	
+	
+	
 	
 	
 	

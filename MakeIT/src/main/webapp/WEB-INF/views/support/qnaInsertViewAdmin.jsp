@@ -31,7 +31,9 @@
 	    <select id="category" name="category" class="form-control">
 	    	<c:if test="${not empty categoryList }">
 	    		<c:forEach items="${categoryList }" var="category">
-	    			<option class="category-option" value="${category.FAQNACATEGORYNO }" ${category.FAQNACATEGORYNO==qna.FAQNACATEGORYNO?'selected':'' }>${category.FAQNACATEGORYNAME }</option>
+	    			<c:if test="${category.FAQNACATEGORYNO==qna.FAQNACATEGORYNO }">
+	    				<option class="category-option" value="${category.FAQNACATEGORYNO }" ${category.FAQNACATEGORYNO==qna.FAQNACATEGORYNO?'selected':'' }>${category.FAQNACATEGORYNAME }</option>
+	    			</c:if>
 	    		</c:forEach>
 	    	</c:if>
 	      

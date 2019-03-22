@@ -108,6 +108,30 @@
 	                    	</table>
                                     
                         </div>
+                        <script>
+	                      	//게시글 상세보기
+	                        $(document).on('click','.buy-title',function(e){
+	                        	var buyNo=$(this).siblings('input').val();
+	                            e.preventDefault();  
+	                            var url = "${path}/buy/buyDetail?buyNo="+buyNo;  
+	                            window.open(url, "_blank");  
+	                           
+	                        });
+	                      	
+	                        $(document).on('click','.sell-title',function(e){
+	                        	var sellNo=$(this).siblings('input').val();
+	                        	e.preventDefault();  
+	                            var url = "${path}/sell/selldetail?sellNo="+sellNo;  
+	                            window.open(url, "_blank");  
+	                        });
+
+	                        $(document).on('click','.contest-title',function(e){
+	                        	var contestNo=$(this).siblings('input').val();
+	                        	e.preventDefault();  
+	                            var url = "${path}/contest/contestDetail.do?contestNo="+contestNo;
+	                            window.open(url, "_blank");  
+	                        });
+                        </script>
                         <div class="tab-pane fade" id="nav-approval" role="tabpanel" aria-labelledby="nav-approval-tab">
                             <table class="table" cellspacing="0">
                                 <thead>
@@ -198,6 +222,7 @@
 								                                            <th>작성자</th>
 								                                            <th>작성날짜</th>
 								                                            <th>분야</th>
+								                                           
 								                                        </tr>
 								                                    </thead>
 								                                    <tbody>
@@ -208,7 +233,7 @@
 								                                    				<c:when test="${approval.CATEGORYCODE eq 'B' }">
 								                                    					<tr>
 												                                            <td>
-												                                            	<a href="${path }/buy/buyDetail?buyNo=${approval.BUYNO }" >${approval.BUYTITLE }</a>
+												                                            	<a class="buy-title">${approval.BUYTITLE }</a>
 												                                            	<input type="hidden" class="number" value="${approval.BUYNO }"/>
 												                                            </td>
 												                                            <td>${approval.MEMBERID }</td>
@@ -219,7 +244,7 @@
 								                                    				<c:when test="${approval.CATEGORYCODE eq 'S' }">
 								                                    					<tr>
 												                                            <td>
-												                                            	<a>${approval.SELLTITLE }</a>
+												                                            	<a class="sell-title">${approval.SELLTITLE }</a>
 												                                            	<input type="hidden" class="number" value="${approval.SELLNO }"/>
 												                                            </td>
 												                                            <td>${approval.MEMBERID }</td>
@@ -230,7 +255,7 @@
 								                                    				<c:when test="${approval.CATEGORYCODE eq 'C' }">
 								                                    					<tr>
 												                                            <td>
-												                                            	<a>${approval.CONTESTTITLE }</a>
+												                                            	<a class="contest-title">${approval.CONTESTTITLE }</a>
 												                                            	<input type="hidden" class="number" value="${approval.CONTESTNO }"/>
 												                                            </td>
 												                                            <td>${approval.MEMBERID }</td>
@@ -275,6 +300,7 @@
 								                                            <th>작성자</th>
 								                                            <th>작성날짜</th>
 								                                            <th>분야</th>
+								                                            <th>복구</th>
 								                                        </tr>
 								                                    </thead>
 								                                    <tbody>
@@ -291,6 +317,7 @@
 												                                            <td>${delete.MEMBERID }</td>
 												                                            <td>${delete.BUYDATE }</td>
 												                                            <td>${delete.INTEREST }</td>
+												                                            <td><button class="return-content">복구</button></td>
 												                                        </tr>
 								                                    				</c:when>
 								                                    				<c:when test="${delete.CATEGORYCODE eq 'S' }">
@@ -302,6 +329,7 @@
 												                                            <td>${delete.MEMBERID }</td>
 												                                            <td>${delete.SELLDATE }</td>
 												                                            <td>${delete.INTEREST }</td>
+												                                            <td><button class="return-content">복구</button></td>
 												                                        </tr>
 								                                    				</c:when>
 								                                    				<c:when test="${delete.CATEGORYCODE eq 'C' }">
@@ -313,6 +341,7 @@
 												                                            <td>${delete.MEMBERID }</td>
 												                                            <td>${delete.CONTESTDATE }</td>
 												                                            <td>${delete.INTEREST }</td>
+												                                            <td><button class="return-content">복구</button></td>
 												                                        </tr>
 								                                    				</c:when>
 								                                    				
@@ -322,13 +351,13 @@
 								                                    	</c:when>
 								                                    	<c:otherwise>
 								                                    	<tr>
-								                                    		<td colspan="4">데이터가 없습니다!</td>
+								                                    		<td colspan="5">데이터가 없습니다!</td>
 								                                    	<tr>
 								                                    	</c:otherwise>
 								                                    </c:choose>
 								                                        
 								                                        <tr>
-								                                        	<td colspan="4">
+								                                        	<td colspan="5">
 								                                        		${pageBarDelete }
 								                                        	</td>
 								                                        </tr>
@@ -1004,9 +1033,11 @@
                                 <div class="col-md-6 faq-add-back">
                                 
                                     &nbsp; &nbsp;
+                                <c:if test="${not empty categoryList }">
                                     <button class="add-qna btn btn-outline-info slidetopleft">
                                     	+질문&답변 추가
-                                    </button>
+                                    </button>    	
+                                </c:if>
                                     
                                 </div>
                             </div>
@@ -1052,6 +1083,12 @@
 	                            </div>
                             	
                             	</c:forEach>
+                            </c:if>
+                            <c:if test="${empty categoryList }">
+                            	<div class="col-md-12">
+                            		질문 유형 카테고리를 등록해주세요!
+                            		<button class="btn btn-outline-info slidetopleft" id="move-category">이동</button>
+                            	</div>
                             </c:if>
                             <div id="faq-insert-back">
                             	<div id="add-faq-category">

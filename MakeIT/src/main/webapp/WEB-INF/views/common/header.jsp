@@ -33,8 +33,6 @@
 <link rel="stylesheet" type="text/css" href="${path }/resources/css/mainpage/style.css"/>
 <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Sunflower:300" rel="stylesheet">	
 
-
-
 </head>
 <body>
 <header>

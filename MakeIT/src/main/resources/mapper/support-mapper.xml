@@ -33,6 +33,17 @@
   	</if>
   </select>
   
+  <!-- qna 검색 미답변 게시물 카운트 -->
+  <select id="selectSearchQnaCheckCount" parameterType="map" resultType="_int">
+  	SELECT COUNT(*) FROM QNA WHERE QNADELETEYN='N' AND ANSWERYN='N'
+  	<if test="searchQna!=''">
+  		AND ${filter} LIKE '%'||${searchQna}||'%'
+  	</if>
+  	<if test="sortCheck!=0">
+  		AND FAQNACATEGORYNO=#{sortCheck}
+  	</if>
+  </select>
+  
   <!-- qna 검색 게시물 리스트 -->
   <select id="selectSearchQnaList" parameterType="map" resultType="map">
   	SELECT 
@@ -56,6 +67,32 @@
     ORDER SIBLINGS BY QNADATE DESC
   </select>
   
+  <!-- qna 검색 미답변 게시물 리스트 -->
+  <select id="selectSearchQnaCheckList" parameterType="map" resultType="map">
+  	SELECT 
+   	*
+    FROM (SELECT 
+    Q.*,
+  	C.FAQNACATEGORYNAME 
+    FROM QNA Q
+    JOIN FAQCATEGORY C ON(C.FAQNACATEGORYNO=Q.FAQNACATEGORYNO)
+    WHERE QNADELETEYN='N' AND ANSWERYN='N'
+   
+    <if test="searchQna!=''">
+  		AND Q.${filter} LIKE '%'||${searchQna}||'%'    
+    </if>   
+  	<if test="sortCheck!=0">
+  		AND Q.FAQNACATEGORYNO=#{sortCheck}
+  	</if>
+  	ORDER BY QNADATE DESC)
+  	START WITH QNAREFNO IS NULL
+    CONNECT BY PRIOR QNANO = QNAREFNO
+    ORDER SIBLINGS BY QNADATE DESC
+  </select>
+  
+  <select id="selectQnaPassCheck" parameterType="_int" resultType="string">
+  	SELECT QNAPASS FROM QNA WHERE QNANO=#{qnaNo}
+  </select>
   <!-- 게시물 셀렉트 -->
   <select id="selectOneQna" parameterType="_int" resultType="map">
   	SELECT 
@@ -76,7 +113,7 @@
   
   <!-- 게시글 등록(관리자) -->
   <insert id="insertQnaEndAdmin" parameterType="map">
-  	INSERT INTO QNA VALUES(SEQ_QNANO.NEXTVAL,#{title},#{writer},#{content},default,#{pass},2,#{qnaRefNo},#{categoryNo},default,sysdate)
+  	INSERT INTO QNA VALUES(SEQ_QNANO.NEXTVAL,#{title},#{writer},#{content},'Y',#{pass},2,#{qnaRefNo},#{categoryNo},default,sysdate)
   	<selectKey resultType="_int" keyProperty="qnaNo" order="AFTER">
   	 SELECT SEQ_QNANO.CURRVAL FROM DUAL
   	</selectKey>

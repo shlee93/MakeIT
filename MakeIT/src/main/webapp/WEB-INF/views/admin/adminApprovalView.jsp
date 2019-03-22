@@ -29,7 +29,7 @@
 				<c:when test="${approval.CATEGORYCODE eq 'B' }">
 				<tr>
 		        	<td>
-			         	<a>${approval.BUYTITLE }</a>
+			         	<a class="buy-title">${approval.BUYTITLE }</a>
 			         	<input type="hidden" class="number" value="${approval.BUYNO }"/>
 			        </td>
 			        <td>${approval.MEMBERID }</td>
@@ -40,7 +40,7 @@
 				<c:when test="${approval.CATEGORYCODE eq 'S' }">
 				<tr>
 			        <td>
-			        	<a>${approval.SELLTITLE }</a>
+			        	<a class="sell-title">${approval.SELLTITLE }</a>
 			         	<input type="hidden" class="number" value="${approval.SELLNO }"/>
 			        </td>
 			        <td>${approval.MEMBERID }</td>
@@ -51,7 +51,7 @@
 				<c:when test="${approval.CATEGORYCODE eq 'C' }">
 				<tr>
 			        <td>
-			        	<a>${approval.CONTESTTITLE }</a>
+			        	<a class="contest-title">${approval.CONTESTTITLE }</a>
 			         	<input type="hidden" class="number" value="${approval.CONTESTNO }"/>
 			        </td>
 			        <td>${approval.MEMBERID }</td>
