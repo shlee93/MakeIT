@@ -126,4 +126,16 @@ public interface AdminDao {
 	
 	//검색한 삭제된 게시글 리스트
 	List<Map<Object,Object>> selectSearchDeleteList(Map<String,String> delete,int cPage,int numPerPage);
+	
+	//구매글 승인
+	int updateBuyCheck(int buyNo);
+	
+	//판매글 승인
+	int updateSellCheck(int sellNo);
+		
+	//컨테스트글 승인
+	int updateContestCheck(int contestNo);
+	
+	//삭제된 게시글 복구
+	int updateDeleteCheck(Map<Object,Object> returnD);
 }

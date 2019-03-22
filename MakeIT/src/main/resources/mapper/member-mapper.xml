@@ -47,7 +47,7 @@
 		SELECT * FROM BUYOUTBOX O JOIN BUY B USING(BUYNO) WHERE O.MEMBERID=#{memberId} ORDER BY B.BUYDATE DESC
 	</select>
 	<select id="sellOutBoxList" parameterType="string" resultType="map">
-		SELECT * FROM SELLOUTBOX O JOIN SELL S USING(SELLNO) WHERE O.MEMBERID=#{memberId} ORDER BY S.SELLDATE DESC
+		SELECT * FROM SELL O JOIN SELLOUTBOX S USING(SELLNO) WHERE S.MEMBERID=#{memberId} ORDER BY O.SELLDATE DESC
 	</select>
 	<select id="selectOutBoxBuyCount" parameterType="string" resultType="_int">
 		SELECT COUNT(*) FROM BUYOUTBOX O JOIN BUY B USING(BUYNO) WHERE O.MEMBERID=#{memberId}
@@ -138,6 +138,9 @@
 	</delete>
 	<select id="bankList" resultType="map">
 		SELECT * FROM BANK
+	</select>
+	<select id="memberSearch" parameterType="string" resultType="map">
+		SELECT MEMBERID FROM MEMBER WHERE MEMBERID LIKE '%'||#{receiveId}||'%'
 	</select>
 	<resultMap type="map" id="memberMap">
 		<result column="interest" property="interest" typeHandler="strArray"/>

@@ -736,6 +736,138 @@ public class AdminController {
 		mav.setViewName("admin/adminDeleteTblView");
 		return mav;
 	}
+	//구매글 승인
+	@RequestMapping("/admin/buyApprovalCheck.do")
+	public ModelAndView buyApprovalCheck(int buyNo,
+			@RequestParam(value="approvalStatus",required=false, defaultValue="BUY") String approvalStatus,
+			@RequestParam(value="approvalSearch",required=false, defaultValue="") String approvalSearch,
+			@RequestParam(value="approvalOption",required=false, defaultValue="nosort") String approvalOption,
+			@RequestParam(value="cPage",required=false, defaultValue="1") int cPage
+			) {
+		ModelAndView mav=new ModelAndView();
+		int numPerPage=10;
+		Map<String,String> approval=new HashMap();
+		approval.put("approvalStatus",approvalStatus);
+		approval.put("approvalSearch",approvalSearch);
+		approval.put("approvalOption",approvalOption);
+		int result=adminService.updateBuyCheck(buyNo);
+		
+		int approvalCount=adminService.selectSearchApprovalCount(approval);
+		String pageBarApproval=PageFactory.getPageBarAdmin(approvalCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+		List<Map<Object,Object>> approvalList=adminService.selectSearchApprovalList(approval,cPage,numPerPage);
+		
+		mav.addObject("approvalSearch", approvalSearch);
+		mav.addObject("approvalOption", approvalOption);
+		mav.addObject("pageBarApproval", pageBarApproval);
+		mav.addObject("approvalList", approvalList);
+		mav.setViewName("admin/adminApprovalView");
+		return mav;
+		
+	}
+	//판매글 승인
+	@RequestMapping("/admin/sellApprovalCheck.do")
+	public ModelAndView sellApprovalCheck(int sellNo,
+			@RequestParam(value="approvalStatus",required=false, defaultValue="BUY") String approvalStatus,
+			@RequestParam(value="approvalSearch",required=false, defaultValue="") String approvalSearch,
+			@RequestParam(value="approvalOption",required=false, defaultValue="nosort") String approvalOption,
+			@RequestParam(value="cPage",required=false, defaultValue="1") int cPage
+			) {
+		ModelAndView mav=new ModelAndView();
+		int numPerPage=10;
+		Map<String,String> approval=new HashMap();
+		approval.put("approvalStatus",approvalStatus);
+		approval.put("approvalSearch",approvalSearch);
+		approval.put("approvalOption",approvalOption);
+		int result=adminService.updateSellCheck(sellNo);
+		
+		int approvalCount=adminService.selectSearchApprovalCount(approval);
+		String pageBarApproval=PageFactory.getPageBarAdmin(approvalCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+		List<Map<Object,Object>> approvalList=adminService.selectSearchApprovalList(approval,cPage,numPerPage);
+		
+		mav.addObject("approvalSearch", approvalSearch);
+		mav.addObject("approvalOption", approvalOption);
+		mav.addObject("pageBarApproval", pageBarApproval);
+		mav.addObject("approvalList", approvalList);
+		mav.setViewName("admin/adminApprovalView");
+		return mav;
+		
+	}
+
+	//컨테스트 글 승인
+	@RequestMapping("/admin/contestApprovalCheck.do")
+	public ModelAndView contestApprovalCheck(int contestNo,
+			@RequestParam(value="approvalStatus",required=false, defaultValue="BUY") String approvalStatus,
+			@RequestParam(value="approvalSearch",required=false, defaultValue="") String approvalSearch,
+			@RequestParam(value="approvalOption",required=false, defaultValue="nosort") String approvalOption,
+			@RequestParam(value="cPage",required=false, defaultValue="1") int cPage
+			) {
+		ModelAndView mav=new ModelAndView();
+		int numPerPage=10;
+		Map<String,String> approval=new HashMap();
+		approval.put("approvalStatus",approvalStatus);
+		approval.put("approvalSearch",approvalSearch);
+		approval.put("approvalOption",approvalOption);
+		int result=adminService.updateContestCheck(contestNo);
+		
+		int approvalCount=adminService.selectSearchApprovalCount(approval);
+		String pageBarApproval=PageFactory.getPageBarAdmin(approvalCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+		List<Map<Object,Object>> approvalList=adminService.selectSearchApprovalList(approval,cPage,numPerPage);
+		
+		mav.addObject("approvalSearch", approvalSearch);
+		mav.addObject("approvalOption", approvalOption);
+		mav.addObject("pageBarApproval", pageBarApproval);
+		mav.addObject("approvalList", approvalList);
+		mav.setViewName("admin/adminApprovalView");
+		return mav;
+		
+	}
+
+	//삭제된 게시물 복구
+	@RequestMapping("/admin/updateDeleteCheck.do")
+	public ModelAndView updateDeleteCheck(int contentNo,
+			@RequestParam(value="deleteStatus",required=false, defaultValue="BUY") String deleteStatus,
+			@RequestParam(value="deleteSearch",required=false, defaultValue="") String deleteSearch,
+			@RequestParam(value="deleteOption",required=false, defaultValue="nosort") String deleteOption,
+			@RequestParam(value="cPage",required=false, defaultValue="1") int cPage
+			) {
+		ModelAndView mav=new ModelAndView();
+		int numPerPage=10;
+		Map<String,String> delete=new HashMap();
+		delete.put("deleteStatus",deleteStatus);
+		delete.put("deleteSearch",deleteSearch);
+		delete.put("deleteOption",deleteOption);
+
+		Map<Object,Object> returnD=new HashMap();
+		returnD.put("deleteStatus", deleteStatus);
+		returnD.put("contentNo", contentNo);
+		int result=adminService.updateDeleteCheck(returnD);
+		
+		int deleteCount=adminService.selectSearchDeleteCount(delete);
+		String pageBarDelete=PageFactory.getPageBarAdmin(deleteCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+		List<Map<Object,Object>> deleteList=adminService.selectSearchDeleteList(delete,cPage,numPerPage);
+		
+		mav.addObject("deleteSearch", deleteSearch);
+		mav.addObject("deleteOption", deleteOption);
+		mav.addObject("pageBarDelete", pageBarDelete);
+		mav.addObject("deleteList", deleteList);
+		mav.setViewName("admin/adminDeleteTblView");
+		return mav;
+		
+	}
+	
+	@RequestMapping("/admin/refreshFaq.do")
+	public ModelAndView refreshFaq() {
+		
+		ModelAndView mav=new ModelAndView();
+		List<Map<String,String>> faqList=adminService.selectFaqListAdmin();
+		List<Map<String,String>> categoryList=adminService.selectFaqCategoryAdmin();
+		
+		mav.addObject("faqList", faqList);
+		mav.addObject("categoryList", categoryList);
+		mav.setViewName("admin/adminFaqView");
+		
+		return mav;
+	}
 
 	
 }

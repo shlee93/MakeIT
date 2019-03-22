@@ -83,6 +83,32 @@ public class SupportServiceImpl implements SupportService {
 		
 		return dao.updateQnaReple(qnaRefNo);
 	}
+
+	//qna 게시글 미답변 카운트
+	@Override
+	public int selectSearchQnaCheckCount(Map<String, String> search) {
+		
+		return dao.selectSearchQnaCheckCount(search);
+	}
+
+	//qna 게시글 미답변 리스트
+	@Override
+	public List<Map<String, String>> selectSearchQnaCheckList(Map<String, String> search, int cPage, int numPerPage) {
+		
+		return dao.selectSearchQnaCheckList(search,cPage,numPerPage);
+	}
+
+	@Override
+	public String selectQnaPassCheck(int qnaNo) {
+		
+		return dao.selectQnaPassCheck(qnaNo);
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

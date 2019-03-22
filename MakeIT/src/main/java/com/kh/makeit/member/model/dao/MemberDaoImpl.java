@@ -265,5 +265,10 @@ public class MemberDaoImpl implements MemberDao {
 		return sqlSession.selectList("member.bankList");
 	}
 
+	@Override
+	public List<Map<String,String>> memberSearch(String receiveId) {
+		return sqlSession.selectList("member.memberSearch",receiveId);
+	}
+
 
 }

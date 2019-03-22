@@ -97,4 +97,6 @@ public interface MemberDao {
 
 	List<Map<String, String>> bankList();
 
+	List<Map<String,String>> memberSearch(String receiveId);
+
 }

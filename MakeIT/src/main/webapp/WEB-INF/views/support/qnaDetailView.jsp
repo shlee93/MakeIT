@@ -41,7 +41,7 @@
 	</div>
 	
 	<div class="form-group">
-	<c:if test="${member.MEMBERLEVEL==0 and qna.QNALEVEL!=2}">
+	<c:if test="${member.MEMBERLEVEL==0 and qna.QNALEVEL!=2 and qna.ANSWERYN=='N'}">
 		<button id="reple-qna" class="btn btn-outline-info slidetopleft">답변하기</button>
 	</c:if>
 	<c:if test="${member.MEMBERID eq qna.MEMBERID }">

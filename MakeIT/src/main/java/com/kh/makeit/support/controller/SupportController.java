@@ -18,7 +18,9 @@ import org.apache.commons.codec.net.URLCodec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.makeit.admin.model.service.AdminService;
@@ -352,6 +354,50 @@ public class SupportController {
 
 
 
+	}
+	
+	//미답변 글만 출력
+	@RequestMapping("/support/repleCheck.do")
+	public ModelAndView repleCheck(
+			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
+			@RequestParam(value="searchQna", required=false, defaultValue="") String searchQna,
+			@RequestParam(value="filter", required=false, defaultValue="QNATITLE") String filter,
+			@RequestParam(value="sortCheck", required=false, defaultValue="0") String sortCheck
+			) {
+		Map<String,String> search=new HashMap();
+		search.put("searchQna", searchQna);
+		search.put("filter", filter);
+		search.put("sortCheck", sortCheck);
+		
+		ModelAndView mav=new ModelAndView();
+		int numPerPage=10;
+		//qna 게시물 카운트
+		int qnaCount=supportService.selectSearchQnaCheckCount(search);
+		String pageBarQna=PageFactory.getPageBarAdmin(qnaCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+
+		//qna List
+		List<Map<String,String>> categoryList=adminService.selectFaqCategoryAdmin();
+		List<Map<String,String>> qnaList=supportService.selectSearchQnaCheckList(search,cPage,numPerPage);
+
+		mav.addObject("pageBarQna", pageBarQna);
+		mav.addObject("qnaList", qnaList);
+		mav.addObject("categoryList", categoryList);
+		mav.setViewName("support/qnaAllView");
+		return mav;
+		
+	}
+	//게시물 비밀번호 체크
+	@RequestMapping(value="/support/qnaPassCheck.do",method = RequestMethod.GET)
+	@ResponseBody
+	public int qnaPassCheck(int qnaNo) throws NumberFormatException, InvalidKeyException, UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, DecoderException {
+		
+		String key = "aes256-test-key!!";    //key는 16자 이상
+		AES256Util aes256 = new AES256Util(key);
+		URLCodec codec = new URLCodec();
+		String passCk=supportService.selectQnaPassCheck(qnaNo);
+		int pass=Integer.parseInt(aes256.aesDecode(codec.decode(passCk)));
+		
+		return pass;
 	}
 
 }

@@ -82,7 +82,7 @@
 										<tr>
 											<td></td>
 											<td>
-												<input type="hidden" class="content-no" value="${report.BUYNO }"/>
+												<input type="hidden" class="content-no" value="${report.SELLNO }"/>
 												<button class="report-btn-cancel btn btn-outline-info slidetopleft">신고 거부</button>
 												<button class="report-btn btn btn-outline-info slidetopleft">신고 승인</button>
 											</td>
@@ -166,7 +166,7 @@
 										<tr>
 											<td></td>
 											<td>
-												<input type="hidden" class="content-no" value="${report.BUYNO }"/>
+												<input type="hidden" class="content-no" value="${report.CONTESTNO }"/>
 												<button class="report-btn btn btn-outline-info slidetopleft">신고승인</button>
 												<button class="report-btn-cancel btn btn-outline-info slidetopleft">신고거부</button>
 											</td>

@@ -36,19 +36,53 @@
 </head>
 <body>
 <header>
-       <div id="mainVideo"><img src=""></div>
+     <div id="mainVideo"></div>
+     <div id="illusWrap1">
+        <img id="alien1" src="${path }/resources/image/alien1.png">;
+        <img id="bubble1" src="${path }/resources/image/bubble1.png">;
+        <img id="alien2" src="${path }/resources/image/alien2.png">;
+        <img id="bubble2" src="${path }/resources/image/bubble2.png">;
+        <img id="alien3" src="${path }/resources/image/alien3.png">; 
+        <img id="bubble3" src="${path }/resources/image/bubble1.png">; 
+        <img id="dog" src="${path }/resources/image/dog.png">;
+
+        <img id="planet1" src="${path }/resources/image/planet1.png">;
+        <img id="planet2" src="${path }/resources/image/planet2.png">;
+        <img id="planet3" src="${path }/resources/image/planet1.png">;
+        <img id="planet4" src="${path }/resources/image/planet2.png">;
+        <img id="blackhole" src="${path }/resources/image/blackhole.png">;
+        <img id="planet5" src="${path }/resources/image/planet1.png">;
+        <img id="planet6" src="${path }/resources/image/planet1.png">;
+        <img id="planet7" src="${path }/resources/image/planet2.png">;
+
+        <img id="ship" src="${path }/resources/image/ship.png">;
+        <img id="star1" src="${path }/resources/image/dropstar.png">;
+        <img id="star2" src="${path }/resources/image/dropstar.png">;
+        <img id="star3" src="${path }/resources/image/dropstar.png">;
+        <img id="star4" src="${path }/resources/image/dropstar.png">;
+        <img id="star5" src="${path }/resources/image/dropstar.png">;
+        <img id="star6" src="${path }/resources/image/dropstar.png">;
+        <img id="star7" src="${path }/resources/image/dropstar.png">;
+        <img id="star8" src="${path }/resources/image/dropstar.png">;
+
+        <img id="starfire1" src="${path }/resources/image/starfire.png">;
+        <img id="starfire2" src="${path }/resources/image/starfire.png">;
+        <img id="starfire3" src="${path }/resources/image/starfire.png">;
+        <img id="starfire4" src="${path }/resources/image/starfire.png">;
+    </div>
+    
     <div id="topWrap">
         <div id="logoIcon"><img src="${path }/resources/image/logo1main.png"/></div>
         <%if(session.getAttribute("member") == null){ %>
         <div id="loginWrap">
 
             	<a href="${path }/member/memberLogin.do" id="login">Login |</a>
-            	<a href="${path }/member/memberEnrollck.do" id="join"> Join us </a>
+            	<a href="${path }/member/memberEnrollck.do" id="join"> Join us :) </a>
         </div>
         <%}else{ %>
         <div id="loginWrap">
             <a href="${path }/member/memberMyPage.do" id="login">Mypage |</a>
-            <a href="${path }/member/memberLogout.do" id="join"> Logout </a>
+            <a href="${path }/member/memberLogout.do" id="join"> Logout :(</a>
         </div>
         <%} %>
     </div>
@@ -88,6 +122,14 @@
     </nav>
     
       <script>
+      	$(function(){
+      		setTimeout(function(){
+          		$('#bubble1').css({'width':'75px','height':'auto'});
+          		$('#bubble2').css({'width':'50px','height':'auto'});
+          		$('#bubble3').css({'width':'50px','height':'auto'});
+			}, 1000);
+      	})
+      
       	$('#icon1').mouseenter(function(){
 			$('#icon1 p').css('color','#138496');
 			$('#icon1 p').css('top','-22px');

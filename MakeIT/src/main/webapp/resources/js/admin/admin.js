@@ -443,6 +443,31 @@ $(document).on('click','.member-page',function(){
 	
 })
 
+//삭제된 게시물 복구
+$(document).on('click','.return-content',function(){
+	
+	var flag=confirm("복구하시겠습니까?");
+	var deleteStatus=$('#delete-status').val();
+	var contentNo=$(this).parent().siblings('td').children('.number').val();
+	if(flag){
+		
+		$.ajax({
+			
+			url:"updateDeleteCheck.do",
+			data:{
+				"contentNo":contentNo,
+				"deleteStatus":deleteStatus
+			},
+			dataType:"html",
+			success:function(data){
+				alert("복구 완료!");
+				$('.delete-tbl').html(data);
+			}
+		})
+	}
+	
+})
+
 //1차 카테고리 버튼 클릭 화면전환 이벤트
 $(document).on('click','.first-interest',function(){
 	var interestNo=$(this).children('.interest-no').val();
@@ -622,6 +647,14 @@ $(document).on('click','#insert-category-btn',function(){
 			alert("등록완료!");
 			$secondInter_tbl.children('tbody').html(data);
 			
+			$.ajax({
+				
+				url:"refreshFaq.do",
+				dataType:"html",
+				success:function(data){
+					$('#nav-faq').html(data);
+				}
+			})
 		}
 	})
 	
@@ -983,11 +1016,13 @@ $(document).on('click','.refund-end',function(){
 $(document).on('click', '.report-tab-back', function () {
 
 	var div = $(this).next();
+	console.log('gg');
 	if (div.is(':hidden')) {
 		div.slideDown('slow');
-
+		console.log("?");
 	} else {
 		div.slideUp('slow');
+		console.log("?1");
 	}
 
 });
@@ -998,6 +1033,7 @@ $(document).on('click','.report-btn',function(){
 	var reportId=$(this).parent().parent().parent().parent().parent().parent().parent().prev().children().children().children('.report-id').text();
 	var contentNo=$(this).siblings(".content-no").val();
 	var $report_tab=$('.panel-info'); 
+	console.log(contentNo);
 	$.ajax({
 		 url:"updateReportCount.do",
 		 data:{
@@ -1210,6 +1246,11 @@ $(document).on('click','.qna-delete-cancel',function(){
 	$delete_question.slideUp('slow');
 
 });
+// 탭 이동 버튼
+$(document).on('click','#move-category',function(){
+	console.log("dd?");
+	$('#nav-category-tab').click();
+})
 
 //FAQ 질문 답변 삭제
 $(document).on('click','.qna-delete',function(){
@@ -1233,7 +1274,7 @@ $(document).on('click','.qna-delete',function(){
 
 //텍스트 에어리어 크기조절
 
-$(document).on('keyup','textarea', function() {
+$(document).on('keyup','textarea', function(){
 	 var textEle=$(this);
 	 textEle[0].style.height = 'auto';
 	 var textEleHeight = textEle.prop('scrollHeight');
