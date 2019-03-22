@@ -176,7 +176,18 @@
 		        </script>
 	        
 				<input type="text" class="form-control col-sm-6" id='contestTitle' name='contestTitle' style="display: inline;" placeholder="제목을 입력하세요." value='${contest.get("CONTESTTITLE")}' required/> 
-	        
+	        	
+	        	<script>
+		        	$('#contestTitle').on('keyup', function() 
+	        		{
+			            if($(this).val().length > 60) 
+			            {
+			               alert("글자수는 60자로 이내로 제한됩니다.");
+			               $(this).val($(this).val().substring(0, 60));
+			            }			         
+			        });
+		        </script>
+	        		        	
 	        	<!-- 콘테스트 이름 -->      
 	        
 	        	<br/>
@@ -242,7 +253,17 @@
 	         
 		        <label>상세 설명</label>
 		        <textarea class="form-control" id='contestContent' name='contestContent' rows="10" required>${contest.CONTESTCONTENT}</textarea>
+		        <script>
+			        $('#contestContent').on('keyup', function() 
+	        		{
+			            if($(this).val().length > 1333) {
+			               alert("글자수는 1333자로 이내로 제한됩니다.");
+			               $(this).val($(this).val().substring(0, 1333));
+			            }			         
+			         });		        
+		        </script>
 		        <br>
+		        
 		        <div id="null">
 	         		<span class='nullimg'>메인에 노출될 사진을 선택해주세요</span>
 	         	</div>

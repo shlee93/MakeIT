@@ -76,8 +76,20 @@
                   		<label style="">신고내용</label> 
                		</div>
                		<div class="col-md-9">
-                  		<textarea name="reportContent" class="form-control" rows="5"></textarea>
+                  		<textarea id='reportContent' name="reportContent" class="form-control" rows="5"></textarea>
                		</div>
+               		
+               		<script>
+               			$('#reportContent').on('keyup', function() 
+       	        		{
+       			            if($(this).val().length > 600) 
+       			            {
+       			               alert("글자수는 600자로 이내로 제한됩니다.");
+       			               $(this).val($(this).val().substring(0, 600));
+       			            }			         
+       			        });
+               		</script>
+               		
            		</div>
             	<div class="row">
 	               	<br/>

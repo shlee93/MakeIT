@@ -59,17 +59,17 @@
 	});
 	
 	$(window).scroll(function(){
-		if($(this).scrollTop() > 140)
+		if($(this).scrollTop() > 150)
 		{
 			var windowVal = $(this).scrollTop();
-			$('#donggeulNav').css('top',windowVal);
+			$('#donggeulNav').css('top',windowVal-150);
 		}
-		if($(this).scrollTop() < 140) 
+		if($(this).scrollTop() < 150) 
         {
 			var windowVal = $(this).scrollTop();
 			$('#donggeulNav').css('top','100px');
         }		
-	});	
+	})
 	
 	$(document).on('click','.subImgs',function()
 	{
