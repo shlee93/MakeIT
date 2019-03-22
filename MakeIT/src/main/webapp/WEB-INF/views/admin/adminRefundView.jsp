@@ -44,17 +44,13 @@
 										입금 완료 및<br>프로젝트진행
 									</a>
 								</li>
-								<li class="step-item">
+								<li class="step-item active">
 									<a href="#!">
 										프로젝트 완료
 									</a>
 								</li>
-								<li class="step-item active">
-									<a href="#!">
-										환불사유 확인
-									</a>
-								</li>
-								<li class="step-item refund-pop" data-toggle="modal" data-target="#product_view">
+								
+								<li class="step-item refund-pop">
 									<a href="#!">
 										환불승인
 									</a> 
@@ -101,17 +97,13 @@
 										입금 완료 및<br>프로젝트진행
 									</a>
 								</li>
-								<li class="step-item">
+								<li class="step-item active">
 									<a href="#!">
 										프로젝트 완료
 									</a>
 								</li>
-								<li class="step-item active">
-									<a href="#!">
-										환불사유 확인
-									</a>
-								</li>
-								<li class="step-item refund-pop" data-toggle="modal" data-target="#product_view">
+								
+								<li class="step-item refund-pop">
 									<a href="#!">
 										환불승인
 									</a> 

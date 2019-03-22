@@ -526,5 +526,39 @@
 		UPDATE ${deleteStatus} SET ${deleteStatus}DELETEYN='N' WHERE ${deleteStatus}NO=#{contentNo}
 	</update>
 	
+	<!-- 환불 사유 셀렉트 -->
+	<select id="selectRefundReason" parameterType="map" resultType="map">
+		<choose>
+			<when test="refundStatus=='SELL'">
+				SELECT 
+				P.*,
+				O.SELLPRICE,
+				S.MEMBERID AS TARGETID,
+				S.SELLTITLE,
+				A.BANKNAME,
+				M.ACCOUNT,
+				M.MEMBERNAME 
+				FROM SELLSPEC P 
+				INNER JOIN SELLOPTION O ON(O.SELLOPTIONCODE=P.SELLOPTIONCODE) 
+				INNER JOIN SELL S ON(S.SELLNO=P.SELLNO) 
+				INNER JOIN MEMBER M ON(M.MEMBERID=S.MEMBERID) 
+				INNER JOIN BANK A ON(M.BANKCODE=A.BANKCODE) 
+				WHERE SELLSPECNO=#{specNo} AND STATUSNO=6
+			</when>
+			<when test="refundStatus=='BUY'">
+				SELECT P.*,
+				B.MEMBERID AS BUYID,
+				B.BUYTITLE,
+				A.BANKNAME,
+				M.ACCOUNT,
+				M.MEMBERNAME 
+				FROM BUYSPEC P 
+				INNER JOIN BUY B ON(B.BUYNO=P.BUYNO) 
+				INNER JOIN MEMBER M ON(M.MEMBERID=P.MEMBERID) 
+				INNER JOIN BANK A ON(A.BANKCODE=M.BANKCODE)  
+				WHERE BUYSPECNO=#{specNo} AND STATUSNO=6
+			</when>
+		</choose>
+	</select>
 	
 </mapper>

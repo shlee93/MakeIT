@@ -864,6 +864,7 @@ $(document).on('click','.payment-end',function(){
 	var title=$('.product-title').children('span').text();
 	var specNo=$('#end-spec-no').val();
 	var price=$('.cost').children('span').text();
+	var $payment_Tab=$('.payment-view-div');
 	console.log(title);
 	console.log(price);
 	
@@ -934,9 +935,18 @@ $(document).on('click','.refund-view',function(){
 		}
 	})
 })
-
-//환불요청 결제 팝업
+//환불 사유 팝업
 $(document).on('click','.refund-pop',function(){
+	var $view_Status=$('#refund-view-status');
+	var viewStatus=$view_Status.val();
+	var $click_Li=$(this);
+	var specNo=$click_Li.children('input').val();
+	console.log(viewStatus);
+	window.open("refundView.do?specNo="+specNo+"&refundStatus="+viewStatus,"faqWin","width=800, height=600, top=200,left=1000");
+});
+
+/*//환불요청 결제 팝업
+$(document).on('click','#refund-btn',function(){
 	var $view_Status=$('#refund-view-status');
 	var viewStatus=$view_Status.val();
 	var $click_Li=$(this);
@@ -953,15 +963,18 @@ $(document).on('click','.refund-pop',function(){
 			$('#product_view').addClass('show');
 		}
 	})
-})
-
+});
+*/
 //환불 요청 결제
-$(document).on('click','.refund-end',function(){
-	var $view_Status=$('#refund-view-status');
+$(document).on('click','#refund-btn',function(){
+	var $view_Status=$(opener.document).children('#refund-view-status');
 	var viewStatus=$view_Status.val();
-	var title=$('.product-title').children('span').text();
+	var title=$('#refund-title').val();
 	var specNo=$('#end-spec-no').val();
-	var price=$('.cost').children('span').text();
+	var price=$('#refund-price').val()
+	var $payment_Tab=$('.refund-view-div');
+	var cPage=$('#cPage').val();
+
 	console.log(title);
 	console.log(price);
 	
@@ -993,6 +1006,7 @@ $(document).on('click','.refund-end',function(){
 				
 				url:"updateRefundEnd.do",
 				data:{
+					"cPage":cPage,
 					"refundStatus":viewStatus,
 					"specNo":specNo
 				},
@@ -1000,6 +1014,7 @@ $(document).on('click','.refund-end',function(){
 				success:function(data){
 					$('.modal-body').children('.row').remove();
 					$payment_Tab.html(data);
+					self.close();
 				}
 			})
 			
@@ -1054,6 +1069,7 @@ $(document).on('click','.report-btn-cancel',function(){
 	var contentNo=$(this).siblings(".content-no").val();
 	var $report_tab=$('.panel-info');
 	var reportFlag=false;
+	
 	$.ajax({
 		 url:"updateReportCount.do",
 		 data:{

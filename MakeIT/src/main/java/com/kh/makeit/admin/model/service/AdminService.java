@@ -138,4 +138,7 @@ public interface AdminService {
 	
 	//삭제된 게시글 복구
 	int updateDeleteCheck(Map<Object,Object> returnD);
+	
+	//환불 사유 셀렉트
+	Map<Object,Object> selectRefundReason(Map<Object,Object> refundParam);
 }

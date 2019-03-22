@@ -117,6 +117,7 @@ public class SupportController {
 
 	}
 
+	//게시글 뷰
 	@RequestMapping("/support/detailQnaView.do")
 	public ModelAndView selectOneQna(
 			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
@@ -137,6 +138,29 @@ public class SupportController {
 
 		return mav;
 	}
+	
+	//게시글 뷰
+	@RequestMapping("/support/detailQnaView2.do")
+	public ModelAndView selectOneQna2(
+			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
+			@RequestParam(value="searchQna", required=false, defaultValue="") String searchQna,
+			@RequestParam(value="filter", required=false, defaultValue="QNATITLE") String filter,
+			@RequestParam(value="sortCheck", required=false, defaultValue="0") String sortCheck,
+			int qnaNo
+			) {
+		ModelAndView mav=new ModelAndView();
+		Map<String,String> qna=supportService.selectOneQna(qnaNo);
+
+		mav.addObject("qna", qna);
+		mav.addObject("cPage", cPage);
+		mav.addObject("searchQna", searchQna);
+		mav.addObject("filter", filter);
+		mav.addObject("sortCheck", sortCheck);
+		mav.setViewName("support/qnaDetailView");
+
+		return mav;
+	}
+	
 	//목록 버튼 클릭 화면전환
 	@RequestMapping("/support/qnaBack.do")
 	public ModelAndView qnaBack(

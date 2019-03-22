@@ -62,6 +62,9 @@
 textarea{
 	resize:none;
 }
+.qna-pass{
+	cursor:pointer;
+}
 
 /* FAQ */
 

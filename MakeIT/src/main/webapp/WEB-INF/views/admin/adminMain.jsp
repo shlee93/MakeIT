@@ -811,13 +811,11 @@
 		                                            <li class="step-item">
 		                                                <a href="#!">입금 완료 및<br>프로젝트 진행</a>
 		                                            </li>
-		                                            <li class="step-item">
+		                                            <li class="step-item active">
 		                                                <a href="#!">프로젝트 완료</a>
 		                                            </li>
-		                                            <li class="step-item active">
-		                                                <a href="#!">환불 사유 확인</a>
-		                                            </li>
-		                                            <li class="step-item refund-pop" data-toggle="modal" data-target="#product_view">
+		                                           
+		                                            <li class="step-item refund-pop">
 		                                                <a href="#!">환불 승인</a>
 		                                                <input type="hidden" class="spec-no" value="${payment.BUYSPECNO }"/>
 		                                            </li>
@@ -857,13 +855,10 @@
 		                                            <li class="step-item">
 		                                                <a href="#!">입금 완료 및<br>프로젝트 진행</a>
 		                                            </li>
-		                                            <li class="step-item">
+		                                            <li class="step-item active">
 		                                                <a href="#!">프로젝트 완료</a>
 		                                            </li>
-		                                            <li class="step-item active">
-		                                                <a href="#!">환불 사유 확인</a>
-		                                            </li>
-		                                            <li class="step-item refund-pop" data-toggle="modal" data-target="#product_view">
+		                                            <li class="step-item refund-pop">
 		                                                <a href="#!">환불 승인</a>
 		                                                <input type="hidden" class="spec-no" value="${payment.SELLSPECNO }"/>
 		                                            </li>

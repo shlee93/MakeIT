@@ -333,19 +333,12 @@ public class AdminDaoImpl implements AdminDao {
 
 		return sqlSession.update("admin.updateDeleteCheck", returnD);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
+	//환불 사유 셀렉트
+	@Override
+	public Map<Object, Object> selectRefundReason(Map<Object, Object> refundParam) {
+		
+		return sqlSession.selectOne("admin.selectRefundReason", refundParam);
+	}
 	
-	
-
 }
