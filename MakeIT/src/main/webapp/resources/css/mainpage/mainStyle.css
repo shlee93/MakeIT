@@ -148,6 +148,7 @@
         position: relative;
         width: 40%;
         min-width: 800px;
+        width: 900px;
         height: 200px;
         left: 50%;
         top: -120px;
@@ -285,6 +286,30 @@
         transition-duration:0.5s;
     }
     #icon5 p{
+		font-family: 'Nanum Pen Script', cursive;
+		font-size: 30px;
+		color: black;
+		text-align: center;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    #icon6{
+        position: relative;
+        display:inline-block;
+        width: max-content;
+        height: max-content;
+        margin-left: 40px;
+        cursor:pointer;
+    }
+    #icon6 img{
+    	position:relative;
+    	width: 100px;
+    	height: 100px;
+    	top:0px;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    #icon6 p{
 		font-family: 'Nanum Pen Script', cursive;
 		font-size: 30px;
 		color: black;
@@ -867,12 +892,13 @@
         width: 0px;
         height: auto;
         left: 9.3%;
-        top: 74%;
-        transform: translate(-9.3%,-74%);
+        top: 54%;
+        transform: translate(-9.3%,-54%);
         animation: ease-in-out;
         animation-name: bubble1;
         animation-duration: 3s;
         animation-iteration-count: infinite;
+        animation-delay: 2.5s;
         transition:ease-in-out;
         transition-duration:1s;
         opacity: 0.7;
@@ -907,13 +933,14 @@
         position: absolute;
         width: 0px;
         height: auto;
-        left: 30.5%;
-        top: 77.5%;
-        transform: translate(-30.5%,-77.5%);
+        left: 26%;
+        top: 53%;
+        transform: translate(-26%,-53%);
         animation: ease-in-out;
         animation-name: bubble2;
         animation-duration: 3s;
         animation-iteration-count: infinite;
+        animation-delay: 2.5s;
         transition:ease-in-out;
         transition-duration:1s;
         opacity: 0.7;
@@ -948,13 +975,14 @@
         position: absolute;
         width: 0px;
         height: auto;
-        left: 75.3%;
-        top: 74%;
-        transform: translate(-75.3%,-74%);
+        left: 74%;
+        top: 43%;
+        transform: translate(-74%,-43%);
         animation: ease-in-out;
         animation-name: bubble3;
         animation-duration: 3s;
         animation-iteration-count: infinite;
+        animation-delay: 2.5s;
         transition:ease-in-out;
         transition-duration:1s;
         opacity: 0.7;
@@ -1089,12 +1117,13 @@
         }
     }
     #ship{
-        position: absolute;
+        position: absolute;	
         width: 50px;
         height: auto;
         animation-name: shipAni;
         animation-duration: 20s;
         animation-iteration-count: infinite;
+        animation-delay: 2.5s;
         z-index: 2;
     }
 
@@ -1122,6 +1151,7 @@
         animation-name: star1;
         animation-duration: 20s;
         animation-iteration-count: infinite;
+        animation-delay: 2.5s;
         z-index: 2;
     }
 
@@ -1149,6 +1179,7 @@
         animation-name: star2;
         animation-duration: 20s;
         animation-iteration-count: infinite;
+        animation-delay: 2.5s;
         z-index: 2;
     }
     @keyframes star3{
@@ -1175,6 +1206,7 @@
         animation-name: star3;
         animation-duration: 20s;
         animation-iteration-count: infinite;
+        animation-delay: 2.5s;
         z-index: 2;
     }
     @keyframes star4{
@@ -1201,6 +1233,7 @@
         animation-name: star4;
         animation-duration: 20s;
         animation-iteration-count: infinite;
+        animation-delay: 2.5s;
         z-index: 2;
     }
     @keyframes star5{
@@ -1227,6 +1260,7 @@
         animation-name: star5;
         animation-duration: 20s;
         animation-iteration-count: infinite;
+        animation-delay: 2.5s;
         z-index: 2;
     }
     @keyframes star6{
@@ -1253,6 +1287,7 @@
         animation-name: star6;
         animation-duration: 20s;
         animation-iteration-count: infinite;
+        animation-delay: 2.5s;
         z-index: 2;
     }
     @keyframes star7{
@@ -1279,6 +1314,7 @@
         animation-name: star7;
         animation-duration: 20s;
         animation-iteration-count: infinite;
+        animation-delay: 2.5s;
         z-index: 2;
     }
     @keyframes star8{
@@ -1305,6 +1341,7 @@
         animation-name: star8;
         animation-duration: 20s;
         animation-iteration-count: infinite;
+        animation-delay: 2.5s;
         z-index: 2;
     }
 
@@ -1332,6 +1369,7 @@
         animation-name: starfire1;
         animation-duration: 20s;
         animation-iteration-count: infinite;
+        animation-delay: 2.5s;
         opacity: 0.7;
     }
 
@@ -1359,6 +1397,7 @@
         animation-name: starfire2;
         animation-duration: 20s;
         animation-iteration-count: infinite;
+        animation-delay: 2.5s;
         z-index: 2;
         opacity: 0.7;
     }
@@ -1386,6 +1425,7 @@
         animation-name: starfire3;
         animation-duration: 20s;
         animation-iteration-count: infinite;
+        animation-delay: 2.5s;
         z-index: 2;
         opacity: 0.7;
     }
@@ -1413,6 +1453,7 @@
         animation-name: starfire4;
         animation-duration: 20s;
         animation-iteration-count: infinite;
+        animation-delay: 2.5s;
         z-index: 2;
         opacity: 0.7;
     }

@@ -88,9 +88,9 @@ pageEncoding="UTF-8"%>
 <input type="hidden" id="fadeStatus" name="fadeStatus" value="${fadeStatus }">
 <script>
 	$('#messageContent').on('keyup', function() {
-		if($(this).val().length > 450) {
-			alert("글자수는 450자로 이내로 제한됩니다.");
-			$(this).val($(this).val().substring(0, 450));
+		if($(this).val().length > 300) {
+			alert("글자수는 300자로 이내로 제한됩니다.");
+			$(this).val($(this).val().substring(0, 300));
 		}
 	
 	});

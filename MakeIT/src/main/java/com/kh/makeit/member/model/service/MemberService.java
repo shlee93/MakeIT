@@ -95,9 +95,12 @@ public interface MemberService {
 
 	int deleteNaverMember(String updateId);
 	
-
 	List<Map<String, String>> bankList();
 
 	List<Map<String,String>> memberSearch(String receiveId);
+
+	List<Map<String, String>> contestOutBoxList(String memberId, int contestcPage, int numPerPage);
+
+	int selectOutBoxContestCount(String memberId);
 
 }

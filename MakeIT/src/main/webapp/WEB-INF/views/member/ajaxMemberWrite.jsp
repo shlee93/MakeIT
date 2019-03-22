@@ -274,7 +274,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="con" items="${contestList }">
 		                    			<tr>
 		                    				<td><c:out value="${con.CONTESTNO }"/></td>
-											<td><a href="#"><c:out value="${con.CONTESTTITLE }"/></a></td>
+											<td><a href="${path }/contest/contestDetail.do?contestNo=${con.CONTESTNO }"><c:out value="${con.CONTESTTITLE }"/></a></td>
 											<td><c:out value="${con.MEMBERID }"/></td>
 											<td><c:out value="${con.CONTESTDATE }"/></td>
 		                    			</tr>
@@ -436,7 +436,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="con" items="${contestList }">
 		                    			<tr>
 		                    				<td><c:out value="${con.CONTESTNO }"/></td>
-											<td><a href="#"><c:out value="${con.CONTESTTITLE }"/></a></td>
+											<td><a href="${path }/contest/contestDetail.do?contestNo=${con.CONTESTNO }"><c:out value="${con.CONTESTTITLE }"/></a></td>
 											<td><c:out value="${con.MEMBERID }"/></td>
 											<td><c:out value="${con.CONTESTDATE }"/></td>
 		                    			</tr>
@@ -598,7 +598,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="con" items="${contestList }">
 		                    			<tr>
 		                    				<td><c:out value="${con.CONTESTNO }"/></td>
-											<td><a href="#"><c:out value="${con.CONTESTTITLE }"/></a></td>
+											<td><a href="${path }/contest/contestDetail.do?contestNo=${con.CONTESTNO }"><c:out value="${con.CONTESTTITLE }"/></a></td>
 											<td><c:out value="${con.MEMBERID }"/></td>
 											<td><c:out value="${con.CONTESTDATE }"/></td>
 		                    			</tr>
@@ -760,7 +760,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="con" items="${contestList }">
 		                    			<tr>
 		                    				<td><c:out value="${con.CONTESTNO }"/></td>
-											<td><a href="#"><c:out value="${con.CONTESTTITLE }"/></a></td>
+											<td><a href="${path }/contest/contestDetail.do?contestNo=${con.CONTESTNO }"><c:out value="${con.CONTESTTITLE }"/></a></td>
 											<td><c:out value="${con.MEMBERID }"/></td>
 											<td><c:out value="${con.CONTESTDATE }"/></td>
 		                    			</tr>
@@ -922,7 +922,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="con" items="${contestList }">
 		                    			<tr>
 		                    				<td><c:out value="${con.CONTESTNO }"/></td>
-											<td><a href="#"><c:out value="${con.CONTESTTITLE }"/></a></td>
+											<td><a href="${path }/contest/contestDetail.do?contestNo=${con.CONTESTNO }"><c:out value="${con.CONTESTTITLE }"/></a></td>
 											<td><c:out value="${con.MEMBERID }"/></td>
 											<td><c:out value="${con.CONTESTDATE }"/></td>
 		                    			</tr>

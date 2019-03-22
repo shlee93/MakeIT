@@ -41,7 +41,7 @@
            	</div>
         </div>
         <div class="col-md-10">     
-            <div id="login">
+            <div id="loginTab">
                 <div class="container">
                     <div id="login-row" class="row justify-content-center align-items-center">
                         <div id="login-column" class="col-md-6">
@@ -50,11 +50,11 @@
                                     <h3 class="text-center text-info">Login</h3>
                                     <div class="form-group">
                                         <label for="username" class="text-info">ID:</label><br>
-                                        <input type="text" name="memberId" id="memberId" class="form-control" value='<%=cookieValue!=""?cookieValue:"" %>'>
+                                        <input type="text" name="memberId" id="memberId" style="font-size: 20px;" class="form-control" value='<%=cookieValue!=""?cookieValue:"" %>'>
                                     </div>
                                     <div class="form-group">
                                         <label for="password" class="text-info">Password:</label><br>
-                                        <input type="password" name="password" id="password" class="form-control">
+                                        <input type="password" name="password" id="password" style="font-size: 20px;" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="saveId" class="text-info"><span>아이디 저장</span> 
