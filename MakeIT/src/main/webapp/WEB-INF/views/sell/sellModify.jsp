@@ -149,7 +149,7 @@
             </div> 
          
        </div>
-         <textarea class="form-control" name="sellContent" rows="10"  required>${modifyMap.SELLCONTENT}</textarea>
+         <textarea class="form-control" id="sellContent" name="sellContent" rows="10"  required>${modifyMap.SELLCONTENT}</textarea>
          <br/> 
          <div id="null">
          <span class='nullimg'>메인에 노출될 사진을 선택해주세요</span>
@@ -208,7 +208,7 @@
                   var reader=new FileReader();
                   reader.onload=function(e){
                      var src = e.target.result;
-                      parent.prepend('<div class="upload-display"><input type="radio" name="mainImgNo" value='+ (count++) +'><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+                      parent.prepend('<div class="upload-display"><input type="radio" required name="mainImgNo" value='+ (count++) +'><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
                   }
                   
                   reader.readAsDataURL(f);
@@ -221,11 +221,13 @@
       });
 
       
- /*   function writeEnd(){
-      $('#sellWriteFrm').attr("action","${pageContext.request.contextPath}/sell/sellModifyEnd");
-      $('#sellWriteFrm').attr("method","post");
-      $('#sellWriteFrm').submit();
-   } */
+   $('#sellContent').on('keyup', function() {
+       if($(this).val().length > 450) {
+          alert("글자수는 1339자로 이내로 제한됩니다.");
+          $(this).val($(this).val().substring(0, 1339));
+       }
+    
+    });
       function fn_optionPlus(){
          var addOption="<div class=addoption><input type='number' class='form-control col-md-3' name='price' style='display: inline' placeholder='금액(원)'><input type='text' class='form-control col-md-2' name='endDate' style='display: inline' placeholder='작업기한'><input type='text' class='form-control  col-md-8' name='productOption' style='display: inline' placeholder='상품에 대한 설명을 입력하세요.'><br/><br/></div>";
          $('#priceProduct').append(addOption); 

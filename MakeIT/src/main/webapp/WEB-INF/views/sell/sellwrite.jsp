@@ -125,7 +125,7 @@
             </div> 
          
        </div>
-         <textarea class="form-control" name="sellContent" required rows="10"></textarea>
+         <textarea id="sellContent" class="form-control" name="sellContent" required rows="10"></textarea>
          <br/> 
          <div id="null">
          <span class='nullimg'>메인에 노출될 사진을 선택해주세요</span>
@@ -182,7 +182,7 @@
                   var reader=new FileReader();
                   reader.onload=function(e){
                      var src = e.target.result;
-                      parent.prepend('<div class="upload-display"><input type="radio" name="mainImgNo" value='+ (count++) +'><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+                      parent.prepend('<div class="upload-display"><input type="radio" name="mainImgNo" required value='+ (count++) +'><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
                   }
                   
                   reader.readAsDataURL(f);
@@ -208,7 +208,13 @@
       {   
          $('.addoption').last().remove();
       }
-      
+      $('#sellContent').on('keyup', function() {
+          if($(this).val().length > 450) {
+             alert("글자수는 1339자로 이내로 제한됩니다.");
+             $(this).val($(this).val().substring(0, 1339));
+          }
+       
+       });
          
       
    </script>
