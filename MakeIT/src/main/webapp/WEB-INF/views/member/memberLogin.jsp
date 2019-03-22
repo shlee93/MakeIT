@@ -59,10 +59,10 @@
                                     <div class="form-group">
                                         <label for="saveId" class="text-info"><span>아이디 저장</span> 
                                         <span><input id="saveId" name="saveId" type="checkbox" <%=cookieValue!=""?"checked":"" %>></span>
-                                        </label><br>
+                                        </label>
                                     </div>
                                     <div class="form-group">
-                                        <input type="submit" name="submit" class="btn btn-outline-info slidetopleft" value="로그인">
+                                        <input type="submit" id="loginBtn" name="loginBtn" class="btn btn-outline-info slidetopleft"value="로그인">
                                     </div>
                                     <div id="register-link" class="text-right">
                                         <a onclick="findId();" class="text-info">ID찾기</a><span class="text-info">/</span>
@@ -83,7 +83,7 @@
 									// 단 'localhost'가 포함된 CallBack URL
 									var state = naver_id_login.getUniqState();
 									
-									naver_id_login.setButton("green", 2, 40);
+									naver_id_login.setButton("green", 2, 50);
 									naver_id_login.setDomain("http://localhost:9090/makeit");	//  URL
 									naver_id_login.setState(state);
 									naver_id_login.setPopup();
