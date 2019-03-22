@@ -1226,13 +1226,11 @@ public class MemberController {
 	@RequestMapping("/intropage/intropage.do")
 	public String intropage(HttpServletRequest request, HttpServletResponse response) {
 		
-		Cookie cookie = new Cookie("introCookie", "1");
-		cookie.setMaxAge(10 * 60);
-		response.addCookie(cookie);
-		
-		Cookie[] cookies = request.getCookies();
-		logger.info("쿠키 값 : "+cookies);
-		
+		Cookie cookie = new Cookie("intro", "intro");
+    	cookie.setMaxAge(60*60);
+    	cookie.setPath("/");
+    	response.addCookie(cookie);
+
 		return "intropage/intropage";
 	}
 	

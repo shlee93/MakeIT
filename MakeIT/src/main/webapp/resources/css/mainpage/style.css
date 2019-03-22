@@ -161,6 +161,7 @@
         position: relative;
         width: 40%;
         min-width: 800px;
+        width: 900px;
         height: 200px;
         left: 50%;
         top: -120px;
@@ -298,6 +299,30 @@
         transition-duration:0.5s;
     }
     #icon5 p{
+		font-family: 'Nanum Pen Script', cursive;
+		font-size: 30px;
+		color: black;
+		text-align: center;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    #icon6{
+        position: relative;
+        display:inline-block;
+        width: max-content;
+        height: max-content;
+        margin-left: 40px;
+        cursor:pointer;
+    }
+    #icon6 img{
+    	position:relative;
+    	width: 100px;
+    	height: 100px;
+    	top:0px;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    #icon6 p{
 		font-family: 'Nanum Pen Script', cursive;
 		font-size: 30px;
 		color: black;
