@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /* ============================버튼================================= */
-.btn{
+/* .btn{
   background: transparent;
   position: relative;
   overflow: hidden;
@@ -24,7 +24,7 @@
 .btn:hover:after{
   transform: translate3D(0,0,0);
   transition: all .5s;
-}
+} */
 .btn-info:before{
   background: #17a2b8;
 }

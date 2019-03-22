@@ -138,4 +138,28 @@ public class ContestDaoImpl implements ContestDao
 		// TODO Auto-generated method stub
 		return sqlSession.update("contest.contestUpdateImg", contestImg);
 	}
+
+	@Override
+	public Map contestOutBoxYnDao(Map outBoxc) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("contest.contestOutBoxYn", outBoxc);
+	}
+
+	@Override
+	public int contestOutBoxInsertDao(Map outBoxInsert) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("contest.contestOutBoxInsert", outBoxInsert);
+	}
+
+	@Override
+	public int contestOutBoxDeleteDao(Map outBoxDelete) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("contest.contestOutBoxDelete", outBoxDelete);
+	}
+
+	@Override
+	public int insertReportDao(Map reportMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("contest.insertReport", reportMap);
+	}
 }

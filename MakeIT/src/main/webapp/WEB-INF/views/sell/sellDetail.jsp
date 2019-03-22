@@ -43,7 +43,12 @@
        	html,body
        	{
 			height: 100%;
-		}  		    
+		}  		
+		#optionT
+		{
+			text-align:center;
+		}    
+		
 	</style>
 </head>
 <script>	
@@ -52,6 +57,19 @@
 		var scmove = $('#mainNavi').offset().top;
 		$('html, body').animate( { scrollTop : scmove }, 400 );
 	});
+	
+	$(window).scroll(function(){
+		if($(this).scrollTop() > 140)
+		{
+			var windowVal = $(this).scrollTop();
+			$('#donggeulNav').css('top',windowVal);
+		}
+		if($(this).scrollTop() < 140) 
+        {
+			var windowVal = $(this).scrollTop();
+			$('#donggeulNav').css('top','100px');
+        }		
+	});	
 	
 	$(document).on('click','.subImgs',function()
 	{
@@ -125,8 +143,8 @@
                                       		</td>
                                       		<td style="text-align: right">                                         
 	                                  			<c:if test="${review.MEMBERID eq sessionScope.member.MEMBERID }">
-	                                            	<button class="btn btn-primary review-mod" onclick="fn_reviewMod('${review.SELLREVIEWNO}','${review.SELLNO }')">수정</button>
-	                                            	<button class="btn btn-primary review-del" onclick="fn_reviewDel('${review.SELLREVIEWNO}','${review.SELLNO }')">삭제</button>
+	                                            	<button class="btn btn-outline-info slidetopleft review-mod" onclick="fn_reviewMod('${review.SELLREVIEWNO}','${review.SELLNO }')">수정</button>
+	                                            	<button class="btn btn-outline-info slidetopleft review-del" onclick="fn_reviewDel('${review.SELLREVIEWNO}','${review.SELLNO }')">삭제</button>
 	                                         	</c:if>                                         
                                       		</td>
                                    		</tr>
@@ -181,12 +199,23 @@
                             	 }
                             </script>
                             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                            	<textarea class='contentTextArea' rows="34" readonly='readonly'>  
-                            		<h4>${detailList.get(0).SELLCONTENT}</h4>
-                            	</textarea>    
+                            	<p style="text-align:center">취소 및 환불 규정취소 및 환불 규정</p>
+								<p>가. 기본 환불 규정</p>                     
+								<p>1. 전문가와 의뢰인의 상호 협의하에 청약 철회 및 환불이 가능합니다.</p> 
+								<p>2. 작업이 완료된 이후 또는 자료, 프로그램 등 서비스가 제공된 이후에는 환불이 불가합니다.</p> 
+								<p>( 소비자보호법 17조 2항의 5조. 용역 또는 「문화산업진흥 기본법」 제2조 제5호의 디지털콘텐츠의 제공이 개시된 경우에 해당)</p> 
+								<br/>                            
+								<p>나. 전문가 책임 사유</p> 
+								<p>1. 전문가의 귀책사유로 당초 약정했던 서비스 미이행 혹은 보편적인 관점에서 심각하게 잘못 이행한 경우 결제 금액 전체 환불이 가능합니다.</p> 
+								<br/>
+								<p>다. 의뢰인 책임 사유</p> 
+								<p>1. 서비스 진행 도중 의뢰인의 귀책사유로 인해 환불을 요청할 경우, 사용 금액을 아래와 같이 계산 후 총 금액의 10%를 공제하여 환불합니다.</p> 
+								<p>총 작업량의 1/3 경과 전 : 이미 납부한 요금의 2/3해당액</p> 
+								<p>총 작업량의 1/2 경과 전 : 이미 납부한 요금의 1/2해당액</p> 
+								<p>총 작업량의 1/2 경과 후 : 반환하지 않음</p>
                             </div>
-                            <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab"  style='min-width:656px'>
-                                <table id="optionT" border="1px solid black"   >
+                            <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab"  style='width:100%';text-align="center">
+                                <table id="optionT" border="1px solid black" style='width:100%'  >
                                		<tr>
                                			<th>옵션</th>
                                 		<th>옵션내용</th>
@@ -209,10 +238,27 @@
                         </div>
                     </div>                       
                 </div>
-                <div class="col-md-6 fixed" style='position:fixed; margin-top: -8em;'>                   
+                <div id='donggeulNav' class="col-md-6" style="position:absolute; margin-left:60%;transition:ease-in-out; transition-duration:0.7s;">                   
                    	<div class="row " style="text-align:center; margin-left:-5em;" >
               			<div class="col-md-10">
-              				<h4>${detailList.get(0).GRADENAME} ${detailList.get(0).MEMBERNAME}</h4>
+      						<c:if test="${detailList.get(0).GRADENAME == '브론즈' }">
+                           		<p style='display: inline;'><img alt="" src="${path }/resources/image/bronzeGrade.png" style="max-width: 50px;max-height: 50px;font-family: 'Sunflower', sans-serif;"></p>
+                           	</c:if>
+                           	<c:if test="${detailList.get(0).GRADENAME == '실버' }">
+                           		<p><img alt="" src="${path }/resources/image/silverGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+                           	</c:if>
+                           	<c:if test="${detailList.get(0).GRADENAME == '골드' }">
+                           		<p><img alt="" src="${path }/resources/image/goldGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+                           	</c:if>
+                           	<c:if test="${detailList.get(0).GRADENAME == '플래티넘' }">
+                           		<p><img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+                           	</c:if>
+                           	<c:if test="${detailList.get(0).GRADENAME == '다이아몬드' }">
+                           		<p><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+                           	</c:if>
+                              	
+                       		<h4 style="display: inline;font-family: 'Sunflower', sans-serif;"><strong>${detailList.get(0).GRADENAME}</strong>${detailList.get(0).MEMBERNAME}</h4>
+              					
  			                   	<!-- 똥글뱅이 -->
                        			<div class="row align-items-center" style='margin-top: -5em;'>			                  
 		                  			<div class="holderCircle">
@@ -259,7 +305,7 @@
 				                           			<c:if test="${not loop_flag }">
 				                           				<c:if test="${purchaseList.STATUSNO eq '3'}">                           		
 								                           	<span class="itemDot itemDot4" data-tab="4">
-								                           		<i class="fa fa-tags donggeulI"></i>
+								                           		<i class="fas fa-file-signature donggeulI"></i>
 									                           	<span class="forActive"></span>
 								                           	</span>
 								                           	<c:set var="loop_flag" value="true" />
@@ -338,7 +384,7 @@
 				                          	
 				                        		<!-- 수정하기 찜하기 찜풀기 -->
 									    		<c:if test="${session.MEMBERID eq detailList.get(0).MEMBERID}">												
-													<button class="btn btn-primary" onclick="fn_sellModify();" id="sellModify">수정하기</button>										    	
+													<button class="btn btn-outline-info slidetopleft" onclick="fn_sellModify();" id="sellModify">수정하기</button>										    	
 								    			</c:if>
 								    				<form id='sellDetailFrm'>
 					                                	<input type="hidden" id="sellno" name="sellno" value="${detailList.get(0).SELLNO}">
@@ -357,10 +403,10 @@
 					                                	<input type="hidden" name="sellno" value="${detailList.get(0).SELLNO}">
 					                                </form>								    		
 													<c:if test="${empty outBoxYn and detailList.get(0).MEMBERID ne session.MEMBERID }">
-				                                    	<button class="btn btn-primary" onclick="fn_outboxDo();">찜하기</button>
+				                                    	<button class="btn btn-outline-info slidetopleft" onclick="fn_outboxDo();">찜하기</button>
 				                                    </c:if>
 				                                    <c:if test="${!empty outBoxYn and detailList.get(0).MEMBERID ne session.MEMBERID }">
-				                                   		<button class="btn btn-primary" onclick="fn_outboxNo();" >찜풀기</button>
+				                                   		<button class="btn btn-outline-info slidetopleft" onclick="fn_outboxNo();" >찜풀기</button>
 				                                   	</c:if>
 				                                   	
 				                                   	<script>
@@ -378,7 +424,7 @@
 			                            	<!-- 첫번째 법륜 기능 끝 -->
 			                            	
 			                            	<!-- 두번째 법륜 기능 시작 -->
-			                           		<div class="CirItem title-box active CirItem2">			                              			                        	
+			                           		<div class="CirItem title-box CirItem2">			                              			                        	
 				                        	  	<div class="d-flex justify-content-center h-100" style='margin-bottom:-8em;'>
 												 	<div class="image_outer_container">
 													 	<div class="image_inner_container">
@@ -391,7 +437,7 @@
 										  													
 			                           			<!-- 삭제하기 쪽지보내기 -->			                          
 									    		<c:if test="${session.MEMBERID eq detailList.get(0).MEMBERID}">
-                                					<button class="btn btn-primary" onclick="fn_sellDelete();" id="sellDelete">삭제하기</button>
+                                					<button class="btn btn-outline-info slidetopleft" onclick="fn_sellDelete();" id="sellDelete">삭제하기</button>
                                 				</c:if>
                                 				<script>
 	                                				function fn_sellDelete(){
@@ -400,7 +446,28 @@
 													}
                                 				</script>
 										      	<c:if test="${session.MEMBERID ne detailList.get(0).MEMBERID}">
-									      			<button class="btn btn-primary">쪽지보내기</button>
+									      			<%-- <form id='contestMsgFrm' action='${path }/message/messagePop.do'> --%>
+										      			<input type='hidden' id='sendId' name='sendId' value='${session.MEMBERID}'/>
+										      			<input type='hidden' id='receiveId' name='receiveId' value='${detailList.get(0).MEMBERID }'/>
+										      		<%-- </form> --%> 
+									      			<button class="btn btn-outline-info slidetopleft" onclick='fn_message()'>쪽지보내기</button>
+									      			
+									      			<script>									      			
+									      				function fn_message()
+									      				{
+									      					var sendId=$('#sendId').val();
+									      					if($('#sendId').val()!=null&&$('#sendId').val()!='')
+								      						{
+										      					var receiveId=$('#receiveId').val();
+									                    		var popup=open("${path}/message/messagePop.do?sendId="+sendId+"&receiveId="+receiveId,"contestMsgSendPop","left=250px, top=200px, width=450px, height=350px");									                    	
+											      				$('#contestMsgFrm').target=popup;
+								      						}
+									      					else
+								      						{
+									      						alert("로그인해주세요");
+								      						}
+									      				} 
+									      			</script>
 										      	</c:if>		                              	
 		                           			</div>
 		                           			<!-- 두번째 법륜 기능 끝 -->
@@ -421,7 +488,7 @@
 		                           				<!-- 구매자보기 구매하기 -->
 											
 										    	<c:if test="${session.MEMBERID eq detailList.get(0).MEMBERID}">
-										    		<button class="btn btn-primary" onclick="fn_purchaseListShow();">구매자 보기</button>											    										    							    	   
+										    		<button class="btn btn-outline-info slidetopleft" onclick="fn_purchaseListShow();">구매자 보기</button>											    										    							    	   
 										      	   	<form id="buyerShow">
 					                         		 	<input type="hidden" id="sellno" name="sellno" value="${detailList.get(0).SELLNO}">
 					                               	</form>
@@ -450,8 +517,8 @@
 															    console.log($("#selcOption").val());														
 															}
 					                                    </script>	
-					                                    <input class="btn btn-primary" type="submit" value="구매하기">				                                    
-			                                    		<!-- <button class="btn btn-primary" onclick="fn_sellBoardBuy();">구매하기</button> -->
+					                                    <input class="btn btn-outline-info slidetopleft" type="submit" value="구매하기">				                                    
+			                                    		<!-- <button class="btn btn-outline-info slidetopleft" onclick="fn_sellBoardBuy();">구매하기</button> -->
 			                                    	</form>
 			                                    </c:if>
 			                                 
@@ -499,12 +566,12 @@
 						                                        	</c:forEach>
 							                                    </select>
 							                                    <script>
-								                                    function fn_selectedSpec(str) {	   
+								                                    function fn_selectedSpec(str) {	   								                                    	
 																	    $("#sellSpecNo").attr("value",str);																	   														
 																	}
 							                                    </script>	
 							                                   
-							                                    <input class="btn btn-primary" type="submit" value="구매확정">				                                    
+							                                    <input class="btn btn-outline-info slidetopleft" type="submit" value="구매확정">				                                    
 					                                    		
 					                                    	</form>
 					                                    </c:if>
@@ -527,7 +594,7 @@
 											
 			                           			<!-- 신고하기 -->
 			                           		
-												<button class="btn btn-primary" onclick="fn_reportPop();">신고하기</button>
+												<button class="btn btn-outline-info slidetopleft" onclick="fn_reportPop();">신고하기</button>
 											
 												<script>	
 													function fn_reportPop(){
@@ -571,7 +638,7 @@
 							                                        </c:if>
 						                                        </c:forEach>
 					                                    </select>
-					                                    <input class="btn btn-primary" type="button" onclick='fn_refundPop()' value="환불하기">				                                    
+					                                    <input class="btn btn-outline-info slidetopleft" type="button" onclick='fn_refundPop()' value="환불하기">				                                    
 					                                    <script>	
 															function fn_refundPop(){
 																if(${sessionScope.member.MEMBERID!=null}){
@@ -606,7 +673,7 @@
 																							
 												<br/>
 																						
-	                                			<button class="btn btn-primary" onclick="fn_starPop();">후기남기기</button>
+	                                			<button class="btn btn-outline-info slidetopleft" onclick="fn_starPop();">후기남기기</button>
 	                                			
 				                           	</div>
 		                               											

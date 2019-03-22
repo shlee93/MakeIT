@@ -110,212 +110,209 @@
    	</jsp:include>
 
 <body>
- <div class="row">
- 	<div class="col-sm-1"></div>
-    <div id="buy-container" class="col-sm-10">
-    	<form action='${path}/contest/contestModifyEnd.do' method='post' enctype="multipart/form-data">    
-			<label>제목</label> 
+	<div class="row">
+ 		<div class="col-sm-1"></div>
+   		<div id="buy-container" class="col-sm-10">
+    		<form action='${path}/contest/contestModifyEnd.do' method='post' enctype="multipart/form-data">    
+				<label>제목</label> 
 	
-			<select class="form-control col-sm-1" id='interestNo' name='interestNo' style="display: inline;" required/>
-	        	<option>카테고리</option>
-	        	<option value='1'>개발자</option>
-	        	<option value='2'>웹디자이너</option>
-	        	<option value='3'>네트워크보안</option>         
-	        </select>
+				<select class="form-control col-sm-1" id='interestNo' name='interestNo' style="display: inline;" required/>
+	        		<option>카테고리</option>
+	        		<option value='1'>개발자</option>
+	        		<option value='2'>웹디자이너</option>
+	        		<option value='3'>네트워크보안</option>         
+	        	</select>
 	         
-	        <select class="form-control col-sm-1" id='detailInterestNo' name='detailInterestNo' style="display: inline;" required/>
+	        	<select class="form-control col-sm-1" id='detailInterestNo' name='detailInterestNo' style="display: inline;" required/>
 	        	       
-	        </select> 
-	        <script>
-	       		$(function()
-	      			{	       				
-	            		$("#interestNo").change(function()
+	        	</select> 
+		        <script>
+		       		$(function()
+		      			{	       				
+		            		$("#interestNo").change(function()
+		       				{
+		           				console.log(this.value);
+		           				if(this.value!='카테고리')
+		       					{
+		            				$.ajax({
+			            				url:"${path}/categoryOneSel.do",
+			            	            data:{"interestNo":this.value},
+			            				dataType:"json",
+			            	            success:function(data)
+			            	            {
+			            	               console.log(data);
+			            	               var detailInterest=$('#detailInterestNo');
+			            	               
+		            	               	   for(var i=0; i<data.length; i++)
+		            	            	   {
+		            	            	   	   
+		           	            		   	   optionValue='DETAILINTEREST';
+		           	            			   optionInter='DETAILINTERESTNO';
+		          	            	   	   	   	   
+		           	            	           var option
+		           	            	           option+="<option value='"+data[i][optionInter]+"'>"+data[i][optionValue]+"</option>";
+		           	            			   
+		               	            	   	   detailInterest.html(option);
+		            	            		   
+		       		   	            	    }
+			            	            }
+			            			});
+		       					}
+		       				 })
+		           		 }    		
+		    		 );
+		        </script>
+	       	
+		       	<input type='hidden' id='interestHidden' value='${contest.INTERESTNO}'>
+		        <input type='hidden' id='detailInterestHidden' value='${contest.DETAILINTERESTNO}'>
+	        
+		        <script>
+		        	$(function()
+	      			{	        		
+		        		$('#interestNo').val($('#interestHidden').val()).trigger('change');
+		        		$('#detailInterestNo').val($('#detailInterestHidden').val()).trigger('change');
+	      			})
+		        	
+		        </script>
+	        
+				<input type="text" class="form-control col-sm-6" id='contestTitle' name='contestTitle' style="display: inline;" placeholder="제목을 입력하세요." value='${contest.get("CONTESTTITLE")}' required/> 
+	        
+	        	<!-- 콘테스트 이름 -->      
+	        
+	        	<br/>
+	       	 
+		       	<input type='hidden' name='contestNo' value='${contest.CONTESTNO}'>
+		       	 
+		   	    <label>주최</label>
+		     	<input type="text" class="form-control col-sm-2" style="display: inline;" id='star' name='dona' placeholder="주최측" value='${memberMap.get("MEMBERNAME")}' readonly/>&nbsp;&nbsp;
+		      	<input type="text" class="form-control col-sm-2" style="display: inline;" id='starId' name='donaId' placeholder="주최자 아이디" value='${memberMap.get("MEMBERID")}'readonly/> 
+		       	
+		       	<br/>
+	       	
+		       	<label>상금</label>
+		     	<input type="text" class="form-control col-sm-2" id='contestPrice' name='contestPrice' style="display: inline;" placeholder="상금 총액"  value='${contest.get("CONTESTPRICE")}' required/>
+		       	
+		       	<br/>
+	       	  
+		        <label>기한</label> 
+		        <input type="date" id='contestDate' name='contestDate' class="form-control col-sm-2" style="display: inline" value="${contest.get('CONTESTDATE')}" required>~
+		        <input type="date" id='contestDeadLine' name='contestDeadLine' class="form-control col-sm-2" style="display: inline" value="${contest.get('CONTESTDEADLINE')}" required>
+				<script>        
+			        $(function()
+	        		{
+					    fn_setDatePickerMax();
+					});
+					
+					function fn_setDatePickerMax()
+					{
+					    var datePicker1 = document.getElementById('contestDate');
+					    var datePicker2 = document.getElementById('contestDeadLine');
+					    if(datePicker2.val==null)
+				    	{
+						    datePicker1.min = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
+						    console.log(datePicker1.val);
+				    	}     	
+					 }
+					
+					$(function()
+	      			{
+	            		$("#contestDeadLine").change(function()
 	       				{
 	           				console.log(this.value);
-	           				if(this.value!='카테고리')
-	       					{
-	            				$.ajax({
-		            				url:"${path}/categoryOneSel.do",
-		            	            data:{"interestNo":this.value},
-		            				dataType:"json",
-		            	            success:function(data)
-		            	            {
-		            	               console.log(data);
-		            	               var detailInterest=$('#detailInterestNo');
-		            	               
-	            	               	   for(var i=0; i<data.length; i++)
-	            	            	   {
-	            	            	   	   
-	           	            		   	   optionValue='DETAILINTEREST';
-	           	            			   optionInter='DETAILINTERESTNO';
-	          	            	   	   	   	   
-	           	            	           var option
-	           	            	           option+="<option value='"+data[i][optionInter]+"'>"+data[i][optionValue]+"</option>";
-	           	            			   
-	               	            	   	   detailInterest.html(option);
-	            	            		   
-	       		   	            	    }
-		            	            }
-		            			});
-	       					}
-	       				 })
-	           		 }    		
-	    		 );
-	        </script>
-	       	
-	       	<input type='hidden' id='interestHidden' value='${contest.INTERESTNO}'>
-	        <input type='hidden' id='detailInterestHidden' value='${contest.DETAILINTERESTNO}'>
-	        
-	        <script>
-	        	$(function()
-      			{	        		
-	        		$('#interestNo').val($('#interestHidden').val()).trigger('change');
-	        		$('#detailInterestNo').val($('#detailInterestHidden').val()).trigger('change');
-      			})
-	        	
-	        </script>
-	        
-			<input type="text" class="form-control col-sm-6" id='contestTitle' name='contestTitle' style="display: inline;" placeholder="제목을 입력하세요." value='${contest.get("CONTESTTITLE")}' required/> 
-	        
-	        <!-- 콘테스트 이름 -->      
-	        
-	        <br/>
-	       	 
-	       	<input type='hidden' name='contestNo' value='${contest.CONTESTNO}'>
-	       	 
-	   	    <label>주최</label>
-	     	<input type="text" class="form-control col-sm-2" style="display: inline;" id='star' name='dona' placeholder="주최측" value='${memberMap.get("MEMBERNAME")}' readonly/>&nbsp;&nbsp;
-	      	<input type="text" class="form-control col-sm-2" style="display: inline;" id='starId' name='donaId' placeholder="주최자 아이디" value='${memberMap.get("MEMBERID")}'readonly/> 
-	       	
-	       	<br/>
-	       	
-	       	<label>상금</label>
-	     	<input type="text" class="form-control col-sm-2" id='contestPrice' name='contestPrice' style="display: inline;" placeholder="상금 총액"  value='${contest.get("CONTESTPRICE")}' required/>
-	       	
-	       	<br/>
-	       	  
-	        <label>기한</label> 
-	        <input type="date" id='contestDate' name='contestDate' class="form-control col-sm-2" style="display: inline" value="${contest.get('CONTESTDATE')}" required>~
-	        <input type="date" id='contestDeadLine' name='contestDeadLine' class="form-control col-sm-2" style="display: inline" value="${contest.get('CONTESTDEADLINE')}" required>
-			<script>        
-		        $(function()
-        		{
-				    fn_setDatePickerMax();
-				});
+	           				
+	           				var datePicker1 = document.getElementById("contestDate");
+	           				var datePicker2 = document.getElementById('contestDeadLine');
+	           				
+	           				datePicker1.max=this.value;
+	       				})
+	       				$("#contestDate").change(function()
+						{
+							console.log(this.value);
+	           				
+	           				var datePicker1 = document.getElementById("contestDate");
+	           				var datePicker2 = document.getElementById('contestDeadLine');
+	           				
+	           				datePicker2.min=this.value;
+	       				})
+	      			});
+					
+				</script>
 				
-				function fn_setDatePickerMax()
-				{
-				    var datePicker1 = document.getElementById('contestDate');
-				    var datePicker2 = document.getElementById('contestDeadLine');
-				    if(datePicker2.val==null)
-			    	{
-					    datePicker1.min = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
-					    console.log(datePicker1.val);
-			    	}     	
-				 }
-				
-				$(function()
-      			{
-            		$("#contestDeadLine").change(function()
-       				{
-           				console.log(this.value);
-           				
-           				var datePicker1 = document.getElementById("contestDate");
-           				var datePicker2 = document.getElementById('contestDeadLine');
-           				
-           				datePicker1.max=this.value;
-       				})
-       				$("#contestDate").change(function()
-					{
-						console.log(this.value);
-           				
-           				var datePicker1 = document.getElementById("contestDate");
-           				var datePicker2 = document.getElementById('contestDeadLine');
-           				
-           				datePicker2.min=this.value;
-       				})
-      			});
-				
-			</script>
-	        <br/> 
+	        	<br/> 
 	         
-	        <label>상세 설명</label>
-	        <textarea class="form-control" id='contestContent' name='contestContent' rows="10" required>${contest.CONTESTCONTENT}</textarea>
-	        <br>
-	        <div id="null">
-         		<span class='nullimg'>메인에 노출될 사진을 선택해주세요</span>
-         	</div>
-	       	<div id='modifyFilePreview' class="filebox bs3-primary preview-image">
-	       		<c:forEach items="${contestImgList}" var="contestImgList" varStatus='status'>
-	       			<div class="upload-display"><input type="radio" name="mainImgNo" value='${status.index}' required><div class="upload-thumb-wrap"><img src="${path}/resources/upload/contest/${contestImgList.CONTESTIMGRE}" class="upload-thumb"></div></div>	
-	       		</c:forEach>
-	            <label for="upFile">사진 선택</label> 
-	            
-	            <input type="file" name="upFile" id="upFile" class="upload-hidden" multiple="multiple" accept=".gif, .jpg, .png" required> 
-	        </div>
+		        <label>상세 설명</label>
+		        <textarea class="form-control" id='contestContent' name='contestContent' rows="10" required>${contest.CONTESTCONTENT}</textarea>
+		        <br>
+		        <div id="null">
+	         		<span class='nullimg'>메인에 노출될 사진을 선택해주세요</span>
+	         	</div>
+		       	<div id='modifyFilePreview' class="filebox bs3-primary preview-image">
+		       		<c:forEach items="${contestImgList}" var="contestImgList" varStatus='status'>
+		       			<div class="upload-display"><input type="radio" name="mainImgNo" value='${status.index}' required><div class="upload-thumb-wrap"><img src="${path}/resources/upload/contest/${contestImgList.CONTESTIMGRE}" class="upload-thumb"></div></div>	
+		       		</c:forEach>
+		            <label for="upFile">사진 선택</label> 
+		            
+		            <input type="file" name="upFile" id="upFile" class="upload-hidden" multiple="multiple" accept=".gif, .jpg, .png" required> 
+		        </div>
             	
-            <script>
-	            var sel_files=[];
-	            var count = 0;
-	            $(document).ready(function(){
-                   //preview image 
-                   
-                   var imgTarget = $('.preview-image .upload-hidden');
-                  
-                   imgTarget.on('change', function(e){
-                      var files=e.target.files;
-                       var filesArr=Array.prototype.slice.call(files);
-                       console.log(files);
-                       var parent = $(this).parent();
-                       parent.children('.upload-display').remove();
-                      
-                       console.log("수 : " + filesArr.length);
-                     if(filesArr.length > 5)
-                     {
-                        alert("사진은 5개 제한입니다.");
-                        return;
-                     }
-                       filesArr.forEach(function(f){
-                          count = 0;
-                           if(!f.type.match("image.*")){
-                              alert("확장자는 이미지 확장자만 가능합니다.");
-                              return;
-                      
-                           }
-                           console.log(f)
-                           sel_files.push(f);
-                           
-                           var reader=new FileReader();
-                           reader.onload=function(e){
-                              var src = e.target.result;
-                               parent.prepend('<div class="upload-display"><input type="radio" name="mainImgNo" value='+ (count++) +' required><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
-                           }
-                           
-                           reader.readAsDataURL(f);
-                           
-                           
-                        })
-                         
-                    });
-                  
-               });
-            
-			</script>
-	        <br>
-	        <div id="btn-container">
-	           <button type='button' class="btn btn-secondary" onclick='fn_back()'>취소</button>
-	           <script>
-	           		function fn_back()
-	           		{
-	           			history.back();
-	           		}
-	           </script>
-	           <input type='submit' class="btn btn-secondary" value='수정'/>
-	        </div>
-        </form>
-    </div>
-    <div class="col-sm-1"></div>
-</div>   
-
+	            <script>
+		            var sel_files=[];
+		            var count = 0;
+		            $(document).ready(function()
+            		{
+	                   //preview image 
+	                   
+	                   var imgTarget = $('.preview-image .upload-hidden');
+	                  
+	                   imgTarget.on('change', function(e){
+	                      var files=e.target.files;
+	                       var filesArr=Array.prototype.slice.call(files);
+	                       console.log(files);
+	                       var parent = $(this).parent();
+	                       parent.children('.upload-display').remove();
+	                      
+	                       console.log("수 : " + filesArr.length);
+	                     if(filesArr.length > 5)
+	                     {
+	                        alert("사진은 5개 제한입니다.");
+	                        return;
+	                     }
+	                       filesArr.forEach(function(f){
+	                          count = 0;
+	                           if(!f.type.match("image.*")){
+	                              alert("확장자는 이미지 확장자만 가능합니다.");
+	                              return;
+	                      
+	                           }
+	                           console.log(f)
+	                           sel_files.push(f);
+	                           
+	                           var reader=new FileReader();
+	                           reader.onload=function(e){
+	                              var src = e.target.result;
+	                               parent.prepend('<div class="upload-display"><input type="radio" name="mainImgNo" value='+ (count++) +' required><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+	                           }
+	                           
+	                           reader.readAsDataURL(f);                           
+	                        })	                         
+	                    });	                  
+	               	});	            
+				</script>
+	        	<br>
+	        	
+	        	<div id="btn-container">
+	           		<button type='button' class="btn btn-outline-info slidetopleft" onclick='fn_back()'>취소</button>
+	           		<script>
+		           		function fn_back()
+		           		{
+		           			history.back();
+		           		}
+	           		</script>
+	           		<input type='submit' class="btn btn-outline-info slidetopleft" value='수정'/>
+	        	</div>
+        	</form>
+    	</div>
+    	<div class="col-sm-1"></div>
+	</div>
 </body>
 </html>

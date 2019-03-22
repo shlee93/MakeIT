@@ -57,20 +57,22 @@ pageEncoding="UTF-8"%>
                     	<table class="table">
                     		<tr>
                     			<th>보낸사람</th>
-                    			<td><c:out value="${map.MEMBERID }"></c:out></td>
+                    			<td><input type="text" class="form-control" value="<c:out value="${map.MEMBERID }"></c:out>"readonly></td>
                     			<th>받는사람</th>
-                    			<td><c:out value="${sendId }"></c:out></td>
+                    			<td>
+                    				<c:if test="${sendId != null }">
+                    					<input type="text" id="receiveId" name="receiveId" class="form-control" value="<c:out value="${sendId }"></c:out>" readonly="readonly">
+                    				</c:if>
+                    			</td>
                     		</tr>
                    			<tr>
                    				<td colspan="4">
-									<textarea rows="10" cols="75" id="messageContent" name = "messageContent"></textarea>
+									<textarea rows="10" cols="80" id="messageContent" name = "messageContent"></textarea>
 								</td>
                    			</tr>
                    			<tr>
-                   				<td>
+                   				<td colspan='2'>
                    					<button class="btn btn-outline-info slidetopleft" onclick="backMessage();">이전</button>
-                   				</td>
-                   				<td>
                    					<button class="btn btn-outline-info slidetopleft" onclick="sendMessage();">보내기</button>
                    				</td>
                    				<td></td>
@@ -83,7 +85,15 @@ pageEncoding="UTF-8"%>
         </div>
     </div>
 </div>
+<input type="hidden" id="fadeStatus" name="fadeStatus" value="${fadeStatus }">
 <script>
+	$('#messageContent').on('keyup', function() {
+		if($(this).val().length > 450) {
+			alert("글자수는 450자로 이내로 제한됩니다.");
+			$(this).val($(this).val().substring(0, 450));
+		}
+	
+	});
 	function backMessage(){
 		$.ajax({
 			url:"${path}/member/memberMessageDetailAjax.do",
@@ -99,12 +109,13 @@ pageEncoding="UTF-8"%>
 	function sendMessage(){
 		$('#naviBarStatus').attr("value","4");
 		$.ajax({
-			url:"${path}/member/sendMessage.do",
+			url:"${path}/member/reSendMessageEnd.do",
 			dataType:"html",
 			data:{"sendId":$('#sendId').val(),
 				"receiveId":$('#receiveId').val(),
 				"messageContent":$('#messageContent').val()},
 			success:function(data){
+				alert(data);
 				$.ajax({
 					url:"${path}/member/memberMessageAjax.do",
 					dataType:"html",

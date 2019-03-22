@@ -235,6 +235,76 @@ public class AdminDaoImpl implements AdminDao {
 		
 		return sqlSession.update("admin.updateRefundEnd", refund);
 	}
+
+	//관리자 페이지 FAQ카테고리 수정
+	@Override
+	public int updateFaqCategoryAdmin(Map<Object, Object> update) {
+		
+		return sqlSession.update("admin.updateFaqCategoryAdmin", update);
+	}
+
+	//관리자 페이지 회원 수(검색)
+	@Override
+	public int selectSearchMemberCountAdmin(String searchId) {
+		
+		return sqlSession.selectOne("admin.selectSearchMemberCountAdmin",searchId);
+	}
+
+	//미승인 게시글 리스트
+	@Override
+	public List<Map<Object, Object>> selectApprovalList(String approvalStatus, int cPage, int numPerPage) {
+		RowBounds rb=new RowBounds((cPage-1)*numPerPage,numPerPage);
+		return sqlSession.selectList("admin.selectApprovalList", approvalStatus, rb);
+	}
+
+	//삭제된 게시글 리스트
+	@Override
+	public List<Map<Object, Object>> selectDeleteList(String deleteStatus, int cPage, int numPerPage) {
+		RowBounds rb=new RowBounds((cPage-1)*numPerPage,numPerPage);
+		return sqlSession.selectList("admin.selectDeleteList", deleteStatus, rb);
+	}
+
+	//미승인 게시글 리스트
+	@Override
+	public int selectApprovalCount(String approvalStatus) {
+		
+		return sqlSession.selectOne("admin.selectApprovalCount", approvalStatus);
+	}
+
+	//삭제된 게시글 카운트
+	@Override
+	public int selectDeleteCount(String deleteStatus) {
+		
+		return sqlSession.selectOne("admin.selectDeleteCount", deleteStatus);
+	}
+
+	//검색한 미승인 게시글 리스트
+	@Override
+	public int selectSearchApprovalCount(Map<String, String> approval) {
+		
+		return sqlSession.selectOne("admin.selectSearchApprovalCount", approval);
+	}
+
+	//검색한 삭제된 게시글 카운트
+	@Override
+	public int selectSearchDeleteCount(Map<String, String> delete) {
+		
+		return sqlSession.selectOne("admin.selectSearchDeleteCount", delete);
+	}
+
+	//검색한 미승인 게시글 리스트 
+	@Override
+	public List<Map<Object, Object>> selectSearchApprovalList(Map<String, String> approval, int cPage, int numPerPage) {
+		RowBounds rb=new RowBounds((cPage-1)*numPerPage,numPerPage);
+		return sqlSession.selectList("admin.selectSearchApprovalList", approval, rb);
+	}
+
+	//검색한 삭제된 게시글 리스트 
+	@Override
+	public List<Map<Object, Object>> selectSearchDeleteList(Map<String, String> delete, int cPage, int numPerPage) {
+		RowBounds rb=new RowBounds((cPage-1)*numPerPage,numPerPage);
+		return sqlSession.selectList("admin.selectSearchDeleteList", delete, rb);
+	}
 	
 	
 	
@@ -242,13 +312,7 @@ public class AdminDaoImpl implements AdminDao {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 

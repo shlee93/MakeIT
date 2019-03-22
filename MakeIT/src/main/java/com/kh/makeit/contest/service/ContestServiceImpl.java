@@ -182,8 +182,30 @@ public class ContestServiceImpl implements ContestService
 			throw e;
 		}		
 		
-		return result;	
-
+		return result;
 	}
-	
+
+	@Override
+	public Map contestOutBoxYnService(Map outBoxc) {
+		// TODO Auto-generated method stub
+		return cd.contestOutBoxYnDao(outBoxc);
+	}
+
+	@Override
+	public int contestOutBoxInsertService(Map outBoxInsert) {
+		// TODO Auto-generated method stub
+		return cd.contestOutBoxInsertDao(outBoxInsert);
+	}
+
+	@Override
+	public int contestOutBoxDeleteService(Map outBoxDelete) {
+		// TODO Auto-generated method stub
+		return cd.contestOutBoxDeleteDao(outBoxDelete);
+	}
+
+	@Override
+	public int insertReportService(Map reportMap) {
+		// TODO Auto-generated method stub
+		return cd.insertReportDao(reportMap);
+	}	
 }

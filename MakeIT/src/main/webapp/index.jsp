@@ -9,7 +9,7 @@
 </jsp:include>
 
 
-	<a class="dropdown-item" href="${path }/member/memberEnrollck.do">회원가입</a>
+<%-- 	<a class="dropdown-item" href="${path }/member/memberEnrollck.do">회원가입</a>
 	<a class="dropdown-item" href="${path }/member/memberLogin.do">로그인</a>
 	<a class="dropdown-item" href="${path }/member/memberMyPage.do">마이페이지</a>	
 	<a class="dropdown-item" href="${path }/buy/volList.do">지원자 리스트</a>
@@ -18,12 +18,11 @@
 	<a class="dropdown-item" href="${path }/sell/sellWrite.do">판매글작성</a>
 	<a class="dropdown-item" href="${path }/buy/buyDetail.do">구매디테일</a>
 	<a class="dropdown-item" href="${path }/buy/buyWrite.do">구매글작성</a>
-	<a class="dropdown-item" href="${path }/contest/contestMain.do">컨테스트메인</a>
-	<a class="dropdown-item" href="${path }/contest/contestDetail.do">컨테스트상세</a>
-	<a class="dropdown-item" href="${path }/contest/contestWrite.do">컨테스트글작성</a>
 	<a class="dropdown-item" href="${path }/mainpage/mainpage.do">메인페이지</a>
-	<a class="dropdown-item" href="${path }/admin/adminView.do">관리자</a>
+	<a class="dropdown-item" href="${path }/admin/adminView.do">관리자</a> --%>
 	<a class="dropdown-item" href="${path }/intropage/intropage.do">인트로페이지</a>
+	<%-- <a class="dropdown-item" href="${path }/support/supportView.do">고객센터</a> --%>
+
 
    <div id="famousContentWrap">
         <P id="famousContentTitle">인기 컨텐츠!<br/><p id="famousContentTitle2">시간 되시면 둘러보세요 :)</p>

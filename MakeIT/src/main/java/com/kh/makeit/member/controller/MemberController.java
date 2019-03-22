@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 import com.kh.makeit.common.PageFactory;
 import com.kh.makeit.common.SendMail;
 import com.kh.makeit.member.model.service.MemberService;
+import com.sun.mail.iap.Response;
 
 @Controller
 public class MemberController {
@@ -1000,12 +1001,37 @@ public class MemberController {
 	
 	@RequestMapping("/member/sendMessage.do")
 	@ResponseBody
-	public void sendMessage(String sendId, String receiveId, String messageContent) {
-		Map<String,String> message = new HashMap();
-		message.put("sendId", sendId);
-		message.put("receiveId", receiveId);
-		message.put("messageContent", messageContent);
-		int result = service.sendMessageEnd(message);
+	public ModelAndView sendMessage(String memberId) {
+		Map<Object, Object> map = service.selectOne(memberId);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("map",map);
+		mv.addObject("memberId",memberId);
+		mv.setViewName("member/ajaxMemberMessageSend");
+		return mv;
+	}
+	
+	@RequestMapping("/member/reSendMessageEnd.do")
+	public void sendMessageEnd(String sendId, String receiveId, String messageContent, HttpServletResponse response) throws IOException{
+		Map<Object,Object> map = service.selectOne(receiveId);
+		String msg = "";
+		if(map != null) {
+			Map<String,String> message = new HashMap();
+			message.put("sendId", sendId);
+			message.put("receiveId", receiveId);
+			message.put("messageContent", messageContent);
+			int result = service.sendMessageEnd(message);
+			if(result > 0) {
+				msg = "메시지가 정상적으로 발송되었습니다.";
+			} else {
+				msg = "메시지가 발송되지 않았습니다.";
+			}
+			
+		} else {
+			msg = "수신자 아이디를 다시 확인해주세요.";
+		}
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json;charset=UTF-8");
+		response.getWriter().append(msg);
 	}
 	
 	@RequestMapping("/member/memberPagingAjax.do")
@@ -1147,6 +1173,23 @@ public class MemberController {
 	@RequestMapping("/member/mainPage")
 	public String mainPageView() {
 		return "redirect:/";
+	}
+	
+	@RequestMapping("/member/memberSearch.do")
+	@ResponseBody
+	public String memberSearch(String receiveId) {
+		logger.debug(receiveId);
+		List<Map<String,String>> list = service.memberSearch(receiveId);
+		logger.debug(list);
+		String data = "";
+		for(int i = 0; i < list.size(); i++) {
+			if(i!=0) {
+				data += ",";
+			}
+			data += list.get(i).get("MEMBERID");
+		}
+		logger.debug(data);
+		return data;
 	}
 	
 	@RequestMapping("/member/mainajax.do")

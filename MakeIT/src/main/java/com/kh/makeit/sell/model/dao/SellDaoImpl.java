@@ -240,15 +240,16 @@ public class SellDaoImpl implements SellDao {
 	//구매자들띄워주기
 
 	@Override
-	public List<Map<String, String>> sellBuyerShow(int sellno) {
+	public List<Map<String, String>> sellBuyerShow(int sellno, int cPage, int numPerPage) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("sell.sellBuyerShow",sellno);
+		RowBounds rb=new RowBounds((cPage-1)*numPerPage,numPerPage);
+		return sqlSession.selectList("sell.sellBuyerShow",sellno,rb);
 	}
 	//판매자가 작업상태변경
 	@Override
-	public int sellSpectUpdate(int no) {
+	public int sellSpectUpdate(int specNo) {
 		// TODO Auto-generated method stub
-		return sqlSession.update("sell.sellSpectUpdate",no);
+		return sqlSession.update("sell.sellSpectUpdate",specNo);
 	}
 
 	@Override
@@ -303,6 +304,12 @@ public class SellDaoImpl implements SellDao {
 	public int sellCommit(int sellSpecNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.update("sell.sellCommit",sellSpecNo);
+	}
+
+	@Override
+	public int sellBuyerCount(int sellno) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("sell.sellBuyerCount",sellno);
 	}
 
 	

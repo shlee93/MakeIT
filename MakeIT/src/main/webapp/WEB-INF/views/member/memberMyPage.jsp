@@ -25,6 +25,7 @@
            	</div>
         </div>
         <div class="col-md-10">
+        	<input type="hidden" id="memberId" value="${map.MEMBERID }">
             <div class="container emp-profile" id="ajaxHtml">
                 <div class="row" id="toprow">
                     <div class="col-md-4">
@@ -66,7 +67,6 @@
                 <div class="row" id="bottomrow">
                     <div class="col-md-4">
                         <div class="profile-work">
-                        	<input type="hidden" id="memberId" value="${map.MEMBERID }">
                             <p>마이페이지</p>
                             <a class="myPageInfo" onclick="memberInfoAjax();">회원정보</a><br/>
                             <a class="myPageInfo" onclick="memberOutBoxAjax();">찜한 목록</a><br/>
@@ -251,7 +251,7 @@
                                  	<div class="row">
                                      	<div class="col-md-12">
                                      		<input type="hidden" name="appealId" value="${map.MEMBERID }">
-                                          	<textarea rows="10" cols="80" class="form-control" name="appealContent"><c:out value="${map.INTRODUCTION }"></c:out></textarea>
+                                          	<textarea rows="10" cols="80" class="form-control" id="appealContent" name="appealContent"><c:out value="${map.INTRODUCTION }"></c:out></textarea>
                                      	</div>
                                  	</div>
                                  	<div class="row">
@@ -274,6 +274,13 @@
         <input type="hidden" id="naviBarStatus" name = "naviBarStatus" value="${naviBarStatus }">
         <input type="hidden" id="noReadMessage" name = "noReadMessage" value="${noReadMessage }">
 		<script>
+			$('#appealContent').on('keyup', function() {
+				if($(this).val().length > 2000) {
+					alert("글자수는 2000자로 이내로 제한됩니다.");
+					$(this).val($(this).val().substring(0, 2000));
+				}
+			
+			});
 			function updateMember(){
 				$('#hiddenFrm').attr("action","${path }/member/updateMember.do");
 				$('#hiddenFrm').submit();

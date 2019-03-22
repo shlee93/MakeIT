@@ -75,13 +75,9 @@ pageEncoding="UTF-8"%>
                    				<td colspan="4"><c:out value="${message.MESSAGECONTENT }"/></td>
                    			</tr>
                    			<tr>
-                   				<td>
+                   				<td colspan='3'>
                    					<button class="btn btn-outline-info slidetopleft" onclick="backMessageList();">이전</button>
-                   				</td>
-                   				<td>
                    					<button class="btn btn-outline-info slidetopleft" onclick="deleteMessage();">삭제</button>
-                   				</td>
-                   				<td>
                    					<c:if test="${message.RECEIVEID==map.MEMBERID }">
                    						<button class="btn btn-outline-info slidetopleft" onclick="reMessage();">답장</button>
                    					</c:if>

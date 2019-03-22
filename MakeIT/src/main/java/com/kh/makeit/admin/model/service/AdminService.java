@@ -23,6 +23,9 @@ public interface AdminService {
 	//관리자 페이지 회원 수
 	int selectMemberCountAdmin();
 	
+	//관리자 페이지 회원 수(검색)
+	int selectSearchMemberCountAdmin(String searchId);
+	
 	//관리자 페이지 카테고리 리스트
 	List<Map<String,String>> selectInterestAdmin();
 	List<Map<String,String>> selectDeInterestAdmin();
@@ -61,6 +64,9 @@ public interface AdminService {
 	//관리자 페이지 FAQ카테고리 삭제
 	int deleteFaqCategoryAdmin(int faqCategoryNo);
 	
+	//관리자 페이지 FAQ카테고리 수정
+	int updateFaqCategoryAdmin(Map<Object,Object> update);
+	
 	//관리자 페이지 신고 리스트
 	List<Map<Object,Object>> selectReportListAdmin(String reportStatus,int cPage, int numPerPage);
 	
@@ -96,4 +102,28 @@ public interface AdminService {
 	
 	//관리자 페이지 환불 확정 업데이트
 	int updateRefundEnd(Map<Object,Object> refund);
+	
+	//미승인 게시글 카운트
+	int selectApprovalCount(String approvalStatus);
+	
+	//삭제된 게시글 카운트
+	int selectDeleteCount(String deleteStatus);
+	
+	//미승인 게시글 리스트
+	List<Map<Object,Object>> selectApprovalList(String approvalStatus,int cPage, int numPerPage);
+	
+	//삭제된 게시글 리스트
+	List<Map<Object,Object>> selectDeleteList(String deleteStatus,int cPage,int numPerPage);
+	
+	//검색한 미승인 게시글 카운트
+	int selectSearchApprovalCount(Map<String,String> approval);
+	
+	//검색한 미승인 게시글 리스트
+	List<Map<Object,Object>> selectSearchApprovalList(Map<String,String> approval,int cPage,int numPerPage);
+	
+	//검색한 삭제된 게시글 카운트
+	int selectSearchDeleteCount(Map<String,String> delete);
+	
+	//검색한 삭제된 게시글 리스트
+	List<Map<Object,Object>> selectSearchDeleteList(Map<String,String> delete,int cPage,int numPerPage);
 }

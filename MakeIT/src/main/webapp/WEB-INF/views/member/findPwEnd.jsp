@@ -24,6 +24,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 <!-- 아이콘 CSS -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Sunflower:300" rel="stylesheet">
 </head>
 <style>
 .checkMail-container
@@ -35,13 +36,14 @@
 	color : #138496;
 	font-size: 2em;
 	font-weight: 700;
+	font-family: 'Sunflower', sans-serif;
 }
 </style>
 <body class='emailBody'>
 	<div class='container-fluid checkMail-container'>
     	<div class="row">
     		<div class="col-md-12">
-    			<h5>비밀번호 찾기</h5>
+    			<h5 style="font-family: 'Sunflower', sans-serif;">비밀번호 찾기</h5>
     		</div>
     	</div>
     	<div class="row">

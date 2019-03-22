@@ -159,4 +159,24 @@
 		insert into CONTESTIMG values(SEQ_CONTESTIMGNO.nextval,#{contestNo},'C',#{contestImgOri},#{contestImgRe})
 	</insert>
 	
+	<!-- 컨테스트 찜하기 찜풀기 체크 -->
+	<select id="contestOutBoxYn" parameterType="map" resultType="map">
+	   select * from contestoutbox where contestNo=#{contestNo} and categorycode='C'and memberid=#{memberId}
+	</select>
+	
+	<!-- 찜하기 인서트 -->
+	<insert id="contestOutBoxInsert" parameterType="map">
+	   insert into contestOutbox values(#{contestNo},#{memberId},'C')
+	</insert>
+	
+	<!-- 찜하기 딜리트 ㅎ -->
+	<delete id="contestOutBoxDelete" parameterType="map">
+	   delete from contestOutbox where contestNo=#{contestNo} and categorycode='C' and memberid=#{memberId}
+	</delete>
+	
+	<!-- 컨테스트 신고 -->
+	<insert id="insertReport" parameterType="map">
+	   insert into CONTESTREPORT values(SEQ_CONTESTREPORTNO.NEXTVAL,#{contestNo},#{reportId},'C',#{reportContent},default,default)
+	</insert>
+	
 </mapper>
