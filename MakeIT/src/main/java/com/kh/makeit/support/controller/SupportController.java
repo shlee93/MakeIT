@@ -156,7 +156,7 @@ public class SupportController {
 		mav.addObject("searchQna", searchQna);
 		mav.addObject("filter", filter);
 		mav.addObject("sortCheck", sortCheck);
-		mav.setViewName("support/qnaDetailView");
+		mav.setViewName("support/myQnaView");
 
 		return mav;
 	}
