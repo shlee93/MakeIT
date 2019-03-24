@@ -242,7 +242,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="qna" items="${qnaList }">
 		                    			<tr>
 		                    				<td><c:out value="${qna.QNANO }"/></td>
-											<td><a href="#"><c:out value="${qna.QNATITLE }"/></a></td>
+											<td><a href="${path }/support/detailQnaView2.do?qnaNo=${qna.QNANO}"><c:out value="${qna.QNATITLE }"/></a></td>
 											<td><c:out value="${qna.MEMBERID }"/></td>
 											<td><c:out value="${qna.ANSWERYN }"/></td>
 		                    			</tr>
@@ -404,7 +404,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="qna" items="${qnaList }">
 		                    			<tr>
 		                    				<td><c:out value="${qna.QNANO }"/></td>
-											<td><a href="#"><c:out value="${qna.QNATITLE }"/></a></td>
+											<td><a href="${path }/support/detailQnaView2.do?qnaNo=${qna.QNANO}"><c:out value="${qna.QNATITLE }"/></a></td>
 											<td><c:out value="${qna.MEMBERID }"/></td>
 											<td><c:out value="${qna.ANSWERYN }"/></td>
 		                    			</tr>
@@ -566,7 +566,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="qna" items="${qnaList }">
 		                    			<tr>
 		                    				<td><c:out value="${qna.QNANO }"/></td>
-											<td><a href="#"><c:out value="${qna.QNATITLE }"/></a></td>
+											<td><a href="${path }/support/detailQnaView2.do?qnaNo=${qna.QNANO}"><c:out value="${qna.QNATITLE }"/></a></td>
 											<td><c:out value="${qna.MEMBERID }"/></td>
 											<td><c:out value="${qna.ANSWERYN }"/></td>
 		                    			</tr>
@@ -728,7 +728,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="qna" items="${qnaList }">
 		                    			<tr>
 		                    				<td><c:out value="${qna.QNANO }"/></td>
-											<td><a href="#"><c:out value="${qna.QNATITLE }"/></a></td>
+											<td><a href="${path }/support/detailQnaView2.do?qnaNo=${qna.QNANO}"><c:out value="${qna.QNATITLE }"/></a></td>
 											<td><c:out value="${qna.MEMBERID }"/></td>
 											<td><c:out value="${qna.ANSWERYN }"/></td>
 		                    			</tr>
@@ -890,7 +890,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="qna" items="${qnaList }">
 		                    			<tr>
 		                    				<td><c:out value="${qna.QNANO }"/></td>
-											<td><a href="#"><c:out value="${qna.QNATITLE }"/></a></td>
+											<td><a href="${path }/support/detailQnaView2.do?qnaNo=${qna.QNANO}"><c:out value="${qna.QNATITLE }"/></a></td>
 											<td><c:out value="${qna.MEMBERID }"/></td>
 											<td><c:out value="${qna.ANSWERYN }"/></td>
 		                    			</tr>
