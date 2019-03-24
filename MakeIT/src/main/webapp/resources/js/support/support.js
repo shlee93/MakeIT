@@ -241,7 +241,7 @@ $(document).on('click','#update-qna',function(){
 	var sortCheck=$('#sortCheck').val();
 	
 	$.ajax({
-		url:"updateQNa.do",
+		url:"updateQna.do",
 		data:{
 			"qnaNo":qnaNo,
 			"cPage":cPage,
@@ -481,4 +481,13 @@ $(document).on('click', '.answer-slide', function () {
 
 	}
 
+});
+
+$(document).on('keyup','textarea', function() {
+	console.log($(this).val().length);
+    if($(this).val().length > 1333) {
+       alert("글자수는 1333자로 이내로 제한됩니다.");
+       $(this).val($(this).val().substring(0, 1333));
+    }
+ 
 });

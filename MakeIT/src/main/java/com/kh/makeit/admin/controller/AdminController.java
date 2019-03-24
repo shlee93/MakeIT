@@ -868,6 +868,27 @@ public class AdminController {
 		
 		return mav;
 	}
+	
+	@RequestMapping("/admin/refundView.do")
+	public ModelAndView refundView(int specNo,
+			String refundStatus,
+			@RequestParam(value="cPage",required=false, defaultValue="1") int cPage
+			) {
+		
+		ModelAndView mav=new ModelAndView();
+		Map<Object,Object> refundParam=new HashMap();
+		refundParam.put("specNo", specNo);
+		refundParam.put("refundStatus", refundStatus);
+		Map<Object,Object> refund=adminService.selectRefundReason(refundParam);
+		
+		mav.addObject("refund", refund);
+		mav.addObject("refundStatus", refundStatus);
+		mav.addObject("cPage", cPage);
+		mav.setViewName("admin/adminRefundReasonView");
+		
+		return mav;
+		
+	}
 
 	
 }

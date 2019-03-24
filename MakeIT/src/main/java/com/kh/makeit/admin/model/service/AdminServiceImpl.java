@@ -333,18 +333,13 @@ public class AdminServiceImpl implements AdminService {
 		
 		return dao.updateDeleteCheck(returnD);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	//환불 사유 셀렉트
+	@Override
+	public Map<Object, Object> selectRefundReason(Map<Object, Object> refundParam) {
+		
+		return dao.selectRefundReason(refundParam);
+	}
 	
 	
 	
