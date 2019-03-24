@@ -80,8 +80,7 @@ $(function()
  </script>
 </head>
 <body>
-<input type="hidden" id="interest" value="${detailList.INTERESTNO }">
-<input type="hidden" id="detailInterest" value="${detailList.DETAILINTERESTNO }">
+
 		<div class="row">
 			<div class="col-md-1">
 				<div style='position:fixed; margin-top: 10em;'>
@@ -234,11 +233,7 @@ $(function()
 		   });
      
 	  
-   	$(function()
-	{	        		
- 		$('#interest').val($('#interest').val()).trigger('change');
- 		$('#detailInterest').val($('#detailInterest').val()).trigger('change');
-	})
+
    	
   
          

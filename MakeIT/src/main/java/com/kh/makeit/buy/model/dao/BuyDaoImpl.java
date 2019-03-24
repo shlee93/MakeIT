@@ -255,6 +255,18 @@ public class BuyDaoImpl implements BuyDao {
 		return session.update("buy.buyDelete", buyNo);
 	}
 
+	@Override
+	public List<Map<String, String>> selectBuyImg(int buyNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("buy.selectBuyImg", buyNo);
+	}
+
+	@Override
+	public int insertBuyImg(Map<String, String> m) {
+		// TODO Auto-generated method stub
+		return session.insert("buy.insertBuyImg", m);
+	}
+
 	
 	
 	

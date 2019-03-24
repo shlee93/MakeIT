@@ -393,8 +393,6 @@ public class sellController {
    @RequestMapping("/sell/sellModify")
    public ModelAndView sellModify(HttpServletRequest request,int sellno)
    {
-	  /* sellno=request.getParameter("sellno");*/
-	  System.out.println(sellno);
 	  ModelAndView mv = new ModelAndView();
 	  Map modifyMap=service.sellModify(sellno);
 	  List<Map<String,String>> modifyOption=service.sellOptionModify(sellno);

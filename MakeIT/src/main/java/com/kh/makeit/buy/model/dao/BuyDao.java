@@ -45,5 +45,7 @@ public interface BuyDao {
 	int ModifyBuy(Map<String, String> map);
 	int deleteAttach(Map<String, String> map);
 	int buyDelete(int buyNo);
+	List<Map<String, String>> selectBuyImg(int buyNo);
+	int insertBuyImg(Map<String, String> m);
 	
 }
