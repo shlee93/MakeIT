@@ -268,7 +268,7 @@
 											<!-- 세번째 법륜 끝 -->
 											<!-- 네번째 법륜 (쪽지)-->
 											<c:if test="${sessionScope.member.MEMBERID ne detailList.MEMBERID}">
-											<span class="itemDot ${sessionScope.member.MEMBERID ne detailList.MEMBERID and empty specList3? "":"active" } itemDot1" data-tab="4"> 
+											<span class="itemDot ${sessionScope.member.MEMBERID ne detailList.MEMBERID? (!empty specList3?"active":""):"" } itemDot1" data-tab="4"> 
 											<!-- 작성자가 아니면 -->
 												
 												<i class="fas fa-comments donggeulI"></i> 
@@ -402,7 +402,7 @@
 												<button class="btn btn-outline-info slidetopleft" onclick="fn_delete();">삭제하기</button>
 											</div>
 											<!-- 네번째 법륜 기능 시작 (쪽지)-->
-											<div class="CirItem title-box ${sessionScope.member.MEMBERID ne detailList.MEMBERID and empty specList3? "":"active" } CirItem4">
+											<div class="CirItem title-box ${sessionScope.member.MEMBERID ne detailList.MEMBERID? (!empty specList3?"active":""):"" } CirItem4">
 												<!-- 작성자 이미지 컨테이너 -->
 												<div class="d-flex justify-content-center h-100"
 													style='margin-bottom: -8em;'>
