@@ -234,10 +234,15 @@
 					                           	<i class="fa fa-tags donggeulI"></i>
 					                           	<span class="forActive"></span>
 				                           	</span> -->
-					                       	<span class="itemDot itemDot5" data-tab="5">
-					                       	   	<i class="fas fa-angry donggeulI"></i>
-				                           	   	<span class="forActive"></span>
-				                           	</span>
+	                           			<c:set var='currentId' value='${memberMap.get("MEMBERID")}'/>								
+	                           	   	   	<c:choose>
+						    	   		   	<c:when test="${currentId ne contestObj.MEMBERID}">
+						                       	<span class="itemDot itemDot5" data-tab="5">
+						                       	   	<i class="fas fa-angry donggeulI"></i>
+					                           	   	<span class="forActive"></span>
+					                           	</span>
+				                           	</c:when>
+			                           	</c:choose>
 			                        	</div>
 			                        	
 			                        	<div class="contentCircle">
