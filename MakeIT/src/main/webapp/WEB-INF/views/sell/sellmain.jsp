@@ -535,7 +535,7 @@
 																	});
 														});
 													</script>
-													<!-- <a href="시발라랏사">ㅇㅇㅇ</a> -->
+												
 												</div>
 												<div class="box-content" onclick="location.href='${path}/sell/selldetail?sellno=${newList.SELLNO }'">
 													<h3 class="title">${newList.MEMBERID}</h3>
