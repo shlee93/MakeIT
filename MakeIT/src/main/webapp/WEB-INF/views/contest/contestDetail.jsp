@@ -127,6 +127,7 @@
         	<div class='col-md-10' id='section' style='padding:50px' >
             	<div class='row'>            	
                		<div class="col-md-6" id="img-container" style='padding:1px; width: 100%; height: 600px;'>
+               			<h4 style="font-family: 'Sunflower','sans-serif';">${contestObj.CONTESTTITLE}</h4>
                			<div class='row mainImgContainer' id='mainImgContainer'>
                	   			<img class="mainImg" id='${contestMainImg.CONTESTIMGNO}' src="${path}/resources/upload/contest/${contestMainImg.CONTESTIMGRE}" style='max-height: 400px; min-height: 600px; width: 100%;'>
                     	</div>
@@ -184,8 +185,8 @@
                                	<c:if test="${contestObj.GRADENAME == '플래티넘' }">
                                		<p style="display:inline;"><img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;"></p>
                                	</c:if>
-                               	<c:if test="${contestObj.GRADENAME == '다이아몬드' }">
-                               		<p style='display: inline;'><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"></p>
+                               	<c:if test="${contestObj.GRADENAME == '다이아' }">
+                               		<p style='display: inline;'><img alt="" src="${path }/resources/image/diamondGrade.png" style="max-width: 50px;max-height: 50px;"></p>
                                	</c:if>
                                	
                         		<h4 style="display: inline; font-family: 'Sunflower', sans-serif;"><strong>${contestObj.GRADENAME}</strong> ${contestObj.MEMBERNAME}</h4>

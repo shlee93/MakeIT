@@ -239,6 +239,7 @@ DROP TABLE BANK;
             APPLICANTYN CHAR(1) DEFAULT 'N' CHECK(APPLICANTYN IN('Y','N')),
             APPLICANTFILEORI VARCHAR2(500),
             APPLICANTFILERE VARCHAR2(500),
+            CONSTRAINT FK_CONTESTAPPLICANTID FOREIGN KEY (APPLICANTID) REFERENCES MEMBER(MEMBERID) ON DELETE CASCADE,
             CONSTRAINT FK_CONTESTAPPLICANT FOREIGN KEY (CONTESTNO, CATEGORYCODE) REFERENCES CONTEST(CONTESTNO,CATEGORYCODE) ON DELETE CASCADE
             );
     
@@ -640,51 +641,6 @@ DROP TABLE BANK;
     INSERT INTO BANK VALUES('045','BNK°æ³²ÀºÇà');
     INSERT INTO BANK VALUES('050','ÄÉÀÌ¹ðÅ©');
     INSERT INTO BANK VALUES('051','Ä«Ä«¿À¹ðÅ©');
-
-    --°èÁÂ
-    INSERT INTO ACCOUNT VALUES('110123456768','À¯º´½Â','010324','001');
-    INSERT INTO ACCOUNT VALUES('110356521680','ÀÌ¼ºÈÆ','930416','030');
-    INSERT INTO ACCOUNT VALUES('943955094437','ÀÌÃæ±Ç','920924','021');
-    INSERT INTO ACCOUNT VALUES('825592867614','ÁÖÀç¹ü','900605','010');
-    INSERT INTO ACCOUNT VALUES('865575167239','±è¿ëÁø','930204','011');
-    INSERT INTO ACCOUNT VALUES('135821977591','Á¶ÃæÇö','930605','020');
-    INSERT INTO ACCOUNT VALUES('61166675769','°­´ëÂù','910314','031');
-    INSERT INTO ACCOUNT VALUES('677853352289','¿øºó','771110','032');
-    INSERT INTO ACCOUNT VALUES('328134572870','¼ÛÁß±â','850919','033');
-    INSERT INTO ACCOUNT VALUES('565011141508','ÀÌ½Â±â','870113','034');
-    INSERT INTO ACCOUNT VALUES('312674426701','À¯Àç¼®','720814','035');
-    INSERT INTO ACCOUNT VALUES('934413668531','¹Ú¸í¼ö','700927','040');
-    INSERT INTO ACCOUNT VALUES('577646732956','Á¤Çüµ·','780315','041');
-    INSERT INTO ACCOUNT VALUES('141149075255','Á¤ÁØÇÏ','710318','042');
-    INSERT INTO ACCOUNT VALUES('3099674276','ÇÏµ¿ÈÆ','790820','043');
-    INSERT INTO ACCOUNT VALUES('630668531176','±æ¼ºÁØ','780215','044');
-    INSERT INTO ACCOUNT VALUES('346991888560','³ëÈ«Ã¶','790331','045');
-    INSERT INTO ACCOUNT VALUES('907052311463','¼ÛÇý±³','811122','050');
-    INSERT INTO ACCOUNT VALUES('755548182230','¼ÛÁöÈ¿','810815','051');
-    INSERT INTO ACCOUNT VALUES('401338638292','¹Úº¸¿µ','900212','001');
-    INSERT INTO ACCOUNT VALUES('99556472868','»ç³ª','961229','010');
-    INSERT INTO ACCOUNT VALUES('850263416645','¼ÛÇØ','270427','011');
-    INSERT INTO ACCOUNT VALUES('56097009345','½½±â','940210','012');
-    INSERT INTO ACCOUNT VALUES('565040897002','°­µ¿¿ø','810118','020');
-    INSERT INTO ACCOUNT VALUES('544449324216','°­ÇÏ´Ã','900221','021');
-    INSERT INTO ACCOUNT VALUES('766646041058','±èÇÏ´Ã','780221','030');
-    INSERT INTO ACCOUNT VALUES('863080938835','¹æ¼ºÈÆ','830214','031');
-    INSERT INTO ACCOUNT VALUES('947313236864','ÀüÇö¹«','771107','032');
-    INSERT INTO ACCOUNT VALUES('640891317033','ÇÑÇýÁø','830323','033');
-    INSERT INTO ACCOUNT VALUES('515795092672','¹Ú³ª·¡','851025','034');
-    INSERT INTO ACCOUNT VALUES('801969511648','ÀÌ½Ã¾ð','820703','035');
-    INSERT INTO ACCOUNT VALUES('976140495341','±èÁ¾±¹','760425','040');
-    INSERT INTO ACCOUNT VALUES('766933936801','¸¶µ¿¼®','710301','041');
-    INSERT INTO ACCOUNT VALUES('427430616609','ÇÑÈ¿ÁÖ','870222','042');
-    INSERT INTO ACCOUNT VALUES('734149793697','ÇÑÁö¹Î','821105','043');
-    INSERT INTO ACCOUNT VALUES('131524229547','¿Á³ÉÀÌ','880909','044');
-    INSERT INTO ACCOUNT VALUES('647073161550','È«ÁøÈ£','821031','045');
-    INSERT INTO ACCOUNT VALUES('488463639504','ÀÓ¿äÈ¯','800904','050');
-    INSERT INTO ACCOUNT VALUES('76417127585','Àåµ¿¹Î','790720','051');
-    INSERT INTO ACCOUNT VALUES('9391767209','À¯¼¼À±','800912','001');
-    INSERT INTO ACCOUNT VALUES('879218091007','±ÇÁö¿ë','880818','010');
-    INSERT INTO ACCOUNT VALUES('968838745494','±è¹Î±³','740415','011');
-    INSERT INTO ACCOUNT VALUES('111066297247','±è»óÁß','650806','012');
         
     --µî±Þ
     INSERT INTO GRADE VALUES(SEQ_GRADENO.NEXTVAL,'ºê·ÐÁî');
@@ -700,7 +656,7 @@ DROP TABLE BANK;
     INSERT INTO CATEGORY VALUES('C','ÄÜÅ×½ºÆ®');
     
     --ÀÎ¼­Æ® ¸â¹ö(Å×½ºÆ®)
-    
+   
  --ÀÎ¼­Æ® ¸â¹ö(Å×½ºÆ®)
       INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -709,7 +665,7 @@ DROP TABLE BANK;
     ACCOUNT,BIRTH,INTERESTNO,GRADENO,MEMBERLEVEL) VALUES(
     'test','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
     '±è»óÁß','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,'N',
-    'kimsangjoon.jpg','kimsangjoon.jpg','¾È³çÇÏ¼¼¿ä °³¹ß°ú À¥µðÀÚÀÎÀ» Àü¹®ÀûÀ¸·Î ´Ù·ç´Â »ç¶÷ÀÔ´Ï´Ù. Àü¹®°¡ÀÇ ¼Õ±æÀÌ ´À²¸Áö´Â ÀÛÇ°À» ¸¸µé¾î µå¸®°Ú½À´Ï´Ù.',DEFAULT,'012','111066297247','650806','°³¹ß,À¥µðÀÚÀÎ',DEFAULT,1);
+    'kimsangjoon.jpg','kimsangjoon.jpg','¾È³çÇÏ¼¼¿ä °³¹ß°ú À¥µðÀÚÀÎÀ» Àü¹®ÀûÀ¸·Î ´Ù·ç´Â »ç¶÷ÀÔ´Ï´Ù. Àü¹®°¡ÀÇ ¼Õ±æÀÌ ´À²¸Áö´Â ÀÛÇ°À» ¸¸µé¾î µå¸®°Ú½À´Ï´Ù.',DEFAULT,'012','111066297247','650806','°³¹ß,À¥µðÀÚÀÎ',1,1);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -718,7 +674,7 @@ DROP TABLE BANK;
     ACCOUNT,BIRTH,INTERESTNO,GRADENO,MEMBERLEVEL) VALUES(
     'test2','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
     '±è¹Î±³','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
-    'kimminkyo.jpg','kimminkyo.jpg','³×Æ®¿öÅ© º¸¾È°ú À¥ µðÀÚÀÎ¿¡ ´ëÇØ °ü·Ã ¾÷¹« °æÇèÀÚ ÄÜÅ×½ºÆ® ¿­°í½Í½À´Ï´Ù.',DEFAULT,'011','968838745494','740415','³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',DEFAULT,2);
+    'kimminkyo.jpg','kimminkyo.jpg','³×Æ®¿öÅ© º¸¾È°ú À¥ µðÀÚÀÎ¿¡ ´ëÇØ °ü·Ã ¾÷¹« °æÇèÀÚ ÄÜÅ×½ºÆ® ¿­°í½Í½À´Ï´Ù.',DEFAULT,'011','968838745494','740415','³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',2,2);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -727,7 +683,7 @@ DROP TABLE BANK;
     ACCOUNT,BIRTH,INTERESTNO,GRADENO,MEMBERLEVEL) VALUES(
     'test3','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
     '±ÇÁö¿ë','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
-    'gdragon.jpg','gdragon.jpg','½ºÀ¡ÀÖ°Ô ÄÚµùÇØµå¸³´Ï´Ù.',DEFAULT,'010','879218091007','880818','°³¹ß,À¥µðÀÚÀÎ',DEFAULT,1);
+    'gdragon.jpg','gdragon.jpg','½ºÀ¡ÀÖ°Ô ÄÚµùÇØµå¸³´Ï´Ù.',DEFAULT,'010','879218091007','880818','°³¹ß,À¥µðÀÚÀÎ',3,1);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -736,7 +692,7 @@ DROP TABLE BANK;
     ACCOUNT,BIRTH,INTERESTNO,GRADENO,MEMBERLEVEL) VALUES(
     'test4','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
     'À¯¼¼À±','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
-    'yooseyoon.jpg','yooseyoon.jpg','Àç¹Õ´Â µðÀÚÀÎ ¸¹ÀÌ ÇØµå¸± ¼ö ÀÖ½À´Ï´Ù. ¿äÃ»ÇÏ½Ã´Â °Í ´ëºÎºÐ ¸ÂÃçµå¸± ¼ö ÀÖ¾î¿ä.',DEFAULT,'001','9391767209','800912','À¥µðÀÚÀÎ',DEFAULT,1);
+    'yooseyoon.jpg','yooseyoon.jpg','Àç¹Õ´Â µðÀÚÀÎ ¸¹ÀÌ ÇØµå¸± ¼ö ÀÖ½À´Ï´Ù. ¿äÃ»ÇÏ½Ã´Â °Í ´ëºÎºÐ ¸ÂÃçµå¸± ¼ö ÀÖ¾î¿ä.',DEFAULT,'001','9391767209','800912','À¥µðÀÚÀÎ',4,1);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -745,7 +701,7 @@ DROP TABLE BANK;
     ACCOUNT,BIRTH,INTERESTNO,GRADENO,MEMBERLEVEL) VALUES(
     'test5','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
     'Àåµ¿¹Î','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
-    'jangdongmin.jpg','jangdongmin.jpg','ÃµÀçÀûÀÎ ³×Æ®¿öÅ© º¸¾È ·ÎÁ÷ ¿ÏÀü¹«°áÇÑ »çÀÌÆ®·Î ¸¸µé¾îµå¸³´Ï´Ù. Àý´ëÀûÀÎ ¾ÈÁ¤¼º! Àß ºÎÅ¹µå¸³´Ï´Ù!!!',DEFAULT,'051','76417127585','790720','³×Æ®¿öÅ©º¸¾È',DEFAULT,1);
+    'jangdongmin.jpg','jangdongmin.jpg','ÃµÀçÀûÀÎ ³×Æ®¿öÅ© º¸¾È ·ÎÁ÷ ¿ÏÀü¹«°áÇÑ »çÀÌÆ®·Î ¸¸µé¾îµå¸³´Ï´Ù. Àý´ëÀûÀÎ ¾ÈÁ¤¼º! Àß ºÎÅ¹µå¸³´Ï´Ù!!!',DEFAULT,'051','76417127585','790720','³×Æ®¿öÅ©º¸¾È',5,1);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -754,7 +710,7 @@ DROP TABLE BANK;
     ACCOUNT,BIRTH,INTERESTNO,GRADENO,MEMBERLEVEL) VALUES(
     'test6','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
     'ÀÓ¿äÈ¯','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
-    'limyohwan.jpg','limyohwan.jpg','¼¼½ÉÇÑ ÄÁÆ®·Ñ·Î ¾ÈÁ¤¼ºÀÌ ¶Ù¾î³­ ÇÁ·Î±×·¥ ¸¸µé¾îµå¸³´Ï´Ù.',DEFAULT,'050','488463639504','800904','°³¹ß,³×Æ®¿öÅ©º¸¾È',DEFAULT,1);
+    'limyohwan.jpg','limyohwan.jpg','¼¼½ÉÇÑ ÄÁÆ®·Ñ·Î ¾ÈÁ¤¼ºÀÌ ¶Ù¾î³­ ÇÁ·Î±×·¥ ¸¸µé¾îµå¸³´Ï´Ù.',DEFAULT,'050','488463639504','800904','°³¹ß,³×Æ®¿öÅ©º¸¾È',1,1);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -763,7 +719,7 @@ DROP TABLE BANK;
     ACCOUNT,BIRTH,INTERESTNO,GRADENO,MEMBERLEVEL) VALUES(
     'test7','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
     'È«ÁøÈ£','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
-    'hongjinho.jpg','hongjinho.jpg','¾È³çÇÏ¼¼¿ä ÆøÇ³°°ÀÌ ¸ô¾ÆÄ¡´Â ÄÚµåµéÀ» ¸ðµÎ Ã³¸®ÇØ¹ö¸®´Â ÆøÇ³ È«ÁøÈ£ ÀÔ´Ï´Ù. Àú¿¡°Ô ¸Ã°ÜÁÖ½Ã¸é ºü¸¥ Ã³¸®¸¦ º¸¿©µå¸®°Ú½À´Ï´Ù.',DEFAULT,'045','647073161550','821031','°³¹ß,³×Æ®¿öÅ©º¸¾È',DEFAULT,1);
+    'hongjinho.jpg','hongjinho.jpg','¾È³çÇÏ¼¼¿ä ÆøÇ³°°ÀÌ ¸ô¾ÆÄ¡´Â ÄÚµåµéÀ» ¸ðµÎ Ã³¸®ÇØ¹ö¸®´Â ÆøÇ³ È«ÁøÈ£ ÀÔ´Ï´Ù. Àú¿¡°Ô ¸Ã°ÜÁÖ½Ã¸é ºü¸¥ Ã³¸®¸¦ º¸¿©µå¸®°Ú½À´Ï´Ù.',DEFAULT,'045','647073161550','821031','°³¹ß,³×Æ®¿öÅ©º¸¾È',2,1);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -772,7 +728,7 @@ DROP TABLE BANK;
     ACCOUNT,BIRTH,INTERESTNO,GRADENO,MEMBERLEVEL) VALUES(
     'test8','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
     '¿Á³ÉÀÌ','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
-    'oknyang.png','oknyang.png','°³¹ßÀ» Ã³À½ ÇÏ½Ã´Ù±¸¿ä? ±×·± ´ç½ÅÀ» À§ÇØ ÁØºñÇß½À´Ï´Ù! °³¹ß Àü¹®°¡ ¿Á³ÉÀÌ! Àú´Â ´Ù³â°£ÀÇ °æÇèÀ» ÅëÇØ ´Ù¾çÇÑ È¯°æ¿¡¼­ °³¹ßÀÌ °¡´ÉÇÕ´Ï´Ù! ¸ðµç ¾ð¾î ¸¶½ºÅÍ! ³î¶ø±¸³ª!',DEFAULT,'044','131524229547','880909','°³¹ß,³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',DEFAULT,1);
+    'oknyang.png','oknyang.png','°³¹ßÀ» Ã³À½ ÇÏ½Ã´Ù±¸¿ä? ±×·± ´ç½ÅÀ» À§ÇØ ÁØºñÇß½À´Ï´Ù! °³¹ß Àü¹®°¡ ¿Á³ÉÀÌ! Àú´Â ´Ù³â°£ÀÇ °æÇèÀ» ÅëÇØ ´Ù¾çÇÑ È¯°æ¿¡¼­ °³¹ßÀÌ °¡´ÉÇÕ´Ï´Ù! ¸ðµç ¾ð¾î ¸¶½ºÅÍ! ³î¶ø±¸³ª!',DEFAULT,'044','131524229547','880909','°³¹ß,³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',3,1);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -781,7 +737,7 @@ DROP TABLE BANK;
     ACCOUNT,BIRTH,INTERESTNO,GRADENO,MEMBERLEVEL) VALUES(
     'test9','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
     'ÇÑÁö¹Î','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
-    'hanjimin.jpg','hanjimin.jpg','¿¹»Û µðÀÚÀÎÀ¸·Î °³¹ßÇÏ´Â »ç¶÷ÀÔ´Ï´Ù. µðÀÚÀÎ Àü°øÇß°í °³¹ßµµ µû·Î ¹è¿ö¼­ ¿­½ÉÈ÷ ÇÏ°íÀÖ¾î¿ä Àß ºÎÅ¹µå¸±°Ô¿ä!',DEFAULT,'043','734149793697','821105','°³¹ß,À¥µðÀÚÀÎ',DEFAULT,1);
+    'hanjimin.jpg','hanjimin.jpg','¿¹»Û µðÀÚÀÎÀ¸·Î °³¹ßÇÏ´Â »ç¶÷ÀÔ´Ï´Ù. µðÀÚÀÎ Àü°øÇß°í °³¹ßµµ µû·Î ¹è¿ö¼­ ¿­½ÉÈ÷ ÇÏ°íÀÖ¾î¿ä Àß ºÎÅ¹µå¸±°Ô¿ä!',DEFAULT,'043','734149793697','821105','°³¹ß,À¥µðÀÚÀÎ',4,1);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -790,7 +746,7 @@ DROP TABLE BANK;
     ACCOUNT,BIRTH,INTERESTNO,GRADENO,MEMBERLEVEL) VALUES(
     'test10','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
     'ÇÑÈ¿ÁÖ','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
-    'hanhyoju.png','hanhyoju.png','È«ÀÍ´ëÇÐ±³ Ãâ½Å µðÀÚÀÎ Àü°øÀÚÀÔ´Ï´Ù. ¼¼½ÉÇÑ µðÀÚÀÎ ¸¸µé¾îµå·Á¿ä.',DEFAULT,'042','427430616609','870222','À¥µðÀÚÀÎ',DEFAULT,1);
+    'hanhyoju.png','hanhyoju.png','È«ÀÍ´ëÇÐ±³ Ãâ½Å µðÀÚÀÎ Àü°øÀÚÀÔ´Ï´Ù. ¼¼½ÉÇÑ µðÀÚÀÎ ¸¸µé¾îµå·Á¿ä.',DEFAULT,'042','427430616609','870222','À¥µðÀÚÀÎ',5,1);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -799,7 +755,7 @@ DROP TABLE BANK;
     ACCOUNT,BIRTH,INTERESTNO,GRADENO,MEMBERLEVEL) VALUES(
     'test11','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
     '¸¶µ¿¼®','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
-    'madongsuk.jpg','madongsuk.jpg','¸¸´ÉÀÔ´Ï´Ù. °³¹ß, º¸¾È, À¥µðÀÚÀÎ ¸ðµÎ ´Ù ÇØµå¸³´Ï´Ù. ´ÙÀç´Ù´ÉÇÑ ¸¸´É Àü¹®°¡! ¹«½¼ÀÏÀÌµç ¸Ã°Ü¸¸ ÁÖ¼¼¿ä.',DEFAULT,'041','766933936801','710301','°³¹ß,³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',DEFAULT,1);
+    'madongsuk.jpg','madongsuk.jpg','¸¸´ÉÀÔ´Ï´Ù. °³¹ß, º¸¾È, À¥µðÀÚÀÎ ¸ðµÎ ´Ù ÇØµå¸³´Ï´Ù. ´ÙÀç´Ù´ÉÇÑ ¸¸´É Àü¹®°¡! ¹«½¼ÀÏÀÌµç ¸Ã°Ü¸¸ ÁÖ¼¼¿ä.',DEFAULT,'041','766933936801','710301','°³¹ß,³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',1,1);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -808,7 +764,7 @@ DROP TABLE BANK;
     ACCOUNT,BIRTH,INTERESTNO,GRADENO,MEMBERLEVEL) VALUES(
     'test12','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
     '¼ÛÇØ','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
-    'songhea.jpg','songhea.jpg','¿¬·ûÀº ¹«½Ã¸øÇÕ´Ï´Ù. ¿À·£ °æ·ÂÀÇ Àü¹®°¡!',DEFAULT,'045','850263416645','270427','°³¹ß,³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',DEFAULT,1);
+    'songhea.jpg','songhea.jpg','¿¬·ûÀº ¹«½Ã¸øÇÕ´Ï´Ù. ¿À·£ °æ·ÂÀÇ Àü¹®°¡!',DEFAULT,'045','850263416645','270427','°³¹ß,³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',2,1);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -817,7 +773,7 @@ DROP TABLE BANK;
     ACCOUNT,BIRTH,INTERESTNO,GRADENO,MEMBERLEVEL) VALUES(
     'test13','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
     '½½±â','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
-    'selgi.jpg','selgi.jpg','µðÀÚÀÎÀ» Àü¹®ÀûÀ¸·Î ¸¸µé¾îµå¸³´Ï´Ù. °æ·ÂÀº Âª¾Æµµ ±ò²ûÇÑ µðÀÚÀÎÀ» Àß ¸¸µì´Ï´Ù. ¸¹ÀÌ ÀÌ¿ëÇØÁÖ¼¼¿ä',DEFAULT,'012','56097009345','940210','À¥µðÀÚÀÎ',DEFAULT,1);
+    'selgi.jpg','selgi.jpg','µðÀÚÀÎÀ» Àü¹®ÀûÀ¸·Î ¸¸µé¾îµå¸³´Ï´Ù. °æ·ÂÀº Âª¾Æµµ ±ò²ûÇÑ µðÀÚÀÎÀ» Àß ¸¸µì´Ï´Ù. ¸¹ÀÌ ÀÌ¿ëÇØÁÖ¼¼¿ä',DEFAULT,'012','56097009345','940210','À¥µðÀÚÀÎ',3,1);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -826,7 +782,7 @@ DROP TABLE BANK;
     ACCOUNT,BIRTH,INTERESTNO,GRADENO,MEMBERLEVEL) VALUES(
     'test14','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
     '¹Úº¸¿µ','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
-    'parkboyong.jpg','parkboyong.jpg','°³¹ß, º¸¾È, µðÀÚÀÎ ¸øÇÏ´Â°Ô ¾ø´Â ¸¸´É °³¹ßÀÚ¸¦ Ã£À¸½Ã³ª¿ä? Á¦°¡ ¹Ù·Î ±×·± »ç¶÷ÀÔ´Ï´Ù! Àú¿¡°Ô ¸Ã°ÜÁÖ½Ã¸é ±âÇÑ ³»¿¡ ¿Ïº®ÇÏ°Ô ¸¸µé¾î µå¸³´Ï´Ù!',DEFAULT,'001','401338638292','900212','°³¹ß,³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',DEFAULT,1);
+    'parkboyong.jpg','parkboyong.jpg','°³¹ß, º¸¾È, µðÀÚÀÎ ¸øÇÏ´Â°Ô ¾ø´Â ¸¸´É °³¹ßÀÚ¸¦ Ã£À¸½Ã³ª¿ä? Á¦°¡ ¹Ù·Î ±×·± »ç¶÷ÀÔ´Ï´Ù! Àú¿¡°Ô ¸Ã°ÜÁÖ½Ã¸é ±âÇÑ ³»¿¡ ¿Ïº®ÇÏ°Ô ¸¸µé¾î µå¸³´Ï´Ù!',DEFAULT,'001','401338638292','900212','°³¹ß,³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',4,1);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -834,8 +790,14 @@ DROP TABLE BANK;
     ORIIMG,REIMG,INTRODUCTION,REPORTCOUNT,BANKCODE,
     ACCOUNT,BIRTH,INTERESTNO,GRADENO,MEMBERLEVEL) VALUES(
     'test15','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
-    '»ç³ª','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
-    'sana.jpg','sana.jpg','º¸¾È°üÁ¦ ¹× µðÀÚÀÎÀ» Àü¹®ÀûÀ¸·Î ´Ù·ç´Â »ç¶÷ÀÌ¿¡¿ä. ¸¹Àº ¿¬¶ô¹Ù¶ø´Ï´Ù~',DEFAULT,'010','99556472868','961229','³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',DEFAULT,1);
+    'SANA Holdings','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
+    'sana.jpg','sana.jpg','ãæ¼ºÀå ºñÁî´Ï½º Áß½É ¡®±Û·Î¹ú ÅõÀÚ Àü¹®ÁöÁÖÈ¸»ç¡¯·Î µµ¾àÇÏ´Â
+SANA È¦µù½º
+Áö¼ÓÀûÀÎ »ç¾÷ Æ÷Æ®Æú¸®¿À(Portfolio)
+Çõ½Å°ú ¹Ì·¡ ¼ºÀåµ¿·Â ¹ß±¼?À°¼ºÀ» ÅëÇØ ±â¾÷°¡Ä¡¸¦ ³ôÀÌ°í ÀÖ½À´Ï´Ù.
+
+SANA°æ¿µÀÇ ±Ù°£ÀÌ µÇ´Â SANAMS ¹× SANA BrandÀÇ
+°è½Â?¹ßÀüÀ» À§ÇØ ´Ù°¢ÀûÀ¸·Î ³ë·ÂÇÏ°í ÀÖ½À´Ï´Ù.',DEFAULT,'010','99556472868','961229','³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',5,2);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -843,8 +805,8 @@ DROP TABLE BANK;
     ORIIMG,REIMG,INTRODUCTION,REPORTCOUNT,BANKCODE,
     ACCOUNT,BIRTH,INTERESTNO,GRADENO,MEMBERLEVEL) VALUES(
     'test16','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
-    '¼ÛÇý±³','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
-    'songhyegyo.jpg','songhyegyo.jpg','º¸¾È Àü¹®°¡°¡ ÇÊ¿äÇÏ½Å°¡¿ä? Á¦°¡ ¹Ù·Î ±×·±»ç¶÷ÀÔ´Ï´Ù. º¸¾È °æ·Â 15³âÀÇ Àü¹®°¡!',DEFAULT,'050','907052311463','811122','³×Æ®¿öÅ©º¸¾È',DEFAULT,1);
+    '¢ßHK ¼Ö·ç¼Ç','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
+    'songhyegyo.jpg','songhyegyo.jpg','¢ßHK ¼Ö·ç¼ÇÀº µðÁöÅÐÀúÀÛ±Ç°ü¸®±â¼ú(DRM) ¹× ÀúÀÛ±Çº¸È£±â¼ú, µðÁöÅÐ½Ã³×¸¶ °ü·Ã º¸È£ ¹× À¯Åë±â¼úÀ» Àü¹®À¸·Î ÇÏ´Â ±â¾÷À¸·Î¼­, ´Ù¾çÇÑ R¾ØD°úÁ¦ ¹× Á¤Ã¥¿¬±¸¸¦ ¼öÇàÇÏ°í ÀÖÀ¸¸ç, ±¹Á¦ÀûÀ¸·Î °æÀï·Â ÀÖ´Â µðÁöÅÐÄÜÅÙÃ÷º¸È£ ¹× À¯Åë¼Ö·ç¼Ç °³¹ß¿¡ ÁýÁßÇÏ¿© DRM ½ÃÀåÀ» ²ÙÁØÈ÷ °³Ã´ÇÏ°í ÀÖ½À´Ï´Ù.',DEFAULT,'050','907052311463','811122','³×Æ®¿öÅ©º¸¾È',1,2);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -852,8 +814,8 @@ DROP TABLE BANK;
     ORIIMG,REIMG,INTRODUCTION,REPORTCOUNT,BANKCODE,
     ACCOUNT,BIRTH,INTERESTNO,GRADENO,MEMBERLEVEL) VALUES(
     'test17','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
-    '¼ÛÁß±â','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
-    'songjunggi.jpg','songjunggi.jpg','À¥µðÀÚÀÎ ÇØµå·Á¿ä 20³â ÀÌ»óÀÇ °æ·Â! ´©±¸µµ µû¶óÇÒ ¼ö ¾ø´Â µ¶º¸ÀûÀÎ ½Ç·Â! Àú¸¸ ¹ÏÀ¸¼¼¿ä!',DEFAULT,'033','328134572870','850919','À¥µðÀÚÀÎ',DEFAULT,1);
+    'Umbrella corp','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
+    '¾öºê·¼¶ó.jpeg','¾öºê·¼¶ó.jpeg','ÀúÈñ Umbrella corp´Â 1968³â Ã¢¸³ ÀÌ·¡ À¯ÀüÀÚ Ä¡·á¿¡ ¸ÅÁøÇÏ¸ç µ¶ÀÚÀûÀÎ ±â¼ú·Î ¹ßÀüÇØ¿Ô½À´Ï´Ù. ¡®Áø½ÇµÇ°í ±Ù¸éÇÏ°Ô Ã¢Á¶ÇÏ°í °³¹ßÇÏ¿© ¼º½ÉÀ¸·Î ºÀ»çÇÔÀ¸·Î½á ÀÎ·ùÀÇ °Ç°­°ú Çàº¹ÀÇ ±æÀâÀÌ°¡ µÇ°Ú´Ù¡¯´Â ½Å³äÀ¸·Î ²÷ÀÓ¾ø´Â ¿¬±¸°³¹ßÀ» ÇØ¿Â °á°ú, ÇöÀç ÀúÈñ umbrella corp´Â À¯ÀüÀÚ Ä¡·áÀÇ ¼±µÎÁÖÀÚ·Î½á ¼¼°èÀÎÀÇ °Ç°­¿¡ ±â¿©ÇÏ°í ÀÖ½À´Ï´Ù.',DEFAULT,'033','328134572870','850919','À¥µðÀÚÀÎ',2,2);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -861,8 +823,11 @@ DROP TABLE BANK;
     ORIIMG,REIMG,INTRODUCTION,REPORTCOUNT,BANKCODE,
     ACCOUNT,BIRTH,INTERESTNO,GRADENO,MEMBERLEVEL) VALUES(
     'test18','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
-    'ÀÌ½Â±â','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
-    'leesenggi.jpg','leesenggi.jpg','¾È³çÇÏ¼¼¿ä. º¸´Ù ¼±¸íÇÏ°í ¸íÈ®ÇÏ°Ô! À¥°ú ¸¶ÄÉÆÃ ¿¡ÀÌÀü½Ã ÀÔ´Ï´Ù.',DEFAULT,'034','565011141508','870113','³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',DEFAULT,1);
+    '»çÀÌ¹ö´ÙÀÎ ½Ã½ºÅÛ½º','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
+    '»çÀÌ¹ö´ÙÀÎ.jpg','»çÀÌ¹ö´ÙÀÎ.jpg','ÀÎ°øÁö´É°ú ¸ÞÅ¸ Áö½ÄÀÇ ½Ã´ë!
+Áö½ÄÀ¶ÇÕÀ» ³Ñ¾î À¶ÇÕÀÇ À¶ÇÕÀ¸·Î ÀÌ¾îÁö´Â ¸ÞÅ¸ Áö½ÄÀ¶ÇÕÀÌ ¹Ù·Î 4Â÷ »ê¾÷ Çõ¸íÀÇ º»ÁúÀÌ¸ç ÀÎ°øÁö´ÉÀÌ ±× ¸ÞÅ¸ Áö½ÄÀÇ ´ëÇ¥¼±¼öÀÔ´Ï´Ù.
+
+ÀúÈñ »çÀÌ¹ö´ÙÀÎÀº ¸ÞÅ¸ Áö½ÄÀ¶ÇÕÀ» ÅëÇØ ±¹³» ÃÖÃÊ·Î ¿µ³ó µµ¿ì¹Ì ÀÎ°øÁö´É ¡®½ºÄ«ÀÌ³Ý¡¯À» °³¹ßÇÑ ±â¾÷ÀÔ´Ï´Ù.',DEFAULT,'034','565011141508','870113','³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',3,2);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -871,7 +836,7 @@ DROP TABLE BANK;
     ACCOUNT,BIRTH,INTERESTNO,GRADENO,MEMBERLEVEL) VALUES(
     'test19','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
     'À¯Àç¼®','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
-    'yoojaesuk.jpg','yoojaesuk.jpg','SNS°ü·Ã, ¼øÀ§¾îºäÂ¡ µîÀº ¾È¹Þ½À´Ï´Ù',DEFAULT,'035','312674426701','720814','°³¹ß',DEFAULT,1);
+    'yoojaesuk.jpg','yoojaesuk.jpg','SNS°ü·Ã, ¼øÀ§¾îºäÂ¡ µîÀº ¾È¹Þ½À´Ï´Ù',DEFAULT,'035','312674426701','720814','°³¹ß',4,1);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -880,7 +845,7 @@ DROP TABLE BANK;
     ACCOUNT,BIRTH,INTERESTNO,GRADENO,MEMBERLEVEL) VALUES(
     'test20','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
     '¹Ú¸í¼ö','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
-    'gPark.jpg','gPark.jpg','¾È³çÇÏ¼¼¿ä, Áö³­ 8³â°£ÀÇ À¥µðÀÚÀÎ °æ·ÂÀ» ±â¹ÝÀ¸·Î MAKEIT¿¡¼­ º¸±â ÁÁÀº À¥»çÀÌÆ®ÀÇ ¼­ºñ½º¸¦ ½ÃÀÛÇÏ·Á´Â Àü¹® À¥µðÀÚÀÌ³ÊÀÔ´Ï´Ù. Á¦°¡ Á¤ÀÇÇÏ´Â º¸±â ÁÁÀº À¥»çÀÌÆ®´Â ±Û·Î¹ú À¥½ÃÀåÀÇ ¹æÇâ¼ºÀ» °í·ÁÇÑ À¥±â¼úÀ» ±â¹ÝÀ¸·Î Æ®·£µðÇÑ µðÀÚÀÎÀ¸·Î ¾î¶² ±â±â¿¡¼­µç º¸±â ÁÁÀº ·¹ÀÌ¾Æ¿ôÀ¸·Î »ç¿ëÇÏ±â ½¬¿î À¥»çÀÌÆ®¶ó°í »ý°¢ÇÕ´Ï´Ù. ¾¾Ä¿³ØÆ®´Â ¾ðÁ¦³ª ÇÕ¸®ÀûÀÎ °¡°ÝÀ¸·Î °íÇ°ÁúÀÇ ¹ÝÀÀÇü À¥»çÀÌÆ®¸¦ Á¦°øÇÏ¸ç, Á¦ÀÛ ÀÌÈÄÀÇ °í°´ÀÇ ¹®Á¦ÇØ°áÀ» ¾ðÁ¦³ª ÃÖ¿ì¼±À¸·Î »ý°¢ÇÕ´Ï´Ù.',DEFAULT,'040','934413668531','700927','³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',DEFAULT,1);
+    'gPark.jpg','gPark.jpg','¾È³çÇÏ¼¼¿ä, Áö³­ 8³â°£ÀÇ À¥µðÀÚÀÎ °æ·ÂÀ» ±â¹ÝÀ¸·Î MAKEIT¿¡¼­ º¸±â ÁÁÀº À¥»çÀÌÆ®ÀÇ ¼­ºñ½º¸¦ ½ÃÀÛÇÏ·Á´Â Àü¹® À¥µðÀÚÀÌ³ÊÀÔ´Ï´Ù. Á¦°¡ Á¤ÀÇÇÏ´Â º¸±â ÁÁÀº À¥»çÀÌÆ®´Â ±Û·Î¹ú À¥½ÃÀåÀÇ ¹æÇâ¼ºÀ» °í·ÁÇÑ À¥±â¼úÀ» ±â¹ÝÀ¸·Î Æ®·£µðÇÑ µðÀÚÀÎÀ¸·Î ¾î¶² ±â±â¿¡¼­µç º¸±â ÁÁÀº ·¹ÀÌ¾Æ¿ôÀ¸·Î »ç¿ëÇÏ±â ½¬¿î À¥»çÀÌÆ®¶ó°í »ý°¢ÇÕ´Ï´Ù. ¾¾Ä¿³ØÆ®´Â ¾ðÁ¦³ª ÇÕ¸®ÀûÀÎ °¡°ÝÀ¸·Î °íÇ°ÁúÀÇ ¹ÝÀÀÇü À¥»çÀÌÆ®¸¦ Á¦°øÇÏ¸ç, Á¦ÀÛ ÀÌÈÄÀÇ °í°´ÀÇ ¹®Á¦ÇØ°áÀ» ¾ðÁ¦³ª ÃÖ¿ì¼±À¸·Î »ý°¢ÇÕ´Ï´Ù.',DEFAULT,'040','934413668531','700927','³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',5,1);
 
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -896,7 +861,7 @@ DROP TABLE BANK;
 ¾ÏÈ£È­Æó/°¡»óÈ­Æó/ºñÆ®ÄÚÀÎ/ÀÌ´õ¸®¿ò ÀÚµ¿¸Å¸Å ÇÁ·Î±×·¥,
 ¼îÇÎ¸ô »óÇ° ÀÚµ¿¼öÁý ÇÁ·Î±×·¥ µî
 
-¸ðµç ÇÁ·Î±×·¥ ¸¸µé¾îµå¸³´Ï´Ù.',DEFAULT,'041','577646732956','780315','³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',DEFAULT,1);
+¸ðµç ÇÁ·Î±×·¥ ¸¸µé¾îµå¸³´Ï´Ù.',DEFAULT,'041','577646732956','780315','³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',1,1);
 
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -910,7 +875,7 @@ DROP TABLE BANK;
 ÀÇ·ÚÀÎÀÌ ½Ç¼ö ÇÏ±â ½¬¿î°É Ã¬°ÜÁÖ°í,°¡·Á¿îµ¥¸¸ ±Ü¾î ÁÖ´Â ÃÖ»óÀÇ ¼­ºñ½º.
 Àü ºÐ¾ß ¼ÒÇÁÆ®¿þ¾î °³¹ß,º¸¾ÈÀü¹®°¡+ ¾Û,À¥¸¶ÄÉÆÃ ±â¼ú.Àü·«. 
 ¹Ù»Û ½ºÄÉÁÙ·Î ÇöÀç´Â ¾Û¸¸ °³¹ßÇÏ°í ÀÖ½À´Ï´Ù.
-',DEFAULT,'042','141149075255','710318','°³¹ß',DEFAULT,1);
+',DEFAULT,'042','141149075255','710318','°³¹ß',2,1);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -920,7 +885,7 @@ DROP TABLE BANK;
     'test23','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
     'ÇÏµ¿ÈÆ','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
     'hadonghoon.jpg','hadonghoon.jpg','ÇÁ·Î±×·¡¹ÖÀ» °øºÎÇÏ°í ÀÖ´Â ÇÐ»ýÀÔ´Ï´Ù.
-°£´ÜÇÑ ¼öÁØÀÇ C/C++/Java ÇÁ·Î±×·¡¹Ö ÇØµå¸³´Ï´Ù.',DEFAULT,'043','3099674276','790820','³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',DEFAULT,1);
+°£´ÜÇÑ ¼öÁØÀÇ C/C++/Java ÇÁ·Î±×·¡¹Ö ÇØµå¸³´Ï´Ù.',DEFAULT,'043','3099674276','790820','³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',3,1);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -933,7 +898,7 @@ DROP TABLE BANK;
 Áö±Ý±îÁö ¼ö¸¹Àº À¯ÇüÀÇ ÇÁ·Î±×·¥À» Á¦ÀÛÇÏ¸é¼­ ½×Àº ³ëÇÏ¿ì·Î
 ÀÇ·ÚÇÏ½Ã´Â ³»¿ë¿¡ ´ëÇØ ¿Ïº®ÇÏ°Ô Ã³¸®ÇØµå¸± ÀÚ½ÅÀÖ½À´Ï´Ù ^^ :)
 
-¾ðÁ¦µçÁö ¹®ÀÇÁÖ¼¼¿ä! °¨»çÇÕ´Ï´Ù.',DEFAULT,'044','630668531176','780215','°³¹ß,³×Æ®¿öÅ©º¸¾È',DEFAULT,1);
+¾ðÁ¦µçÁö ¹®ÀÇÁÖ¼¼¿ä! °¨»çÇÕ´Ï´Ù.',DEFAULT,'044','630668531176','780215','°³¹ß,³×Æ®¿öÅ©º¸¾È',4,1);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -942,7 +907,7 @@ DROP TABLE BANK;
     ACCOUNT,BIRTH,INTERESTNO,GRADENO,MEMBERLEVEL) VALUES(
     'test25','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
     '³ëÈ«Ã¶','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
-    'nohongcheol.png','nohongcheol.png','¾È³çÇÏ¼¼¿ä °³¹ßÀ» Àü¹®ÀûÀ¸·Î ´Ù·ç´Â »ç¶÷ÀÔ´Ï´Ù. ¸¹Àº ºÐµéÀÌ ¿Í¼­ ºÁÁÖ½Ã¸é ÁÁ°Ú½À´Ï´Ù.',DEFAULT,'045','346991888560','790331','³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',DEFAULT,1);
+    'nohongcheol.png','nohongcheol.png','¾È³çÇÏ¼¼¿ä °³¹ßÀ» Àü¹®ÀûÀ¸·Î ´Ù·ç´Â »ç¶÷ÀÔ´Ï´Ù. ¸¹Àº ºÐµéÀÌ ¿Í¼­ ºÁÁÖ½Ã¸é ÁÁ°Ú½À´Ï´Ù.',DEFAULT,'045','346991888560','790331','³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',5,1);
    
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -951,7 +916,7 @@ DROP TABLE BANK;
     ACCOUNT,BIRTH,INTERESTNO,GRADENO,MEMBERLEVEL) VALUES(
     'test26','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
     '¼ÛÁöÈ¿','01012341234','abcd@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
-    'songjihyo.jpg','songjihyo.jpg','15³âÂ÷ °³¹ßÀÚ',DEFAULT,'051','755548182230','810815','°³¹ß,À¥µðÀÚÀÎ',DEFAULT,1);
+    'songjihyo.jpg','songjihyo.jpg','15³âÂ÷ °³¹ßÀÚ',DEFAULT,'051','755548182230','810815','°³¹ß,À¥µðÀÚÀÎ',1,1);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -960,7 +925,7 @@ DROP TABLE BANK;
     ACCOUNT,BIRTH,INTERESTNO,GRADENO,MEMBERLEVEL) VALUES(
     'test27','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
     '°­µ¿¿ø','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
-    'kangdongwon.jpg','kangdongwon.jpg','MAKEIT À¥°³¹ß ºÎ¹® ¾ÐµµÀû 1À§',DEFAULT,'020','565040897002','810118','°³¹ß,À¥µðÀÚÀÎ',DEFAULT,1);
+    'kangdongwon.jpg','kangdongwon.jpg','MAKEIT À¥°³¹ß ºÎ¹® ¾ÐµµÀû 1À§',DEFAULT,'020','565040897002','810118','°³¹ß,À¥µðÀÚÀÎ',2,1);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -982,7 +947,7 @@ EXCITING IMAGINATION
 ¹«ÇÑÇÑ »ó»ó·Â°ú ¾ÆÀÌµð¾î
 
 INFINITE CONFIDENCE
-ÀÎ°£Áß½ÉÀÇ ¹«ÇÑ½Å·Ú¿Í ½Å¿ë',DEFAULT,'021','544449324216','900221','³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',DEFAULT,1);
+ÀÎ°£Áß½ÉÀÇ ¹«ÇÑ½Å·Ú¿Í ½Å¿ë',DEFAULT,'021','544449324216','900221','³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',3,1);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -992,7 +957,7 @@ INFINITE CONFIDENCE
     'test29','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
     '±èÇÏ´Ã','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
     'skyKim.jpg','skyKim.jpg','¹ÝÀÀÇüÈ¨ÆäÀÌÁö Á¦ÀÛ ¹× ¿Â¶óÀÎ ¸¶ÄÉÆÃ Àü¹® ÆäÀÌÁöÇÏ¿ì½º ÀÔ´Ï´Ù.
-¹Ï°í ¸Ã°ÜÁÖ½Ã¸é °¨µ¿ÀûÀÎ ¼­ºñ½º¸¦ Á¦°øÇØµå¸®°Ú½À´Ï´Ù.',DEFAULT,'030','766646041058','780221','³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',DEFAULT,1);
+¹Ï°í ¸Ã°ÜÁÖ½Ã¸é °¨µ¿ÀûÀÎ ¼­ºñ½º¸¦ Á¦°øÇØµå¸®°Ú½À´Ï´Ù.',DEFAULT,'030','766646041058','780221','³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',4,1);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -1001,7 +966,7 @@ INFINITE CONFIDENCE
     ACCOUNT,BIRTH,INTERESTNO,GRADENO,MEMBERLEVEL) VALUES(
     'test30','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
     '¹æ¼ºÈÆ','01012341234','abcdefg@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
-    'loybang.jpg','loybang.jpg','´ë¿ÜÀû Å©·Ñ¸µ 50°Ç ÀÌ»ó ÀÛ¾÷ÇÏ¿´À¸¸ç, Àü¹®ÀûÀÎ ÄÄÇ»ÅÍ Àü°øÀÚÀÔ´Ï´Ù.',DEFAULT,'031','863080938835','830214','³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',DEFAULT,1);
+    'loybang.jpg','loybang.jpg','´ë¿ÜÀû Å©·Ñ¸µ 50°Ç ÀÌ»ó ÀÛ¾÷ÇÏ¿´À¸¸ç, Àü¹®ÀûÀÎ ÄÄÇ»ÅÍ Àü°øÀÚÀÔ´Ï´Ù.',DEFAULT,'031','863080938835','830214','³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',5,1);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -1017,7 +982,7 @@ INFINITE CONFIDENCE
 
 Linux, PHP, Javascript, HTML, CSS, Mysql µîÀ» ´Ù·ê ÁÙ ¾Æ´Â Ç®½ºÅÃ °³¹ßÀÚ¸¦ ÁöÇâÇÏ°í ÀÖ±â ¶§¹®¿¡ ±âÈ¹ ºÎÅÍ ¼­¹ö°ü¸®, °³¹ßÈ¯°æ ±¸Ãà, À¥»çÀÌÆ® Á¦ÀÛ, ¿î¿µ, ¸¶ÄÉÆÃ, ±³À°±îÁö Áö¿øÀ» ÇØµå¸±¼ö ÀÖ½À´Ï´Ù.
 
-Æ÷Åä¼¥À» ÀÌ¿ëÇÑ ¿©·¯°¡Áö ÀÌ¹ÌÁö ÆíÁý ÀÛ¾÷µµ ¾î´À Á¤µµ °¡´ÉÇÕ´Ï´Ù. ÃÖ±Ù¿¡´Â MEAN ( Mongo DB, ExpressJS, AngularJS, NodeJS ) ½ºÅÃÀ» ÀÌ¿ëÇÑ À¥°³¹ß¿¡µµ °ü½ÉÀ» °¡Áö°í ÀÖ½À´Ï´Ù.',DEFAULT,'032','947313236864','771107','³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',DEFAULT,2);
+Æ÷Åä¼¥À» ÀÌ¿ëÇÑ ¿©·¯°¡Áö ÀÌ¹ÌÁö ÆíÁý ÀÛ¾÷µµ ¾î´À Á¤µµ °¡´ÉÇÕ´Ï´Ù. ÃÖ±Ù¿¡´Â MEAN ( Mongo DB, ExpressJS, AngularJS, NodeJS ) ½ºÅÃÀ» ÀÌ¿ëÇÑ À¥°³¹ß¿¡µµ °ü½ÉÀ» °¡Áö°í ÀÖ½À´Ï´Ù.',DEFAULT,'032','947313236864','771107','³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',1,2);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -1028,7 +993,7 @@ Linux, PHP, Javascript, HTML, CSS, Mysql µîÀ» ´Ù·ê ÁÙ ¾Æ´Â Ç®½ºÅÃ °³¹ßÀÚ¸¦ ÁöÇâÇ
     '¹Ú³ª·¡','01012341234','lsh930416@naver.com','¼­¿ï½Ã/°­³²±¸',DEFAULT,DEFAULT,
     'parknarae.jpg','parknarae.jpg','°³¹ßÀÚ ¹Ú³ª·¡´Â 2015³â 6¿ù¿¡ (ÁÖ)¿ÀÅõ¿À¼ÒÇÁÆ®¸¦ ¼³¸³ÇÏ¿© ´ëÇ¥ÀÚ¸¦ ¿ªÀÓ ÇÏ¿´°í °æ¿µ ¹× ¼ÒÇÁÆ®¿þ¾î ¿£Áö´Ï¾î·Î È°µ¿ ÇÏ°í ÀÖ½À´Ï´Ù. 
 
-±×¸®°í ¹Ú³ª·¡´Â Çö¿ª À½¾Ç ÀÛ°î°¡·Îµµ È°µ¿ÇÏ°í ÀÖÀ¸¸ç ???ÀÌ·¸°Ô º¸´Ù ?´Ù¾çÇÑ ?°æÇè°ú °¨°¢À» ÅëÇØ ¿©·¯ºÐµé¿¡°Ô ¸¶Ä¡ ¿¹¼ú ÀÛÇ°°ú °°Àº ?°¨µ¿ÀûÀÎ È¨ÆäÀÌÁö¸¦ ¸¸µé¾î µå¸®°Ú½À´Ï´Ù.',DEFAULT,'034','515795092672','851025','³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',DEFAULT,2);
+±×¸®°í ¹Ú³ª·¡´Â Çö¿ª À½¾Ç ÀÛ°î°¡·Îµµ È°µ¿ÇÏ°í ÀÖÀ¸¸ç ???ÀÌ·¸°Ô º¸´Ù ?´Ù¾çÇÑ ?°æÇè°ú °¨°¢À» ÅëÇØ ¿©·¯ºÐµé¿¡°Ô ¸¶Ä¡ ¿¹¼ú ÀÛÇ°°ú °°Àº ?°¨µ¿ÀûÀÎ È¨ÆäÀÌÁö¸¦ ¸¸µé¾î µå¸®°Ú½À´Ï´Ù.',DEFAULT,'034','515795092672','851025','³×Æ®¿öÅ©º¸¾È,À¥µðÀÚÀÎ',2,2);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -1043,7 +1008,7 @@ Linux, PHP, Javascript, HTML, CSS, Mysql µîÀ» ´Ù·ê ÁÙ ¾Æ´Â Ç®½ºÅÃ °³¹ßÀÚ¸¦ ÁöÇâÇ
 ÇÁ·±Æ®¿£µå, ¹é¿£µå ¸ðµÎ °¡´ÉÇÕ´Ï´Ù.
 °í°´ÀÇ ¿äÃ»»çÇ×¿¡ ¾ðÁ¦³ª ¿ÀÇÂµÈ ¸¶À½À¸·Î ÁøÇàÇÕ´Ï´Ù.
 ÇÑ¹ø ±¸¸ÅÇÏ½Ã¸é Àç±¸¸Å ÇÏ½Ç°Å¿¡¿ä.
-ÆíÇÏ°Ô ¿¬¶ôÁÖ¼¼¿ä.',DEFAULT,'035','801969511648','820703','°³¹ß,À¥µðÀÚÀÎ',DEFAULT,2);
+ÆíÇÏ°Ô ¿¬¶ôÁÖ¼¼¿ä.',DEFAULT,'035','801969511648','820703','°³¹ß,À¥µðÀÚÀÎ',3,2);
     
     INSERT INTO MEMBER
     (MEMBERID,PASSWORD,MEMBERNAME,
@@ -1052,7 +1017,7 @@ Linux, PHP, Javascript, HTML, CSS, Mysql µîÀ» ´Ù·ê ÁÙ ¾Æ´Â Ç®½ºÅÃ °³¹ßÀÚ¸¦ ÁöÇâÇ
     ACCOUNT,BIRTH,INTERESTNO,GRADENO,MEMBERLEVEL) VALUES(
     'admin','$2a$10$CislEa7V/i2r/6AfNRYTfeoq6shFUTkgUGiOl.tDw87vm7AiPRJta',
     'À¯º´½Â','01036446259','prince0324@naver.com','¼­¿ïÆ¯º°½Ã °­³²±¸ Å×Çì¶õ·Î14±æ 6/³²µµºôµù KHÁ¤º¸±³À°¿ø',DEFAULT,DEFAULT,
-    'bsyoo_teacher.jpg','bsyoo_teacher.jpg','¾È³çÇÏ¼¼¿ä °ü¸®ÀÚÀÔ´Ï´Ù. ¹®ÀÇ»çÇ×Àº FAQ¸¦ ÂüÁ¶ÇØ ÁÖ½Ã°í °Å±âµµ ¾ø´Ù¸é QNA¸¦ ÅëÇØ Áú¹®ÇØÁÖ¼¼¿ä ºü¸£°Ô ´äº¯ µå¸®°Ú½À´Ï´Ù.',DEFAULT,'001','110110111111','010324','°ü¸®ÀÚ',DEFAULT,0);
+    'bsyoo_teacher.jpg','bsyoo_teacher.jpg','¾È³çÇÏ¼¼¿ä °ü¸®ÀÚÀÔ´Ï´Ù. ¹®ÀÇ»çÇ×Àº FAQ¸¦ ÂüÁ¶ÇØ ÁÖ½Ã°í °Å±âµµ ¾ø´Ù¸é QNA¸¦ ÅëÇØ Áú¹®ÇØÁÖ¼¼¿ä ºü¸£°Ô ´äº¯ µå¸®°Ú½À´Ï´Ù.',DEFAULT,'001','110110111111','010324','°ü¸®ÀÚ',4,0);
  
     
     
@@ -3057,6 +3022,9 @@ insert into buyimg values(seq_buyimgno.nextval,29,'B','buy29-5.PNG','buy29-5.PNG
     INSERT INTO BUYCANDIDATE VALUES('test23', 1, 'B', '³î°í ½Í´Ù', '¶óÀÓÀÌ¶õ ¹«¾ùÀÎ°¡.. ¸¶Ä¡ ³ªÀÇ ¶óÀÓ¿À·»Áö ³ª¹«¿Í °°Àº °Í', DEFAULT);
     INSERT INTO BUYCANDIDATE VALUES('test24', 1, 'B', '³¡ÀÌ´Ù Á×¾î¶ó', '¶óÀÓÀÌ¶õ ¹«¾ùÀÎ°¡.. ¸¶Ä¡ ³ªÀÇ ¶óÀÓ¿À·»Áö ³ª¹«¿Í °°Àº °Í', DEFAULT);
 
+
+--ÄÜÅ×½ºÆ® ÀÎ¼­Æ®
+
    insert into CONTEST values(seq_contestNo.nextval,'C','»çÀÌ¹ö¾ÈÀü ÄÜÅÙÃ÷ °ø¸ðÀü', 'ÁÖÁ¦
 [»çÀÌ¹ö¾ÈÀü]
   -»çÀÌ¹öµµ¹Ú ¿¹¹æ
@@ -3064,17 +3032,68 @@ insert into buyimg values(seq_buyimgno.nextval,29,'B','buy29-5.PNG','buy29-5.PNG
   -»çÀÌ¹ö¸í¿¹ÈÑ¼Õ¡¤¸ð¿å ¿¹¹æ
   -ÀÎÅÍ³Ý»ç±â ¿¹¹æ(»çÀÌ¹öÄ°)
   -»çÀÌ¹ö±ÝÀ¶»ç±â ¿¹¹æ
-  -±âÅ¸ »çÀÌ¹ö¾ÈÀü °ü·Ã ÁÖÁ¦', '2019-03-31', '2019-04-04', '30000000', default, default, '6', '1', 'test6');
+  -±âÅ¸ »çÀÌ¹ö¾ÈÀü °ü·Ã ÁÖÁ¦', '2019-03-31', '2019-04-04', '30000000', default, default, '2', '1', 'test15');
   
   insert into CONTESTIMG values(SEQ_CONTESTIMGNO.nextval,1,'C','»çÀÌ¹ö ¾ÈÀü ÄÜÅÙÃ÷.jpg','»çÀÌ¹ö ¾ÈÀü ÄÜÅÙÃ÷.jpg');
   
-  insert into CONTEST values(seq_contestNo.nextval,'C','Á¦12È¸ ÀÓº£µðµå ¼ÒÇÁÆ®¿þ¾î °æÁø´ëÈ¸', 'ÁÖÁ¦
-- ÀÓº£µðµå ¼ÒÇÁÆ®¿þ¾î¿Í »ê¾÷ °£ÀÇ Çù¾÷ ¾ÆÀÌµð¾î Á¦°ø
-- Ã¢ÀÇÀûÀÌ°í Çõ½ÅÀûÀÎ ÀÓº£µðµå ¼ÒÇÁÆ®¿þ¾î °³¹ß ¾ÆÀÌµð¾î È¹µæ
-- ¹Ì·¡ÀÇ ÀáÀçÀÎ·Â Á¶±â ¹ß±¼ ¹× ÀÎ·Â¾ç¼ºÀ¸·Î »ê¾÷°è ÀÎ·Â°ø±Þ Ã¤³Î È®º¸
-- ÀÓº£µðµå ¼ÒÇÁÆ®¿þ¾î¿¡ ´ëÇÑ ±¹¹ÎÀû ÀÎ½Ä Á¦°í ¹× ±Û·Î¹ú Àúº¯ È®´ë¿¡ ±â¿©', '2019-05-31', '2019-07-04', '130000000',default, default, '8', '2', 'test2');
+  insert into CONTEST values(seq_contestNo.nextval,'C','Á¦16È¸ ÀÓº£µðµå ¼ÒÇÁÆ®¿þ¾î °æÁø´ëÈ¸', 'Á¦16È¸ ÀÓº£µðµåSW°æÁø´ëÈ¸
 
-  insert into CONTESTIMG values(SEQ_CONTESTIMGNO.nextval,2,'C','ÀÓº£µðµå¼ÒÇÁÆ®¿þ¾î.jpg','ÀÓº£µðµå¼ÒÇÁÆ®¿þ¾î.jpg');  
+¡á ´ëÈ¸¸ñÀû
+- Ã¢ÀÇÀûÀÌ°í Çõ½ÅÀûÀÎ ÀÓº£µðµå ¼ÒÇÁÆ®¿þ¾î °³¹ß ¾ÆÀÌµð¾î È¹µæ
+- ÀÓº£µðµå ¼ÒÇÁÆ®¿þ¾î¿Í »ê¾÷ °£ÀÇ Çù¾÷ ¾ÆÀÌµð¾î Á¦°ø
+- ÀÓº£µðµå ¼ÒÇÁÆ®¿þ¾î ºÐ¾ß ¿ì¼ö ÀÎ·Â ¹ß±¼ ¹× ¾ç¼º
+- ÀÓº£µðµå ¼ÒÇÁÆ®¿þ¾î¿¡ ´ëÇÑ ¹ü±¹¹ÎÀû ÀÎ½Ä Á¦°í ¹× Global Àúº¯ È®´ë
+
+¡á Âü°¡ÀÚ°Ý : ´©±¸³ª
+
+¡á ´ëÈ¸ÀÏÁ¤
+- °ø°í ÀÏÀÚ : 2018. 04. 20
+(ºÎ¹®º° Á¢¼ö±â°£ÀÌ »óÀÌÇÏ´Ï ÀÚ¼¼ÇÑ »çÇ×Àº È¨ÆäÀÌÁö ÂüÁ¶)
+- Á¢¼ö ±â°£ : 2018. 04. 30 ~ 2018. 09. 19
+- °á¼± : 2018. 11. 15 ~ 2018. 11. 17
+- ½Ã»ó½Ä : 2018. 12 
+
+¡á ½Ã»ó³»¿ª
+[ÀÏ¹Ý]
+- Àü ºÎ¹®
+ * ´ë»ó : »ê¾÷Åë»óÀÚ¿øºÎ Àå°ü»ó / 1 / 500¸¸¿ø
+- ÀÚÀ¯ °ø¸ð
+ * ÃÖ¿ì¼ö»ó : ÀÓº£µðµåSW ¡¤ System»ê¾÷ÇùÈ¸ È¸Àå»ó / 1 / 300¸¸¿ø
+ * ¿ì¼ö»ó
+  : ÇÑ±¹ÀüÀÚÅë½Å¿¬±¸¿ø ¿øÀå»ó / 1 / 100¸¸¿ø
+  : ÀüÀÚºÎÇ°¿¬±¸¿ø ¿øÀå»ó / 1 / 100¸¸¿ø
+- ÀÚÀ²ÁÖÇà ¸ðÇüÀÚµ¿Â÷
+ * ÃÖ¿ì¼ö»ó : Çö´ëÀÚµ¿Â÷ »çÀå»ó / 1 / 300¸¸¿ø
+ * ¿ì¼ö»ó : Çö´ëÀÚµ¿Â÷ »çÀå»ó / 1 / 100¸¸¿ø
+- ½Ç½Ã°£ IoT½Ã½ºÅÛ
+ * ÃÖ¿ì¼ö»ó : ÇÑÄÄMDS ´ëÇ¥»ó / 1 / 300¸¸¿ø
+ * ¿ì¼ö»ó : ÇÑÄÄMDS ´ëÇ¥»ó / 1 / 100¸¸¿ø
+- Áö´ÉÇü ÈÞ¸Ó³ëÀÌµå
+ * ÃÖ¿ì¼ö»ó : ÀÓº£µðµåSW ¡¤ System»ê¾÷ÇùÈ¸ È¸Àå»ó / 1 / 300¸¸¿ø
+ * ¿ì¼ö»ó : ÀÓº£µðµåSW ¡¤ System»ê¾÷ÇùÈ¸ È¸Àå»ó / 1 / 100¸¸¿ø
+- ICT À¶ÇÕ³í¹®
+ * ÃÖ¿ì¼ö»ó : ´ëÇÑÀÓº£µðµå°øÇÐÈ¸ È¸Àå»ó / 1 / 300¸¸¿ø ¶Ç´Â 300¸¸¿ø »ó´çÀÇ ºÎ»ó
+ * ¿ì¼ö»ó : ´ëÇÑÀÓº£µðµå°øÇÐÈ¸ È¸Àå»ó / 1 / 100¸¸¿ø ¶Ç´Â 100¸¸¿ø »ó´çÀÇ ºÎ»ó
+- »ê¡¤ÇÐ ÇÁ·ÎÁ§Æ®
+ * ÃÖ¿ì¼ö»ó : »ê¾÷Åë»óÀÚ¿øºÎ Àå°ü»ó / 1 / 300¸¸¿ø ¶Ç´Â 300¸¸¿ø »ó´çÀÇ ºÎ»ó
+ * ¿ì¼ö»ó : ÀÓº£µðµåSW ¡¤ System»ê¾÷ÇùÈ¸ È¸Àå»ó / 1 / 100¸¸¿ø ¶Ç´Â 100¸¸¿ø »ó´çÀÇ ºÎ»ó
+[ÁÖ´Ï¾î]
+- ÀÓº£µðµåSW¸ÞÀÌÄ¿
+ * ÃÖ¿ì¼ö»ó : »ê¾÷Åë»óÀÚ¿øºÎ Àå°ü»ó / 1 / 50¸¸¿ø »ó´çÀÇ ºÎ»ó
+ * ¿ì¼ö»ó
+  : ¼­¿ï°úÇÐ±â¼ú´ëÇÐ±³ ÃÑÀå»ó / 1 / 20¸¸¿ø »ó´çÀÇ ºÎ»ó
+  : ±¤¿î´ëÇÐ±³ ÃÑÀå»ó / 1 / 20¸¸¿ø »ó´çÀÇ ºÎ»ó
+ - ÀÓº£µðµåSWÃ§¸°Àú
+ * ÃÖ¿ì¼ö»ó : »ê¾÷Åë»óÀÚ¿øºÎ Àå°ü»ó / 1 / 50¸¸¿ø »ó´çÀÇ ºÎ»ó
+ * ¿ì¼ö»ó
+  : ±¹¹Î´ëÇÐ±³ ÃÑÀå»ó / 1 / 20¸¸¿ø »ó´çÀÇ ºÎ»ó
+  : ÇÑ±¹»ê¾÷±â¼ú°ü¸®Æò°¡¿ø ¿øÀå»ó / 1 / 20¸¸¿ø »ó´çÀÇ ºÎ»ó
+[Àü ºÎ¹®]
+- ÀÎ±â»ó : ÀÓº£µðµåSW ¡¤ System»ê¾÷ÇùÈ¸ È¸Àå»ó / 2 / 10¸¸¿ø »ó´çÀÇ ºÎ»ó
+°ø¸ðÀü ´ë¿ÜÈ°µ¿ »çÀÌÆ® : À§ºñÆ¼ https://www.wevity.com', '2018-04-30', '2019-09-19', '130000000',default, default, '2', '1', 'test15');
+
+  insert into CONTESTIMG values(SEQ_CONTESTIMGNO.nextval,2,'C','ÀÓº£µðµå2.jpg','ÀÓº£µðµå2.jpg'); 
+  insert into CONTESTIMG values(SEQ_CONTESTIMGNO.nextval,2,'C','ÀÓº£µðµå¼ÒÇÁÆ®¿þ¾î.jpg','ÀÓº£µðµå¼ÒÇÁÆ®¿þ¾î.jpg');   
 
   insert into CONTEST values(seq_contestNo.nextval,'C', 'Á¦2È¸ À¶º¹ÇÕ ÄÜÅÙÃ÷ °ø¸ðÀü','¹®È­Ã¢Á¶À¶ÇÕ¼¾ÅÍ´Â ¼¼°è¸¦ ³î¶ó°Ô ÇÒ »õ·Î¿î ¹®È­ ÄÜÅÙÃ÷ °³¹ß¿¡ µµÀüÇÏ´Â ±â¾÷ ¹× Ã¢ÀÛÀÚµéÀ» ¹ß±¼ÇÏ°í, 
 Ã¼°èÀû Áö¿øÀ» ÅëÇØ ¡®ÇÑ±¹ ´ëÇ¥ À¶¡¤º¹ÇÕ ÄÜÅÙÃ÷ Ã¢Ãâ¡¯ÀÌ¶ó´Â °¡½ÃÀû ¼º°ú°¡ ³ª¿Ã ¼ö ÀÖµµ·Ï ¸ðµç ¿ª·®À» ÁýÁßÇÒ °èÈ¹ÀÔ´Ï´Ù.
@@ -3083,34 +3102,34 @@ insert into buyimg values(seq_buyimgno.nextval,29,'B','buy29-5.PNG','buy29-5.PNG
 1. »ç¾÷¸ñÀû
 - ´ëÇÑ¹Î±¹ ÄÜÅÙÃ÷ ±â¾÷ÀÇ ÇÙ½É ¿ª·® ¹ß±¼ ÅëÇÑ ±Û·Î¹ú »ç¾÷È­ ¿Ï¼º
 - ¹®È­Ã¢Á¶À¶ÇÕº§Æ®ÀÇ ¼º°ú È®»ê°ú ¿¬°èÇÑ ½ÇÁúÀû ÇýÅÃ Á¦°ø 
-- ICT ÀÎÇÁ¶ó¿Í °áÇÕµÈ Ã·´Ü ÄÜÅÙÃ÷ À°¼ºÀ¸·Î ãæ½ÃÀå ¼±Á¡', '2019-03-31', '2019-04-14', '12000000',default, default, '13', '3', 'test6');
+- ICT ÀÎÇÁ¶ó¿Í °áÇÕµÈ Ã·´Ü ÄÜÅÙÃ÷ À°¼ºÀ¸·Î ãæ½ÃÀå ¼±Á¡', '2019-03-31', '2019-04-14', '12000000',default, default, '3', '1', 'test16');
   
   insert into CONTESTIMG values(SEQ_CONTESTIMGNO.nextval,3,'C','À¶º¹ÇÕÄÁÅÙÃ÷.jpg','À¶º¹ÇÕÄÁÅÙÃ÷.jpg');
   
   insert into CONTEST values(seq_contestNo.nextval,'C', '°­¿ø°ø°øµ¥ÀÌÅÍ Ã¢¾÷ ¾Û °³¹ß °ø¸ðÀü','ÁÖÁ¦
 - °­¿øµµ °ø°øµ¥ÀÌÅÍ¸¦ È°¿ëÇÑ ¾ÆÀÌµð¾î ¹× ¾Û ¼­ºñ½º
 ±â°£ ¹× ÀÏÁ¤
-- °ø ¸ð ±â °£ : 2015. 09. 01 ~ 11. 30
+- °ø ¸ð ±â °£ : 2019. 04. 01 ~ 6. 30
 - ½É       »ç : 12. 1 ~ 12. 22 / Àû°Ý, ¿¹¼±, º»¼±½É»ç ÁøÇà
-- ½Ã»óÀÚ ¹ßÇ¥ : 2015. 12. 23(º¯µ¿°¡´É) / ½Ã»ó½Ä : 2015³â 12¿ù¸»
+- ½Ã»óÀÚ ¹ßÇ¥ : 2019. 12. 23(º¯µ¿°¡´É) / ½Ã»ó½Ä : 2015³â 12¿ù¸»
 Âü°¡´ë»ó
 - ÀÏ¹ÝºÎ : Áö¿ªºÒ¹®! ´ëÇÑ±¹¹Î±¹ ±¹¹Î ´©±¸³ª! ³ªÀÌºÒ¹®! ÇÐ»ýÁö¿ø°¡´É!
-- ÇÐ»ýºÎ : Àü±¹ ÃÊ, Áß, °í, ´ëÇÐ, ´ëÇÐ¿ø»ý(ÇÐ»ý¸¸ Áö¿ø)', '2019-02-28', '2019-05-14', '20000000',default, default, '9', '2', 'test6');
+- ÇÐ»ýºÎ : Àü±¹ ÃÊ, Áß, °í, ´ëÇÐ, ´ëÇÐ¿ø»ý(ÇÐ»ý¸¸ Áö¿ø)', '2019-04-01', '2019-06-30', '20000000',default, default, '3', '1', 'test16');
   
   insert into CONTESTIMG values(SEQ_CONTESTIMGNO.nextval,4,'C','°­¿ø°ø°øµ¥ÀÌÅÍ.jpg','°­¿ø°ø°øµ¥ÀÌÅÍ.jpg');
   
   insert into CONTEST values(seq_contestNo.nextval,'C', '[ÇØ¿Ü]Spark Awards','Á¢¼ö±â°£ ¹× ÀÏÁ¤
 
- - 1Â÷ ½É»ç ¸¶°¨: 2009³â 9¿ù 11ÀÏ ÀÚÁ¤(PST)
- - 2Â÷ ½É»ç µî·Ï ¸¶°¨(1Â÷ Åë°úÀÛ): 2009³â 10¿ù 12ÀÏ ¿ÀÈÄ5½Ã(PST)
- - 2Â÷ ½É»ç Á¦Ãâ¸¶°¨: 2009³â 10¿ù 16ÀÏ
+ - 1Â÷ ½É»ç ¸¶°¨: 2019³â 6¿ù 11ÀÏ ÀÚÁ¤(PST)
+ - 2Â÷ ½É»ç µî·Ï ¸¶°¨(1Â÷ Åë°úÀÛ): 2019³â 8¿ù 12ÀÏ ¿ÀÈÄ5½Ã(PST)
+ - 2Â÷ ½É»ç Á¦Ãâ¸¶°¨: 2019³â 10¿ù 16ÀÏ
 
 
 ¡Ü Âü°¡ÀÚ°Ý
 
  ±×·¡ÇÈ, Á¦Ç°, ±³Åë, °ÇÃà µî ´Ù¾çÇÑ ºÐ¾ßÀÇ ¿ì¼ö µðÀÚÀÎÀ» ½Ã»óÇÏ´Â ÀÌ¹ø ½ºÆÄÅ© °ø¸ðÀüÀº ÇÐ»ý°ú ºñÀü¹®°¡, 
  ÀÌÀü ¼ö»óÀÚ ¸ðµÎ Âü¿© °¡´É
-', '2019-06-28', '2019-08-14', '120000000',default, default, '7', '2', 'test12');
+', '2019-06-11', '2019-10-16', '12000000',default, default, '7', '2', 'test17');
   
   insert into CONTESTIMG values(SEQ_CONTESTIMGNO.nextval,5,'C','½ºÆÄÅ©¾î¿öµå.jpg','½ºÆÄÅ©¾î¿öµå.jpg');
   
@@ -3122,7 +3141,7 @@ insert into CONTEST values(seq_contestNo.nextval,'C', 'iPhone ¾Û ¾ÆÀÌµð¾î','¡Ü K
 
 ¡Ü Á¢¼ö±â°£ ¹× ÀÏÁ¤
 
-- 2010³â 4¿ù 20ÀÏ ~ 2010³â 5¿ù 20ÀÏ
+- 2019³â 4¿ù 20ÀÏ ~ 2019³â 5¿ù 20ÀÏ
 
 ¡Ü Âü°¡ÀÚ°Ý
 
@@ -3131,20 +3150,243 @@ insert into CONTEST values(seq_contestNo.nextval,'C', 'iPhone ¾Û ¾ÆÀÌµð¾î','¡Ü K
 - Áß°íµîÇÐ»ý ºÎ¹®
 - ´ëÇÐ»ý ¹× ÀÏ¹ÝÀÎ ºÎ¹®
 
-', '2019-04-15', '2019-05-30', '350000000',default, default, '2', '1', 'test16');
+', '2019-04-20', '2019-05-20', '350000000',default, default, '2', '1', 'test18');
   
   insert into CONTESTIMG values(SEQ_CONTESTIMGNO.nextval,6,'C','¾ÆÀÌÆù¾Û°³¹ß.jpg','¾ÆÀÌÆù¾Û°³¹ß.jpg');  
+  
+  insert into CONTEST values(seq_contestNo.nextval,'C', '2019 ¹Ìµð¾î ½ºÅ¸Æ®¾÷ °ø¸ðÀü','°³¿ä
+2019 ¹Ìµð¾î ½ºÅ¸Æ®¾÷ °ø¸ðÀü °³ÃÖ
+ÁÖÃÖ/ÁÖ°ü: ÇÑ±¹¾ð·ÐÁøÈïÀç´Ü 
+ÁÖÁ¦
+[°ø¸ðÁÖÁ¦] 
+´º½ºÄÜÅÙÃ÷¸¦ È°¿ëÇÑ ´Ù¾çÇÑ ºÐ¾ßÀÇ ½Å±Ô ¼­ºñ½º ¾ÆÀÌµð¾î 
+
+[Á¦Ãâ¼­·ù]
+½ÅÃ»¼­ ¹× »ç¾÷°èÈ¹¼­(10¸Å ÀÌ³») / »ç¾÷ÀÚµî·ÏÁõ
+±â°£ ¹× ÀÏÁ¤
+[°ø¸ðÀÏÁ¤]
+Á¢¼ö : 2019. 3. 22.(±Ý) ¡­ 4. 12.(±Ý) 16:00±îÁö 
+¿¹¼± Åë°úÀÚ ¹ßÇ¥ : 2019. 4. 17.(¼ö)
+PT½É»ç : 2019. 4. 19.(±Ý)  
+ÃÖÁ¾ Áö¿ø´ë»óÀÚ ¹ßÇ¥ : 2019. 4. 23.(È­) 
+¹Ìµð¾î ½ºÅ¸Æ®¾÷ ÀÎÅ¥º£ÀÌÆÃ : 2019. 4. 23(È­) ¡­ 11. 29(±Ý)      
+¡Ø ÀÏÁ¤Àº º¯°æµÉ ¼ö ÀÖÀ½ 
+
+ [Á¢¼ö¹æ¹ý]
+°ø¸ðÀü È¨ÆäÀÌÁö(http://www.startupcontest.net) Á¢¼Ó > °ø¸ð¿ä°­ ¹× ½ÅÃ»¼­·ù ´Ù¿î·Îµå 
+> °ø¸ðÀü ½ÅÃ»Á¢¼ö(albin0106@kpf.or.kr) 
+Âü°¡´ë»ó
+[°ø¸ðÀÚ°Ý] 
+°³ÀÎ»ç¾÷ÀÚ ¹× ¹ýÀÎ»ç¾÷ÀÚ / ¾ð·Ð»ç º¥Ã³±â¾÷(»ç¾÷ÀÚµî·ÏÀÚ) / ¿¹ºñÃ¢¾÷ÀÚ
+
+½Ã»ó³»¿ª
+ [Áö¿ø³»¿ë] 
+3,000¸¸¿ø ÀÌ³» °³¹ßºñ
+´º½ºÄÜÅÙÃ÷, ´º½ººòµ¥ÀÌÅÍ ºÐ¼®API, ±³À° ¹× ÄÁ¼³ÆÃ, µ¥¸ðµ¥ÀÌ(IR) Âü¿© ±âÈ¸ µî 
+´º½ººòµ¥ÀÌÅÍ ºÐ¼®APIÀÇ ÁÖ¿ä ³»¿ëÀº °ø¸ð È¨ÆäÀÌÁö(http://www.startupcontest.net)¿¡¼­ È®ÀÎ
+
+[À¯ÀÇ»çÇ×]
+-°³¹ßºñ´Â ¿¹»ê ÀûÁ¤¼º ÆÇ´Ü ÈÄ 3,000¸¸¿ø ÀÌ³»¿¡¼­ Â÷µî Áö¿ø 
+-¼±Á¤»ç´Â 2019. 11. 29.(±Ý)±îÁö ½ÃÁ¦Ç° ÇüÅÂÀÇ °á°ú¹°À» ÇÑ±¹¾ð·ÐÁøÈïÀç´Ü¿¡ Á¦Ãâ 
+¡Ø ½ÃÁ¦Ç° ¹Ì°³¹ß½Ã °³¹ßºñ Áö±ÞÀÌ Á¦ÇÑµÉ ¼ö ÀÖÀ½
+-¼±Á¤»çÀÇ ¼­ºñ½º °³¹ß »ç·Ê´Â ºòÄ«ÀÎÁî È¨ÆäÀÌÁö(http://www..bigkinds.or.kr)¿¡ °ÔÀç µÉ ¼ö ÀÖÀ½(¾Æ¿ô¸µÅ© ¿¬°è)     
+-±¹¼¼,Áö¹æ¼¼ ¹× 4´ë º¸Çè Ã¼³³ÀÌ ÀÖÀ» °æ¿ì Áö¿øÀÌ Á¦ÇÑµÉ ¼ö ÀÖÀ½
+¹®ÀÇÃ³
+Á¢¼ö°ü·Ã ¹®ÀÇ °ø¸ðÀü »ç¹«±¹: 02-516-2462
+»ç¾÷³»¿ë ¹®ÀÇ: albin0106@kpf.or.kr', '2019-04-20', '2019-05-20', '20000000',default, default, '1', '1', 'test16');
+  
+  insert into CONTESTIMG values(SEQ_CONTESTIMGNO.nextval,7,'C','¹Ìµð¾î½ºÅ¸Æ®¾÷.jpg','¹Ìµð¾î½ºÅ¸Æ®¾÷.jpg'); 
+  
+insert into CONTEST values(seq_contestNo.nextval,'C','2019 Â÷¼¼´ë ÀÇ·á±â±â Ã¢¾÷°ø¸ðÀü','°³¿ä
+ºü¸£°Ô º¯È­ÇÏ´Â ±â¼ú Æ®·»µå¿¡ ¹ß¸ÂÃß¾î Âü½ÅÇÑ ÀÇ·á±â±â °³¹ß ¾ÆÀÌµð¾î¸¦ ¹ß±¼¡¤Áö¿øÇÏ¿©
+Áö¿ª ÀÇ·á±â±â »ê¾÷¿¡ Boom-upÀ» À¯µµÇÏ±â À§ÇØ¡¸2018 Â÷¼¼´ë ÀÇ·á±â±â Ã¢¾÷ °ø¸ðÀü¡¹À» °³ÃÖÇÏ¿À´Ï,
+ÀÇ·á±â±â »ê¾÷ ºÐ¾ß ¿¹ºñÃ¢¾÷ÀÚ ºÐµéÀÇ Àû±ØÀûÀÎ Âü¿©¸¦ ¹Ù¶ø´Ï´Ù. 
+ÁÖÁ¦
+- ±¹³» ÀÇ·á±â±â»ê¾÷¿¡¼­ ¿øÁÖ ÀÇ·á±â±â»ê¾÷Àº Ã¢¾÷À» ±â¹ÝÀ¸·Î ¼ºÀåÇÏ¿© ¿ÔÀ¸¸ç,
+  Áö¼ÓÀûÀÎ ÀÇ·á±â±â ãæ ±â¾÷ Ã¢Ãâ ¹× ½Å±â¼ú ¾ÆÀÌÅÛ ¹ß±¼À» ÅëÇÑ ÀÇ·á±â±â»ê¾÷ È°¼ºÈ­°¡ ÇÊ¿äÇÔ
+- Æ¯È÷, ¼ö¿äÀÚ Áß½ÉÀÇ ÀÇ·á±â±â ¾ÆÀÌµð¾î¸¦ ¹ß±¼ÇÏ±â À§ÇØ Çö¾÷¿¡ Á¾»ç ÁßÀÎ ÀÇ·áÀÎÀÇ Âü°¡µµ À¯µµÇÏ°í
+  °¡´É¼ºÀ» Æò°¡ÇÏ¿© ½ÃÀå ÆÄ±Þ·Â ÀÖ´Â ¾ÆÀÌÅÛ ¹ß±¼ÀÌ ÇÊ¿äÇÔ
+- ÀÌ¿¡ µû¶ó º» Ã¢¾÷ °ø¸ðÀüÀ» ÅëÇØ ½ÃÀåÀÌ ÇÊ¿ä·Î ÇÏ´Â ÀÇ·á±â±â Ã¢¾÷ È°¼ºÈ­ µµ¸ð ¹× Ã¢¾÷ ÈÄ
+  Áö¼ÓÀûÀÎ Áö¿øÀÌ °¡´ÉÇÑ ±â¾÷ ¸ÂÃãÇü Àü·«À» ¼ö¸³ÇÏ¿© ÃßÁøÇÏ°íÀÚ ÇÔ
+±â°£ ¹× ÀÏÁ¤
+- Á¢¼ö±â°£ : 2017³â 8¿ù 13ÀÏ(¿ù) ~ 2018³â 10¿ù 31ÀÏ(¼ö), 18:00±îÁö 
+Âü°¡´ë»ó
+¡Ø °³ÀÎ ¶Ç´Â ÆÀÀ¸·Î Âü°¡ °¡´É
+[ºÐ¾ß]
+- ÀÇ·á±â±â Ã¢¾÷
+
+½Ã»ó³»¿ª
+¡Ø ¼±Á¤±Ô¸ð : 4°³ÆÀ ¼±Á¤
+- ´ë»ó(1) : »ó±Ý 1,000¸¸¿ø
+- ÃÖ¿ì¼ö»ó(1) : »ó±Ý 500¸¸¿ø
+- ¿ì¼ö»ó(1) : »ó±Ý 300¸¸¿ø
+- Àå·Á»ó(1) : »ó±Ý 100¸¸¿ø
+
+¡Ø ´ë»ó, ÃÖ¿ì¼ö»ó ÆÀÀº ÀÇ·á±â±âÁ¾ÇÕÁö¿ø¼¾ÅÍ Ã¢¾÷º¸À° °ø°£¿¡ ¼ö»óÀÏ·ÎºÎÅÍ 6°³¿ù ÀÌ³» ÀÔÁÖÇÏ¿©
+    Ã¢¾÷ÇÏ´Â °ÍÀ» Á¶°ÇÀ¸·Î ¼±Á¤ (´Ü, °­¿øµµ ³» ±â¾÷ÀÇ °æ¿ì ÀÔÁÖ¿©ºÎ ¼±ÅÃ °¡´É)
+    (ÀÌ¾÷Á¾ ÀüÈ¯ÀÇ °æ¿ì º°µµÀÇ »ç¾÷ÀÚ µî·Ï ÈÄ Ã¢¾÷º¸À° °ø°£ ÀÔÁÖ Á¶°Ç ¼±Á¤)   
+¡Ø ¼ö»óÀÚ´Â ¿øÁÖÀÇ·á±â±âÅ×Å©³ë¹ë¸®¿¡¼­ Á¦°øÇÏ´Â Ã¢¾÷º¸À° °ø°£¿¡ ÀÔÁÖÇÏ¿©¾ß ÇÏ¸ç,
+    Á¤ÇØÁø ±â°£ ³»¿¡ ÀÔÁÖÇÏÁö ¾ÊÀ¸¸é ¼ö»óÀÌ Ãë¼ÒµÇ°í ¼ö»ó±ÝÀ» ¹ÝÈ¯ÇÏ¿©¾ß ÇÔ
+¡Ø Ã¢¾÷º¸À° °ø°£Àº ÀÔÁÖ°è¾àÀÏ·ÎºÎÅÍ 1³â¸¸ »ç¿ë °¡´ÉÇÏ¸ç, 1³â¿¡ ÇÑÁ¤ÇÏ¿© ¿ì¼ö±â¾÷ 1°³»ç ¿¬Àå °¡´É
+¡Ø Æò°¡ °á°ú¿¡ µû¶ó ½Ã»ó±Ô¸ð ¹× »ó±ÝÀÌ Á¶Á¤µÉ ¼ö ÀÖÀ½
+ÀÀ¸ðºÐ¾ß
+- °ø¸ðºÐ¾ß : ÀÇ·á±â±â Á¦Á¶ ¶Ç´Â ÀÇ·á±â±â Á¦Á¶ °ü·Ã Çï½ºÄÉ¾î ºÐ¾ß
+Âü°¡¹æ¹ý
+- 2018 Â÷¼¼´ë ÀÇ·á±â±â Ã¢¾÷ °ø¸ðÀü Àü¿ë È¨ÆäÀÌÁö(http://creative.wmit.or.kr/) Á¢¼ÓÀ» ÅëÇÑ ½ÅÃ»¼­ ¹× »ç¾÷°èÈ¹¼­ Á¦Ãâ
+- Á¦Ãâ¼­·ù : Âü°¡½ÅÃ»¼­ ¹× »ç¾÷°èÈ¹¼­, Á¤º¸ÀÌ¿ëÁ¦°ø µ¿ÀÇ¼­ °¢ 1ºÎ.
+¹®ÀÇÃ³
+- ÀüÈ­ : 033-760-6136
+- È¨ÆäÀÌÁö : http://creative.wmit.or.kr/
+', '2019-03-20', '2019-05-20', '20000000',default, default, '1', '1', 'test17');
+  
+  insert into CONTESTIMG values(SEQ_CONTESTIMGNO.nextval,8,'C','Â÷¼¼´ëÀÇ·á±â±â.jpg','Â÷¼¼´ëÀÇ·á±â±â.jpg');   
+
+insert into CONTEST values(seq_contestNo.nextval,'C', '2019 ¿ÀÇÂºí·ÏÃ¼ÀÎ ÇØÄ¿Åæ ´ëÈ¸','°³¿ä
+2019 ¿ÀÇÂºí·ÏÃ¼ÀÎ ÇØÄ¿Åæ ´ëÈ¸
+ÁÖÁ¦
+- °³¹ß ºÎ¹® :  ±¹¹Î ±ÇÀÍ ÁõÁøÀ» À§ÇÑ  ÀÌ¿ëÀÚ Áß½ÉÀÇ ºí·ÏÃ¼ÀÎ ±â¹Ý °ø°ø ¼­ºñ½º °³¹ß
+                     ½ºÅ¸Å©·Î ºí·ÏÃ¼ÀÎ ÇÃ·§ÆûÀ» È°¿ëÇÑ ´Ù¾çÇÑ ¼­ºñ½º °³¹ß
+                    (±ÝÀ¶°Å·¡ÀÚ»ê°ü¸®, °ø°ø Á¤Ä¡ ÇàÁ¤¼­ºñ½º, ¹°·ùÀ¯Åë ¼­ºñ½º, °øÀ¯¼Ò¼ÈÀÓÆÑÆ® µî)
+
+  - ¾ÆÀÌµð¾î ºÎ¹® : ÇÕÀÇ ¾Ë°í¸®Áò¿¡ ´ëÇÑ ÀÇ°ß ¹× °³¼± »çÇ× ¾ÆÀÌµð¾î 
+±â°£ ¹× ÀÏÁ¤
+ 2019³â 3¿ù 22ÀÏ(±Ý) ¡­ 3¿ù 24ÀÏ(ÀÏ) / ¹«¹Ú 3ÀÏ°£  
+Âü°¡´ë»ó
+ ºí·ÏÃ¼ÀÎ¿¡ °ü½É ÀÖ´Â ´©±¸³ª (°³ÀÎ ¹× ÆÀ ÃÖ´ë 6ÀÎ)
+½Ã»ó³»¿ª
+´ë±¸±¤¿ª½ÃÀå »ó
+°æºÏµµÃ»µµÁö »ó 
+µî ......
+Âü°¡¹æ¹ý
+ 2019³â 3¿ù 4ÀÏ (¿ù) ±îÁö kbidcinfo@gmail.com Á¢¼ö
+¹®ÀÇÃ³
+1599-4152 
+kbidcinfo@gmail.com
+±âÅ¸»çÇ×
+ÀÚ¼¼ÇÑ »çÇ×Àº ¾Æ·¡ ¸µÅ© Âü°í ÇÏ¼¼¿ä.
+¿Â¿ÀÇÁ¹Í½º https://www.onoffmix.com/event/167804
+', '2019-03-20', '2019-05-20', '40000000',default, default, '10', '3', 'test18');
+  
+  insert into CONTESTIMG values(SEQ_CONTESTIMGNO.nextval,9,'C','ºí·ÏÃ¼ÀÎ ÇØÄ¿Åæ.jpg','ºí·ÏÃ¼ÀÎ ÇØÄ¿Åæ.jpg');  
+  
+  insert into CONTEST values(seq_contestNo.nextval,'C', '2018³â ºÒ¹ý ½ºÆ÷Ã÷ µµ¹Ú ±ÙÀý ÇØÄ¿Åæ ´ëÈ¸ (ÀÏÁ¤º¯°æ)','°³¿ä
+2018³â ¡®88³â ¼­¿ï ¿Ã¸²ÇÈ 30ÁÖ³â¡¯À» ±â³äÇÏ¿© °³ÃÖµÇ´Â º» Çà»ç´Â °¥¼ö·Ï ½É°¢ÇØÁö°í ÀÖ´Â
+ºÒ¹ý ½ºÆ÷Ã÷µµ¹ÚÀÇ ½ÇÅÂ¿Í µµ¹ÚÁßµ¶À¸·Î ÀÎÇÑ »çÈ¸ ¹®Á¦ÀÇ ½É°¢¼ºÀ» °øÀ¯ÇÏ°í
+Áý´ÜÁö¼ºÀ» ÅëÇØ ºÒ¹ý ½ºÆ÷Ã÷ µµ¹ÚÀ» ±ÙÀýÇÒ ¼ö ÀÖ´Â ±Ùº»ÀûÀÌ°í ´Ù¾çÇÑ ¹æ¾ÈÀ» ¸¶·ÃÇÏ±â À§ÇÑ Çà»çÀÔ´Ï´Ù. 
+ÁÖÁ¦
+- TµîÀÇ ½Å±â¼ú°ú ±³À°, »ó´ã, Ä¡·á µî ´Ù¾çÇÑ ¹æ¹ýÀ» ÅëÇØ ºÒ¹ý ½ºÆ÷Ã÷ µµ¹ÚÀ» ±ÙÀýÇÒ ¼ö ÀÖ´Â ¹æ¾È ¸¶·Ã
+±â°£ ¹× ÀÏÁ¤
+- ÀÏ½Ã : 2018³â 11¿ù 03ÀÏ(Åä) 10:00 ~ 04ÀÏ(ÀÏ) 18:00(ÀÏÁ¤ º¯°æ) 
+Âü°¡´ë»ó
+- ±¹³» ¸¸ 15¼¼ ÀÌ»ó °íµîÇÐ»ý, ´ëÇÐ»ý, ÀÏ¹ÝÀÎ µî ´©±¸³ª Âü¿©°¡´É 
+½Ã»ó³»¿ª
+ÃÑ »ó±Ý 1,000¸¸¿ø
+- ÃÖ¿ì¼ö»ó(1°³ÆÀ) : »çÇà»ê¾÷ÅëÇÕ°¨µ¶À§¿øÈ¸»ó ¹× »ó±Ý 300¸¸¿ø
+- ¿ì¼ö»ó(2°³ÆÀ) : ±¹¹ÎÃ¼À°ÁøÈï°ø´Ü»ó ¹× »ó±Ý °¢ 200¸¸¿ø
+- Àå·Á»ó(3°³ÆÀ) : ±¹¹ÎÃ¼À°ÁøÈï°ø´Ü»ó ¹× »ó±Ý °¢ 100¸¸¿ø
+È°µ¿³»¿ë
+- ºÒ¹ý ½ºÆ÷Ã÷ µµ¹ÚÀ» ±ÙÀýÇÒ ¼ö ÀÖ´Â ±Ùº»ÀûÀÌ°í ´Ù¾çÇÑ ¹æ¾ÈÀ» ¸¶·ÃÇÏ±â À§ÇÑ Çà»ç
+Âü°¡¹æ¹ý
+- È¨ÆäÀÌÁö(http://www.sportshackathon.kr) Á¢¼ö
+  * È¨ÆäÀÌÁö ½ÅÃ»ÀÌ ¾Æ´Ò °æ¿ì, Á¢¼ö°¡ µÇÁö ¾ÊÀ» ¼öµµ ÀÖ½À´Ï´Ù.               
+¹®ÀÇÃ³
+- ÀüÈ­ : 02-6925-1242
+- ÀÌ¸ÞÀÏ : support@koreajobfair.com
+', '2018-11-03', '2018-11-04', '30000000',default, default, '10', '3', 'test15');
+  
+  insert into CONTESTIMG values(SEQ_CONTESTIMGNO.nextval,10,'C','»çÀÌ¹öµµ¹Ú.png','»çÀÌ¹öµµ¹Ú.png');  
+  
+  insert into CONTEST values(seq_contestNo.nextval,'C', '[KISA] 2017 »ç¹°ÀÎÅÍ³Ý Á¤º¸º¸È£ ÇØÄ¿Åæ','°³¿ä
+ÇÐ»ý ÀçÁ÷ÀÚ ½ºÅ¸Æ®¾÷ µîÀ» ´ë»óÀ¸·Î Á¤º¸º¸È£ °ü·Ã ¼Ö·ç¼Ç °³¹ß±âÈ¸¸¦ Á¦°øÇÏ¿©
+¿ì¼ö ¾ÆÀÌµð¾î ¹ß±¼ ¹× Ã¢¾÷ È°¼ºÈ­¸¦ À¯µµÇÏ±â À§ÇÑ »ç¹°ÀÎÅÍ³Ý Á¤º¸º¸È£ ÇØÄ¿Åæ ´ëÈ¸¸¦ °³ÃÖÇÕ´Ï´Ù.
+ÁÖÁ¦
+- ÃÖ±Ù ±Þ¼ÓÈ÷ ¼ºÀåÇÏ°í ÀÖ´Â »ç¹°ÀÎÅÍ³Ý ºÐ¾ßÀÇ º¸¾È ÀÌ½´¸¦ ÇØ°áÇÒ ¼ö ÀÖ´Â Á¤º¸º¸È£ Á¦Ç° ¹× ¼Ö·ç¼Ç ±âÈ¹ °³¹ß
+¡Ø »ï¼ºÀüÀÚ, SKÅÚ·¹ÄÞÀÌ °¢ »çÀÇ ¼Ö·ç¼Ç(ARTIK, TON±â±â, ThingPlug µî)À» È°¿ëÇÏ¿©
+     IoT º¸¾È ¼Ö·ç¼ÇÀ» °³¹ßÇÒ ¼ö ÀÖ´Â ¹®Á¦ ÃâÁ¦ ¹× È¯°æÀ» Á¦°ø
+±â°£ ¹× ÀÏÁ¤
+- Á¢¼ö : 2017³â 9¿ù 13ÀÏ ~ 10¿ù 12ÀÏ
+- ¼­·ù½É»ç : 10¿ù 13ÀÏ ~ 10¿ù 17ÀÏ (15°³ÆÀ ¼±¹ß)
+- »çÀü±³À° : 10¿ù 21ÀÏ (¹®Á¦ °ü·Ã ±â¼ú ±³À°)
+- ÇØÄ¿Åæ º»¼± : 10¿ù 28ÀÏ ~ 10¿ù 29ÀÏ (¹«¹Ú 2ÀÏ)
+- ½Ã»ó½Ä : 11¿ù ¸» (Á¤º¸º¸È£ Æä½ºÆ¼¹ú Çà»ç)
+Âü°¡´ë»ó
+- Á¤º¸º¸È£ ºÐ¾ßÀÇ ¿ì¼ö ¾ÆÀÌµð¾î¸¦ º¸À¯ÇÏ°í ±¸Çö ´É·ÂÀ» º¸À¯ÇÑ Áß °íµî ´ëÇÐ»ý ÀçÁ÷ÀÚ ¿¹ºñÃ¢¾÷ÀÚ ½ºÅ¸Æ®¾÷ µî
+- ÆÀÀº 1ÀÎ ÀÌ»ó 4ÀÎ ÀÌÇÏ·Î ±¸¼º °¡´É
+½Ã»ó³»¿ª
+- °úÇÐ±â¼úÁ¤º¸Åë½ÅºÎ Àå°ü»ó(´ë»ó) : 1,500¸¸¿ø(1¸í)
+- ÇÑ±¹ÀÎÅÍ³ÝÁøÈï¿øÀå»ó(ÃÖ¿ì¼ö»ó) : 700¸¸¿ø(2¸í)
+- »ï¼ºÀüÀÚ, SKT (¿ì¼ö»ó) : 500¸¸¿ø(2¸í)
+½É»ç±âÁØ
+- KISA, »ï¼ºÀüÀÚ, SKT °¡ Á¦½ÃÇÑ ¹®Á¦¸¦ Ã¢ÀÇ Çõ½ÅÀûÀÎ ´ë¾È ¹× ¼Ö·ç¼ÇÀÇ ±¸ÇöÀ» ÅëÇØ
+  °¡Àå ¿ì¼öÇÏ°Ô ÇØ°áÇÑ °³ÆÀÀ» ¼±Á¤ÇÏ¿© »óÀå »ó±Ý ¼ö¿©
+Âü°¡¹æ¹ý
+- (Áö¿ø¼­·ù ´Ù¿î·Îµå) KISA È¨ÆäÀÌÁö(http://www.kisa.or.kr)  ³» °øÁö»çÇ×¶õÀ» È®ÀÎÇÏ¿©
+   ÀÀ¸ðÁö¿ø¼­ °³¹ß±âÈ¹¼­ µîÀ» ´Ù¿î·Îµå
+- (Áö¿ø¼­·ù ÀÛ¼º ¹× Á¦Ãâ) ´Ù¿î·ÎµåÇÑ ÀÀ¸ðÁö¿ø¼­ ¹× °³¹ß±âÈ¹¼­¸¦ ÀÛ¼ºÇÏ¿© ÀÌ¸ÞÀÏkgss@kisa.or.kr) ·Î Á¦Ãâ
+
+¡Ø Á¢¼ö´Â ÁöÁ¤µÈ °ø¸ð ½Ã°£ ³»¿¡ µµÂøÇÑ °Ç¿¡ ÇÑÇÏ¿© ÀÎÁ¤(¹æ¹®¡¤¿ìÆíÁ¢¼ö ºÒ°¡)
+¡Ø ¸ÞÀÏ Á¢¼ö°¡ ¿Ï·áµÇ¸é, Á¢¼ö ÈÄ 3ÀÏ ÀÌ³»¿¡ Á¢¼öÈ®ÀÎ¸ÞÀÏ ¹ß¼Û ¿¹Á¤
+¡Ø ÀÀ¸ðÁö¿ø¼­ÀÇ ¡®Âü°¡¼­¾à¼­¡¯ ¹× ¡®Á¤º¸ ¼öÁý ¹× ÀÌ¿ë µ¿ÀÇ¼­¡¯´Â ÀÛ¼º¡¤Ãâ·ÂÇÏ¿© ÀÚÇÊ ¼­¸í ÈÄ ½ºÄµº»À» Á¦Ãâ
+¹®ÀÇÃ³
+¿î¿µ»ç¹«±¹
+- Tel : 02-516-6773 
+- E-mail : plan@aiobest.com', '2017-09-13', '2017-10-12', '120000000',default, default, '10', '3', 'test18');
+  
+  insert into CONTESTIMG values(SEQ_CONTESTIMGNO.nextval,11,'C','»ç¹°ÀÎÅÍ³ÝÇØÄ¿Åæ.png','»ç¹°ÀÎÅÍ³ÝÇØÄ¿Åæ.png');  
+  
+  insert into CONTEST values(seq_contestNo.nextval,'C', '±¹³» ÃÖ´ë ±Ô¸ð ºí·ÏÃ¼ÀÎ ÇØÄ¿Åæ ¡®2018 Hdac Hackathon¡¯','ÁÖÁ¦
+- ºí·ÏÃ¼ÀÎ ±â¹Ý º¸¾È °­È­ ¸ðµâ °³¹ß
+- ºí·ÏÃ¼ÀÎ ±â¹Ý ´Ù¾çÇÑ ÇÃ·§Æû ¼­ºñ½º °³¹ß(IoT, À¶ÇÕ, DAPP µî)
+±â°£ ¹× ÀÏÁ¤
+- Á¢¼ö±â°£ : 2018.5.28(¿ù) ~ 6.24(ÀÏ)
+- »çÀü ±³À° : 6.14(¸ñ), 6.19(È­) *È¨ÆäÀÌÁö ¹× ¸ÞÀÏ Á¢¼ö
+- ¿¹¼± ½É»ç : 6.27(¼ö)
+- ½É»ç °á°ú ¹ßÇ¥ : 6.28(¸ñ)
+- º»¼± : 7.4(¼ö) ~ 7.5(¸ñ)
+Âü°¡´ë»ó
+- ½ºÅ¸Æ®¾÷ ¹× ÀÏ¹Ý °³¹ßÀÚ, ÇÐ»ý µî ´©±¸³ª Âü¿© °¡´É
+½Ã»ó³»¿ª
+- ÃÑ »ó±Ý 2¾ï¿ø ±Ô¸ð(Á¦¼¼°ø°ú±Ý º»ÀÎ ºÎ´ã)
+ *´ë»ó 1ÆÀ 5Ãµ¸¸¿ø µî ÃÑ 22ÆÀ ¼ö»ó
+È°µ¿³»¿ë
+º»¼± 
+- ÀÏÀÚ : 2018.7.4.(¼ö) ~ 7.5(¸ñ)
+- Àå¼Ò : µ¿´ë¹® µðÀÚÀÎ ÇÁ¶óÀÚ(DDP) ¾Ë¸² 2°ü
+- Âü¼® ´ë»ó : ´ëÈ¸ Âü°¡ÀÚ ¹× °ü°èÀÚ µî ¾à 500¸í
+- ´ëÈ¸ ±¸¼º : °³È¸½Ä / ÇØÄ¿Åæ ´ëÈ¸ / ½Ã»ó½Ä
+½É»ç±âÁØ
+- ¾ÆÀÌµð¾î 70%, °³¹ß ¿Ï¼ºµµ 30%
+Âü°¡¹æ¹ý
+- Á¢¼ö¹æ¹ý : ¿Â¶óÀÎ Á¢¼ö(http://www.hdachackathon.com)
+*ÆÀ ´ÜÀ§·Î ½ÅÃ»(ÃÖ¼Ò 3ÀÎ ~ ÃÖ´ë 8ÀÎ)
+ÀÛÇ°±Ô°Ý
+- Âü°¡ ¼­·ù : Âü°¡ ½ÅÃ»¼­, ÇÁ·ÎÁ§Æ® ±âÈ¹¼­, °³ÀÎÁ¤º¸ ¼öÁý ¹× ÀÌ¿ë µ¿ÀÇ¼­(È¨ÆäÀÌÁö¿¡¼­ ´Ù¿î)
+¹®ÀÇÃ³
+- Tel. : 070-7005-4006
+- E-mail : hdachackathon@gmail.com
+- Ä«Ä«¿ÀÅå ¿ÀÇÂ Ã¤ÆÃ¹æ : https://open.kakao.com/o/gIbwXHP
+- ÆäÀÌ½ººÏ : https://www.facebook.com/Hdac-Hackathon-204661333665100/
+- ÀÎ½ºÅ¸±×·¥ : https://www.instagram.com/hdac_hackathon/
+ÇýÅÃ
+- ¼ö»óÀÚ Æ¯Àü
+ *¿¬°è »ç¾÷È­ ¿ì´ë
+ *ÀÔ»ç½Ã ÀüÇü ¿ì´ë
+¡Ø º» °ø¸ðÀü ³»¿ëÀº ÁÖÃÖ»ç »çÁ¤À¸·Î º¯°æµÉ ¼ö ÀÖ½À´Ï´Ù. ¹Ýµå½Ã ÁÖÃÖ»ç °ø¸ð¿ä°­À» È®ÀÎÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.', '2019-05-28', '2019-06-24', '150000000',default, default, '10', '3', 'test18');
+  
+  insert into CONTESTIMG values(SEQ_CONTESTIMGNO.nextval,12,'C','ÃÖ´ëÇØÄ¿Åæ.jpg','ÃÖ´ëÇØÄ¿Åæ.jpg'); 
   
    --faq insert
     INSERT INTO FAQCATEGORY VALUES(SEQ_FAQNACATEGORYNO.NEXTVAL,'ÀÌ¿ë¾È³»');
     
     INSERT INTO FAQ VALUES(SEQ_FAQNO.NEXTVAL,'Make IT´Â ¾î¶² »çÀÌÆ® ÀÎ°¡¿ä?','Make IT´Â IT¿Í °ü·ÃµÈ À¯Çü/¹«ÇüÀÇ »óÇ°°Å·¡¸¦ Áß°³ÇÏ¿© ¾ÈÀüÇÏ°Ô °Å·¡¸¦ ÇÏ½Ç ¼ö ÀÖ´Â °Å·¡ ÇÃ·§ÆûÀ» Á¦°øÇÏ´Â ÆäÀÌÁö ÀÔ´Ï´Ù.
-    ÀÚ¼¼ÇÑ »çÇ×Àº ÆäÀÌÁö¸¦ ÅëÇØ ¾Ë¾Æ º¸½Ç ¼ö ÀÖ½À´Ï´Ù.',1);
+ÀÚ¼¼ÇÑ »çÇ×Àº ÆäÀÌÁö¸¦ ÅëÇØ ¾Ë¾Æ º¸½Ç ¼ö ÀÖ½À´Ï´Ù.',1);
     INSERT INTO FAQ VALUES(SEQ_FAQNO.NEXTVAL,'°í°´¼¾ÅÍ ¿î¿µ½Ã°£ÀÌ ±Ã±ÝÇÕ´Ï´Ù.','Make IT °í°´¼¾ÅÍ´Â 09:00 ½Ã ºÎÅÍ 18:00±îÁö ¿î¿µÇÕ´Ï´Ù.',1);
     INSERT INTO FAQ VALUES(SEQ_FAQNO.NEXTVAL,'½º¸¶Æ®Æù¿¡¼­ ÀÌ¿ëÇÒ ¼ö ÀÖ³ª¿ä?','ÁË¼ÛÇÕ´Ï´Ù. ÇöÀç ÁØºñÁß¿¡ ÀÖÀ¸¸ç ÃÖ´ëÇÑ ºü¸¥ ½Ã°£³»¿¡ ¼­ºñ½º ÇÒ ¼ö ÀÖµµ·Ï ÇÏ°Ú½À´Ï´Ù. ',1);
-    INSERT INTO FAQ VALUES(SEQ_FAQNO.NEXTVAL,'ÆäÀÌÁö°¡ ÀÛµ¿ÇÏÁö ¾Ê¾Æ¿ä.','Å©¸ùÀº Å©·Ò ºê¶ó¿ìÀú¿¡ ÃÖÀûÈ­ µÇ¾îÀÖ½À´Ï´Ù.
-    ÀÍ½ºÇÃ·Î·¯ 11 ÀÌÇÏ ¹öÀü¿¡¼­´Â »çÀÌÆ®°¡ Á¤»óÀûÀ¸·Î ±¸µ¿µÇÁö ¾ÊÀ» ¼ö ÀÖÀ¸´Ï ÀÍ½ºÇÃ·Î·¯ »ç¿ëÀÚÀÇ °æ¿ì ¹öÀü ¾÷µ¥ÀÌÆ®¸¦ ºÎÅ¹µå¸³´Ï´Ù.
-    °¡±ÞÀû Å©·Ò ºê¶ó¿ìÀú¸¦ »ç¿ëÇÏ½Ã±æ ±ÇÀåÇÕ´Ï´Ù.',1);
+    INSERT INTO FAQ VALUES(SEQ_FAQNO.NEXTVAL,'ÆäÀÌÁö°¡ ÀÛµ¿ÇÏÁö ¾Ê¾Æ¿ä.','Make IT´Â Å©·Ò ºê¶ó¿ìÀú¿¡ ÃÖÀûÈ­ µÇ¾îÀÖ½À´Ï´Ù.
+
+ÀÍ½ºÇÃ·Î·¯ 11 ÀÌÇÏ ¹öÀü¿¡¼­´Â »çÀÌÆ®°¡ Á¤»óÀûÀ¸·Î ±¸µ¿µÇÁö ¾ÊÀ» ¼ö ÀÖÀ¸´Ï ÀÍ½ºÇÃ·Î·¯ »ç¿ëÀÚÀÇ °æ¿ì ¹öÀü ¾÷µ¥ÀÌÆ®¸¦ ºÎÅ¹µå¸³´Ï´Ù.
+    
+°¡±ÞÀû Å©·Ò ºê¶ó¿ìÀú¸¦ »ç¿ëÇÏ½Ã±æ ±ÇÀåÇÕ´Ï´Ù.',1);
     
     INSERT INTO FAQCATEGORY VALUES(SEQ_FAQNACATEGORYNO.NEXTVAL,'°èÁ¤°ü·Ã');
     
@@ -3171,5 +3413,8 @@ insert into CONTEST values(seq_contestNo.nextval,'C', 'iPhone ¾Û ¾ÆÀÌµð¾î','¡Ü K
     ex) ÆäÀÌÁö ¿ÜºÎ °Å·¡ ¿äÃ», °Å·¡½Ã ±¸¸ÅÈ®Á¤ÀÌ ´Ê¾îÁü µî',3);
     INSERT INTO FAQ VALUES(SEQ_FAQNO.NEXTVAL,'±¸¸ÅÇÑ ¼­ºñ½ºÀÇ °á°ú¹°ÀÌ ¼³¸íÇÑ °Í°ú Â÷ÀÌ°¡ ³³´Ï´Ù.','±¸¸ÅÇÑ ¼­ºñ½ºÀÇ °á°ú¹°ÀÌ Ã³À½ ¼³¸í°ú Â÷ÀÌ°¡ ³­´Ù°í ´À³¢½Ç °æ¿ì ÄÄÇÃ·¹ÀÎ °Ô½ÃÆÇÀ» ÀÌ¿ëÇØÁÖ½Ã¸é µË´Ï´Ù. 
     ÄÄÇÃ·¹ÀÎ °Ô½ÃÆÇÀº "ÀÚÀ¯°Ô½ÃÆÇ" ³»ºÎ¿¡ À§Ä¡ÇØ ÀÖ½À´Ï´Ù.',3);
-
+    
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test2',1,'¿É¼Ç1',1,1,'S',SYSDATE,'2',DEFAULT);
+    INSERT INTO BUYCANDIDATE VALUES('test2',3,'B','Å×½ºÆ® ¸¶ÀÌÅ© ¾Æ¾Æ','´©±¸º¸´Ù ºü¸£°Ô ³­  ³²µé°ú´Â ´Ù¸£°Ô »ö´Ù¸£°Ô ºñÆ®¸¦ Å¸´Â ºñÆ®À§ÀÇ ³ª±×³×',SYSDATE);
+    INSERT INTO BUYSPEC VALUES(SEQ_BUYSPECNO.NEXTVAL,'test2',3,'B',sYSDATE,'3',default);--test3ÀÌ È¯ºÒÀ» ÇØ¾ßÇÔ
 commit;

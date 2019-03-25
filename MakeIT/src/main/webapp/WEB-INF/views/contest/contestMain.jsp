@@ -454,11 +454,16 @@
 					                    </div>
 					                    <div class='col-md-9'>
 					                       	<div class="row" style='margin-top:0.3em;'>
-						                       <h5 class="card-title" >컨테스트 제목: ${contest.CONTESTTITLE} </h5>
+						                       
+						                       <h5 class="card-title">컨테스트 제목: ${contest.CONTESTTITLE} </h5>
 						                    </div>				                   
 						                    <div class='row'>
 						                    	<div class='col-md-6'>
-						                    		<strong>주최자: ${contest.MEMBERNAME }</strong>
+						                    	   <strong>주최자:
+							                       <c:if test='${contest.MEMBERLEVEL==2}'>
+							                       	  <img src='${path }/resources/upload/member/${contest.REIMG}' style='max-width:33px; height:35px; display:inline;'>[기업]
+							                       </c:if> 
+							                       ${contest.MEMBERNAME }</strong>
 						                            <p class="card-text" style="overflow:auto; height:200px;">${contest.CONTESTCONTENT }</p>
 						                    	</div>
 						                    	<div class='col-md-6'>
@@ -468,7 +473,7 @@
 								                    </div>
 								                    <div class="form-control righthandle" style='margin-top: 1.1em'>
 								                        <strong>기한</strong>
-								                        <span>${contest.CONTESTDATE} ~ ${contest.CONTESTDEADLINE}</span>
+								                        <span>${contest.CONTESTDATE} ~ ${contest.CONTESTDEADLINE}</span>								                      
 								                    </div>    
 								                    <div class="form-control righthandle" style='margin-top: 1.1em'>
 								                        <strong>현재 참여자</strong>
@@ -476,8 +481,29 @@
 								                    </div>                           
 								                    <div class="row">
 								                        <div class="col-md-12">
-								                        	<a href="${path}/contest/contestDetail.do?contestNo=${contest.CONTESTNO}" class="btn btn-outline-info slidetopleft garo-center" style="width: 100%; height:45%; margin-top: 3em;">상세보기</a>    
+								                        	<button onclick="location.href='${path}/contest/contestDetail.do?contestNo=${contest.CONTESTNO}'" id='detailSee${contest.CONTESTNO }'class="btn btn-outline-info slidetopleft garo-center" style="width: 100%; height:45%; margin-top: 3em;">상세보기</button>    
 								                        </div>
+								                        <script>									                      
+									                        
+									                        var nowDate = new Date();
+									                        var endDate = new Date('${contest.CONTESTDEADLINE}');                  
+								                         
+
+									                        if (endDate-nowDate <= 0) 
+									                        {
+									                        	console.log('종료서비스'+'${contest.CONTESTTITLE}');
+									                        	$('#detailSee${contest.CONTESTNO}').attr('disabled',true);
+									                        	$('#detailSee${contest.CONTESTNO}').text('마감된 콘테스트 입니다.')
+									                        	$('#detailSee${contest.CONTESTNO}').css('color','grey');
+									                        	$('#detailSee${contest.CONTESTNO}').css('border','grey')
+									                        } 
+									                        else 
+									                        {
+									                        	console.log(endDate);
+										                       	console.log('정상서비스'+'${contest.CONTESTTITLE}');
+									                        }
+
+								                        </script>
 								                    </div>
 				                    	    	</div>			                   
 				                        	</div>			                    
