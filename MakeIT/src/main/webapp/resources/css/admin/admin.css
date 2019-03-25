@@ -1,6 +1,7 @@
 /* 관리자 페이지 메인 */
-h5,h4,h3,h2,h1,a,span,div{
+h5,h4,h3,h2,h1,a,span,div,button,th,td{
 	font-family: 'Sunflower', sans-serif;
+	font-size:20px;
 }
 li{
 	color:black;
@@ -32,7 +33,7 @@ textarea{
 	background-color: transparent;
 	border-color: transparent transparent #f3f3f3;
 	border-bottom: 3px solid !important;
-	font-size: 16px;
+	font-size: 22px;
 	font-weight: bold;
 }
 
@@ -1259,4 +1260,9 @@ translate
 	transition:ease-in-out;
 	transition-duration:0.7s;
 	cursor:pointer;
+}
+=======
+/* 게시글 승인 */
+#approval-search-inp{
+	width:85%;
 }
