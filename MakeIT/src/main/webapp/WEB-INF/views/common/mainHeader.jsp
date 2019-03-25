@@ -330,11 +330,8 @@
       		}
       		else
       		{
-      			location.href="${path}/board.jsp";
+      			location.href="${path}/board/boardMain.do";
       		}
-      	
-
-      		location.href="${path}/board/boardMain.do";
 
       	})
       	$('#icon5').click(function(){

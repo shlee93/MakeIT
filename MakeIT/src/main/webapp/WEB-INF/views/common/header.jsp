@@ -252,10 +252,11 @@
       		}
       		else
       		{
-      			location.href="${path}/board.jsp";
+    	  		location.href="${path}/board/boardMain.do";
       		}
       	
       	})
+
 
 	  		location.href="${path}/sell/sellmain.do";
 	  	})
