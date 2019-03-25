@@ -148,6 +148,24 @@
 	<select id="selectOutBoxContestCount" parameterType="string" resultType="_int">
 		SELECT COUNT(*) FROM CONTESTOUTBOX WHERE MEMBERID=#{memberId}
 	</select>
+	<select id="sellTradeList" parameterType="string" resultType="map">
+		SELECT S.SELLNO, S.SELLTITLE, S.MEMBERID,O.SELLOPTIONNO,O.SELLPRICE*C.SELLOPTIONPER AS PRICE ,C.STATUSNAME FROM SELL S JOIN SELLOPTION O ON(S.SELLNO=O.SELLNO) JOIN (SELECT * FROM SELLSPEC C JOIN STATUS U ON(C.STATUSNO=U.STATUSNO))C ON (S.SELLNO=C.SELLNO) WHERE C.MEMBERID=#{memberId}
+	</select>
+	<select id="buyTradeList" parameterType="string" resultType="map">
+		SELECT B.BUYNO,B.BUYTITLE,B.MEMBERID,B.BUYPRICE,C.STATUSNAME FROM BUY B JOIN (SELECT C.BUYNO, S.STATUSNAME, C.MEMBERID FROM BUYSPEC C JOIN STATUS S USING (STATUSNO))C ON(B.BUYNO=C.BUYNO) WHERE C.MEMBERID=#{memberId}
+	</select>
+	<select id="contestTradeList" parameterType="string" resultType="map">
+		SELECT C.CONTESTNO,C.CONTESTTITLE,C.MEMBERID,C.CONTESTPRICE,A.APPLICANTYN FROM CONTEST C JOIN CONTESTAPPLICANT A ON (C.CONTESTNO=A.CONTESTNO) WHERE A.APPLICANTID=#{memberId}
+	</select>
+	<select id="totalSellTradeCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM SELL S JOIN SELLOPTION O ON(S.SELLNO=O.SELLNO) JOIN (SELECT * FROM SELLSPEC C JOIN STATUS U ON(C.STATUSNO=U.STATUSNO))C ON (S.SELLNO=C.SELLNO) WHERE C.MEMBERID=#{memberId}
+	</select>
+	<select id="totalBuyTradeCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM BUY B JOIN (SELECT C.BUYNO, S.STATUSNAME, C.MEMBERID FROM BUYSPEC C JOIN STATUS S USING (STATUSNO))C ON(B.BUYNO=C.BUYNO) WHERE C.MEMBERID=#{memberId}
+	</select>
+	<select id="totalContestTradeCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM CONTEST C JOIN CONTESTAPPLICANT A ON (C.CONTESTNO=A.CONTESTNO) WHERE A.APPLICANTID=#{memberId}
+	</select>
 	<resultMap type="map" id="memberMap">
 		<result column="interest" property="interest" typeHandler="strArray"/>
 	</resultMap>

@@ -439,7 +439,24 @@ public class MemberController {
 		int randomNo = SendMail.sendmail(email);
 		logger.debug(randomNo);
 		ModelAndView mv = new ModelAndView();
+		String[] emailCk = email.split("@");
+		int idLength = emailCk[0].length();
+		int domainLength = emailCk[1].length();
+		logger.debug(idLength);
+		logger.debug(domainLength);
+		String idStr = emailCk[0].substring(0, 4);
+		String domainStr = emailCk[1].substring(0, 4);
+		for(int j = 0; j<idLength-4;j++) {
+			idStr+="*";
+		}
+		for(int i = 0; i<domainLength-4;i++) {
+			domainStr+="*";
+		}
+		emailCk[0] = idStr;
+		emailCk[1] = domainStr;
+		String fullEmail = idStr+"@"+domainStr;
 		mv.addObject("randomNo", randomNo);
+		mv.addObject("email",fullEmail);
 		mv.addObject("id", id);
 		mv.setViewName("member/findPwCheck");
 		return mv;
@@ -795,19 +812,35 @@ public class MemberController {
 		freecPage = 1;
 		qnacPage = 1;
 		contestcPage = 1;
-		List<Map<String,String>> buyList = service.buyList(memberId,buycPage,numPerPage);
+		List<Map<Object,Object>> buyList = service.buyList(memberId,buycPage,numPerPage);
+		for(Map<Object,Object> buy : buyList) {
+			String buydate = buy.get("BUYDATE").toString().substring(0, 10);
+			buy.put("BUYDATE", buydate);
+		}
 		int totalBuyCount = service.selectBuyCount(memberId);
 		String buyPageBar = PageFactory.getPageBarAjax(totalBuyCount, buycPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
-		List<Map<String,String>> sellList = service.sellList(memberId,sellcPage,numPerPage);
+		List<Map<Object,Object>> sellList = service.sellList(memberId,sellcPage,numPerPage);
+		for(Map<Object,Object> sell : sellList) {
+			String selldate = sell.get("SELLDATE").toString().substring(0, 10);
+			sell.put("SELLDATE", selldate);
+		}
 		int totalSellCount = service.boardSellCount(memberId);
 		String sellPageBar = PageFactory.getPageBarAjax(totalSellCount, sellcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
-		List<Map<String,String>> freeList = service.freeList(memberId,freecPage,numPerPage);
+		List<Map<Object,Object>> freeList = service.freeList(memberId,freecPage,numPerPage);
+		for(Map<Object,Object> free : freeList) {
+			String freedate = free.get("FREEDATE").toString().substring(0, 10);
+			free.put("FREEDATE", freedate);
+		}
 		int totalFreeCount = service.selectFreeCount(memberId);
 		String freePageBar = PageFactory.getPageBarAjax(totalFreeCount, freecPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
-		List<Map<String,String>> qnaList = service.qnaList(memberId,qnacPage,numPerPage);
+		List<Map<Object,Object>> qnaList = service.qnaList(memberId,qnacPage,numPerPage);
 		int totalQnaCount = service.selectQnaCount(memberId);
 		String qnaPageBar = PageFactory.getPageBarAjax(totalQnaCount, qnacPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
-		List<Map<String,String>> contestList = service.contestList(memberId,contestcPage,numPerPage);
+		List<Map<Object,Object>> contestList = service.contestList(memberId,contestcPage,numPerPage);
+		for(Map<Object,Object> contest : contestList) {
+			String freedate = contest.get("CONTESTDATE").toString().substring(0, 10);
+			contest.put("CONTESTDATE", freedate);
+		}
 		int totalContestCount = service.selectContestCount(memberId);
 		String contestPageBar = PageFactory.getPageBarAjax(totalContestCount, contestcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
 		ModelAndView mv = new ModelAndView();
@@ -1103,21 +1136,37 @@ public class MemberController {
 			}
 			logger.debug(buycPage);
 			logger.debug(sellcPage);
-			List<Map<String,String>> buyList = service.buyList(memberId,buycPage,numPerPage);
+			List<Map<Object,Object>> buyList = service.buyList(memberId,buycPage,numPerPage);
 			int totalBuyCount = service.selectBuyCount(memberId);
 			String buyPageBar = PageFactory.getPageBarAjax(totalBuyCount, buycPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
-			List<Map<String,String>> sellList = service.sellList(memberId,sellcPage,numPerPage);
+			List<Map<Object,Object>> sellList = service.sellList(memberId,sellcPage,numPerPage);
 			int totalSellCount = service.boardSellCount(memberId);
 			String sellPageBar = PageFactory.getPageBarAjax(totalSellCount, sellcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
-			List<Map<String,String>> freeList = service.freeList(memberId,freecPage,numPerPage);
+			List<Map<Object,Object>> freeList = service.freeList(memberId,freecPage,numPerPage);
 			int totalFreeCount = service.selectFreeCount(memberId);
 			String freePageBar = PageFactory.getPageBarAjax(totalFreeCount, freecPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
-			List<Map<String,String>> qnaList = service.qnaList(memberId,freecPage,numPerPage);
+			List<Map<Object,Object>> qnaList = service.qnaList(memberId,freecPage,numPerPage);
 			int totalQnaCount = service.selectQnaCount(memberId);
 			String qnaPageBar = PageFactory.getPageBarAjax(totalQnaCount, qnacPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
-			List<Map<String,String>> contestList = service.contestList(memberId,contestcPage,numPerPage);
+			List<Map<Object,Object>> contestList = service.contestList(memberId,contestcPage,numPerPage);
 			int totalContestCount = service.selectContestCount(memberId);
 			String contestPageBar = PageFactory.getPageBarAjax(totalContestCount, contestcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+			for(Map<Object,Object> buy : buyList) {
+				String buydate = buy.get("BUYDATE").toString().substring(0, 10);
+				buy.put("BUYDATE", buydate);
+			}
+			for(Map<Object,Object> sell : sellList) {
+				String selldate = sell.get("SELLDATE").toString().substring(0, 10);
+				sell.put("SELLDATE", selldate);
+			}
+			for(Map<Object,Object> free : freeList) {
+				String freedate = free.get("FREEDATE").toString().substring(0, 10);
+				free.put("FREEDATE", freedate);
+			}
+			for(Map<Object,Object> contest : contestList) {
+				String freedate = contest.get("CONTESTDATE").toString().substring(0, 10);
+				contest.put("CONTESTDATE", freedate);
+			}
 			logger.debug(sellList);
 			mv.addObject("buyList",buyList);
 			mv.addObject("totalBuyCount",totalBuyCount);
@@ -1163,13 +1212,54 @@ public class MemberController {
 			mv.addObject("sellcPage",sellcPage);
 			mv.addObject("buycPage",buycPage);
 			mv.addObject("fadeStatus",fadeStatus);
-			System.out.println(fadeStatus);
-			System.out.println(buycPage);
-			System.out.println(sellcPage);
 			logger.debug(fadeStatus);
 			logger.debug(buycPage);
 			logger.debug(sellcPage);
 			mv.setViewName("member/ajaxMemberMessage");
+		} else if (naviBarStatus == 5) {
+			if(fadeStatus == 1) {
+				sellcPage = 1;
+				contestcPage = 1;
+			} else if(fadeStatus == 2) {
+				buycPage = 1;
+				contestcPage = 1;
+			} else if(fadeStatus == 3) {
+				sellcPage = 1;
+				buycPage = 1;
+			}
+			List<Map<Object,Object>> sellList = service.sellTradeList(memberId,sellcPage,numPerPage);
+			List<Map<Object,Object>> buyList = service.buyTradeList(memberId,buycPage,numPerPage);
+			List<Map<Object,Object>> contestList = service.contestTradeList(memberId,contestcPage,numPerPage);
+			int totalSellTradeCount = service.totalSellTradeCount(memberId);
+			int totalBuyTradeCount = service.totalBuyTradeCount(memberId);
+			int totalContestTradeCount = service.totalContestTradeCount(memberId);
+			String sellPageBar = PageFactory.getPageBarAjax(totalSellTradeCount, sellcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+			String buyPageBar = PageFactory.getPageBarAjax(totalBuyTradeCount, buycPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+			String contestPageBar = PageFactory.getPageBarAjax(totalContestTradeCount, contestcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+			logger.debug(contestPageBar);
+			logger.debug(sellList);
+			logger.debug(buyList);
+			logger.debug(contestList);
+			logger.debug(totalSellTradeCount);
+			logger.debug(totalBuyTradeCount);
+			logger.debug(totalContestTradeCount);
+			logger.debug(contestcPage);
+			mv.addObject("sellList",sellList);
+			mv.addObject("buyList",buyList);
+			mv.addObject("contestList",contestList);
+			mv.addObject("totalSellTradeCount",totalSellTradeCount);
+			mv.addObject("totalBuyTradeCount",totalBuyTradeCount);
+			mv.addObject("totalContestTradeCount",totalContestTradeCount);
+			mv.addObject("sellPageBar",sellPageBar);
+			mv.addObject("buyPageBar",buyPageBar);
+			mv.addObject("sellcPage",sellcPage);
+			mv.addObject("buycPage",buycPage);
+			mv.addObject("contestList",contestList);
+			mv.addObject("contestPageBar",contestPageBar);
+			mv.addObject("contestcPage",contestcPage);
+			mv.addObject("fadeStatus",fadeStatus);
+			mv.addObject("map",map);
+			mv.setViewName("member/ajaxMemberTrade");
 		}
 		mv.addObject("map",map);
 		return mv;
@@ -1195,6 +1285,45 @@ public class MemberController {
 		}
 		logger.debug(data);
 		return data;
+	}
+	
+	@RequestMapping("/member/memberTradeAjax.do")
+	@ResponseBody
+	public ModelAndView memberTradeAjax(String memberId, HttpServletRequest request) {
+		Map<Object, Object> map = service.selectOne(memberId);
+		int sellcPage = 1;
+		int buycPage = 1;
+		int contestcPage = 1;
+		int numPerPage = 5;
+		List<Map<Object,Object>> sellList = service.sellTradeList(memberId,sellcPage,numPerPage);
+		List<Map<Object,Object>> buyList = service.buyTradeList(memberId,buycPage,numPerPage);
+		List<Map<Object,Object>> contestList = service.contestTradeList(memberId,contestcPage,numPerPage);
+		int totalSellTradeCount = service.totalSellTradeCount(memberId);
+		int totalBuyTradeCount = service.totalBuyTradeCount(memberId);
+		int totalContestTradeCount = service.totalContestTradeCount(memberId);
+		String sellPageBar = PageFactory.getPageBarAjax(totalSellTradeCount, sellcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+		String buyPageBar = PageFactory.getPageBarAjax(totalBuyTradeCount, buycPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+		String contestPageBar = PageFactory.getPageBarAjax(totalContestTradeCount, contestcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+		ModelAndView mv = new ModelAndView();
+		logger.debug(sellList);
+		logger.debug(buyList);
+		logger.debug(contestList);
+		logger.debug(totalSellTradeCount);
+		logger.debug(totalBuyTradeCount);
+		logger.debug(totalContestTradeCount);
+		mv.addObject("sellList",sellList);
+		mv.addObject("buyList",buyList);
+		mv.addObject("contestList",contestList);
+		mv.addObject("totalSellTradeCount",totalSellTradeCount);
+		mv.addObject("totalBuyTradeCount",totalBuyTradeCount);
+		mv.addObject("totalContestTradeCount",totalContestTradeCount);
+		mv.addObject("sellPageBar",sellPageBar);
+		mv.addObject("buyPageBar",buyPageBar);
+		mv.addObject("contestPageBar",contestPageBar);
+		mv.addObject("fadeStatus",1);
+		mv.addObject("map",map);
+		mv.setViewName("member/ajaxMemberTrade");
+		return mv;
 	}
 	
 	@RequestMapping("/member/mainajax.do")
