@@ -153,7 +153,7 @@
                                  	<c:if test="${faq.FAQNACATEGORYNO==category.FAQNACATEGORYNO }">
                                  	
 	                                    <li class="faq-question">
-	                                    	<textarea cols="65" style="resize:none; border:0;" readonly="readonly">○&nbsp;${faq.FAQTITLE }</textarea>
+	                                    	<textarea cols="65" style="resize:none; border:0;" readonly="readonly">●&nbsp;${faq.FAQTITLE }</textarea>
 											
 	                                       	<button class="answer-slide">▼</button>
 	                                       

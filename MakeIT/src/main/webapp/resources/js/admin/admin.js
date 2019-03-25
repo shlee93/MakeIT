@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	
-	cmaTextareaSize(80);
+	cmaTextareaSize(120);
 });
 
 function cmaTextareaSize(bsize) { // 객체명, 기본사이즈
