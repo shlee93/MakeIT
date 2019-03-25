@@ -105,7 +105,9 @@
 				<!-- 앨범뷰 -->
 
 				<div class='col-md-10 col-xs-10' style='position: relative; min-width: 400px'>
-
+					<div id="pageTitle" style="padding-bottom:20px;">
+                  		<h1 style="font-family: 'Sunflower', sans-serif;">판매게시판</h2>
+               		</div>
 					<!-- 앨범 뷰 상단 탭 -->
 					<div style="margin-right: 0; text-align: right">
 
@@ -568,7 +570,24 @@
 														</script>
 
 													</div>
-													<p id="gradep">등급: ${newList.GRADENAME}</p>
+													<p id="gradep">
+														<c:if test="${newList.GRADENAME == '브론즈' }">
+						                           			<p style='display: inline;'><img alt="" src="${path }/resources/image/bronzeGrade.png" style="max-width: 50px;max-height: 50px;font-family: 'Sunflower', sans-serif;"></p>
+						                           		</c:if>
+						                           		<c:if test="${newList.GRADENAME == '실버' }">
+						                           			<p><img alt="" src="${path }/resources/image/silverGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+						                	           	</c:if>
+						                           		<c:if test="${newList.GRADENAME == '골드' }">
+						                           			<p><img alt="" src="${path }/resources/image/goldGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+						                           		</c:if>
+						                           		<c:if test="${newList.GRADENAME == '플래티넘' }">
+						                           			<p><img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+						                           		</c:if>
+						                           		<c:if test="${newList.GRADENAME == '다이아몬드' }">
+						                           			<p><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+						                           		</c:if>
+						                           		${newList.GRADENAME}
+													</p>	
 												</div>
 											</div>
 										</div>
@@ -767,5 +786,4 @@
 		
 			<div class='col-md-1'></div>
 			</div>
-</body>
-</html>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include> 

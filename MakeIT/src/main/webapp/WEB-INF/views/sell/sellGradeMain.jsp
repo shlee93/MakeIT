@@ -62,10 +62,7 @@
                                            <p class="description">
                                                ${gradeList.INTRODUCTION}
                                            </p>
-                                           <ul class="icon">
-                                               <li><a href="#" class="fa fa-search"></a></li>
-                                               <li><a href="#" class="fa fa-link"></a></li>
-                                           </ul>
+                                         
                                        </div>
                                    </div>
                                    <div class='sub-description'>
@@ -93,7 +90,22 @@
                                        		</script>
                                          
                                        </div>
-                                        <p id="gradep">등급: ${gradeList.GRADENAME} </p>
+                                        <p id="gradep">	<c:if test="${gradeList.GRADENAME == '브론즈' }">
+						                           			<p style='display: inline;'><img alt="" src="${path }/resources/image/bronzeGrade.png" style="max-width: 50px;max-height: 50px;font-family: 'Sunflower', sans-serif;"></p>
+						                           		</c:if>
+						                           		<c:if test="${gradeList.GRADENAME == '실버' }">
+						                           			<p><img alt="" src="${path }/resources/image/silverGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+						                	           	</c:if>
+						                           		<c:if test="${gradeList.GRADENAME == '골드' }">
+						                           			<p><img alt="" src="${path }/resources/image/goldGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+						                           		</c:if>
+						                           		<c:if test="${gradeList.GRADENAME == '플래티넘' }">
+						                           			<p><img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+						                           		</c:if>
+						                           		<c:if test="${gradeList.GRADENAME == '다이아몬드' }">
+						                           			<p><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+						                           		</c:if>
+						                           		${gradeList.GRADENAME}</p>
                                       </div>                                       
                                    </div>
                                </div>

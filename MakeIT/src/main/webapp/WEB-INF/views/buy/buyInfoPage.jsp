@@ -61,7 +61,7 @@
                      <h4>구매항목 : <p  id="selectedOption" style='display:inline; float:right; margin-right: 3.5em;'>${seller.BUYCANDIDATETITLE }</p></h4>
                      <input type="hidden" id="buyTitle" value="${seller.BUYCANDIDATETITLE }">
                      <input type="hidden" id="opPrice" value="${buyer.BUYPRICE}">
-                     <input type="hidden" id="memberId" value="${sessionScope.member.MEMBERID}">                  
+                     <input type="hidden" id="memberId" value="test25">                  
                   </div>
                   <div class='col-md-6' style='padding-left: 100px;'>
                      <h4>구매금액 : <p style='display:inline; float:right; margin-right: 3.5em;'>${buyer.BUYPRICE} 원</p></h4>
