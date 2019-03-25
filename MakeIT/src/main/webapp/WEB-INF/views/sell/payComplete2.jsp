@@ -16,7 +16,7 @@
 	
 	<style>
 		 #payT{
-			margin-left:40%;
+			margin-left:15%;
 		 }
 	 
 	</style>
@@ -29,21 +29,12 @@
 			<div style='width: 100%; margin-top:0em; margin-bottom:2em;text-align:center '>
 				<img src="${path}/resources/image/logo1.png" style="widht:200px;height:200px;">
 				<br><br>
-				<table id="payT" >
-					<tr>
-						<td><h4>판매자 : ${detailList.get(0).MEMBERID}</h4></td>
+				
+						<h4>판매자 : ${detailList.get(0).MEMBERID}</h4>
 						
-					</tr>
-					<tr>
-						<td><h4>구매한 내역 : ${optionInfo.SELLOPTIONNO} ${optionInfo.SELLOPTIONCONTENT} </h4></td>
-					</tr>
-					<tr>
-						<td><h4>기한 : ${optionInfo.SELLDEADLINE} </h4></td>
-					</tr>
-					<tr>	
-						<td><h4>금액 : ${purchaseInfo.amount} 원</h4></td>
-					</tr>
-				</table>
+					<h4>구매한 내역 : ${optionInfo.SELLOPTIONNO} ${optionInfo.SELLOPTIONCONTENT} </h4>
+					<h4>기한 : ${optionInfo.SELLDEADLINE} </h4>
+					<h4>금액 : ${purchaseInfo.amount} 원</h4>
 
 			</div>
 			<div>
@@ -62,5 +53,4 @@
 		 location.href="${paht}/makeit";
 	 }
 	</script>
-</body>
-</html>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include> 

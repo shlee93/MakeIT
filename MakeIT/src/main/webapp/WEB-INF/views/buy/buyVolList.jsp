@@ -26,14 +26,9 @@
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-<link rel='stylesheet' href='${pageContext.request.contextPath }/resources/css/boardCommon/boardCommon.css'/>
-    <jsp:include page="/WEB-INF/views/common/header.jsp">
-        <jsp:param value="HelloSpring" name="pageTitle"/>
-      </jsp:include>
+
 
 <style>
- 
-      
 
 
 div {padding: 10px;}
@@ -119,18 +114,8 @@ thead {
 </head>
 <body>
 	<div class="row">
-		<div class="col-md-1">
-			<div style='position:fixed; margin-top: 10em;'>
-   			<span onclick='fn_back()' style='cursor:pointer; font-size: 6em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
-         	 	<script>
-          			function fn_back()
-           		{
-           			history.back();
-           		}
-           		</script>
-	   		</div>
-		</div>
-		<div id="vol-container" class="col-md-10">
+		<div class="col-sm-1"></div>
+		<div id="vol-container" class="col-sm-10">
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -154,19 +139,15 @@ thead {
 				<input type="hidden" name="memberId"/>
 				<input type="hidden" name="buyNo"/>
 				<input type="hidden" name="categoryCode"/>
-				<input type="hidden" name="cPage"/>
 			</form>	
 			<!--
 			<div class="filebox bs3-primary preview-image">
 				<label for="input_file">사진 선택</label> 
 				<input type="file" id="input_file" class="upload-hidden" multiple="multiple" accept=".gif, .jpg, .png"> 
 			</div> -->
-		<div>
-			${pageBar }
-		</div>
-		</div>
+			</div>
 		
-		<div class="col-md-1"></div>
+		<div class="col-sm-1"></div>
 	</div>
 <script>
 var sel_files=[];
@@ -208,12 +189,11 @@ $(document).ready(function(){
 	
 	function fn_volView(memberId, buyNo, categoryCode)
 	{
-		var url="${path}/buy/buyVolView.do?specFlag=${param.specFlag}";
-		
+		var url="${path}/buy/buyVolView.do";
+				
 		volViewFrm.memberId.value=memberId;
 		volViewFrm.buyNo.value=buyNo;
 		volViewFrm.categoryCode.value=categoryCode;
-		volViewFrm.cPage.value=${param.cPage==null?1:param.cPage};
 		volViewFrm.action=url;
 		volViewFrm.method="post";
 		volViewFrm.submit();

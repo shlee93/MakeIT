@@ -1,31 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="UTF-8">
-<title>판매 게시글 작성</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-   href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script
-   src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<!-- Popper JS -->
-<script
-   src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script
-   src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>판매 글 보기</title>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+	<c:set var="path" value="${pageContext.request.contextPath }"/>
+	 <!-- Latest compiled and minified CSS -->
+   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
    
-<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-   <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-   <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<c:set var="path" value="${pageContext.request.contextPath}"/>
+   	<!-- jQuery library -->
+   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   
+   	<!-- Popper JS -->
+   	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+   
+   	<!-- Latest compiled JavaScript -->
+   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+   
+   	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+   	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/contestdetail/contestDetail.css" />
+   	<link rel='stylesheet' href='${pageContext.request.contextPath }/resources/css/boardCommon/boardCommon.css'/>
+   
+   	<jsp:include page="/WEB-INF/views/common/header.jsp">
+	  	<jsp:param value="HelloSpring" name="pageTitle"/>
+   	</jsp:include>
 <link rel="stylesheet"
    href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
    integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
@@ -88,6 +90,9 @@
 	           	</div>
       </div>
       <div id="buy-container" class="col-md-10">
+      <div id="pageTitle" style="padding-bottom:20px;">
+                  		<h1 style="font-family: 'Sunflower', sans-serif;">판매 게시글 수정</h2>
+      </div>
    <form id="sellWriteFrm" enctype="multipart/form-data" action="${pageContext.request.contextPath}/sell/sellModifyEnd" method="post">
 
          <div class="row">
@@ -156,9 +161,16 @@
          </div>
        <div class="filebox bs3-primary preview-image">
              <c:forEach items="${modifyImg}" var="modifyImg" varStatus="st">
-	            <div class="upload-display"><input type="radio" name="mainImgNo" value='${st.index}'>
-	           		 <div class="upload-thumb-wrap"><img src="${path}/resources/upload/sell/${modifyImg.SELLIMGRE}" class="upload-thumb"></div>
-	            </div>
+             	<c:if test="${st.index == 0 }">
+	            	<div class="upload-display"><input type="radio" name="mainImgNo" value='${st.index}' checked>
+	           			 <div class="upload-thumb-wrap"><img src="${path}/resources/upload/sell/${modifyImg.SELLIMGRE}" class="upload-thumb"></div>
+	            	</div>
+	            </c:if>
+	            <c:if test="${st.index != 0 }">
+	            	<div class="upload-display"><input type="radio" name="mainImgNo" value='${st.index}'>
+	           			 <div class="upload-thumb-wrap"><img src="${path}/resources/upload/sell/${modifyImg.SELLIMGRE}" class="upload-thumb"></div>
+	            	</div>
+	            </c:if>
             </c:forEach>
             <label for="input_file">사진 선택</label> 
             <input type="file" name="input_file" id="input_file" class="upload-hidden" multiple="multiple" accept=".gif, .jpg, .png"> 
@@ -179,7 +191,6 @@
    var count = 0;
    $(document).ready(function(){
           //preview image 
-          
           var imgTarget = $('.preview-image .upload-hidden');
          
           imgTarget.on('change', function(e){
@@ -208,7 +219,10 @@
                   var reader=new FileReader();
                   reader.onload=function(e){
                      var src = e.target.result;
-                      parent.prepend('<div class="upload-display"><input type="radio" required name="mainImgNo" value='+ (count++) +'><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+                   
+                        parent.prepend('<div class="upload-display"><input type="radio" name="mainImgNo" value='+ (count++) +' required ><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+                    
+                      
                   }
                   
                   reader.readAsDataURL(f);
@@ -219,7 +233,6 @@
            });
          
       });
-
       
    $('#sellContent').on('keyup', function() {
        if($(this).val().length > 450) {
@@ -242,5 +255,4 @@
          
       
    </script>
-</body>
-</html>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include> 

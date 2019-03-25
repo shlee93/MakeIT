@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.makeit.buy.model.vo.BuyAttach;
 import com.kh.makeit.common.MakeitException;
 import com.kh.makeit.sell.model.dao.SellDao;
 import com.kh.makeit.sell.model.vo.SellAttach;
@@ -24,8 +25,9 @@ public class sellServiceImpl implements sellService {
       return dao.findInterest(interest);
    }
    
-   @Override
-   public int sellModifyEnd(ArrayList<SellAttach> files, Map dataMap, SellOption selloption) {
+
+@Override
+   public int sellModifyEnd(ArrayList<SellAttach> files,List<Map<String, String>> imgList, Map dataMap, SellOption selloption) {
 	   	  int result=0;
 	      int boardNo=0;
 	      try {
@@ -35,7 +37,34 @@ public class sellServiceImpl implements sellService {
 	            throw new MakeitException("게시글 수정에 실패하였습니다.");
 	         }
 	         result=dao.deleteAttach(dataMap);
-	         for(SellAttach a : files)
+	         if(imgList.size() < 1)
+				{
+					System.out.println("1번");
+					for(SellAttach a : files)
+					{
+						
+						a.setSellNo(Integer.parseInt(String.valueOf(dataMap.get("sellno"))));
+						result = dao.insertAttach2(a);
+						if(result < 1)
+						{
+							throw new MakeitException("파일 업로드에 실패하였습니다.");
+						}
+					}
+
+				}
+				else if(files.size() < 1)
+				{
+					System.out.println("2번");
+					for(Map<String,String> m : imgList)
+					{
+						result = dao.insertSellImg(m);
+						if(result < 1)
+						{
+							throw new MakeitException("파일 업로드에 실패하였습니다.");
+						}
+					}
+				}
+	         /*for(SellAttach a : files)
 	         {
 	            a.setSellNo(Integer.parseInt(String.valueOf(dataMap.get("sellno"))));
 	            result=dao.insertAttach2(a);
@@ -43,7 +72,7 @@ public class sellServiceImpl implements sellService {
 	            {
 	               throw new MakeitException("파일업로드에 실패하였습니다.");  
 	            }
-	         }
+	         }*/
 	         int i=0;
 	         Map<String,String> map = new HashMap<>();
 	         map.put("sellno",String.valueOf((dataMap.get("sellno"))) );
@@ -319,6 +348,13 @@ public class sellServiceImpl implements sellService {
 		// TODO Auto-generated method stub
 		return dao.sellBuyerCount(sellno);
 	}
+	//이미지 불러오기
 
+	@Override
+	public List<Map<String, String>> selectSellImg(int sellno) {
+		// TODO Auto-generated method stub
+		return dao.selectSellImg(sellno);
+	}
+	
 	
 }
