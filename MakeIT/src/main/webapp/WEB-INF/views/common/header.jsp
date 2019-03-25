@@ -215,7 +215,7 @@
 	  		location.href="${path}/contest/contestMain.do";
 	  	})
 	  	$('#icon4').click(function(){
-	  		location.href="${path}/board.jsp";
+	  		location.href="${path}/board/boardMain.do";
 	  	})
 	  	$('#icon5').click(function(){
 	  		location.href="${path}/qna.jsp";

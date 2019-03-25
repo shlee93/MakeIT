@@ -623,6 +623,16 @@
         font-family: 'Sunflower', sans-serif;
         color: black;
     }
+    #ranking1stId{
+        position: relative;
+        width: max-content;
+        font-size: 20px;
+        font-weight: bold;
+        font-family: 'Sunflower', sans-serif;
+        color: black;
+        display: none;
+
+    }
     .rankingViewBox{
         position: relative;
         width: 100%;
@@ -680,6 +690,20 @@
         font-family: 'Sunflower', sans-serif;
         /* font-weight: bold; */
         color: black;
+    }
+    .rankingId{
+        position: absolute;
+
+        left: 100%;
+        top: 110%;
+        transform: translate(-100%,-110%);
+        white-space: nowrap;
+        font-size: 18px;
+        font-weight: bold;
+        font-family: 'Sunflower', sans-serif;
+        /* font-weight: bold; */
+        color: black;
+        display:none; 
     }
     .rankingWidthBar{
         position: relative;
