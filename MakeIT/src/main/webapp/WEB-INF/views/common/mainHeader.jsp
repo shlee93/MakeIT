@@ -182,47 +182,7 @@
 		    	<%
 			}
     	%>
-<%--     <%
-	    Cookie[] cookies = request.getCookies();
-		System.out.println(cookies);
-		boolean cCheck = false;
-		if(cookies != null) {
-			for(int i=0; i<cookies.length; i++) {
-				Cookie c = cookies[i];
-				String cName = c.getName();
-				System.out.println("쿠키 이름 ~~ : "+cName);
-				if(cName == "intro") {
-					cCheck = true;
-	
-				}
-			}
-			
-			if(cCheck == false) {
-				System.out.println("펄스~~ 실행~~~~~~~~~");
-				
-				Cookie cookie = new Cookie("intro", "intro");
-		    	cookie.setMaxAge(60*60);
-		    	response.addCookie(cookie);
-		    	%>
-		    	<script>location.href="${path }/intropage/intropage.do";</script>
-		    	<%
-			}
-			else {
-				System.out.println("트루 실행~~~~~~~~~");
-			}
-		}
-		else{
-			System.out.println("널값 뜸~~~~~~~~~~~~~~~~~~~~~~");
-			Cookie cookie = new Cookie("intro", "intro");
-	    	cookie.setMaxAge(60*60);
-	    	response.addCookie(cookie);
-	    	%>
-	    	<script>location.href="${path }/intropage/intropage.do";</script>
-	    	<%
-		}
-    %> --%>
 
-    
       <script>
       	var reportCount = ${empty sessionScope.member?0:sessionScope.member.REPORTCOUNT};
       	$(function(){
@@ -362,6 +322,7 @@
       	
       	})
       	$('#icon4').click(function(){
+<<<<<<< HEAD
       		if(reportCount == 5)
       		{
       			alert("신고누적으로 서비스가 제한된 회원입니다. 관리자에게 문의해주세요.");
@@ -372,6 +333,9 @@
       			location.href="${path}/board.jsp";
       		}
       	
+=======
+      		location.href="${path}/board/boardMain.do";
+>>>>>>> refs/remotes/origin/yongjin
       	})
       	$('#icon5').click(function(){
       		location.href="${path}/support/supportView.do";
