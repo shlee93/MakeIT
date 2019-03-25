@@ -224,7 +224,7 @@
 
     
       <script>
-      	
+      	var reportCount = ${empty sessionScope.member?0:sessionScope.member.REPORTCOUNT};
       	$(function(){
       		setTimeout(function(){
           		$('#bubble1').css({'width':'75px','height':'auto'});
@@ -324,16 +324,54 @@
       	})
       	
       	$('#icon1').click(function(){
-      		location.href="${path}/sell/sellmain.do";
+      		
+      		if(reportCount == 5)
+      		{
+      			alert("신고누적으로 서비스가 제한된 회원입니다. 관리자에게 문의해주세요.");
+                location.href="${path}/support/supportView.do";
+      		}
+      		else
+      		{
+      			location.href="${path}/sell/sellmain.do";
+      		}
+                  		
       	})
       	$('#icon2').click(function(){
-      		location.href="${path}/buy/buymain.do";
+      		if(reportCount == 5)
+      		{
+      			alert("신고누적으로 서비스가 제한된 회원입니다. 관리자에게 문의해주세요.");
+                location.href="${path}";
+      		}
+      		else
+      		{
+      			location.href="${path}/buy/buymain.do";
+      		}
+            
+         
       	})
       	$('#icon3').click(function(){
-      		location.href="${path}/contest/contestMain.do";
+      		if(reportCount == 5)
+      		{
+      			alert("신고누적으로 서비스가 제한된 회원입니다. 관리자에게 문의해주세요.");
+                location.href="${path}/support/supportView.do";
+      		}
+      		else
+      		{
+      			location.href="${path}/contest/contestMain.do";
+      		}
+      	
       	})
       	$('#icon4').click(function(){
-      		location.href="${path}/board.jsp";
+      		if(reportCount == 5)
+      		{
+      			alert("신고누적으로 서비스가 제한된 회원입니다. 관리자에게 문의해주세요.");
+                location.href="${path}/support/supportView.do";
+      		}
+      		else
+      		{
+      			location.href="${path}/board.jsp";
+      		}
+      	
       	})
       	$('#icon5').click(function(){
       		location.href="${path}/support/supportView.do";

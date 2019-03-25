@@ -71,7 +71,10 @@
 	           	</div>
       </div>
       <div id="buy-container" class="col-md-10">
-   <form id="sellWriteFrm" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/sell/sellWriteEnd">
+      <div id="pageTitle" style="padding-bottom:20px;">
+                  		<h1 style="font-family: 'Sunflower', sans-serif;">판매 게시글 작성</h2>
+      </div>
+   		 <form id="sellWriteFrm" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/sell/sellWriteEnd">
          <div class="row">
             <div class="col-md-2">
             <label>분류</label> 
@@ -218,5 +221,4 @@
          
       
    </script>
-</body>
-</html>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include> 

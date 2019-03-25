@@ -103,5 +103,9 @@ int sellCommit(int sellSpecNo);
 
 int sellBuyerCount(int sellno);
 
+List<Map<String, String>> selectSellImg(int sellno);
+
+int insertSellImg(Map<String, String> m);
+
 }
 

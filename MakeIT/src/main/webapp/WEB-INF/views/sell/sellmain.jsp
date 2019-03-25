@@ -105,7 +105,9 @@
 				<!-- 앨범뷰 -->
 
 				<div class='col-md-10 col-xs-10' style='position: relative; min-width: 400px'>
-
+					<div id="pageTitle" style="padding-bottom:20px;">
+                  		<h1 style="font-family: 'Sunflower', sans-serif;">판매게시판</h2>
+               		</div>
 					<!-- 앨범 뷰 상단 탭 -->
 					<div style="margin-right: 0; text-align: right">
 
@@ -122,7 +124,7 @@
 						<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
 							<a class="nav-item nav-link active" id="nav-home-tab" onclick="fn_valueChangeNew();" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" style="font-family: 'Sunflower', sans-serif;">신규등록</a> 
 							<a class="nav-item nav-link" id="nav-profile-tab" onclick="fn_valueChangeGrade();" data-toggle="tab" href="#nav-profile" role="tab"	aria-controls="nav-profile" aria-selected="false" style="font-family: 'Sunflower', sans-serif;">등급별</a> 
-							<a class="nav-item nav-link" id="nav-contact-tab" onclick="fn_valueChangePerformance();" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false" style="font-family: 'Sunflower', sans-serif;">실적별</a>
+							
 						</div>
 					</nav>
 					<script>
@@ -535,7 +537,7 @@
 																	});
 														});
 													</script>
-													<!-- <a href="시발라랏사">ㅇㅇㅇ</a> -->
+												
 												</div>
 												<div class="box-content" onclick="location.href='${path}/sell/selldetail?sellno=${newList.SELLNO }'">
 													<h3 class="title">${newList.MEMBERID}</h3>
@@ -568,7 +570,24 @@
 														</script>
 
 													</div>
-													<p id="gradep">등급: ${newList.GRADENAME}</p>
+													<p id="gradep">
+														<c:if test="${newList.GRADENAME == '브론즈' }">
+						                           			<p style='display: inline;'><img alt="" src="${path }/resources/image/bronzeGrade.png" style="max-width: 50px;max-height: 50px;font-family: 'Sunflower', sans-serif;"></p>
+						                           		</c:if>
+						                           		<c:if test="${newList.GRADENAME == '실버' }">
+						                           			<p style='display: inline;'><img alt="" src="${path }/resources/image/silverGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+						                	           	</c:if>
+						                           		<c:if test="${newList.GRADENAME == '골드' }">
+						                           			<p style='display: inline;'><img alt="" src="${path }/resources/image/goldGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+						                           		</c:if>
+						                           		<c:if test="${newList.GRADENAME == '플래티넘' }">
+						                           			<p style='display: inline;'><img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+						                           		</c:if>
+						                           		<c:if test="${newList.GRADENAME == '다이아' }">
+						                           			<p style='display: inline;'><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+						                           		</c:if>
+						                           		${newList.GRADENAME}
+													</p>	
 												</div>
 											</div>
 										</div>
@@ -767,5 +786,4 @@
 		
 			<div class='col-md-1'></div>
 			</div>
-</body>
-</html>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include> 

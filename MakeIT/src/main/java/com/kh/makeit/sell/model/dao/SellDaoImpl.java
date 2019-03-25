@@ -312,6 +312,18 @@ public class SellDaoImpl implements SellDao {
 		return sqlSession.selectOne("sell.sellBuyerCount",sellno);
 	}
 
+	@Override
+	public List<Map<String, String>> selectSellImg(int sellno) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("sell.selectSellImg",sellno);
+	}
+
+	@Override
+	public int insertSellImg(Map<String, String> m) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("sell.insertSellImg",m);
+	}
+
 	
 
 }

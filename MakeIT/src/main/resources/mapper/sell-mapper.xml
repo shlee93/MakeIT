@@ -150,7 +150,7 @@ select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.g
 
 <!--메인창에서 상세창으로 데이터 가져오는 매퍼  -->
 <select id="selldetailView" parameterType="_int" resultType="map">
-   select se.sellno,se.sellcontent,se.memberid,me.MEMBERNAME,me.INTRODUCTION,me.reimg,gr.gradename from sell se join member me on(se.memberid=me.memberid) join grade gr on(gr.gradeno=me.gradeno) where sellno=#{sellno}
+   select se.selltitle,se.sellno,se.sellcontent,se.memberid,me.MEMBERNAME,me.INTRODUCTION,me.reimg,gr.gradename from sell se join member me on(se.memberid=me.memberid) join grade gr on(gr.gradeno=me.gradeno) where sellno=#{sellno}
 </select>
 <!-- 메인창에서 이미지 가져오는놈 -->
 <select id="selldetailImg" parameterType="_int" resultType="map">
@@ -226,7 +226,7 @@ insert into SELLOPTION values(SEQ_SELLOPTIONCODE.NEXTVAL,#{selloptionNo},#{selln
 </select>
 <!-- 결재값 인서트 -->
 <insert id="purchaseComplete" parameterType="map">
-	insert into sellspec values(seq_sellspecno.nextval,#{memberId},#{optionCode},#{optionNo},#{sellno},#{su},'S',default,2,default)
+	insert into sellspec values(SEQ_SELLSPECNO.nextval,#{memberId},#{optionCode},#{optionNo},#{sellno},#{su},'S',default,2,default)
 </insert>
 <!-- 결재 완료후 선택한 옵션 띄우주기 -->
 <select id="optionInfo" parameterType="map" resultType="map">
@@ -273,6 +273,11 @@ insert into SELLOPTION values(SEQ_SELLOPTIONCODE.NEXTVAL,#{selloptionNo},#{selln
  	select count(*) from sellspec where sellno=#{sellno} and statusno=2
  </select>
  
+ <select id="selectSellImg" parameterType="_int" resultType="map">
+ 	select * from sellimg where sellno=#{sellno} order by sellimgno asc
+ </select>
  
- 
+  <insert id="insertSellImg" parameterType="map">
+ 	insert into sellimg values(seq_sellImg.nextval,#{SELLNO},'S',#{SELLIMGORI},#{SELLIMGRE})
+ </insert>
 </mapper>

@@ -24,7 +24,10 @@
    	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
    	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/contestdetail/contestDetail.css" />
    	<link rel='stylesheet' href='${pageContext.request.contextPath }/resources/css/boardCommon/boardCommon.css'/>
-   
+   <link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+	integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+	crossorigin="anonymous">
    	<jsp:include page="/WEB-INF/views/common/header.jsp">
 	  	<jsp:param value="HelloSpring" name="pageTitle"/>
    	</jsp:include>
@@ -40,9 +43,10 @@
 	       	margin-bottom:-150px;
        	}
 	       
-       	html,body
+       	body
        	{
 			height: 100%;
+			 overflow-X:hidden; 
 		}  		
 		#optionT
 		{
@@ -56,13 +60,20 @@
 	{
 		var scmove = $('#mainNavi').offset().top;
 		$('html, body').animate( { scrollTop : scmove }, 400 );
+		var reportCount = ${empty sessionScope.member?0:sessionScope.member.REPORTCOUNT};
+		if(reportCount == 5)
+  		{
+  			alert("신고누적으로 서비스가 제한된 회원입니다. 관리자에게 문의해주세요.");
+            location.href="${path}/support/supportView.do";
+  		}
+		
 	});
 	
 	$(window).scroll(function(){
 		if($(this).scrollTop() > 150)
 		{
 			var windowVal = $(this).scrollTop();
-			$('#donggeulNav').css('top',windowVal-150);
+			$('#donggeulNav').css('top',windowVal-300);
 		}
 		if($(this).scrollTop() < 150) 
         {
@@ -108,7 +119,7 @@
 		})
 	})
 </script>
-                               
+                        
 <div class='container-fluid' id="total">
 	<div class='row'>
         <div class='col-md-1' id='nav'>
@@ -124,8 +135,10 @@
         </div>
         <div class='col-md-10' id='section' style='padding:50px'>        	
             <div class='row'>         
-                <div class="col-md-6" id="img-container"  style='padding:1px; width: 100%; height: 600px;'>                	
+                <div class="col-md-6" id="img-container"  style='padding:1px; width: 100%;'>                	
+					<h4 style="font-family: 'Sunflower','sans-serif';">${detailList.get(0).SELLTITLE}</h4>
                     <div class='row mainImgContainer' id='mainImgContainer'>
+                    	
                     	<img id="mainImg" class="mainImg" src="${path}/resources/upload/sell/${mainimgList.get(0).SELLIMGRE}" style='max-height: 400px; min-height: 600px; width: 100%;'>
                     </div>
                     <div class='row'>              
@@ -146,10 +159,8 @@
                             </div>
                         </nav>
                         <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent" style="width:100%;">
-                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" style='width: 100%'>
-                            	<textarea class='contentTextArea' rows="34" readonly='readonly'>  
-                            		<h4>${detailList.get(0).SELLCONTENT}</h4>
-                            	</textarea>
+                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" style='width: 100%;'>
+                            	<pre class='contentTextArea' rows="34" style='border:0;height:auto;white-space:pre-wrap;font-weight:bold ' readonly='readonly'  >${detailList.get(0).SELLCONTENT}</pre>
                             </div>
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                            	<div id="rate-div"></div>
@@ -234,10 +245,7 @@
 								<p>1. 전문가의 귀책사유로 당초 약정했던 서비스 미이행 혹은 보편적인 관점에서 심각하게 잘못 이행한 경우 결제 금액 전체 환불이 가능합니다.</p> 
 								<br/>
 								<p>다. 의뢰인 책임 사유</p> 
-								<p>1. 서비스 진행 도중 의뢰인의 귀책사유로 인해 환불을 요청할 경우, 사용 금액을 아래와 같이 계산 후 총 금액의 10%를 공제하여 환불합니다.</p> 
-								<p>총 작업량의 1/3 경과 전 : 이미 납부한 요금의 2/3해당액</p> 
-								<p>총 작업량의 1/2 경과 전 : 이미 납부한 요금의 1/2해당액</p> 
-								<p>총 작업량의 1/2 경과 후 : 반환하지 않음</p>
+								<p>1. 작업물 수령 후 단순 변심 및 불분명한 사유로 인한 경우 결제 금액은 환불이 불가합니다.</p>
                             </div>
                             <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab"  style='width:100%';text-align="center">
                                 <table id="optionT" border="1px solid black" style='width:100%'  >
@@ -271,16 +279,16 @@
                            		<p style='display: inline;'><img alt="" src="${path }/resources/image/bronzeGrade.png" style="max-width: 50px;max-height: 50px;font-family: 'Sunflower', sans-serif;"></p>
                            	</c:if>
                            	<c:if test="${detailList.get(0).GRADENAME == '실버' }">
-                           		<p><img alt="" src="${path }/resources/image/silverGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+                           		<p style='display: inline;'><img alt="" src="${path }/resources/image/silverGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
                            	</c:if>
                            	<c:if test="${detailList.get(0).GRADENAME == '골드' }">
-                           		<p><img alt="" src="${path }/resources/image/goldGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+                           		<p style='display: inline;'><img alt="" src="${path }/resources/image/goldGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
                            	</c:if>
                            	<c:if test="${detailList.get(0).GRADENAME == '플래티넘' }">
-                           		<p><img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+                           		<p style='display: inline;'><img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
                            	</c:if>
-                           	<c:if test="${detailList.get(0).GRADENAME == '다이아몬드' }">
-                           		<p><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+                           	<c:if test="${detailList.get(0).GRADENAME == '다이아' }">
+                           		<p style='display: inline;'><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
                            	</c:if>
                               	
                        		<h4 style="display: inline;font-family: 'Sunflower', sans-serif;"><strong>${detailList.get(0).GRADENAME}</strong>${detailList.get(0).MEMBERNAME}</h4>
@@ -774,7 +782,8 @@
 												"transition":"1s"
 											});									
 										});								
-									});						         
+									});
+
 								</script>                        	
 	                       		<!-- 동글뱅이 스크립트 끝 -->                             	
 	                         
@@ -794,7 +803,7 @@
 	                        	
 	                        	<!-- 작성자 소개 -->  	
                           		<div class='col-md-8'>
-                          			<p>${contestObj.INTRODUCTION}</p>
+                          			<p>${detailList.get(0).INTRODUCTION}</p>
                           		</div>
                           		<!-- 작성자 소개 끝 -->
                           		
@@ -807,7 +816,11 @@
       		</div>
 		</div>   
    		<div class='col-md-1' id='right-nav'>
-   			
+   			<c:if test="${sessionScope.member.MEMBERID=='admin'}">             
+         <div style='position:fixed; margin-top: 10em;'>
+            <button id="" class=" btn btn-outline-info slidetopleft" >승인</button>
+         </div>
+      </c:if>
    			
    		</div>                   
 	</div>
@@ -822,6 +835,7 @@
 					
 			 window.open("${path}/sell/sellRefund.do?sellWriter=${detailList.get(0).MEMBERID}&&refundId=${sessionScope.member.MEMBERID}&&sellno=${detailList.get(0).SELLNO}",name,'width=490, height=300, menubar=no, status=no, toolbar=no'); 
 		}
+		
 	</script>
-</body>
-</html>
+	
+<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
