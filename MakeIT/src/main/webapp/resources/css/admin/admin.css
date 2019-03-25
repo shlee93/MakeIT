@@ -1,15 +1,27 @@
 /* 관리자 페이지 메인 */
+h5,h4,h3,h2,h1,a,span,div{
+	font-family: 'Sunflower', sans-serif;
+}
+li{
+	color:black;
+}
 .grade-icon{
 	max-width:50%;
 	max-height:50%;
 	width:auto;
 	height:auto;
 }
+textarea{
+	font-family: 'Sunflower', sans-serif;
+	font-size:22px;
+}
 .project-tab #tabs {
 	background: #007b5e;
 	color: #eee;
 }
-
+.project-tab{
+	margin-top:-7%
+}
 .project-tab #tabs h6.section-title {
 	color: #eee;
 }
@@ -838,6 +850,7 @@ translate
 .faq-category {
 	border: 1px solid gray;
 	border-radius: 5px;
+	color:black;
 	width: 90%;
 }
 

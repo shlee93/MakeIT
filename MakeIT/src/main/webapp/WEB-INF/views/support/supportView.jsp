@@ -22,8 +22,9 @@
 				</nav>
 				<div class="tab-content" id="nav-tabContent">
 					<div class="tab-pane fade show active" id="nav-qna" role="tabpanel" aria-labelledby="nav-qna-tab">
+						<hr>
 						<div class="qna-search">
-                            <div id="search-icon">검색</div>
+                            <div id="search-icon"></div>
 							<select id="search-filter">
 								<option class="search-filter-option" value="QNATITLE" selected>제목</option>
 								<option class="search-filter-option" value="MEMBERID">작성자</option>
@@ -141,7 +142,7 @@
                         <c:if test="${not empty categoryList }">
                         	<c:forEach items="${categoryList }" var="category">
                          <div class="faq-back">
-                             <div class="faq-category btn btn-outline-info slidetopleft">${category.FAQNACATEGORYNAME }
+                             <div class="faq-category btn btn-outline-info slidetopleft">●&nbsp;${category.FAQNACATEGORYNAME }
 
 		                         <button class="faq-slide btn btn-outline-info slidetopleft">▼</button>
 
@@ -152,13 +153,13 @@
                                  	<c:if test="${faq.FAQNACATEGORYNO==category.FAQNACATEGORYNO }">
                                  	
 	                                    <li class="faq-question">
-	                                    	<textarea cols="65" style="resize:none; border:0;" readonly="readonly">${faq.FAQTITLE }</textarea>
+	                                    	<textarea cols="65" style="resize:none; border:0;" readonly="readonly">○&nbsp;${faq.FAQTITLE }</textarea>
 											
 	                                       	<button class="answer-slide">▼</button>
 	                                       
 	                                       	<hr>
 	                                       	<div class="faq-answer">
-	                                       		<textarea cols="65" style="resize:none; border:0;" readonly="readonly">${faq.FAQCONTENT }</textarea>
+	                                       		<textarea cols="90" style="resize:none; border:0;" readonly="readonly">○&nbsp;${faq.FAQCONTENT }</textarea>
 	                                       	</div>
 	                                        
 	                                    </li>

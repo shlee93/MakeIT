@@ -1,13 +1,15 @@
 $(document).ready(function(){
-	adjustHeight();
+	
+	cmaTextareaSize(80);
 });
-function adjustHeight() {
-	  var textEle = $('textarea');
-	  textEle[0].style.height = 'auto';
-	  var textEleHeight = textEle.prop('scrollHeight');
-	  console.log("?"+textEleHeight);
-	  textEle.css('height', textEleHeight);
-};
+
+function cmaTextareaSize(bsize) { // 객체명, 기본사이즈
+    var sTextarea =$('textarea');
+    var csize = (sTextarea.scrollHeight >= bsize) ? sTextarea.scrollHeight+"px" : bsize+"px";
+    sTextarea.css("height",bsize+"px"); 
+    sTextarea.css("height",csize);
+}
+
 //게시글 승인 탭 세부 메뉴 버튼 클릭 화면전환
 $(document).on('click','.approval-li',function(){
 	
@@ -875,6 +877,7 @@ $(document).on('click','.payment-end',function(){
 	var specNo=$('#end-spec-no').val();
 	var price=$('.cost').children('span').text();
 	var $payment_Tab=$('.payment-view-div');
+	var targetId=$('#payment-target').val();
 	console.log(title);
 	console.log(price);
 	
@@ -886,7 +889,7 @@ $(document).on('click','.payment-end',function(){
 		pay_method : 'trans',
 		merchant_uid : 'merchant_' + new Date().getTime(),
 		name : title,
-		amount : price,
+		amount : 1000,
 		buyer_email : 'make_it@gmail.kr',
 		buyer_name : 'MakeIT(메이크잇)',
 		buyer_tel : '010-1234-5678',
@@ -907,10 +910,12 @@ $(document).on('click','.payment-end',function(){
 				url:"updatePaymentEnd.do",
 				data:{
 					"paymentStatus":viewStatus,
-					"specNo":specNo
+					"specNo":specNo,
+					"targetId":targetId
 				},
 				dataType:"html",
 				success:function(data){
+					$('#close').click();
 					$('.modal-body').children('.row').remove();
 					$payment_Tab.html(data);
 				}
@@ -952,7 +957,7 @@ $(document).on('click','.refund-pop',function(){
 	var $click_Li=$(this);
 	var specNo=$click_Li.children('input').val();
 	console.log(viewStatus);
-	window.open("refundView.do?specNo="+specNo+"&refundStatus="+viewStatus,"faqWin","width=800, height=600, top=200,left=1000");
+	window.open("refundView.do?specNo="+specNo+"&refundStatus="+viewStatus,"faqWin","width=800, height=400, top=200,left=1000");
 });
 
 /*//환불요청 결제 팝업

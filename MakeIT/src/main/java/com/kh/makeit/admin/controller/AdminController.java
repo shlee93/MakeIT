@@ -489,7 +489,7 @@ public class AdminController {
 	
 	//결제완료 spec status 업데이트
 	@RequestMapping("/admin/updatePaymentEnd")
-	public ModelAndView updatePaymentEnd(int specNo,String paymentStatus,
+	public ModelAndView updatePaymentEnd(int specNo,String paymentStatus,String targetId,
 			@RequestParam(value="cPage",required=false, defaultValue="1") int cPage,
 			@RequestParam(value="sortCheck",required=false, defaultValue="0") int sortCheck
 			) {
@@ -501,7 +501,19 @@ public class AdminController {
 		payment.put("specNo", specNo);
 		payment.put("paymentStatus", paymentStatus);
 		int result=adminService.updatePaymentEnd(payment);
-		
+		if(result>0) {
+			
+			int paymentBuyCount=adminService.selectPaymentBuyCount(targetId);
+			int paymentSellCount=adminService.selectPaymentSellCount(targetId);
+			int performCount=paymentBuyCount+paymentSellCount;
+			Map<Object,Object> perform=new HashMap();
+			perform.put("targetId", targetId);
+			perform.put("performCount", performCount);
+			int gradeUpdate=adminService.updateGradeUpdate(perform);
+			if(gradeUpdate>0) {
+				logger.info(gradeUpdate);
+			}
+		}
 		//결제현황 출력
 		List<Map<Object,Object>> paymentList=adminService.selectPaymentListAdmin(payment,cPage,numPerPage);
 						
@@ -760,7 +772,7 @@ public class AdminController {
 		mav.addObject("approvalOption", approvalOption);
 		mav.addObject("pageBarApproval", pageBarApproval);
 		mav.addObject("approvalList", approvalList);
-		mav.setViewName("admin/adminApprovalView");
+		mav.setViewName("admin/adminApprovalTblView");
 		return mav;
 		
 	}
@@ -788,7 +800,7 @@ public class AdminController {
 		mav.addObject("approvalOption", approvalOption);
 		mav.addObject("pageBarApproval", pageBarApproval);
 		mav.addObject("approvalList", approvalList);
-		mav.setViewName("admin/adminApprovalView");
+		mav.setViewName("admin/adminApprovalTblView");
 		return mav;
 		
 	}
@@ -817,7 +829,7 @@ public class AdminController {
 		mav.addObject("approvalOption", approvalOption);
 		mav.addObject("pageBarApproval", pageBarApproval);
 		mav.addObject("approvalList", approvalList);
-		mav.setViewName("admin/adminApprovalView");
+		mav.setViewName("admin/adminApprovalTblView");
 		return mav;
 		
 	}

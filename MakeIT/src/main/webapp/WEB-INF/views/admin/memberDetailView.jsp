@@ -44,7 +44,7 @@
 						<div class="row">
 							<div class="col-md-3" align="center">
 								<img id='user-img' alt="User Pic"
-									src="C:\Users\Ncu422\Documents\HTMLVS\한효주.png"
+									src="${path }/resources/upload/member/${member.REIMG}"
 									class="img-circle img-responsive">
 							</div>
 

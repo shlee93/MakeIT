@@ -1,21 +1,14 @@
 $(document).ready(function(){
 	
-	$('textarea').each(function () {
-		console.log(this.scrollHeight);
-	    this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
-	  }).on('load', function () {
-	    this.style.height = 'auto';
-	    this.style.height = (this.scrollHeight) + 'px';
-	});
+	cmaTextareaSize(120);
 });
-function adjustHeight() {
-	  var textEle = $('textarea');
-	  console.log(textEle.eq(1));
-	  textEle[0].style.height = 'auto';
-	  var textEleHeight = textEle.eq(1).prop('scrollHeight');
-	  console.log("?"+textEleHeight);
-	  textEle.css('height', textEleHeight);
-};
+
+function cmaTextareaSize(bsize) { // 객체명, 기본사이즈
+    var sTextarea =$('textarea');
+    var csize = (sTextarea.scrollHeight >= bsize) ? sTextarea.scrollHeight+"px" : bsize+"px";
+    sTextarea.css("height",bsize+"px"); 
+    sTextarea.css("height",csize);
+}
 
 //qna 검색
 $(document).on('keyup','#search-qna',function(){
@@ -518,7 +511,7 @@ $(document).on('click','#qna-status',function(){
 
 //faq 카테고리 클릭 이벤트
 $(document).on('click', '.faq-slide', function () {
-
+	cmaTextareaSize(120);
 	var $faq_list = $(this).parent().next();
 
 	if ($faq_list.is(':hidden')) {
@@ -538,7 +531,7 @@ $(document).on('click', '.faq-slide', function () {
 
 //faq 답변 보기 이벤트
 $(document).on('click', '.answer-slide', function () {
-
+	cmaTextareaSize(120);
 	var $slide_btn = $(this);
 	var $answer = $slide_btn.siblings('.faq-answer');
 

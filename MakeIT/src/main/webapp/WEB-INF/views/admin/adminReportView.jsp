@@ -26,7 +26,7 @@
 						<div class="row">
 							<div class="col-md-3" align="center">
 								<h3 class="panel-title">${report.SELLID }</h3>
-								<img alt="User Pic" src="${path }/upload/member/${report.REIMG}" class="img-circle img-responsive">
+								<img alt="User Pic" src="${path }/resources/upload/member/${report.REIMG}" class="img-circle img-responsive">
 							</div>
 							<div class="col-md-9">
 								<table class="table table-user-information">
@@ -110,7 +110,7 @@
 						<div class="row">
 							<div class="col-md-3" align="center">
 								<h3 class="panel-title">${report.CONTESTID }</h3>
-								<img alt="User Pic" src="${path }/upload/member/${report.REIMG}" class="img-circle img-responsive">
+								<img alt="User Pic" src="${path }/resources/upload/member/${report.REIMG}" class="img-circle img-responsive">
 							</div>
 							<div class="col-md-9">
 								<table class="table table-user-information">
@@ -193,7 +193,7 @@
 						<div class="row">
 							<div class="col-md-3" align="center">
 								<h3 class="panel-title">${report.FREEID }</h3>
-								<img alt="User Pic" src="${path }/upload/member/${report.REIMG}" class="img-circle img-responsive">
+								<img alt="User Pic" src="${path }/resources/upload/member/${report.REIMG}" class="img-circle img-responsive">
 							</div>
 							<div class="col-md-9">
 								<table class="table table-user-information">
@@ -276,7 +276,7 @@
 						<div class="row">
 							<div class="col-md-3" align="center">
 								<h3 class="panel-title">${report.BUYID }</h3>
-								<img alt="User Pic" src="${path }/upload/member/${report.REIMG}" class="img-circle img-responsive">
+								<img alt="User Pic" src="${path }/resources/upload/member/${report.REIMG}" class="img-circle img-responsive">
 							</div>
 							<div class="col-md-9">
 								<table class="table table-user-information">

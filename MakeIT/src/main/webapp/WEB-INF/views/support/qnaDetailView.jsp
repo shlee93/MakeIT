@@ -20,6 +20,9 @@
 		<label class="col-md-6 control-label" for="qna-writer"><strong>작성자</strong></label>
 		<div class="col-md-6">
 		<c:choose>
+			<c:when test="${qna.MEMBERLEVEL==0 }">
+				<img class="grade-icon" src="${path }/resources/image/diamondGrade.png"/>
+			</c:when>
 			<c:when test="${qna.GRADENO==1 }">
 				<img class="grade-icon" src="${path }/resources/image/bronzeGrade.png"/>
 			</c:when>

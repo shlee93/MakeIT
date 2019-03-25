@@ -43,7 +43,8 @@
 				</c:when>
 			</c:choose>
 			<span>
-				${paymentInfo.MEMBERID }
+				<input type="hidden" id="payment-target" value="${paymentInfo.TARGETID }"/>
+				${paymentInfo.TARGETID }
 			</span>
 		</h2>
 		<h2 class="payment-target-name">
@@ -70,7 +71,7 @@
 			<button type="button" class="btn btn-outline-info slidetopleft payment-end">
 				<span class="glyphicon glyphicon-shopping-cart"></span> 결제
 			</button>
-			<button type="button" class="btn btn-outline-info slidetopleft class pull-right" data-dismiss="modal">
+			<button type="button" class="btn btn-outline-info slidetopleft pull-right" id="close" data-dismiss="modal">
 				<span class="glyphicon glyphicon-remove">닫기</span>
 			</button>
 		</div>
@@ -113,6 +114,7 @@
 			</c:choose>
 			
 			<span>
+				<input type="hidden" id="payment-target" value="${paymentInfo.MEMBERID }"/>
 				${paymentInfo.MEMBERID }
 			</span>
 		</h2>
@@ -144,7 +146,7 @@
 			<button type="button" class="btn btn-outline-info slidetopleft payment-end">
 				<span class="glyphicon glyphicon-shopping-cart"></span> 결제
 			</button>
-			<button type="button" class="btn btn-outline-info slidetopleft class pull-right" data-dismiss="modal">
+			<button type="button" class="btn btn-outline-info slidetopleft pull-right" id="close" data-dismiss="modal">
 				<span class="glyphicon glyphicon-remove">닫기</span>
 			</button>
 		</div>

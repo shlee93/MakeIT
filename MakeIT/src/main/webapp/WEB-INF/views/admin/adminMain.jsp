@@ -160,21 +160,21 @@
                                                         <li class='side-nav-li approval-li' data-toggle="collapse" data-target="#new"
                                                             class="collapsed">
                                                             <a href="#">
-                                                                <i class="fas fa-credit-card fa-lg"></i> 구매
+                                                                	구매
                                                             </a>
                                                             <input type="hidden" class="approval-status" value="BUY"/>
                                                         </li>
                                                         <li class='side-nav-li approval-li' data-toggle="collapse" data-target="#new"
                                                             class="collapsed">
                                                             <a href="#">
-                                                                <i class="fa fas fa-trophy fa-lg"></i> 판매
+                                                                	판매
                                                             </a>
                                                             <input type="hidden" class="approval-status" value="SELL"/>
                                                         </li>
                                                         <li class='side-nav-li approval-li' data-toggle="collapse" data-target="#new"
                                                             class="collapsed">
                                                             <a href="#">
-                                                                <i class="fas fa-address-card"></i>컨테스트
+                                                                	컨테스트
                                                             </a>
                                                             <input type="hidden" class="approval-status" value="CONTEST"/>
                                                         </li>
@@ -410,25 +410,25 @@
 															<li class='side-nav-li report-view active' data-toggle="collapse" data-target="#new" class="collapsed">
 																<input type="hidden" value="BUY"/>
 																<a href="#">
-																	<i class="fas fa-credit-card fa-lg"></i> 구매
+																	구매
 																</a>
 															</li>
 															<li class='side-nav-li report-view' data-toggle="collapse" data-target="#new" class="collapsed">
 																<input type="hidden" value="SELL"/>
 																<a href="#">
-																	<i class="fa fas fa-trophy fa-lg"></i> 판매
+																	판매
 																</a>
 															</li>
 															<li class='side-nav-li report-view' data-toggle="collapse" data-target="#new" class="collapsed">
 																<input type="hidden" value="CONTEST"/>
 																<a href="#">
-																	<i class="fas fa-address-card"></i> 컨테스트
+																	컨테스트
 																</a>
 															</li>
 															<li class='side-nav-li report-view' data-toggle="collapse" data-target="#new" class="collapsed">
 																<input type="hidden" value="FREE"/>
 																<a href="#">
-																	<i class="fas fa-fax fa-lg"></i> 자유게시판
+																	자유게시판
 																</a>
 															</li>
 			
@@ -470,7 +470,7 @@
 															<div class="row">
 																<div class="col-md-3" align="center">
 																	<h3 class="panel-title">${report.BUYID }</h3>
-																	<img alt="User Pic" src="${path }/upload/member/${report.REIMG}" class="img-circle img-responsive">
+																	<img alt="User Pic" src="${path }/resources/upload/member/${report.REIMG}" class="img-circle img-responsive">
 																</div>
 																<div class="col-md-9">
 																	<table class="table table-user-information">
@@ -598,13 +598,13 @@
 													<li class='side-nav-li payment-view active' data-toggle="collapse" data-target="#new" class="collapsed">
 														<input type="hidden" value="BUY" /> 
 														<a> 
-															<i class="fas fa-credit-card fa-lg"></i> 구매
+															구매
 														</a>
 													</li>
 													<li class='side-nav-li payment-view' data-toggle="collapse" data-target="#new" class="collapsed">
 														<input type="hidden" value="SELL" /> 
 														<a> 
-															<i class="fa fas fa-trophy fa-lg"></i> 판매
+															판매
 														</a>
 													</li>
 	
@@ -634,7 +634,7 @@
 			                                            </li>
 			                                            <li class="dealer">
 			                                            	<strong>판매자:</strong>
-			                                            	${payment.BUYID }                            	
+			                                            	<span>${payment.BUYID }</span>                            	
 			                                            </li>
 			                                            <li class="deal-title">
 															<br><strong>글 제목:</strong> 
@@ -677,7 +677,7 @@
 			                                            </li>
 			                                            <li class="dealer">
 			                                            	<strong>판매자:</strong>
-			                                            	${payment.SELLID }
+			                                            	<span>${payment.SELLID }</span>
 			                                            </li>
 			                                            <li class="deal-title">
 															<br><strong>글 제목:</strong> 
@@ -758,13 +758,13 @@
 													<li class='side-nav-li refund-view active' data-toggle="collapse" data-target="#new" class="collapsed">
 														<input type="hidden" value="BUY" /> 
 														<a> 
-															<i class="fas fa-credit-card fa-lg"></i> 구매
+															 구매
 														</a>
 													</li>
 													<li class='side-nav-li refund-view' data-toggle="collapse" data-target="#new" class="collapsed">
 														<input type="hidden" value="SELL" /> 
 														<a> 
-															<i class="fa fas fa-trophy fa-lg"></i> 판매
+															판매
 														</a>
 													</li>
 	
