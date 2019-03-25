@@ -206,7 +206,7 @@
       	})
 	  	
 	  	$('#icon1').click(function(){
-<<<<<<< HEAD
+
       		
       		if(reportCount == 5)
       		{
@@ -256,7 +256,7 @@
       		}
       	
       	})
-=======
+
 	  		location.href="${path}/sell/sellmain.do";
 	  	})
 	  	$('#icon2').click(function(){
@@ -268,7 +268,7 @@
 	  	$('#icon4').click(function(){
 	  		location.href="${path}/board/boardMain.do";
 	  	})
->>>>>>> refs/remotes/origin/yongjin
+
 	  	$('#icon5').click(function(){
 	  		location.href="${path}/support/supportView.do";
 	  	})
