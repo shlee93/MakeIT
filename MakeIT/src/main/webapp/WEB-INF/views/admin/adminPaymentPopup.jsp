@@ -12,7 +12,7 @@
 
 	<div class="col-md-12 product_content">
 		<h4>
-			Product Title: <span>${paymentInfo.SELLTITLE }</span>
+			Product Title: <br><span>${paymentInfo.SELLTITLE }</span>
 		</h4>
 		<input type="hidden" id="end-spec-no" value="${paymentInfo.SELLSPECNO }"/>
 		<div class="rating">
@@ -24,7 +24,27 @@
 		</div>
 		<h2 class="payment-target">
 			<small>결제대상 ID:<span class="glyphicon glyphicon-usd"></span></small>
-			${paymentInfo.TARGETID }
+			
+			<c:choose>
+				<c:when test="${paymentInfo.GRADENO==1 }">
+					<img class="grade-icon" alt="" src="/MakeIT/src/main/webapp/resources/image/bronzeGrade.png">
+				</c:when>
+				<c:when test="${paymentInfo.GRADENO==2 }">
+					<img class="grade-icon" alt="" src="/MakeIT/src/main/webapp/resources/image/silverGrade.png">
+				</c:when>
+				<c:when test="${paymentInfo.GRADENO==3 }">
+					<img class="grade-icon" alt="" src="/MakeIT/src/main/webapp/resources/image/goldGrade.png">
+				</c:when>
+				<c:when test="${paymentInfo.GRADENO==4 }">
+					<img class="grade-icon" alt="" src="/MakeIT/src/main/webapp/resources/image/platinumGrade.png">
+				</c:when>
+				<c:when test="${paymentInfo.GRADENO==5 }">
+					<img class="grade-icon" alt="" src="/MakeIT/src/main/webapp/resources/image/diamondGrade.png">
+				</c:when>
+			</c:choose>
+			<span>
+				${paymentInfo.MEMBERID }
+			</span>
 		</h2>
 		<h2 class="payment-target-name">
 			<small>결제대상 이름:<span class="glyphicon glyphicon-usd"></span></small>
@@ -50,8 +70,8 @@
 			<button type="button" class="btn btn-outline-info slidetopleft payment-end">
 				<span class="glyphicon glyphicon-shopping-cart"></span> 결제
 			</button>
-			<button type="button" class="btn btn-outline-info slidetopleft">
-				<span class="glyphicon glyphicon-remove">X</span>
+			<button type="button" class="btn btn-outline-info slidetopleft class pull-right" data-dismiss="modal">
+				<span class="glyphicon glyphicon-remove">닫기</span>
 			</button>
 		</div>
 	</div>
@@ -74,6 +94,24 @@
 		</div>
 		<h2 class="payment-target">
 			<small>결제대상 ID:<span class="glyphicon glyphicon-usd"></span></small>
+			<c:choose>
+				<c:when test="${paymentInfo.GRADENO==1 }">
+					<img alt="" src="/MakeIT/src/main/webapp/resources/image/bronzeGrade.png">
+				</c:when>
+				<c:when test="${paymentInfo.GRADENO==2 }">
+					<img alt="" src="/MakeIT/src/main/webapp/resources/image/silverGrade.png">
+				</c:when>
+				<c:when test="${paymentInfo.GRADENO==3 }">
+					<img alt="" src="/MakeIT/src/main/webapp/resources/image/goldGrade.png">
+				</c:when>
+				<c:when test="${paymentInfo.GRADENO==4 }">
+					<img alt="" src="/MakeIT/src/main/webapp/resources/image/platinumGrade.png">
+				</c:when>
+				<c:when test="${paymentInfo.GRADENO==5 }">
+					<img alt="" src="/MakeIT/src/main/webapp/resources/image/diamondGrade.png">
+				</c:when>
+			</c:choose>
+			
 			<span>
 				${paymentInfo.MEMBERID }
 			</span>
@@ -106,8 +144,8 @@
 			<button type="button" class="btn btn-outline-info slidetopleft payment-end">
 				<span class="glyphicon glyphicon-shopping-cart"></span> 결제
 			</button>
-			<button type="button" class="btn btn-outline-info slidetopleft">
-				<span class="glyphicon glyphicon-remove">X</span>
+			<button type="button" class="btn btn-outline-info slidetopleft class pull-right" data-dismiss="modal">
+				<span class="glyphicon glyphicon-remove">닫기</span>
 			</button>
 		</div>
 	</div>

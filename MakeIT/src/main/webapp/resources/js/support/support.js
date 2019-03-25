@@ -1,3 +1,22 @@
+$(document).ready(function(){
+	
+	$('textarea').each(function () {
+		console.log(this.scrollHeight);
+	    this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+	  }).on('load', function () {
+	    this.style.height = 'auto';
+	    this.style.height = (this.scrollHeight) + 'px';
+	});
+});
+function adjustHeight() {
+	  var textEle = $('textarea');
+	  console.log(textEle.eq(1));
+	  textEle[0].style.height = 'auto';
+	  var textEleHeight = textEle.eq(1).prop('scrollHeight');
+	  console.log("?"+textEleHeight);
+	  textEle.css('height', textEleHeight);
+};
+
 //qna 검색
 $(document).on('keyup','#search-qna',function(){
 	var searchQna=$('#search-qna').val();
@@ -137,6 +156,33 @@ $(document).on('click','.qna-title',function(){
 		alert("비밀번호가 일치하지 않습니다!")
 		return false;
 	}
+	
+});
+
+$(document).on('click','.qna-admin',function(){
+	
+	var cPage=$('.active').children('.page-link').text();
+	var searchQna=$('#search-qna').val();
+	var filter=$('#search-filter option:selected').val();
+	var sortCheck=$('#qna-sort option:selected').val();
+	var qnaNo=$(this).siblings('input').val();
+	//비번 체크
+	$.ajax({
+		url:"detailQnaView.do",
+		data:{
+			"cPage":cPage,
+			"searchQna":searchQna,
+			"filter":filter,
+			"sortCheck":sortCheck,
+			"qnaNo":qnaNo
+		},
+		dataType:"html",
+		success:function(data){
+			$('#pass-check-close').click();
+			$('#nav-qna').html(data);
+			
+		}
+	})
 	
 });
 
@@ -409,6 +455,32 @@ $(document).on('click','#reple-qna',function(){
 	})
 });
 
+//답변하기 클릭
+$(document).on('click','#reple-qna-view',function(){
+	
+	var qnaNo=$('#qnaNo').val();
+	var cPage=$('#cPage').val();
+	var searchQna=$('#search-qna').val();
+	var filter=$('#filter').val();
+	var sortCheck=$('#sortCheck').val();
+	
+	$.ajax({
+		url:"repleQnaView.do",
+		data:{
+			"qnaNo":qnaNo,
+			"cPage":cPage,
+			"searchQna":searchQna,
+			"filter":filter,
+			"sortCheck":sortCheck
+			
+		},
+		dataType:"html",
+		success:function(data){
+			$('#nav-qna').html(data);
+		}
+	})
+});
+
 $(document).on('click','#nav-qna-tab',function(){
 	
 	var cPage=$('#cPage').val();
@@ -491,3 +563,5 @@ $(document).on('keyup','textarea', function() {
     }
  
 });
+
+

@@ -1,4 +1,10 @@
 /* support css */
+.grade-icon{
+	max-width:10%;
+	max-height:10%;
+	width:auto;
+	height:auto;
+}
 .project-tab #tabs {
 	background: #007b5e;
 	color: #eee;

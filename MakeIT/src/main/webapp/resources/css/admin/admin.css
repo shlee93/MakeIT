@@ -1,5 +1,10 @@
 /* 관리자 페이지 메인 */
-
+.grade-icon{
+	max-width:50%;
+	max-height:50%;
+	width:auto;
+	height:auto;
+}
 .project-tab #tabs {
 	background: #007b5e;
 	color: #eee;
@@ -136,10 +141,10 @@
 
 .deal-info-back {
 	border-radius: 5px;
-	background-color: rgb(199, 193, 211);
+	width:100%;
 }
 
-/* 신고회원 리스트 */
+/* 회원 리스트 */
 .user-row {
 	margin-bottom: 14px;
 }
@@ -189,7 +194,7 @@
 }
 
 .report-tab-back {
-	border: 1px solid gray;
+	
     border-radius: 5px;
     width:100%;
 }
@@ -202,6 +207,10 @@
 .report-btn-cancel {
 	float: right;
 	margin-left:5%;
+}
+
+.panel-body{
+	width:100%;
 }
 
 .img-responsive {

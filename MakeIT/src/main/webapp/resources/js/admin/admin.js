@@ -1,3 +1,13 @@
+$(document).ready(function(){
+	adjustHeight();
+});
+function adjustHeight() {
+	  var textEle = $('textarea');
+	  textEle[0].style.height = 'auto';
+	  var textEleHeight = textEle.prop('scrollHeight');
+	  console.log("?"+textEleHeight);
+	  textEle.css('height', textEleHeight);
+};
 //게시글 승인 탭 세부 메뉴 버튼 클릭 화면전환
 $(document).on('click','.approval-li',function(){
 	
@@ -1296,7 +1306,12 @@ $(document).on('keyup','textarea', function(){
 	 var textEleHeight = textEle.prop('scrollHeight');
 	 textEle.css('height', textEleHeight);
 });
-
+$('textarea').each(function () {
+    this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+  }).on('input', function () {
+    this.style.height = 'auto';
+    this.style.height = (this.scrollHeight) + 'px';
+});
 
 
 

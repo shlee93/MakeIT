@@ -6,13 +6,36 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
 <div class="col-md-12 insert-form">
+	
 	<fieldset>
 	
 	<!-- Form Name -->
-	<legend>QNA</legend>
+	<div class="form-group">
+		<div class="col-md-6 qna-logo">
+			<h2>1:1 문의</h2>
+		</div>
+	</div>
+	
 	<div class="form-group">
 		<label class="col-md-6 control-label" for="qna-writer"><strong>작성자</strong></label>
 		<div class="col-md-6">
+		<c:choose>
+			<c:when test="${qna.GRADENO==1 }">
+				<img class="grade-icon" src="${path }/resources/image/bronzeGrade.png"/>
+			</c:when>
+			<c:when test="${qna.GRADENO==2 }">
+				<img class="grade-icon" src="${path }/resources/image/silverGrade.png"/>
+			</c:when>
+			<c:when test="${qna.GRADENO==3 }">
+				<img class="grade-icon" src="${path }/resources/image/goldGrade.png"/>
+			</c:when>
+			<c:when test="${qna.GRADENO==4 }">
+				<img class="grade-icon" src="${path }/resources/image/platinumGrade.png"/>
+			</c:when>
+			<c:when test="${qna.GRADENO==5 }">
+				<img class="grade-icon" src="${path }/resources/image/diamondGrade.png"/>
+			</c:when>
+		</c:choose>
 	    	<span id="qna-writer">${qna.MEMBERID }</span>	
 	  	</div>
 	</div>
@@ -43,6 +66,9 @@
 	<div class="form-group">
 	<c:if test="${member.MEMBERLEVEL==0 and qna.QNALEVEL!=2 and qna.ANSWERYN=='N'}">
 		<button id="reple-qna" class="btn btn-outline-info slidetopleft">답변하기</button>
+	</c:if>
+	<c:if test="${member.MEMBERID eq qna.MEMBERID and qna.QNALEVEL!=2 and qna.ANSWERYN=='Y'}">
+		<button id="reple-qna-view" class="btn btn-outline-info slidetopleft">답변보기</button>
 	</c:if>
 	<c:if test="${member.MEMBERID eq qna.MEMBERID }">
 	

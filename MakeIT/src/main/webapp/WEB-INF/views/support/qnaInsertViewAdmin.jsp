@@ -9,10 +9,15 @@
 	<fieldset>
 	
 	<!-- Form Name -->
-	<legend>QNA</legend>
+	<div class="form-group">
+		<div class="col-md-6 qna-logo">
+			<h2>1:1 문의 답변 작성</h2>
+		</div>
+	</div>
 	<div class="form-group">
 		<label class="col-md-6 control-label" for="qna-writer"><strong>작성자</strong></label>
 		<div class="col-md-6">
+			<img class="grade-icon" src="${path }/resources/image/diamondGrade.png"/>
 	    	<span id="qna-writer">${sessionScope.member.MEMBERID }</span>	
 	  	</div>
 	</div>
@@ -54,9 +59,9 @@
 	  <label class="col-md-6 control-label" for="qna-content"><strong>내용</strong></label>  
 	  <div class="col-md-6">
 	  	<textarea rows="10" cols="100" placeholder="질문을 입력해주세요" id="qna-content" name="qna-content">
-	  		------질문------
-	  		${qna.QNACONTENT }
-	  		------답변------
+	  	------질문------
+	  	${qna.QNACONTENT }
+	  	------답변------
 	  		
 	  	</textarea>
 	  </div>

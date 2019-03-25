@@ -149,7 +149,7 @@
                                             <!-- 네비 사이드 -->
 
                                             <div class="nav-side-menu">
-                                                <div class="brand">Brand Logo</div>
+                                                <div class="brand">게시판</div>
                                                 <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse"
                                                     data-target="#menu-content"></i>
                                                 <div class="menu-list">
@@ -626,18 +626,18 @@
 											<c:when test="${payment.CATEGORYCODE eq 'B' }">
 											<div class="deal-payment">
 			
-			                                    <div class="deal-info-back">
+			                                    <div class="deal-info-back btn btn-outline-info slidetopleft">
 			                                        <ul class="deal-info">
 			                                            <li class="deal-no">
 			                                            	<strong>구매자:</strong>
-			                                            	${payment.MEMBERID }
+			                                            	${payment.MEMBERID }&nbsp;&nbsp;
 			                                            </li>
 			                                            <li class="dealer">
 			                                            	<strong>판매자:</strong>
 			                                            	${payment.BUYID }                            	
 			                                            </li>
 			                                            <li class="deal-title">
-															<strong>글 제목:</strong> 
+															<br><strong>글 제목:</strong> 
 															${payment.BUYTITLE }
 														</li>
 			                                        </ul>
@@ -656,7 +656,7 @@
 			                                            <li class="step-item ${payment.STATUSNO==3?'active':'' }">
 			                                                <a href="#!" >프로젝트 완료</a>
 			                                            </li>
-			                                            <li class="step-item ${payment.STATUSNO==4?'active payment-pop':'' }" data-toggle="modal" data-target="#product_view">
+			                                            <li class="step-item ${payment.STATUSNO==4?'active payment-pop':'' }" ${payment.STATUSNO==4?'data-toggle="modal" data-target="#product_view"':'' }>
 			                                                <a href="#!" >구매 확정</a>
 			                                                <input type="hidden" class="spec-no" value="${payment.BUYSPECNO }"/>
 			                                            </li>
@@ -669,18 +669,18 @@
 											
 			                                <div class="deal-payment">
 			
-			                                    <div class="deal-info-back">
+			                                    <div class="deal-info-back btn btn-outline-info slidetopleft">
 			                                        <ul class="deal-info">
 			                                            <li class="deal-no">
 			                                            	<strong>구매자:</strong>
-			                                            	${payment.MEMBERID }
+			                                            	${payment.MEMBERID }&nbsp;&nbsp;
 			                                            </li>
 			                                            <li class="dealer">
 			                                            	<strong>판매자:</strong>
 			                                            	${payment.SELLID }
 			                                            </li>
 			                                            <li class="deal-title">
-															<strong>글 제목:</strong> 
+															<br><strong>글 제목:</strong> 
 															${payment.SELLTITLE }
 														</li>
 			                                        </ul>
@@ -699,7 +699,7 @@
 			                                            <li class="step-item ${payment.STATUSNO==3?'active':''}">
 			                                                <a href="#!">프로젝트 완료</a>
 			                                            </li>
-			                                            <li class="step-item ${payment.STATUSNO==4?'active payment-pop':''}" data-toggle="modal" data-target="#product_view">
+			                                            <li class="step-item ${payment.STATUSNO==4?'active payment-pop':''}" ${payment.STATUSNO==4?'data-toggle="modal" data-target="#product_view"':'' }>
 			                                                <a href="#!">구매 확정</a>
 			                                                <input type="hidden" class="spec-no" value="${payment.SELLSPECNO }"/>
 			                                            </li>
@@ -784,7 +784,7 @@
 											<c:when test="${refund.CATEGORYCODE eq 'B' }">
 		                                <div class="deal-refund">
 		
-		                                    <div class="deal-info-back">
+		                                    <div class="deal-info-back btn btn-outline-info slidetopleft">
 		                                        <ul class="deal-info">
 		                                            <li class="deal-no">
 			                                          	<strong>구매자:</strong>
@@ -795,7 +795,7 @@
 			                                           	${payment.MEMBERID }
 			                                        </li>
 			                                        <li class="deal-title">
-														<strong>글 제목:</strong> 
+														<br><strong>글 제목:</strong> 
 														${payment.BUYTITLE }
 													</li>
 		                                        </ul>
@@ -828,7 +828,7 @@
 		                                	
 		                                <div class="deal-refund">
 		
-		                                    <div class="deal-info-back">
+		                                    <div class="deal-info-back btn btn-outline-info slidetopleft">
 		                                        <ul class="deal-info">
 		                                            <li class="deal-no">
 			                                          	<strong>구매자:</strong>
@@ -839,7 +839,7 @@
 			                                           	${payment.SELLID }
 			                                        </li>
 			                                        <li class="deal-title">
-														<strong>글 제목:</strong> 
+														<br><strong>글 제목:</strong> 
 														${payment.SELLTITLE }
 													</li>
 		                                        </ul>

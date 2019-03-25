@@ -1,3 +1,12 @@
+$(document).ready(function(){
+	adjustHeight();
+});
+function adjustHeight() {
+	  var textEle = $('textarea');
+	  textEle[0].style.height = 'auto';
+	  var textEleHeight = textEle.prop('scrollHeight');
+	  textEle.css('height', textEleHeight);
+};
 //관리자 회원정보 업데이트
 $(document).on('click','#member-update',function(){
 	var memberId=$('.panel-title').text();
@@ -141,4 +150,11 @@ $(document).on('keyup','textarea', function() {
        $(this).val($(this).val().substring(0, 450));
     }
  
+});
+
+$('textarea').each(function () {
+    document.getElementByTagName('textarea').setAttribute('style', 'height:' + (document.getElementByTagName('textarea').scrollHeight) + 'px;overflow-y:hidden;');
+  }).on('change', function () {
+	document.getElementByTagName('textarea').style.height = 'auto';
+	document.getElementByTagName('textarea').style.height = (document.getElementByTagName('textarea').scrollHeight) + 'px';
 });
