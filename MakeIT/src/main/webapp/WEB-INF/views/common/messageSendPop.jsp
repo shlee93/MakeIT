@@ -41,10 +41,8 @@
 		            </td>
                 </tr>
                 <tr>
-                   	<td>
+                   	<td colspan='2'>
                       	<button type='button' class="btn btn-outline-info slidetopleft" onclick="fn_closeMessage();">취소</button>
-                   	</td>
-                   	<td>
                       	<button type='button' class="btn btn-outline-info slidetopleft" onclick="fn_messageSend();">보내기</button>
                    	</td>
                    	<td></td>
@@ -58,6 +56,13 @@
                    		{
                    			self.close();
                    		}
+                   		$('#messageContent').on('keyup', function() {
+                   	      if($(this).val().length > 300) {
+                   	         alert("글자수는 300자로 이내로 제한됩니다.");
+                   	         $(this).val($(this).val().substring(0, 300));
+                   	      }
+                   	   
+                   	   });
                    	</script>
                	</tr>
            	</table>

@@ -251,7 +251,7 @@
                                  	<div class="row">
                                      	<div class="col-md-12">
                                      		<input type="hidden" name="appealId" value="${map.MEMBERID }">
-                                          	<textarea rows="10" cols="80" class="form-control" name="appealContent"><c:out value="${map.INTRODUCTION }"></c:out></textarea>
+                                          	<textarea rows="10" cols="80" class="form-control" id="appealContent" name="appealContent"><c:out value="${map.INTRODUCTION }"></c:out></textarea>
                                      	</div>
                                  	</div>
                                  	<div class="row">
@@ -274,6 +274,13 @@
         <input type="hidden" id="naviBarStatus" name = "naviBarStatus" value="${naviBarStatus }">
         <input type="hidden" id="noReadMessage" name = "noReadMessage" value="${noReadMessage }">
 		<script>
+			$('#appealContent').on('keyup', function() {
+				if($(this).val().length > 1333) {
+					alert("글자수는 1333자로 이내로 제한됩니다.");
+					$(this).val($(this).val().substring(0, 1333));
+				}
+			
+			});
 			function updateMember(){
 				$('#hiddenFrm').attr("action","${path }/member/updateMember.do");
 				$('#hiddenFrm').submit();
@@ -308,6 +315,7 @@
 					url:"${path}/member/memberOutBoxAjax.do",
 					dataType:"html",
 					data:{"memberId":$('#memberId').val()
+						,"contestcPage":$('#contestcPage').val()
 						,"sellcPage":$('#sellcPage').val()
 						,"buycPage":$('#buycPage').val()},
 					success:function(data){

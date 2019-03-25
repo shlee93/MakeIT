@@ -265,5 +265,21 @@ public class MemberDaoImpl implements MemberDao {
 		return sqlSession.selectList("member.bankList");
 	}
 
+	@Override
+	public List<Map<String,String>> memberSearch(String receiveId) {
+		return sqlSession.selectList("member.memberSearch",receiveId);
+	}
+
+	@Override
+	public List<Map<String, String>> contestOutBoxList(String memberId, int contestcPage, int numPerPage) {
+		RowBounds row = new RowBounds((contestcPage-1)*numPerPage,numPerPage);
+		return sqlSession.selectList("member.contestOutBoxList",memberId,row);
+	}
+
+	@Override
+	public int selectOutBoxContestCount(String memberId) {
+		return sqlSession.selectOne("member.selectOutBoxContestCount",memberId);
+	}
+
 
 }

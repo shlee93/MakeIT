@@ -57,7 +57,8 @@ pageEncoding="UTF-8"%>
                     			<td><input type="text" id="sendId" name="sendId" class="form-control" value="<c:out value="${map.MEMBERID }"></c:out>" readonly></td>
                     			<th>받는사람</th>
                     			<td>
-                   					<input type="text" id="receiveId" name="receiveId" class="form-control" placeholder="받는사람 ID를 입력하세요" value="">
+                   					<input type="text" id="receiveId" name="receiveId" class="form-control" placeholder="받는사람 ID를 입력하세요" value="" list="datalist">
+                   					<datalist id="datalist"></datalist>
                     			</td>
                     		</tr>
                    			<tr>
@@ -82,6 +83,30 @@ pageEncoding="UTF-8"%>
 </div>
 <input type="hidden" id="fadeStatus" name="fadeStatus" value="${fadeStatus }">
 <script>
+	$('#messageContent').on('keyup', function() {
+		if($(this).val().length > 300) {
+			alert("글자수는 300자로 이내로 제한됩니다.");
+			$(this).val($(this).val().substring(0, 300));
+		}
+	
+	});
+	$(document).on('keyup','#receiveId',function(){
+		var receiveId=$('#receiveId').val();
+		
+		$.ajax({
+			url:"${path}/member/memberSearch.do",
+			data:{"receiveId":receiveId},
+			dataType:"html",
+			success:function(data){
+				var ids = data.split(",");
+				var html = "";
+				for(var i = 0; i < ids.length; i++){
+					html+="<option>"+ids[i]+"</option>"
+				}
+				$('#datalist').html(html);
+			}
+		});
+	});
 	function backMessage(){
 		$.ajax({
 			url:"${path}/member/memberMessageAjax.do",
@@ -111,6 +136,7 @@ pageEncoding="UTF-8"%>
 						"receiveId":$('#receiveId').val(),
 						"messageContent":$('#messageContent').val()},
 					success:function(data){
+						alert(data);
 						$.ajax({
 							url:"${path}/member/memberMessageAjax.do",
 							dataType:"html",

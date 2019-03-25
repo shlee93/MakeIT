@@ -72,8 +72,18 @@
 </head>
 <body>
 	<div class="row">
-		<div class="col-sm-1"></div>
-		<div id="vol-container" class="col-sm-10">
+		<div class="col-md-1">
+			<div style='position:fixed; margin-top: 10em;'>
+   			<span onclick='fn_back()' style='cursor:pointer; font-size: 6em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
+         	 	<script>
+          			function fn_back()
+           		{
+           			history.back();
+           		}
+           		</script>
+	   		</div>
+		</div>
+		<div id="vol-container" class="col-md-10">
 		<div style="padding:50px;"><h2>지원자 상세보기</h2></div>
 		<div id="vol-title">
 		<div>
@@ -101,13 +111,13 @@
 		</c:forEach>
 		</div>
 		<div id="btn-div">
-			<button class="btn btn-secondary" onclick="location.href='${path}/buy/payInfoView.do?buyNo=${buyNo }&memberId=${vol.MEMBERID }'">결정 및 결제하기</button>
-			<button class="btn btn-secondary" onclick="location.href='${path}/buy/volList.do?buyNo=${buyNo }&cPage=${cPage }'">뒤로가기</button>
+			<button class="btn btn-secondary" onclick="volCommit();">결정 및 결제하기</button>
+			<button class="btn btn-secondary" onclick="fn_back()">뒤로가기</button>
 		</div>
 		
 		
 		
-		<div class="col-sm-1"></div>
+		<div class="col-md-1"></div>
 		
 		
 	</div>
@@ -118,6 +128,20 @@
 	{
 		oName=encodeURIComponent(oName);
 		location.href="${path}/buy/filedownLoad.do?oName="+oName+"&rName="+rName;
+	}
+	function volCommit()
+	{
+		var specFlag = ${param.specFlag};
+		console.log(specFlag);
+		if(specFlag == true)
+		{
+			alert("이미 지원자를 결정했습니다.");
+		}
+		else
+		{
+			location.href="${path}/buy/payInfoView.do?buyNo=${buyNo }&memberId=${vol.MEMBERID }";	
+		}
+		
 	}
 </script>
 </body>

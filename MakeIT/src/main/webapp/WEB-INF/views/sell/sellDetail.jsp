@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>판매 글 보기</title>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -43,7 +43,12 @@
        	html,body
        	{
 			height: 100%;
-		}  		    
+		}  		
+		#optionT
+		{
+			text-align:center;
+		}    
+		
 	</style>
 </head>
 <script>	
@@ -54,17 +59,17 @@
 	});
 	
 	$(window).scroll(function(){
-		if($(this).scrollTop() > 140)
+		if($(this).scrollTop() > 150)
 		{
 			var windowVal = $(this).scrollTop();
-			$('#donggeulNav').css('top',windowVal);
+			$('#donggeulNav').css('top',windowVal-150);
 		}
-		if($(this).scrollTop() < 140) 
+		if($(this).scrollTop() < 150) 
         {
 			var windowVal = $(this).scrollTop();
 			$('#donggeulNav').css('top','100px');
         }		
-	});	
+	})
 	
 	$(document).on('click','.subImgs',function()
 	{
@@ -117,8 +122,8 @@
 		           	</script>
 	           	</div>
         </div>
-        <div class='col-md-10' id='section' style='padding:50px'>
-            <div class='row'>
+        <div class='col-md-10' id='section' style='padding:50px'>        	
+            <div class='row'>         
                 <div class="col-md-6" id="img-container"  style='padding:1px; width: 100%; height: 600px;'>                	
                     <div class='row mainImgContainer' id='mainImgContainer'>
                     	<img id="mainImg" class="mainImg" src="${path}/resources/upload/sell/${mainimgList.get(0).SELLIMGRE}" style='max-height: 400px; min-height: 600px; width: 100%;'>
@@ -219,12 +224,23 @@
                             	 }
                             </script>
                             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                            	<textarea class='contentTextArea' rows="34" readonly='readonly'>  
-                            		<h4>${detailList.get(0).SELLCONTENT}</h4>
-                            	</textarea>    
+                            	<p style="text-align:center">취소 및 환불 규정취소 및 환불 규정</p>
+								<p>가. 기본 환불 규정</p>                     
+								<p>1. 전문가와 의뢰인의 상호 협의하에 청약 철회 및 환불이 가능합니다.</p> 
+								<p>2. 작업이 완료된 이후 또는 자료, 프로그램 등 서비스가 제공된 이후에는 환불이 불가합니다.</p> 
+								<p>( 소비자보호법 17조 2항의 5조. 용역 또는 「문화산업진흥 기본법」 제2조 제5호의 디지털콘텐츠의 제공이 개시된 경우에 해당)</p> 
+								<br/>                            
+								<p>나. 전문가 책임 사유</p> 
+								<p>1. 전문가의 귀책사유로 당초 약정했던 서비스 미이행 혹은 보편적인 관점에서 심각하게 잘못 이행한 경우 결제 금액 전체 환불이 가능합니다.</p> 
+								<br/>
+								<p>다. 의뢰인 책임 사유</p> 
+								<p>1. 서비스 진행 도중 의뢰인의 귀책사유로 인해 환불을 요청할 경우, 사용 금액을 아래와 같이 계산 후 총 금액의 10%를 공제하여 환불합니다.</p> 
+								<p>총 작업량의 1/3 경과 전 : 이미 납부한 요금의 2/3해당액</p> 
+								<p>총 작업량의 1/2 경과 전 : 이미 납부한 요금의 1/2해당액</p> 
+								<p>총 작업량의 1/2 경과 후 : 반환하지 않음</p>
                             </div>
-                            <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab"  style='min-width:656px'>
-                                <table id="optionT" border="1px solid black"   >
+                            <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab"  style='width:100%';text-align="center">
+                                <table id="optionT" border="1px solid black" style='width:100%'  >
                                		<tr>
                                			<th>옵션</th>
                                 		<th>옵션내용</th>
@@ -248,25 +264,26 @@
                     </div>                       
                 </div>
                 <div id='donggeulNav' class="col-md-6" style="position:absolute; margin-left:60%;transition:ease-in-out; transition-duration:0.7s;">                   
+                                  
                    	<div class="row " style="text-align:center; margin-left:-5em;" >
               			<div class="col-md-10">
       						<c:if test="${detailList.get(0).GRADENAME == '브론즈' }">
-                           		<p style='display: inline;'><img alt="" src="${path }/resources/image/bronzeGrade.png" style="max-width: 50px;max-height: 50px;"><c:out value="${map.GRADENAME }"></c:out></p>
+                           		<p style='display: inline;'><img alt="" src="${path }/resources/image/bronzeGrade.png" style="max-width: 50px;max-height: 50px;font-family: 'Sunflower', sans-serif;"></p>
                            	</c:if>
                            	<c:if test="${detailList.get(0).GRADENAME == '실버' }">
-                           		<p><img alt="" src="${path }/resources/image/silverGrade.png" style="max-width: 50px;max-height: 50px;"><c:out value="${map.GRADENAME }"></c:out></p>
+                           		<p><img alt="" src="${path }/resources/image/silverGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
                            	</c:if>
                            	<c:if test="${detailList.get(0).GRADENAME == '골드' }">
-                           		<p><img alt="" src="${path }/resources/image/goldGrade.png" style="max-width: 50px;max-height: 50px;"><c:out value="${map.GRADENAME }"></c:out></p>
+                           		<p><img alt="" src="${path }/resources/image/goldGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
                            	</c:if>
                            	<c:if test="${detailList.get(0).GRADENAME == '플래티넘' }">
-                           		<p><img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;"><c:out value="${map.GRADENAME }"></c:out></p>
+                           		<p><img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
                            	</c:if>
                            	<c:if test="${detailList.get(0).GRADENAME == '다이아몬드' }">
-                           		<p><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"><c:out value="${map.GRADENAME }"></c:out></p>
+                           		<p><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
                            	</c:if>
                               	
-                       		<h4 style='display: inline;'><strong>${detailList.get(0).GRADENAME}</strong>${detailList.get(0).MEMBERNAME}</h4>
+                       		<h4 style="display: inline;font-family: 'Sunflower', sans-serif;"><strong>${detailList.get(0).GRADENAME}</strong>${detailList.get(0).MEMBERNAME}</h4>
               					
  			                   	<!-- 똥글뱅이 -->
                        			<div class="row align-items-center" style='margin-top: -5em;'>			                  
@@ -314,7 +331,7 @@
 				                           			<c:if test="${not loop_flag }">
 				                           				<c:if test="${purchaseList.STATUSNO eq '3'}">                           		
 								                           	<span class="itemDot itemDot4" data-tab="4">
-								                           		<i class="fa fa-tags donggeulI"></i>
+								                           		<i class="fas fa-file-signature donggeulI"></i>
 									                           	<span class="forActive"></span>
 								                           	</span>
 								                           	<c:set var="loop_flag" value="true" />
@@ -575,7 +592,7 @@
 						                                        	</c:forEach>
 							                                    </select>
 							                                    <script>
-								                                    function fn_selectedSpec(str) {	   
+								                                    function fn_selectedSpec(str) {	   								                                    	
 																	    $("#sellSpecNo").attr("value",str);																	   														
 																	}
 							                                    </script>	
@@ -789,9 +806,13 @@
                 
       		</div>
 		</div>   
-   		<div class='col-md-1' id='right-nav' ></div>                   
+   		<div class='col-md-1' id='right-nav'>
+   			
+   			
+   		</div>                   
 	</div>
 </div>
+
 	<script>		
 	
 		var loginCheck=$("#loginCheck").val();

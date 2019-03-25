@@ -53,8 +53,21 @@
 </head>
 <body>
 	<div class='row'>
-		<div class='col-md-1'></div>
+		<div class='col-md-1'>
+		<div style='position:fixed; margin-top: 10em;'>
+   			<span onclick='fn_back()' style='cursor:pointer; font-size: 6em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
+         	 	<script>
+          			function fn_back()
+           		{
+           			history.back();
+           		}
+           	</script>
+	    </div>
+	    </div>
 		<div class='col-md-10'>
+			<div id="pageTitle" style="padding-bottom:20px;">
+				<h2 style="font-family: 'Sunflower', sans-serif;">구매 게시글 작성</h2>
+			</div>
 			<div class='row'>
 				<div style='position: relative; min-width: 400px'>
 

@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 import com.kh.makeit.common.PageFactory;
 import com.kh.makeit.common.SendMail;
 import com.kh.makeit.member.model.service.MemberService;
+import com.sun.mail.iap.Response;
 
 @Controller
 public class MemberController {
@@ -746,17 +747,21 @@ public class MemberController {
 	
 	@RequestMapping("/member/memberOutBoxAjax.do")
 	@ResponseBody
-	public ModelAndView memberOutBox(int buycPage,int sellcPage,String memberId,HttpServletRequest request) {
+	public ModelAndView memberOutBox(int buycPage, int sellcPage, int contestcPage, String memberId,HttpServletRequest request) {
 		Map<Object, Object> map = service.selectOne(memberId);
 		int numPerPage = 5;
 		buycPage = 1;
 		sellcPage = 1;
+		contestcPage = 1;
 		List<Map<String,String>> buyOutBoxList = service.buyOutBoxList(memberId,buycPage,numPerPage);
 		int totalBuyCount = service.selectOutBoxBuyCount(memberId);
 		String buyPageBar = PageFactory.getPageBarAjax(totalBuyCount, buycPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
 		List<Map<String,String>> sellOutBoxList = service.sellOutBoxList(memberId,sellcPage,numPerPage);
 		int totalSellCount = service.selectOutBoxSellCount(memberId);
 		String sellPageBar = PageFactory.getPageBarAjax(totalSellCount, sellcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+		List<Map<String,String>> contestOutBoxList = service.contestOutBoxList(memberId,contestcPage,numPerPage);
+		int totalContestCount = service.selectOutBoxContestCount(memberId);
+		String contestPageBar = PageFactory.getPageBarAjax(totalContestCount, contestcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
 		ModelAndView mv = new ModelAndView();
 		logger.debug(buyOutBoxList);
 		logger.debug(sellOutBoxList);
@@ -765,11 +770,15 @@ public class MemberController {
 		mv.addObject("totalBuyCount",totalBuyCount);
 		mv.addObject("buyOutBoxList",buyOutBoxList);
 		mv.addObject("buyPageBar",buyPageBar);
+		mv.addObject("buycPage",buycPage);
 		mv.addObject("totalSellCount",totalSellCount);
 		mv.addObject("sellOutBoxList",sellOutBoxList);
 		mv.addObject("sellPageBar",sellPageBar);
 		mv.addObject("sellcPage",sellcPage);
-		mv.addObject("buycPage",buycPage);
+		mv.addObject("totalContestCount",totalContestCount);
+		mv.addObject("contestOutBoxList",contestOutBoxList);
+		mv.addObject("contestPageBar",contestPageBar);
+		mv.addObject("contestcPage",contestcPage);
 		mv.addObject("map",map);
 		mv.addObject("fadeStatus",1);
 		mv.setViewName("member/ajaxMemberOutBox");
@@ -882,7 +891,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/member/deleteMessage.do")
-	public ModelAndView deleteMessage(int messageNo, String memberId) {
+	public void deleteMessage(int messageNo, String memberId, HttpServletResponse response) throws IOException {
 		logger.debug(messageNo);
 		logger.debug(memberId);
 		Map<Object,Object> map = new HashMap();
@@ -894,34 +903,29 @@ public class MemberController {
 		logger.debug(message.get("SENDID"));
 		logger.debug(message.get("RECEIVEID"));
 		int result = 0;
-		if(memberId.equals((String)message.get("SENDID"))) {
+		if(memberId.equals((String)message.get("SENDID"))&&!memberId.equals(message.get("RECEIVEID"))) {
 			result = service.deleteSendMessage(map);
 		} else if(memberId.equals((String)message.get("RECEIVEID"))) {
 			result = service.deleteReceiveMessage(map);
 		}
 		String msg = "";
-		String loc = "";
 		logger.debug(result);
 		if(result > 0) {
-			msg = "메시지가 정상적으로 삭제되었습니다. 마이페이지로 돌아갑니다.";
-			loc = "/member/memberMyPage.do";
+			msg = "메시지가 정상적으로 삭제되었습니다.";
 		} else {
 			msg = "메시지가 정상적으로 삭제되지 않았습니다. 다시 시도해주세요.";
-			loc = "/member/memberMyPage.do";
 		}
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("msg",msg);
-		mv.addObject("loc",loc);
-		mv.setViewName("common/msg");
-		return mv;
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json;charset=UTF-8");
+		response.getWriter().append(msg);
 	}
 	
 	@RequestMapping("/member/messageReceiveSelectDel.do")
-	public ModelAndView messageReceiveSelectDel(HttpServletRequest request) {
-		String[] deleteCk = request.getParameterValues("receiveDeleteCk");
+	public void messageReceiveSelectDel(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		String delList = request.getParameter("receiveDeleteCk");
+		String[] deleteCk = delList.split(",");
 		logger.debug(deleteCk);
 		String msg = "";
-		String loc = "";
 		int result = 0;
 		if(deleteCk != null) {
 			logger.debug(deleteCk);
@@ -932,29 +936,24 @@ public class MemberController {
 			}
 			logger.debug(result);
 			if(result > 0) {
-				msg = "메시지가 정상적으로 삭제되었습니다. 마이페이지로 돌아갑니다.";
-				loc = "/member/memberMyPage.do";
+				msg = "메시지가 정상적으로 삭제되었습니다.";
 			} else {
 				msg = "메시지가 정상적으로 삭제되지 않았습니다. 다시 시도해주세요.";
-				loc = "/member/memberMyPage.do";
 			}
 		} else {
 			msg = "메시지 선택 후 이용해주세요.";
-			loc = "/member/memberMyPage.do";
 		}
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("msg",msg);
-		mv.addObject("loc",loc);
-		mv.setViewName("common/msg");
-		return mv;
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json;charset=UTF-8");
+		response.getWriter().append(msg);
 	}
 	
 	@RequestMapping("/member/messageSendSelectDel.do")
-	public ModelAndView messageSendSelectDel(HttpServletRequest request) {
-		String[] delList = request.getParameterValues("sendDeleteCk");
-		logger.debug(delList);
+	public void messageSendSelectDel(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		String delStr = request.getParameter("sendDeleteCk");
+		logger.debug(delStr);
+		String[] delList = delStr.split(",");
 		String msg = "";
-		String loc = "";
 		if(delList != null) {
 			int[] delListInt = new int[delList.length];
 			int result = 0;
@@ -965,22 +964,17 @@ public class MemberController {
 			
 			logger.debug(result);
 			if(result > 0) {
-				msg = "메시지가 정상적으로 삭제되었습니다. 마이페이지로 돌아갑니다.";
-				loc = "/member/memberMyPage.do";
+				msg = "메시지가 정상적으로 삭제되었습니다.";
 			} else {
 				msg = "메시지가 정상적으로 삭제되지 않았습니다. 다시 시도해주세요.";
-				loc = "/member/memberMyPage.do";
 			}
 		} else {
 			msg = "메시지 선택 후 이용해주세요.";
-			loc = "/member/memberMyPage.do";
 		}
 		
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("msg",msg);
-		mv.addObject("loc",loc);
-		mv.setViewName("common/msg");
-		return mv;
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json;charset=UTF-8");
+		response.getWriter().append(msg);
 	}
 	
 	@RequestMapping("/member/reSendMessage.do")
@@ -1010,13 +1004,27 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/member/reSendMessageEnd.do")
-	@ResponseBody
-	public void sendMessageEnd(String sendId, String receiveId, String messageContent) {
-		Map<String,String> message = new HashMap();
-		message.put("sendId", sendId);
-		message.put("receiveId", receiveId);
-		message.put("messageContent", messageContent);
-		int result = service.sendMessageEnd(message);
+	public void sendMessageEnd(String sendId, String receiveId, String messageContent, HttpServletResponse response) throws IOException{
+		Map<Object,Object> map = service.selectOne(receiveId);
+		String msg = "";
+		if(map != null) {
+			Map<String,String> message = new HashMap();
+			message.put("sendId", sendId);
+			message.put("receiveId", receiveId);
+			message.put("messageContent", messageContent);
+			int result = service.sendMessageEnd(message);
+			if(result > 0) {
+				msg = "메시지가 정상적으로 발송되었습니다.";
+			} else {
+				msg = "메시지가 발송되지 않았습니다.";
+			}
+			
+		} else {
+			msg = "수신자 아이디를 다시 확인해주세요.";
+		}
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json;charset=UTF-8");
+		response.getWriter().append(msg);
 	}
 	
 	@RequestMapping("/member/memberPagingAjax.do")
@@ -1032,9 +1040,14 @@ public class MemberController {
 		if(naviBarStatus == 2) {
 			if(fadeStatus == 1) {
 				sellcPage = 1;
+				contestcPage = 1;
+			} else if(fadeStatus ==2) {
+				buycPage = 1;
+				contestcPage = 1;
 			} else {
 				buycPage = 1;
-			} 
+				sellcPage = 1;
+			}
 			logger.debug(buycPage);
 			logger.debug(sellcPage);
 			List<Map<String,String>> buyOutBoxList = service.buyOutBoxList(memberId,buycPage,numPerPage);
@@ -1043,6 +1056,13 @@ public class MemberController {
 			List<Map<String,String>> sellOutBoxList = service.sellOutBoxList(memberId,sellcPage,numPerPage);
 			int totalSellCount = service.selectOutBoxSellCount(memberId);
 			String sellPageBar = PageFactory.getPageBarAjax(totalSellCount, sellcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+			List<Map<String,String>> contestOutBoxList = service.contestOutBoxList(memberId,contestcPage,numPerPage);
+			int totalContestCount = service.selectOutBoxContestCount(memberId);
+			String contestPageBar = PageFactory.getPageBarAjax(totalContestCount, contestcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+			mv.addObject("totalContestCount",totalContestCount);
+			mv.addObject("contestOutBoxList",contestOutBoxList);
+			mv.addObject("contestPageBar",contestPageBar);
+			mv.addObject("contestcPage",contestcPage);
 			mv.addObject("totalBuyCount",totalBuyCount);
 			mv.addObject("buyOutBoxList",buyOutBoxList);
 			mv.addObject("buyPageBar",buyPageBar);
@@ -1160,6 +1180,23 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	@RequestMapping("/member/memberSearch.do")
+	@ResponseBody
+	public String memberSearch(String receiveId) {
+		logger.debug(receiveId);
+		List<Map<String,String>> list = service.memberSearch(receiveId);
+		logger.debug(list);
+		String data = "";
+		for(int i = 0; i < list.size(); i++) {
+			if(i!=0) {
+				data += ",";
+			}
+			data += list.get(i).get("MEMBERID");
+		}
+		logger.debug(data);
+		return data;
+	}
+	
 	@RequestMapping("/member/mainajax.do")
 	@ResponseBody
 	public Map<String,String> mainAjax() {
@@ -1189,13 +1226,11 @@ public class MemberController {
 	@RequestMapping("/intropage/intropage.do")
 	public String intropage(HttpServletRequest request, HttpServletResponse response) {
 		
-		Cookie cookie = new Cookie("introCookie", "1");
-		cookie.setMaxAge(10 * 60);
-		response.addCookie(cookie);
-		
-		Cookie[] cookies = request.getCookies();
-		logger.info("쿠키 값 : "+cookies);
-		
+		Cookie cookie = new Cookie("intro", "intro");
+    	cookie.setMaxAge(60*60);
+    	cookie.setPath("/");
+    	response.addCookie(cookie);
+
 		return "intropage/intropage";
 	}
 	

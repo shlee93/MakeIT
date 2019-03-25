@@ -27,6 +27,7 @@
       <interceptor>
          <mapping path="/contest/*"/>
          <mapping path="/sell/*"/>
+         <mapping path="/buy/*"/>
          <exclude-mapping path="/sell/sellmain.do"/>
          <exclude-mapping path="/sell/sellDetail.do"/>
          <exclude-mapping path="/sell/selldetail"/>
@@ -39,6 +40,13 @@
          <exclude-mapping path="/contest/contestDetail.do"/>
          <exclude-mapping path="/contest/contestPerFirstImg.do"/>
          <exclude-mapping path="/contest/contestApplicantCheck.do"/>
+         <exclude-mapping path="/buy/buymain.do"/>
+         <exclude-mapping path="/buy/buyNewChange.do"/>
+         <exclude-mapping path="/buy/buyGradeChange.do"/>
+         <exclude-mapping path="/buy/buyBuySearch.do"/>
+         <exclude-mapping path="/buy/buyDetail"/>
+         <exclude-mapping path="/buy/buymain.do"/>
+         <exclude-mapping path="/buy/anotherView.do"/>
         	
          <!-- <mapping path="/**"/> -->
          <!-- <mapping path="/member/login.do"/> -->

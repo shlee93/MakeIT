@@ -72,12 +72,12 @@
 	}); */
 	
 	$(window).scroll(function(){
-		if($(this).scrollTop() > 140)
+		if($(this).scrollTop() > 150)
 		{
 			var windowVal = $(this).scrollTop();
-			$('#donggeulNav').css('top',windowVal);
+			$('#donggeulNav').css('top',windowVal-150);
 		}
-		if($(this).scrollTop() < 140) 
+		if($(this).scrollTop() < 150) 
         {
 			var windowVal = $(this).scrollTop();
 			$('#donggeulNav').css('top','100px');
@@ -234,10 +234,15 @@
 					                           	<i class="fa fa-tags donggeulI"></i>
 					                           	<span class="forActive"></span>
 				                           	</span> -->
-					                       	<span class="itemDot itemDot5" data-tab="5">
-					                       	   	<i class="fas fa-angry donggeulI"></i>
-				                           	   	<span class="forActive"></span>
-				                           	</span>
+	                           			<c:set var='currentId' value='${memberMap.get("MEMBERID")}'/>								
+	                           	   	   	<c:choose>
+						    	   		   	<c:when test="${currentId ne contestObj.MEMBERID}">
+						                       	<span class="itemDot itemDot5" data-tab="5">
+						                       	   	<i class="fas fa-angry donggeulI"></i>
+					                           	   	<span class="forActive"></span>
+					                           	</span>
+				                           	</c:when>
+			                           	</c:choose>
 			                        	</div>
 			                        	
 			                        	<div class="contentCircle">
@@ -388,7 +393,7 @@
 				                        	
 				                           	<div class="CirItem title-box CirItem5">                                          
 	                                    
-	                                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -5em;'>
+	                                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${contestObj.REIMG}">
@@ -509,17 +514,12 @@
   					</div>        
        			</div>
 			</div>
-			   		    
-	    	<div class='col-md-1' id='right-nav' >
-	    		<!-- <div style='position:fixed; margin-top: 10em;'>
-	    			<span onclick='fn_forward()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-right"></i></span>    				           
-	          	 	<script>
-	           			function fn_forward()
-		           		{
-		           			history.forward();
-		           		}
-		           	</script>
-	           	</div> -->
+	    	<div class='col-md-1' id='right-nav' >	    	
+				<c:if test="${sessionScope.member.MEMBERID==admin}">   		    
+		    		<div style='position:fixed; margin-top: 10em;'>
+		    			<button class=" btn btn-outline-info slidetopleft" id='approval-btn' >승인</button>
+		           	</div>
+	    		</c:if>
 	    	</div>
 	    	<script>
 			    function fn_applicantAccess_modal()

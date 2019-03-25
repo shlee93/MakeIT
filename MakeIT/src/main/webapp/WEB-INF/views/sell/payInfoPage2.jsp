@@ -12,6 +12,7 @@
 	
 	<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Sunflower:300" rel="stylesheet">
 <style>
 	div
 	{
@@ -54,7 +55,7 @@
 				</div>		
 			</div>
 			<div style='width: 100%; margin-bottom:1em;'>
-				<h1 style='text-align:center; margin-bottom:1em;'>선택 상품 정보 </h1>
+				<h1 style='text-align:center; margin-bottom:1em;font-family: Sunflower, sans-serif;'>선택 상품 정보 </h1>
 				<div style='width:100%; border-top: 1px solid black; border-bottom:1px solid black; padding:20px;' >
 					<div class='row'>
 						<div class='col-md-6' style='padding-left: 100px;'>
@@ -66,7 +67,7 @@
 						</div>
 						<div class='col-md-6' style='padding-left: 100px;'>
 							<h4>구매수량 : <input type='number' id="purchaseAccount" min="1" step="1" pattern="^[0-9]" class='form-control' style='width: 30%; float:right; margin-right: 5em;'></h4>
-							<h4 style='margin-top: 1.2em;'>옵션별 금액 : <p style='display:inline; float:right; margin-right: 3.5em;'>${purchase.SELLPRICE}</p></h4>
+							<h4 style='margin-top: 1.2em;'>옵션별 금액 : <p style='display:inline; float:right; margin-right: 3.5em;'>${purchase.SELLPRICE}원</p></h4>
 							<h4 style='margin-top: 1.2em;'>총 금액 : <p id="totalPrice" style='display:inline; float:right; margin-right: 3.5em;'></p></h4>
 							<input type="hidden" id="hiddenTotal" value="">
 						</div>						
@@ -76,8 +77,8 @@
 			<div style='width: 100%; margin-bottom:3em;'>						
 			<div class='row' style='margin-top:4em; justify-content:center;'>
 				<div>
-					<input type='button' class='btn btn-primary' id="cancelPurchase" style='margin-right: 1.3em; width: 5.3em;' value='취소'>
-					<input type='button' id="decidePurchase" class='btn btn-primary' value='구매결정'/>
+					<input type='button' class='btn btn-outline-info slidetopleft' id="cancelPurchase" style='margin-right: 1.3em; width: 5.3em;' value='취소'>
+					<input type='button' id="decidePurchase" class='btn btn-outline-info slidetopleft' value='구매결정'/>
 				
 				</div>				
 			</div>			

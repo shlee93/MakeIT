@@ -66,7 +66,6 @@ pageEncoding="UTF-8"%>
             	 <div class="tab-pane fade show active" id="send" role="tabpanel" aria-labelledby="send-tab">
 	                <div class="row">
 	                    <div class="col-md-12">
-	                    	<form action="${path }/member/messageSendSelectDel.do" method="post">
 		                    	<table class="table table-striped table-hover" style="table-layout:fixed;">
 		                    		<tr>
 		                    			<th style="width: 10%;"><input type="checkbox" class="allSendCheck"></th>
@@ -92,9 +91,8 @@ pageEncoding="UTF-8"%>
 		                    			</tr>
 		                    		</c:if>
 		                    	</table>
-		                    	<input type="submit" class="btn btn-outline-info slidetopleft" value="삭제">
+		                    	<input type="submit" class="btn btn-outline-info slidetopleft" onclick="fn_sendDeleteBtn();" value="삭제">
 		                    	<input type="button"class="btn btn-outline-info slidetopleft" onclick="fn_sendBtn();" value="보내기">
-	                    	</form>
 	                    	${sendPageBar }
 	                    </div>
 	                </div>
@@ -102,7 +100,6 @@ pageEncoding="UTF-8"%>
 	            <div class="tab-pane fade" id="receive" role="tabpanel" aria-labelledby="receive-tab">
 	                <div class="row">
 						<div class="col-md-12">
-							<form action="${path }/member/messageReceiveSelectDel.do" method="post">
 		                    	<table class="table table-striped table-hover" style="table-layout:fixed;">
 		                    		<tr>
 		                    			<th style="width: 10%;"><input type="checkbox" class="allReceiveCheck"></th>
@@ -128,9 +125,8 @@ pageEncoding="UTF-8"%>
 		                    			</tr>
 		                    		</c:if>
 		                    	</table>
-		                    	<input type="submit" class="btn btn-outline-info slidetopleft" value="삭제">
+		                    	<input type="submit" class="btn btn-outline-info slidetopleft" onclick="fn_receiveDeleteBtn();" value="삭제">
 		                    	<input type="button"class="btn btn-outline-info slidetopleft" onclick="fn_sendBtn();" value="보내기">
-	                    	</form>
 	                    	${receivePageBar }
 	                    </div>
 	                </div>
@@ -166,7 +162,7 @@ pageEncoding="UTF-8"%>
 		                    			</tr>
 		                    		</c:if>
 		                    	</table>
-		                    	<input type="submit"class="btn btn-outline-info slidetopleft" value="삭제">
+		                    	<input type="submit"class="btn btn-outline-info slidetopleft" onclick="fn_sendDeleteBtn();" value="삭제">
 		                    	<input type="button"class="btn btn-outline-info slidetopleft" onclick="fn_sendBtn();" value="보내기">
 	                    	</form>
 	                    	${sendPageBar }
@@ -176,7 +172,6 @@ pageEncoding="UTF-8"%>
 	            <div class="tab-pane fade show active" id="receive" role="tabpanel" aria-labelledby="receive-tab">
 	                <div class="row">
 						<div class="col-md-12">
-							<form action="${path }/member/messageReceiveSelectDel.do" method="post">
 		                    	<table class="table table-striped table-hover" style="table-layout:fixed;">
 		                    		<tr>
 		                    			<th style="width: 10%;"><input type="checkbox" class="allReceiveCheck"></th>
@@ -204,9 +199,8 @@ pageEncoding="UTF-8"%>
 		                    			</tr>
 		                    		</c:if>
 		                    	</table>
-		                    	<input type="submit"class="btn btn-outline-info slidetopleft" value="삭제">
+		                    	<input type="button"class="btn btn-outline-info slidetopleft" onclick="fn_receiveDeleteBtn();" value="삭제">
 		                    	<input type="button"class="btn btn-outline-info slidetopleft" onclick="fn_sendBtn();" value="보내기">
-		                    </form>
 	                    	${receivePageBar }
 	                    </div>
 	                </div>
@@ -217,11 +211,72 @@ pageEncoding="UTF-8"%>
     <input type="hidden" id="fadeStatus" name="fadeStatus" value="${fadeStatus }">
 </div>
 <script>
+	function fn_sendDeleteBtn(){
+		var list = "";
+		var size = document.getElementsByName("sendDeleteCk").length;
+	    for(var i = 0; i < size; i++){
+	        if(document.getElementsByName("sendDeleteCk")[i].checked == true){
+    			if(i!=0) {
+    				list += ",";
+    			}
+    			list += document.getElementsByName("sendDeleteCk")[i].value;
+	    		
+	        }
+	    }
+
+		$.ajax({
+			url:"${path }/member/messageSendSelectDel.do",
+			dataType:"html",
+			data:{"sendDeleteCk":list},
+			success:function(data){
+				alert(data);
+				$.ajax({
+					url:"${path}/member/memberMessageAjax.do",
+					dataType:"html",
+					data:{"memberId":$('#sendId').val()},
+					success:function(data){
+						console.log(data);
+						$('#ajaxHtml').html(data);
+					}
+				});
+			}
+		});
+	}
+	function fn_receiveDeleteBtn(){
+		var list = "";
+		var size = document.getElementsByName("receiveDeleteCk").length;
+	    for(var i = 0; i < size; i++){
+	        if(document.getElementsByName("receiveDeleteCk")[i].checked == true){
+    			if(i!=0) {
+    				list += ",";
+    			}
+    			list += document.getElementsByName("receiveDeleteCk")[i].value;
+	    		
+	        }
+	    }
+		$.ajax({
+			url:"${path }/member/messageReceiveSelectDel.do",
+			dataType:"html",
+			data:{"receiveDeleteCk":list},
+			success:function(data){
+				alert(data);
+				$.ajax({
+					url:"${path}/member/memberMessageAjax.do",
+					dataType:"html",
+					data:{"memberId":$('#sendId').val()},
+					success:function(data){
+						console.log(data);
+						$('#ajaxHtml').html(data);
+					}
+				});
+			}
+		});
+	}
 	function fn_sendBtn(){
 		$.ajax({
 			url:"${path}/member/sendMessage.do",
 			dataType:"html",
-			data:{"memberId":$('#memberId').val()},
+			data:{"receiveDeleteCk":$('#receiveDeleteCk').val()},
 			success:function(data){
 				$('#ajaxHtml').html(data);
 			}

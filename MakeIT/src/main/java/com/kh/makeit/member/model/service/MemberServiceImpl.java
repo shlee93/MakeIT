@@ -245,6 +245,21 @@ public class MemberServiceImpl implements MemberService {
 	public List<Map<String, String>> bankList() {
 		return dao.bankList();
 	}
+
+	@Override
+	public List<Map<String,String>> memberSearch(String receiveId) {
+		return dao.memberSearch(receiveId);
+	}
+
+	@Override
+	public List<Map<String, String>> contestOutBoxList(String memberId, int contestcPage, int numPerPage) {
+		return dao.contestOutBoxList(memberId,contestcPage,numPerPage);
+	}
+
+	@Override
+	public int selectOutBoxContestCount(String memberId) {
+		return dao.selectOutBoxContestCount(memberId);
+	}
 	
 }
 

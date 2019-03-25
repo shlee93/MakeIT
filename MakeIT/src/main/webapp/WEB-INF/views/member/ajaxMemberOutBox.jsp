@@ -29,15 +29,34 @@ pageEncoding="UTF-8"%>
 			        <li class="nav-item">
 			            <a class="nav-link" onclick="selltab();" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="false">판매 찜 리스트</a>
 			        </li>
+			        <li class="nav-item">
+			            <a class="nav-link" onclick="contesttab();" id="contest-tab" data-toggle="tab" href="#contest" role="tab" aria-controls="contest" aria-selected="false">콘테스트 찜 리스트</a>
+			        </li>
 			    </ul>
 		    </c:if>
 		    <c:if test="${fadeStatus == 2 }">
 			    <ul class="nav nav-tabs" id="myTab" role="tablist">
 			        <li class="nav-item">
-			            <a class="nav-link" onclick="buytab();" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="true">구매 찜 리스트</a>
+			            <a class="nav-link" onclick="buytab();" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="false">구매 찜 리스트</a>
 			        </li>
 			        <li class="nav-item">
-			            <a class="nav-link active" onclick="selltab();" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="false">판매 찜 리스트</a>
+			            <a class="nav-link active" onclick="selltab();" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="true">판매 찜 리스트</a>
+			        </li>
+			        <li class="nav-item">
+			            <a class="nav-link" onclick="contesttab();" id="contest-tab" data-toggle="tab" href="#contest" role="tab" aria-controls="contest" aria-selected="false">콘테스트 찜 리스트</a>
+			        </li>
+			    </ul>
+		    </c:if>
+		    <c:if test="${fadeStatus == 3 }">
+			    <ul class="nav nav-tabs" id="myTab" role="tablist">
+			        <li class="nav-item">
+			            <a class="nav-link" onclick="buytab();" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="false">구매 찜 리스트</a>
+			        </li>
+			        <li class="nav-item">
+			            <a class="nav-link" onclick="selltab();" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="false">판매 찜 리스트</a>
+			        </li>
+			        <li class="nav-item">
+			            <a class="nav-link active" onclick="contesttab();" id="contest-tab" data-toggle="tab" href="#contest" role="tab" aria-controls="contest" aria-selected="true">콘테스트 찜 리스트</a>
 			        </li>
 			    </ul>
 		    </c:if>
@@ -79,8 +98,8 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="bo" items="${buyOutBoxList }">
 		                    			<tr>
 		                    				<td><c:out value="${bo.BUYNO }"/></td>
-											<td><a href="#"><c:out value="${bo.BUYTITLE }"/></a></td>
-											<td><c:out value="${bo.BUYWRITER }"/></td>
+											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><c:out value="${bo.MEMBERID }"/></td>
 											<td><c:out value="${bo.BUYDATE }"/></td>
 		                    			</tr>
 		                    		</c:forEach>
@@ -110,8 +129,8 @@ pageEncoding="UTF-8"%>
 	                    		<c:if test="${totalSellCount != 0 }">
 		                    		<c:forEach var="so" items="${sellOutBoxList }">
 		                    			<tr>
-		                    				<td><c:out value="${so.BUYNO }"/></td>
-											<td><a href="#"><c:out value="${so.SELLTITLE }"/></a></td>
+		                    				<td><c:out value="${so.SELLNO }"/></td>
+											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
 											<td><c:out value="${so.MEMBERID }"/></td>
 											<td><c:out value="${so.SELLDATE }"/></td>
 		                    			</tr>
@@ -126,6 +145,38 @@ pageEncoding="UTF-8"%>
 	                    		</c:if>
 	                    	</table>
 	                    	${sellPageBar }
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="tab-pane fade" id="contest" role="tabpanel" aria-labelledby="contest-tab">
+	                <div class="row">
+						<div class="col-md-12">
+	                    	<table class="table table-striped table-hover">
+	                    		<tr>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>개최일</th>
+	                    		</tr>
+	                    		<c:if test="${totalContestCount != 0 }">
+		                    		<c:forEach var="co" items="${contestOutBoxList }">
+		                    			<tr>
+		                    				<td><c:out value="${co.CONTESTNO }"/></td>
+											<td><a href="${path }/contest/contestDetail.do?contestNo=${co.CONTESTNO }"><c:out value="${co.CONTESTTITLE }"/></a></td>
+											<td><c:out value="${co.MEMBERID }"/></td>
+											<td><c:out value="${co.CONTESTDATE }"/></td>
+		                    			</tr>
+		                    		</c:forEach>
+	                    		</c:if>
+	                    		<c:if test="${totalContestCount == 0 }">
+	                    			<tr>
+	                    				<td colspan='4' style="text-align: center;">
+	                    					검색된 결과가 없습니다.
+	                    				</td>
+	                    			</tr>
+	                    		</c:if>
+	                    	</table>
+	                    	${contestPageBar }
 	                    </div>
 	                </div>
 	            </div>
@@ -145,8 +196,8 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="bo" items="${buyOutBoxList }">
 		                    			<tr>
 		                    				<td><c:out value="${bo.BUYNO }"/></td>
-											<td><a href="#"><c:out value="${bo.BUYTITLE }"/></a></td>
-											<td><c:out value="${bo.BUYWRITER }"/></td>
+											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><c:out value="${bo.MEMBERID }"/></td>
 											<td><c:out value="${bo.BUYDATE }"/></td>
 		                    			</tr>
 		                    		</c:forEach>
@@ -176,8 +227,8 @@ pageEncoding="UTF-8"%>
 	                    		<c:if test="${totalSellCount != 0 }">
 		                    		<c:forEach var="so" items="${sellOutBoxList }">
 		                    			<tr>
-		                    				<td><c:out value="${so.BUYNO }"/></td>
-											<td><a href="#"><c:out value="${so.SELLTITLE }"/></a></td>
+		                    				<td><c:out value="${so.SELLNO }"/></td>
+											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
 											<td><c:out value="${so.MEMBERID }"/></td>
 											<td><c:out value="${so.SELLDATE }"/></td>
 		                    			</tr>
@@ -195,6 +246,136 @@ pageEncoding="UTF-8"%>
 	                    </div>
 	                </div>
 	            </div>
+	            <div class="tab-pane fade" id="contest" role="tabpanel" aria-labelledby="contest-tab">
+	                <div class="row">
+						<div class="col-md-12">
+	                    	<table class="table table-striped table-hover">
+	                    		<tr>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>개최일</th>
+	                    		</tr>
+	                    		<c:if test="${totalContestCount != 0 }">
+		                    		<c:forEach var="co" items="${contestOutBoxList }">
+		                    			<tr>
+		                    				<td><c:out value="${co.CONTESTNO }"/></td>
+											<td><a href="${path }/contest/contestDetail.do?contestNo=${co.CONTESTNO }"><c:out value="${co.CONTESTTITLE }"/></a></td>
+											<td><c:out value="${co.MEMBERID }"/></td>
+											<td><c:out value="${co.CONTESTDATE }"/></td>
+		                    			</tr>
+		                    		</c:forEach>
+	                    		</c:if>
+	                    		<c:if test="${totalContestCount == 0 }">
+	                    			<tr>
+	                    				<td colspan='4' style="text-align: center;">
+	                    					검색된 결과가 없습니다.
+	                    				</td>
+	                    			</tr>
+	                    		</c:if>
+	                    	</table>
+	                    	${contestPageBar }
+	                    </div>
+	                </div>
+	            </div>
+            </c:if>
+            <c:if test="${fadeStatus == 3 }">
+            	<div class="tab-pane fade" id="buy" role="tabpanel" aria-labelledby="buy-tab">
+	                <div class="row">
+	                    <div class="col-md-12">
+	                    	<table class="table table-striped table-hover">
+	                    		<tr>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>작성일</th>
+	                    		</tr>
+	                    		<c:if test="${totalBuyCount != 0 }">
+		                    		<c:forEach var="bo" items="${buyOutBoxList }">
+		                    			<tr>
+		                    				<td><c:out value="${bo.BUYNO }"/></td>
+											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><c:out value="${bo.MEMBERID }"/></td>
+											<td><c:out value="${bo.BUYDATE }"/></td>
+		                    			</tr>
+		                    		</c:forEach>
+	                    		</c:if>
+	                    		<c:if test="${totalBuyCount == 0 }">
+	                    			<tr>
+	                    				<td colspan='4' style="text-align: center;">
+	                    					검색된 결과가 없습니다.
+	                    				</td>
+	                    			</tr>
+	                    		</c:if>
+	                    	</table>
+	                    	${buyPageBar }
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="tab-pane fade" id="sell" role="tabpanel" aria-labelledby="sell-tab">
+	                <div class="row">
+						<div class="col-md-12">
+	                    	<table class="table table-striped table-hover">
+	                    		<tr>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>작성일</th>
+	                    		</tr>
+	                    		<c:if test="${totalSellCount != 0 }">
+		                    		<c:forEach var="so" items="${sellOutBoxList }">
+		                    			<tr>
+		                    				<td><c:out value="${so.SELLNO }"/></td>
+											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><c:out value="${so.MEMBERID }"/></td>
+											<td><c:out value="${so.SELLDATE }"/></td>
+		                    			</tr>
+		                    		</c:forEach>
+	                    		</c:if>
+	                    		<c:if test="${totalSellCount == 0 }">
+	                    			<tr>
+	                    				<td colspan='4' style="text-align: center;">
+	                    					검색된 결과가 없습니다.
+	                    				</td>
+	                    			</tr>
+	                    		</c:if>
+	                    	</table>
+	                    	${sellPageBar }
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="tab-pane fade show active" id="contest" role="tabpanel" aria-labelledby="contest-tab">
+	                <div class="row">
+						<div class="col-md-12">
+	                    	<table class="table table-striped table-hover">
+	                    		<tr>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>개최일</th>
+	                    		</tr>
+	                    		<c:if test="${totalContestCount != 0 }">
+		                    		<c:forEach var="co" items="${contestOutBoxList }">
+		                    			<tr>
+		                    				<td><c:out value="${co.CONTESTNO }"/></td>
+											<td><a href="${path }/contest/contestDetail.do?contestNo=${co.CONTESTNO }"><c:out value="${co.CONTESTTITLE }"/></a></td>
+											<td><c:out value="${co.MEMBERID }"/></td>
+											<td><c:out value="${co.CONTESTDATE }"/></td>
+		                    			</tr>
+		                    		</c:forEach>
+	                    		</c:if>
+	                    		<c:if test="${totalContestCount == 0 }">
+	                    			<tr>
+	                    				<td colspan='4' style="text-align: center;">
+	                    					검색된 결과가 없습니다.
+	                    				</td>
+	                    			</tr>
+	                    		</c:if>
+	                    	</table>
+	                    	${contestPageBar }
+	                    </div>
+	                </div>
+	            </div>
             </c:if>
         </div>
     </div>
@@ -207,6 +388,8 @@ pageEncoding="UTF-8"%>
 		$('#sell').attr("class","tab-pane fade");
 		$('#buy-tab').attr("class","nav-link active");
 		$('#sell-tab').attr("class","nav-link");
+		$('#contest').attr("class","tab-pane fade");
+		$('#contest-tab').attr("class","nav-link");
 	}
 	function selltab(){
 		$('#fadeStatus').attr("value","2");
@@ -214,5 +397,16 @@ pageEncoding="UTF-8"%>
 		$('#buy').attr("class","tab-pane fade");
 		$('#sell-tab').attr("class","nav-link active");
 		$('#buy-tab').attr("class","nav-link");
+		$('#contest').attr("class","tab-pane fade");
+		$('#contest-tab').attr("class","nav-link");
+	}
+	function contesttab(){
+		$('#fadeStatus').attr("value","3");
+		$('#sell').attr("class","tab-pane fade");
+		$('#buy').attr("class","tab-pane fade");
+		$('#sell-tab').attr("class","nav-link");
+		$('#buy-tab').attr("class","nav-link");
+		$('#contest').attr("class","tab-pane fade show active");
+		$('#contest-tab').attr("class","nav-link active");
 	}
 </script>

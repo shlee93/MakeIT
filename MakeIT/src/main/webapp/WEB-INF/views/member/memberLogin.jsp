@@ -41,7 +41,7 @@
            	</div>
         </div>
         <div class="col-md-10">     
-            <div id="login">
+            <div id="loginTab">
                 <div class="container">
                     <div id="login-row" class="row justify-content-center align-items-center">
                         <div id="login-column" class="col-md-6">
@@ -50,19 +50,19 @@
                                     <h3 class="text-center text-info">Login</h3>
                                     <div class="form-group">
                                         <label for="username" class="text-info">ID:</label><br>
-                                        <input type="text" name="memberId" id="memberId" class="form-control" value='<%=cookieValue!=""?cookieValue:"" %>'>
+                                        <input type="text" name="memberId" id="memberId" style="font-size: 20px;" class="form-control" value='<%=cookieValue!=""?cookieValue:"" %>'>
                                     </div>
                                     <div class="form-group">
                                         <label for="password" class="text-info">Password:</label><br>
-                                        <input type="password" name="password" id="password" class="form-control">
+                                        <input type="password" name="password" id="password" style="font-size: 20px;" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="saveId" class="text-info"><span>아이디 저장</span> 
                                         <span><input id="saveId" name="saveId" type="checkbox" <%=cookieValue!=""?"checked":"" %>></span>
-                                        </label><br>
+                                        </label>
                                     </div>
                                     <div class="form-group">
-                                        <input type="submit" name="submit" class="btn btn-outline-info slidetopleft" value="로그인">
+                                        <input type="submit" id="loginBtn" name="loginBtn" class="btn btn-outline-info slidetopleft"value="로그인">
                                     </div>
                                     <div id="register-link" class="text-right">
                                         <a onclick="findId();" class="text-info">ID찾기</a><span class="text-info">/</span>
@@ -83,7 +83,7 @@
 									// 단 'localhost'가 포함된 CallBack URL
 									var state = naver_id_login.getUniqState();
 									
-									naver_id_login.setButton("green", 2, 40);
+									naver_id_login.setButton("green", 2, 50);
 									naver_id_login.setDomain("http://localhost:9090/makeit");	//  URL
 									naver_id_login.setState(state);
 									naver_id_login.setPopup();

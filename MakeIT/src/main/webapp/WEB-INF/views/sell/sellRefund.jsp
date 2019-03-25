@@ -36,7 +36,7 @@
 	href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
 	integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
 	crossorigin="anonymous">
-
+<link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Sunflower:300" rel="stylesheet">	
 <style>
 .hide {
 	display: none;
@@ -44,7 +44,8 @@
 #container{
  width:97%;
 }
-.btn-primary{
+
+.btn-outline-info{
 	position:relative;
 	left:83%;
 	top:3px;
@@ -57,7 +58,7 @@
 			<div>
 				<div class="row" >
 					<div class="col-md-12" style="text-align:center" >
-						<h3 >환불하기</h3>
+						<h3 style="font-family: 'Sunflower', sans-serif;">환불하기</h3>
 					</div>
 				</div>
 				<div class="row">
@@ -76,12 +77,12 @@
 						<label style="">환불사유</label> 
 					</div>
 					<div class="col-md-9">
-						<textarea name="reportContent" class="form-control" rows="5"></textarea>
+						<textarea id="reportConten" name="reportContent" class="form-control" rows="5"></textarea>
 					</div>
 				</div>
 				<div class="row">
 					<br/>
-					<button type="button" onclick="fn_sellRefundEnd();" class="btn btn-primary">환불하기</button>
+					<button type="button" onclick="fn_sellRefundEnd();" class="btn btn-outline-info">환불하기</button>
 
 				</div>
 				
@@ -97,9 +98,19 @@
 		{
 		    $('#refundForm').attr('action',"${path}/sell/sellRefundEnd");
 			$('#refundForm').submit();
-			
 		}
-		
+		$(document).ready(function() {
+
+			
+		$('#reportConten').on('keyup', function() {
+		      if($(this).val().length > 1339) {
+		    	  console.log($(this).val());
+		         alert("글자수는 1339자로 이내로 제한됩니다.");
+		         $(this).val($(this).val().substring(0, 1339));
+		      }
+		   
+		   });
+		})
 	</script>
 </body>
 </html>

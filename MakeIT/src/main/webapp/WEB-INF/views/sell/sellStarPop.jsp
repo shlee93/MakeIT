@@ -24,6 +24,7 @@
    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
    
    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/selldetail/selldetail.css" />
+   <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Sunflower:300" rel="stylesheet">
 </head>
 <script>
    function fn_plusStar()
@@ -87,7 +88,7 @@
       
       </div>
       <div style="float:right; padding:10px;">
-         <input type="button" class="btn btn-primary" value="작성" onclick="fn_submit()">
+         <input type="button" class="btn btn-outline-info slidetopleft" value="작성" onclick="fn_submit()">
       </div>
    </form>
    </div>

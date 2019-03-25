@@ -80,23 +80,38 @@
         </script>
 </head>
 <body>
-	<form id="buyWriteFrm" enctype="multipart/form-data">
+		
 		<div class="row">
-			<div class="col-md-1"></div>
+			<div class="col-md-1">
+				<div style='position:fixed; margin-top: 10em;'>
+   			<span onclick='fn_back()' style='cursor:pointer; font-size: 6em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
+         	 	<script>
+          			function fn_back()
+           		{
+           			history.back();
+           		}
+           		</script>
+	   		</div>
+			</div>
+		
 			<div id="buy-container" class="col-md-10">
+			<div id="pageTitle" style="padding-bottom:20px;">
+				<h2 style="font-family: 'Sunflower', sans-serif;">구매 게시글 작성</h2>
+			</div>
+			<form id="buyWriteFrm" action="${pageContext.request.contextPath}/buy/buyWriteEnd.do" method="post" enctype="multipart/form-data">
 				<div class="row">
 					<div class="col-md-2">
 						<label>분류</label>
 					</div>
 					<div class="col-md-8">
 						<select class="form-control col-md-4" id="interest"
-							name="interest" style="display: inline">
+							name="interest" style="display: inline" required>
 							<option>카테고리</option>
 							<option value='1'>개발자</option>
 							<option value='2'>웹디자이너</option>
 							<option value='3'>네트워크보안</option>
 						</select> <select class="form-control col-md-4" id="detailInterest"
-							name="detailInterest" style="display: inline; margin-right: 10px">
+							name="detailInterest" style="display: inline; margin-right: 10px" required>
 
 
 						</select>
@@ -134,7 +149,7 @@
 					</div>
 
 				</div>
-				<textarea class="form-control" name="buyContent" rows="10"></textarea>
+				<textarea class="form-control" id="buyContent" name="buyContent" rows="10"></textarea>
 				<br />
 				<div id="null">
 					<span class='nullimg'>메인에 노출될 사진을 선택해주세요</span>
@@ -142,69 +157,76 @@
 				<div class="filebox bs3-primary preview-image">
 					<label for="input_file">사진 선택</label> <input type="file"
 						name="input_file" id="input_file" class="upload-hidden"
-						multiple="multiple" accept=".gif, .jpg, .png">
+						multiple="multiple" accept=".gif, .jpg, .png" required>
 				</div>
 
 				<br />
 				<div id="btn-container">
-					<button class="btn btn-secondary">취소</button>
-					<button class="btn btn-secondary" onclick="writeEnd();">작성</button>
+					<button class="btn btn-outline-info slidetopleft">취소</button>
+					<input type="submit" class="btn btn-outline-info slidetopleft" value="작성">
 				</div>
+				</form>
 			</div>
+			
 			<div class="col-md-1"></div>
 		</div>
-	</form>
+	
 	<script>
-   var sel_files=[];
-   var count = 0;
-   $(document).ready(function(){
-          //preview image 
-          
-          var imgTarget = $('.preview-image .upload-hidden');
-          imgTarget.on('change', function(e){
-             var files=e.target.files;
-              var filesArr=Array.prototype.slice.call(files);
-              console.log(files);
-              var parent = $(this).parent();
-              parent.children('.upload-display').remove();
-             
-              console.log("수 : " + filesArr.length);
-            if(filesArr.length > 5)
-            {
-               alert("사진은 5개 제한입니다.");
-               return;
-            }
-              filesArr.forEach(function(f){
-                 count = 0;
-                  if(!f.type.match("image.*")){
-                     alert("확장자는 이미지 확장자만 가능합니다.");
-                     return;
-             
-                  }
-                  console.log(f)
-                  sel_files.push(f);
-                  
-                  var reader=new FileReader();
-                  reader.onload=function(e){
-                     var src = e.target.result;
-                      parent.prepend('<div class="upload-display"><input type="radio" name="mainImgNo" value='+ (count++) +' required><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
-                  }
-                  
-                  reader.readAsDataURL(f);
-                  
-                  
-               })
-                
-           });
-         
-      });
+	var sel_files=[];
+	   var count = 0;
+	   $(document).ready(function(){
+	          //preview image 
+	          
+	          var imgTarget = $('.preview-image .upload-hidden');
+	         
+	          imgTarget.on('change', function(e){
+	        	  console.log("$(#input_file).val()")
+	             var files=e.target.files;
+	              var filesArr=Array.prototype.slice.call(files);
+	              console.log(files);
+	              var parent = $(this).parent();
+	              parent.children('.upload-display').remove();
+	             
+	              console.log("수 : " + filesArr.length);
+	            if(filesArr.length > 5)
+	            {
+	               alert("사진은 5개 제한입니다.");
+	               return;
+	            }
+	              filesArr.forEach(function(f){
+	                 count = 0;
+	                  if(!f.type.match("image.*")){
+	                     alert("확장자는 이미지 확장자만 가능합니다.");
+	                     return;
+	             
+	                  }
+	                  console.log(f)
+	                  sel_files.push(f);
+	                  
+	                  var reader=new FileReader();
+	                  reader.onload=function(e){
+	                     var src = e.target.result;
+	                      parent.prepend('<div class="upload-display"><input type="radio" name="mainImgNo" value='+ (count++) +'><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+	                  }
+	                  
+	                  reader.readAsDataURL(f);
+	                  
+	                  
+	               })
+	                
+	           });
+	         
+	      });
 
-      
-   function writeEnd(){
-      $('#buyWriteFrm').attr("action","${pageContext.request.contextPath}/buy/buyWriteEnd.do");
-      $('#buyWriteFrm').attr("method","post");
-      $('#buyWriteFrm').submit();
-   }
+
+   $('#buyContent').on('keyup', function() {
+	      if($(this).val().length > 1339) {
+	    	  console.log($(this).val());
+	         alert("글자수는 1339자로 이내로 제한됩니다.");
+	         $(this).val($(this).val().substring(0, 1339));
+	      }
+	   
+	   });
      
          
       

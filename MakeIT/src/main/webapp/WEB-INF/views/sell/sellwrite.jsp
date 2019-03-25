@@ -58,7 +58,6 @@
         </script>
 </head>
 
-   <form id="sellWriteFrm" enctype="multipart/form-data">
    <div class="row">
       <div class="col-md-1">
       	<div style='position:fixed; margin-top: 10em;'>
@@ -72,18 +71,19 @@
 	           	</div>
       </div>
       <div id="buy-container" class="col-md-10">
+   <form id="sellWriteFrm" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/sell/sellWriteEnd">
          <div class="row">
             <div class="col-md-2">
             <label>분류</label> 
             </div>
             <div class="col-md-8">
-               <select class="form-control col-md-4" id="interest" name="interest" style="display: inline">
+               <select class="form-control col-md-4" required id="interest" name="interest" style="display: inline">
                     <option>카테고리</option>
                  <option value='1'>개발자</option>
                  <option value='2'>웹디자이너</option>
                  <option value='3'>네트워크보안</option>    
                </select> 
-               <select class="form-control col-md-4" id="detailInterest" name="detailInterest"  style="display: inline; margin-right: 10px">
+               <select class="form-control col-md-4" id="detailInterest" name="detailInterest" required style="display: inline; margin-right: 10px">
                   
                  
                </select>
@@ -96,7 +96,7 @@
                <label>제목</label> 
             </div>
             <div class="col-md-8">
-               <input type="text" name="writeTitle" class="form-control" style="display: inline;" placeholder="제목을 입력하세요." /> 
+               <input type="text" name="writeTitle" class="form-control" required style="display: inline;" placeholder="제목을 입력하세요." /> 
                <br> 
             </div>
       </div>
@@ -106,14 +106,14 @@
                 <label>상품</label> 
              </div>
              <div id="priceProduct" class="col-md-8">
-               <input type="number" class="form-control col-md-2" id='firstPrice' name="price" style="display: inline" placeholder="금액(원)">
-               <input type="text" class="form-control col-md-2" id='endDate' name="endDate" style="display: inline" placeholder="작업기한"> 
-               <input type="text" class="form-control  col-md-8" id="firstOption" name="productOption" style="display: inline" placeholder="상품에 대한 설명을 입력하세요.">
+               <input type="number" class="form-control col-md-2" required id='firstPrice' name="price" style="display: inline" placeholder="금액(원)">
+               <input type="text" class="form-control col-md-2" required id='endDate' name="endDate" style="display: inline" placeholder="작업기한"> 
+               <input type="text" class="form-control  col-md-8" required id="firstOption" name="productOption" style="display: inline" placeholder="상품에 대한 설명을 입력하세요.">
                <br/><br/>
             </div>
             <div class="col-md-2">
-           <button class="btn btn-secondary" type="button" onclick="fn_optionPlus();" style="width: 45px; font-size: 20px">+</button>
-            <button class="btn btn-secondary" type="button" onclick="fn_otionDelete();" style="width: 45px; font-size: 20px">-</button> 
+           <button class="btn btn-outline-info" type="button"  onclick="fn_optionPlus();" style="width: 45px; font-size: 20px">+</button>
+            <button class="btn btn-outline-info" type="button" onclick="fn_otionDelete();" style="width: 45px; font-size: 20px">-</button> 
             </div>
          <br/>
          </div>
@@ -125,7 +125,7 @@
             </div> 
          
        </div>
-         <textarea class="form-control" name="sellContent" rows="10"></textarea>
+         <textarea id="sellContent" class="form-control" name="sellContent" required rows="10"></textarea>
          <br/> 
          <div id="null">
          <span class='nullimg'>메인에 노출될 사진을 선택해주세요</span>
@@ -133,18 +133,20 @@
        <div class="filebox bs3-primary preview-image">
             <label for="input_file">사진 선택</label> 
             
-            <input type="file" name="input_file" id="input_file" class="upload-hidden" multiple="multiple" accept=".gif, .jpg, .png"> 
+            <input type="file" name="input_file" id="input_file" class="upload-hidden" multiple="multiple" accept=".gif, .jpg, .png" required> 
          </div>
 
          <br/>
          <div id="btn-container">
-            <button class="btn btn-secondary">취소</button>
-            <button class="btn btn-secondary" onclick="writeEnd();">작성</button>
+            <button class="btn btn-outline-info">취소</button>
+            <button type="submit" class="btn btn-outline-info">작성</button>
          </div>
+      </form>
       </div>
+       
       <div class="col-md-1"></div>
    </div>
-   </form>
+  
    <script>
    var sel_files=[];
    var count = 0;
@@ -154,6 +156,7 @@
           var imgTarget = $('.preview-image .upload-hidden');
          
           imgTarget.on('change', function(e){
+        	  console.log("$(#input_file).val()")
              var files=e.target.files;
               var filesArr=Array.prototype.slice.call(files);
               console.log(files);
@@ -179,7 +182,7 @@
                   var reader=new FileReader();
                   reader.onload=function(e){
                      var src = e.target.result;
-                      parent.prepend('<div class="upload-display"><input type="radio" name="mainImgNo" value='+ (count++) +'><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+                      parent.prepend('<div class="upload-display"><input type="radio" name="mainImgNo" required value='+ (count++) +'><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
                   }
                   
                   reader.readAsDataURL(f);
@@ -205,7 +208,13 @@
       {   
          $('.addoption').last().remove();
       }
-      
+      $('#sellContent').on('keyup', function() {
+          if($(this).val().length > 450) {
+             alert("글자수는 1339자로 이내로 제한됩니다.");
+             $(this).val($(this).val().substring(0, 1339));
+          }
+       
+       });
          
       
    </script>

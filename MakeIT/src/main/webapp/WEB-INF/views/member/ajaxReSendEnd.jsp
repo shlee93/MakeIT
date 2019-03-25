@@ -61,10 +61,7 @@ pageEncoding="UTF-8"%>
                     			<th>받는사람</th>
                     			<td>
                     				<c:if test="${sendId != null }">
-                    					<input type="text" class="form-control" value="<c:out value="${sendId }"></c:out>">
-                    				</c:if>
-                    				<c:if test="${sendId == null }">
-                    					<input type="text" class="form-control" value="">
+                    					<input type="text" id="receiveId" name="receiveId" class="form-control" value="<c:out value="${sendId }"></c:out>" readonly="readonly">
                     				</c:if>
                     			</td>
                     		</tr>
@@ -90,6 +87,13 @@ pageEncoding="UTF-8"%>
 </div>
 <input type="hidden" id="fadeStatus" name="fadeStatus" value="${fadeStatus }">
 <script>
+	$('#messageContent').on('keyup', function() {
+		if($(this).val().length > 300) {
+			alert("글자수는 300자로 이내로 제한됩니다.");
+			$(this).val($(this).val().substring(0, 300));
+		}
+	
+	});
 	function backMessage(){
 		$.ajax({
 			url:"${path}/member/memberMessageDetailAjax.do",
@@ -111,6 +115,7 @@ pageEncoding="UTF-8"%>
 				"receiveId":$('#receiveId').val(),
 				"messageContent":$('#messageContent').val()},
 			success:function(data){
+				alert(data);
 				$.ajax({
 					url:"${path}/member/memberMessageAjax.do",
 					dataType:"html",

@@ -41,7 +41,19 @@
 	<input type="hidden" id="sellValue" value="0">
 	<input type="hidden" id="isSearch" value="0">
 	<div class='row'>
-		<div class='col-md-1'></div>
+		<div class='col-md-1'>
+			<div style='position:fixed; margin-top: 10em;'>
+
+	    			<span onclick='fn_back()' style='cursor:pointer; font-size: 6em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
+	          	 	<script>
+	           			function fn_back()
+		           		{
+		           			history.back();
+		           		}
+		           	</script>
+	        </div>
+      </div>
+
 		<div class='col-md-10'>
 			<div class='row'>
 				<div class='col-md-2 col-xs-2'>
@@ -96,19 +108,21 @@
 
 					<!-- 앨범 뷰 상단 탭 -->
 					<div style="margin-right: 0; text-align: right">
-						<form class="form-inline my-2 my-lg-0">
+
+						<div class="form-inline my-2 my-lg-0">
+
 							<i class='fa fa-search'></i>&nbsp; <select id="searchtype" name="searchtype" class="form-control">
 								<option value='title'>제목</option>
 								<option value='writer'>작성자</option>
 							</select> <input class="form-control mr-sm-2" type="text" id="searchValue" placeholder="Search" aria-label="Search">
-							<button class="btn btn-primary my-2 my-sm-0" onclick="fn_searchtw();" type="button">Search</button>
-						</form>
+							<button class="btn btn-outline-info my-2 my-sm-0" onclick="fn_searchtw();" type="button">Search</button>
+						</div>
 					</div>
 					<nav>
 						<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-							<a class="nav-item nav-link active" id="nav-home-tab" onclick="fn_valueChangeNew();" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">신규등록</a> 
-							<a class="nav-item nav-link" id="nav-profile-tab" onclick="fn_valueChangeGrade();" data-toggle="tab" href="#nav-profile" role="tab"	aria-controls="nav-profile" aria-selected="false">등급별</a> 
-							<a class="nav-item nav-link" id="nav-contact-tab" onclick="fn_valueChangePerformance();" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">실적별</a>
+							<a class="nav-item nav-link active" id="nav-home-tab" onclick="fn_valueChangeNew();" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" style="font-family: 'Sunflower', sans-serif;">신규등록</a> 
+							<a class="nav-item nav-link" id="nav-profile-tab" onclick="fn_valueChangeGrade();" data-toggle="tab" href="#nav-profile" role="tab"	aria-controls="nav-profile" aria-selected="false" style="font-family: 'Sunflower', sans-serif;">등급별</a> 
+							<a class="nav-item nav-link" id="nav-contact-tab" onclick="fn_valueChangePerformance();" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false" style="font-family: 'Sunflower', sans-serif;">실적별</a>
 						</div>
 					</nav>
 					<script>
@@ -489,7 +503,7 @@
 							<!-- 앨범 뷰 상단 네비 끝 -->
 
 							<div class="container mt-40">
-								<h3 class="text-center">신규등록</h3>
+								<h3 class="text-center" style="font-family: 'Sunflower', sans-serif;">신규등록</h3>
 								<div class="row mt-30">
 
 									<c:forEach items="${newList}" var="newList">
@@ -749,6 +763,9 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		
 			<div class='col-md-1'></div>
+			</div>
 </body>
 </html>

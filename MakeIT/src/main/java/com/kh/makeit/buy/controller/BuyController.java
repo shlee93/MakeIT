@@ -755,6 +755,7 @@ public class BuyController {
 		
 		if (result > 0) {
 			msg = "환불 신청을 완료하였습니다.";
+			int result2 = service.buyDelete(Integer.parseInt(buyNo));
 			mv.addObject("msg", msg);
 			mv.addObject("script", "window.close();opener.location.reload();");
 			mv.setViewName("common/msg");
@@ -781,6 +782,7 @@ public class BuyController {
 		if (result > 0) {
 			msg = "구매확정을 하였습니다.";
 			loc = "/buy/buyDetail.do?buyNo=" + buyNo;
+			int result2 = service.buyDelete(Integer.parseInt(buyNo));
 			mv.addObject("msg", msg);
 			mv.addObject("loc", loc);
 			mv.setViewName("common/msg");
@@ -878,6 +880,130 @@ public class BuyController {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	@RequestMapping("/buy/buyModify.do")
+	public ModelAndView buyModify(int buyNo)
+	{
+		ModelAndView mv = new ModelAndView();
+		
+		Map<String,String> detailList = service.buyDetail(buyNo);
+		List<Map<String,String>> imgList = service.buyModifyImg(buyNo);
+		
+		mv.addObject("detailList", detailList);
+		mv.addObject("imgList", imgList);
+		mv.addObject("buyNo", buyNo);
+		mv.setViewName("buy/buyModify");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/buy/buyModifyEnd.do")
+	public ModelAndView buyModifyEnd(String buyNo, String interest, String detailInterest, String writeTitle, String price, String buyContent, MultipartFile[] input_file, int mainImgNo, HttpServletRequest request)
+	{
+		System.out.println("대분류" + interest);
+		System.out.println("소분류" + detailInterest);
+		System.out.println("제목" + writeTitle);
+		System.out.println("가격" + price);
+		for(MultipartFile a : input_file)
+		{
+			System.out.println("asdf" + a.getOriginalFilename());
+		}
+		
+		
+		
+		HttpSession session = request.getSession();
+		Map<String,String> sessionMap = (Map)session.getAttribute("member");
+		Map<String,String> map = new HashMap();
+		map.put("interest", interest);
+		map.put("detailInterest", detailInterest);
+		map.put("writer", sessionMap.get("MEMBERID"));
+		map.put("title", writeTitle);
+		map.put("price", price);
+		map.put("content", buyContent);
+		map.put("buyNo", buyNo);
+		ArrayList<BuyAttach> files=new ArrayList();
+		String savDir = request.getSession().getServletContext().getRealPath("/resources/upload/buy");
+		
+		MultipartFile index = input_file[mainImgNo];
+		input_file[mainImgNo] = input_file[0];
+	    input_file[0] = index;
+	    
+		for(MultipartFile f: input_file)
+		{
+			if(!f.isEmpty()) {
+				//파일명 생성(rename)
+				String orifileName=f.getOriginalFilename();
+				String ext=orifileName.substring(orifileName.lastIndexOf(".")); //.부터 확장자까지 가져오기
+				//rename규칙 설정
+				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSSS");
+				int rdv=(int)(Math.random()*1000); //랜덤값설정
+				String reName=sdf.format(System.currentTimeMillis())+"_"+rdv+ext;  //새이름
+				//파일입출력ㅎ
+				try {
+					f.transferTo(new File(savDir+"/"+reName)); //저경로에다가 파일을 생성해주는것
+				}catch(IllegalStateException | IOException e) {  //일리갈은 세이브디아이알 못찾을때 뜨는것
+					e.printStackTrace();
+				}
+				BuyAttach sa = new BuyAttach();
+				sa.setBuyImgRe(reName);
+				sa.setBuyImgOri(orifileName);
+				files.add(sa);
+			}
+		}
+		
+		int result = service.buyModifyEnd(files, map);
+		String msg = "";
+		String loc = "";
+		ModelAndView mv = new ModelAndView();
+		if(result > 0)
+		{
+			msg="구매글 수정을 완료하였습니다.";
+			loc="/buy/buyDetail.do?buyNo="+buyNo;
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+			mv.setViewName("common/msg");
+		}
+		else
+		{
+			msg="구매글 수정에 실패하였습니다. 다시 시도해 주세요.";
+			loc="/buy/buyModify.do?buyNo="+buyNo;
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+			mv.setViewName("common/msg");
+			
+		}
+		return mv;
+	}
+	
+	@RequestMapping("buy/buyDelete.do")
+	public ModelAndView buyDelete(int buyNo)
+	{
+		ModelAndView mv = new ModelAndView();
+		
+		int result = service.buyDelete(buyNo);
+		
+		String msg = "";
+		String loc = "";
+		
+		if(result > 0)
+		{
+			msg="구매글 삭제를 완료하였습니다.";
+			loc="/buy/buymain.do";
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+			mv.setViewName("common/msg");
+		}
+		else
+		{
+			msg="구매글 삭제에 실패하였습니다. 다시 시도해 주세요.";
+			loc="/buy/buyDetail.do?buyNo="+buyNo;
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+			mv.setViewName("common/msg");
+			
+		}
+		return mv;
 	}
 }
 
