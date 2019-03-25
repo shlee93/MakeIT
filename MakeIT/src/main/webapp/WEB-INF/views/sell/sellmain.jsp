@@ -124,7 +124,7 @@
 						<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
 							<a class="nav-item nav-link active" id="nav-home-tab" onclick="fn_valueChangeNew();" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" style="font-family: 'Sunflower', sans-serif;">신규등록</a> 
 							<a class="nav-item nav-link" id="nav-profile-tab" onclick="fn_valueChangeGrade();" data-toggle="tab" href="#nav-profile" role="tab"	aria-controls="nav-profile" aria-selected="false" style="font-family: 'Sunflower', sans-serif;">등급별</a> 
-							<a class="nav-item nav-link" id="nav-contact-tab" onclick="fn_valueChangePerformance();" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false" style="font-family: 'Sunflower', sans-serif;">실적별</a>
+							
 						</div>
 					</nav>
 					<script>
@@ -575,16 +575,16 @@
 						                           			<p style='display: inline;'><img alt="" src="${path }/resources/image/bronzeGrade.png" style="max-width: 50px;max-height: 50px;font-family: 'Sunflower', sans-serif;"></p>
 						                           		</c:if>
 						                           		<c:if test="${newList.GRADENAME == '실버' }">
-						                           			<p><img alt="" src="${path }/resources/image/silverGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+						                           			<p style='display: inline;'><img alt="" src="${path }/resources/image/silverGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
 						                	           	</c:if>
 						                           		<c:if test="${newList.GRADENAME == '골드' }">
-						                           			<p><img alt="" src="${path }/resources/image/goldGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+						                           			<p style='display: inline;'><img alt="" src="${path }/resources/image/goldGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
 						                           		</c:if>
 						                           		<c:if test="${newList.GRADENAME == '플래티넘' }">
-						                           			<p><img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+						                           			<p style='display: inline;'><img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
 						                           		</c:if>
-						                           		<c:if test="${newList.GRADENAME == '다이아몬드' }">
-						                           			<p><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+						                           		<c:if test="${newList.GRADENAME == '다이아' }">
+						                           			<p style='display: inline;'><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
 						                           		</c:if>
 						                           		${newList.GRADENAME}
 													</p>	

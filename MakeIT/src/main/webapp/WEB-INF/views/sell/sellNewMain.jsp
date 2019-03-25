@@ -100,16 +100,16 @@
 						                           			<p style='display: inline;'><img alt="" src="${path }/resources/image/bronzeGrade.png" style="max-width: 50px;max-height: 50px;font-family: 'Sunflower', sans-serif;"></p>
 						                           		</c:if>
 						                           		<c:if test="${newList.GRADENAME == '실버' }">
-						                           			<p><img alt="" src="${path }/resources/image/silverGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+						                           			<p style='display: inline;'><img alt="" src="${path }/resources/image/silverGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
 						                	           	</c:if>
 						                           		<c:if test="${newList.GRADENAME == '골드' }">
-						                           			<p><img alt="" src="${path }/resources/image/goldGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+						                           			<p style='display: inline;'><img alt="" src="${path }/resources/image/goldGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
 						                           		</c:if>
 						                           		<c:if test="${newList.GRADENAME == '플래티넘' }">
-						                           			<p><img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+						                           			<p style='display: inline;'><img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
 						                           		</c:if>
-						                           		<c:if test="${newList.GRADENAME == '다이아몬드' }">
-						                           			<p><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+						                           		<c:if test="${newList.GRADENAME == '다이아' }">
+						                           			<p style='display: inline;'><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
 						                           		</c:if>
 						                           		${newList.GRADENAME}</p>
                                       </div>                                       

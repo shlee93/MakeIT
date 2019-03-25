@@ -245,10 +245,7 @@
 								<p>1. 전문가의 귀책사유로 당초 약정했던 서비스 미이행 혹은 보편적인 관점에서 심각하게 잘못 이행한 경우 결제 금액 전체 환불이 가능합니다.</p> 
 								<br/>
 								<p>다. 의뢰인 책임 사유</p> 
-								<p>1. 서비스 진행 도중 의뢰인의 귀책사유로 인해 환불을 요청할 경우, 사용 금액을 아래와 같이 계산 후 총 금액의 10%를 공제하여 환불합니다.</p> 
-								<p>총 작업량의 1/3 경과 전 : 이미 납부한 요금의 2/3해당액</p> 
-								<p>총 작업량의 1/2 경과 전 : 이미 납부한 요금의 1/2해당액</p> 
-								<p>총 작업량의 1/2 경과 후 : 반환하지 않음</p>
+								<p>1. 작업물 수령 후 단순 변심 및 불분명한 사유로 인한 경우 결제 금액은 환불이 불가합니다.</p>
                             </div>
                             <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab"  style='width:100%';text-align="center">
                                 <table id="optionT" border="1px solid black" style='width:100%'  >
@@ -282,16 +279,16 @@
                            		<p style='display: inline;'><img alt="" src="${path }/resources/image/bronzeGrade.png" style="max-width: 50px;max-height: 50px;font-family: 'Sunflower', sans-serif;"></p>
                            	</c:if>
                            	<c:if test="${detailList.get(0).GRADENAME == '실버' }">
-                           		<p><img alt="" src="${path }/resources/image/silverGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+                           		<p style='display: inline;'><img alt="" src="${path }/resources/image/silverGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
                            	</c:if>
                            	<c:if test="${detailList.get(0).GRADENAME == '골드' }">
-                           		<p><img alt="" src="${path }/resources/image/goldGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+                           		<p style='display: inline;'><img alt="" src="${path }/resources/image/goldGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
                            	</c:if>
                            	<c:if test="${detailList.get(0).GRADENAME == '플래티넘' }">
-                           		<p><img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+                           		<p style='display: inline;'><img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
                            	</c:if>
-                           	<c:if test="${detailList.get(0).GRADENAME == '다이아몬드' }">
-                           		<p><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
+                           	<c:if test="${detailList.get(0).GRADENAME == '다이아' }">
+                           		<p style='display: inline;'><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"font-family: 'Sunflower', sans-serif;></p>
                            	</c:if>
                               	
                        		<h4 style="display: inline;font-family: 'Sunflower', sans-serif;"><strong>${detailList.get(0).GRADENAME}</strong>${detailList.get(0).MEMBERNAME}</h4>

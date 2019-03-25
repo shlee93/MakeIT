@@ -7,7 +7,7 @@ import java.util.Map;
 import com.kh.makeit.buy.model.vo.BuyAttach;
 
 public interface BuyService {
-	List<Map<String, String>> selectVolList(Map m, int numPerPage, int cPage);
+	List<Map<String, String>> selectVolList(Map m);
 	Map<String,String> selectVolView(Map map);
 	int buyCount(Map<String, String> map);
 	List<Map<String, String>> buyMainGrade(Map<String, String> map, int cPage, int numPerPage);
@@ -24,25 +24,4 @@ public interface BuyService {
 	int selectReviewCnt(int buyNo);
 	int deleteReview(Map<String, String> map);
 	int updateReview(Map<String, String> map);
-	Map<String, String> selectSpec(Map specMap);
-	List<Map<String, String>> selectAnother(String memberId, int numPerPage, int contentCount, int cPage);
-	int anotherCount(String memberId);
-	int buyVolEnd(List<Map<String, String>> files, Map<String, String> map);
-	int selectVolCount(String buyNo);
-	int insertBuySpec(Map map);
-	Map<String, String> selectMemberImg(String memberId);
-	Map buyOutBoxYn(Map outBoxc);
-	int buyOutBoxInsert(Map outBoxInsert);
-	int buyOutBoxDelete(Map outBoxDelete);
-	int insertReport(Map reportMap);
-	int buyRefund(Map<String, String> map);
-	int finishWork(Map<String, String> map);
-	List<Map<String, String>> selectDownImg(Map<String, String> map);
-	int buyCommit(String specNo);
-	Map<String, String> selectSpec2(int buyNo);
-	List<Map<String, String>> buyModifyImg(int buyNo);
-	int buyModifyEnd(ArrayList<BuyAttach> files, List<Map<String, String>> imgList, Map<String, String> map);
-	int buyDelete(int buyNo);
-	List<Map<String, String>> selectBuyImg(int buyNo);
-	
 }
