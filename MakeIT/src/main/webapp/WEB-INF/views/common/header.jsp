@@ -206,6 +206,7 @@
       	})
 	  	
 	  	$('#icon1').click(function(){
+
       		
       		if(reportCount == 5)
       		{
@@ -251,10 +252,11 @@
       		}
       		else
       		{
-      			location.href="${path}/board.jsp";
+    	  		location.href="${path}/board/boardMain.do";
       		}
       	
       	})
+
 	  	$('#icon5').click(function(){
 	  		location.href="${path}/qna.jsp";
 	  	})

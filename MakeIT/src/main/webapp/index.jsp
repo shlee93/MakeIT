@@ -58,6 +58,7 @@
                         <div id="rankingView1stNickBody">
                             <div id="rankingView1stNickBox">
                                 <p id="rankingView1stNick"></p>
+                                <p id="ranking1stId"></p>
                             </div>
                         </div>
                     </div> 
@@ -110,6 +111,8 @@
                 var rankingNick =data[0]['MEMBERNAME'];
                 var totalPrice;
                 var rankingSize = 9;
+                var ranking1stId = data[0]['MEMBERID'];
+                
                 $(function commaNum(){
                 	
                 	var num = data[0]['SUM(SELLPRICE)'] + ""; 
@@ -127,6 +130,7 @@
                 });
                 
                 $('#rankingView1stNick').html(rankingNick);
+                $('#ranking1stId').html(ranking1stId);
                 var rankingViewBoxSize = $('#rankingView1stNickBox').css('width').replace('px','');
                 rankingViewBoxSize = Number(rankingViewBoxSize) + 30;
                 
@@ -137,7 +141,6 @@
                 
                 for(var i=1; i<10; i++){
                 	
-
 	                	var num = data[i]['SUM(SELLPRICE)'] + ""; 
 	                	var len = num.length;
 	                	var point = num.length %3;
@@ -156,6 +159,7 @@
                 for(var i =0; i<rankingSize; i++){
                     var rankingNick2 = data[i+1]['MEMBERNAME'];
                     var totalPrice2 = data[i+1]['SUM(SELLPRICE)'];
+                    var rankingId2 = data[i+1]['MEMBERID'];
                           
                     $('#rankingViewBody').append('<div class="rankingViewBox"></div>');
                     $('.rankingViewBox:eq('+i+')').append('<div class="rankingViewLogo"></div>');
@@ -164,6 +168,7 @@
                     $('.rankingViewBox:eq('+i+') .rankingViewPriceBox').append('<p class="rankingViewPrice">'+totalPrice2+'원</p>');
                     $('.rankingViewBox:eq('+i+')').append('<div class="rankingViewNickBox"></div>');
                     $('.rankingViewBox:eq('+i+') .rankingViewNickBox').append('<p class="rankingViewNick">'+rankingNick2+'</p>');
+                    $('.rankingViewBox:eq('+i+') .rankingViewNickBox').append('<p class="rankingId">'+rankingId2+'</p>');
                     $('#rankingViewBody').append('<div class="rankingWidthBar"></div>');
                     
                 }
@@ -225,6 +230,8 @@
         var good =99;
         var allWork =3643;
         var major = "프로그래밍";
+        var memberId = $(this).find('.rankingId').html();
+        console.log(memberId);
 
         if($('#rankingViewBody').css('height') == '639px'){
             viewPosition = viewPosition-535;
@@ -260,18 +267,22 @@
     })
 
     $('#rankingView1stBody').click(function(){
-            if($('#rankingViewBody').css('height') == '639px'){
+    		
+    	var memberId = $('#ranking1stId').html();
+    	console.log(memberId);
+    	
+        if($('#rankingViewBody').css('height') == '639px'){
+				
+	        $('#rankingDetailViewBody').css('top','-340px');
+	        $('#rankingDetailViewBody').css('width','300px');
+	        $('#rankingDetailViewBody').css('opacity','1');
+        }
+        else{
 
-                $('#rankingDetailViewBody').css('top','-340px');
-                $('#rankingDetailViewBody').css('width','300px');
-                $('#rankingDetailViewBody').css('opacity','1');
-            }
-            else{
-
-                $('#rankingDetailViewBody').css('top','-860px');
-                $('#rankingDetailViewBody').css('width','300px');
-                $('#rankingDetailViewBody').css('opacity','1');
-            }
+	        $('#rankingDetailViewBody').css('top','-860px');
+	        $('#rankingDetailViewBody').css('width','300px');
+	        $('#rankingDetailViewBody').css('opacity','1');
+        }
     });
 
 
