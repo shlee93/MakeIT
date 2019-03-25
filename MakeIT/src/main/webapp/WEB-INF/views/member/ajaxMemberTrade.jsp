@@ -21,45 +21,40 @@ pageEncoding="UTF-8"%>
 	    	<h5>
 				<c:out value="${map.MEMBERNAME }"></c:out>
 	   		</h5>
-	   		<c:if test="${fadeStatus == 1 }">
-			    <ul class="nav nav-tabs" id="myTab" role="tablist">
+		    <ul class="nav nav-tabs" id="myTab" role="tablist">
+		    	<c:if test="${fadeStatus == 1 }">
 			        <li class="nav-item">
-			            <a class="nav-link active" onclick="buytab();" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="true">구매 찜 리스트</a>
+			            <a class="nav-link active" onclick="buytab();" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="true">구매</a>
 			        </li>
 			        <li class="nav-item">
-			            <a class="nav-link" onclick="selltab();" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="false">판매 찜 리스트</a>
+			            <a class="nav-link" onclick="selltab();" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="false">판매</a>
 			        </li>
 			        <li class="nav-item">
-			            <a class="nav-link" onclick="contesttab();" id="contest-tab" data-toggle="tab" href="#contest" role="tab" aria-controls="contest" aria-selected="false">콘테스트 찜 리스트</a>
-			        </li>
-			    </ul>
-		    </c:if>
-		    <c:if test="${fadeStatus == 2 }">
-			    <ul class="nav nav-tabs" id="myTab" role="tablist">
+			            <a class="nav-link" onclick="contesttab();" id="contest-tab" data-toggle="tab" href="#contest" role="tab" aria-controls="contest" aria-selected="false">콘테스트</a>
+			        </li>	
+		        </c:if>
+		        <c:if test="${fadeStatus == 2 }">
 			        <li class="nav-item">
-			            <a class="nav-link" onclick="buytab();" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="false">구매 찜 리스트</a>
+			            <a class="nav-link" onclick="buytab();" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="false">구매</a>
 			        </li>
 			        <li class="nav-item">
-			            <a class="nav-link active" onclick="selltab();" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="true">판매 찜 리스트</a>
+			            <a class="nav-link active" onclick="selltab();" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="true">판매</a>
 			        </li>
 			        <li class="nav-item">
-			            <a class="nav-link" onclick="contesttab();" id="contest-tab" data-toggle="tab" href="#contest" role="tab" aria-controls="contest" aria-selected="false">콘테스트 찜 리스트</a>
-			        </li>
-			    </ul>
-		    </c:if>
-		    <c:if test="${fadeStatus == 3 }">
-			    <ul class="nav nav-tabs" id="myTab" role="tablist">
+			            <a class="nav-link" onclick="contesttab();" id="contest-tab" data-toggle="tab" href="#contest" role="tab" aria-controls="contest" aria-selected="false">콘테스트</a>
+			        </li>	
+		        </c:if>
+		        <c:if test="${fadeStatus == 3 }">
 			        <li class="nav-item">
-			            <a class="nav-link" onclick="buytab();" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="false">구매 찜 리스트</a>
+			            <a class="nav-link" onclick="buytab();" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="false">구매</a>
 			        </li>
 			        <li class="nav-item">
-			            <a class="nav-link" onclick="selltab();" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="false">판매 찜 리스트</a>
-			        </li>
+			            <a class="nav-link" onclick="selltab();" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="false">판매</a>
 			        <li class="nav-item">
-			            <a class="nav-link active" onclick="contesttab();" id="contest-tab" data-toggle="tab" href="#contest" role="tab" aria-controls="contest" aria-selected="true">콘테스트 찜 리스트</a>
-			        </li>
-			    </ul>
-		    </c:if>
+			            <a class="nav-link active" onclick="contesttab();" id="contest-tab" data-toggle="tab" href="#contest" role="tab" aria-controls="contest" aria-selected="false">콘테스트</a>
+			        </li>	
+		        </c:if>
+		    </ul>
 		</div>
     </div>
     <div class="col-md-2">
@@ -84,24 +79,24 @@ pageEncoding="UTF-8"%>
     </div>
     <div class="col-md-8">
         <div class="tab-content profile-tab" id="myTabContent">
-        	<c:if test="${fadeStatus == 1 }">
-	            <div class="tab-pane fade show active" id="buy" role="tabpanel" aria-labelledby="buy-tab">
+            <c:if test="${fadeStatus == 1 }">
+            	 <div class="tab-pane fade show active" id="buy" role="tabpanel" aria-labelledby="buy-tab">
 	                <div class="row">
 	                    <div class="col-md-12">
 	                    	<table class="table table-striped table-hover">
 	                    		<tr>
-	                    			<th style="width: 10%;">번호</th>
+	                    			<th style="width: 30%;">진행상태</th>
 	                    			<th style="width: 30%;">제목</th>
-	                    			<th style="width: 30%;">작성자</th>
-	                    			<th style="width: 30%;">작성일</th>
+	                    			<th style="width: 20%;">작성자</th>
+	                    			<th style="width: 20%;">가격</th>
 	                    		</tr>
 	                    		<c:if test="${totalBuyCount != 0 }">
-		                    		<c:forEach var="bo" items="${buyOutBoxList }">
+		                    		<c:forEach var="bo" items="${buyList }">
 		                    			<tr>
-		                    				<td style="width: 10%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${bo.BUYNO }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${bo.MEMBERID }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${bo.BUYDATE }"/></td>
+		                    				<td style="width: 30%;"><c:out value="${bo.STATUSNAME }"/></td>
+											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a class="myPageInfo" href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td style="width: 20%;"><c:out value="${bo.MEMBERID }"/></td>
+											<td style="width: 20%;"><c:out value="${bo.BUYPRICE }"/></td>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
@@ -122,24 +117,26 @@ pageEncoding="UTF-8"%>
 						<div class="col-md-12">
 	                    	<table class="table table-striped table-hover">
 	                    		<tr>
-	                    			<th style="width: 10%;">번호</th>
-	                    			<th style="width: 30%;">제목</th>
-	                    			<th style="width: 30%;">작성자</th>
-	                    			<th style="width: 30%;">작성일</th>
+	                    			<th style="width: 20%;">진행상태</th>
+	                    			<th style="width: 20%;">제목</th>
+	                    			<th style="width: 20%;">작성자</th>
+	                    			<th style="width: 20%;">옵션</th>
+	                    			<th style="width: 20%;">가격</th>
 	                    		</tr>
 	                    		<c:if test="${totalSellCount != 0 }">
-		                    		<c:forEach var="so" items="${sellOutBoxList }">
+		                    		<c:forEach var="so" items="${sellList }">
 		                    			<tr>
-		                    				<td style="width: 10%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${so.SELLNO }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${so.MEMBERID }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${so.SELLDATE }"/></td>
+		                    				<td style="width: 20%;"><c:out value="${so.STATUSNAME }"/></td>
+											<td style="width: 20%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a class="myPageInfo" href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td style="width: 20%;"><c:out value="${so.MEMBERID }"/></td>
+											<td style="width: 20%;"><c:out value="${so.SELLOPTIONNO }"/></td>
+											<td style="width: 20%;"><c:out value="${so.PRICE }"/></td>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
 	                    		<c:if test="${totalSellCount == 0 }">
 	                    			<tr>
-	                    				<td colspan='4' style="text-align: center;">
+	                    				<td colspan='5' style="text-align: center;">
 	                    					검색된 결과가 없습니다.
 	                    				</td>
 	                    			</tr>
@@ -149,23 +146,30 @@ pageEncoding="UTF-8"%>
 	                    </div>
 	                </div>
 	            </div>
-	            <div class="tab-pane fade" id="contest" role="tabpanel" aria-labelledby="contest-tab">
+            	 <div class="tab-pane fade" id="contest" role="tabpanel" aria-labelledby="contest-tab">
 	                <div class="row">
 						<div class="col-md-12">
 	                    	<table class="table table-striped table-hover">
 	                    		<tr>
-	                    			<th style="width: 10%;">번호</th>
+	                    			<th style="width: 30%;">지원상태</th>
 	                    			<th style="width: 30%;">제목</th>
-	                    			<th style="width: 30%;">작성자</th>
-	                    			<th style="width: 30%;">개최일</th>
+	                    			<th style="width: 20%;">작성자</th>
+	                    			<th style="width: 20%;">상금</th>
 	                    		</tr>
 	                    		<c:if test="${totalContestCount != 0 }">
-		                    		<c:forEach var="co" items="${contestOutBoxList }">
+		                    		<c:forEach var="con" items="${contestList }">
 		                    			<tr>
-		                    				<td style="width: 10%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${co.CONTESTNO }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a href="${path }/contest/contestDetail.do?contestNo=${co.CONTESTNO }"><c:out value="${co.CONTESTTITLE }"/></a></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${co.MEMBERID }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${co.CONTESTDATE }"/></td>
+		                    				<td style="width: 30%;">
+												<c:if test='${con.APPLICANTYN == "N" }'>
+													대기중
+												</c:if>
+												<c:if test='${con.APPLICANTYN == "Y" }'>
+													수상
+												</c:if>
+											</td>
+											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a class="myPageInfo" href="${path }/contest/contestDetail.do?contestNo=${con.CONTESTNO }"><c:out value="${con.CONTESTTITLE }"/></a></td>
+											<td style="width: 20%;"><c:out value="${con.MEMBERID }"/></td>
+											<td style="width: 20%;"><c:out value="${con.CONTESTPRICE }"/></td>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
@@ -183,23 +187,23 @@ pageEncoding="UTF-8"%>
 	            </div>
             </c:if>
             <c:if test="${fadeStatus == 2 }">
-            	<div class="tab-pane fade" id="buy" role="tabpanel" aria-labelledby="buy-tab">
+            	 <div class="tab-pane fade" id="buy" role="tabpanel" aria-labelledby="buy-tab">
 	                <div class="row">
 	                    <div class="col-md-12">
 	                    	<table class="table table-striped table-hover">
 	                    		<tr>
-	                    			<th style="width: 10%;">번호</th>
+	                    			<th style="width: 30%;">진행상태</th>
 	                    			<th style="width: 30%;">제목</th>
-	                    			<th style="width: 30%;">작성자</th>
-	                    			<th style="width: 30%;">작성일</th>
+	                    			<th style="width: 20%;">작성자</th>
+	                    			<th style="width: 20%;">가격</th>
 	                    		</tr>
 	                    		<c:if test="${totalBuyCount != 0 }">
-		                    		<c:forEach var="bo" items="${buyOutBoxList }">
+		                    		<c:forEach var="bo" items="${buyList }">
 		                    			<tr>
-		                    				<td style="width: 10%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${bo.BUYNO }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${bo.MEMBERID }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${bo.BUYDATE }"/></td>
+		                    				<td style="width: 30%;"><c:out value="${bo.STATUSNAME }"/></td>
+											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a class="myPageInfo" href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td style="width: 20%;"><c:out value="${bo.MEMBERID }"/></td>
+											<td style="width: 20%;"><c:out value="${bo.BUYPRICE }"/></td>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
@@ -220,24 +224,26 @@ pageEncoding="UTF-8"%>
 						<div class="col-md-12">
 	                    	<table class="table table-striped table-hover">
 	                    		<tr>
-	                    			<th style="width: 10%;">번호</th>
-	                    			<th style="width: 30%;">제목</th>
-	                    			<th style="width: 30%;">작성자</th>
-	                    			<th style="width: 30%;">작성일</th>
+	                    			<th style="width: 20%;">진행상태</th>
+	                    			<th style="width: 20%;">제목</th>
+	                    			<th style="width: 20%;">작성자</th>
+	                    			<th style="width: 20%;">옵션</th>
+	                    			<th style="width: 20%;">가격</th>
 	                    		</tr>
 	                    		<c:if test="${totalSellCount != 0 }">
-		                    		<c:forEach var="so" items="${sellOutBoxList }">
+		                    		<c:forEach var="so" items="${sellList }">
 		                    			<tr>
-		                    				<td style="width: 10%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${so.SELLNO }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${so.MEMBERID }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${so.SELLDATE }"/></td>
+		                    				<td style="width: 20%;"><c:out value="${so.STATUSNAME }"/></td>
+											<td style="width: 20%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a class="myPageInfo" href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td style="width: 20%;"><c:out value="${so.MEMBERID }"/></td>
+											<td style="width: 20%;"><c:out value="${so.SELLOPTIONNO }"/></td>
+											<td style="width: 20%;"><c:out value="${so.PRICE }"/></td>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
 	                    		<c:if test="${totalSellCount == 0 }">
 	                    			<tr>
-	                    				<td colspan='4' style="text-align: center;">
+	                    				<td colspan='5' style="text-align: center;">
 	                    					검색된 결과가 없습니다.
 	                    				</td>
 	                    			</tr>
@@ -247,23 +253,30 @@ pageEncoding="UTF-8"%>
 	                    </div>
 	                </div>
 	            </div>
-	            <div class="tab-pane fade" id="contest" role="tabpanel" aria-labelledby="contest-tab">
+            	 <div class="tab-pane fade" id="contest" role="tabpanel" aria-labelledby="contest-tab">
 	                <div class="row">
 						<div class="col-md-12">
 	                    	<table class="table table-striped table-hover">
 	                    		<tr>
-	                    			<th style="width: 10%;">번호</th>
+	                    			<th style="width: 30%;">지원상태</th>
 	                    			<th style="width: 30%;">제목</th>
-	                    			<th style="width: 30%;">작성자</th>
-	                    			<th style="width: 30%;">개최일</th>
+	                    			<th style="width: 20%;">작성자</th>
+	                    			<th style="width: 20%;">상금</th>
 	                    		</tr>
 	                    		<c:if test="${totalContestCount != 0 }">
-		                    		<c:forEach var="co" items="${contestOutBoxList }">
+		                    		<c:forEach var="con" items="${contestList }">
 		                    			<tr>
-		                    				<td style="width: 10%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${co.CONTESTNO }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a href="${path }/contest/contestDetail.do?contestNo=${co.CONTESTNO }"><c:out value="${co.CONTESTTITLE }"/></a></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${co.MEMBERID }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${co.CONTESTDATE }"/></td>
+		                    				<td style="width: 30%;">
+												<c:if test='${con.APPLICANTYN == "N" }'>
+													대기중
+												</c:if>
+												<c:if test='${con.APPLICANTYN == "Y" }'>
+													수상
+												</c:if>
+											</td>
+											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a class="myPageInfo" href="${path }/contest/contestDetail.do?contestNo=${con.CONTESTNO }"><c:out value="${con.CONTESTTITLE }"/></a></td>
+											<td style="width: 20%;"><c:out value="${con.MEMBERID }"/></td>
+											<td style="width: 20%;"><c:out value="${con.CONTESTPRICE }"/></td>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
@@ -281,23 +294,23 @@ pageEncoding="UTF-8"%>
 	            </div>
             </c:if>
             <c:if test="${fadeStatus == 3 }">
-            	<div class="tab-pane fade" id="buy" role="tabpanel" aria-labelledby="buy-tab">
+            	 <div class="tab-pane fade" id="buy" role="tabpanel" aria-labelledby="buy-tab">
 	                <div class="row">
 	                    <div class="col-md-12">
 	                    	<table class="table table-striped table-hover">
 	                    		<tr>
-	                    			<th style="width: 10%;">번호</th>
+	                    			<th style="width: 30%;">진행상태</th>
 	                    			<th style="width: 30%;">제목</th>
-	                    			<th style="width: 30%;">작성자</th>
-	                    			<th style="width: 30%;">작성일</th>
+	                    			<th style="width: 20%;">작성자</th>
+	                    			<th style="width: 20%;">가격</th>
 	                    		</tr>
 	                    		<c:if test="${totalBuyCount != 0 }">
-		                    		<c:forEach var="bo" items="${buyOutBoxList }">
+		                    		<c:forEach var="bo" items="${buyList }">
 		                    			<tr>
-		                    				<td style="width: 10%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${bo.BUYNO }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${bo.MEMBERID }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${bo.BUYDATE }"/></td>
+		                    				<td style="width: 30%;"><c:out value="${bo.STATUSNAME }"/></td>
+											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a class="myPageInfo" href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td style="width: 20%;"><c:out value="${bo.MEMBERID }"/></td>
+											<td style="width: 20%;"><c:out value="${bo.BUYPRICE }"/></td>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
@@ -318,24 +331,26 @@ pageEncoding="UTF-8"%>
 						<div class="col-md-12">
 	                    	<table class="table table-striped table-hover">
 	                    		<tr>
-	                    			<th style="width: 10%;">번호</th>
-	                    			<th style="width: 30%;">제목</th>
-	                    			<th style="width: 30%;">작성자</th>
-	                    			<th style="width: 30%;">작성일</th>
+	                    			<th style="width: 20%;">진행상태</th>
+	                    			<th style="width: 20%;">제목</th>
+	                    			<th style="width: 20%;">작성자</th>
+	                    			<th style="width: 20%;">옵션</th>
+	                    			<th style="width: 20%;">가격</th>
 	                    		</tr>
 	                    		<c:if test="${totalSellCount != 0 }">
-		                    		<c:forEach var="so" items="${sellOutBoxList }">
+		                    		<c:forEach var="so" items="${sellList }">
 		                    			<tr>
-		                    				<td style="width: 10%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${so.SELLNO }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${so.MEMBERID }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${so.SELLDATE }"/></td>
+		                    				<td style="width: 20%;"><c:out value="${so.STATUSNAME }"/></td>
+											<td style="width: 20%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a class="myPageInfo" href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td style="width: 20%;"><c:out value="${so.MEMBERID }"/></td>
+											<td style="width: 20%;"><c:out value="${so.SELLOPTIONNO }"/></td>
+											<td style="width: 20%;"><c:out value="${so.PRICE }"/></td>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
 	                    		<c:if test="${totalSellCount == 0 }">
 	                    			<tr>
-	                    				<td colspan='4' style="text-align: center;">
+	                    				<td colspan='5' style="text-align: center;">
 	                    					검색된 결과가 없습니다.
 	                    				</td>
 	                    			</tr>
@@ -345,23 +360,30 @@ pageEncoding="UTF-8"%>
 	                    </div>
 	                </div>
 	            </div>
-	            <div class="tab-pane fade show active" id="contest" role="tabpanel" aria-labelledby="contest-tab">
+            	 <div class="tab-pane fade show active" id="contest" role="tabpanel" aria-labelledby="contest-tab">
 	                <div class="row">
 						<div class="col-md-12">
 	                    	<table class="table table-striped table-hover">
 	                    		<tr>
-	                    			<th style="width: 10%;">번호</th>
+	                    			<th style="width: 30%;">지원상태</th>
 	                    			<th style="width: 30%;">제목</th>
-	                    			<th style="width: 30%;">작성자</th>
-	                    			<th style="width: 30%;">개최일</th>
+	                    			<th style="width: 20%;">작성자</th>
+	                    			<th style="width: 20%;">상금</th>
 	                    		</tr>
 	                    		<c:if test="${totalContestCount != 0 }">
-		                    		<c:forEach var="co" items="${contestOutBoxList }">
+		                    		<c:forEach var="con" items="${contestList }">
 		                    			<tr>
-		                    				<td style="width: 10%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${co.CONTESTNO }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a href="${path }/contest/contestDetail.do?contestNo=${co.CONTESTNO }"><c:out value="${co.CONTESTTITLE }"/></a></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${co.MEMBERID }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${co.CONTESTDATE }"/></td>
+		                    				<td style="width: 30%;">
+												<c:if test='${con.APPLICANTYN == "N" }'>
+													대기중
+												</c:if>
+												<c:if test='${con.APPLICANTYN == "Y" }'>
+													수상
+												</c:if>
+											</td>
+											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a class="myPageInfo" href="${path }/contest/contestDetail.do?contestNo=${con.CONTESTNO }"><c:out value="${con.CONTESTTITLE }"/></a></td>
+											<td style="width: 20%;"><c:out value="${con.MEMBERID }"/></td>
+											<td style="width: 20%;"><c:out value="${con.CONTESTPRICE }"/></td>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
@@ -387,27 +409,27 @@ pageEncoding="UTF-8"%>
 		$('#fadeStatus').attr("value","1");
 		$('#buy').attr("class","tab-pane fade show active");
 		$('#sell').attr("class","tab-pane fade");
-		$('#buy-tab').attr("class","nav-link active");
-		$('#sell-tab').attr("class","nav-link");
 		$('#contest').attr("class","tab-pane fade");
 		$('#contest-tab').attr("class","nav-link");
+		$('#buy-tab').attr("class","nav-link active");
+		$('#sell-tab').attr("class","nav-link");
 	}
 	function selltab(){
 		$('#fadeStatus').attr("value","2");
 		$('#sell').attr("class","tab-pane fade show active");
 		$('#buy').attr("class","tab-pane fade");
-		$('#sell-tab').attr("class","nav-link active");
-		$('#buy-tab').attr("class","nav-link");
 		$('#contest').attr("class","tab-pane fade");
 		$('#contest-tab').attr("class","nav-link");
+		$('#sell-tab').attr("class","nav-link active");
+		$('#buy-tab').attr("class","nav-link");
 	}
 	function contesttab(){
 		$('#fadeStatus').attr("value","3");
 		$('#sell').attr("class","tab-pane fade");
 		$('#buy').attr("class","tab-pane fade");
-		$('#sell-tab').attr("class","nav-link");
-		$('#buy-tab').attr("class","nav-link");
 		$('#contest').attr("class","tab-pane fade show active");
 		$('#contest-tab').attr("class","nav-link active");
+		$('#sell-tab').attr("class","nav-link");
+		$('#buy-tab').attr("class","nav-link");
 	}
 </script>

@@ -41,9 +41,9 @@ public interface MemberService {
 
 	int selectOutBoxSellCount(String memberId);
 
-	List<Map<String, String>> buyList(String memberId, int buycPage, int numPerPage);
+	List<Map<Object, Object>> buyList(String memberId, int buycPage, int numPerPage);
 
-	List<Map<String, String>> sellList(String memberId, int sellcPage, int numPerPage);
+	List<Map<Object, Object>> sellList(String memberId, int sellcPage, int numPerPage);
 	
 	int selectServiceNum();
 	
@@ -73,17 +73,17 @@ public interface MemberService {
 
 	int sendMessageEnd(Map<String, String> message);
 
-	List<Map<String, String>> freeList(String memberId, int freecPage, int numPerPage);
+	List<Map<Object, Object>> freeList(String memberId, int freecPage, int numPerPage);
 
 	int selectFreeCount(String memberId);
 
-	List<Map<String, String>> qnaList(String memberId, int qnacPage, int numPerPage);
+	List<Map<Object, Object>> qnaList(String memberId, int qnacPage, int numPerPage);
 
 	int selectQnaCount(String memberId);
 
 	Map<String, Object> getAccount(Map<String, String> account);
 
-	List<Map<String, String>> contestList(String memberId, int contestcPage, int numPerPage);
+	List<Map<Object, Object>> contestList(String memberId, int contestcPage, int numPerPage);
 
 	int selectContestCount(String memberId);
 
@@ -102,5 +102,17 @@ public interface MemberService {
 	List<Map<String, String>> contestOutBoxList(String memberId, int contestcPage, int numPerPage);
 
 	int selectOutBoxContestCount(String memberId);
+
+	List<Map<Object, Object>> sellTradeList(String memberId, int sellcPage, int numPerPage);
+
+	List<Map<Object, Object>> buyTradeList(String memberId, int buycPage, int numPerPage);
+
+	List<Map<Object, Object>> contestTradeList(String memberId, int contestcPage, int numPerPage);
+
+	int totalSellTradeCount(String memberId);
+
+	int totalBuyTradeCount(String memberId);
+
+	int totalContestTradeCount(String memberId);
 
 }

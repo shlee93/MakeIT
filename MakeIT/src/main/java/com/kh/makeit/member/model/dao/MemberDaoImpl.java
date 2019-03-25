@@ -117,13 +117,13 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<Map<String, String>> buyList(String memberId, int buycPage, int numPerPage) {
+	public List<Map<Object, Object>> buyList(String memberId, int buycPage, int numPerPage) {
 		RowBounds row = new RowBounds((buycPage-1)*numPerPage,numPerPage);
 		return sqlSession.selectList("member.buyList",memberId,row);
 	}
 
 	@Override
-	public List<Map<String, String>> sellList(String memberId, int sellcPage, int numPerPage) {
+	public List<Map<Object, Object>> sellList(String memberId, int sellcPage, int numPerPage) {
 		RowBounds row = new RowBounds((sellcPage-1)*numPerPage,numPerPage);
 		return sqlSession.selectList("member.sellList",memberId,row);
 	}
@@ -208,13 +208,13 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<Map<String, String>> freeList(String memberId, int freecPage, int numPerPage) {
+	public List<Map<Object, Object>> freeList(String memberId, int freecPage, int numPerPage) {
 		RowBounds row = new RowBounds((freecPage-1)*numPerPage,numPerPage);
 		return sqlSession.selectList("member.freeList",memberId,row);
 	}
 
 	@Override
-	public List<Map<String, String>> qnaList(String memberId, int qnacPage, int numPerPage) {
+	public List<Map<Object, Object>> qnaList(String memberId, int qnacPage, int numPerPage) {
 		RowBounds row = new RowBounds((qnacPage-1)*numPerPage,numPerPage);
 		return sqlSession.selectList("member.qnaList",memberId,row);
 	}
@@ -230,7 +230,7 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<Map<String, String>> contestList(String memberId, int contestcPage, int numPerPage) {
+	public List<Map<Object, Object>> contestList(String memberId, int contestcPage, int numPerPage) {
 		RowBounds row = new RowBounds((contestcPage-1)*numPerPage,numPerPage);
 		return sqlSession.selectList("member.contestList",memberId,row);
 	}
@@ -279,6 +279,39 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public int selectOutBoxContestCount(String memberId) {
 		return sqlSession.selectOne("member.selectOutBoxContestCount",memberId);
+	}
+
+	@Override
+	public List<Map<Object, Object>> sellTradeList(String memberId, int sellcPage, int numPerPage) {
+		RowBounds row = new RowBounds((sellcPage-1)*numPerPage,numPerPage);
+		return sqlSession.selectList("member.sellTradeList",memberId,row);
+	}
+
+	@Override
+	public List<Map<Object, Object>> buyTradeList(String memberId, int buycPage, int numPerPage) {
+		RowBounds row = new RowBounds((buycPage-1)*numPerPage,numPerPage);
+		return sqlSession.selectList("member.buyTradeList",memberId,row);
+	}
+
+	@Override
+	public List<Map<Object, Object>> contestTradeList(String memberId, int contestcPage, int numPerPage) {
+		RowBounds row = new RowBounds((contestcPage-1)*numPerPage,numPerPage);
+		return sqlSession.selectList("member.contestTradeList",memberId,row);
+	}
+
+	@Override
+	public int totalSellTradeCount(String memberId) {
+		return sqlSession.selectOne("member.totalSellTradeCount",memberId);
+	}
+
+	@Override
+	public int totalBuyTradeCount(String memberId) {
+		return sqlSession.selectOne("member.totalBuyTradeCount",memberId);
+	}
+
+	@Override
+	public int totalContestTradeCount(String memberId) {
+		return sqlSession.selectOne("member.totalContestTradeCount",memberId);
 	}
 
 
