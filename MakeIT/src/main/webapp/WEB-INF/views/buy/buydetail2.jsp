@@ -682,15 +682,15 @@
                                 
                               
                              <div class='row' style='margin-top: -4em;'>
-                              <div class='col-md-2'></div>
+                              <div class='col-md-1'></div>
                               
                               <!-- 작성자 소개 -->     
-                                <div class='col-md-8'>
+                                <div class='col-md-10'>
                                    <p>${detailList.INTRODUCTION}</p>
                                 </div>
                                 <!-- 작성자 소개 끝 -->
                                 
-                                <div class='col-md-2'></div>                                
+                                <div class='col-md-1'></div>                                
                             </div>                             
                          </div>                       
                    </div>                      
