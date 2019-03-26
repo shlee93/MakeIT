@@ -120,8 +120,7 @@
                     			</div>
                    			</div>
 				            <label for="memberProfile">사진 선택</label> 
-				            <input type="file" name="memberProfile" id="memberProfile" class="upload-hidden" accept=".gif, .jpg, .png">
-				            <input type="hidden" name="profileImg" id="profileImg" value="${member.REIMG }">
+				            <input type="file" name="memberProfile" id="memberProfile" class="upload-hidden" value="${member.REIMG }" accept=".gif, .jpg, .png">
 				        </div>
                     </div>
                     <div class="col-md-3 mb-2">
@@ -435,7 +434,7 @@ $(function(){
 			
     function fn_enroll_validate()
     {
-    	if($('#profileImg').val().trim() == ""){
+    	if($('#memberProfile').val().trim() == ""){
     		alert("사진을 선택해주세요");
     		$('#memberProfile').focus();
     		return false;
