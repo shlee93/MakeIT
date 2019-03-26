@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,6 +30,7 @@ public class AdminController {
 	
 	@RequestMapping("/admin/adminView.do")
 	public ModelAndView adminView(
+				HttpServletRequest request,
 				@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
 				@RequestParam(value="reportStatus", required=false, defaultValue="BUY") String reportStatus,
 				@RequestParam(value="paymentStatus",required=false,defaultValue="BUY") String paymentStatus,
@@ -36,6 +39,15 @@ public class AdminController {
 				@RequestParam(value="approvalStatus", required=false, defaultValue="BUY") String approvalStatus,
 				@RequestParam(value="deleteStatus", required=false, defaultValue="BUY") String deleteStatus
 			) {
+		HttpSession session=request.getSession();
+		Map<String,String> member=(Map<String,String>)session.getAttribute("member");
+		String memberLevel=member.get("MEMBERLEVEL");
+		int level=Integer.parseInt(memberLevel);
+		ModelAndView mav=new ModelAndView();
+		if(level!=0) {
+			mav.setViewName("common/error");
+			return mav;
+		}
 		
 		//회원 리스트 출력
 		int numPerPage=5;
@@ -52,7 +64,7 @@ public class AdminController {
 		String pageBarRefund=PageFactory.getPageBarAdmin(refundCount, cPage, numPerPage,"/makeit/admin/adminView.do");
 		String pageBarApproval=PageFactory.getPageBarAdmin(approvalCount, cPage, numPerPage2,"/makeit/admin/adminView.do");
 		String pageBarDelete=PageFactory.getPageBarAdmin(deleteCount, cPage, numPerPage2,"/makeit/admin/adminView.do");
-		ModelAndView mav=new ModelAndView();
+		
 		//회원정보 출력
 		List<Map<String,String>> memberList=adminService.selectMemberListAdmin(cPage,numPerPage);		
 		//카테고리 출력
