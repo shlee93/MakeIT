@@ -686,7 +686,7 @@
                               
                               <!-- 작성자 소개 -->     
                                 <div class='col-md-10'>
-                                   <p>${detailList.INTRODUCTION}</p>
+                                   <textarea class='form-control' rows='6'style='width:100%; height: 100%;'readonly>${detailList.INTRODUCTION}</textarea>>
                                 </div>
                                 <!-- 작성자 소개 끝 -->
                                 

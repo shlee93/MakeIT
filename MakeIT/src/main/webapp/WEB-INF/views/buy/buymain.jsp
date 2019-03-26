@@ -76,10 +76,12 @@
 					<!-- 네비 사이드 -->
 
 					<div class="nav-side-menu">
-						<div class="brand">Brand Logo</div>
+						<div class="brand">
+							<img src="${path }/resources/image/logo1main.png" style='max-width:50px; max-height:50px; margin-bottom: 2em;'/>
+						</div>
 						<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse"
 							data-target="#menu-content"></i>
-						<div>
+						<div style="font-family: 'Sunflower', sans-serif;">
 							<ul>
 								<li class="menu"><a href="#"> <i class="fas fa-cogs"></i>
 										&nbsp;개발자
