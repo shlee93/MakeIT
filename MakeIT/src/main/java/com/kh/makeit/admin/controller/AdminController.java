@@ -901,6 +901,29 @@ public class AdminController {
 		return mav;
 		
 	}
+	
+	@RequestMapping("/admin/updateRefundNegativeEnd.do")
+	public ModelAndView updateRefundNegativeEnd(int specNo,String refundStatus,
+			@RequestParam(value="cPage",required=false, defaultValue="1") int cPage
+			
+			) {
+		int numPerPage=5;
+		int refundCount=adminService.selectRefundCountAdmin(refundStatus);
+		String pageBarRefund=PageFactory.getPageBarAdmin(refundCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+		ModelAndView mav=new ModelAndView();
+		Map<Object,Object> negative=new HashMap();
+		negative.put("specNo", specNo);
+		negative.put("refundStatus", refundStatus);
+		int result=adminService.updateRefundNegativeEnd(negative);
+		
+		//결제현황 출력
+		List<Map<Object,Object>> paymentList=adminService.selectRefundListAdmin(refundStatus,cPage,numPerPage);
+							
+		mav.addObject("pageBarRefund", pageBarRefund);
+		mav.addObject("paymentList", paymentList);
+		mav.setViewName("/admin/adminPaymentView");
+		return mav;
+	}
 
 	
 }

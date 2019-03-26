@@ -525,7 +525,7 @@ $(document).on('click', '.faq-slide', function () {
 		$(this).html("▼");
 
 	}
-
+	$(this).parent('.faq-category').next().children('.faq-list').children('.faq-question').children('textarea').click();
 });
 
 
@@ -534,7 +534,7 @@ $(document).on('click', '.answer-slide', function () {
 	cmaTextareaSize(120);
 	var $slide_btn = $(this);
 	var $answer = $slide_btn.siblings('.faq-answer');
-
+	$('textarea').click();
 	if ($answer.is(':hidden')) {
 		$answer.slideDown('slow');
 		$(this).html("▲");
@@ -543,9 +543,8 @@ $(document).on('click', '.answer-slide', function () {
 		$answer.slideUp('slow');
 		$(this).html("▼");
 
-
 	}
-
+	$(this).siblings('.faq-answer').children('textarea').click();
 });
 
 $(document).on('keyup','textarea', function() {
@@ -556,5 +555,18 @@ $(document).on('keyup','textarea', function() {
     }
  
 });
+
+//텍스트 에어리어 크기조절
+
+$(document).on('click','textarea', function(){
+	 var textEle=$(this);
+	 console.log(textEle);
+	 textEle[0].style.height = 'auto';
+	 var textEleHeight = textEle.prop('scrollHeight');
+	 console.log(textEleHeight);
+	 textEle.css('height', textEleHeight);
+});
+
+
 
 

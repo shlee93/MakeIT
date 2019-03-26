@@ -361,9 +361,12 @@ public class AdminServiceImpl implements AdminService {
 		
 		return dao.updateGradeUpdate(perform);
 	}
-	
-	
-	
-	
+
+	//환불 거부
+	@Override
+	public int updateRefundNegativeEnd(Map<Object, Object> negative) {
+		
+		return dao.updateRefundNegativeEnd(negative);
+	}
 	
 }
