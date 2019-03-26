@@ -158,9 +158,7 @@
                         	</nav>
                         	<div class="tab-content" id="nav-tabContent" style='width: 100%;'>
                             	<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                            		<textarea class='contentTextArea' rows="34" readonly>
-                            			${contestObj.CONTESTCONTENT }
-                            		</textarea>                                
+                            		<textarea class='contentTextArea' rows="34" style='border:0px'readonly>${contestObj.CONTESTCONTENT }</textarea>                                
                             	</div>
                             
                             	<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
