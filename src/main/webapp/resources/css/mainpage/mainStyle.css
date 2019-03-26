@@ -1,0 +1,1588 @@
+@charset "UTF-8";
+
+    body, html{
+        padding: 0;
+        margin: 0;
+        overflow-x: hidden;
+    }
+
+/* ======================헤더 */
+    #mainVideo{
+        width: 100%;
+        height: auto;
+        max-height: 600px;
+        min-height: 525px;
+        background-color: #138496;
+    }
+    #mainVideo img{
+        width: 100%;
+        height: auto;
+        max-height: 400px;
+        min-height: 525px;
+    }
+
+    #topWrap{
+        position: absolute;
+        left: 50%;
+        top: 0.1%;
+        transform: translate(-50%,-0.1%);
+        width: 100%;
+        height: 60px;
+        background-color: #138496;
+    }
+    #logoIcon{
+        position: absolute;
+        width: 110px;
+        height: 110px;
+        left: 50%;
+        top: 0%;
+        transform: translate(-50%,-0%);
+/*         background-color: white; */
+        border-radius: 100%;
+    }
+    #logoIcon img{
+    	width: 100%;
+    	height: 100%;
+    }
+    #serviceWrap{
+        position: absolute;
+        left: 50%;
+        top: 120px;
+        transform: translateX(-50%);
+        cursor: default;
+        /* background-color: blue;  */	
+    }
+    #tradeService{
+        position: relative;
+        font-size: 35px;
+        height: 35px;
+        font-family: 'Sunflower', sans-serif;
+        color: white;
+        /* overflow: hidden; */
+        /* background-color: blue;  */
+    }
+    #tradeService p{
+        display: inline;
+    }
+
+    #enrollService{
+        position: relative;
+        top: -7%;
+        transform: translateY(7%);
+        font-size: 35px;
+        color: white;
+        font-family: 'Sunflower', sans-serif;      
+        white-space: nowrap;
+
+    }
+    #enrollService p{
+        display: inline;
+    } 
+ 
+
+    #loginWrap{
+        position: absolute;
+        left: 93%;
+        top:50%;
+        transform: translate(-93%,-50%);
+        white-space: nowrap;
+    }
+    #login{
+        font-size: 35px;
+        color: white;
+        text-decoration: none;
+		font-family: 'Nanum Pen Script', cursive;
+		transition: ease-in-out;
+		transition-duration: 0.7s;
+    }
+    #login:hover{
+    	color: gold;
+    }
+    #join{
+        font-size: 35px;
+        color: white;
+        white-space: nowrap;
+        text-decoration: none;
+		font-family: 'Nanum Pen Script', cursive;
+		transition: ease-in-out;
+		transition-duration: 0.7s;
+    }
+    #join:hover{
+    	color: gold;
+    }
+
+    #mainWrite{
+        position: absolute;
+        left: 50%;
+        top: 220px;
+        transform: translateX(-50%); 
+        cursor: default;
+/*          background-color: red;    */
+    }
+    #write1{
+        position: relative;
+        left: 50%;
+        top: 10px;
+        transform: translateX(-50%);
+        font-size: 45px;
+        text-align:center;
+        color: white;
+		font-family: 'Nanum Pen Script', cursive;
+        white-space: nowrap;
+    }
+    #write2{
+        position: relative;
+        left: 50%;
+        top: -30;
+        transform: translate(-50%, -30%);
+        font-size: 100px;
+        font-weight: bold;
+        color: gold;
+  		font-family: 'Sunflower', sans-serif;
+        white-space: nowrap;
+        letter-spacing: -10px;
+        cursor: default;
+    }
+
+    #mainNavi{
+        position: relative;
+        width: 40%;
+        min-width: 800px;
+        width: 900px;
+        height: 200px;
+        left: 50%;
+        top: -120px;
+        transform: translate(-50%);
+        background-color: white;
+        border-top-left-radius:100px; 
+        border-top-right-radius:5px; 
+    }
+
+    #iconWrap{
+        position: relative;
+        width:max-content;
+        height: max-content;
+        left: 50%;
+        top:15%;
+        transform: translate(-50%,-15%);
+        white-space:nowrap;
+/*         background-color: black;  */
+    }
+    #icon1{
+        position: relative;
+		display:inline-block;
+        width: 100px;
+        height: 100px;
+    	cursor:pointer;
+    }
+    #icon1 img{
+    	position:relative;
+    	width: 100%;
+    	height: 100%;
+    	top:0px;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    #icon1 p{
+		font-family: 'Nanum Pen Script', cursive;
+		font-size: 30px;
+		color: black;
+		text-align: center;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    
+    #icon2{
+        position: relative;
+        display:inline-block;
+
+        width: 100px;
+        height: 100px;
+        margin-left: 40px;
+		cursor:pointer;
+    }
+    #icon2 img{
+    	position:relative;
+    	width: 100%;
+    	height: 100%;
+    	top:0px;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    #icon2 p{
+		font-family: 'Nanum Pen Script', cursive;
+		font-size: 30px;
+		color: black;
+		text-align: center;
+        transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    
+    
+    #icon3{
+        position: relative;
+        display:inline-block;
+        width: 100px;
+        height: 100px;
+        margin-left: 40px;
+        cursor:pointer;
+    }
+    #icon3 img{
+    	position:relative;
+    	width: 100%;
+    	height: 100%;
+    	top:0px;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    #icon3 p{
+		font-family: 'Nanum Pen Script', cursive;
+		font-size: 30px;
+		color: black;
+		text-align: center;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    
+    #icon4{
+        position: relative;
+        display:inline-block;
+        width: max-content;
+        height: max-content;
+        margin-left: 40px;
+        cursor:pointer;
+    }
+    #icon4 img{
+    	position:relative;
+    	width: 100px;
+    	height: 100px;
+    	top:0px;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    #icon4 p{
+		font-family: 'Nanum Pen Script', cursive;
+		font-size: 30px;
+		color: black;
+		text-align: center;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    
+    #icon5{
+        position: relative;
+        display:inline-block;
+        width: max-content;
+        height: max-content;
+        margin-left: 40px;
+        cursor:pointer;
+    }
+    #icon5 img{
+    	position:relative;
+    	width: 100px;
+    	height: 100px;
+    	top:0px;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    #icon5 p{
+		font-family: 'Nanum Pen Script', cursive;
+		font-size: 30px;
+		color: black;
+		text-align: center;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    #icon6{
+        position: relative;
+        display:inline-block;
+        width: max-content;
+        height: max-content;
+        margin-left: 40px;
+        cursor:pointer;
+    }
+    #icon6 img{
+    	position:relative;
+    	width: 100px;
+    	height: 100px;
+    	top:0px;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    #icon6 p{
+		font-family: 'Nanum Pen Script', cursive;
+		font-size: 30px;
+		color: black;
+		text-align: center;
+		transition:ease-in-out;
+        transition-duration:0.5s;
+    }
+    
+/* =============================헤더 끝 */
+
+/* ===============================푸터 */
+    #famousContentWrap{
+        position: relative;
+        left: 50%;
+        top: -15%;
+        transform: translate(-50%,-15%);
+        width: 1000px;
+        height: 400px;
+        margin-bottom: 120px;
+        /* background-color: blue; */
+    }
+    #famousContentTitle{
+        position: relative;
+        font-size: 55px;
+        /* font-weight: bold; */
+        margin-bottom: -20px;
+        white-space: nowrap;
+        color: black;
+        font-family: 'Nanum Pen Script', cursive;
+        /* background-color: red; */
+    }
+    #famousContentTitle2{
+        position: relative;
+        font-size: 35px;
+        /* font-weight: bold; */
+        margin-bottom: -15px;
+        white-space: nowrap;
+        color: black;
+        opacity: 0.8;
+        font-family: 'Nanum Pen Script', cursive;
+        /* background-color: red; */
+    }
+    #famousContentBody{
+        position: relative;
+        width: 100%;
+        height: 373.5px;
+        white-space: nowrap;
+        overflow: hidden;
+        /* background-color: red; */
+        /* opacity: 0.5; */
+    }
+    #famousContentLeft{
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        left: 1%;
+        top: 50%;
+        z-index: 1;
+        transform: translate(-1%,-50%);
+        border-radius: 100%;
+        background-color: gold;
+        cursor: pointer;
+    }
+    #famousContentRight{
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        left: 99%;
+        top: 50%;
+        z-index: 1;
+        transform: translate(-99%,-50%);
+        border-radius: 100%;
+        background-color: gold;
+        cursor: pointer;
+    }
+    .famousContent{
+        position: relative;
+        display: inline-block;
+        width: 1000px;
+        height: 400px;
+        left: 0px;
+        transition: ease-in-out;
+        transition-duration: 0.7s;
+		cursor:pointer;
+        /* opacity: 0.1; */
+    }
+    .famousContent img{
+    	position:relative;
+    	width:100%;
+    	height:auto;
+    	background-size:cover;
+    	transition:ease-in-out;
+    	transition-duration:0.7s;
+    }
+    .famousContentTitleBox{
+    	position:absolute;
+    	width:100%;
+    	height: 150px;
+    	top:50%;
+    	left:50%;
+    	transform: translate(-50%,-50%);
+    	background-color: rgba(0,0,0,0.7);
+    }
+    .famousContentTitleBox p{
+    	position:relative;
+    	display:inline-block;
+    	left:50%;
+    	top:50%;
+    	transform: translate(-50%,-50%);
+    	font-size:50px;
+        font-family: 'Sunflower', sans-serif;
+    	color:white;
+    	transition:ease-in-out;
+    	transition-duration:0.7s;
+		text-overflow:ellipsis;
+		overflow:hidden;
+    }
+
+    #recentlyViewWrap{
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 1000px;
+        height: 455px;
+        /* background-color: blue; */
+    }
+
+    #recentlyViewTitle{
+        position: relative;
+        left: 50%;
+        width: max-content;
+        transform: translateX(-50%);
+        font-size: 30px;
+        font-weight: bold;
+        white-space: nowrap;
+        margin-bottom: 0px;
+        color: black;
+        /* background-color: red; */
+    }
+    #recentlyViewBody{
+        position: relative;
+        display: inline-block;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 800px;
+        height: 400px;
+        border-radius: 15px;
+        white-space:nowrap;
+        background-color: white;
+        overflow:hidden;
+    }
+    .recentlyView{
+        position: relative;
+        display: inline-block;
+        left: 0px;
+        width:800px;
+        height:100%;
+        background-color:cornflowerblue;
+        transition:ease-in-out;
+        transition-duration: 0.7s;
+        cursor:pointer;
+    }
+    .recentlyView img{
+    	position: absolute;
+    	width: 100%;
+    	height:auto;
+    	background-size: cover;
+    	transition:ease-in-out;
+    	transition-duration:0.7s;
+    }
+    .recentlyTitleBox{
+    	position: absolute;
+    	width:100%;
+    	height:150px;
+    	top: 80%;
+    	transform:translateY(-80%);
+    	background-color: rgba(0,0,0,0.7);
+
+    }
+    .recentlyTitle{
+    	position:relative;
+    	display:inline-block;
+    	max-width:700px;
+    	left:50%;
+    	top:50%;
+    	transform: translate(-50%,-50%);
+    	font-size:35px;
+        font-family: 'Sunflower', sans-serif;
+    	color:white;
+    	transition:ease-in-out;
+    	transition-duration:0.7s;
+		text-overflow:ellipsis;
+		overflow:hidden;
+    }
+    .recentlysellNo{
+    	display:none;
+    }
+    #recentlyViewLeft{
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        left: 0%;
+        top: 50%;
+        transform: translate(0%,-50%);
+        border-radius: 100%;
+        background-color: mediumvioletred;
+        cursor: pointer;
+    }
+    #recentlyViewRight{
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        left: 100%;
+        top: 50%;
+        transform: translate(-100%,-50%);
+        border-radius: 100%;
+        background-color: mediumvioletred;
+        cursor: pointer;
+    }
+
+    #similarContentWrap{
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 1000px;
+        height: 180px;
+        /* background-color: blue; */
+        margin-bottom:200px;
+    }
+    #similarContentTitle{
+        position: relative;
+        width: max-content;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 30px;
+        font-weight: bold;
+        white-space: nowrap;
+        margin-bottom: 0px;
+        color: black;
+        /* background-color: red; */
+    }
+    #similarContentBody{
+        position: relative;
+        width: max-content;
+        height: max-content;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        /* background-color: white; */
+    }
+    #similarContentBody div{
+        position: relative;
+        display: inline-block;
+        width: 150px;
+        height: 150px;
+        border: 2px solid black;
+        border-radius: 5px;
+        background-color: white;
+    }
+    #rankingViewWrap{
+        position: relative;
+        left: 50%;
+        top: 30px;
+        transform: translate(-50%);
+        width: 1000px;
+        height: 639px;
+        transition: ease-in-out;
+        transition-duration: 0.7s;
+        /* background-color: cornflowerblue; */
+    }
+
+    #rankingViewAlign{
+        position: absolute;
+        width: max-content;
+        height: 100%;
+        left: 50%;
+        top: 95%;
+        transform: translate(-50%,-95%);
+        /* background-color: aqua; */
+    }
+    #rankingViewBody{
+        position: relative;
+        display: inline-block;
+        width: 500px;
+        height: 639px;
+        background-color: white;
+        border: 1px solid gray;
+        border-radius: 10px;
+        transition: ease-in-out;
+        transition-duration: 0.7s;
+        background-color: white;
+        overflow: hidden;
+    }
+    
+    #rankingView1stBody{
+        position: relative;
+        width: 100%;
+        height: 200px;
+        background-color: gainsboro;
+        margin-bottom: -5px;
+        cursor: pointer;
+    }
+    
+    #rankingViewTitle{
+        position: relative;
+        width: max-content;
+        left: 50%;
+        top: 0%;
+        transform: translate(-50%,-0%);
+        font-size: 50px;
+        /* font-weight: bold; */
+        white-space: nowrap;
+        font-family: 'Sunflower', sans-serif;
+        /* background-color: red; */
+        color: black;
+    }
+    #rankingView1stBox{
+        position: absolute;
+        width: 85%;
+        height: 65%;
+        left: 50%;
+        top: 100%;
+        transform: translate(-50%,-100%);
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        background-color: white;
+    }
+    #rankingView1stLogo{
+        position: absolute;
+        width:120px;
+        height: 120px;
+        left: 3%;
+        top:50%;
+        transform: translate(-3%,-50%);
+        border-radius: 100%;
+        background-color: cornflowerblue;
+    }
+    #rankingView1stPriceBody{
+        position: absolute;
+        width: 270px;
+        height: 80px;
+        left: 95%;
+        transform: translateX(-95%);
+        /* background-color: gainsboro; */
+    }
+    #rankingView1stPriceTitle{
+        position: relative;
+        display: inline-block;
+        top: 7px;
+        font-size: 25px;
+        font-weight: bold;
+        font-family: 'Sunflower', sans-serif;
+        color: gray;
+    }
+    #rankingView1stPrice{
+        position: relative;
+        display: inline-block;
+        top: -17px;
+        font-size: 35px;
+        white-space: nowrap;
+        font-family: 'Sunflower', sans-serif;
+        color: black;
+    }
+    #rankingView1stNickBody{
+        position: absolute;
+        width: 200px;
+        height: 55px;
+        left: 66%;
+        top: 100%;
+        transform: translate(-66%,-100%);
+        /* background-color: blue; */
+    }
+    #rankingView1stNickBox{
+        position: absolute;
+        width: max-content;
+        height: 35px;
+        top: 10px;
+        border: 3px solid gainsboro;
+        border-radius: 30px;
+        /* background-color: red; */
+    }
+    #rankingView1stNick{
+        position: relative;
+        width: max-content;
+        font-size: 20px;
+        font-weight: bold;
+        font-family: 'Sunflower', sans-serif;
+        color: black;
+    }
+    #ranking1stId{
+        position: relative;
+        width: max-content;
+        font-size: 20px;
+        font-weight: bold;
+        font-family: 'Sunflower', sans-serif;
+        color: black;
+        display: none;
+
+    }
+    .rankingViewBox{
+        position: relative;
+        width: 100%;
+        height: 100px;
+        cursor: pointer;
+        /* background-color: coral; */
+    }
+    .rankingViewLogo{
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        left: 5%;
+        top: 80%;
+        transform: translate(-5%,-80%);
+        border-radius: 100%;
+        background-color: cornflowerblue;
+    }
+    .rankingViewPriceBox{
+        position: absolute;
+        width: 230px;
+        height: 60px;
+        left: 85px;
+        top: 60%;
+        transform: translateY(-60%);
+        /* background-color: red; */
+    }
+
+    .rankingViewPrice{
+        position: absolute;
+        top: 160%;
+        transform: translateY(-160%);
+        font-size: 30px;
+        font-family: 'Sunflower', sans-serif;
+        white-space: nowrap;
+        color: black;
+    }
+    .rankingViewNickBox{
+        position: absolute;
+        width: 170px;
+        height: 60px;
+        left: 90%;
+        top: 60%;
+        transform: translate(-90%,-60%);
+        /* background-color: blue; */
+    }
+    .rankingViewNick{
+        position: absolute;
+
+        left: 100%;
+        top: 110%;
+        transform: translate(-100%,-110%);
+        white-space: nowrap;
+        font-size: 18px;
+        font-weight: bold;
+        font-family: 'Sunflower', sans-serif;
+        /* font-weight: bold; */
+        color: black;
+    }
+    .rankingId{
+        position: absolute;
+
+        left: 100%;
+        top: 110%;
+        transform: translate(-100%,-110%);
+        white-space: nowrap;
+        font-size: 18px;
+        font-weight: bold;
+        font-family: 'Sunflower', sans-serif;
+        /* font-weight: bold; */
+        color: black;
+        display:none; 
+    }
+    .rankingWidthBar{
+        position: relative;
+        width: 350px;
+        height: 4px;
+        /* margin-bottom: -10px; */
+        left: 50%;
+        transform: translate(-50%);
+        background-color: black;
+        /* border-radius: 1px; */
+        opacity: 0.1;  
+    }
+    #rankingViewMore{
+        position: absolute;
+        width: 100%;
+        height: 30px;
+        top: 100%;
+        transform: translateY(-100%);
+        /* border-radius: 100%; */
+        z-index: 1;
+        background-color: cornflowerblue;
+        opacity: 1;
+        cursor: pointer;
+    }
+
+
+    #rankingDetailViewBody{
+        position: relative;
+        display: inline-block;
+        width: 0px;
+        height: 300px;
+        top: -340px;
+        background-color: white;
+        border: 1px solid gray;
+        border-radius: 10px;
+        transition: ease-in-out;
+        transition-duration: 0.7s;
+        overflow: hidden;
+        opacity: 0;
+    }
+    #rankingDetailViewNickBox{
+        position: absolute;
+        width: 100%;
+        height: 50px;
+        background-color: cornflowerblue;
+    }
+    #rankingDetailViewNick{
+        position: absolute;
+        left: 50%;
+        top: 90%;
+        transform: translate(-50%,-90%);
+        font-family: 'Sunflower', sans-serif;
+        font-size: 25px;
+        font-weight: bold;
+        white-space: nowrap;
+        color: white;
+    }
+    #rankingDetailViewDelete{
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        left: 98%;
+        top: 5px;
+        transform: translateX(-98%);
+        border-radius: 100%;
+        background-color: white;
+        cursor: pointer;
+    }
+    #rankingDetailViewBox{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        width: max-content;
+        height: max-content;
+        /* background-color: red; */
+    }
+    #rankingDetailViewGood{
+        display: block;
+        font-size: 25px;
+        color: black;
+        font-family: 'Sunflower', sans-serif;
+        margin-bottom: 3px;
+    }
+    #rankingDetailViewWork{
+        display: block;
+        font-size: 25px;
+        color: black;
+        font-family: 'Sunflower', sans-serif;
+        margin-bottom: 3px;
+    }
+    #rankingDetailViewMajor{
+        display: block;
+        font-size: 25px;
+        color: black;
+        font-family: 'Sunflower', sans-serif;
+        margin-bottom: 3px;
+    }
+    #reviewShowBox{
+        position: absolute;
+        width: 100%;
+        height: 30px;
+        left: 50%;
+        top: 100%;
+        transform: translate(-50%,-100%);
+        background-color:cornflowerblue;
+        cursor: pointer;
+    }
+    #reviewShow{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        font-size: 21px;
+        font-weight: bold;
+        font-family: 'Sunflower', sans-serif;
+        white-space: nowrap;
+        color: white;
+    }
+    
+    
+/* ===========================모달=============================== */
+    #reviewModalWrap{
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        overflow: hidden;
+        background-color: black;
+        z-index: 2;
+        opacity: 0;
+        transition: ease-in-out;
+        transition-duration: 0.7s;
+        display: none;
+    }
+    #reviewModalContent{
+        position: fixed;
+        width: 0px;
+        height: 0px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        background-color: white;
+        border-radius: 2px;
+        z-index: 2;
+        transition: ease-in-out;
+        transition-duration: 0.7s;
+        opacity: 1;
+        overflow: hidden;
+        /* display: none; */
+    }
+
+    #reviewModalDelete{
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        left: 98%;
+        top: 5px;
+        transform: translateX(-98%);
+        background-color: cornflowerblue;
+        border-radius: 100%;
+        z-index: 2;
+        cursor: pointer;
+    }
+/* ============================일러스트================================ */
+    #illusWrap1{
+        position: absolute;
+        width: 1200px;
+        height: 525px;
+        left: 50%;
+        top: 0%;
+        transform: translate(-50%,-0%);
+        overflow: hidden;
+        /* background-color: black; 
+        /* opacity: 0.1; */
+    }
+
+    #alien1{
+        position: absolute;
+        width: 100px;
+        height: auto;
+        left: 8.3%;
+        top: 84%;
+        transform: translate(-8.3%,-84%);
+        opacity: 0.7; 
+    }
+    @keyframes bubble1{
+        0%{
+        left: 9.3%;
+        top: 54%;
+        transform: translate(-9.3%,-54%);
+        }
+        50%{
+        left: 9.3%;
+        top: 51%;
+        transform: translate(-9.3%,-51%);
+        }
+        100%{
+        left: 9.3%;
+        top: 54%;
+        transform: translate(-9.3%,-54%);
+        }
+    }
+    #bubble1{
+        position: absolute;
+        width: 0px;
+        height: auto;
+        left: 9.3%;
+        top: 54%;
+        transform: translate(-9.3%,-54%);
+        animation: ease-in-out;
+        animation-name: bubble1;
+        animation-duration: 3s;
+        animation-iteration-count: infinite;
+        animation-delay: 2.5s;
+        transition:ease-in-out;
+        transition-duration:1s;
+        opacity: 0.7;
+    }
+    #alien2{
+        position: absolute;
+        width: 120px;
+        height: auto;
+        left: 19%;
+        top: 68%;
+        transform: translate(-19%,-68%);
+        opacity: 0.7; 
+    }
+    @keyframes bubble2{
+        0%{
+        left: 26%;
+        top: 53%;
+        transform: translate(-26%,-53%);
+        }
+        50%{
+        left: 26%;
+        top: 49%;
+        transform: translate(-26%,-49%);
+        }
+        100%{
+        left: 26%;
+        top: 53%;
+        transform: translate(-26%,-53%);
+        }
+    }
+    #bubble2{
+        position: absolute;
+        width: 0px;
+        height: auto;
+        left: 26%;
+        top: 53%;
+        transform: translate(-26%,-53%);
+        animation: ease-in-out;
+        animation-name: bubble2;
+        animation-duration: 3s;
+        animation-iteration-count: infinite;
+        animation-delay: 2.5s;
+        transition:ease-in-out;
+        transition-duration:1s;
+        opacity: 0.7;
+    }
+    #alien3{
+        position: absolute;
+        width: 80px;
+        height: auto;
+        left: 74.5%;
+        top: 68%;
+        transform: translate(-74.5%,-68%);
+        opacity: 0.7; 
+    }
+    @keyframes bubble3{
+        0%{
+        left: 74%;
+        top: 43%;
+        transform: translate(-74%,-43%);
+        }
+        50%{	
+        left: 74%;
+        top: 40.5%;
+        transform: translate(-74%,-40.5%);
+        }
+        100%{
+        left: 74%;
+        top: 43%;
+        transform: translate(-74%,-43%);
+        }
+    }
+    #bubble3{
+        position: absolute;
+        width: 0px;
+        height: auto;
+        left: 74%;
+        top: 43%;
+        transform: translate(-74%,-43%);
+        animation: ease-in-out;
+        animation-name: bubble3;
+        animation-duration: 3s;
+        animation-iteration-count: infinite;
+        animation-delay: 2.5s;
+        transition:ease-in-out;
+        transition-duration:1s;
+        opacity: 0.7;
+    }
+    #dog{
+        position: absolute;
+        width: 90px;
+        height: auto;
+        left: 82%;
+        top: 70%;
+        transform: translate(-82%,-70%); 
+        opacity: 0.7; 
+    }
+
+    #planet1{
+        position: absolute;
+        width: 60px;
+        height: auto;
+        left: 15%;
+        top: 25%;
+        transform: translate(-15%,-25%); 
+        opacity: 0.8;
+        z-index: 1;
+    }
+    #planet2{
+        position: absolute;
+        width: 30px;
+        height: auto;
+        left: 25%;
+        top: 15%;
+        transform: translate(-25%,-15%); 
+        opacity: 0.7;
+    }
+    #planet3{
+        position: absolute;
+        width: 20px;
+        height: auto;
+        left: 25%;
+        top: 30%;
+        transform: translate(-25%,-30%); 
+        opacity: 0.7;
+    }
+    #planet4{
+        position: absolute;
+        width: 10px;
+        height: auto;
+        left: 27%;
+        top: 32%;
+        transform: translate(-27%,-32%); 
+        opacity: 0.7;
+    }
+    #blackhole{
+        position: absolute;
+        width: 100px;
+        height: auto;
+        left: 77%;
+        top: 20%;
+        transform: translate(-77%,-20%); 
+        opacity: 0.5;
+        z-index: 2;
+    }
+    #planet5{
+        position: absolute;
+        width: 30px;
+        height: auto;
+        left: 83%;
+        top: 35%;
+        transform: translate(-83%,-35%); 
+        opacity: 0.7;
+    }
+    #planet6{
+        position: absolute;
+        width: 20px;
+        height: auto;
+        left: 67%;
+        top: 22%;
+        transform: translate(-67%,-22%); 
+        opacity: 0.5;
+    }
+    #planet7{
+        position: absolute;
+        width: 70px;
+        height: auto;
+        left: 93.5%;
+        top: 20%;
+        transform: translate(-93.5%,-20%); 
+        opacity: 0.8;
+    }
+
+    @keyframes shipAni{
+        0%{
+            left: 0%;
+            top: 0%;
+            transform: translate(-0%,-0%);
+            width: 0px;  
+            height: auto;
+        }
+        20%{
+            left: 30%;
+            top: 30%;
+            transform: translate(-30%,-30%);  
+            width: 50px;  
+            height: auto;
+        }
+        40%{
+            left: 30%;
+            top: 30%;
+            transform: translate(-30%,-30%);  
+            width: 50px;  
+            height: auto;
+        }
+        60%{
+            left: 77%;
+            top: 20%;
+            transform: translate(-77%,-20%); 
+            width: 20px;  
+            height: auto;
+        }
+        80%{
+            left: 77%;
+            top: 20%;
+            transform: translate(-77%,-20%); 
+            width: 20px;  
+            height: auto; 
+        }
+        100%{
+            left: 100%;
+            top: 150%;
+            transform: translate(-100%,-150%);  
+            width: 100px;  
+            height: auto;
+        }
+    }
+    #ship{
+        position: absolute;	
+        width: 50px;
+        height: auto;
+        animation-name: shipAni;
+        animation-duration: 20s;
+        animation-iteration-count: infinite;
+        animation-delay: 2.5s;
+        z-index: 2;
+    }
+
+    @keyframes star1{
+        0%{
+            left: 80%;
+            top: -200%;
+            transform: translate(-80%,200%); 
+        }
+        5%{
+            left: 80%;
+            top: -200%;
+            transform: translate(-80%,200%); 
+        }
+        100%{
+            left: -70%;
+            top: 250%;
+            transform: translate(70%,-250%); 
+        }
+    }
+    #star1{
+        position: absolute;
+        width: 40px;
+        height: auto;
+        animation-name: star1;
+        animation-duration: 20s;
+        animation-iteration-count: infinite;
+        animation-delay: 2.5s;
+        z-index: 2;
+    }
+
+    @keyframes star2{
+        0%{
+            left:80%;
+            top: -160%;
+            transform: translate(-80%,160%); 
+        }
+        7%{
+            left:80%;
+            top: -160%;
+            transform: translate(-80%,160%); 
+        }
+        100%{
+            left: -60%;
+            top: 250%;
+            transform: translate(60%,-250%); 
+        }
+    } 
+    #star2{
+        position: absolute;
+        width: 40px;
+        height: auto;
+        animation-name: star2;
+        animation-duration: 20s;
+        animation-iteration-count: infinite;
+        animation-delay: 2.5s;
+        z-index: 2;
+    }
+    @keyframes star3{
+        0%{
+            left:80%;
+            top: -180%;
+            transform: translate(-80%,180%); 
+        }
+        10%{
+            left:80%;
+            top: -180%;
+            transform: translate(-80%,180%); 
+        }
+        100%{
+            left: -50%;
+            top: 250%;
+            transform: translate(50%,-250%); 
+        }
+    } 
+    #star3{
+        position: absolute;
+        width: 40px;
+        height: auto;
+        animation-name: star3;
+        animation-duration: 20s;
+        animation-iteration-count: infinite;
+        animation-delay: 2.5s;
+        z-index: 2;
+    }
+    @keyframes star4{
+        0%{
+            left:80%;
+            top: -150%;
+            transform: translate(-80%,150%); 
+        }
+        10%{
+            left:80%;
+            top: -150%;
+            transform: translate(-80%,150%);
+        }
+        100%{
+            left: -40%;
+            top: 250%;
+            transform: translate(40%,-250%); 
+        }
+    } 
+    #star4{
+        position: absolute;
+        width: 40px;
+        height: auto;
+        animation-name: star4;
+        animation-duration: 20s;
+        animation-iteration-count: infinite;
+        animation-delay: 2.5s;
+        z-index: 2;
+    }
+    @keyframes star5{
+        0%{
+            left:80%;
+            top: -150%;
+            transform: translate(-80%,150%); 
+        }
+        12%{
+            left:80%;
+            top: -150%;
+            transform: translate(-80%,150%); 
+        }
+        100%{
+            left: -30%;
+            top: 250%;
+            transform: translate(30%,-250%); 
+        }
+    } 
+    #star5{
+        position: absolute;
+        width: 40px;
+        height: auto;
+        animation-name: star5;
+        animation-duration: 20s;
+        animation-iteration-count: infinite;
+        animation-delay: 2.5s;
+        z-index: 2;
+    }
+    @keyframes star6{
+        0%{
+            left:80%;
+            top: -150%;
+            transform: translate(-80%,150%); 
+        }
+        7%{
+            left:80%;
+            top: -150%;
+            transform: translate(-80%,150%); 
+        }
+        100%{
+            left: -20%;
+            top: 250%;
+            transform: translate(20%,-250%);
+        }
+    } 
+    #star6{
+        position: absolute;
+        width: 40px;
+        height: auto;
+        animation-name: star6;
+        animation-duration: 20s;
+        animation-iteration-count: infinite;
+        animation-delay: 2.5s;
+        z-index: 2;
+    }
+    @keyframes star7{
+        0%{
+            left:80%;
+            top: -150%;
+            transform: translate(-80%,150%); 
+        }
+        8%{
+            left:80%;
+            top: -150%;
+            transform: translate(-80%,150%); 
+        }
+        100%{
+            left: -10%;
+            top: 250%;
+            transform: translate(10%,-250%);
+        }
+    } 
+    #star7{
+        position: absolute;
+        width: 40px;
+        height: auto;
+        animation-name: star7;
+        animation-duration: 20s;
+        animation-iteration-count: infinite;
+        animation-delay: 2.5s;
+        z-index: 2;
+    }
+    @keyframes star8{
+        0%{
+            left:80%;
+            top: -150%;
+            transform: translate(-80%,150%); 
+        }
+        6%{
+            left:80%;
+            top: -150%;
+            transform: translate(-80%,150%); 
+        }
+        100%{
+            left: -0%;
+            top: 250%;
+            transform: translate(0%,-250%);
+        }
+    }
+    #star8{
+        position: absolute;
+        width: 40px;
+        height: auto;
+        animation-name: star8;
+        animation-duration: 20s;
+        animation-iteration-count: infinite;
+        animation-delay: 2.5s;
+        z-index: 2;
+    }
+
+    @keyframes starfire1{
+        0%{
+            left: 90%;
+            top: 0%;
+            transform: translate(-90%,-0%);
+        }
+        65%{
+            left: 90%;
+            top: 0%;
+            transform: translate(-90%,-0%);
+        }
+        100%{
+            left: 50%;
+            top: 150%;
+            transform: translate(-50%,-150%);
+        }
+    }
+    #starfire1{
+        position: absolute;
+        width: 20px;
+        height: auto;
+        animation-name: starfire1;
+        animation-duration: 20s;
+        animation-iteration-count: infinite;
+        animation-delay: 2.5s;
+        opacity: 0.7;
+    }
+
+    @keyframes starfire2{
+        0%{
+            left: 60%;
+            top: 0%;
+            transform: translate(-60%,-0%);
+        }
+        70%{
+            left: 60%;
+            top: 0%;
+            transform: translate(-60%,-0%);
+        }
+        100%{
+            left: 20%;
+            top: 150%;
+            transform: translate(-20%,-150%);
+        }
+    }
+    #starfire2{
+        position: absolute;
+        width: 30px;
+        height: auto;
+        animation-name: starfire2;
+        animation-duration: 20s;
+        animation-iteration-count: infinite;
+        animation-delay: 2.5s;
+        z-index: 2;
+        opacity: 0.7;
+    }
+    @keyframes starfire3{
+        0%{
+            left: 75%;
+            top: 0%;
+            transform: translate(-75%,-0%);
+        }
+        70%{
+            left: 75%;
+            top: 0%;
+            transform: translate(-75%,-0%);
+        }
+        100%{
+            left: 35%;
+            top: 150%;
+            transform: translate(-35%,-150%);
+        }
+    }
+    #starfire3{
+        position: absolute;
+        width: 10px;
+        height: auto;
+        animation-name: starfire3;
+        animation-duration: 20s;
+        animation-iteration-count: infinite;
+        animation-delay: 2.5s;
+        z-index: 2;
+        opacity: 0.7;
+    }
+    @keyframes starfire4{
+        0%{
+            left: 105%;
+            top: 0%;
+            transform: translate(-105%,-0%);
+        }
+        68%{
+            left: 105%;
+            top: 0%;
+            transform: translate(-105%,-0%);
+        }
+        100%{
+            left: 65%;
+            top: 150%;
+            transform: translate(-65%,-150%);
+        }
+    }
+    #starfire4{
+        position: absolute;
+        width: 25px;
+        height: auto;
+        animation-name: starfire4;
+        animation-duration: 20s;
+        animation-iteration-count: infinite;
+        animation-delay: 2.5s;
+        z-index: 2;
+        opacity: 0.7;
+    }
+    
+/* ===========================푸터 및 기타=============================== */
+    #widthTest{
+        position: relative;
+        width: 1024px;
+        height: 10px;
+        left: 50%;
+
+        transform: translate(-50%);
+        background-color: black;
+    }
+    #widthBar{
+        position: relative;
+        width: 600px;
+        height: 8px;
+        left: 50%;
+        transform: translate(-50%);
+        background-color: cornflowerblue;
+        border-radius: 10px;
+        opacity: 0.5;
+    }
+        #bottomBox{
+        position: absolute;
+        width: 100%;
+        height: 20%;
+
+        background-color: gainsboro;
+        border: 1px solid black;
+    }

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="buy">
+	<select id="buyCount" resultType="_int" parameterType="map">
+		select count(distinct buyno) from buy where 1=1
+		<choose>
+			<when test='sCategoryFlag!=null and sCategoryFlag!=""'> and detailinterestno = #{sCategoryFlag}</when>
+		</choose>
+	</select>
+	
+	<select id="buyMainGrade" resultType="map" parameterType="map">
+		select buy.buyno,buy.categorycode, buy.memberid,mem.introduction,gr.gradename,gr.gradeno, buy.detailinterestno, buy.interestno, buy.buytitle, buy.buyprice, buy.buydate, buy.buydeleteyn, buy.buycheckyn from buy join member mem on(buy.memberid=mem.memberid) join grade gr on(mem.gradeno=gr.gradeno) where 1 = 1
+		<choose>
+			<when test='sCategoryFlag!=null and sCategoryFlag!=""'> 
+				and buy.detailinterestno = #{sCategoryFlag}
+			</when>
+		</choose>
+		order by gr.gradeno desc
+	</select>
+	
+	<select id="buyMainNew" resultType="map" parameterType="map">
+		select buy.buyno,buy.categorycode, buy.memberid,mem.introduction,gr.gradename,gr.gradeno, buy.detailinterestno, buy.interestno, buy.buytitle, buy.buyprice, buy.buydate, buy.buydeleteyn, buy.buycheckyn from buy join member mem on(buy.memberid=mem.memberid) join grade gr on(mem.gradeno=gr.gradeno) where 1 = 1 
+		<choose>
+			<when test='sCategoryFlag!=null and sCategoryFlag!=""'> 
+				and buy.detailinterestno = #{sCategoryFlag} 
+			</when>
+		</choose>
+		order by buydate desc
+	</select> 
+	
+	<select id="imageDiv2" parameterType="com.kh.makeit.buy.model.vo.BuyAttach" resultType="com.kh.makeit.buy.model.vo.BuyAttach">
+		select BUYIMGNO,BUYNO,CATEGORYCODE,BUYIMGORI,BUYIMGRE from BUYIMG where BUYIMGNO=(select MIN(BUYIMGNO) from BUYIMG where buyno=#{buyno})
+	</select>
+
+	<select id="searchCount" parameterType="map" resultType="_int">
+		select count(distinct buyno) from buy where 1=1
+		<if test='sCategoryFlag!=null and sCategoryFlag!=""'>
+			and detailinterestno = #{sCategoryFlag}
+		</if>
+	
+		<if test='searchtype=="title"'>
+			and buytitle like '%'||#{searchValue}||'%'
+		</if>
+		<if test='searchtype=="writer"'>
+			and memberid like '%'||#{searchValue}||'%'
+		</if>
+
+	</select>
+	
+	<select id="buySearch" parameterType="map" resultType="map">
+		<if test='newValue=="1"'>
+			select buy.buyno,buy.categorycode, buy.memberid,mem.introduction,gr.gradename,gr.gradeno, buy.detailinterestno, buy.interestno, buy.buytitle, buy.buyprice, buy.buydate, buy.buydeleteyn, buy.buycheckyn from buy join member mem on(buy.memberid=mem.memberid) join grade gr on(mem.gradeno=gr.gradeno) where 1 = 1
+		</if>
+		<if test='gradeValue=="1"'>
+			select buy.buyno,buy.categorycode, buy.memberid,mem.introduction,gr.gradename,gr.gradeno, buy.detailinterestno, buy.interestno, buy.buytitle, buy.buyprice, buy.buydate, buy.buydeleteyn, buy.buycheckyn from buy join member mem on(buy.memberid=mem.memberid) join grade gr on(mem.gradeno=gr.gradeno) where 1 = 1
+		</if>
+		<if test='searchtype=="title"'>
+			and buytitle like '%'||#{searchValue}||'%'
+		</if>
+		<if test='searchtype=="writer"'>
+			and buy.memberid like '%'||#{searchValue}||'%'
+		</if>
+		<if test='sCategoryFlag!=null and sCategoryFlag!=""'>
+			and detailinterestno=#{sCategoryFlag}
+		</if>
+		<if test='newValue=="1"'>
+			order by buydate desc
+		</if>
+		<if test='gradeValue=="1"'>
+			order by mem.gradeno desc
+		</if>
+	</select>
+	
+	<insert id="insertBuy" parameterType="map" >
+		INSERT INTO BUY VALUES(SEQ_BUYNO.NEXTVAL, 'B', #{detailInterest}, #{interest}, #{title}, DEFAULT, #{content}, #{price}, #{writer}, DEFAULT, DEFAULT)
+		<selectKey keyProperty="buyNo" resultType="string" order="AFTER">
+			SELECT SEQ_BUYNO.CURRVAL FROM DUAL 
+		</selectKey>		
+	</insert>
+	
+	<insert id="insertAttach" parameterType="com.kh.makeit.buy.model.vo.BuyAttach">
+		INSERT INTO BUYIMG VALUES(SEQ_BUYIMGNO.NEXTVAL, #{buyNo}, 'B', #{buyImgOri}, #{buyImgRe})
+	</insert>
+	
+	<select id="buyDetail" parameterType="_int" resultType="map">
+		SELECT * FROM BUY JOIN MEMBER ME ON(BUY.MEMBERID = ME.MEMBERID) JOIN GRADE GR ON(GR.GRADENO = ME.GRADENO) WHERE BUYNO = #{buyNo}
+	</select>
+	<select id="selectMainImg" parameterType="_int" resultType="map">
+		SELECT * FROM BUYIMG WHERE BUYIMGNO = (SELECT MIN(BUYIMGNO) FROM BUYIMG WHERE BUYNO = #{buyNo})
+	</select>
+	<select id="selectSubImg" parameterType="_int" resultType="map">
+		SELECT * FROM BUYIMG WHERE BUYNO = #{buyNo} and BUYIMGNO NOT IN (SELECT MIN(BUYIMGNO) FROM BUYIMG WHERE BUYNO = #{buyNo})
+	</select>
+	<select id="selectReview" parameterType="_int" resultType="map">
+		SELECT * FROM BUYREVIEW WHERE BUYNO = #{buyNo} ORDER BY BUYREVIEWNO DESC
+	</select>
+	<insert id="insertReview" parameterType="map">
+		INSERT INTO BUYREVIEW VALUES(SEQ_BUYREVIEWNO.NEXTVAL, #{reviewContent}, #{buyNo}, #{starCount}, #{memberId}, 'B')
+	</insert>
+	<select id="selectReviewCnt" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM BUYREVIEW WHERE BUYNO=#{buyNo}
+	</select>
+	<delete id="deleteReview" parameterType="map">
+		DELETE FROM BUYREVIEW WHERE BUYNO = #{buyNo} AND BUYREVIEWNO = #{reviewNo} AND CATEGORYCODE = 'B'
+	</delete>
+	<update id="updateReview" parameterType="map">
+		UPDATE BUYREVIEW SET BUYREVIEWCONTENT = #{reviewContent}, BUYREVIEWSTAR = #{starCount} WHERE BUYNO = #{buyNo} AND BUYREVIEWNO = #{reviewNo} AND CATEGORYCODE = 'B'
+	</update>
+	<select id="selectVolList" parameterType="map" resultType="map">
+		SELECT * FROM BUYCANDIDATE WHERE BUYNO = ${buyNo} AND CATEGORYCODE = #{category} ORDER BY BUYCANDIDATEDATE
+	</select>
+	<select id="selectVolView" parameterType="map" resultType="_int">
+		SELECT * FROM BUYCANDIDATE WHERE MEMBERID = #{memberId} AND BUYNO = ${buyNo} AND CATEGORYCODE = #{category}
+	</select>
+	
+</mapper>
