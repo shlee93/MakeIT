@@ -33,10 +33,10 @@
    	<link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Sunflower:300" rel="stylesheet">
    	
    	<style>
-		div
+		/* div
 		{
 			border:1px solid red;
-		}
+		} */
 		
 		header
 		{
@@ -49,8 +49,10 @@
 		}
 		.donggeulInnerBtn
 		{
-			position:relative; 
-			top:-100px;
+			position:absolute; 
+			width: 130%;
+			top:130px;
+			left:-0.9em;
 		}
 				    
 	</style>
@@ -196,7 +198,7 @@
                         		<h4 style="display: inline; font-family: 'Sunflower', sans-serif;"><strong>${contestObj.GRADENAME}</strong> ${contestObj.MEMBERNAME}</h4>
  			                   	
  			                   	<!-- 똥글뱅이 -->
-                        		<div class="row align-items-center" style='margin-top: -5em; z-index:50;'>			                  
+                        		<div class="row align-items-center" style='margin-top: -5em;'>			                  
 			                  		<div class="holderCircle">
 			                        	<div class="round"></div>
 		                        		<div class="dotCircle">
@@ -339,7 +341,7 @@
 											      			<input type='hidden' id='sendId' name='sendId' value='${memberMap.get("MEMBERID")}'/>
 											      			<input type='hidden' id='receiveId' name='receiveId' value='${contestObj.MEMBERID }'/>
 											      		<%-- </form> --%> 
-										      			<button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick='fn_message()'>쪽지보내기</button>
+										      			<button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick='fn_message()' >쪽지보내기</button>
 										      			
 										      			<script>									      			
 										      				function fn_message()
