@@ -817,10 +817,10 @@
 		</div>   
    		<div class='col-md-1' id='right-nav'>
    			<c:if test="${sessionScope.member.MEMBERID=='admin'}">             
-         <div style='position:fixed; margin-top: 10em;'>
-            <button id="" class=" btn btn-outline-info slidetopleft" >승인</button>
-         </div>
-      </c:if>
+         		<div style='position:fixed; margin-top: 10em;'>
+            		<button id="" class=" btn btn-outline-info slidetopleft" >승인</button>
+         		</div>
+      		</c:if>
    			
    		</div>                   
 	</div>
