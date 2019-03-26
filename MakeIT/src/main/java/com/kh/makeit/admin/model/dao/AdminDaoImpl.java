@@ -361,6 +361,13 @@ public class AdminDaoImpl implements AdminDao {
 		
 		return sqlSession.update("admin.updateGradeUpdate",perform );
 	}
+
+	//환불거부
+	@Override
+	public int updateRefundNegativeEnd(Map<Object, Object> negative) {
+		
+		return sqlSession.update("admin.updateRefundNegativeUpdate", negative);
+	}
 	
 	
 	

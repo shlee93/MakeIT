@@ -597,13 +597,13 @@
 												<ul id="menu-content" class="menu-content collapse out">
 													<li class='side-nav-li payment-view active' data-toggle="collapse" data-target="#new" class="collapsed">
 														<input type="hidden" value="BUY" /> 
-														<a> 
+														<a href='#'> 
 															구매
 														</a>
 													</li>
 													<li class='side-nav-li payment-view' data-toggle="collapse" data-target="#new" class="collapsed">
 														<input type="hidden" value="SELL" /> 
-														<a> 
+														<a href='#'> 
 															판매
 														</a>
 													</li>
@@ -757,13 +757,13 @@
 												<ul id="menu-content" class="menu-content collapse out">
 													<li class='side-nav-li refund-view active' data-toggle="collapse" data-target="#new" class="collapsed">
 														<input type="hidden" value="BUY" /> 
-														<a> 
+														<a href='#'> 
 															 구매
 														</a>
 													</li>
 													<li class='side-nav-li refund-view' data-toggle="collapse" data-target="#new" class="collapsed">
 														<input type="hidden" value="SELL" /> 
-														<a> 
+														<a href='#'> 
 															판매
 														</a>
 													</li>
@@ -1060,7 +1060,7 @@
 	                                            <button class="qna-update">수정</button>
 	                                            <hr>
 	                                            <div class="faq-answer">
-	                                            	<textarea cols="85" style="resize:none; border:0;" readonly="readonly">○&nbsp;${faq.FAQCONTENT }</textarea>
+	                                            	<textarea cols="85" style="resize:none; border:0; width:100%;" readonly="readonly">○&nbsp;${faq.FAQCONTENT }</textarea>
 	                                            </div>
 	                                            <div class='qna-delete-back'>
 	                                                	답변과 함께 삭제 됩니다. 

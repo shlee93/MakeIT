@@ -150,4 +150,7 @@ public interface AdminDao {
 	
 	//등급 업데이트
 	int updateGradeUpdate(Map<Object,Object> perform);
+	
+	//환불 거부
+	int updateRefundNegativeEnd(Map<Object,Object> negative);
 }

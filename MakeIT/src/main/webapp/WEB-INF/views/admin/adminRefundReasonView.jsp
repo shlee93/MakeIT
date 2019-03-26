@@ -61,46 +61,49 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-2" ></div>
-					<div class="col-md-9">
+					<div class="col-md-1"></div>
+					<div class="col-md-10">
 						<label>게시글 제목</label> 
 						
-						<input class="form-control" type="text" id="refund-title" readonly value="${refund.SELLTITLE}" style="width:40%;">
+						<input class="form-control" type="text" id="refund-title" style="width:100%;" readonly value="${refund.SELLTITLE}">
 					</div>
+					<div class="col-md-1"></div>
 				</div>
 				<div class="row">
-					<div class="col-md-2" >
-						
-					</div>
-					<div class="col-md-9">
+					<div class="col-md-1"></div>
+					<div class="col-md-10">
 						<label>환불대상</label> 
 						
 						<input class="form-control" type="text" id="refund-target" readonly value="${refund.TARGETID}" style="width:40%;">
 					</div>
-					
+					<div class="col-md-1"></div>
 				</div>
 				<div class="row">
-					<div class="col-md-2" ></div>
-					<div class="col-md-9">
+					<div class="col-md-1"></div>
+					<div class="col-md-10">
 						<label>금액</label> 
 						
 						<input class="form-control" type="text" id="refund-price" readonly value="${refund.SELLPRICE}" style="width:40%;">
 					</div>
+					<div class="col-md-1"></div>
 				</div>
 				
 				<br/>
 				<div class="row">
-					<div class="col-md-2">
-						<label style="">환불사유</label> 
-					</div>
-					<div class="col-md-9">
+					<div class="col-md-1"></div>
+					<div class="col-md-10">
+						<label for="reportContent">환불사유</label> 
 						<textarea name="reportContent" class="form-control" rows="5">${refund.SELLREASONREFUND}</textarea>
 					</div>
+					<div class="col-md-1"></div>
 				</div>
 				<div class="row">
-					<br/>
-					<button type="button" class="btn btn-primary" id="refund-btn">환불하기</button>
-
+					<div class="col-md-1"></div>
+					<div class="col-md-10">					
+						<button type="button" class="btn btn-outline-info slidetopleft" id="refund-btn">환불하기</button>
+						<button type="button" class="btn btn-outline-info slidetopleft" id="negative-btn">환불거부</button>
+					</div>
+					<div class="col-md-1"></div>
 				</div>
 				
 				<input type="hidden" id="sellno" value="${refund.SELLNO}">

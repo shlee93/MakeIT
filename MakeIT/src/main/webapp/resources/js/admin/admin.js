@@ -1,15 +1,3 @@
-$(document).ready(function(){
-	
-	cmaTextareaSize(120);
-});
-
-function cmaTextareaSize(bsize) { // 객체명, 기본사이즈
-    var sTextarea =$('textarea');
-    var csize = (sTextarea.scrollHeight >= bsize) ? sTextarea.scrollHeight+"px" : bsize+"px";
-    sTextarea.css("height",bsize+"px"); 
-    sTextarea.css("height",csize);
-}
-
 //게시글 승인 탭 세부 메뉴 버튼 클릭 화면전환
 $(document).on('click','.approval-li',function(){
 	
@@ -196,6 +184,7 @@ $(document).on('click','#nav-category-tab',function(){
 $(document).on('click','#nav-faq-tab',function(){
 	var $view_Status=$("#view-status");
 	$view_Status.val("faq");
+	
 });
 //회원 검색 Ajax
 $(document).on('keyup','#search-id',function(){
@@ -1042,6 +1031,32 @@ $(document).on('click','#refund-btn',function(){
 	});
 	
 })
+//환불 거부
+$(document).on('click','#nagetive-btn',function(){
+	var $view_Status=$(opener.document).children('#refund-view-status');
+	var viewStatus=$view_Status.val();
+	var title=$('#refund-title').val();
+	var specNo=$('#end-spec-no').val();
+	var price=$('#refund-price').val()
+	var $payment_Tab=$('.refund-view-div');
+	var cPage=$('#cPage').val();
+	
+	$.ajax({
+		
+		url:"updateRefundNegativeEnd.do",
+		data:{
+			"cPage":cPage,
+			"refundStatus":viewStatus,
+			"specNo":specNo
+		},
+		dataType:"html",
+		success:function(data){
+			$payment_Tab.html(data);
+			self.close();
+		}
+	})
+})
+
 //신고 회원 보기 이벤트
 $(document).on('click', '.report-tab-back', function () {
 
@@ -1139,6 +1154,7 @@ $(document).on('click', '.faq-slide', function () {
 		$(this).html("▼");
 
 	}
+	$(this).parent('.faq-category').next().children('.faq-list').children('.faq-question').children('textarea').click();
 
 });
 
@@ -1148,18 +1164,20 @@ $(document).on('click', '.answer-slide', function () {
 
 	var $slide_btn = $(this);
 	var $answer = $slide_btn.siblings('.faq-answer');
-
+	
 	if ($answer.is(':hidden')) {
 		$answer.slideDown('slow');
 		$(this).html("▲");
-
+		
 	} else {
 		$answer.slideUp('slow');
 		$(this).html("▼");
 
 
 	}
-
+	$(this).siblings('.faq-answer').children('textarea').click();
+	
+	
 });
 
 //faq 카테고리 추가 이벤트
@@ -1305,18 +1323,15 @@ $(document).on('click','.qna-delete',function(){
 
 //텍스트 에어리어 크기조절
 
-$(document).on('keyup','textarea', function(){
+$(document).on('click','textarea', function(){
 	 var textEle=$(this);
+	 console.log(textEle);
 	 textEle[0].style.height = 'auto';
 	 var textEleHeight = textEle.prop('scrollHeight');
+	 console.log(textEleHeight);
 	 textEle.css('height', textEleHeight);
 });
-$('textarea').each(function () {
-    this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
-  }).on('input', function () {
-    this.style.height = 'auto';
-    this.style.height = (this.scrollHeight) + 'px';
-});
+
 
 
 
