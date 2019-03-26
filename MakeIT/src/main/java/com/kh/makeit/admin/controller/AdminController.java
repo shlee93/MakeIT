@@ -40,6 +40,7 @@ public class AdminController {
 				@RequestParam(value="deleteStatus", required=false, defaultValue="BUY") String deleteStatus
 			) {
 		HttpSession session=request.getSession();
+		@SuppressWarnings("unchecked")
 		Map<String,String> member=(Map<String,String>)session.getAttribute("member");
 		String memberLevel=member.get("MEMBERLEVEL");
 		int level=Integer.parseInt(memberLevel);

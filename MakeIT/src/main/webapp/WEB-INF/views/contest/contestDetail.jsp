@@ -601,7 +601,7 @@
 						      		</th>  
 			               		</tr>
 			               	  	<th>
-			               	  		<input type='file' id='upFile' name='upFile'/>
+			               	  		<input type='file' id='upFile' name='upFile' accept=".zip"/>
 			               	  	</th> 	
 			               		<tr>
 			                  		<th>
