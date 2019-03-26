@@ -33,9 +33,9 @@ public interface MemberDao {
 
 	int deleteMember(String id);
 
-	List<Map<String, String>> buyOutBoxList(String memberId, int buycPage, int numPerPage);
+	List<Map<Object, Object>> buyOutBoxList(String memberId, int buycPage, int numPerPage);
 
-	List<Map<String, String>> sellOutBoxList(String memberId, int sellcPage, int numPerPage);
+	List<Map<Object, Object>> sellOutBoxList(String memberId, int sellcPage, int numPerPage);
 
 	int selectOutBoxBuyCount(String memberId);
 
@@ -99,7 +99,7 @@ public interface MemberDao {
 
 	List<Map<String,String>> memberSearch(String receiveId);
 
-	List<Map<String, String>> contestOutBoxList(String memberId, int contestcPage, int numPerPage);
+	List<Map<Object, Object>> contestOutBoxList(String memberId, int contestcPage, int numPerPage);
 
 	int selectOutBoxContestCount(String memberId);
 

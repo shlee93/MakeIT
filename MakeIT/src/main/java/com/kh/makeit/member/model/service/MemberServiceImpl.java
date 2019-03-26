@@ -85,12 +85,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Map<String, String>> buyOutBoxList(String memberId, int buycPage, int numPerPage) {
+	public List<Map<Object, Object>> buyOutBoxList(String memberId, int buycPage, int numPerPage) {
 		return dao.buyOutBoxList(memberId,buycPage,numPerPage);
 	}
 
 	@Override
-	public List<Map<String, String>> sellOutBoxList(String memberId, int sellcPage, int numPerPage) {
+	public List<Map<Object, Object>> sellOutBoxList(String memberId, int sellcPage, int numPerPage) {
 		return dao.sellOutBoxList(memberId,sellcPage,numPerPage);
 	}
 
@@ -252,7 +252,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Map<String, String>> contestOutBoxList(String memberId, int contestcPage, int numPerPage) {
+	public List<Map<Object, Object>> contestOutBoxList(String memberId, int contestcPage, int numPerPage) {
 		return dao.contestOutBoxList(memberId,contestcPage,numPerPage);
 	}
 

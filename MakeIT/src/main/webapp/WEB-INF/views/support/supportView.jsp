@@ -159,7 +159,7 @@
 	                                       
 	                                       	<hr>
 	                                       	<div class="faq-answer">
-	                                       		<textarea cols="90" style="resize:none; border:0;" readonly="readonly">○&nbsp;${faq.FAQCONTENT }</textarea>
+	                                       		<textarea cols="90" style="resize:none; border:0; width:100%;" readonly="readonly">○&nbsp;${faq.FAQCONTENT }</textarea>
 	                                       	</div>
 	                                        
 	                                    </li>

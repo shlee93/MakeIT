@@ -103,21 +103,34 @@
 	    border-color: #2e6da4;
 	}
 </style>
+	<jsp:include page="/WEB-INF/views/common/header.jsp">
+	  	<jsp:param value="HelloSpring" name="pageTitle"/>
+   	</jsp:include>
 <body>
-	<div class="row">
-	 	<div class="col-sm-1"></div>
-	    <div id="buy-container" class="col-sm-10">
+	<div class="row" style='padding:1.1em;'>
+	 	<div class="col-md-1">
+	 		<div style='position:fixed; margin-top:-6em;'>
+    			<span onclick='fn_back()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
+          	 	<script>
+           			function fn_back()
+	           		{
+	           			history.back();
+	           		}
+	           	</script>
+           	</div>
+	 	</div>
+	    <div id="buy-container" class="col-md-10">
 	    	<form action='${path}/contest/contestFormEnd.do' method='post' enctype="multipart/form-data">    
 				<label>제목</label> 
 		
-				<select class="form-control col-sm-1" id='interestNo' name='interestNo' style="display: inline;" required/>
+				<select class="form-control col-md-2" id='interestNo' name='interestNo' style="display: inline;" required/>
 		        	<option>카테고리</option>
 		        	<option value='1'>개발자</option>
 		        	<option value='2'>웹디자이너</option>
 		        	<option value='3'>네트워크보안</option>         
 		        </select>
 		         
-		        <select class="form-control col-sm-1" id='detailInterestNo' name='detailInterestNo' style="display: inline;" required/>
+		        <select class="form-control col-md-2" id='detailInterestNo' name='detailInterestNo' style="display: inline;" required/>
 		        	       
 		        </select> 
 		        
@@ -158,7 +171,7 @@
 		    		 );
 		        </script>
 		       
-				<input type="text" class="form-control col-sm-6" id='contestTitle' name='contestTitle' style="display: inline;" placeholder="제목을 입력하세요." required/> 
+				<input type="text" class="form-control col-md-6" id='contestTitle' name='contestTitle' style="display: inline;" placeholder="제목을 입력하세요." required/> 
 		        <script>
 		        	$('#contestTitle').on('keyup', function() 
 	        		{
@@ -174,19 +187,19 @@
 		        <br/>
 		       	 
 		   	    <label>주최</label>
-		     	<input type="text" class="form-control col-sm-2" style="display: inline;" id='star' name='dona' placeholder="주최측" value='${memberMap.get("MEMBERNAME")}' readonly/>&nbsp;&nbsp;
-		      	<input type="text" class="form-control col-sm-2" style="display: inline;" id='starId' name='donaId' placeholder="주최자 아이디" value='${memberMap.get("MEMBERID")}'readonly/> 
+		     	<input type="text" class="form-control col-md-2" style="display: inline;" id='star' name='dona' placeholder="주최측" value='${memberMap.get("MEMBERNAME")}' readonly/>
+		      	<input type="text" class="form-control col-md-2" style="display: inline;" id='starId' name='donaId' placeholder="주최자 아이디" value='${memberMap.get("MEMBERID")}'readonly/> 
 		       	
 		       	<br/>
 		       	
 		       	<label>상금</label>
-		     	<input type="number" class="form-control col-sm-2" id='contestPrice' name='contestPrice' style="display: inline;" placeholder="상금 총액" required/>
+		     	<input type="number" class="form-control col-md-2" id='contestPrice' name='contestPrice' style="display: inline;" placeholder="상금 총액" required/>
 		       	
 		       	<br/>
 		       	  
 		        <label>기한</label> 
-		        <input type="date" id='contestDate' name='contestDate' class="form-control col-sm-2" style="display: inline" required>~
-		        <input type="date" id='contestDeadLine' name='contestDeadLine' class="form-control col-sm-2" style="display: inline" required>
+		        <input type="date" id='contestDate' name='contestDate' class="form-control col-md-2" style="display: inline" required>~
+		        <input type="date" id='contestDeadLine' name='contestDeadLine' class="form-control col-md-2" style="display: inline" required>
 				<script>        
 			        $(function()
 	        		{
@@ -305,7 +318,7 @@
 	        	</div>
 	        </form>
 	    </div>
-	    <div class="col-sm-1"></div>
+	    <div class="col-md-1"></div>
 	</div>
 </body>
 </html>

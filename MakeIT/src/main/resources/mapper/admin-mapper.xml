@@ -610,4 +610,9 @@
 			</otherwise>
 		</choose>
 	</update>
+	
+	<!-- 환불 거부 -->
+	<update id="updateRefundNegativeUpdate">
+		UPDATE ${refundStatus}SPEC SET STATUSNO=3 WHERE ${refundStatus}SPECNO=#{specNo}
+	</update>
 </mapper>

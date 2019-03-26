@@ -72,12 +72,12 @@
 	}); */
 	
 	$(window).scroll(function(){
-		if($(this).scrollTop() > 150)
+		if($(this).scrollTop() > 200)
 		{
 			var windowVal = $(this).scrollTop();
-			$('#donggeulNav').css('top',windowVal-150);
+			$('#donggeulNav').css('top',windowVal-250);
 		}
-		if($(this).scrollTop() < 150) 
+		if($(this).scrollTop() < 200) 
         {
 			var windowVal = $(this).scrollTop();
 			$('#donggeulNav').css('top','100px');
@@ -114,7 +114,7 @@
 	<div class='container-fluid' id="total">
     	<div class='row'>
     		<div class='col-md-1' id='left-nav'>
-    			<div style='position:fixed; margin-top: 10em;'>
+    			<div style='position:fixed;'>
 	    			<span onclick='fn_back()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
 	          	 	<script>
 	           			function fn_back()
@@ -153,14 +153,12 @@
                     	<div class='row'>
                         	<nav id=tab-list>
                            		<div class="nav nav-tabs nav-fill detail" id="nav-tab" role="tablist">
-                               		<a class="nav-item nav-link active detail " id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">상세설명</a>                              	                                    
+                               		<a class="nav-item nav-link active detail " id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" style="font-family: 'Sunflower','sans-serif';" aria-controls="nav-home" aria-selected="true">상세설명</a>                              	                                    
                             	</div>
                         	</nav>
                         	<div class="tab-content" id="nav-tabContent" style='width: 100%;'>
                             	<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                            		<textarea class='contentTextArea' rows="34" readonly>
-                            			${contestObj.CONTESTCONTENT }
-                            		</textarea>                                
+                            		<textarea class='contentTextArea' rows="34" style='border:0px'readonly>${contestObj.CONTESTCONTENT }</textarea>                                
                             	</div>
                             
                             	<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
@@ -500,27 +498,28 @@
 	                       		<!-- 동글뱅이 스크립트 끝 -->                             	
 	                        
 	                          	<div class='row' style='margin-top: -4em;'>
-	                  				<div class='col-md-2'></div>
+	                  				<div class='col-md-1'></div>
 		                        	
 		                        	<!-- 작성자 소개 -->  	
-	                          		<div class='col-md-8'>
-	                          			<p>${contestObj.INTRODUCTION}</p>
+	                          		<div class='col-md-10'>
+	                          			<textarea class='form-control' rows='6' style='width:100%; height: 100%;'readonly>${contestObj.INTRODUCTION}</textarea>
 	                          		</div>
 	                          		<!-- 작성자 소개 끝 -->
 	                          		
-	                       			<div class='col-md-2'></div>                          		
+	                       			<div class='col-md-1'></div>                          		
 	                   			</div>                          	
                    			</div>                    	
                 		</div>                      
   					</div>        
        			</div>
 			</div>
-	    	<div class='col-md-1' id='right-nav' >	    	
-				<c:if test="${sessionScope.member.MEMBERID==admin}">   		    
-		    		<div style='position:fixed; margin-top: 10em;'>
-		    			<button class=" btn btn-outline-info slidetopleft" id='approval-btn' >승인</button>
-		           	</div>
-	    		</c:if>
+	    	<div class='col-md-1' id='right-nav' >
+	    	<c:if test="${sessionScope.member.MEMBERID == 'admin'}">
+	    		<div style='position:fixed;'>
+	    			<span onclick='fn_back()' id='approval-btn' style='cursor:pointer; font-size: 4em;'><i class="fas fa-check-circle"></i></span>   				           
+	          	 	
+	           	</div>
+           	</c:if>
 	    	</div>
 	    	<script>
 			    function fn_applicantAccess_modal()

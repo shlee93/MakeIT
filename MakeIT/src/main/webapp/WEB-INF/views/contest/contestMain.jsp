@@ -237,7 +237,7 @@
 	 	<div class='container-fluid' id="total">
 	  		<div class='row'>
 	       		<div class='col-md-1' id='nav'>
-	       			<div style='position:fixed; margin-top: 10em;'>
+	       			<div style='position:fixed; margin-top:-6em;'>
 		    			<span onclick='fn_back()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
 		          	 	<script>
 		           			function fn_back()
@@ -251,10 +251,10 @@
 					<div class='row'>
 						<div class='col-md-2'>
 							<div class="nav-side-menu">
-		                        <div class="brand">Brand Logo</div>
+		                        <div class="brand"><img src="${path }/resources/image/logo1main.png" style='max-width:50px; max-height:50px; margin-bottom: 2em;'/></div>
 		                        <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
 		                        <div>
-		                            <ul>
+		                            <ul style="font-family: 'Sunflower','sans-serif';">
 		                          		<li class="menu">
 		                             		<a href="#">
 		                                       <i class="fas fa-cogs"></i> &nbsp;개발자 
@@ -455,11 +455,11 @@
 					                    <div class='col-md-9'>
 					                       	<div class="row" style='margin-top:0.3em;'>
 						                       
-						                       <h5 class="card-title">컨테스트 제목: ${contest.CONTESTTITLE} </h5>
+						                       <h5 class="card-title" style="font-family: 'Sunflower','sans-serif';">컨테스트 제목: ${contest.CONTESTTITLE} </h5>
 						                    </div>				                   
 						                    <div class='row'>
 						                    	<div class='col-md-6'>
-						                    	   <strong>주최자:
+						                    	   <strong style="font-family: 'Sunflower','sans-serif';">주최자:
 							                       <c:if test='${contest.MEMBERLEVEL==2}'>
 							                       	  <img src='${path }/resources/upload/member/${contest.REIMG}' style='max-width:33px; height:35px; display:inline;'>[기업]
 							                       </c:if> 
