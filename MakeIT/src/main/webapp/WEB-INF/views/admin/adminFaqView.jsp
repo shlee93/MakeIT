@@ -25,7 +25,7 @@
 	<c:if test="${not empty categoryList }">
 		<c:forEach items="${categoryList }" var="category">
 			<div class="faq-back">
-				<div class="faq-category btn btn-outline-info slidetopleft">${category.FAQNACATEGORYNAME }
+				<div class="faq-category btn btn-outline-info slidetopleft">●&nbsp;${category.FAQNACATEGORYNAME }
 					<input type="hidden" class="faq-category-no" value="${category.FAQNACATEGORYNO }"/>
 					<input type="hidden" class="faq-category-name" value="${category.FAQNACATEGORYNAME }"/>
 					<button class="faq-slide">▼</button>
@@ -36,7 +36,7 @@
 							<c:if test="${faq.FAQNACATEGORYNO==category.FAQNACATEGORYNO }">
 
 								<li class="faq-question">
-									<textarea cols="65" style="resize:none; border:0;" readonly="readonly">${faq.FAQTITLE }</textarea>
+									<textarea cols="65" style="resize:none; border:0;" readonly="readonly">●&nbsp;${faq.FAQTITLE }</textarea>
 									<input type="hidden" class="faq-no" value="${faq.FAQNO }" />
 									<input type="hidden" class="faq-title" value="${faq.FAQTITLE }"/>
 									<button class="answer-slide">▼</button>
@@ -44,7 +44,7 @@
 									<button class="qna-update">수정</button>
 									<hr>
 									<div class="faq-answer">
-										<textarea cols="65" style="resize:none; border:0;" readonly="readonly">${faq.FAQCONTENT }</textarea>
+										<textarea cols="85" style="resize:none; border:0; width:100%;" readonly="readonly">○&nbsp;${faq.FAQCONTENT }</textarea>
 									</div>	
 									<div class='qna-delete-back'>
 										답변과 함께 삭제 됩니다.

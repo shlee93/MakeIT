@@ -138,4 +138,19 @@ public interface AdminDao {
 	
 	//삭제된 게시글 복구
 	int updateDeleteCheck(Map<Object,Object> returnD);
+	
+	//환불 사유 셀렉트
+	Map<Object,Object> selectRefundReason(Map<Object,Object> refundParam);
+	
+	//구매게시판 판매량 셀렉트
+	int selectPaymentBuyCount(String targetId);
+	
+	//판매게시판 판매량 셀렉트
+	int selectPaymentSellCount(String targetId);
+	
+	//등급 업데이트
+	int updateGradeUpdate(Map<Object,Object> perform);
+	
+	//환불 거부
+	int updateRefundNegativeEnd(Map<Object,Object> negative);
 }

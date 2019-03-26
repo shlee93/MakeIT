@@ -33,10 +33,10 @@
    	<link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Sunflower:300" rel="stylesheet">
    	
    	<style>
-		/* div
+		div
 		{
 			border:1px solid red;
-		} */
+		}
 		
 		header
 		{
@@ -46,7 +46,13 @@
        	html,body
        	{
 			height: 100%;
-		} 		    
+		}
+		.donggeulInnerBtn
+		{
+			position:relative; 
+			top:-100px;
+		}
+				    
 	</style>
 </head>
 
@@ -72,12 +78,12 @@
 	}); */
 	
 	$(window).scroll(function(){
-		if($(this).scrollTop() > 150)
+		if($(this).scrollTop() > 200)
 		{
 			var windowVal = $(this).scrollTop();
-			$('#donggeulNav').css('top',windowVal-150);
+			$('#donggeulNav').css('top',windowVal-250);
 		}
-		if($(this).scrollTop() < 150) 
+		if($(this).scrollTop() < 200) 
         {
 			var windowVal = $(this).scrollTop();
 			$('#donggeulNav').css('top','100px');
@@ -114,7 +120,7 @@
 	<div class='container-fluid' id="total">
     	<div class='row'>
     		<div class='col-md-1' id='left-nav'>
-    			<div style='position:fixed; margin-top: 10em;'>
+    			<div style='position:fixed;'>
 	    			<span onclick='fn_back()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
 	          	 	<script>
 	           			function fn_back()
@@ -127,6 +133,7 @@
         	<div class='col-md-10' id='section' style='padding:50px' >
             	<div class='row'>            	
                		<div class="col-md-6" id="img-container" style='padding:1px; width: 100%; height: 600px;'>
+               			<h4 style="font-family: 'Sunflower','sans-serif';">${contestObj.CONTESTTITLE}</h4>
                			<div class='row mainImgContainer' id='mainImgContainer'>
                	   			<img class="mainImg" id='${contestMainImg.CONTESTIMGNO}' src="${path}/resources/upload/contest/${contestMainImg.CONTESTIMGRE}" style='max-height: 400px; min-height: 600px; width: 100%;'>
                     	</div>
@@ -152,14 +159,12 @@
                     	<div class='row'>
                         	<nav id=tab-list>
                            		<div class="nav nav-tabs nav-fill detail" id="nav-tab" role="tablist">
-                               		<a class="nav-item nav-link active detail " id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">상세설명</a>                              	                                    
+                               		<a class="nav-item nav-link active detail " id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" style="font-family: 'Sunflower','sans-serif';" aria-controls="nav-home" aria-selected="true">상세설명</a>                              	                                    
                             	</div>
                         	</nav>
                         	<div class="tab-content" id="nav-tabContent" style='width: 100%;'>
                             	<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                            		<textarea class='contentTextArea' rows="34" readonly>
-                            			${contestObj.CONTESTCONTENT }
-                            		</textarea>                                
+                            		<textarea class='contentTextArea' rows="34" style='border:0px'readonly>${contestObj.CONTESTCONTENT }</textarea>                                
                             	</div>
                             
                             	<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
@@ -184,14 +189,14 @@
                                	<c:if test="${contestObj.GRADENAME == '플래티넘' }">
                                		<p style="display:inline;"><img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;"></p>
                                	</c:if>
-                               	<c:if test="${contestObj.GRADENAME == '다이아몬드' }">
-                               		<p style='display: inline;'><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"></p>
+                               	<c:if test="${contestObj.GRADENAME == '다이아' }">
+                               		<p style='display: inline;'><img alt="" src="${path }/resources/image/diamondGrade.png" style="max-width: 50px;max-height: 50px;"></p>
                                	</c:if>
                                	
                         		<h4 style="display: inline; font-family: 'Sunflower', sans-serif;"><strong>${contestObj.GRADENAME}</strong> ${contestObj.MEMBERNAME}</h4>
  			                   	
  			                   	<!-- 똥글뱅이 -->
-                        		<div class="row align-items-center" style='margin-top: -5em;'>			                  
+                        		<div class="row align-items-center" style='margin-top: -5em; z-index:50;'>			                  
 			                  		<div class="holderCircle">
 			                        	<div class="round"></div>
 		                        		<div class="dotCircle">
@@ -234,15 +239,20 @@
 					                           	<i class="fa fa-tags donggeulI"></i>
 					                           	<span class="forActive"></span>
 				                           	</span> -->
-					                       	<span class="itemDot itemDot5" data-tab="5">
-					                       	   	<i class="fas fa-angry donggeulI"></i>
-				                           	   	<span class="forActive"></span>
-				                           	</span>
+	                           			<c:set var='currentId' value='${memberMap.get("MEMBERID")}'/>								
+	                           	   	   	<c:choose>
+						    	   		   	<c:when test="${currentId ne contestObj.MEMBERID}">
+						                       	<span class="itemDot itemDot5" data-tab="5">
+						                       	   	<i class="fas fa-angry donggeulI"></i>
+					                           	   	<span class="forActive"></span>
+					                           	</span>
+				                           	</c:when>
+			                           	</c:choose>
 			                        	</div>
 			                        	
 			                        	<div class="contentCircle">
 				                           	<div class="CirItem title-box CirItem1">		                        	
-				                        	   	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+				                        	   	<div class="d-flex justify-content-center " style='margin-bottom: -8em;'>
 												   	<div class="image_outer_container">
 												   	   	<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${contestObj.REIMG}">
@@ -255,7 +265,7 @@
 												<c:set var='currentId' value='${memberMap.get("MEMBERID")}'/>								
 					                          	<c:choose>
 										    		<c:when test="${currentId eq contestObj.MEMBERID}">												
-														<button type="button" class='btn btn-outline-info slidetopleft' onclick='fn_contestModify()'>수정하기</button>
+														<button type="button" class='btn btn-outline-info slidetopleft donggeulInnerBtn' onclick='fn_contestModify()'>수정하기</button>
 												    	<script>
 												    		function fn_contestModify()
 												    		{
@@ -272,10 +282,10 @@
 		                                                  	<input type="hidden" name="contestNo" value="${contestObj.CONTESTNO}">
 		                                               	</form> 										    		
 														<c:if test="${empty outBoxYn and contestObj.MEMBERID ne currentId}">
-	                                                   		<button class="btn btn-outline-info slidetopleft" onclick="fn_outboxDo();">찜하기</button>
+	                                                   		<button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick="fn_outboxDo();">찜하기</button>
 	                                                	</c:if>
 	                                                	<c:if test="${!empty outBoxYn and contestObj.MEMBERID ne currentId}">
-	                                                     	<button class=" btn btn-outline-info slidetopleft" onclick="fn_outboxNo();" >찜풀기</button>
+	                                                     	<button class=" btn btn-outline-info slidetopleft donggeulInnerBtn" onclick="fn_outboxNo();" >찜풀기</button>
 	                                                  	</c:if>
 	                                                  	<script>
 	                                                   		function fn_outboxDo()
@@ -295,7 +305,7 @@
 			                            	</div>
 			                           
 				                           	<div class="CirItem title-box CirItem2">				                              			                        	
-				                        	  	<div class="d-flex justify-content-center h-100" style='margin-bottom:-8em;'>
+				                        	  	<div class="d-flex justify-content-center " style='margin-bottom:-8em;'>
 												 	<div class="image_outer_container">
 													 	<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${contestObj.REIMG}">
@@ -311,7 +321,7 @@
 											    		<form id='contestDetailFrm'>
 											    			<input id='contestDelNo' name='contestDelNo' type='hidden' value='${contestObj.CONTESTNO}'/>
 											    		</form>
-												    	<input type='button' class='btn btn-outline-info slidetopleft' onclick='fn_contestDelSubmit()' value='삭제하기'/>
+												    	<input type='button' class='btn btn-outline-info slidetopleft donggeulInnerBtn' onclick='fn_contestDelSubmit()' value='삭제하기'/>
 												    	
 												    	<!-- 컨테스트 삭제 스크립트 -->
 												    	
@@ -329,7 +339,7 @@
 											      			<input type='hidden' id='sendId' name='sendId' value='${memberMap.get("MEMBERID")}'/>
 											      			<input type='hidden' id='receiveId' name='receiveId' value='${contestObj.MEMBERID }'/>
 											      		<%-- </form> --%> 
-										      			<button class="btn btn-outline-info slidetopleft" onclick='fn_message()'>쪽지보내기</button>
+										      			<button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick='fn_message()'>쪽지보내기</button>
 										      			
 										      			<script>									      			
 										      				function fn_message()
@@ -353,7 +363,7 @@
 		                           		
 			                           		<div class="CirItem title-box active CirItem3">			                              	
 				                        	
-					                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+					                        	<div class="d-flex justify-content-center " style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${contestObj.REIMG}">
@@ -364,17 +374,17 @@
 												</br>
 												<c:choose>
 											    	<c:when test="${currentId eq contestObj.MEMBERID}">
-											    		<input type='button' class='btn btn-outline-info slidetopleft' onclick='fn_applicantList_modal(${contestObj.CONTESTNO});' value='지원자보기'>											    										    							    	   
+											    		<input type='button' class='btn btn-outline-info slidetopleft donggeulInnerBtn' onclick='fn_applicantList_modal(${contestObj.CONTESTNO});' value='지원자보기' style='position:relative; top:-100px;'>											    										    							    	   
 											      	</c:when>
 										      		<c:otherwise>
-										      			<input type='button' class="btn btn-outline-info slidetopleft" onclick='fn_applicantAccess_modal()' value='지원하기'>									      			
+										      			<input type='button' class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick='fn_applicantAccess_modal()' value='지원하기'>									      			
 										      		</c:otherwise>
 										 		</c:choose>		                              				                              
 			                           		</div>
 			                           
 				                           	<div class="CirItem title-box CirItem4">
 				                        	
-					                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+					                        	<div class="d-flex justify-content-center " style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${contestObj.REIMG}">
@@ -388,7 +398,7 @@
 				                        	
 				                           	<div class="CirItem title-box CirItem5">                                          
 	                                    
-	                                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+	                                        	<div class="d-flex justify-content-center " style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${contestObj.REIMG}">
@@ -400,7 +410,7 @@
 			                                 
 	                                            <!-- 신고하기 -->
 			                                          
-			                                    <button class="btn btn-outline-info slidetopleft" onclick="fn_reportPop();">신고하기</button>
+			                                    <button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick="fn_reportPop();">신고하기</button>
 			                                 
 			                                    <script>   
 		                                       		function fn_reportPop()
@@ -423,7 +433,7 @@
 				                           	<div class="CirItem title-box CirItem6">
 				                              	<!-- 작성자 이미지 컨테이너 -->
 				                        	
-					                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+					                        	<div class="d-flex justify-content-center " style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${contestObj.REIMG}">
@@ -494,27 +504,28 @@
 	                       		<!-- 동글뱅이 스크립트 끝 -->                             	
 	                        
 	                          	<div class='row' style='margin-top: -4em;'>
-	                  				<div class='col-md-2'></div>
+	                  				<div class='col-md-1'></div>
 		                        	
 		                        	<!-- 작성자 소개 -->  	
-	                          		<div class='col-md-8'>
-	                          			<p>${contestObj.INTRODUCTION}</p>
+	                          		<div class='col-md-10'>
+	                          			<textarea class='form-control' rows='6' style='width:100%; height: 100%;'readonly>${contestObj.INTRODUCTION}</textarea>
 	                          		</div>
 	                          		<!-- 작성자 소개 끝 -->
 	                          		
-	                       			<div class='col-md-2'></div>                          		
+	                       			<div class='col-md-1'></div>                          		
 	                   			</div>                          	
                    			</div>                    	
                 		</div>                      
   					</div>        
        			</div>
 			</div>
-	    	<div class='col-md-1' id='right-nav' >	    	
-				<c:if test="${sessionScope.member.MEMBERID==admin}">   		    
-		    		<div style='position:fixed; margin-top: 10em;'>
-		    			<button class=" btn btn-outline-info slidetopleft" id='approval-btn' >승인</button>
-		           	</div>
-	    		</c:if>
+	    	<div class='col-md-1' id='right-nav' >
+	    	<c:if test="${sessionScope.member.MEMBERID == 'admin'}">
+	    		<div style='position:fixed;'>
+	    			<span onclick='fn_back()' id='approval-btn' style='cursor:pointer; font-size: 4em;'><i class="fas fa-check-circle"></i></span>   				           
+	          	 	
+	           	</div>
+           	</c:if>
 	    	</div>
 	    	<script>
 			    function fn_applicantAccess_modal()
@@ -596,7 +607,7 @@
 						      		</th>  
 			               		</tr>
 			               	  	<th>
-			               	  		<input type='file' id='upFile' name='upFile'/>
+			               	  		<input type='file' id='upFile' name='upFile' accept=".zip"/>
 			               	  	</th> 	
 			               		<tr>
 			                  		<th>

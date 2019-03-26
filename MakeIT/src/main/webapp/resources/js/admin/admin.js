@@ -184,6 +184,7 @@ $(document).on('click','#nav-category-tab',function(){
 $(document).on('click','#nav-faq-tab',function(){
 	var $view_Status=$("#view-status");
 	$view_Status.val("faq");
+	
 });
 //회원 검색 Ajax
 $(document).on('keyup','#search-id',function(){
@@ -864,6 +865,8 @@ $(document).on('click','.payment-end',function(){
 	var title=$('.product-title').children('span').text();
 	var specNo=$('#end-spec-no').val();
 	var price=$('.cost').children('span').text();
+	var $payment_Tab=$('.payment-view-div');
+	var targetId=$('#payment-target').val();
 	console.log(title);
 	console.log(price);
 	
@@ -875,7 +878,7 @@ $(document).on('click','.payment-end',function(){
 		pay_method : 'trans',
 		merchant_uid : 'merchant_' + new Date().getTime(),
 		name : title,
-		amount : price,
+		amount : 1000,
 		buyer_email : 'make_it@gmail.kr',
 		buyer_name : 'MakeIT(메이크잇)',
 		buyer_tel : '010-1234-5678',
@@ -896,10 +899,12 @@ $(document).on('click','.payment-end',function(){
 				url:"updatePaymentEnd.do",
 				data:{
 					"paymentStatus":viewStatus,
-					"specNo":specNo
+					"specNo":specNo,
+					"targetId":targetId
 				},
 				dataType:"html",
 				success:function(data){
+					$('#close').click();
 					$('.modal-body').children('.row').remove();
 					$payment_Tab.html(data);
 				}
@@ -934,9 +939,18 @@ $(document).on('click','.refund-view',function(){
 		}
 	})
 })
-
-//환불요청 결제 팝업
+//환불 사유 팝업
 $(document).on('click','.refund-pop',function(){
+	var $view_Status=$('#refund-view-status');
+	var viewStatus=$view_Status.val();
+	var $click_Li=$(this);
+	var specNo=$click_Li.children('input').val();
+	console.log(viewStatus);
+	window.open("refundView.do?specNo="+specNo+"&refundStatus="+viewStatus,"faqWin","width=800, height=400, top=200,left=1000");
+});
+
+/*//환불요청 결제 팝업
+$(document).on('click','#refund-btn',function(){
 	var $view_Status=$('#refund-view-status');
 	var viewStatus=$view_Status.val();
 	var $click_Li=$(this);
@@ -953,15 +967,18 @@ $(document).on('click','.refund-pop',function(){
 			$('#product_view').addClass('show');
 		}
 	})
-})
-
+});
+*/
 //환불 요청 결제
-$(document).on('click','.refund-end',function(){
-	var $view_Status=$('#refund-view-status');
+$(document).on('click','#refund-btn',function(){
+	var $view_Status=$(opener.document).children('#refund-view-status');
 	var viewStatus=$view_Status.val();
-	var title=$('.product-title').children('span').text();
+	var title=$('#refund-title').val();
 	var specNo=$('#end-spec-no').val();
-	var price=$('.cost').children('span').text();
+	var price=$('#refund-price').val()
+	var $payment_Tab=$('.refund-view-div');
+	var cPage=$('#cPage').val();
+
 	console.log(title);
 	console.log(price);
 	
@@ -993,6 +1010,7 @@ $(document).on('click','.refund-end',function(){
 				
 				url:"updateRefundEnd.do",
 				data:{
+					"cPage":cPage,
 					"refundStatus":viewStatus,
 					"specNo":specNo
 				},
@@ -1000,6 +1018,7 @@ $(document).on('click','.refund-end',function(){
 				success:function(data){
 					$('.modal-body').children('.row').remove();
 					$payment_Tab.html(data);
+					self.close();
 				}
 			})
 			
@@ -1012,6 +1031,32 @@ $(document).on('click','.refund-end',function(){
 	});
 	
 })
+//환불 거부
+$(document).on('click','#nagetive-btn',function(){
+	var $view_Status=$(opener.document).children('#refund-view-status');
+	var viewStatus=$view_Status.val();
+	var title=$('#refund-title').val();
+	var specNo=$('#end-spec-no').val();
+	var price=$('#refund-price').val()
+	var $payment_Tab=$('.refund-view-div');
+	var cPage=$('#cPage').val();
+	
+	$.ajax({
+		
+		url:"updateRefundNegativeEnd.do",
+		data:{
+			"cPage":cPage,
+			"refundStatus":viewStatus,
+			"specNo":specNo
+		},
+		dataType:"html",
+		success:function(data){
+			$payment_Tab.html(data);
+			self.close();
+		}
+	})
+})
+
 //신고 회원 보기 이벤트
 $(document).on('click', '.report-tab-back', function () {
 
@@ -1054,6 +1099,7 @@ $(document).on('click','.report-btn-cancel',function(){
 	var contentNo=$(this).siblings(".content-no").val();
 	var $report_tab=$('.panel-info');
 	var reportFlag=false;
+	
 	$.ajax({
 		 url:"updateReportCount.do",
 		 data:{
@@ -1108,6 +1154,7 @@ $(document).on('click', '.faq-slide', function () {
 		$(this).html("▼");
 
 	}
+	$(this).parent('.faq-category').next().children('.faq-list').children('.faq-question').children('textarea').click();
 
 });
 
@@ -1117,18 +1164,20 @@ $(document).on('click', '.answer-slide', function () {
 
 	var $slide_btn = $(this);
 	var $answer = $slide_btn.siblings('.faq-answer');
-
+	
 	if ($answer.is(':hidden')) {
 		$answer.slideDown('slow');
 		$(this).html("▲");
-
+		
 	} else {
 		$answer.slideUp('slow');
 		$(this).html("▼");
 
 
 	}
-
+	$(this).siblings('.faq-answer').children('textarea').click();
+	
+	
 });
 
 //faq 카테고리 추가 이벤트
@@ -1274,10 +1323,12 @@ $(document).on('click','.qna-delete',function(){
 
 //텍스트 에어리어 크기조절
 
-$(document).on('keyup','textarea', function(){
+$(document).on('click','textarea', function(){
 	 var textEle=$(this);
+	 console.log(textEle);
 	 textEle[0].style.height = 'auto';
 	 var textEleHeight = textEle.prop('scrollHeight');
+	 console.log(textEleHeight);
 	 textEle.css('height', textEleHeight);
 });
 

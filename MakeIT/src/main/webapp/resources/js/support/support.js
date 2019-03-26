@@ -1,3 +1,15 @@
+$(document).ready(function(){
+	
+	cmaTextareaSize(120);
+});
+
+function cmaTextareaSize(bsize) { // 객체명, 기본사이즈
+    var sTextarea =$('textarea');
+    var csize = (sTextarea.scrollHeight >= bsize) ? sTextarea.scrollHeight+"px" : bsize+"px";
+    sTextarea.css("height",bsize+"px"); 
+    sTextarea.css("height",csize);
+}
+
 //qna 검색
 $(document).on('keyup','#search-qna',function(){
 	var searchQna=$('#search-qna').val();
@@ -140,6 +152,33 @@ $(document).on('click','.qna-title',function(){
 	
 });
 
+$(document).on('click','.qna-admin',function(){
+	
+	var cPage=$('.active').children('.page-link').text();
+	var searchQna=$('#search-qna').val();
+	var filter=$('#search-filter option:selected').val();
+	var sortCheck=$('#qna-sort option:selected').val();
+	var qnaNo=$(this).siblings('input').val();
+	//비번 체크
+	$.ajax({
+		url:"detailQnaView.do",
+		data:{
+			"cPage":cPage,
+			"searchQna":searchQna,
+			"filter":filter,
+			"sortCheck":sortCheck,
+			"qnaNo":qnaNo
+		},
+		dataType:"html",
+		success:function(data){
+			$('#pass-check-close').click();
+			$('#nav-qna').html(data);
+			
+		}
+	})
+	
+});
+
 //qna 뒤로가기 버튼
 $(document).on('click','#back-list',function(){
 	
@@ -241,7 +280,7 @@ $(document).on('click','#update-qna',function(){
 	var sortCheck=$('#sortCheck').val();
 	
 	$.ajax({
-		url:"updateQNa.do",
+		url:"updateQna.do",
 		data:{
 			"qnaNo":qnaNo,
 			"cPage":cPage,
@@ -409,6 +448,32 @@ $(document).on('click','#reple-qna',function(){
 	})
 });
 
+//답변하기 클릭
+$(document).on('click','#reple-qna-view',function(){
+	
+	var qnaNo=$('#qnaNo').val();
+	var cPage=$('#cPage').val();
+	var searchQna=$('#search-qna').val();
+	var filter=$('#filter').val();
+	var sortCheck=$('#sortCheck').val();
+	
+	$.ajax({
+		url:"repleQnaView.do",
+		data:{
+			"qnaNo":qnaNo,
+			"cPage":cPage,
+			"searchQna":searchQna,
+			"filter":filter,
+			"sortCheck":sortCheck
+			
+		},
+		dataType:"html",
+		success:function(data){
+			$('#nav-qna').html(data);
+		}
+	})
+});
+
 $(document).on('click','#nav-qna-tab',function(){
 	
 	var cPage=$('#cPage').val();
@@ -446,7 +511,7 @@ $(document).on('click','#qna-status',function(){
 
 //faq 카테고리 클릭 이벤트
 $(document).on('click', '.faq-slide', function () {
-
+	cmaTextareaSize(120);
 	var $faq_list = $(this).parent().next();
 
 	if ($faq_list.is(':hidden')) {
@@ -460,16 +525,16 @@ $(document).on('click', '.faq-slide', function () {
 		$(this).html("▼");
 
 	}
-
+	$(this).parent('.faq-category').next().children('.faq-list').children('.faq-question').children('textarea').click();
 });
 
 
 //faq 답변 보기 이벤트
 $(document).on('click', '.answer-slide', function () {
-
+	cmaTextareaSize(120);
 	var $slide_btn = $(this);
 	var $answer = $slide_btn.siblings('.faq-answer');
-
+	$('textarea').click();
 	if ($answer.is(':hidden')) {
 		$answer.slideDown('slow');
 		$(this).html("▲");
@@ -478,7 +543,30 @@ $(document).on('click', '.answer-slide', function () {
 		$answer.slideUp('slow');
 		$(this).html("▼");
 
-
 	}
-
+	$(this).siblings('.faq-answer').children('textarea').click();
 });
+
+$(document).on('keyup','textarea', function() {
+	console.log($(this).val().length);
+    if($(this).val().length > 1333) {
+       alert("글자수는 1333자로 이내로 제한됩니다.");
+       $(this).val($(this).val().substring(0, 1333));
+    }
+ 
+});
+
+//텍스트 에어리어 크기조절
+
+$(document).on('click','textarea', function(){
+	 var textEle=$(this);
+	 console.log(textEle);
+	 textEle[0].style.height = 'auto';
+	 var textEleHeight = textEle.prop('scrollHeight');
+	 console.log(textEleHeight);
+	 textEle.css('height', textEleHeight);
+});
+
+
+
+

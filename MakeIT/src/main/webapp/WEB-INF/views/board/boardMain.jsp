@@ -91,7 +91,7 @@
 		                                <tbody>
                                 		<c:forEach items="${memberList }" var="member">
 	                                				<tr class="boardView" style="cursor:pointer">
-				                                        <td class="boardFreeNo"><a href="#">${member.get("FREENO")}</a></td>
+				                                        <td class="boardFreeNo">${member.get("FREENO")}</td>
 				                                        <td>${member.get("FREETITLE")}</td>
 				                                        <td class="boardViewId">${member.get("MEMBERID")}</td>
 				                                        <td>${member.get("FREEDATE")}</td>
@@ -130,7 +130,7 @@
 		$('.commentDiv').remove();
 		$('.recommentDiv').remove();
 		
-		var freeNo = $(this).children('.boardFreeNo').val();
+		var freeNo = $(this).children('.boardFreeNo').text();
 		console.log(freeNo);
   		$.ajax({
  			url:"${path}/board/freeboardView.do",

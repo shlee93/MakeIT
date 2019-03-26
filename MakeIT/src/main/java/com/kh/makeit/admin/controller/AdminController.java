@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,6 +30,7 @@ public class AdminController {
 	
 	@RequestMapping("/admin/adminView.do")
 	public ModelAndView adminView(
+				HttpServletRequest request,
 				@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
 				@RequestParam(value="reportStatus", required=false, defaultValue="BUY") String reportStatus,
 				@RequestParam(value="paymentStatus",required=false,defaultValue="BUY") String paymentStatus,
@@ -36,6 +39,16 @@ public class AdminController {
 				@RequestParam(value="approvalStatus", required=false, defaultValue="BUY") String approvalStatus,
 				@RequestParam(value="deleteStatus", required=false, defaultValue="BUY") String deleteStatus
 			) {
+		HttpSession session=request.getSession();
+		@SuppressWarnings("unchecked")
+		Map<String,String> member=(Map<String,String>)session.getAttribute("member");
+		String memberLevel=member.get("MEMBERLEVEL");
+		int level=Integer.parseInt(memberLevel);
+		ModelAndView mav=new ModelAndView();
+		if(level!=0) {
+			mav.setViewName("common/error");
+			return mav;
+		}
 		
 		//회원 리스트 출력
 		int numPerPage=5;
@@ -52,7 +65,7 @@ public class AdminController {
 		String pageBarRefund=PageFactory.getPageBarAdmin(refundCount, cPage, numPerPage,"/makeit/admin/adminView.do");
 		String pageBarApproval=PageFactory.getPageBarAdmin(approvalCount, cPage, numPerPage2,"/makeit/admin/adminView.do");
 		String pageBarDelete=PageFactory.getPageBarAdmin(deleteCount, cPage, numPerPage2,"/makeit/admin/adminView.do");
-		ModelAndView mav=new ModelAndView();
+		
 		//회원정보 출력
 		List<Map<String,String>> memberList=adminService.selectMemberListAdmin(cPage,numPerPage);		
 		//카테고리 출력
@@ -489,7 +502,7 @@ public class AdminController {
 	
 	//결제완료 spec status 업데이트
 	@RequestMapping("/admin/updatePaymentEnd")
-	public ModelAndView updatePaymentEnd(int specNo,String paymentStatus,
+	public ModelAndView updatePaymentEnd(int specNo,String paymentStatus,String targetId,
 			@RequestParam(value="cPage",required=false, defaultValue="1") int cPage,
 			@RequestParam(value="sortCheck",required=false, defaultValue="0") int sortCheck
 			) {
@@ -501,7 +514,19 @@ public class AdminController {
 		payment.put("specNo", specNo);
 		payment.put("paymentStatus", paymentStatus);
 		int result=adminService.updatePaymentEnd(payment);
-		
+		if(result>0) {
+			
+			int paymentBuyCount=adminService.selectPaymentBuyCount(targetId);
+			int paymentSellCount=adminService.selectPaymentSellCount(targetId);
+			int performCount=paymentBuyCount+paymentSellCount;
+			Map<Object,Object> perform=new HashMap();
+			perform.put("targetId", targetId);
+			perform.put("performCount", performCount);
+			int gradeUpdate=adminService.updateGradeUpdate(perform);
+			if(gradeUpdate>0) {
+				logger.info(gradeUpdate);
+			}
+		}
 		//결제현황 출력
 		List<Map<Object,Object>> paymentList=adminService.selectPaymentListAdmin(payment,cPage,numPerPage);
 						
@@ -760,7 +785,7 @@ public class AdminController {
 		mav.addObject("approvalOption", approvalOption);
 		mav.addObject("pageBarApproval", pageBarApproval);
 		mav.addObject("approvalList", approvalList);
-		mav.setViewName("admin/adminApprovalView");
+		mav.setViewName("admin/adminApprovalTblView");
 		return mav;
 		
 	}
@@ -788,7 +813,7 @@ public class AdminController {
 		mav.addObject("approvalOption", approvalOption);
 		mav.addObject("pageBarApproval", pageBarApproval);
 		mav.addObject("approvalList", approvalList);
-		mav.setViewName("admin/adminApprovalView");
+		mav.setViewName("admin/adminApprovalTblView");
 		return mav;
 		
 	}
@@ -817,7 +842,7 @@ public class AdminController {
 		mav.addObject("approvalOption", approvalOption);
 		mav.addObject("pageBarApproval", pageBarApproval);
 		mav.addObject("approvalList", approvalList);
-		mav.setViewName("admin/adminApprovalView");
+		mav.setViewName("admin/adminApprovalTblView");
 		return mav;
 		
 	}
@@ -866,6 +891,50 @@ public class AdminController {
 		mav.addObject("categoryList", categoryList);
 		mav.setViewName("admin/adminFaqView");
 		
+		return mav;
+	}
+	
+	@RequestMapping("/admin/refundView.do")
+	public ModelAndView refundView(int specNo,
+			String refundStatus,
+			@RequestParam(value="cPage",required=false, defaultValue="1") int cPage
+			) {
+		
+		ModelAndView mav=new ModelAndView();
+		Map<Object,Object> refundParam=new HashMap();
+		refundParam.put("specNo", specNo);
+		refundParam.put("refundStatus", refundStatus);
+		Map<Object,Object> refund=adminService.selectRefundReason(refundParam);
+		
+		mav.addObject("refund", refund);
+		mav.addObject("refundStatus", refundStatus);
+		mav.addObject("cPage", cPage);
+		mav.setViewName("admin/adminRefundReasonView");
+		
+		return mav;
+		
+	}
+	
+	@RequestMapping("/admin/updateRefundNegativeEnd.do")
+	public ModelAndView updateRefundNegativeEnd(int specNo,String refundStatus,
+			@RequestParam(value="cPage",required=false, defaultValue="1") int cPage
+			
+			) {
+		int numPerPage=5;
+		int refundCount=adminService.selectRefundCountAdmin(refundStatus);
+		String pageBarRefund=PageFactory.getPageBarAdmin(refundCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+		ModelAndView mav=new ModelAndView();
+		Map<Object,Object> negative=new HashMap();
+		negative.put("specNo", specNo);
+		negative.put("refundStatus", refundStatus);
+		int result=adminService.updateRefundNegativeEnd(negative);
+		
+		//결제현황 출력
+		List<Map<Object,Object>> paymentList=adminService.selectRefundListAdmin(refundStatus,cPage,numPerPage);
+							
+		mav.addObject("pageBarRefund", pageBarRefund);
+		mav.addObject("paymentList", paymentList);
+		mav.setViewName("/admin/adminPaymentView");
 		return mav;
 	}
 

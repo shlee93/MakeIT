@@ -57,7 +57,8 @@ pageEncoding="UTF-8"%>
             <a class="myPageInfo" onclick="memberInfoAjax();">회원정보</a><br/>
             <a class="myPageInfo" onclick="memberOutBoxAjax();">찜한 목록</a><br/>
             <a class="myPageInfo" onclick="memberWriteAjax();">내가 쓴 글 보기</a><br/>
-            <a class="myPageInfo" onclick="memberMessageAjax();">쪽지함</a>
+            <a class="myPageInfo" onclick="memberMessageAjax();">쪽지함</a><br/>
+            <a class="myPageInfo" onclick="memberTradeAjax();">거래내역</a>
         </div>
     </div>
     <div class="col-md-8">
@@ -276,7 +277,7 @@ pageEncoding="UTF-8"%>
 		$.ajax({
 			url:"${path}/member/sendMessage.do",
 			dataType:"html",
-			data:{"receiveDeleteCk":$('#receiveDeleteCk').val()},
+			data:{"memberId":$('#memberId').val()},
 			success:function(data){
 				$('#ajaxHtml').html(data);
 			}

@@ -97,10 +97,26 @@
   <select id="selectOneQna" parameterType="_int" resultType="map">
   	SELECT 
     Q.*,
-  	C.FAQNACATEGORYNAME 
+  	C.FAQNACATEGORYNAME,
+  	M.GRADENO,
+  	M.MEMBERLEVEL
     FROM QNA Q
     JOIN FAQCATEGORY C ON(C.FAQNACATEGORYNO=Q.FAQNACATEGORYNO)
+    JOIN MEMBER M ON(M.MEMBERID=Q.MEMBERID)
     WHERE QNANO=#{qnaNo}
+  </select>
+  
+  <!-- 게시물 셀렉트 -->
+  <select id="selectOneQna3" parameterType="_int" resultType="map">
+  	SELECT 
+    Q.*,
+  	C.FAQNACATEGORYNAME,
+  	M.GRADENO,
+  	M.MEMBERLEVEL
+    FROM QNA Q
+    JOIN FAQCATEGORY C ON(C.FAQNACATEGORYNO=Q.FAQNACATEGORYNO)
+    JOIN MEMBER M ON(M.MEMBERID=Q.MEMBERID)
+    WHERE QNAREFNO=#{qnaNo}
   </select>
   
   <!-- 게시글 등록(회원) -->

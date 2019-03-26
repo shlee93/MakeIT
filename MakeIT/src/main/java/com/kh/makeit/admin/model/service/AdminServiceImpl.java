@@ -333,19 +333,40 @@ public class AdminServiceImpl implements AdminService {
 		
 		return dao.updateDeleteCheck(returnD);
 	}
+
+	//환불 사유 셀렉트
+	@Override
+	public Map<Object, Object> selectRefundReason(Map<Object, Object> refundParam) {
+		
+		return dao.selectRefundReason(refundParam);
+	}
 	
+	//구매게시판 판매량 셀렉트	
+	@Override
+	public int selectPaymentBuyCount(String targetId) {
+		
+		return dao.selectPaymentBuyCount(targetId);
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	//판매게시판 판매량 셀렉트
+	@Override
+	public int selectPaymentSellCount(String targetId) {
+		
+		return dao.selectPaymentSellCount(targetId);
+	}
+
+	//등급 업데이트
+	@Override
+	public int updateGradeUpdate(Map<Object,Object> perform) {
+		
+		return dao.updateGradeUpdate(perform);
+	}
+
+	//환불 거부
+	@Override
+	public int updateRefundNegativeEnd(Map<Object, Object> negative) {
+		
+		return dao.updateRefundNegativeEnd(negative);
+	}
 	
 }

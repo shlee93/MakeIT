@@ -1,10 +1,28 @@
 /* 관리자 페이지 메인 */
-
+h5,h4,h3,h2,h1,a,span,div,button,th,td{
+	font-family: 'Sunflower', sans-serif;
+	font-size:20px;
+}
+li{
+	color:black;
+}
+.grade-icon{
+	max-width:50%;
+	max-height:50%;
+	width:auto;
+	height:auto;
+}
+textarea{
+	font-family: 'Sunflower', sans-serif;
+	font-size:22px;
+}
 .project-tab #tabs {
 	background: #007b5e;
 	color: #eee;
 }
-
+.project-tab{
+	margin-top:-7%
+}
 .project-tab #tabs h6.section-title {
 	color: #eee;
 }
@@ -15,7 +33,7 @@
 	background-color: transparent;
 	border-color: transparent transparent #f3f3f3;
 	border-bottom: 3px solid !important;
-	font-size: 16px;
+	font-size: 22px;
 	font-weight: bold;
 }
 
@@ -136,10 +154,10 @@
 
 .deal-info-back {
 	border-radius: 5px;
-	background-color: rgb(199, 193, 211);
+	width:100%;
 }
 
-/* 신고회원 리스트 */
+/* 회원 리스트 */
 .user-row {
 	margin-bottom: 14px;
 }
@@ -189,7 +207,7 @@
 }
 
 .report-tab-back {
-	border: 1px solid gray;
+	
     border-radius: 5px;
     width:100%;
 }
@@ -202,6 +220,10 @@
 .report-btn-cancel {
 	float: right;
 	margin-left:5%;
+}
+
+.panel-body{
+	width:100%;
 }
 
 .img-responsive {
@@ -829,6 +851,7 @@ translate
 .faq-category {
 	border: 1px solid gray;
 	border-radius: 5px;
+	color:black;
 	width: 90%;
 }
 
@@ -1237,4 +1260,8 @@ translate
 	transition:ease-in-out;
 	transition-duration:0.7s;
 	cursor:pointer;
+}
+/* 게시글 승인 */
+#approval-search-inp{
+	width:85%;
 }

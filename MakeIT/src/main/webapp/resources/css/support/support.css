@@ -1,4 +1,26 @@
 /* support css */
+textarea{
+	font-family: 'Sunflower', sans-serif;
+	font-size:22px;
+	height:100%;
+
+}
+h5,h4,h3,h2,h1,a,span,div,button,th,td{
+	font-family: 'Sunflower', sans-serif;
+	font-size:20px;
+}
+li{
+	color:black;
+}
+.grade-icon{
+	max-width:10%;
+	max-height:10%;
+	width:auto;
+	height:auto;
+}
+.project-tab{
+	margin-top:-7%;
+}
 .project-tab #tabs {
 	background: #007b5e;
 	color: #eee;
@@ -10,11 +32,11 @@
 
 .project-tab #tabs .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active
 	{
-	color: #0062cc;
+	color: #17a2b8;
 	background-color: transparent;
 	border-color: transparent transparent #f3f3f3;
 	border-bottom: 3px solid !important;
-	font-size: 16px;
+	font-size: 22px;
 	font-weight: bold;
 }
 
@@ -22,7 +44,7 @@
 	border: 1px solid transparent;
 	border-top-left-radius: .25rem;
 	border-top-right-radius: .25rem;
-	color: #0062cc;
+	color: #17a2b8;
 	font-size: 16px;
 	font-weight: 600;
 }
@@ -32,7 +54,7 @@
 }
 
 .project-tab thead {
-	background: #f3f3f3;
+	background: #17a2b8;
 	color: #333;
 }
 
@@ -62,6 +84,9 @@
 textarea{
 	resize:none;
 }
+.qna-pass{
+	cursor:pointer;
+}
 
 /* FAQ */
 
@@ -75,6 +100,7 @@ textarea{
 .faq-category {
 	border: 1px solid gray;
 	border-radius: 5px;
+	color:black;
 	width: 90%;
 }
 

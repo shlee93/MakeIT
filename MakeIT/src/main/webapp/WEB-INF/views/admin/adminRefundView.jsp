@@ -13,7 +13,7 @@
 				<c:when test="${refund.CATEGORYCODE eq 'B' }">
 					<div class="deal-refund">
 
-						<div class="deal-info-back">
+						<div class="deal-info-back btn btn-outline-info slidetopleft">
 							<ul class="deal-info">
 								<li class="deal-no">
 									<strong>구매자:</strong> 
@@ -24,7 +24,7 @@
 									${refund.MEMBERID }
 								</li>
 								<li class="deal-title">
-									<strong>글 제목:</strong>
+									<br><strong>글 제목:</strong>
 									${refund.BUYTITLE }
 								</li>
 							</ul>
@@ -44,17 +44,13 @@
 										입금 완료 및<br>프로젝트진행
 									</a>
 								</li>
-								<li class="step-item">
+								<li class="step-item active">
 									<a href="#!">
 										프로젝트 완료
 									</a>
 								</li>
-								<li class="step-item active">
-									<a href="#!">
-										환불사유 확인
-									</a>
-								</li>
-								<li class="step-item refund-pop" data-toggle="modal" data-target="#product_view">
+								
+								<li class="step-item refund-pop">
 									<a href="#!">
 										환불승인
 									</a> 
@@ -70,7 +66,7 @@
 
 					<div class="deal-refund">
 
-						<div class="deal-info-back">
+						<div class="deal-info-back btn btn-outline-info slidetopleft">
 							<ul class="deal-info">
 								<li class="deal-no">
 									<strong>구매자:</strong>
@@ -81,7 +77,7 @@
 									${refund.SELLID }
 								</li>
 								<li class="deal-title">
-									<strong>글 제목:</strong>
+									<br><strong>글 제목:</strong>
 									${refund.SELLTITLE }
 								</li>
 							</ul>
@@ -101,17 +97,13 @@
 										입금 완료 및<br>프로젝트진행
 									</a>
 								</li>
-								<li class="step-item">
+								<li class="step-item active">
 									<a href="#!">
 										프로젝트 완료
 									</a>
 								</li>
-								<li class="step-item active">
-									<a href="#!">
-										환불사유 확인
-									</a>
-								</li>
-								<li class="step-item refund-pop" data-toggle="modal" data-target="#product_view">
+								
+								<li class="step-item refund-pop">
 									<a href="#!">
 										환불승인
 									</a> 

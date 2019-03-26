@@ -333,19 +333,43 @@ public class AdminDaoImpl implements AdminDao {
 
 		return sqlSession.update("admin.updateDeleteCheck", returnD);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
+	//환불 사유 셀렉트
+	@Override
+	public Map<Object, Object> selectRefundReason(Map<Object, Object> refundParam) {
+		
+		return sqlSession.selectOne("admin.selectRefundReason", refundParam);
+	}
 	
-	
+	//구매게시판 판매량 셀렉트	
+	@Override
+	public int selectPaymentBuyCount(String targetId) {
+		
+		return sqlSession.selectOne("admin.selectPaymentBuyCount", targetId);
+	}
 
+	//판매게시판 판매량 셀렉트
+	@Override
+	public int selectPaymentSellCount(String targetId) {
+		
+		return sqlSession.selectOne("admin.selectPaymentSellCount", targetId);
+	}
+
+	//등급 업데이트
+	@Override
+	public int updateGradeUpdate(Map<Object,Object> perform) {
+		
+		return sqlSession.update("admin.updateGradeUpdate",perform );
+	}
+
+	//환불거부
+	@Override
+	public int updateRefundNegativeEnd(Map<Object, Object> negative) {
+		
+		return sqlSession.update("admin.updateRefundNegativeUpdate", negative);
+	}
+	
+	
+	
+	
 }

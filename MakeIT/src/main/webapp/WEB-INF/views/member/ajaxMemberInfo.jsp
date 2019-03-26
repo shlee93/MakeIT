@@ -50,7 +50,8 @@ pageEncoding="UTF-8"%>
             <a class="myPageInfo" onclick="memberInfoAjax();">회원정보</a><br/>
             <a class="myPageInfo" onclick="memberOutBoxAjax();">찜한 목록</a><br/>
             <a class="myPageInfo" onclick="memberWriteAjax();">내가 쓴 글 보기</a><br/>
-            <a class="myPageInfo" onclick="memberMessageAjax();">쪽지함</a>
+            <a class="myPageInfo" onclick="memberMessageAjax();">쪽지함</a><br/>
+            <a class="myPageInfo" onclick="memberTradeAjax();">거래내역</a>
         </div>
     </div>
     <div class="col-md-8">
@@ -128,7 +129,14 @@ pageEncoding="UTF-8"%>
                         <p><c:out value="${map.INTERESTNO }"></c:out> </p>
                     </div>
                 </div>
-                
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>누적신고횟수</label>
+                    </div>
+                    <div class="col-md-8">
+                        <p><c:out value="${map.REPORTCOUNT }"></c:out> </p>
+                    </div>
+                </div>
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="row">

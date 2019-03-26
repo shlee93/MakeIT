@@ -306,7 +306,8 @@
 				S.SELLTITLE,
 				A.BANKNAME,
 				M.ACCOUNT,
-				M.MEMBERNAME 
+				M.MEMBERNAME,
+				M.GRADENO 
 				FROM SELLSPEC P 
 				INNER JOIN SELLOPTION O ON(O.SELLOPTIONCODE=P.SELLOPTIONCODE) 
 				INNER JOIN SELL S ON(S.SELLNO=P.SELLNO) 
@@ -320,7 +321,8 @@
 				B.BUYTITLE,
 				A.BANKNAME,
 				M.ACCOUNT,
-				M.MEMBERNAME 
+				M.MEMBERNAME,
+				M.GRADENO 
 				FROM BUYSPEC P 
 				INNER JOIN BUY B ON(B.BUYNO=P.BUYNO) 
 				INNER JOIN MEMBER M ON(M.MEMBERID=P.MEMBERID) 
@@ -331,7 +333,7 @@
 	</select>
 	<!-- 결제 정보 업데이트 -->
 	<update id="updatePaymentEnd" parameterType="map">
-		UPDATE ${paymentStatus}SPEC SET STATUSNO=5
+		UPDATE ${paymentStatus}SPEC SET STATUSNO=5 WHERE ${paymentStatus}SPECNO=#{specNo}
 	</update>
 	<!-- 환불 요청 리스트 카운트 -->
 	<select id="selectRefundCountAdmin" parameterType="string" resultType="_int">
@@ -375,7 +377,8 @@
 				S.SELLTITLE,
 				A.BANKNAME,
 				M.ACCOUNT,
-				M.MEMBERNAME 
+				M.MEMBERNAME,
+				M.GRADENO 
 				FROM SELLSPEC P 
 				INNER JOIN SELLOPTION O ON(O.SELLOPTIONCODE=P.SELLOPTIONCODE) 
 				INNER JOIN SELL S ON(S.SELLNO=P.SELLNO) 
@@ -389,7 +392,8 @@
 				B.BUYTITLE,
 				A.BANKNAME,
 				M.ACCOUNT,
-				M.MEMBERNAME 
+				M.MEMBERNAME,
+				M.GRADENO 
 				FROM BUYSPEC P 
 				INNER JOIN BUY B ON(B.BUYNO=P.BUYNO) 
 				INNER JOIN MEMBER M ON(M.MEMBERID=P.MEMBERID) 
@@ -401,7 +405,7 @@
 	
 	<!-- 결제 정보 업데이트 -->
 	<update id="updateRefundEnd" parameterType="map">
-		UPDATE ${refundStatus}SPEC SET STATUSNO=7
+		UPDATE ${refundStatus}SPEC SET STATUSNO=7 WHERE ${refundStatus}SPECNO=#{specNo}
 	</update>
 	
 	<!-- 미승인 게시글 카운트 -->
@@ -526,5 +530,89 @@
 		UPDATE ${deleteStatus} SET ${deleteStatus}DELETEYN='N' WHERE ${deleteStatus}NO=#{contentNo}
 	</update>
 	
+	<!-- 환불 사유 셀렉트 -->
+	<select id="selectRefundReason" parameterType="map" resultType="map">
+		<choose>
+			<when test="refundStatus=='SELL'">
+				SELECT 
+				P.*,
+				O.SELLPRICE,
+				S.MEMBERID AS TARGETID,
+				S.SELLTITLE,
+				A.BANKNAME,
+				M.ACCOUNT,
+				M.MEMBERNAME,
+				M.GRADENO 
+				FROM SELLSPEC P 
+				INNER JOIN SELLOPTION O ON(O.SELLOPTIONCODE=P.SELLOPTIONCODE) 
+				INNER JOIN SELL S ON(S.SELLNO=P.SELLNO) 
+				INNER JOIN MEMBER M ON(M.MEMBERID=S.MEMBERID) 
+				INNER JOIN BANK A ON(M.BANKCODE=A.BANKCODE) 
+				WHERE SELLSPECNO=#{specNo} AND STATUSNO=6
+			</when>
+			<when test="refundStatus=='BUY'">
+				SELECT P.*,
+				B.MEMBERID AS BUYID,
+				B.BUYTITLE,
+				A.BANKNAME,
+				M.ACCOUNT,
+				M.MEMBERNAME,
+				M.GRADENO 
+				FROM BUYSPEC P 
+				INNER JOIN BUY B ON(B.BUYNO=P.BUYNO) 
+				INNER JOIN MEMBER M ON(M.MEMBERID=P.MEMBERID) 
+				INNER JOIN BANK A ON(A.BANKCODE=M.BANKCODE)  
+				WHERE BUYSPECNO=#{specNo} AND STATUSNO=6
+			</when>
+		</choose>
+	</select>
 	
+	<select id="selectPaymentBuyCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM BUYSPEC WHERE MEMBERID=#{_parameter} AND STATUSNO=5
+	</select>
+	
+	<select id="selectPaymentSellCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM
+		(SELECT 
+			P.*,
+			O.SELLPRICE,
+			S.MEMBERID AS TARGETID,
+			S.SELLTITLE,
+			A.BANKNAME,
+			M.ACCOUNT,
+			M.MEMBERNAME,
+			M.GRADENO 
+			FROM SELLSPEC P 
+			INNER JOIN SELLOPTION O ON(O.SELLOPTIONCODE=P.SELLOPTIONCODE) 
+			INNER JOIN SELL S ON(S.SELLNO=P.SELLNO) 
+			INNER JOIN MEMBER M ON(M.MEMBERID=S.MEMBERID) 
+			INNER JOIN BANK A ON(M.BANKCODE=A.BANKCODE) 
+			WHERE STATUSNO=5) WHERE TARGETID=#{_parameter}
+	</select>
+	
+	<!-- 등급 업데이트 -->
+	<update id="updateGradeUpdate" parameterType="map">
+		<choose>
+			<when test="performCount gte 80">
+				UPDATE MEMBER SET GRADENO=5 WHERE MEMBERID=#{targetId}
+			</when>
+			<when test="performCount gte 35">
+				UPDATE MEMBER SET GRADENO=4 WHERE MEMBERID=#{targetId}
+			</when>
+			<when test="performCount gte 20">
+				UPDATE MEMBER SET GRADENO=3 WHERE MEMBERID=#{targetId}
+			</when>
+			<when test="performCount gte 10">
+				UPDATE MEMBER SET GRADENO=2 WHERE MEMBERID=#{targetId}
+			</when>
+			<otherwise>
+				UPDATE MEMBER SET WITHDRAWYN='N' WHERE MEMBERLEVEL=3
+			</otherwise>
+		</choose>
+	</update>
+	
+	<!-- 환불 거부 -->
+	<update id="updateRefundNegativeUpdate">
+		UPDATE ${refundStatus}SPEC SET STATUSNO=3 WHERE ${refundStatus}SPECNO=#{specNo}
+	</update>
 </mapper>
