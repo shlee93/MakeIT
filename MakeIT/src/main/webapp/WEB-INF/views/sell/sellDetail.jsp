@@ -406,7 +406,7 @@
 			                        	<div class="contentCircle">
 				                        	<!-- 첫번째 법륜 기능 시작 -->
 				                           	<div class="CirItem title-box active CirItem1">		                        	
-				                        	   	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+				                        	   	<div class="d-flex justify-content-center" style='margin-bottom: -8em;'>
 												   	<div class="image_outer_container">
 												   	   	<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${detailList.get(0).REIMG}">
@@ -459,7 +459,7 @@
 			                            	
 			                            	<!-- 두번째 법륜 기능 시작 -->
 			                           		<div class="CirItem title-box CirItem2">			                              			                        	
-				                        	  	<div class="d-flex justify-content-center h-100" style='margin-bottom:-8em;'>
+				                        	  	<div class="d-flex justify-content-center" style='margin-bottom:-8em;'>
 												 	<div class="image_outer_container">
 													 	<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${detailList.get(0).REIMG}">
@@ -509,7 +509,7 @@
 		                           			<!-- 세번째 법륜 기능 시작 -->
 		                           			<div class="CirItem title-box CirItem3">
 			                              				                        	
-					                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+					                        	<div class="d-flex justify-content-center " style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${detailList.get(0).REIMG}">
@@ -569,7 +569,7 @@
 			                           		<!-- 네번째 법륜 기능 시작 -->
 		                           	 		<div class="CirItem title-box CirItem4">
 			                        	
-					                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+					                        	<div class="d-flex justify-content-center " style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${detailList.get(0).REIMG}">
@@ -616,7 +616,7 @@
 		                           			<!-- 다섯번째 법륜 기능 시작 -->
 			                           		<div class="CirItem title-box CirItem5">			                              	
 			                        	
-					                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+					                        	<div class="d-flex justify-content-center " style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${detailList.get(0).REIMG}">
@@ -649,7 +649,7 @@
 			                           		<!-- 여섯번째 법륜 기능 시작 -->
 				                           	<div class="CirItem title-box CirItem6">
 			                              	
-					                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+					                        	<div class="d-flex justify-content-center " style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${detailList.get(0).REIMG}">
@@ -697,7 +697,7 @@
 			                           		
 			                           		<!-- //후기남기기 -->
 		                           	 		<div class="CirItem title-box CirItem7">			                              		                        	
-					                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+					                        	<div class="d-flex justify-content-center " style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${detailList.get(0).REIMG}">

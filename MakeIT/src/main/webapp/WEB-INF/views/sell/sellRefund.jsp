@@ -62,22 +62,29 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-2" >
+					<div class="col-md-1" >
 						
 					</div>
-					<div class="col-md-9">
+					<div class="col-md-10">
 						<label>환불대상</label> 
 						
 						<input class="form-control" type="text" name="sellWriter" readonly value="${refundMap.sellWriter}" style="width:40%;">
 					</div>
+					<div class="col-md-1" >
+						
+					</div>
 				</div>
 				<br/>
 				<div class="row">
-					<div class="col-md-3">
-						<label style="">환불사유</label> 
+					<div class="col-md-1">
+						 
 					</div>
-					<div class="col-md-9">
+					<div class="col-md-10">
+						<label style="">환불사유</label> 
 						<textarea id="reportConten" name="reportContent" class="form-control" rows="5"></textarea>
+					</div>
+					<div class="col-md-1">
+						 
 					</div>
 				</div>
 				<div class="row">
