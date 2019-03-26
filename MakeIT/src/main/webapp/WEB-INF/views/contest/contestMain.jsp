@@ -224,7 +224,7 @@
 	</style>
 
 </head>
-<body>
+<body >
 	<form id='sortFrm' action='${path}/contest/sort.do'>
 		<input type='hidden' id='interestFlag' name='interestFlag' value='${interestFlag}'/>
 		<input type='hidden' id='detailInterestFlag' name='detailInterestFlag' value='${detailInterestFlag }'/>
