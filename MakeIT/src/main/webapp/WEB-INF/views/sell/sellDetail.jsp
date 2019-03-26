@@ -35,12 +35,22 @@
    	<style>
 		.donggeulInnerBtn
       {
-         position:relative; 
-         top:-100px;
+         position:absolute; 
+         width: 130%;
+         top:130px;
+         left:-0.9em;
+         
       }
-      div{
-       border:1l
+      .donggeulInnerList
+      {
+       position:absolute; 
+         width: 152% !important;
+         top:175px;
+         left:-0.9em;
+        
       }
+      
+      
 		
 		header
 		{
@@ -56,6 +66,7 @@
 		{
 			text-align:center;
 		}    
+		
 		
 	</style>
 </head>
@@ -543,10 +554,10 @@
 			                                    		<input type="hidden" id="sellno" name="sellno" value="${detailList.get(0).SELLNO}">
 			                                    		<input type="hidden" id="selcOption" name="selcOption" value="">
 			                                    		<input type="hidden" name="sellerId" value="${detailList.get(0).MEMBERID}">			                                    		
-			                                    		<select id="optionSelector" required="true" class="form-control required donggeulInnerBtn" style="width:100%;bottom:4px;" onchange="fn_selected(this.value)" >                      
-					                                    	<option value="">구매할 옵션을 선택해주세요</option>
+			                                    		<select id="optionSelector" required="true" class="form-control required donggeulInnerList" style="width:100%;bottom:4px;" onchange="fn_selected(this.value)" >                      
+					                                    	<option value="">옵션선택</option>
 					                                        <c:forEach items="${optionList}" var="optionList">
-					                                        	<option value="${optionList.SELLOPTIONNO}">${optionList.SELLOPTIONNO}  ${optionList.SELLOPTIONCONTENT}  소요기간  ${optionList.SELLDEADLINE}</option>                             
+					                                        	<option value="${optionList.SELLOPTIONNO}">${optionList.SELLOPTIONNO}  </option>                             
 					                                        </c:forEach>
 					                                    </select>
 					                                    <script>
@@ -594,9 +605,9 @@
 					                                		<form id="sellBuyFrm" action="${path}/sell/sellCommit.do">
 					                                    		<input type="hidden" id="sellno" name="sellno" value="${detailList.get(0).SELLNO}">
 					                                    		<input type="hidden" id="sellSpecNo" name="sellSpecNo" value="">				                                    					                                    	
-					                                    		<select id="specSelector" name="sellSpecNo" required="true" onchange="fn_selectedSpec(this.value)" class="form-control required donggeulInnerBtn" style="width:100%" >                      
+					                                    		<select id="specSelector" name="sellSpecNo" required="true" onchange="fn_selectedSpec(this.value)" class="form-control required donggeulInnerList" style="width:100%" >                      
 							                                    												    													    										    							    	   											      											    										      	
-							                                    	<option value="">구매확정할 옵션을 선택해주세요</option>
+							                                    	<option value="">구매확정선택</option>
 														      		<c:forEach items="${purchaseList}" var="purchaseList">
 															      		<c:if test="${session.MEMBERID ne detailList.get(0).MEMBERID and purchaseList.STATUSNO=='3'}">									                                        
 								                                        	<option value="${purchaseList.SELLSPECNO}">${purchaseList.SELLOPTIONNO}    주문날짜  ${purchaseList.SELLSPECDATE} ${purchaseList.SELLPRICE}원  </option>                             
@@ -669,8 +680,8 @@
 			                                		<form id="sellRefundFrm" action="${path}/sell/sellRefund.do">
 			                                    		<input type="hidden" id="sellno" name="sellno" value="${detailList.get(0).SELLNO}">
 			                                    		<input type="hidden" id="sellRefundSpec" name="sellRefundSpec" value="">				                                    					                                    	
-			                                    		<select id="optionRefund" name="sellSpecNo" required="true" class="form-control donggeulInnerBtn" style="width:100%" onchange="fn_refundSelected(this.value)" >                      
-					                                    	<option value="">환불할 옵션을 선택해주세요</option>
+			                                    		<select id="optionRefund" name="sellSpecNo" required="true" class="form-control donggeulInnerList" style="width:100%" onchange="fn_refundSelected(this.value)" >                      
+					                                    	<option value="">환불옵션선택</option>
 						                                        <c:forEach items="${purchaseList}" var="purchaseList">
 									      							<c:if test="${session.MEMBERID ne detailList.get(0).MEMBERID and purchaseList.STATUSNO=='3'|| purchaseList.STATUSNO=='2'}">
 							                                        	<option value="${purchaseList.SELLSPECNO}">${purchaseList.SELLOPTIONNO} 주문날짜  ${purchaseList.SELLSPECDATE} ${purchaseList.SELLPRICE}원  </option>                             
