@@ -33,10 +33,10 @@
    	<link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Sunflower:300" rel="stylesheet">
    	
    	<style>
-		/* div
+		div
 		{
 			border:1px solid red;
-		} */
+		}
 		
 		header
 		{
@@ -46,7 +46,13 @@
        	html,body
        	{
 			height: 100%;
-		} 		    
+		}
+		.donggeulInnerBtn
+		{
+			position:relative; 
+			top:-100px;
+		}
+				    
 	</style>
 </head>
 
@@ -190,7 +196,7 @@
                         		<h4 style="display: inline; font-family: 'Sunflower', sans-serif;"><strong>${contestObj.GRADENAME}</strong> ${contestObj.MEMBERNAME}</h4>
  			                   	
  			                   	<!-- 똥글뱅이 -->
-                        		<div class="row align-items-center" style='margin-top: -5em;'>			                  
+                        		<div class="row align-items-center" style='margin-top: -5em; z-index:50;'>			                  
 			                  		<div class="holderCircle">
 			                        	<div class="round"></div>
 		                        		<div class="dotCircle">
@@ -246,7 +252,7 @@
 			                        	
 			                        	<div class="contentCircle">
 				                           	<div class="CirItem title-box CirItem1">		                        	
-				                        	   	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+				                        	   	<div class="d-flex justify-content-center " style='margin-bottom: -8em;'>
 												   	<div class="image_outer_container">
 												   	   	<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${contestObj.REIMG}">
@@ -259,7 +265,7 @@
 												<c:set var='currentId' value='${memberMap.get("MEMBERID")}'/>								
 					                          	<c:choose>
 										    		<c:when test="${currentId eq contestObj.MEMBERID}">												
-														<button type="button" class='btn btn-outline-info slidetopleft' onclick='fn_contestModify()'>수정하기</button>
+														<button type="button" class='btn btn-outline-info slidetopleft donggeulInnerBtn' onclick='fn_contestModify()'>수정하기</button>
 												    	<script>
 												    		function fn_contestModify()
 												    		{
@@ -276,10 +282,10 @@
 		                                                  	<input type="hidden" name="contestNo" value="${contestObj.CONTESTNO}">
 		                                               	</form> 										    		
 														<c:if test="${empty outBoxYn and contestObj.MEMBERID ne currentId}">
-	                                                   		<button class="btn btn-outline-info slidetopleft" onclick="fn_outboxDo();">찜하기</button>
+	                                                   		<button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick="fn_outboxDo();">찜하기</button>
 	                                                	</c:if>
 	                                                	<c:if test="${!empty outBoxYn and contestObj.MEMBERID ne currentId}">
-	                                                     	<button class=" btn btn-outline-info slidetopleft" onclick="fn_outboxNo();" >찜풀기</button>
+	                                                     	<button class=" btn btn-outline-info slidetopleft donggeulInnerBtn" onclick="fn_outboxNo();" >찜풀기</button>
 	                                                  	</c:if>
 	                                                  	<script>
 	                                                   		function fn_outboxDo()
@@ -299,7 +305,7 @@
 			                            	</div>
 			                           
 				                           	<div class="CirItem title-box CirItem2">				                              			                        	
-				                        	  	<div class="d-flex justify-content-center h-100" style='margin-bottom:-8em;'>
+				                        	  	<div class="d-flex justify-content-center " style='margin-bottom:-8em;'>
 												 	<div class="image_outer_container">
 													 	<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${contestObj.REIMG}">
@@ -315,7 +321,7 @@
 											    		<form id='contestDetailFrm'>
 											    			<input id='contestDelNo' name='contestDelNo' type='hidden' value='${contestObj.CONTESTNO}'/>
 											    		</form>
-												    	<input type='button' class='btn btn-outline-info slidetopleft' onclick='fn_contestDelSubmit()' value='삭제하기'/>
+												    	<input type='button' class='btn btn-outline-info slidetopleft donggeulInnerBtn' onclick='fn_contestDelSubmit()' value='삭제하기'/>
 												    	
 												    	<!-- 컨테스트 삭제 스크립트 -->
 												    	
@@ -333,7 +339,7 @@
 											      			<input type='hidden' id='sendId' name='sendId' value='${memberMap.get("MEMBERID")}'/>
 											      			<input type='hidden' id='receiveId' name='receiveId' value='${contestObj.MEMBERID }'/>
 											      		<%-- </form> --%> 
-										      			<button class="btn btn-outline-info slidetopleft" onclick='fn_message()'>쪽지보내기</button>
+										      			<button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick='fn_message()'>쪽지보내기</button>
 										      			
 										      			<script>									      			
 										      				function fn_message()
@@ -357,7 +363,7 @@
 		                           		
 			                           		<div class="CirItem title-box active CirItem3">			                              	
 				                        	
-					                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+					                        	<div class="d-flex justify-content-center " style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${contestObj.REIMG}">
@@ -368,17 +374,17 @@
 												</br>
 												<c:choose>
 											    	<c:when test="${currentId eq contestObj.MEMBERID}">
-											    		<input type='button' class='btn btn-outline-info slidetopleft' onclick='fn_applicantList_modal(${contestObj.CONTESTNO});' value='지원자보기'>											    										    							    	   
+											    		<input type='button' class='btn btn-outline-info slidetopleft donggeulInnerBtn' onclick='fn_applicantList_modal(${contestObj.CONTESTNO});' value='지원자보기' style='position:relative; top:-100px;'>											    										    							    	   
 											      	</c:when>
 										      		<c:otherwise>
-										      			<input type='button' class="btn btn-outline-info slidetopleft" onclick='fn_applicantAccess_modal()' value='지원하기'>									      			
+										      			<input type='button' class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick='fn_applicantAccess_modal()' value='지원하기'>									      			
 										      		</c:otherwise>
 										 		</c:choose>		                              				                              
 			                           		</div>
 			                           
 				                           	<div class="CirItem title-box CirItem4">
 				                        	
-					                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+					                        	<div class="d-flex justify-content-center " style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${contestObj.REIMG}">
@@ -392,7 +398,7 @@
 				                        	
 				                           	<div class="CirItem title-box CirItem5">                                          
 	                                    
-	                                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+	                                        	<div class="d-flex justify-content-center " style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${contestObj.REIMG}">
@@ -404,7 +410,7 @@
 			                                 
 	                                            <!-- 신고하기 -->
 			                                          
-			                                    <button class="btn btn-outline-info slidetopleft" onclick="fn_reportPop();">신고하기</button>
+			                                    <button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick="fn_reportPop();">신고하기</button>
 			                                 
 			                                    <script>   
 		                                       		function fn_reportPop()
@@ -427,7 +433,7 @@
 				                           	<div class="CirItem title-box CirItem6">
 				                              	<!-- 작성자 이미지 컨테이너 -->
 				                        	
-					                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+					                        	<div class="d-flex justify-content-center " style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${contestObj.REIMG}">

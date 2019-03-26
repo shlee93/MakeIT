@@ -193,7 +193,11 @@
 		       	<br/>
 		       	
 		       	<label>상금</label>
-		     	<input type="number" class="form-control col-md-2" id='contestPrice' name='contestPrice' style="display: inline;" placeholder="상금 총액" required/>
+		       	<input type='number' class="form-control col-md-2" id='contestPrice' name='contestPrice' min="1" step="1" pattern="^[0-9]" class='form-control' style="display: inline;" placeholder="상금 총액" required>
+
+		       	<script>
+		       	$('#contestPrice').keypress(function (event) { if (event.which && (event.which <= 47 || event.which >= 58) && event.which != 8) { event.preventDefault(); } });
+		       	</script>
 		       	
 		       	<br/>
 		       	  
