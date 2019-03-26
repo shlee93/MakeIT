@@ -68,15 +68,21 @@ public class BuyDaoImpl implements BuyDao {
 	}
 
 	@Override
-	public List<Map<String, String>> selectVolList(Map m) {
-		
-		return session.selectList("buy.selectVolList",m);
+	public List<Map<String, String>> selectVolList(Map m, int numPerPage, int cPage) {
+		RowBounds rb=new RowBounds((cPage-1)*numPerPage,numPerPage);
+		return session.selectList("buy.selectVolList",m,rb);
 	}
 
 	@Override
 	public Map<String, String> selectVolView(Map map) {
 		// TODO Auto-generated method stub
 		return session.selectOne("buy.selectVolView", map);
+	}
+
+	@Override
+	public int insertBuySpec(Map map) {
+		// TODO Auto-generated method stub
+		return session.insert("buy.insertBuySpec", map);
 	}
 
 	@Override
@@ -110,6 +116,55 @@ public class BuyDaoImpl implements BuyDao {
 	}
 
 	@Override
+	public Map<String, String> selectSpec(Map specMap) {
+		// TODO Auto-generated method stub
+		return session.selectOne("buy.selectSpec", specMap);
+	}
+
+	@Override
+	public List<Map<String, String>> selectAnother(String memberId, int numPerPage, int contentCount, int cPage) {
+		// TODO Auto-generated method stub
+		RowBounds rb=new RowBounds((cPage-1)*numPerPage,numPerPage);
+		return session.selectList("buy.selectAnother", memberId, rb);
+	}
+
+	@Override
+	public int anotherCount(String memberId) {
+		// TODO Auto-generated method stub
+		return session.selectOne("buy.anotherCount", memberId);
+	}
+
+	@Override
+	public int insertVol(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return session.insert("buy.insertVol", map);
+	}
+
+	@Override
+	public int insertVolImg(Map<String, String> a) {
+		// TODO Auto-generated method stub
+		return session.insert("buy.insertVolImg", a);
+	}
+
+	@Override
+	public int selectVolCount(String buyNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("buy.selectVolCount", buyNo);
+	}
+	
+	@Override
+	public List<Map<String, String>> selectDownImg(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return session.selectList("buy.selectDownImg", map);
+	}
+
+	@Override
+	public Map<String, String> selectMemberImg(String memberId) {
+		// TODO Auto-generated method stub
+		return session.selectOne("buy.selectMemberImg", memberId);
+	}
+
+	@Override
 	public int insertReview(Map<String, String> map) {
 		// TODO Auto-generated method stub
 		return session.insert("buy.insertReview", map);
@@ -126,6 +181,96 @@ public class BuyDaoImpl implements BuyDao {
 		// TODO Auto-generated method stub
 		return session.update("buy.updateReview",map);
 	}
+
+	@Override
+	public Map buyOutBoxYn(Map outBoxc) {
+		// TODO Auto-generated method stub
+		return session.selectOne("buy.buyOutBoxYn",outBoxc);
+	}
+
+	@Override
+	public int buyOutBoxInsert(Map outBoxInsert) {
+		// TODO Auto-generated method stub
+		return session.insert("buy.buyOutBoxInsert",outBoxInsert);
+	}
+
+	@Override
+	public int buyOutBoxDelete(Map outBoxDelete) {
+		// TODO Auto-generated method stub
+		return session.insert("buy.buyOutBoxDelete",outBoxDelete);
+	}
+
+	@Override
+	public int insertReport(Map reportMap) {
+		// TODO Auto-generated method stub
+		return session.insert("buy.insertReport",reportMap);
+	}
+
+	@Override
+	public int buyRefund(Map map) {
+		// TODO Auto-generated method stub
+		return session.update("buy.buyRefund",map);
+	}
+
+	@Override
+	public int buyCommit(String specNo) {
+		// TODO Auto-generated method stub
+		return session.update("buy.buyCommit",specNo);
+	}
+
+	@Override
+	public int finishWork(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return session.update("buy.finishWork",map);
+	}
+
+	@Override
+	public Map<String, String> selectSpec2(int buyNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("buy.selectSpec2", buyNo);
+	}
+
+	@Override
+	public List<Map<String, String>> buyModifyImg(int buyNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("buy.buyModifyImg", buyNo);
+	}
+
+	@Override
+	public int ModifyBuy(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return session.update("buy.modifyBuy", map);
+	}
+
+	
+	@Override
+	public int deleteAttach(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return session.delete("buy.deleteAttach",map);
+	}
+
+	@Override
+	public int buyDelete(int buyNo) {
+		// TODO Auto-generated method stub
+		return session.update("buy.buyDelete", buyNo);
+	}
+
+	@Override
+	public List<Map<String, String>> selectBuyImg(int buyNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("buy.selectBuyImg", buyNo);
+	}
+
+	@Override
+	public int insertBuyImg(Map<String, String> m) {
+		// TODO Auto-generated method stub
+		return session.insert("buy.insertBuyImg", m);
+	}
+
+	
+	
+	
+	
 	
 	
 	

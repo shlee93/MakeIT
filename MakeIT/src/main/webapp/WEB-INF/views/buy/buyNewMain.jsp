@@ -21,7 +21,7 @@
                      <!-- 앨범 뷰 상단 네비 끝 -->
                      
                      <div class="container mt-40">                              
-                        <h3 class="text-center">신규등록</h3>
+                        <h3 class="text-center" style="font-family: 'Sunflower', sans-serif;">신규등록</h3>
                            <div class="row mt-30">                                                                              	  
                               <c:forEach items="${newList}" var="newList">
                                <div class="col-md-4 col-sm-6 col-xs-10">
@@ -41,14 +41,18 @@
 
 															var imgReName = data["buyImgRe"];
 															var imgContainer = $('#${newList.BUYNO}');
-															imgContainer.append("<img src='${path}/resources/upload/buy/"+ data["buyImgRe"]+ "' style='width: 100%; height: 200px;'>");
+															imgContainer.append("<img src='${path}/resources/upload/buy/"+ data["buyImgRe"]+ "' style='width: 100%; height: 200px;cursor:pointer;' onclick='fn_detailView(${newList.BUYNO})'>");
 
 														}
 													});
 												});
+												function fn_detailView(buyNo)
+												{
+													location.href="${path}/buy/buyDetail?buyNo="+buyNo;
+												}
 											</script>
 										</div>
-                                       <div class="box-content">
+                                       <div class="box-content" onclick="fn_detailView(${newList.BUYNO})">
                                             <h3 class="title">${newList.MEMBERID}</h3>                                                                                      
                                            <p class="description">${newList.INTRODUCTION } </p>
                                        </div>
@@ -61,7 +65,24 @@
                                          <div id="price">
                                          	<p>최저가:${newList.BUYPRICE }</p>
                                        	</div>
-                                        <p id="gradep">등급: ${newList.GRADENAME} </p>
+                                        <p id="gradep">
+                                        <c:if test="${newList.GRADENAME == '브론즈' }">
+			                                 <p style='display: inline;'><img alt="" src="${path }/resources/image/bronzeGrade.png" style="max-width: 50px;max-height: 50px;"></p>
+			                              </c:if>
+			                              <c:if test="${newList.GRADENAME == '실버' }">
+			                                 <p style='display: inline;'><img alt="" src="${path }/resources/image/silverGrade.png" style="max-width: 50px;max-height: 50px;"></p>
+			                              </c:if>
+			                              <c:if test="${newList.GRADENAME == '골드' }">
+			                                 <p style='display: inline;'><img alt="" src="${path }/resources/image/goldGrade.png" style="max-width: 50px;max-height: 50px;"></p>
+			                              </c:if>
+			                              <c:if test="${newList.GRADENAME == '플래티넘' }">
+			                                 <p style='display: inline;'><img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;"></p>
+			                              </c:if>
+			                              <c:if test="${newList.GRADENAME == '다이아몬드' }">
+			                                 <p style='display: inline;'><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"></p>
+			                              </c:if>
+                                        ${newList.GRADENAME} 
+                                        </p>
                                       </div>                                       
                                    </div>
                                </div>

@@ -26,7 +26,11 @@
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-
+ <link rel='stylesheet' href='${pageContext.request.contextPath }/resources/css/boardCommon/boardCommon.css'/>
+   
+      <jsp:include page="/WEB-INF/views/common/header.jsp">
+        <jsp:param value="HelloSpring" name="pageTitle"/>
+      </jsp:include>
 <style>
 #vol-container{
 	padding-top:20px;
@@ -68,8 +72,21 @@
 </head>
 <body>
 	<div class="row">
-		<div class="col-sm-1"></div>
-		<div id="vol-container" class="col-sm-10">
+		<div class="col-md-1">
+			<div style='position:fixed; margin-top: 10em;'>
+   			<span onclick='fn_back()' style='cursor:pointer; font-size: 6em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
+         	 	<script>
+          			function fn_back()
+           		{
+           			history.back();
+           		}
+           		</script>
+	   		</div>
+		</div>
+		<div id="vol-container" class="col-md-10">
+			<div id="pageTitle" style="padding-bottom:20px;">
+				<h2 style="font-family: 'Sunflower', sans-serif;">지원자 상세보기</h2>
+			</div>
 		<div id="vol-title">
 		<div>
 			<h3 class="font-weight-bold text-left" style="display:inline"><c:out value="${vol.BUYCANDIDATETITLE }"/></h3>
@@ -81,40 +98,52 @@
 		</div>
 		<div>
 			<hr>
-			<img id="vol-img" alt="" src="https://img.sbs.co.kr/newimg/news/20180503/201178297_1280.jpg">
+			<img id="vol-img" alt="" src="${path}/resources/upload/member/${volImg.REIMG}">
 			<p id="vol-id"><c:out value="${vol.MEMBERID }"/></p>
 		
 			<div id="vol-content">
 				<p>${vol.BUYCANDIDATECONTENT }</p>
 			</div>
 		</div>
+		<div style="border:1px solid black; padding: 10px; margin:10px;">
+		<h4>첨부파일</h4>
+		<c:forEach items="${downImg }" var="img">
+			<img src="${path }/resources/images/file.png" width="16px"><a style="padding-right:10px;cursor: pointer"onclick="fileDownload('${img.BUYCANDIDATEFILEORI}','${img.BUYCANDIDATEFILERE }');"> ${img.BUYCANDIDATEFILEORI } </a>
+		
+		</c:forEach>
+		</div>
 		<div id="btn-div">
-			<button class="btn btn-secondary" onclick="loacation.href='${path}/buy/'">결정하기</button>
-			<button class="btn btn-secondary" onclick="location.href='${path}/buy/volList.do'">뒤로가기</button>
+			<button class="btn btn-secondary" onclick="volCommit();">결정 및 결제하기</button>
+			<button class="btn btn-secondary" onclick="fn_back()">뒤로가기</button>
 		</div>
 		
-		<!-- <table class="table table-hover" style="width: 100%">
-			<tr class="volTr">
-				<td>이전</td>
-				<td>창과 방패가 서로 강하기를 주장하니 어찌 세상이 평화로울 수 있겠습니까</td>
-				<td>제갈공명</td>
-			</tr>
-			<tr class="volTr">
-				<td>다음</td>
-				<td>암튼 다이아몬드가 젤 단단함 반박시 빙시</td>
-				<td>관종</td>
-			</tr>
-			<tr>
-				<td><td><td>
-			</tr>
-
-		</table> -->
 		
 		
-		<div class="col-sm-1"></div>
+		<div class="col-md-1"></div>
 		
 		
 	</div>
 	</div>
-</body>
-</html>
+	
+<script>
+	function fileDownload(oName, rName)
+	{
+		oName=encodeURIComponent(oName);
+		location.href="${path}/buy/filedownLoad.do?oName="+oName+"&rName="+rName;
+	}
+	function volCommit()
+	{
+		var specFlag = ${param.specFlag};
+		console.log(specFlag);
+		if(specFlag == true)
+		{
+			alert("이미 지원자를 결정했습니다.");
+		}
+		else
+		{
+			location.href="${path}/buy/payInfoView.do?buyNo=${buyNo }&memberId=${vol.MEMBERID }";	
+		}
+		
+	}
+</script>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
