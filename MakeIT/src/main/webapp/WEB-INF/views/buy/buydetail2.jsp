@@ -348,7 +348,7 @@
 											<!-- 첫번째 법륜 기능 시작 (수정)-->
 											<div class="CirItem title-box CirItem1">
 												<!-- 작성자 이미지 컨테이너 -->
-												<div class="d-flex justify-content-center h-100"
+												<div class="d-flex justify-content-center"
 													style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
@@ -363,7 +363,7 @@
 											<!-- 두번째 법륜 기능 시작 (찜)-->
 											<div class="CirItem title-box CirItem2">
 												<!-- 작성자 이미지 컨테이너 -->
-												<div class="d-flex justify-content-center h-100"
+												<div class="d-flex justify-content-center "
 													style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
@@ -389,7 +389,7 @@
 											<!-- 세번째 법륜 기능 시작 (삭제)-->
 											<div class="CirItem title-box CirItem3">
 												<!-- 작성자 이미지 컨테이너 -->
-												<div class="d-flex justify-content-center h-100"
+												<div class="d-flex justify-content-center "
 													style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
@@ -403,7 +403,7 @@
 											<!-- 네번째 법륜 기능 시작 (쪽지)-->
 											<div class="CirItem title-box ${sessionScope.member.MEMBERID ne detailList.MEMBERID? !empty specList3?"active":volFlag==false?"":"active":"" } CirItem4">
 												<!-- 작성자 이미지 컨테이너 -->
-												<div class="d-flex justify-content-center h-100"
+												<div class="d-flex justify-content-center "
 													style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
@@ -418,7 +418,7 @@
 											<!-- 다섯번째 법륜 기능 시작 (지원자보기)-->
 											<div class="CirItem title-box ${sessionScope.member.MEMBERID ne detailList.MEMBERID?"":"active" } CirItem5">
 												<!-- 작성자 이미지 컨테이너 -->
-												<div class="d-flex justify-content-center h-100"
+												<div class="d-flex justify-content-center "
 													style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
@@ -433,7 +433,7 @@
 											<!-- 여섯번째 법륜 기능 시작 (지원하기)-->
 											<div class="CirItem title-box ${sessionScope.member.MEMBERID ne detailList.MEMBERID and empty specList3 and volFlag == false? "active":"" } CirItem6">
 												<!-- 작성자 이미지 컨테이너 -->
-												<div class="d-flex justify-content-center h-100"
+												<div class="d-flex justify-content-center "
 													style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
@@ -449,7 +449,7 @@
 											<!-- 일곱번째 법륜 기능 시작 (환불요청)-->
 											<div class="CirItem title-box CirItem7">
 												<!-- 작성자 이미지 컨테이너 -->
-												<div class="d-flex justify-content-center h-100"
+												<div class="d-flex justify-content-center "
 													style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
@@ -464,7 +464,7 @@
 											<!-- 여덟번째 법륜 기능 시작 (신고하기)-->
 											<div class="CirItem title-box CirItem8">
 												<!-- 작성자 이미지 컨테이너 -->
-												<div class="d-flex justify-content-center h-100"
+												<div class="d-flex justify-content-center "
 													style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
@@ -479,7 +479,7 @@
 											<!-- 아홉번째 법륜 기능 시작 (구매확정)-->
 											<div class="CirItem title-box CirItem9">
 												<!-- 작성자 이미지 컨테이너 -->
-												<div class="d-flex justify-content-center h-100"
+												<div class="d-flex justify-content-center "
 													style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
@@ -494,7 +494,7 @@
 											<!-- 열번째 법륜 기능 시작 (작업완료)-->
 											<div class="CirItem title-box CirItem10">
 												<!-- 작성자 이미지 컨테이너 -->
-												<div class="d-flex justify-content-center h-100"
+												<div class="d-flex justify-content-center "
 													style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
@@ -624,7 +624,7 @@
 				                    function fn_refundPop(){
 				                       if(${sessionScope.member.MEMBERID!=null}){
 				                          var name="환불신청";         
-				                          window.open("${path}/buy/buyRefundView.do?sellerId=${specList2.MEMBERID}&&buyNo=${detailList.BUYNO}&&specNo=${specList2.BUYSPECNO}",name,'width=490, height=300, menubar=no, status=no, toolbar=no');
+				                          window.open('${path}/buy/buyRefundView.do?sellerId=${specList2.MEMBERID}&&buyNo=${detailList.BUYNO}&&specNo=${specList2.BUYSPECNO}',name,'width=490, height=300, menubar=no, status=no, toolbar=no');
 				                       }else{
 				                          alert('로그인 후 이용해 주세요 ');
 				                          location.href="${path}/member/memberLogin.do";
@@ -643,7 +643,7 @@
 				                	function fn_reportPop(){
 				                        if(${sessionScope.member.MEMBERID!=null}){
 				                           var name="구매글 신고";         
-				                           window.open("${path}/buy/buyReport?buyWriter=${detailList.MEMBERID}&&buyNo=${detailList.BUYNO}",name,'width=490, height=300, menubar=no, status=no, toolbar=no');
+				                           window.open("${path}/buy/buyReport?buyWriter=${detailList.MEMBERID}&&buyNo=${detailList.BUYNO}",name,'width=490, height=300, toolbar=no, menubar=no, status=no');
 				                        }else{
 				                           alert('로그인 후 이용해 주세요 ');
 				                           location.href="${path}/member/memberLogin.do";
