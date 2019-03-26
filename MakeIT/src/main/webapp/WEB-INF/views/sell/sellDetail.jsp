@@ -123,15 +123,15 @@
 <div class='container-fluid' id="total">
 	<div class='row'>
         <div class='col-md-1' id='nav'>
-        	<div style='position:fixed; margin-top: 10em;'>
-	    			<span onclick='fn_back()' style='cursor:pointer; font-size: 6em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
-	          	 	<script>
-	           			function fn_back()
-		           		{
-		           			history.back();
-		           		}
-		           	</script>
-	           	</div>
+        	<div style='position:fixed; '>
+                   <span onclick='fn_back()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-left"></i></span>                           
+                       <script>
+                          function fn_back()
+                          {
+                             history.back();
+                          }
+                       </script>
+                    </div>
         </div>
         <div class='col-md-10' id='section' style='padding:50px'>        	
             <div class='row'>         
@@ -799,15 +799,16 @@
                                		</c:if>
                                 </form>
                           	<div class='row' style='margin-top: -4em;'>
-                  				<div class='col-md-2'></div>
+                  				<div class='col-md-1'></div>
+	                        	
 	                        	
 	                        	<!-- 작성자 소개 -->  	
-                          		<div class='col-md-8'>
-                          			<p>${detailList.get(0).INTRODUCTION}</p>
+                          		<div class='col-md-10'>
+                          		<textarea class='form-control' rows='6'style='width:100%; height: 100%;'readonly>${detailList.get(0).INTRODUCTION}</textarea>
                           		</div>
                           		<!-- 작성자 소개 끝 -->
                           		
-                       			<div class='col-md-2'></div>                          		
+                       			<div class='col-md-1'></div>                          		
                    			</div>                          	
                    		</div>                    	
                 	</div>                      
