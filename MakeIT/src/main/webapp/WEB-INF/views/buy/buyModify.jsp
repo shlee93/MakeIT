@@ -176,7 +176,7 @@ $(function()
 
 				<br />
 				<div id="btn-container">
-					<button class="btn btn-outline-info slidetopleft" onclick="fn_back()">취소</button>
+					
 					<input type="submit" class="btn btn-outline-info slidetopleft" onsubmit="fn_check();" value="수정"/>
 				</div>
 				</form>

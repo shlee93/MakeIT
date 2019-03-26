@@ -162,7 +162,7 @@
 
 				<br />
 				<div id="btn-container">
-					<button class="btn btn-outline-info slidetopleft">취소</button>
+					
 					<input type="submit" class="btn btn-outline-info slidetopleft" value="작성">
 				</div>
 				</form>
