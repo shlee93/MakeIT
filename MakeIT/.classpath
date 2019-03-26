@@ -25,5 +25,11 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/cho/git/MakeIT/MakeIT/src/main/webapp/WEB-INF/lib/gson-2.8.5.jar"/>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
