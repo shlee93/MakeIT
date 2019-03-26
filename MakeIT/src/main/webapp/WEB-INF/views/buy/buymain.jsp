@@ -39,6 +39,11 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/buymain/buymain.css" />
+	 <link rel='stylesheet' href='${pageContext.request.contextPath }/resources/css/boardCommon/boardCommon.css'/>
+   
+      <jsp:include page="/WEB-INF/views/common/header.jsp">
+        <jsp:param value="HelloSpring" name="pageTitle"/>
+      </jsp:include>
 <style>
 .hide {
 	display: none;
@@ -54,7 +59,17 @@
 	<input type="hidden" id="gradeValue" value="0">
 	<input type="hidden" id="isSearch" value="0">
 	<div class='row'>
-		<div class='col-md-1'></div>
+		<div class='col-md-1'>
+			<div style='position:fixed; margin-top:-6em;'>
+			<span onclick='fn_back()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-left"></i></span>                           
+				<script>
+				function fn_back()
+				{
+				   history.back();
+				}
+				</script>
+		</div>
+		</div>
 		<div class='col-md-10'>
 			<div class='row'>
 				<div class='col-md-2 col-xs-2'>
@@ -106,24 +121,34 @@
 				<!-- 앨범뷰 -->
 
 				<div class='col-md-10 col-xs-10' style='position: relative; min-width: 400px'>
-
+					<div id="pageTitle" style="padding-bottom:20px;">
+						<h1 style="font-family: 'Sunflower', sans-serif;">구매게시판</h2>
+					</div>
 					<!-- 앨범 뷰 상단 탭 -->
-					<div style="margin-right: 0; text-align: right">
-						<form class="form-inline my-2 my-lg-0">
+					<div style="margin-right: 0; ">
+						<div class="form-inline my-2 my-lg-0" >
 							<i class='fa fa-search'></i>&nbsp; <select id="searchtype" name="searchtype" class="form-control">
 								<option value='title'>제목</option>
 								<option value='writer'>작성자</option>
 							</select> <input class="form-control mr-sm-2" type="text" id="searchValue" placeholder="Search" aria-label="Search">
-							<button class="btn btn-primary my-2 my-sm-0" onclick="fn_searchtw();" type="button">Search</button>
-						</form>
+							<button class="btn btn-outline-info slidetopleft my-2 my-sm-0" onclick="fn_searchtw();" type="button">Search</button>
+						</div>
+				
 					</div>
 					<nav>
 						<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-							<a class="nav-item nav-link active" id="nav-home-tab" onclick="fn_valueChangeNew();" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">신규등록</a> 
-							<a class="nav-item nav-link" id="nav-profile-tab" onclick="fn_valueChangeGrade();" data-toggle="tab" href="#nav-profile" role="tab"	aria-controls="nav-profile" aria-selected="false">등급별</a> 
+							<a class="nav-item nav-link active" id="nav-home-tab" onclick="fn_valueChangeNew();" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" style="font-family: 'Sunflower', sans-serif;">신규등록</a> 
+							<a class="nav-item nav-link" id="nav-profile-tab" onclick="fn_valueChangeGrade();" data-toggle="tab" href="#nav-profile" role="tab"	aria-controls="nav-profile" aria-selected="false" style="font-family: 'Sunflower', sans-serif;">등급별</a> 
 						</div>
 					</nav>
 					<script>
+					
+						$(document).on('keydown','#searchValue',function(key){
+							if(key.keyCode==13){
+								fn_searchtw();
+							}
+						})
+					
 						function fn_valueChangeNew() {
 		
 							$("#newValue").attr("value", "1");
@@ -299,7 +324,6 @@
 										});
 
 						$(document).ready(function() {
-
 							pageFrm.sCategoryFlag.value = "${sCategoryFlag}";
 
 							$(".menu>a").click(function() {
@@ -314,7 +338,7 @@
 						});
 
 						function fn_changeCategory(sCtgr) {
-
+	
 							$("#isSearch").attr("value", "0");
 							console.log($("#sCategoryFlag").val());
 							var url = "${path}/buy/buymain.do";
@@ -395,7 +419,7 @@
 							<!-- 앨범 뷰 상단 네비 끝 -->
 
 							<div class="container mt-40">
-								<h3 class="text-center">신규등록</h3>
+								<h3 class="text-center" style="font-family: 'Sunflower', sans-serif;">신규등록</h3>
 								<div class="row mt-30">
 
 									<c:forEach items="${newList}" var="newList">
@@ -436,7 +460,24 @@
 													<div id="price">
 														<p>가격: ${newList.BUYPRICE }</p>
 													</div>
-													<p id="gradep">등급: ${newList.GRADENAME}</p>
+													<p id="gradep">
+													<c:if test="${newList.GRADENAME == '브론즈' }">
+						                                 <p style='display: inline;'><img alt="" src="${path }/resources/image/bronzeGrade.png" style="max-width: 50px;max-height: 50px;"></p>
+						                              </c:if>
+						                              <c:if test="${newList.GRADENAME == '실버' }">
+						                                 <p style='display: inline;'><img alt="" src="${path }/resources/image/silverGrade.png" style="max-width: 50px;max-height: 50px;"></p>
+						                              </c:if>
+						                              <c:if test="${newList.GRADENAME == '골드' }">
+						                                 <p style='display: inline;'><img alt="" src="${path }/resources/image/goldGrade.png" style="max-width: 50px;max-height: 50px;"></p>
+						                              </c:if>
+						                              <c:if test="${newList.GRADENAME == '플래티넘' }">
+						                                 <p style='display: inline;'><img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;"></p>
+						                              </c:if>
+						                              <c:if test="${newList.GRADENAME == '다이아' }">
+						                                 <p style='display: inline;'><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"></p>
+						                              </c:if>
+													${newList.GRADENAME}
+													</p>
 												</div>
 											</div>
 										</div>
@@ -527,6 +568,7 @@
 					</div>
 				</div>
 			</div>
+			</div>
 			<div class='col-md-1'></div>
-</body>
-</html>
+	</div>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

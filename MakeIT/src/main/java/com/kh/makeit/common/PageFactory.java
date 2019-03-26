@@ -342,7 +342,7 @@ public class PageFactory {
       pageBar+="</script>";*/
       return pageBar;
    }
-   public static String getPageBarVol(int totalCon, int cPage, int numPerPage, String buyNo, String url) {
+   public static String getPageBarVol(int totalCon, int cPage, int numPerPage, String buyNo, String specFlag, String url) {
 		String pageBar = "";
 		int pageBarSize = 5;
 		
@@ -394,7 +394,7 @@ public class PageFactory {
 		// 페이징처리 스크립트
 		pageBar+="<script>";
 		pageBar+="function fn_paging(cPage)";
-		pageBar+="{location.href='"+url+"?buyNo="+buyNo+"&cPage='+cPage";
+		pageBar+="{location.href='"+url+"?buyNo="+buyNo+"&specFlag="+ specFlag +"&cPage='+cPage";
 		pageBar+="}";
 		pageBar+="</script>";
 		return pageBar;
