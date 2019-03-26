@@ -358,7 +358,7 @@
 													</div>
 												</div>
 												<br />
-												<button class="btn btn-outline-info slidetopleft" onclick="location.href='${path}/buy/buyModify.do?buyNo=${detailList.BUYNO }'">수정하기</button>
+												<button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick="location.href='${path}/buy/buyModify.do?buyNo=${detailList.BUYNO }'">수정하기</button>
 											</div>
 											<!-- 두번째 법륜 기능 시작 (찜)-->
 											<div class="CirItem title-box CirItem2">
@@ -380,10 +380,10 @@
 													<input type="hidden" name="buyNo" value="${detailList.BUYNO}">
 												</form>
 												<c:if test="${empty outBoxYn and detailList.MEMBERID ne sessionScope.member.MEMBERID }">
-													<button class="btn btn-outline-info slidetopleft" onclick="fn_outboxDo();">찜하기</button>
+													<button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick="fn_outboxDo();">찜하기</button>
 												</c:if>
 												<c:if test="${!empty outBoxYn and detailList.MEMBERID ne sessionScope.member.MEMBERID }">
-													<button class="btn btn-outline-info slidetopleft" onclick="fn_outboxNo();">찜풀기</button>
+													<button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick="fn_outboxNo();">찜풀기</button>
 												</c:if>
 											</div>
 											<!-- 세번째 법륜 기능 시작 (삭제)-->
@@ -398,7 +398,7 @@
 													</div>
 												</div>
 												<br />
-												<button class="btn btn-outline-info slidetopleft" onclick="fn_delete();">삭제하기</button>
+												<button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick="fn_delete();">삭제하기</button>
 											</div>
 											<!-- 네번째 법륜 기능 시작 (쪽지)-->
 											<div class="CirItem title-box ${sessionScope.member.MEMBERID ne detailList.MEMBERID? !empty specList3?"active":volFlag==false?"":"active":"" } CirItem4">
@@ -413,7 +413,7 @@
 													</div>
 												</div>
 												<br />
-												<button class="btn btn-outline-info slidetopleft" onclick='fn_message()'>쪽지보내기</button>
+												<button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick='fn_message()'>쪽지보내기</button>
 											</div>
 											<!-- 다섯번째 법륜 기능 시작 (지원자보기)-->
 											<div class="CirItem title-box ${sessionScope.member.MEMBERID ne detailList.MEMBERID?"":"active" } CirItem5">
@@ -428,7 +428,7 @@
 													</div>
 												</div>
 												<br />
-												<button onclick='location.href="${path}/buy/volList.do?buyNo=${detailList.BUYNO }&specFlag=${empty specList3?"false":"true" }"' class='btn btn-outline-info slidetopleft'>지원자보기</button>
+												<button onclick='location.href="${path}/buy/volList.do?buyNo=${detailList.BUYNO }&specFlag=${empty specList3?"false":"true" }"' class='btn btn-outline-info slidetopleft donggeulInnerBtn'>지원자보기</button>
 											</div>
 											<!-- 여섯번째 법륜 기능 시작 (지원하기)-->
 											<div class="CirItem title-box ${sessionScope.member.MEMBERID ne detailList.MEMBERID and empty specList3 and volFlag == false? "active":"" } CirItem6">
@@ -443,7 +443,7 @@
 													</div>
 												</div>
 												<br />
-												<button onclick='fn_buyVol()' class="btn btn-outline-info slidetopleft">지원하기</button>
+												<button onclick='fn_buyVol()' class="btn btn-outline-info slidetopleft donggeulInnerBtn">지원하기</button>
 												
 											</div>
 											<!-- 일곱번째 법륜 기능 시작 (환불요청)-->
@@ -459,7 +459,7 @@
 													</div>
 												</div>
 												<br />
-												<button class="btn btn-outline-info slidetopleft" onclick="fn_refundPop()">환불하기</button>
+												<button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick="fn_refundPop()">환불하기</button>
 											</div>
 											<!-- 여덟번째 법륜 기능 시작 (신고하기)-->
 											<div class="CirItem title-box CirItem8">
@@ -474,7 +474,7 @@
 													</div>
 												</div>
 												<br />
-												<button class="btn btn-outline-info slidetopleft" onclick="fn_reportPop();">신고하기</button>
+												<button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick="fn_reportPop();">신고하기</button>
 											</div>
 											<!-- 아홉번째 법륜 기능 시작 (구매확정)-->
 											<div class="CirItem title-box CirItem9">
@@ -489,7 +489,7 @@
 													</div>
 												</div>
 												<br />
-												<button class="btn btn-outline-info slidetopleft" onclick="fn_buyCommit()">구매확정</button>
+												<button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick="fn_buyCommit()">구매확정</button>
 											</div>
 											<!-- 열번째 법륜 기능 시작 (작업완료)-->
 											<div class="CirItem title-box CirItem10">
@@ -504,7 +504,7 @@
 													</div>
 												</div>
 												<br />
-												<button class="btn btn-outline-info slidetopleft" onclick="fn_finishWork()">작업완료</button> 
+												<button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick="fn_finishWork()">작업완료</button> 
 											</div>
 											
 											
