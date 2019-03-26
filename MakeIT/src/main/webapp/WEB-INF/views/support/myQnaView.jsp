@@ -30,6 +30,24 @@
 							<div class="form-group">
 								<label class="col-md-6 control-label" for="qna-writer"><strong>작성자</strong></label>
 								<div class="col-md-6">
+								<c:choose>
+									<c:when test="${qna.GRADENO==1 }">
+										<img class="grade-icon" src="${path }/resources/image/bronzeGrade.png"/>
+									</c:when>
+									<c:when test="${qna.GRADENO==2 }">
+										<img class="grade-icon" src="${path }/resources/image/silverGrade.png"/>
+									</c:when>
+									<c:when test="${qna.GRADENO==3 }">
+										<img class="grade-icon" src="${path }/resources/image/goldGrade.png"/>
+									</c:when>
+									<c:when test="${qna.GRADENO==4 }">
+										<img class="grade-icon" src="${path }/resources/image/platinumGrade.png"/>
+									</c:when>
+									<c:when test="${qna.GRADENO==5 }">
+										<img class="grade-icon" src="${path }/resources/image/diamondGrade.png"/>
+									</c:when>
+								</c:choose>
+									
 							    	<span id="qna-writer">${qna.MEMBERID }</span>	
 							  	</div>
 							</div>

@@ -9,10 +9,31 @@
 	<fieldset>
 	
 	<!-- Form Name -->
-	<legend>QNA</legend>
+	<div class="form-group">
+		<div class="col-md-6 qna-logo">
+			<h2>1:1 문의 작성</h2>
+		</div>
+	</div>
 	<div class="form-group">
 		<label class="col-md-6 control-label" for="qna-writer"><strong>작성자:</strong></label>
 		<div class="col-md-6">
+		<c:choose>
+			<c:when test="${sessionScope.member.GRADENO==1 }">
+				<img class="grade-icon" src="${path }/resources/image/bronzeGrade.png"/>
+			</c:when>
+			<c:when test="${sessionScope.member.GRADENO==2 }">
+				<img class="grade-icon" src="${path }/resources/image/silverGrade.png"/>
+			</c:when>
+			<c:when test="${sessionScope.member.GRADENO==3 }">
+				<img class="grade-icon" src="${path }/resources/image/goldGrade.png"/>
+			</c:when>
+			<c:when test="${sessionScope.member.GRADENO==4 }">
+				<img class="grade-icon" src="${path }/resources/image/platinumGrade.png"/>
+			</c:when>
+			<c:when test="${sessionScope.member.GRADENO==5 }">
+				<img class="grade-icon" src="${path }/resources/image/diamondGrade.png"/>
+			</c:when>
+		</c:choose>
 	    	<span id="qna-writer">${sessionScope.member.MEMBERID }</span>	
 	  	</div>
 	</div>

@@ -162,4 +162,10 @@ public class ContestDaoImpl implements ContestDao
 		// TODO Auto-generated method stub
 		return sqlSession.insert("contest.insertReport", reportMap);
 	}
+
+	@Override
+	public List<ContestImg> contestPreModifyImgDao(int contestNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("contest.contestPreModifyImg", contestNo);
+	}	
 }

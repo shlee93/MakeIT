@@ -50,7 +50,7 @@ List<Map<String, String>> sellOptionModify(int sellno);
 
 List<Map<String, String>> sellImgModify(int sellno);
 
-int sellModifyEnd(ArrayList<SellAttach> files, Map dataMap, SellOption selloption);
+int sellModifyEnd(ArrayList<SellAttach> files,List<Map<String, String>> imgList, Map dataMap, SellOption selloption);
 
 
 
@@ -93,6 +93,8 @@ int deleteReview(Map<String, String> map);
 int sellCommit(int sellSpecNo);
 
 int sellBuyerCount(int sellno);
+
+List<Map<String, String>> selectSellImg(int sellno);
 
 
 }

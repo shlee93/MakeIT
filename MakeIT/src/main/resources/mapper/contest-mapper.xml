@@ -9,7 +9,7 @@
 	
 	<!-- 컨테스트 검색 숫자세기 -->
 	<select id='sortCount' parameterType='map' resultType='_int'>
-		select count(*) from contest a join member b on a.memberId=b.memberId where 1=1
+		select count(*) from contest a join member b on a.memberId=b.memberId where contestYn='Y' and contestDeleteYn='N' and 1=1
 		<choose>
         	<when test='interestFlag!=null and interestFlag!=""'> 
         		and a.interestNo = #{interestFlag}
@@ -35,7 +35,7 @@
 	<!-- 컨테스트 검색 -->
 	
 	<select id='contestSort' parameterType='map' resultType='map'>
-		select a.*, memberName,(select count(*) from contestApplicant where contestno=a.contestno) as contestApplicantCount from contest a join member b on a.memberId=b.memberId where a.contestYn='N' 
+		select a.*, memberName, memberlevel, REIMG, (select count(*) from contestApplicant where contestno=a.contestno) as contestApplicantCount from contest a join member b on a.memberId=b.memberId where a.contestYn='Y' and a.contestDeleteYn='N' 
 		<choose>
         	<when test='interestFlag!=null and interestFlag!=""'> 
         		and a.interestNo = #{interestFlag}
@@ -73,17 +73,17 @@
 	
 	<!-- 컨테스트 리스트 가져오기 -->
 	<select id='getContestList' parameterType='map' resultType='map'>
-		select a.*, memberName,(select count(*) from contestApplicant where contestno=a.contestno) as contestApplicantCount from contest a join member b on a.memberId=b.memberId where contestYn='N' order by contestno desc
+		select a.*, memberName, memberlevel, REIMG, (select count(*) from contestApplicant where contestno=a.contestno) as contestApplicantCount from contest a join member b on a.memberId=b.memberId where contestYn='Y' and contestDeleteYn='N' order by contestno desc
 	</select>
 	
 	<!-- 컨테스트 이미지 가져오기 -->
 	<select id='getContestDetailImg' parameterType='_int' resultType='map'>
-		select contestImgNo,contestImgRe from contestImg where contestNo=#{contestNo}
+		select contestImgNo,contestImgRe from contestImg where contestNo=#{contestNo} order by contestImgNo asc
 	</select>
 	
 	<!-- 컨테스트 상세 가져오기 -->
 	<select id='contestDetail' parameterType="_int" resultType='map'>
-		select a.*, b.*, c.gradeName from contest a, member b, grade c where a.memberId=b.memberId and b.gradeNo=c.gradeNo and contestNo=#{contestNo}
+		select a.*, b.*, c.gradeName from contest a, member b, grade c where a.memberId=b.memberId and b.gradeNo=c.gradeNo and contestNo=#{contestNo} 
 	</select>
 	
 	<!-- 컨테스트 당 첫번째 이미지 가져오기 -->	
@@ -131,7 +131,7 @@
 	
 	<!-- 컨테스트 삭제 -->
 	<update id='contestDel' parameterType='_int'>
-		update contest set contestYn='Y' where contestNo=#{contestDelNo}
+		update contest set contestDeleteYn='Y' where contestNo=#{contestDelNo}
 	</update>
 	
 	<!-- 컨테스트 수정 정보 불러오기 -->
@@ -144,10 +144,15 @@
 		select * from contestImg where contestNo=#{contestNo}
 	</select>
 	
-	<!-- 컨테스트 쓰기 -->
+	<!-- 컨테스트 수정 -->
 	<insert id='contestModifyEnd' parameterType='map'>
 		update CONTEST set CONTESTTITLE=#{contestTitle}, CONTESTCONTENT=#{contestContent}, CONTESTDATE=#{contestDate}, CONTESTDEADLINE=#{contestDeadLine}, CONTESTPRICE=#{contestPrice}, DETAILINTERESTNO=#{detailInterestNo}, INTERESTNO=#{interestNo} where CONTESTNO=#{contestNo}		
-	</insert> 
+	</insert>
+	
+	<!-- 컨테스트 수정이미지 불러오기 -->
+	<select id='contestPreModifyImg' parameterType='int' resultType='contestImg'>
+		select * from contestImg where contestNo=#{contestNo} order by contestImgNo asc
+	</select> 
 	
 	<!-- 컨테스트 이미지 일단 삭제 -->
 	<delete id='modifyForeDelImg' parameterType='_int'>
@@ -177,6 +182,6 @@
 	<!-- 컨테스트 신고 -->
 	<insert id="insertReport" parameterType="map">
 	   insert into CONTESTREPORT values(SEQ_CONTESTREPORTNO.NEXTVAL,#{contestNo},#{reportId},'C',#{reportContent},default,default)
-	</insert>
+	</insert>	
 	
 </mapper>

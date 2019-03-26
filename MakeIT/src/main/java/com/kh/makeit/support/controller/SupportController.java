@@ -423,5 +423,29 @@ public class SupportController {
 		
 		return pass;
 	}
+	
+	//게시물 상세화면에서 답변보기
+	@RequestMapping("/support/repleQnaView.do")
+	public ModelAndView repleQnaView(
+			int qnaNo,
+			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
+			@RequestParam(value="searchQna", required=false, defaultValue="") String searchQna,
+			@RequestParam(value="filter", required=false, defaultValue="QNATITLE") String filter,
+			@RequestParam(value="sortCheck", required=false, defaultValue="0") String sortCheck
+			) {
+		
+		ModelAndView mav=new ModelAndView();
+
+		Map<String,String> qna=supportService.selectOneQna3(qnaNo);
+
+		mav.addObject("qna", qna);
+		mav.addObject("cPage", cPage);
+		mav.addObject("searchQna", searchQna);
+		mav.addObject("filter", filter);
+		mav.addObject("sortCheck", sortCheck);
+		mav.setViewName("support/qnaDetailView");
+		return mav;
+	}
+	
 
 }

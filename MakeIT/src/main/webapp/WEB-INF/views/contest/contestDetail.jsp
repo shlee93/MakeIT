@@ -72,12 +72,12 @@
 	}); */
 	
 	$(window).scroll(function(){
-		if($(this).scrollTop() > 140)
+		if($(this).scrollTop() > 150)
 		{
 			var windowVal = $(this).scrollTop();
-			$('#donggeulNav').css('top',windowVal);
+			$('#donggeulNav').css('top',windowVal-150);
 		}
-		if($(this).scrollTop() < 140) 
+		if($(this).scrollTop() < 150) 
         {
 			var windowVal = $(this).scrollTop();
 			$('#donggeulNav').css('top','100px');
@@ -127,6 +127,7 @@
         	<div class='col-md-10' id='section' style='padding:50px' >
             	<div class='row'>            	
                		<div class="col-md-6" id="img-container" style='padding:1px; width: 100%; height: 600px;'>
+               			<h4 style="font-family: 'Sunflower','sans-serif';">${contestObj.CONTESTTITLE}</h4>
                			<div class='row mainImgContainer' id='mainImgContainer'>
                	   			<img class="mainImg" id='${contestMainImg.CONTESTIMGNO}' src="${path}/resources/upload/contest/${contestMainImg.CONTESTIMGRE}" style='max-height: 400px; min-height: 600px; width: 100%;'>
                     	</div>
@@ -184,8 +185,8 @@
                                	<c:if test="${contestObj.GRADENAME == '플래티넘' }">
                                		<p style="display:inline;"><img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;"></p>
                                	</c:if>
-                               	<c:if test="${contestObj.GRADENAME == '다이아몬드' }">
-                               		<p style='display: inline;'><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"></p>
+                               	<c:if test="${contestObj.GRADENAME == '다이아' }">
+                               		<p style='display: inline;'><img alt="" src="${path }/resources/image/diamondGrade.png" style="max-width: 50px;max-height: 50px;"></p>
                                	</c:if>
                                	
                         		<h4 style="display: inline; font-family: 'Sunflower', sans-serif;"><strong>${contestObj.GRADENAME}</strong> ${contestObj.MEMBERNAME}</h4>
@@ -234,10 +235,15 @@
 					                           	<i class="fa fa-tags donggeulI"></i>
 					                           	<span class="forActive"></span>
 				                           	</span> -->
-					                       	<span class="itemDot itemDot5" data-tab="5">
-					                       	   	<i class="fas fa-angry donggeulI"></i>
-				                           	   	<span class="forActive"></span>
-				                           	</span>
+	                           			<c:set var='currentId' value='${memberMap.get("MEMBERID")}'/>								
+	                           	   	   	<c:choose>
+						    	   		   	<c:when test="${currentId ne contestObj.MEMBERID}">
+						                       	<span class="itemDot itemDot5" data-tab="5">
+						                       	   	<i class="fas fa-angry donggeulI"></i>
+					                           	   	<span class="forActive"></span>
+					                           	</span>
+				                           	</c:when>
+			                           	</c:choose>
 			                        	</div>
 			                        	
 			                        	<div class="contentCircle">
@@ -512,7 +518,7 @@
 	    	<div class='col-md-1' id='right-nav' >	    	
 				<c:if test="${sessionScope.member.MEMBERID==admin}">   		    
 		    		<div style='position:fixed; margin-top: 10em;'>
-		    			<button class=" btn btn-outline-info slidetopleft" >승인</button>
+		    			<button class=" btn btn-outline-info slidetopleft" id='approval-btn' >승인</button>
 		           	</div>
 	    		</c:if>
 	    	</div>

@@ -13,7 +13,7 @@
 	<c:forEach items='${reportList }' var="report">
 		<c:choose>
 			<c:when test="${report.CATEGORYCODE eq 'S' }">
-				<div class="panel-body">
+				<div class="panel-body btn btn-outline-info slidetopleft">
 					<div class="report-tab-back">
 						<ul class="report-tab">
 							<li><strong>피신고인:</strong> <span class="report-id">${report.MEMBERID }</span>
@@ -22,11 +22,11 @@
 							</li>
 						</ul>
 					</div>
-					<div class="report-info-back">
+					<div class="report-info-back ">
 						<div class="row">
 							<div class="col-md-3" align="center">
 								<h3 class="panel-title">${report.SELLID }</h3>
-								<img alt="User Pic" src="${path }/upload/member/${report.REIMG}" class="img-circle img-responsive">
+								<img alt="User Pic" src="${path }/resources/upload/member/${report.REIMG}" class="img-circle img-responsive">
 							</div>
 							<div class="col-md-9">
 								<table class="table table-user-information">
@@ -97,7 +97,7 @@
 			
 			</c:when>
 			<c:when test="${report.CATEGORYCODE eq 'C' }">
-				<div class="panel-body">
+				<div class="panel-body btn btn-outline-info slidetopleft">
 					<div class="report-tab-back">
 						<ul class="report-tab">
 							<li><strong>피신고인:</strong> <span class="report-id">${report.MEMBERID }</span>
@@ -110,7 +110,7 @@
 						<div class="row">
 							<div class="col-md-3" align="center">
 								<h3 class="panel-title">${report.CONTESTID }</h3>
-								<img alt="User Pic" src="${path }/upload/member/${report.REIMG}" class="img-circle img-responsive">
+								<img alt="User Pic" src="${path }/resources/upload/member/${report.REIMG}" class="img-circle img-responsive">
 							</div>
 							<div class="col-md-9">
 								<table class="table table-user-information">
@@ -180,7 +180,7 @@
 				</div>
 			</c:when>
 			<c:when test="${report.CATEGORYCODE eq 'F' }">
-				<div class="panel-body">
+				<div class="panel-body btn btn-outline-info slidetopleft">
 					<div class="report-tab-back">
 						<ul class="report-tab">
 							<li><strong>피신고인:</strong> <span class="report-id">${report.MEMBERID }</span>
@@ -193,7 +193,7 @@
 						<div class="row">
 							<div class="col-md-3" align="center">
 								<h3 class="panel-title">${report.FREEID }</h3>
-								<img alt="User Pic" src="${path }/upload/member/${report.REIMG}" class="img-circle img-responsive">
+								<img alt="User Pic" src="${path }/resources/upload/member/${report.REIMG}" class="img-circle img-responsive">
 							</div>
 							<div class="col-md-9">
 								<table class="table table-user-information">
@@ -263,11 +263,11 @@
 				</div>
 			</c:when>
 			<c:when test="${report.CATEGORYCODE eq 'B' }">
-				<div class="panel-body">
+				<div class="panel-body btn btn-outline-info slidetopleft">
 					<div class="report-tab-back">
 						<ul class="report-tab">
-							<li><strong>피신고인:</strong> <span class="report-id">${report.MEMBERID }</span>
-							</li>&nbsp;&nbsp;&nbsp;&nbsp;
+							<li><strong>피신고인:</strong> <span class="report-id">${report.MEMBERID }</span>&nbsp;&nbsp;&nbsp;&nbsp;
+							</li>
 							<li><strong>신고일:</strong> <span class="report-date">${report.BUYREPORTDATE }</span>
 							</li>
 						</ul>
@@ -276,7 +276,7 @@
 						<div class="row">
 							<div class="col-md-3" align="center">
 								<h3 class="panel-title">${report.BUYID }</h3>
-								<img alt="User Pic" src="${path }/upload/member/${report.REIMG}" class="img-circle img-responsive">
+								<img alt="User Pic" src="${path }/resources/upload/member/${report.REIMG}" class="img-circle img-responsive">
 							</div>
 							<div class="col-md-9">
 								<table class="table table-user-information">

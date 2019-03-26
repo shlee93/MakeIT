@@ -20,6 +20,9 @@ public interface SupportService {
 	//qna 게시글 상세보기
 	Map<String,String> selectOneQna(int qnaNo);
 	
+	//qna 게시글 상세보기 에서 답변보기
+	Map<String,String> selectOneQna3(int qnaNo);
+	
 	//qna 게시글 등록(회원)
 	int insertQnaEnd(Map<Object,Object> insert);
 	

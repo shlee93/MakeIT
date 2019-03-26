@@ -14,8 +14,8 @@
 					<td><%=i %></td>
 					<td>${qna.FAQNACATEGORYNAME }</td>
 					<td colspan="3">
-						<a class="qna-pass" data-toggle="modal" data-target="#squarespaceModal">${qna.QNATITLE }</a> 
-						<input type="hidden" value="${qna.QNANO }" />
+						<a class="qna-pass ${sessionScope.member.MEMBERLEVEL==0?'qna-admin':'' }" ${sessionScope.member.MEMBERLEVEL==0?'':'data-toggle="modal" data-target="#squarespaceModal"' }>${qna.QNATITLE }</a>
+						<input type="hidden" value="${qna.QNANO }"/>
 					</td>
 					<td>${qna.MEMBERID }</td>
 					<td>${qna.QNADATE }</td>
@@ -28,8 +28,8 @@
 					<td><%=i %></td>
 					<td></td>
 					<td colspan="3" style="color:gray;">
-						&nbsp;&nbsp;→[답변]<a class="qna-title-reple qna-pass" data-toggle="modal" data-target="#squarespaceModal">${qna.QNATITLE }</a>
-						<input type="hidden" value="${qna.QNANO }" />
+						&nbsp;&nbsp;→[답변]<a class="qna-title-reple qna-pass ${sessionScope.member.MEMBERLEVEL==0?'qna-admin':'' }" ${sessionScope.member.MEMBERLEVEL==0?'':'data-toggle="modal" data-target="#squarespaceModal"' }>${qna.QNATITLE }</a>
+						<input type="hidden" value="${qna.QNANO }"/>
 					</td>
 					<td>&nbsp;&nbsp;${qna.MEMBERID }</td>
 					<td>&nbsp;&nbsp;${qna.QNADATE }</td>

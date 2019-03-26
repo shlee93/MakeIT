@@ -22,8 +22,9 @@
 				</nav>
 				<div class="tab-content" id="nav-tabContent">
 					<div class="tab-pane fade show active" id="nav-qna" role="tabpanel" aria-labelledby="nav-qna-tab">
+						<hr>
 						<div class="qna-search">
-                            <div id="search-icon">검색</div>
+                            <div id="search-icon"></div>
 							<select id="search-filter">
 								<option class="search-filter-option" value="QNATITLE" selected>제목</option>
 								<option class="search-filter-option" value="MEMBERID">작성자</option>
@@ -67,10 +68,29 @@
 												<td><%=i %></td>
 												<td>${qna.FAQNACATEGORYNAME }</td>
 												<td colspan="3">
-													<a class="qna-pass" data-toggle="modal" data-target="#squarespaceModal">${qna.QNATITLE }</a>
+													<a class="qna-pass ${sessionScope.member.MEMBERLEVEL==0?'qna-admin':'' }" ${sessionScope.member.MEMBERLEVEL==0?'':'data-toggle="modal" data-target="#squarespaceModal"' }>${qna.QNATITLE }</a>
 													<input type="hidden" value="${qna.QNANO }"/>
 												</td>
-												<td>${qna.MEMBERID }</td>
+												<td>
+													<c:choose>
+														<c:when test="${qna.GRADENO==1 }">
+															<img class="grade-icon" src="${path }/resources/image/bronzeGrade.png"/>
+														</c:when>
+														<c:when test="${qna.GRADENO==2 }">
+															<img class="grade-icon" src="${path }/resources/image/silverGrade.png"/>
+														</c:when>
+														<c:when test="${qna.GRADENO==3 }">
+															<img class="grade-icon" src="${path }/resources/image/goldGrade.png"/>
+														</c:when>
+														<c:when test="${qna.GRADENO==4 }">
+															<img class="grade-icon" src="${path }/resources/image/platinumGrade.png"/>
+														</c:when>
+														<c:when test="${qna.GRADENO==5 }">
+															<img class="grade-icon" src="${path }/resources/image/diamondGrade.png"/>
+														</c:when>
+													</c:choose>
+													${qna.MEMBERID }
+												</td>
 												<td>${qna.QNADATE }</td>
 											</tr>
 											<%i++; %>
@@ -81,7 +101,7 @@
 												<td><%=i %></td>
 												<td></td>
 												<td colspan="3">
-													&nbsp;&nbsp;→[답변]<a class="qna-title-reple qna-pass" data-toggle="modal" data-target="#squarespaceModal">${qna.QNATITLE }</a>
+													&nbsp;&nbsp;→[답변]<a class="qna-title-reple qna-pass ${sessionScope.member.MEMBERLEVEL==0?'qna-admin':'' }" ${sessionScope.member.MEMBERLEVEL==0?'':'data-toggle="modal" data-target="#squarespaceModal"' }>${qna.QNATITLE }</a>
 													<input type="hidden" value="${qna.QNANO }"/>
 												</td>
 												<td>&nbsp;&nbsp;${qna.MEMBERID }</td>
@@ -122,7 +142,7 @@
                         <c:if test="${not empty categoryList }">
                         	<c:forEach items="${categoryList }" var="category">
                          <div class="faq-back">
-                             <div class="faq-category btn btn-outline-info slidetopleft">${category.FAQNACATEGORYNAME }
+                             <div class="faq-category btn btn-outline-info slidetopleft">●&nbsp;${category.FAQNACATEGORYNAME }
 
 		                         <button class="faq-slide btn btn-outline-info slidetopleft">▼</button>
 
@@ -133,13 +153,13 @@
                                  	<c:if test="${faq.FAQNACATEGORYNO==category.FAQNACATEGORYNO }">
                                  	
 	                                    <li class="faq-question">
-	                                    	<textarea cols="65" style="resize:none; border:0;" readonly="readonly">${faq.FAQTITLE }</textarea>
+	                                    	<textarea cols="65" style="resize:none; border:0;" readonly="readonly">●&nbsp;${faq.FAQTITLE }</textarea>
 											
 	                                       	<button class="answer-slide">▼</button>
 	                                       
 	                                       	<hr>
 	                                       	<div class="faq-answer">
-	                                       		<textarea cols="65" style="resize:none; border:0;" readonly="readonly">${faq.FAQCONTENT }</textarea>
+	                                       		<textarea cols="90" style="resize:none; border:0;" readonly="readonly">○&nbsp;${faq.FAQCONTENT }</textarea>
 	                                       	</div>
 	                                        
 	                                    </li>

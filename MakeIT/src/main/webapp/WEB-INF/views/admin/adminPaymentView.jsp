@@ -14,18 +14,18 @@
 				<c:when test="${payment.CATEGORYCODE eq 'B' }">
 					<div class="deal-payment">
 
-						<div class="deal-info-back">
+						<div class="deal-info-back btn btn-outline-info slidetopleft">
 							<ul class="deal-info">
 								<li class="deal-no">
 									<strong>구매자:</strong>
-									${payment.MEMBERID }
+									${payment.MEMBERID }&nbsp;&nbsp;
 								</li>
 								<li class="dealer">
 									<strong>판매자:</strong> 
 									${payment.BUYID }
 								</li>
 								<li class="deal-title">
-									<strong>글 제목:</strong> 
+									<br><strong>글 제목:</strong> 
 									${payment.BUYTITLE }
 								</li>
 							</ul>
@@ -45,7 +45,7 @@
 								<li class="step-item ${payment.STATUSNO==3?'active':''}">
 									<a href="#!" class="">프로젝트 완료</a>
 								</li>
-								<li class="step-item ${payment.STATUSNO==4?'active payment-pop':'' }" data-toggle="modal" data-target="#product_view">
+								<li class="step-item ${payment.STATUSNO==4?'active payment-pop':'' }" ${payment.STATUSNO==4?'data-toggle="modal" data-target="#product_view"':'' }>
 									<a href="#!" class="">구매 확정</a> 
 									<input type="hidden" class="spec-no" value="${payment.BUYSPECNO }" />
 								</li>
@@ -59,18 +59,18 @@
 
 					<div class="deal-payment">
 
-						<div class="deal-info-back">
+						<div class="deal-info-back btn btn-outline-info slidetopleft">
 							<ul class="deal-info">
 								<li class="deal-no">
 									<strong>구매자:</strong>
-									${payment.MEMBERID }
+									${payment.MEMBERID }&nbsp;&nbsp;
 								</li>
 								<li class="dealer">
 									<strong>판매자:</strong> 
 									${payment.SELLID }
 								</li>
 								<li class="deal-title">
-									<strong>글 제목:</strong> 
+									<br><strong>글 제목:</strong> 
 									${payment.SELLTITLE }
 								</li>
 							</ul>
@@ -90,7 +90,7 @@
 								<li class="step-item ${payment.STATUSNO==3?'active':''}">
 									<a href="#!" class="">프로젝트 완료</a>
 								</li>
-								<li class="step-item ${payment.STATUSNO==4?'active payment-pop':''}" data-toggle="modal" data-target="#product_view">
+								<li class="step-item ${payment.STATUSNO==4?'active payment-pop':''}" ${payment.STATUSNO==4?'data-toggle="modal" data-target="#product_view"':'' }>
 									<a href="#!" class="">구매 확정</a> 
 									<input type="hidden" class="spec-no" value="${payment.SELLSPECNO }" />
 									<input type="hidden" class="member-id" value="${payment.MEMBERID }"/>

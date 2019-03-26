@@ -13,7 +13,7 @@
 				<c:when test="${refund.CATEGORYCODE eq 'B' }">
 					<div class="deal-refund">
 
-						<div class="deal-info-back">
+						<div class="deal-info-back btn btn-outline-info slidetopleft">
 							<ul class="deal-info">
 								<li class="deal-no">
 									<strong>구매자:</strong> 
@@ -24,7 +24,7 @@
 									${refund.MEMBERID }
 								</li>
 								<li class="deal-title">
-									<strong>글 제목:</strong>
+									<br><strong>글 제목:</strong>
 									${refund.BUYTITLE }
 								</li>
 							</ul>
@@ -66,7 +66,7 @@
 
 					<div class="deal-refund">
 
-						<div class="deal-info-back">
+						<div class="deal-info-back btn btn-outline-info slidetopleft">
 							<ul class="deal-info">
 								<li class="deal-no">
 									<strong>구매자:</strong>
@@ -77,7 +77,7 @@
 									${refund.SELLID }
 								</li>
 								<li class="deal-title">
-									<strong>글 제목:</strong>
+									<br><strong>글 제목:</strong>
 									${refund.SELLTITLE }
 								</li>
 							</ul>

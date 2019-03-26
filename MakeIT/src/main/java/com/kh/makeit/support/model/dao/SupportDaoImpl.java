@@ -104,13 +104,13 @@ public class SupportDaoImpl implements SupportDao {
 		
 		return sqlSession.selectOne("support.selectQnaPassCheck", qnaNo);
 	}
-	
-	
-	
-	
-	
-	
-	
+
+	//게시글 상세보기에서 답변보기
+	@Override
+	public Map<String, String> selectOneQna3(int qnaNo) {
+		
+		return sqlSession.selectOne("support.selectOneQna3", qnaNo);
+	}
 	
 	
 	

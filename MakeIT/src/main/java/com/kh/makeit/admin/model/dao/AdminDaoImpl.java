@@ -341,4 +341,28 @@ public class AdminDaoImpl implements AdminDao {
 		return sqlSession.selectOne("admin.selectRefundReason", refundParam);
 	}
 	
+	//구매게시판 판매량 셀렉트	
+	@Override
+	public int selectPaymentBuyCount(String targetId) {
+		
+		return sqlSession.selectOne("admin.selectPaymentBuyCount", targetId);
+	}
+
+	//판매게시판 판매량 셀렉트
+	@Override
+	public int selectPaymentSellCount(String targetId) {
+		
+		return sqlSession.selectOne("admin.selectPaymentSellCount", targetId);
+	}
+
+	//등급 업데이트
+	@Override
+	public int updateGradeUpdate(Map<Object,Object> perform) {
+		
+		return sqlSession.update("admin.updateGradeUpdate",perform );
+	}
+	
+	
+	
+	
 }

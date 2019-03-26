@@ -31,7 +31,7 @@
 
 <!-- Member CSS -->
 <link rel="stylesheet" type="text/css" href="${path }/resources/css/mainpage/style.css"/>	
-
+ 
 </head>
 <body>
 <header>
@@ -114,6 +114,7 @@
     </c:if>
     
     <script>
+    var reportCount = ${empty sessionScope.member?0:sessionScope.member.REPORTCOUNT};
 		$('#icon1').mouseenter(function(){
 			$('#icon1 p').css('color','#138496');
 			$('#icon1 p').css('top','-22px');
@@ -205,19 +206,58 @@
       	})
 	  	
 	  	$('#icon1').click(function(){
-	  		location.href="${path}/sell/sellmain.do";
-	  	})
-	  	$('#icon2').click(function(){
-	  		location.href="${path}/buy/buymain.do";
-	  	})
-	  	$('#icon3').click(function(){
-	  		location.href="${path}/contest/contestMain.do";
-	  	})
-	  	$('#icon4').click(function(){
-	  		location.href="${path}/board.jsp";
-	  	})
+
+      		
+      		if(reportCount == 5)
+      		{
+      			alert("신고누적으로 서비스가 제한된 회원입니다. 관리자에게 문의해주세요.");
+                location.href="${path}/support/supportView.do";
+      		}
+      		else
+      		{
+      			location.href="${path}/sell/sellmain.do";
+      		}
+                  		
+      	})
+      	$('#icon2').click(function(){
+      		if(reportCount == 5)
+      		{
+      			alert("신고누적으로 서비스가 제한된 회원입니다. 관리자에게 문의해주세요.");
+                location.href="${path}";
+      		}
+      		else
+      		{
+      			location.href="${path}/buy/buymain.do";
+      		}
+            
+         
+      	})
+      	$('#icon3').click(function(){
+      		if(reportCount == 5)
+      		{
+      			alert("신고누적으로 서비스가 제한된 회원입니다. 관리자에게 문의해주세요.");
+                location.href="${path}/support/supportView.do";
+      		}
+      		else
+      		{
+      			location.href="${path}/contest/contestMain.do";
+      		}
+      	
+      	})
+      	$('#icon4').click(function(){
+      		if(reportCount == 5)
+      		{
+      			alert("신고누적으로 서비스가 제한된 회원입니다. 관리자에게 문의해주세요.");
+                location.href="${path}/support/supportView.do";
+      		}
+      		else
+      		{
+    	  		location.href="${path}/board/boardMain.do";
+      		}
+      	
+      	})
 	  	$('#icon5').click(function(){
-	  		location.href="${path}/qna.jsp";
+	  		location.href="${path}/support/supportView.do";
 	  	})
 	  	$('#icon6').click(function(){
       		location.href="${path }/admin/adminView.do";

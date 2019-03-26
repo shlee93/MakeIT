@@ -52,7 +52,7 @@
         <br style="clear:both">
         <div class="form-group col-md-2">
         	<input type="hidden" id="faq-no" value="${faq.FAQNO }"/>
-        	<button class="form-control input-sm btn btn-outline-info slidetopleft" id="updateQna" name="updateQna">등록</button>    
+        	<button class="form-control input-sm btn btn-outline-info slidetopleft" id="updateQna" name="updateQna">수정</button>    
     	</div>
 	</div>
 </div>

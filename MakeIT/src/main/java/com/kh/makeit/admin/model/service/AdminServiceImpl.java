@@ -341,6 +341,29 @@ public class AdminServiceImpl implements AdminService {
 		return dao.selectRefundReason(refundParam);
 	}
 	
+	//구매게시판 판매량 셀렉트	
+	@Override
+	public int selectPaymentBuyCount(String targetId) {
+		
+		return dao.selectPaymentBuyCount(targetId);
+	}
+	
+	//판매게시판 판매량 셀렉트
+	@Override
+	public int selectPaymentSellCount(String targetId) {
+		
+		return dao.selectPaymentSellCount(targetId);
+	}
+
+	//등급 업데이트
+	@Override
+	public int updateGradeUpdate(Map<Object,Object> perform) {
+		
+		return dao.updateGradeUpdate(perform);
+	}
+	
+	
+	
 	
 	
 }

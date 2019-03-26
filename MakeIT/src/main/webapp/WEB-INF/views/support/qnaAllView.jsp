@@ -5,8 +5,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <c:set var="path" value="${pageContext.request.contextPath }" />
+<hr>
 <div class="qna-search">
-	<div id="search-icon">검색</div>
+	<div id="search-icon"></div>
 	<select id="search-filter">
 		<option class="search-filter-option" value="QNATITLE" ${filter=='QNATITLE'?'selected':'' }>제목</option>
 		<option class="search-filter-option" value="MEMBERID" ${filter=='MEMBERID'?'selected':'' }>작성자</option>
@@ -48,9 +49,30 @@
 						<tr class="qna-question">
 							<td><%=i %></td>
 							<td>${qna.FAQNACATEGORYNAME }</td>
-							<td colspan="3"><a class="qna-pass" data-toggle="modal" data-target="#squarespaceModal">${qna.QNATITLE }</a> <input
-								type="hidden" value="${qna.QNANO }" /></td>
-							<td>${qna.MEMBERID }</td>
+							<td colspan="3">
+								<a class="qna-pass ${sessionScope.member.MEMBERLEVEL==0?'qna-admin':'' }" ${sessionScope.member.MEMBERLEVEL==0?'':'data-toggle="modal" data-target="#squarespaceModal"' }>${qna.QNATITLE }</a>
+								<input type="hidden" value="${qna.QNANO }"/>
+							</td>
+							<td>
+								<c:choose>
+									<c:when test="${qna.GRADENO==1 }">
+										<img class="grade-icon" src="${path }/resources/image/bronzeGrade.png"/>
+									</c:when>
+									<c:when test="${qna.GRADENO==2 }">
+										<img class="grade-icon" src="${path }/resources/image/silverGrade.png"/>
+									</c:when>
+									<c:when test="${qna.GRADENO==3 }">
+										<img class="grade-icon" src="${path }/resources/image/goldGrade.png"/>
+									</c:when>
+									<c:when test="${qna.GRADENO==4 }">
+										<img class="grade-icon" src="${path }/resources/image/platinumGrade.png"/>
+									</c:when>
+									<c:when test="${qna.GRADENO==5 }">
+										<img class="grade-icon" src="${path }/resources/image/diamondGrade.png"/>
+									</c:when>
+								</c:choose>
+								${qna.MEMBERID }
+							</td>
 							<td>${qna.QNADATE }</td>
 						</tr>
 						<%i++; %>
@@ -60,8 +82,9 @@
 						<tr class="qna-answer">
 							<td><%=i %></td>
 							<td></td>
-							<td colspan="3">&nbsp;&nbsp;→[답변]<a class="qna-title-reple qna-pass" data-toggle="modal" data-target="#squarespaceModal">${qna.QNATITLE }</a>
-								<input type="hidden" value="${qna.QNANO }" />
+							<td colspan="3">
+								&nbsp;&nbsp;→[답변]<a class="qna-title-reple qna-pass ${sessionScope.member.MEMBERLEVEL==0?'qna-admin':'' }" ${sessionScope.member.MEMBERLEVEL==0?'':'data-toggle="modal" data-target="#squarespaceModal"' }>${qna.QNATITLE }</a>
+								<input type="hidden" value="${qna.QNANO }"/>
 							</td>
 							<td>&nbsp;&nbsp;${qna.MEMBERID }</td>
 							<td>&nbsp;&nbsp;${qna.QNADATE }</td>

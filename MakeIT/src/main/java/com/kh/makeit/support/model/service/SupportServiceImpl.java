@@ -98,11 +98,21 @@ public class SupportServiceImpl implements SupportService {
 		return dao.selectSearchQnaCheckList(search,cPage,numPerPage);
 	}
 
+	//게시글 비밀번호 체크
 	@Override
 	public String selectQnaPassCheck(int qnaNo) {
 		
 		return dao.selectQnaPassCheck(qnaNo);
 	}
+
+	//게시글 상세보기에서 답변보기
+	@Override
+	public Map<String, String> selectOneQna3(int qnaNo) {
+		
+		return dao.selectOneQna3(qnaNo);
+	}
+	
+	
 	
 	
 	
