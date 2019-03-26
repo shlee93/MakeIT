@@ -541,9 +541,7 @@ $(function(){
 	$('#cancleBtn').click(function(){
 		location.href = "${path}/member/memberMyPage.do";
 	});
-	$('#updateBtn').click(function(){
-		$('#updateFrm').submit();
-	})
+
     
     	
 </script>

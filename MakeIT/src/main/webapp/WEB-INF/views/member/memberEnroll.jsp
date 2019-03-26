@@ -610,7 +610,7 @@
             }
             
 			var memberPhone = $('#memberPhone').val().trim();
-
+			
             if(!/^[0-9]+$/.test(memberPhone))
             { 
                 alert('핸드폰 번호는 숫자만 사용해야 합니다.'); 
