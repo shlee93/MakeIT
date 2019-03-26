@@ -93,7 +93,7 @@
 
 				</div>
 				
-						<input type="hidden" name="sellno" value="${refundMap.sellno}">	
+						<input type="hidden" name="sellSpecNo" value="${refundMap.sellSpecNo}">	
 		<input type="hidden" name="refundId" value="${refundMap.refundId}">
 	
 			</div>

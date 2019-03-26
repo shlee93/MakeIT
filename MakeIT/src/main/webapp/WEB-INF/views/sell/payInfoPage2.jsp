@@ -90,6 +90,7 @@
 	 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include> 
 	<script>
 		var sellno=$("#sellno").val();
+		console.log(sellno);
 		var optionCode=$("#optionCode").val();
 		var optionNo=$('#optionNo').val();
 		var opPrice=$("#opPrice").val();

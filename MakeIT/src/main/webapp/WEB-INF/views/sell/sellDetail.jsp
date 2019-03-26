@@ -33,10 +33,14 @@
    	</jsp:include>
    	
    	<style>
-		/* div
-		{
-			border:1px solid red;
-		} */
+		.donggeulInnerBtn
+      {
+         position:relative; 
+         top:-100px;
+      }
+      div{
+       border:1l
+      }
 		
 		header
 		{
@@ -179,8 +183,8 @@
                                       		</td>
                                       		<td style="text-align: right">                                         
 	                                  			<c:if test="${review.MEMBERID eq sessionScope.member.MEMBERID }">
-	                                            	<button class="btn btn-outline-info slidetopleft review-mod" onclick="fn_reviewMod('${review.SELLREVIEWNO}','${review.SELLNO }')">수정</button>
-	                                            	<button class="btn btn-outline-info slidetopleft review-del" onclick="fn_reviewDel('${review.SELLREVIEWNO}','${review.SELLNO }')">삭제</button>
+	                                            	<button class="btn btn-outline-info slidetopleft review-mod donggeulInnerBtn" onclick="fn_reviewMod('${review.SELLREVIEWNO}','${review.SELLNO }')">수정</button>
+	                                            	<button class="btn btn-outline-info slidetopleft review-del donggeulInnerBtn" onclick="fn_reviewDel('${review.SELLREVIEWNO}','${review.SELLNO }')">삭제</button>
 	                                         	</c:if>                                         
                                       		</td>
                                    		</tr>
@@ -418,7 +422,7 @@
 				                          	
 				                        		<!-- 수정하기 찜하기 찜풀기 -->
 									    		<c:if test="${session.MEMBERID eq detailList.get(0).MEMBERID}">												
-													<button class="btn btn-outline-info slidetopleft" onclick="fn_sellModify();" id="sellModify">수정하기</button>										    	
+													<button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick="fn_sellModify();" id="sellModify">수정하기</button>										    	
 								    			</c:if>
 								    				<form id='sellDetailFrm'>
 					                                	<input type="hidden" id="sellno" name="sellno" value="${detailList.get(0).SELLNO}">
@@ -437,10 +441,10 @@
 					                                	<input type="hidden" name="sellno" value="${detailList.get(0).SELLNO}">
 					                                </form>								    		
 													<c:if test="${empty outBoxYn and detailList.get(0).MEMBERID ne session.MEMBERID }">
-				                                    	<button class="btn btn-outline-info slidetopleft" onclick="fn_outboxDo();">찜하기</button>
+				                                    	<button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick="fn_outboxDo();">찜하기</button>
 				                                    </c:if>
 				                                    <c:if test="${!empty outBoxYn and detailList.get(0).MEMBERID ne session.MEMBERID }">
-				                                   		<button class="btn btn-outline-info slidetopleft" onclick="fn_outboxNo();" >찜풀기</button>
+				                                   		<button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick="fn_outboxNo();" >찜풀기</button>
 				                                   	</c:if>
 				                                   	
 				                                   	<script>
@@ -471,7 +475,7 @@
 										  													
 			                           			<!-- 삭제하기 쪽지보내기 -->			                          
 									    		<c:if test="${session.MEMBERID eq detailList.get(0).MEMBERID}">
-                                					<button class="btn btn-outline-info slidetopleft" onclick="fn_sellDelete();" id="sellDelete">삭제하기</button>
+                                					<button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick="fn_sellDelete();" id="sellDelete">삭제하기</button>
                                 				</c:if>
                                 				<script>
 	                                				function fn_sellDelete(){
@@ -484,7 +488,7 @@
 										      			<input type='hidden' id='sendId' name='sendId' value='${session.MEMBERID}'/>
 										      			<input type='hidden' id='receiveId' name='receiveId' value='${detailList.get(0).MEMBERID }'/>
 										      		<%-- </form> --%> 
-									      			<button class="btn btn-outline-info slidetopleft" onclick='fn_message()'>쪽지보내기</button>
+									      			<button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick='fn_message()'>쪽지보내기</button>
 									      			
 									      			<script>									      			
 									      				function fn_message()
@@ -522,7 +526,7 @@
 		                           				<!-- 구매자보기 구매하기 -->
 											
 										    	<c:if test="${session.MEMBERID eq detailList.get(0).MEMBERID}">
-										    		<button class="btn btn-outline-info slidetopleft" onclick="fn_purchaseListShow();">구매자 보기</button>											    										    							    	   
+										    		<button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick="fn_purchaseListShow();">구매자 보기</button>											    										    							    	   
 										      	   	<form id="buyerShow">
 					                         		 	<input type="hidden" id="sellno" name="sellno" value="${detailList.get(0).SELLNO}">
 					                               	</form>
@@ -539,7 +543,7 @@
 			                                    		<input type="hidden" id="sellno" name="sellno" value="${detailList.get(0).SELLNO}">
 			                                    		<input type="hidden" id="selcOption" name="selcOption" value="">
 			                                    		<input type="hidden" name="sellerId" value="${detailList.get(0).MEMBERID}">			                                    		
-			                                    		<select id="optionSelector" required="true" class="form-control required" style="width:100%" onchange="fn_selected(this.value)" >                      
+			                                    		<select id="optionSelector" required="true" class="form-control required donggeulInnerBtn" style="width:100%;bottom:4px;" onchange="fn_selected(this.value)" >                      
 					                                    	<option value="">구매할 옵션을 선택해주세요</option>
 					                                        <c:forEach items="${optionList}" var="optionList">
 					                                        	<option value="${optionList.SELLOPTIONNO}">${optionList.SELLOPTIONNO}  ${optionList.SELLOPTIONCONTENT}  소요기간  ${optionList.SELLDEADLINE}</option>                             
@@ -551,7 +555,7 @@
 															    console.log($("#selcOption").val());														
 															}
 					                                    </script>	
-					                                    <input class="btn btn-outline-info slidetopleft" type="submit" value="구매하기">				                                    
+					                                    <input class="btn btn-outline-info slidetopleft donggeulInnerBtn" type="submit" value="구매하기">				                                    
 			                                    		<!-- <button class="btn btn-outline-info slidetopleft" onclick="fn_sellBoardBuy();">구매하기</button> -->
 			                                    	</form>
 			                                    </c:if>
@@ -590,7 +594,7 @@
 					                                		<form id="sellBuyFrm" action="${path}/sell/sellCommit.do">
 					                                    		<input type="hidden" id="sellno" name="sellno" value="${detailList.get(0).SELLNO}">
 					                                    		<input type="hidden" id="sellSpecNo" name="sellSpecNo" value="">				                                    					                                    	
-					                                    		<select id="specSelector" name="sellSpecNo" required="true" onchange="fn_selectedSpec(this.value)" class="form-control required" style="width:100%" >                      
+					                                    		<select id="specSelector" name="sellSpecNo" required="true" onchange="fn_selectedSpec(this.value)" class="form-control required donggeulInnerBtn" style="width:100%" >                      
 							                                    												    													    										    							    	   											      											    										      	
 							                                    	<option value="">구매확정할 옵션을 선택해주세요</option>
 														      		<c:forEach items="${purchaseList}" var="purchaseList">
@@ -605,7 +609,7 @@
 																	}
 							                                    </script>	
 							                                   
-							                                    <input class="btn btn-outline-info slidetopleft" type="submit" value="구매확정">				                                    
+							                                    <input class="btn btn-outline-info slidetopleft donggeulInnerBtn" type="submit" value="구매확정">				                                    
 					                                    		
 					                                    	</form>
 					                                    </c:if>
@@ -628,7 +632,7 @@
 											
 			                           			<!-- 신고하기 -->
 			                           		
-												<button class="btn btn-outline-info slidetopleft" onclick="fn_reportPop();">신고하기</button>
+												<button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick="fn_reportPop();">신고하기</button>
 											
 												<script>	
 													function fn_reportPop(){
@@ -663,8 +667,9 @@
 										      	<c:if test='${!empty purchaseList}'>	
 										      		<c:if test="${session.MEMBERID ne detailList.get(0).MEMBERID}">								      		
 			                                		<form id="sellRefundFrm" action="${path}/sell/sellRefund.do">
-			                                    		<input type="hidden" id="sellno" name="sellno" value="${detailList.get(0).SELLNO}">				                                    					                                    	
-			                                    		<select id="optionRefund" name="sellSpecNo" required="true" class="form-control" style="width:100%" onchange="fn_refundSelected(this.value)" >                      
+			                                    		<input type="hidden" id="sellno" name="sellno" value="${detailList.get(0).SELLNO}">
+			                                    		<input type="hidden" id="sellRefundSpec" name="sellRefundSpec" value="">				                                    					                                    	
+			                                    		<select id="optionRefund" name="sellSpecNo" required="true" class="form-control donggeulInnerBtn" style="width:100%" onchange="fn_refundSelected(this.value)" >                      
 					                                    	<option value="">환불할 옵션을 선택해주세요</option>
 						                                        <c:forEach items="${purchaseList}" var="purchaseList">
 									      							<c:if test="${session.MEMBERID ne detailList.get(0).MEMBERID and purchaseList.STATUSNO=='3'|| purchaseList.STATUSNO=='2'}">
@@ -672,13 +677,20 @@
 							                                        </c:if>
 						                                        </c:forEach>
 					                                    </select>
-					                                    <input class="btn btn-outline-info slidetopleft" type="button" onclick='fn_refundPop()' value="환불하기">				                                    
+					                                    <input class="btn btn-outline-info slidetopleft donggeulInnerBtn" type="button" onclick='fn_refundPop()' value="환불하기">				                                    
 					                                    <script>	
+					                                    	function fn_refundSelected(str)
+					                                    	{
+					                                    		  $("#sellRefundSpec").attr("value",str);	
+					                                    		 console.log( $("#sellRefundSpec").val());
+					                                    	}
 															function fn_refundPop(){
 																if(${sessionScope.member.MEMBERID!=null}){
+					                                    var sellSpecNo=$('#sellRefundSpec').val();
+					                                    console.log(sellSpecNo);
 																	var url="${path}/sell/sellRefund.do";
 																	var name="환불하기";			
-																	window.open("${path}/sell/sellRefund.do?sellWriter=${detailList.get(0).MEMBERID}&&sellno=${detailList.get(0).SELLNO}&&refundId=${purchaseList.get(0).MEMBERID}",name,'width=490, height=300, menubar=no, status=no, toolbar=no');
+																	window.open("${path}/sell/sellRefund.do?sellWriter=${detailList.get(0).MEMBERID}&&sellSpecNo="+sellSpecNo+"&&refundId=${purchaseList.get(0).MEMBERID}",name,'width=490, height=300, menubar=no, status=no, toolbar=no');
 																}else{
 																	alert('로그인 후 이용해 주세요 ');
 																	location.href="${path}/member/memberLogin.do";
@@ -707,7 +719,7 @@
 																							
 												<br/>
 																						
-	                                			<button class="btn btn-outline-info slidetopleft" onclick="fn_starPop();">후기남기기</button>
+	                                			<button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick="fn_starPop();">후기남기기</button>
 	                                			
 				                           	</div>
 		                               											
