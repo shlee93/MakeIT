@@ -95,13 +95,13 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<Map<String, String>> buyOutBoxList(String memberId, int buycPage, int numPerPage) {
+	public List<Map<Object, Object>> buyOutBoxList(String memberId, int buycPage, int numPerPage) {
 		RowBounds row = new RowBounds((buycPage-1)*numPerPage,numPerPage);
 		return sqlSession.selectList("member.buyOutBoxList",memberId,row);
 	}
 
 	@Override
-	public List<Map<String, String>> sellOutBoxList(String memberId, int sellcPage, int numPerPage) {
+	public List<Map<Object, Object>> sellOutBoxList(String memberId, int sellcPage, int numPerPage) {
 		RowBounds row = new RowBounds((sellcPage-1)*numPerPage,numPerPage);
 		return sqlSession.selectList("member.sellOutBoxList",memberId,row);
 	}
@@ -271,7 +271,7 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<Map<String, String>> contestOutBoxList(String memberId, int contestcPage, int numPerPage) {
+	public List<Map<Object, Object>> contestOutBoxList(String memberId, int contestcPage, int numPerPage) {
 		RowBounds row = new RowBounds((contestcPage-1)*numPerPage,numPerPage);
 		return sqlSession.selectList("member.contestOutBoxList",memberId,row);
 	}

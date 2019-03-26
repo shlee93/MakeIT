@@ -770,13 +770,25 @@ public class MemberController {
 		buycPage = 1;
 		sellcPage = 1;
 		contestcPage = 1;
-		List<Map<String,String>> buyOutBoxList = service.buyOutBoxList(memberId,buycPage,numPerPage);
+		List<Map<Object,Object>> buyOutBoxList = service.buyOutBoxList(memberId,buycPage,numPerPage);
+		for(Map<Object,Object> buy : buyOutBoxList) {
+			String buydate = buy.get("BUYDATE").toString().substring(0, 10);
+			buy.put("BUYDATE", buydate);
+		}
 		int totalBuyCount = service.selectOutBoxBuyCount(memberId);
 		String buyPageBar = PageFactory.getPageBarAjax(totalBuyCount, buycPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
-		List<Map<String,String>> sellOutBoxList = service.sellOutBoxList(memberId,sellcPage,numPerPage);
+		List<Map<Object,Object>> sellOutBoxList = service.sellOutBoxList(memberId,sellcPage,numPerPage);
+		for(Map<Object,Object> sell : sellOutBoxList) {
+			String selldate = sell.get("SELLDATE").toString().substring(0, 10);
+			sell.put("SELLDATE", selldate);
+		}
 		int totalSellCount = service.selectOutBoxSellCount(memberId);
 		String sellPageBar = PageFactory.getPageBarAjax(totalSellCount, sellcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
-		List<Map<String,String>> contestOutBoxList = service.contestOutBoxList(memberId,contestcPage,numPerPage);
+		List<Map<Object,Object>> contestOutBoxList = service.contestOutBoxList(memberId,contestcPage,numPerPage);
+		for(Map<Object,Object> contest : contestOutBoxList) {
+			String freedate = contest.get("CONTESTDATE").toString().substring(0, 10);
+			contest.put("CONTESTDATE", freedate);
+		}
 		int totalContestCount = service.selectOutBoxContestCount(memberId);
 		String contestPageBar = PageFactory.getPageBarAjax(totalContestCount, contestcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
 		ModelAndView mv = new ModelAndView();
@@ -1083,15 +1095,27 @@ public class MemberController {
 			}
 			logger.debug(buycPage);
 			logger.debug(sellcPage);
-			List<Map<String,String>> buyOutBoxList = service.buyOutBoxList(memberId,buycPage,numPerPage);
+			List<Map<Object,Object>> buyOutBoxList = service.buyOutBoxList(memberId,buycPage,numPerPage);
 			int totalBuyCount = service.selectOutBoxBuyCount(memberId);
 			String buyPageBar = PageFactory.getPageBarAjax(totalBuyCount, buycPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
-			List<Map<String,String>> sellOutBoxList = service.sellOutBoxList(memberId,sellcPage,numPerPage);
+			List<Map<Object,Object>> sellOutBoxList = service.sellOutBoxList(memberId,sellcPage,numPerPage);
 			int totalSellCount = service.selectOutBoxSellCount(memberId);
 			String sellPageBar = PageFactory.getPageBarAjax(totalSellCount, sellcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
-			List<Map<String,String>> contestOutBoxList = service.contestOutBoxList(memberId,contestcPage,numPerPage);
+			List<Map<Object,Object>> contestOutBoxList = service.contestOutBoxList(memberId,contestcPage,numPerPage);
 			int totalContestCount = service.selectOutBoxContestCount(memberId);
 			String contestPageBar = PageFactory.getPageBarAjax(totalContestCount, contestcPage, numPerPage, request.getContextPath()+"/member/memberPagingAjax.do");
+			for(Map<Object,Object> buy : buyOutBoxList) {
+				String buydate = buy.get("BUYDATE").toString().substring(0, 10);
+				buy.put("BUYDATE", buydate);
+			}
+			for(Map<Object,Object> sell : sellOutBoxList) {
+				String selldate = sell.get("SELLDATE").toString().substring(0, 10);
+				sell.put("SELLDATE", selldate);
+			}
+			for(Map<Object,Object> contest : contestOutBoxList) {
+				String freedate = contest.get("CONTESTDATE").toString().substring(0, 10);
+				contest.put("CONTESTDATE", freedate);
+			}
 			mv.addObject("totalContestCount",totalContestCount);
 			mv.addObject("contestOutBoxList",contestOutBoxList);
 			mv.addObject("contestPageBar",contestPageBar);

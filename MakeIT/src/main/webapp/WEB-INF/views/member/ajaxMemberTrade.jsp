@@ -93,7 +93,14 @@ pageEncoding="UTF-8"%>
 	                    		<c:if test="${totalBuyCount != 0 }">
 		                    		<c:forEach var="bo" items="${buyList }">
 		                    			<tr>
-		                    				<td style="width: 30%;"><c:out value="${bo.STATUSNAME }"/></td>
+		                    				<td style="width: 30%;">
+		                    					<c:if test="${bo.STATUSNAME=='입금완료 및 진행' }">
+		                    						<c:out value="입금완료"/>
+		                    					</c:if>
+		                    					<c:if test="${bo.STATUSNAME!='입금완료 및 진행' }">
+		                    						<c:out value="${bo.STATUSNAME }"/>
+		                    					</c:if>
+		                    				</td>
 											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a class="myPageInfo" href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
 											<td style="width: 20%;"><c:out value="${bo.MEMBERID }"/></td>
 											<td style="width: 20%;"><c:out value="${bo.BUYPRICE }"/></td>
@@ -126,7 +133,14 @@ pageEncoding="UTF-8"%>
 	                    		<c:if test="${totalSellCount != 0 }">
 		                    		<c:forEach var="so" items="${sellList }">
 		                    			<tr>
-		                    				<td style="width: 20%;"><c:out value="${so.STATUSNAME }"/></td>
+		                    				<td style="width: 20%;">
+		                    					<c:if test="${so.STATUSNAME=='입금완료 및 진행' }">
+		                    						<c:out value="입금완료"/>
+		                    					</c:if>
+		                    					<c:if test="${so.STATUSNAME!='입금완료 및 진행' }">
+		                    						<c:out value="${so.STATUSNAME }"/>
+		                    					</c:if>
+		                    				</td>
 											<td style="width: 20%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a class="myPageInfo" href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
 											<td style="width: 20%;"><c:out value="${so.MEMBERID }"/></td>
 											<td style="width: 20%;"><c:out value="${so.SELLOPTIONNO }"/></td>
@@ -200,7 +214,14 @@ pageEncoding="UTF-8"%>
 	                    		<c:if test="${totalBuyCount != 0 }">
 		                    		<c:forEach var="bo" items="${buyList }">
 		                    			<tr>
-		                    				<td style="width: 30%;"><c:out value="${bo.STATUSNAME }"/></td>
+		                    				<td style="width: 30%;">
+		                    					<c:if test="${bo.STATUSNAME=='입금완료 및 진행' }">
+		                    						<c:out value="입금완료"/>
+		                    					</c:if>
+		                    					<c:if test="${bo.STATUSNAME!='입금완료 및 진행' }">
+		                    						<c:out value="${bo.STATUSNAME }"/>
+		                    					</c:if>
+		                    				</td>
 											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a class="myPageInfo" href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
 											<td style="width: 20%;"><c:out value="${bo.MEMBERID }"/></td>
 											<td style="width: 20%;"><c:out value="${bo.BUYPRICE }"/></td>
@@ -233,7 +254,14 @@ pageEncoding="UTF-8"%>
 	                    		<c:if test="${totalSellCount != 0 }">
 		                    		<c:forEach var="so" items="${sellList }">
 		                    			<tr>
-		                    				<td style="width: 20%;"><c:out value="${so.STATUSNAME }"/></td>
+		                    				<td style="width: 20%;">
+		                    					<c:if test="${so.STATUSNAME=='입금완료 및 진행' }">
+		                    						<c:out value="입금완료"/>
+		                    					</c:if>
+		                    					<c:if test="${so.STATUSNAME!='입금완료 및 진행' }">
+		                    						<c:out value="${so.STATUSNAME }"/>
+		                    					</c:if>
+		                    				</td>
 											<td style="width: 20%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a class="myPageInfo" href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
 											<td style="width: 20%;"><c:out value="${so.MEMBERID }"/></td>
 											<td style="width: 20%;"><c:out value="${so.SELLOPTIONNO }"/></td>
