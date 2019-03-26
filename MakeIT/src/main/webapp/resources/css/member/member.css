@@ -149,11 +149,12 @@
     border-bottom: 1px solid #818182;
     min-height: 500px;
 }
-th{
-	 white-space : nowrap; text-overflow:ellipsis; overflow:hidden;
-}
-td{
-	 white-space : nowrap; text-overflow:ellipsis; overflow:hidden;
+table {table-layout: fixed; /*테이블 내에서 <td>의 넓이,높이를 고정한다.*/}
+table td {
+    width:100%; /* width값을 주어야 ...(말줄임)가 적용된다. */
+    overflow: hidden;
+    text-overflow:ellipsis; /*overflow: hidden; 속성과 같이 써줘야 말줄임 기능이 적용된다.*/
+    white-space:nowrap; /*<td>보다 내용이 길경우 줄바꿈 되는것을 막아준다.*/
 }
 
 
