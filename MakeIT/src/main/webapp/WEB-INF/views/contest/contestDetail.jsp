@@ -513,12 +513,13 @@
   					</div>        
        			</div>
 			</div>
-	    	<div class='col-md-1' id='right-nav' >	    	
-				<c:if test="${sessionScope.member.MEMBERID==admin}">   		    
-		    		<div style='position:fixed; margin-top: 10em;'>
-		    			<button class=" btn btn-outline-info slidetopleft" id='approval-btn' >승인</button>
-		           	</div>
-	    		</c:if>
+	    	<div class='col-md-1' id='right-nav' >
+	    	<c:if test="${sessionScope.member.MEMBERID == 'admin'}">
+	    		<div style='position:fixed;'>
+	    			<span onclick='fn_back()' id='approval-btn' style='cursor:pointer; font-size: 4em;'><i class="fas fa-check-circle"></i></span>   				           
+	          	 	
+	           	</div>
+           	</c:if>
 	    	</div>
 	    	<script>
 			    function fn_applicantAccess_modal()
