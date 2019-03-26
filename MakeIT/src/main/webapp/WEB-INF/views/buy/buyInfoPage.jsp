@@ -91,7 +91,7 @@
       
       
             $(document).on('click','#decidePurchase',function(){
-               var title=$('#buyTitle').text();
+               var title=$('#buyTitle').val();
                var specNo=$('#end-spec-no').val();               
                console.log(title);
                console.log(price);
