@@ -136,8 +136,8 @@ $(function()
 						<label>금액</label>
 					</div>
 					<div id="priceProduct" class="col-md-8">
-						<input type="number" class="form-control col-md-2" id='firstPrice'
-							name="price" style="display: inline" placeholder="금액(원)" value="${detailList.BUYPRICE }">
+						<input type='number' id="price" name="price" min="1" step="1" pattern="^[0-9]" class='form-control col-md-2' style='display: inline' placeholder="금액(원)" value="${detailList.BUYPRICE }">
+						
 						 <br /> <br />
 					</div>
 
@@ -176,7 +176,7 @@ $(function()
 
 				<br />
 				<div id="btn-container">
-					<button class="btn btn-outline-info slidetopleft" onclick="fn_back()">취소</button>
+					
 					<input type="submit" class="btn btn-outline-info slidetopleft" onsubmit="fn_check();" value="수정"/>
 				</div>
 				</form>
@@ -256,6 +256,9 @@ $(function()
 		   
 	   }
 	   
+	   //가격
+	   $('#price').keypress(function (event) { if (event.which && (event.which <= 47 || event.which >= 58) && event.which != 8) { event.preventDefault(); } });
+	 
 	   
 	   
      

@@ -113,3 +113,9 @@
         {
            width:30%;
         }
+        
+        .donggeulInnerBtn
+		{
+		   position:relative; 
+		   top:-100px;
+		}

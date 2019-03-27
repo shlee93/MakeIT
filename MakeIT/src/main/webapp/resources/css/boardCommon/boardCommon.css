@@ -1,84 +1,84 @@
-@charset "UTF-8";	
-	
-	    /* .donggeulInnerBtn
-      	{
-         	position:relative; 
-         	top:-100px;
-      	} */
-	
-	/* 게시판 상세 이미지 5컨테이너 */
-		
-	
-		.mainImgContainer
-		{
-			border:1px solid #138496;
-			padding:1px;
-		}
-		
-		.subImg
-		{
-			border:1px solid #17a2b8;
-			height:100px;
-		}
-		.subImgs
-		{		
-			/* position: absolute; top:0; left: 0; */
-			width: 100%;
-			height: 100%;
-		}
-		.contentTextArea
-		{
-			width: 100% ;
-	      	resize: none;
-     	    overflow-y: hidden; /* prevents scroll bar flash */
-    	  	padding: 1.1em; /* prevents text jump on Enter keypress */
-	      	padding-bottom: 0.2em;
-     	  	line-height: 1.6;
-		}
-	   
+@charset "UTF-8";   
+   
+       /* .donggeulInnerBtn
+         {
+            position:relative; 
+            top:-100px;
+         } */
+   
+   /* 게시판 상세 이미지 5컨테이너 */
+      
+   
+      .mainImgContainer
+      {
+         border:1px solid #138496;
+         padding:1px;
+      }
+      
+      .subImg
+      {
+         border:1px solid #17a2b8;
+         height:100px;
+      }
+      .subImgs
+      {      
+         /* position: absolute; top:0; left: 0; */
+         width: 100%;
+         height: 100%;
+      }
+      .contentTextArea
+      {
+         width: 100% ;
+            resize: none;
+            overflow-y: hidden; /* prevents scroll bar flash */
+            padding: 1.1em; /* prevents text jump on Enter keypress */
+            padding-bottom: 0.2em;
+             line-height: 1.6;
+      }
+      
     /* 작성자 이미지 css */
-  	
+     
     .image_outer_container
     {
-     	 /* margin-top: auto;
-     	 margin-bottom: auto; */
-     	 border-radius: 50%;
-     	 position: relative;
-     	 
+         /* margin-top: auto;
+         margin-bottom: auto; */
+         border-radius: 50%;
+         position: relative;
+         
      }
 
      .image_inner_container
      {
-     	 border-radius: 50% ;
-     	 padding: 5px;
-      	 background: #17a2b8; 
-      	 background: -webkit-linear-gradient(to bottom, #138496, #17a2b8, ghostwhite); 
-      	 background: linear-gradient(to bottom, #138496, #17a2b8, ghostwhite);
+         border-radius: 50% ;
+         padding: 5px;
+          background: #17a2b8; 
+          background: -webkit-linear-gradient(to bottom, #138496, #17a2b8, ghostwhite); 
+          background: linear-gradient(to bottom, #138496, #17a2b8, ghostwhite);
      }
      
      .image_inner_container img
      {
-     	 height: 100px;
-     	 width: 100px;
-     	 border-radius: 50%;
-     	 border: 1px solid black;
+         height: 100px;
+         width: 100px;
+         border-radius: 50%;
+         border: 1px solid black;
      }
        
      /* 게시판 똥글뱅이 */
      .fixed
     {
-    	position: relative;
-    	margin-left:63%;
-    	margin-top:-37em;
+       position: relative;
+       margin-left:63%;
+       margin-top:-37em;
     }
     .fixed-fixed
     {
-    	position: fixed ;
-    	margin-left: 45%;
-    	margin-top:-8em;
-    	
+       position: fixed ;
+       margin-left: 45%;
+       margin-top:-8em;
+       
     }
-	   
+      
     .holderCircle { width: 500px; height: 500px; border-radius: 100%; margin: 60px auto; position: relative; }
 	.dotCircle { width: 100%; height: 100%; position: absolute; margin: auto; top: 0; left: 0; right: 0; bottom: 0; border-radius: 100%;}
 	.dotCircle  .itemDot { display: block; width: 80px; height: 80px; position: absolute; background: #17a2b8; color: white; border-radius: 20px; text-align: center; line-height: 80px; font-size: 30px; z-index: 3; cursor: pointer; border: 2px solid #e6e6e6; }
@@ -112,11 +112,12 @@
 	@media only screen and (min-width:768px) and (max-width:991px) { }
 	@media only screen and (min-width:992px) and (max-width:1199px) { }
 	@media only screen and (min-width:1200px) and (max-width:1499px) { }
+
     .title-box .title { font-weight: 600; letter-spacing: 2px; position: relative; z-index: -1; }
     .title-box span { text-shadow: 0 10px 10px rgba(0, 0, 0, .15); font-weight: 800; color: #640178; }
     .title-box p {font-size: 17px; line-height: 2em; }
     
     .donggeulI
     {
-    	margin-top:0.4em;
+       margin-top:0.4em;
     }

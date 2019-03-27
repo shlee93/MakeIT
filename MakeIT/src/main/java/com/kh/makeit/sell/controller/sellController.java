@@ -676,10 +676,10 @@ public class sellController {
 	}
 
 	@RequestMapping("/sell/sellRefund.do")
-	public ModelAndView sellRefund(int sellno, String refundId, String sellWriter) {
+	public ModelAndView sellRefund(int sellSpecNo, String refundId, String sellWriter) {
 		ModelAndView mv = new ModelAndView();
 		Map refundMap = new HashMap();
-		refundMap.put("sellno", sellno);
+		refundMap.put("sellSpecNo", sellSpecNo);
 		refundMap.put("refundId", refundId);
 		refundMap.put("sellWriter", sellWriter);
 		mv.addObject("refundMap", refundMap);
@@ -688,12 +688,12 @@ public class sellController {
 	}
 
 	@RequestMapping("/sell/sellRefundEnd")
-	public ModelAndView sellRefundEnd(int sellno, String refundId) {
-		System.out.println(sellno);
+	public ModelAndView sellRefundEnd(int sellSpecNo, String refundId) {
+		System.out.println(sellSpecNo);
 		System.out.println("shdjkfljksdl" + refundId);
 		ModelAndView mv = new ModelAndView();
 		Map payBack = new HashMap();
-		payBack.put("sellno", sellno);
+		payBack.put("sellSpecNo", sellSpecNo);
 		payBack.put("refundId", refundId);
 		int result = service.sellRefundEnd(payBack);
 		String msg = "";

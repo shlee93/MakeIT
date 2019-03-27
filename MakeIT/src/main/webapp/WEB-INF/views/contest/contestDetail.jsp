@@ -522,10 +522,9 @@
        			</div>
 			</div>
 	    	<div class='col-md-1' id='right-nav' >
-	    	<c:if test="${sessionScope.member.MEMBERID == 'admin'}">
+	    	<c:if test="${sessionScope.member.MEMBERLEVEL == 0 and contestObj.CONTESTYN=='N'}">
 	    		<div style='position:fixed;'>
-	    			<span onclick='fn_back()' id='approval-btn' style='cursor:pointer; font-size: 4em;'><i class="fas fa-check-circle"></i></span>   				           
-	          	 	
+	    			<span id='approval-btn' style='cursor:pointer; font-size: 4em;'><i class="fas fa-check-circle"></i></span>	          	 	
 	           	</div>
            	</c:if>
 	    	</div>

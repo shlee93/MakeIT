@@ -495,7 +495,7 @@
 								<nav class="nav" style="width: 100%;">
 
 									<ul class="nav__link-wrapper">
-										<li class="nav__link"><a href="${path}/sell/sellWrite.do">새 글 작성</a></li>
+										<li class="nav__link"><button class="btn btn-outline-info slidetopleft" onclick="location.href='${path}/sell/sellWrite.do'">새 글 작성</button></li>
 									</ul>
 
 								</nav>
