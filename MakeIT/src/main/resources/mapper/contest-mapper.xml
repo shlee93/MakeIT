@@ -9,7 +9,7 @@
 	
 	<!-- 컨테스트 검색 숫자세기 -->
 	<select id='sortCount' parameterType='map' resultType='_int'>
-		select count(*) from contest a join member b on a.memberId=b.memberId where 1=1
+		select count(*) from contest a join member b on a.memberId=b.memberId where contestYn='Y' and contestDeleteYn='N' and 1=1
 		<choose>
         	<when test='interestFlag!=null and interestFlag!=""'> 
         		and a.interestNo = #{interestFlag}
@@ -35,7 +35,7 @@
 	<!-- 컨테스트 검색 -->
 	
 	<select id='contestSort' parameterType='map' resultType='map'>
-		select a.*, memberName,(select count(*) from contestApplicant where contestno=a.contestno) as contestApplicantCount from contest a join member b on a.memberId=b.memberId where a.contestYn='N' 
+		select a.*, memberName, memberlevel, REIMG, (select count(*) from contestApplicant where contestno=a.contestno) as contestApplicantCount from contest a join member b on a.memberId=b.memberId where a.contestYn='Y' and a.contestDeleteYn='N' 
 		<choose>
         	<when test='interestFlag!=null and interestFlag!=""'> 
         		and a.interestNo = #{interestFlag}
@@ -73,7 +73,7 @@
 	
 	<!-- 컨테스트 리스트 가져오기 -->
 	<select id='getContestList' parameterType='map' resultType='map'>
-		select a.*, memberName,(select count(*) from contestApplicant where contestno=a.contestno) as contestApplicantCount from contest a join member b on a.memberId=b.memberId where contestYn='N' order by contestno desc
+		select a.*, memberName, memberlevel, REIMG, (select count(*) from contestApplicant where contestno=a.contestno) as contestApplicantCount from contest a join member b on a.memberId=b.memberId where contestYn='Y' and contestDeleteYn='N' order by contestno desc
 	</select>
 	
 	<!-- 컨테스트 이미지 가져오기 -->
@@ -131,7 +131,7 @@
 	
 	<!-- 컨테스트 삭제 -->
 	<update id='contestDel' parameterType='_int'>
-		update contest set contestYn='Y' where contestNo=#{contestDelNo}
+		update contest set contestDeleteYn='Y' where contestNo=#{contestDelNo}
 	</update>
 	
 	<!-- 컨테스트 수정 정보 불러오기 -->

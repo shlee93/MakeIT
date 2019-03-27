@@ -45,6 +45,7 @@ public class AdminController {
 				@RequestParam(value="approvalStatus", required=false, defaultValue="BUY") String approvalStatus,
 				@RequestParam(value="deleteStatus", required=false, defaultValue="BUY") String deleteStatus
 			) {
+
 			HttpSession session=request.getSession();
 			Map<Object,Object> member=(Map<Object, Object>)session.getAttribute("member");
 			ModelAndView mav=new ModelAndView();

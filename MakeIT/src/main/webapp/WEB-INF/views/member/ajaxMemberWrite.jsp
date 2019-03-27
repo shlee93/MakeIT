@@ -126,7 +126,8 @@ pageEncoding="UTF-8"%>
             <a class="myPageInfo" onclick="memberInfoAjax();">회원정보</a><br/>
             <a class="myPageInfo" onclick="memberOutBoxAjax();">찜한 목록</a><br/>
             <a class="myPageInfo" onclick="memberWriteAjax();">내가 쓴 글 보기</a><br/>
-            <a class="myPageInfo" onclick="memberMessageAjax();">쪽지함</a>
+            <a class="myPageInfo" onclick="memberMessageAjax();">쪽지함</a><br/>
+            <a class="myPageInfo" onclick="memberTradeAjax();">거래내역</a>
         </div>
     </div>
     <div class="col-md-8">
@@ -146,7 +147,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="bo" items="${buyList }">
 		                    			<tr>
 		                    				<td><c:out value="${bo.BUYNO }"/></td>
-											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
 											<td><c:out value="${bo.MEMBERID }"/></td>
 											<td><c:out value="${bo.BUYDATE }"/></td>
 		                    			</tr>
@@ -178,7 +179,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="so" items="${sellList }">
 		                    			<tr>
 		                    				<td><c:out value="${so.SELLNO }"/></td>
-											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
 											<td><c:out value="${so.MEMBERID }"/></td>
 											<td><c:out value="${so.SELLDATE }"/></td>
 		                    			</tr>
@@ -210,7 +211,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="fr" items="${freeList }">
 		                    			<tr>
 		                    				<td><c:out value="${fr.FREENO }"/></td>
-											<td><a href="#"><c:out value="${fr.FREETITLE }"/></a></td>
+											<td><a class="myPageInfo" href="#"><c:out value="${fr.FREETITLE }"/></a></td>
 											<td><c:out value="${fr.MEMBERID }"/></td>
 											<td><c:out value="${fr.FREEDATE }"/></td>
 		                    			</tr>
@@ -242,7 +243,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="qna" items="${qnaList }">
 		                    			<tr>
 		                    				<td><c:out value="${qna.QNANO }"/></td>
-											<td><a href="#"><c:out value="${qna.QNATITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/support/detailQnaView2.do?qnaNo=${qna.QNANO}"><c:out value="${qna.QNATITLE }"/></a></td>
 											<td><c:out value="${qna.MEMBERID }"/></td>
 											<td><c:out value="${qna.ANSWERYN }"/></td>
 		                    			</tr>
@@ -274,7 +275,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="con" items="${contestList }">
 		                    			<tr>
 		                    				<td><c:out value="${con.CONTESTNO }"/></td>
-											<td><a href="${path }/contest/contestDetail.do?contestNo=${con.CONTESTNO }"><c:out value="${con.CONTESTTITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/contest/contestDetail.do?contestNo=${con.CONTESTNO }"><c:out value="${con.CONTESTTITLE }"/></a></td>
 											<td><c:out value="${con.MEMBERID }"/></td>
 											<td><c:out value="${con.CONTESTDATE }"/></td>
 		                    			</tr>
@@ -308,7 +309,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="bo" items="${buyList }">
 		                    			<tr>
 		                    				<td><c:out value="${bo.BUYNO }"/></td>
-											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
 											<td><c:out value="${bo.MEMBERID }"/></td>
 											<td><c:out value="${bo.BUYDATE }"/></td>
 		                    			</tr>
@@ -340,7 +341,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="so" items="${sellList }">
 		                    			<tr>
 		                    				<td><c:out value="${so.SELLNO }"/></td>
-											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
 											<td><c:out value="${so.MEMBERID }"/></td>
 											<td><c:out value="${so.SELLDATE }"/></td>
 		                    			</tr>
@@ -372,7 +373,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="fr" items="${freeList }">
 		                    			<tr>
 		                    				<td><c:out value="${fr.FREENO }"/></td>
-											<td><a href="#"><c:out value="${fr.FREETITLE }"/></a></td>
+											<td><a class="myPageInfo" href="#"><c:out value="${fr.FREETITLE }"/></a></td>
 											<td><c:out value="${fr.MEMBERID }"/></td>
 											<td><c:out value="${fr.FREEDATE }"/></td>
 		                    			</tr>
@@ -404,7 +405,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="qna" items="${qnaList }">
 		                    			<tr>
 		                    				<td><c:out value="${qna.QNANO }"/></td>
-											<td><a href="#"><c:out value="${qna.QNATITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/support/detailQnaView2.do?qnaNo=${qna.QNANO}"><c:out value="${qna.QNATITLE }"/></a></td>
 											<td><c:out value="${qna.MEMBERID }"/></td>
 											<td><c:out value="${qna.ANSWERYN }"/></td>
 		                    			</tr>
@@ -436,7 +437,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="con" items="${contestList }">
 		                    			<tr>
 		                    				<td><c:out value="${con.CONTESTNO }"/></td>
-											<td><a href="${path }/contest/contestDetail.do?contestNo=${con.CONTESTNO }"><c:out value="${con.CONTESTTITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/contest/contestDetail.do?contestNo=${con.CONTESTNO }"><c:out value="${con.CONTESTTITLE }"/></a></td>
 											<td><c:out value="${con.MEMBERID }"/></td>
 											<td><c:out value="${con.CONTESTDATE }"/></td>
 		                    			</tr>
@@ -470,7 +471,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="bo" items="${buyList }">
 		                    			<tr>
 		                    				<td><c:out value="${bo.BUYNO }"/></td>
-											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
 											<td><c:out value="${bo.MEMBERID }"/></td>
 											<td><c:out value="${bo.BUYDATE }"/></td>
 		                    			</tr>
@@ -502,7 +503,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="so" items="${sellList }">
 		                    			<tr>
 		                    				<td><c:out value="${so.SELLNO }"/></td>
-											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
 											<td><c:out value="${so.MEMBERID }"/></td>
 											<td><c:out value="${so.SELLDATE }"/></td>
 		                    			</tr>
@@ -534,7 +535,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="fr" items="${freeList }">
 		                    			<tr>
 		                    				<td><c:out value="${fr.FREENO }"/></td>
-											<td><a href="#"><c:out value="${fr.FREETITLE }"/></a></td>
+											<td><a class="myPageInfo" href="#"><c:out value="${fr.FREETITLE }"/></a></td>
 											<td><c:out value="${fr.MEMBERID }"/></td>
 											<td><c:out value="${fr.FREEDATE }"/></td>
 		                    			</tr>
@@ -566,7 +567,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="qna" items="${qnaList }">
 		                    			<tr>
 		                    				<td><c:out value="${qna.QNANO }"/></td>
-											<td><a href="#"><c:out value="${qna.QNATITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/support/detailQnaView2.do?qnaNo=${qna.QNANO}"><c:out value="${qna.QNATITLE }"/></a></td>
 											<td><c:out value="${qna.MEMBERID }"/></td>
 											<td><c:out value="${qna.ANSWERYN }"/></td>
 		                    			</tr>
@@ -598,7 +599,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="con" items="${contestList }">
 		                    			<tr>
 		                    				<td><c:out value="${con.CONTESTNO }"/></td>
-											<td><a href="${path }/contest/contestDetail.do?contestNo=${con.CONTESTNO }"><c:out value="${con.CONTESTTITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/contest/contestDetail.do?contestNo=${con.CONTESTNO }"><c:out value="${con.CONTESTTITLE }"/></a></td>
 											<td><c:out value="${con.MEMBERID }"/></td>
 											<td><c:out value="${con.CONTESTDATE }"/></td>
 		                    			</tr>
@@ -632,7 +633,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="bo" items="${buyList }">
 		                    			<tr>
 		                    				<td><c:out value="${bo.BUYNO }"/></td>
-											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
 											<td><c:out value="${bo.MEMBERID }"/></td>
 											<td><c:out value="${bo.BUYDATE }"/></td>
 		                    			</tr>
@@ -664,7 +665,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="so" items="${sellList }">
 		                    			<tr>
 		                    				<td><c:out value="${so.SELLNO }"/></td>
-											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
 											<td><c:out value="${so.MEMBERID }"/></td>
 											<td><c:out value="${so.SELLDATE }"/></td>
 		                    			</tr>
@@ -696,7 +697,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="fr" items="${freeList }">
 		                    			<tr>
 		                    				<td><c:out value="${fr.FREENO }"/></td>
-											<td><a href="#"><c:out value="${fr.FREETITLE }"/></a></td>
+											<td><a class="myPageInfo" href="#"><c:out value="${fr.FREETITLE }"/></a></td>
 											<td><c:out value="${fr.MEMBERID }"/></td>
 											<td><c:out value="${fr.FREEDATE }"/></td>
 		                    			</tr>
@@ -728,7 +729,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="qna" items="${qnaList }">
 		                    			<tr>
 		                    				<td><c:out value="${qna.QNANO }"/></td>
-											<td><a href="#"><c:out value="${qna.QNATITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/support/detailQnaView2.do?qnaNo=${qna.QNANO}"><c:out value="${qna.QNATITLE }"/></a></td>
 											<td><c:out value="${qna.MEMBERID }"/></td>
 											<td><c:out value="${qna.ANSWERYN }"/></td>
 		                    			</tr>
@@ -760,7 +761,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="con" items="${contestList }">
 		                    			<tr>
 		                    				<td><c:out value="${con.CONTESTNO }"/></td>
-											<td><a href="${path }/contest/contestDetail.do?contestNo=${con.CONTESTNO }"><c:out value="${con.CONTESTTITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/contest/contestDetail.do?contestNo=${con.CONTESTNO }"><c:out value="${con.CONTESTTITLE }"/></a></td>
 											<td><c:out value="${con.MEMBERID }"/></td>
 											<td><c:out value="${con.CONTESTDATE }"/></td>
 		                    			</tr>
@@ -794,7 +795,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="bo" items="${buyList }">
 		                    			<tr>
 		                    				<td><c:out value="${bo.BUYNO }"/></td>
-											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
 											<td><c:out value="${bo.MEMBERID }"/></td>
 											<td><c:out value="${bo.BUYDATE }"/></td>
 		                    			</tr>
@@ -826,7 +827,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="so" items="${sellList }">
 		                    			<tr>
 		                    				<td><c:out value="${so.SELLNO }"/></td>
-											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
 											<td><c:out value="${so.MEMBERID }"/></td>
 											<td><c:out value="${so.SELLDATE }"/></td>
 		                    			</tr>
@@ -858,7 +859,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="fr" items="${freeList }">
 		                    			<tr>
 		                    				<td><c:out value="${fr.FREENO }"/></td>
-											<td><a href="#"><c:out value="${fr.FREETITLE }"/></a></td>
+											<td><a class="myPageInfo" href="#"><c:out value="${fr.FREETITLE }"/></a></td>
 											<td><c:out value="${fr.MEMBERID }"/></td>
 											<td><c:out value="${fr.FREEDATE }"/></td>
 		                    			</tr>
@@ -890,7 +891,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="qna" items="${qnaList }">
 		                    			<tr>
 		                    				<td><c:out value="${qna.QNANO }"/></td>
-											<td><a href="#"><c:out value="${qna.QNATITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/support/detailQnaView2.do?qnaNo=${qna.QNANO}"><c:out value="${qna.QNATITLE }"/></a></td>
 											<td><c:out value="${qna.MEMBERID }"/></td>
 											<td><c:out value="${qna.ANSWERYN }"/></td>
 		                    			</tr>
@@ -922,7 +923,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="con" items="${contestList }">
 		                    			<tr>
 		                    				<td><c:out value="${con.CONTESTNO }"/></td>
-											<td><a href="${path }/contest/contestDetail.do?contestNo=${con.CONTESTNO }"><c:out value="${con.CONTESTTITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/contest/contestDetail.do?contestNo=${con.CONTESTNO }"><c:out value="${con.CONTESTTITLE }"/></a></td>
 											<td><c:out value="${con.MEMBERID }"/></td>
 											<td><c:out value="${con.CONTESTDATE }"/></td>
 		                    			</tr>

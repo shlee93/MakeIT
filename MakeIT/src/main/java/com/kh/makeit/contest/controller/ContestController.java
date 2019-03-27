@@ -41,7 +41,7 @@ public class ContestController
 	public ModelAndView contestMain(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, HttpServletRequest request, String sortTypeFlag)
 	{
 		System.out.println("현재P"+cPage);
-		int numPerPage=5;
+		int numPerPage=3;
 		ModelAndView mv=new ModelAndView();
 		int contentCount=cs.contestCountService();		
 		
@@ -65,7 +65,7 @@ public class ContestController
 	{
 		Map searchFlag=new HashMap();
 		ModelAndView mv=new ModelAndView();
-		int numPerPage=5;
+		int numPerPage=3;
 		List<Map<String,String>> contestList = null;
 		if(interestFlag!=null)
 		{

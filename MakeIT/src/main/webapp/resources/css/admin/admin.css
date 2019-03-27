@@ -952,6 +952,315 @@ translate
 	display:none;
 }
 
+.sdsd{
+	width:100px;
+	height:100px;
+	cursor: pointer;
+	background-color: black;	
+
+}
+#boardDetailView{
+	position:relative;
+	transition:ease-in-out;
+	transition-duration:0.7s;
+	width:1110px;
+	height:0px;
+	left:50%;
+	transform: translateX(-50%);
+	background-color: gainsboro;
+	margin-bottom: 50px;
+	border: 2px solid gray;
+}
+#boardDetailNav{
+	position:relative;
+	width:100%;
+	height:0px;
+	border-top: 1px solid gray;
+	border-bottom: 1px solid gray;
+	background-color: white;
+	overflow: hidden;
+	opacity: 0;
+}
+#boardTitle{
+	position: relative;
+	display: inline-block;
+	left:1%;
+	top: 50%;
+	transform: translate(-1%,-50%);
+	font-size: 30px;
+	font-weight: bold;
+	color: black;
+	transition:ease-in-out;
+	transition-duration:0.7s;
+}
+#boardViews{
+	position: relative;
+	display: inline-block;
+	margin-left: 100px;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 17px;
+	color: black;
+	transition:ease-in-out;
+	transition-duration:0.7s;
+}
+#boardLike{
+	position: relative;
+	display: inline-block;
+	margin-left: 15px;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 17px;
+	color: black;
+	transition:ease-in-out;
+	transition-duration:0.7s;
+}
+#boardDate{
+	position: relative;
+	display: inline-block;
+	margin-left: 15px;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 17px;
+	color: black;
+	transition:ease-in-out;
+	transition-duration:0.7s;
+}
+#boardDetailBox{
+	position: relative;
+	width: 100%;
+	height: 0px;	
+	margin-top: 10px;
+	background-color: white;
+	border-top: 1px solid gray;
+	border-bottom: 1px solid gray;
+	transition:ease-in-out;
+	transition-duration:0.7s;
+	opacity:0;
+	overflow: hidden;
+}
+#boardDetailContent{
+	position: relative;
+	display: inline-block;
+	margin-top: 30px;
+	max-width: 800px;
+	left:50%;
+	transform: translateX(-50%);
+	font-size: 20px;
+	color: black;
+	word-break:break-all;
+	/* background-color: red; */
+	transition:ease-in-out;
+	transition-duration:0.7s;
+}
+.boardDetailImg{
+	position: relative;
+	max-width: 800px;
+	height:auto;
+	left:50%;
+	transform: translateX(-50%);
+	margin-top: 50px;
+}
+.boardDetailImg2{
+	position: relative;
+	left:50%;
+	transform: translateX(-50%);
+}
+
+#boardUpButton{
+	position: relative;
+	width: 100px;
+	height: 50px;
+	margin-top: 150px;
+	margin-bottom: 30px;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #138496;
+	transition:ease-in-out;
+	transition-duration:0.7s;
+}
+
+#boardDetailCommentBox{
+	position: relative;
+	width: 100%;
+	height: 0px;
+	margin-top: 10px;
+	background-color: white;
+	border-top: 1px solid gray;
+	border-bottom: 1px solid gray;
+	transition:ease-in-out;
+	transition-duration:0.7s;
+	overflow:hidden;
+	opacity:0;
+}
+#boardDetailComment{
+	position: relative;
+	width: 100%;
+	height: max-content;
+	margin-top: 15px;
+	/* background-color: red; */
+	transition:ease-in-out;
+	transition-duration:0.7s;
+}
+#commentSum{
+	position: relative;
+	left: 50px;
+
+	font-size:30px;
+	color: black;
+}
+.commentDiv{
+	position: relative;
+	width: 90%;
+	height:70px;
+	left: 50px;
+	white-space:nowrap;
+
+	border-bottom: 3px solid gainsboro;
+	/* background-color: cornflowerblue; */
+}
+.commentNick{
+	position: relative;
+	display: inline-block;
+	width: max-content;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 20px;
+	font-weight: bold;
+	color: black;
+	white-space:nowrap;
+	/* background-color: yellow; */
+
+}
+.commentContent{
+	position: relative;
+	display: inline-block;
+	width: max-content;
+	margin-left:10px;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 20px;
+	color: black;
+	white-space:nowrap;
+	/* background-color: green; */
+	
+}
+
+.recommentDiv{
+	position: relative;
+	width: 80%;
+	height:70px;
+	left: 100px;
+	border-bottom: 3px solid gainsboro;	
+/* 	background-color: lime; */
+}
+.recommentImg{
+	position: absolute;
+	display: inline-block;
+	width:50px;
+	height:50px;
+	top:50%;
+	transform: translateY(-50%);
+	background-color: #138496;
+}
+.recommentNick{
+	position: relative;
+	display: inline-block;
+	width: max-content;
+	margin-left: 60px;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 20px;
+	font-weight: bold;
+	color: black;
+	white-space:nowrap;
+	/* background-color: yellow; */
+}
+.recommentContent{
+	position: relative;
+	display: inline-block;
+	width: max-content;
+	margin-left:10px;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 20px;
+	color: black;
+	white-space:nowrap;
+	/* background-color: green; */
+}
+.recommentButton{
+	position: relative;
+	display: inline-block;
+	width: max-content;
+	margin-left:50px;
+	margin-right:10px;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 15px;
+	font-weight:bold;
+	color: black;
+	white-space:nowrap;
+	cursor:pointer;
+}
+.recommentButton:hover{
+	color:#138496;
+}
+.commentDelete{
+	position: relative;
+	display: inline-block;
+		margin-right:10px;
+	width: max-content;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 15px;
+	font-weight:bold;
+	color: black;
+	white-space:nowrap;
+	cursor:pointer;
+}
+.commentDelete:hover{
+	color:#138496;
+}
+
+#boardDetailWriteBox{
+	position: relative;
+	width: 100%;
+	height: 90px;
+	margin-top: 15px;
+	/* background-color: red; */
+	transition:ease-in-out;
+	transition-duration:0.7s;
+}
+#boardDetailWrite{
+	position: relative;
+	width: max-content;
+	top: 50%;
+	left:40%;
+	transform: translate(-40%,-50%);
+	margin-top: 15px;
+ 	/* background-color: gray;  */
+	transition:ease-in-out;
+	transition-duration:0.7s;
+}
+#boardDetailWrite input{
+	position: relative;
+	width: 550px;
+	height: 50px;
+	transition:ease-in-out;
+	transition-duration:0.7s;
+}
+#boardDetailWriteButton{
+	position: absolute;
+	width: 80px;
+	height: 50px;
+	left:77%;
+	top: 8%;
+	transform: translate(-77%,-8%);
+ 	background-color: #138496; 
+	transition:ease-in-out;
+	transition-duration:0.7s;
+	cursor:pointer;
+}
 /* 게시글 승인 */
 #approval-search-inp{
 	width:85%;

@@ -123,15 +123,15 @@
 <div class='container-fluid' id="total">
 	<div class='row'>
         <div class='col-md-1' id='nav'>
-        	<div style='position:fixed; margin-top: 10em;'>
-	    			<span onclick='fn_back()' style='cursor:pointer; font-size: 6em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
-	          	 	<script>
-	           			function fn_back()
-		           		{
-		           			history.back();
-		           		}
-		           	</script>
-	           	</div>
+        	<div style='position:fixed; '>
+                   <span onclick='fn_back()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-left"></i></span>                           
+                       <script>
+                          function fn_back()
+                          {
+                             history.back();
+                          }
+                       </script>
+                    </div>
         </div>
         <div class='col-md-10' id='section' style='padding:50px'>        	
             <div class='row'>         
@@ -406,7 +406,7 @@
 			                        	<div class="contentCircle">
 				                        	<!-- 첫번째 법륜 기능 시작 -->
 				                           	<div class="CirItem title-box active CirItem1">		                        	
-				                        	   	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+				                        	   	<div class="d-flex justify-content-center" style='margin-bottom: -8em;'>
 												   	<div class="image_outer_container">
 												   	   	<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${detailList.get(0).REIMG}">
@@ -459,7 +459,7 @@
 			                            	
 			                            	<!-- 두번째 법륜 기능 시작 -->
 			                           		<div class="CirItem title-box CirItem2">			                              			                        	
-				                        	  	<div class="d-flex justify-content-center h-100" style='margin-bottom:-8em;'>
+				                        	  	<div class="d-flex justify-content-center" style='margin-bottom:-8em;'>
 												 	<div class="image_outer_container">
 													 	<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${detailList.get(0).REIMG}">
@@ -509,7 +509,7 @@
 		                           			<!-- 세번째 법륜 기능 시작 -->
 		                           			<div class="CirItem title-box CirItem3">
 			                              				                        	
-					                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+					                        	<div class="d-flex justify-content-center " style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${detailList.get(0).REIMG}">
@@ -569,7 +569,7 @@
 			                           		<!-- 네번째 법륜 기능 시작 -->
 		                           	 		<div class="CirItem title-box CirItem4">
 			                        	
-					                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+					                        	<div class="d-flex justify-content-center " style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${detailList.get(0).REIMG}">
@@ -616,7 +616,7 @@
 		                           			<!-- 다섯번째 법륜 기능 시작 -->
 			                           		<div class="CirItem title-box CirItem5">			                              	
 			                        	
-					                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+					                        	<div class="d-flex justify-content-center " style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${detailList.get(0).REIMG}">
@@ -649,7 +649,7 @@
 			                           		<!-- 여섯번째 법륜 기능 시작 -->
 				                           	<div class="CirItem title-box CirItem6">
 			                              	
-					                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+					                        	<div class="d-flex justify-content-center " style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${detailList.get(0).REIMG}">
@@ -697,7 +697,7 @@
 			                           		
 			                           		<!-- //후기남기기 -->
 		                           	 		<div class="CirItem title-box CirItem7">			                              		                        	
-					                        	<div class="d-flex justify-content-center h-100" style='margin-bottom: -8em;'>
+					                        	<div class="d-flex justify-content-center " style='margin-bottom: -8em;'>
 													<div class="image_outer_container">
 														<div class="image_inner_container">
 															<img src="${path}/resources/upload/member/${detailList.get(0).REIMG}">
@@ -799,15 +799,16 @@
                                		</c:if>
                                 </form>
                           	<div class='row' style='margin-top: -4em;'>
-                  				<div class='col-md-2'></div>
+                  				<div class='col-md-1'></div>
+	                        	
 	                        	
 	                        	<!-- 작성자 소개 -->  	
-                          		<div class='col-md-8'>
-                          			<p>${detailList.get(0).INTRODUCTION}</p>
+                          		<div class='col-md-10'>
+                          		<textarea class='form-control' rows='6'style='width:100%; height: 100%;'readonly>${detailList.get(0).INTRODUCTION}</textarea>
                           		</div>
                           		<!-- 작성자 소개 끝 -->
                           		
-                       			<div class='col-md-2'></div>                          		
+                       			<div class='col-md-1'></div>                          		
                    			</div>                          	
                    		</div>                    	
                 	</div>                      
@@ -817,10 +818,10 @@
 		</div>   
    		<div class='col-md-1' id='right-nav'>
    			<c:if test="${sessionScope.member.MEMBERID=='admin'}">             
-         <div style='position:fixed; margin-top: 10em;'>
-            <button id="" class=" btn btn-outline-info slidetopleft" >승인</button>
-         </div>
-      </c:if>
+         		<div style='position:fixed; margin-top: 10em;'>
+            		<button id="" class=" btn btn-outline-info slidetopleft" >승인</button>
+         		</div>
+      		</c:if>
    			
    		</div>                   
 	</div>

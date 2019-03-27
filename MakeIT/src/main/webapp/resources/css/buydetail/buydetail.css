@@ -1,138 +1,115 @@
 @charset "UTF-8";
-  /* div
+      .subImg
         {
-            border: 1px solid red;
-        } */
-  
-        .subImg        
-        {        
-            display: inline;      
+        	display: inline;
         }
-
         #mainImg
         {
-            position: relative; top:0; left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
+	        position: relative; top:0; left: 0;
+	        width: 100%;
+	        height: 100%;
+    	}
         #img-container
         {
             width: 80%;
             height: 40%;
         }
   
-        nav > .nav.nav-tabs
-        {
-            border: none;
-            color:#fff;
-            background:#272e38;
-            border-radius:0;
-            text-align: center;
-            /* font-size: 0.965em; */
-            font-size: 1.55em;
-        }
-        nav > div a.nav-item.nav-link:not(.xx),
-        nav > div a.nav-item.nav-link.active:not(.xx)
-        {
-            border: none;
-            padding: 18px 25px;
-            color:#fff;
-            background:#272e38;
-            border-radius:0;
-        }
-
-        nav > div a.nav-item.nav-link.active:after
-        {
-            /* content: "";
-            position: relative;
-            bottom: -60px;
-            left: -10%; */
-            border: 15px solid transparent;
-            border-top-color: #e74c3c ;
-        } 
-
-        .tab-content
-        {
-            background: #fdfdfd;
-            line-height: 25px;
-            border: 1px solid #ddd;
-            border-top:5px solid #e74c3c;
-            border-bottom:5px solid #e74c3c;
-            padding:30px 25px;
-            width:100%;
-        }
-		
-		.tab-pane
-		{
-			padding:10px;
+	    nav > .nav.nav-tabs
+	    {
+		  	border: none;
+		    color:#fff;
+		    background:#17a2b8;
+		    border-radius:0;
+		    text-align: center;
+		    /* font-size: 0.965em; */
+		    font-size: 1.55em;	
 		}
-        .detail:hover
+		
+		nav > div a.nav-item.nav-link:not(.xx),
+		nav > div a.nav-item.nav-link.active:not(.xx)
+		{
+		  	border: none;
+		    padding: 18px 25px;
+		    color:#fff;
+		    background:#17a2b8;
+		    border-radius:0;
+		}
+		
+		 nav > div a.nav-item.nav-link.active:after
+		 {
+			  /* content: "";
+			  position: relative;
+			  bottom: -60px;
+			  left: -10%; */
+			  border: 15px solid transparent;
+			  border-top-color: #138496 ;
+		 } 
+		.tab-content
+		{
+		  	background: #fdfdfd;
+		    line-height: 25px;
+		    border: 1px solid #ddd;
+		    border-top:5px solid #138496;
+		    border-bottom:5px solid #138496;
+		    padding:30px 25px;
+		}
+		.detail:hover
+		{
+		    border: none;
+		    background: #e74c3c;
+		    color:#fff;
+		    border-radius:0;
+		    transition:background 0.20s linear;		   
+		}    
+	    
+	    #total
+	    {
+	      margin-top: 5%;
+	    }
+	    #tab-list
+	    {
+	        margin-top:3%;
+	       width: 100%;
+	    }
+	    #subImg1
+	    {
+	      margin-right:0;
+	    }
+	    .userImg
+	    {
+	        border-radius: 6em;
+	    }
+	    #rate-div
         {
-            border: none;
-            background: #e74c3c;
-            color:#fff;
-            border-radius:0;
-            transition: background 0.20s linear;    
-        }
-        
-        .fixed
-        {
-            position: fixed;
-            float: right;
-            margin-left: 50%;
-        }
-
-        #total
-        {
-        margin-top: 5%;
-        }
-
-        #tab-list
-        {
-            margin-top:3%;
-            width:100%;
-        }
-
-        #subImg1
-        {
-        margin-right:0;
-        }
-
-        .userImg
-        {
-            border-radius: 6em;
-        }
-        #rate-div
-        {
-        	padding-left:20px;
-        	padding-bottom:20px;
+           padding-left:20px;
+           padding-bottom:20px;
         }
         #review-table
         {
-        	padding:20px;
+           padding:20px;
         }
         #reviewAvg
         {
-        	display:inline;
-        	padding-left:10px;
-        	font-size:25pt;
-        	color:rgb(250,82,82);
-        	vertical-align: middle;
+           display:inline;
+           padding-left:10px;
+           font-size:25pt;	
+           color:rgb(250,82,82);
+           vertical-align: middle;
         }
         #reviewCnt
         {
-        	display:inline;
-        	padding-left:30px;
-        	font-size:15pt;
-        	color:grey;
-        	vertical-align:middle;
+           display:inline;
+           padding-left:30px;
+           font-size:15pt;
+           color:grey;
+           vertical-align:middle;
         }
         .tab-id
         {
-        	width:20%;
+           width:20%;
         }
         .tab-star
         {
-        	width:30%;
+           width:30%;
         }

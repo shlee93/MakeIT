@@ -42,16 +42,15 @@
 	<input type="hidden" id="isSearch" value="0">
 	<div class='row'>
 		<div class='col-md-1'>
-			<div style='position:fixed; margin-top: 10em;'>
-
-	    			<span onclick='fn_back()' style='cursor:pointer; font-size: 6em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
-	          	 	<script>
-	           			function fn_back()
-		           		{
-		           			history.back();
-		           		}
-		           	</script>
-	        </div>
+		<div style='position:fixed; margin-top:-6em;'>
+                   <span onclick='fn_back()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-left"></i></span>                           
+                       <script>
+                          function fn_back()
+                          {
+                             history.back();
+                          }
+                       </script>
+                    </div>
       </div>
 
 		<div class='col-md-10'>
@@ -60,11 +59,11 @@
 					<!-- 네비 사이드 -->
 
 					<div class="nav-side-menu">
-						<div class="brand">Brand Logo</div>
+						<div class="brand"><img src="${path }/resources/image/logo1main.png" style='max-width:50px; max-height:50px; margin-bottom: 2em;'/></div>
 						<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse"
 							data-target="#menu-content"></i>
 						<div>
-							<ul>
+							<ul style="font-family: 'Sunflower', sans-serif;">
 								<li class="menu"><a href="#"> <i class="fas fa-cogs"></i>
 										&nbsp;개발자
 								</a>
@@ -496,7 +495,7 @@
 								<nav class="nav" style="width: 100%;">
 
 									<ul class="nav__link-wrapper">
-										<li class="nav__link"><a href="${path}/sell/sellWrite.do">새 글 작성</a></li>
+										<li class="nav__link"><button class="btn btn-outline-info slidetopleft" onclick="location.href='${path}/sell/sellWrite.do'">새 글 작성</button></li>
 									</ul>
 
 								</nav>

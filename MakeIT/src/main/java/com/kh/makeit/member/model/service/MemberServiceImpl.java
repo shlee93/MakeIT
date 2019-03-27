@@ -85,12 +85,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Map<String, String>> buyOutBoxList(String memberId, int buycPage, int numPerPage) {
+	public List<Map<Object, Object>> buyOutBoxList(String memberId, int buycPage, int numPerPage) {
 		return dao.buyOutBoxList(memberId,buycPage,numPerPage);
 	}
 
 	@Override
-	public List<Map<String, String>> sellOutBoxList(String memberId, int sellcPage, int numPerPage) {
+	public List<Map<Object, Object>> sellOutBoxList(String memberId, int sellcPage, int numPerPage) {
 		return dao.sellOutBoxList(memberId,sellcPage,numPerPage);
 	}
 
@@ -105,12 +105,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Map<String, String>> buyList(String memberId, int buycPage, int numPerPage) {
+	public List<Map<Object, Object>> buyList(String memberId, int buycPage, int numPerPage) {
 		return dao.buyList(memberId,buycPage,numPerPage);
 	}
 
 	@Override
-	public List<Map<String, String>> sellList(String memberId, int sellcPage, int numPerPage) {
+	public List<Map<Object, Object>> sellList(String memberId, int sellcPage, int numPerPage) {
 		return dao.sellList(memberId,sellcPage,numPerPage);
 	}
 
@@ -187,7 +187,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Map<String, String>> freeList(String memberId, int freecPage, int numPerPage) {
+	public List<Map<Object, Object>> freeList(String memberId, int freecPage, int numPerPage) {
 		return dao.freeList(memberId,freecPage,numPerPage);
 	}
 
@@ -197,7 +197,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Map<String, String>> qnaList(String memberId, int qnacPage, int numPerPage) {
+	public List<Map<Object, Object>> qnaList(String memberId, int qnacPage, int numPerPage) {
 		return dao.qnaList(memberId,qnacPage,numPerPage);
 	}
 
@@ -212,7 +212,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Map<String, String>> contestList(String memberId, int contestcPage, int numPerPage) {
+	public List<Map<Object, Object>> contestList(String memberId, int contestcPage, int numPerPage) {
 		return dao.contestList(memberId,contestcPage,numPerPage);
 	}
 
@@ -252,13 +252,43 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Map<String, String>> contestOutBoxList(String memberId, int contestcPage, int numPerPage) {
+	public List<Map<Object, Object>> contestOutBoxList(String memberId, int contestcPage, int numPerPage) {
 		return dao.contestOutBoxList(memberId,contestcPage,numPerPage);
 	}
 
 	@Override
 	public int selectOutBoxContestCount(String memberId) {
 		return dao.selectOutBoxContestCount(memberId);
+	}
+
+	@Override
+	public List<Map<Object, Object>> sellTradeList(String memberId, int sellcPage, int numPerPage) {
+		return dao.sellTradeList(memberId,sellcPage,numPerPage);
+	}
+
+	@Override
+	public List<Map<Object, Object>> buyTradeList(String memberId, int buycPage, int numPerPage) {
+		return dao.buyTradeList(memberId,buycPage,numPerPage);
+	}
+
+	@Override
+	public List<Map<Object, Object>> contestTradeList(String memberId, int contestcPage, int numPerPage) {
+		return dao.contestTradeList(memberId,contestcPage,numPerPage);
+	}
+
+	@Override
+	public int totalSellTradeCount(String memberId) {
+		return dao.totalSellTradeCount(memberId);
+	}
+
+	@Override
+	public int totalBuyTradeCount(String memberId) {
+		return dao.totalBuyTradeCount(memberId);
+	}
+
+	@Override
+	public int totalContestTradeCount(String memberId) {
+		return dao.totalContestTradeCount(memberId);
 	}
 	
 }

@@ -60,15 +60,15 @@
 
    <div class="row">
       <div class="col-md-1">
-      	<div style='position:fixed; margin-top: 10em;'>
-	    			<span onclick='fn_back()' style='cursor:pointer; font-size: 6em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
-	          	 	<script>
-	           			function fn_back()
-		           		{
-		           			history.back();
-		           		}
-		           	</script>
-	           	</div>
+      	<div style='position:fixed; margin-top:-6em;'>
+                   <span onclick='fn_back()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-left"></i></span>                           
+                       <script>
+                          function fn_back()
+                          {
+                             history.back();
+                          }
+                       </script>
+                    </div>
       </div>
       <div id="buy-container" class="col-md-10">
       <div id="pageTitle" style="padding-bottom:20px;">
@@ -109,7 +109,8 @@
                 <label>상품</label> 
              </div>
              <div id="priceProduct" class="col-md-8">
-               <input type="number" class="form-control col-md-2" required id='firstPrice' name="price" style="display: inline" placeholder="금액(원)">
+             
+               <input type="number" class="form-control col-md-2" min='0' step='1' pattern="^[0-9]" required id='firstPrice' name="price" style="display: inline" placeholder="금액(원)">
                <input type="text" class="form-control col-md-2" required id='endDate' name="endDate" style="display: inline" placeholder="작업기한"> 
                <input type="text" class="form-control  col-md-8" required id="firstOption" name="productOption" style="display: inline" placeholder="상품에 대한 설명을 입력하세요.">
                <br/><br/>
@@ -204,8 +205,9 @@
       $('#sellWriteFrm').submit();
    }
       function fn_optionPlus(){
-         var addOption="<div class=addoption><input type='number' class='form-control col-md-3' name='price' style='display: inline' placeholder='금액(원)'><input type='text' class='form-control col-md-2' name='endDate' style='display: inline' placeholder='작업기한'><input type='text' class='form-control  col-md-8' name='productOption' style='display: inline' placeholder='상품에 대한 설명을 입력하세요.'><br/><br/></div>";
+         var addOption="<div class=addoption><input type='number' min='0' step='1' pattern='^[0-9]' class='form-control col-md-3 price' name='price' style='display: inline' placeholder='금액(원)' required><input type='text' class='form-control col-md-2' name='endDate' style='display: inline' placeholder='작업기한' required><input type='text' class='form-control  col-md-8' name='productOption' style='display: inline' placeholder='상품에 대한 설명을 입력하세요.' required><br/><br/></div>";
          $('#priceProduct').append(addOption); 
+         $('.price').keypress(function (event) { if (event.which && (event.which <= 47 || event.which >= 58) && event.which != 8) { event.preventDefault(); } });
       }
       function fn_otionDelete()
       {   
@@ -218,7 +220,8 @@
           }
        
        });
-         
+      
+      $('#firstPrice').keypress(function (event) { if (event.which && (event.which <= 47 || event.which >= 58) && event.which != 8) { event.preventDefault(); } });
       
    </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include> 

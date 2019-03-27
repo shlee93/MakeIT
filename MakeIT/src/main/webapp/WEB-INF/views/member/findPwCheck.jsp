@@ -50,6 +50,7 @@
     			<h5 style="font-family: 'Sunflower', sans-serif;">인증번호 입력</h5>
     		</div>
     	</div>
+    	<p>가입하신 메일로 인증번호를 발송했습니다. [<span>${email }</span>]메일을 확인하세요</p>
 		<input type="text" name="inputRandomNo" id="inputRandomNo" maxlength="6" placeholder="인증번호를 입력하세요."/>
 		<input type="hidden" name="randomNo" id="randomNo" value="${randomNo }">
 		<input type="button" onclick="checkEmail();" class="btn btn-outline-info slidetopleft" value="확인">
