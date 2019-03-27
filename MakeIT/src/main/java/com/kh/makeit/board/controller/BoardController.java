@@ -2,6 +2,10 @@
 
 
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -204,19 +208,54 @@ public class BoardController {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		System.out.println("인풋파일" + input_file);
-		System.out.println("타이틀" + writeTitle);
-		System.out.println("내용" + writeContent);
-		
 		HttpSession session = request.getSession();
 	    Map sessionMap = (Map) session.getAttribute("member");
 	    String memberId = (String)sessionMap.get("MEMBERID");
+	    
+		System.out.println("인풋파일" + input_file);
+		System.out.println("타이틀" + writeTitle);
+		System.out.println("내용" + writeContent);
+		System.out.println("아이디 값" + memberId);
 		
-	    Map<Object, Object> allList = new HashMap();
-	    allList.put("memberId", memberId);
-		allList.put("writeTitle", writeTitle);
-		allList.put("writeContent", writeContent);
+		for(MultipartFile a : input_file)
+		{
+			System.out.println("asdf   " + a.getOriginalFilename());
+		}
 		
+		Map<Object,Object> freeFiles = new HashMap();
+		Map<Object,Object> freeImgFiles = new HashMap();
+		String savDir = request.getSession().getServletContext().getRealPath("/resources/upload/board");
+		
+		for(MultipartFile f: input_file)
+		{
+			if(!f.isEmpty()) {
+				//파일명 생성(rename)
+				String orifileName=f.getOriginalFilename();
+				String ext=orifileName.substring(orifileName.lastIndexOf(".")); //.부터 확장자까지 가져오기
+				//rename규칙 설정
+				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSSS");
+				int rdv=(int)(Math.random()*1000); //랜덤값설정
+				String reName=sdf.format(System.currentTimeMillis())+"_"+rdv+ext;  //새이름
+				//파일입출력ㅎ
+				try {
+					f.transferTo(new File(savDir+"/"+reName)); //저경로에다가 파일을 생성해주는것
+				}catch(IllegalStateException | IOException e) {  //일리갈은 세이브디아이알 못찾을때 뜨는것
+					e.printStackTrace();
+				}
+				freeFiles.put("memberId", memberId);
+				freeFiles.put("writeTitle", writeTitle);
+				freeFiles.put("writeContent", writeContent);
+				freeFiles.put("memberId", memberId);
+				
+				System.out.println(" 경로 !!!!!!!!!!!!  "+reName);
+				System.out.println(" 경로 !!!!!!!!!!!!  "+orifileName);
+				
+				freeImgFiles.put("reName", reName);
+				freeImgFiles.put("oriName", orifileName);
+			}
+		}
+		
+
 		
 		
 		return mav;
