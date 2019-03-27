@@ -242,6 +242,9 @@
 												
 													<i class="fas fa-edit donggeulI"></i>
 												<span class="forActive"></span>
+												<div class="icon-title">
+													<p>수정하기</p>
+												</div>
 											</span>
 											</c:if> 
 											<!-- 첫번째 법륜 끝 -->
@@ -252,6 +255,9 @@
 												
 													<i class="fas fa-kiss-wink-heart donggeulI"></i>
 												 <span class="forActive"></span>
+												 <div class="icon-title">
+													<p>찜하기</p>
+												</div>
 											</span>
 											</c:if>
 											<!-- 두번째 법륜 끝 -->
@@ -262,6 +268,9 @@
 												
 													<i class="fas fa-trash-alt donggeulI"></i>
 												<span class="forActive"></span>
+												<div class="icon-title">
+													<p>삭제하기</p>
+												</div>
 											</span>
 											</c:if> 
 											<!-- 세번째 법륜 끝 -->
@@ -273,6 +282,9 @@
 												<i class="fas fa-comments donggeulI"></i> 
 												
 												<span class="forActive"></span>
+												<div class="icon-title">
+													<p>쪽지하기</p>
+												</div>
 											</span>
 											</c:if>
 											<!-- 네번째 법륜 끝 -->
@@ -283,6 +295,9 @@
 												
 													<i class="fas fa-briefcase donggeulI"></i>
 												 <span class="forActive"></span>
+												 <div class="icon-title">
+													<p>지원자보기</p>
+												</div>
 											</span>
 											</c:if>
 											<!-- 다섯번째 법륜 끝 -->
@@ -293,6 +308,9 @@
 												
 													<i class="fas fa-briefcase donggeulI"></i>
 												 <span class="forActive"></span>
+												 <div class="icon-title">
+													<p>지원하기</p>
+												</div>
 											</span>
 											</c:if>
 											<!-- 여섯번째 법륜 끝 -->
@@ -304,6 +322,9 @@
 													<i class="fas fa-hand-holding-usd donggeulI"></i>
 												
 												<span class="forActive"></span>
+												<div class="icon-title">
+													<p>환불하기</p>
+												</div>
 											</span>
 											</c:if>
 											<!-- 일곱번째 법륜 끝 -->
@@ -314,6 +335,9 @@
 												
 													<i class="fas fa-angry donggeulI"></i>
 												 <span class="forActive"></span>
+												 <div class="icon-title">
+													<p>신고하기</p>
+												</div>
 											</span>
 											</c:if>
 											<!-- 여덟번째 법륜 끝 -->
@@ -325,6 +349,9 @@
 													<i class="fas fa-file-signature donggeulI"></i>
 												
 												<span class="forActive"></span>
+												<div class="icon-title">
+													<p>구매확정</p>
+												</div>
 											</span>
 											</c:if> 
 											<!-- 아홉번째 법륜 끝 -->
@@ -336,6 +363,9 @@
 													<i class="fas fa-briefcase donggeulI"></i>
 													
 												<span class="forActive"></span>
+												<div class="icon-title">
+													<p>작업완료</p>
+												</div>
 											</span>
 											</c:if> 
 											<!-- 열번째 법륜 끝 -->
@@ -686,7 +716,7 @@
                               
                               <!-- 작성자 소개 -->     
                                 <div class='col-md-10'>
-                                   <textarea class='form-control' rows='6'style='width:100%; height: 100%;'readonly>${detailList.INTRODUCTION}</textarea>
+                                   <textarea class='form-control' rows='6'style='width:100%; height: 100%; margin-top:30px;'readonly>${detailList.INTRODUCTION}</textarea>
                                 </div>
                                 <!-- 작성자 소개 끝 -->
                                 
