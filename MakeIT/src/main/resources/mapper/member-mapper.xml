@@ -110,10 +110,10 @@
 		SELECT * FROM ACCOUNT WHERE ACCOUNTNO=#{accountNo} AND BANKCODE=#{bankCode}
 	</select>
 	<select id="contestList" parameterType="string" resultType="map">
-		SELECT * FROM CONTEST WHERE MEMBERID=#{memberId} AND CONTESTYN='N' ORDER BY CONTESTDATE DESC
+		SELECT CONTESTNO, CONTESTTITLE,MEMBERID,CONTESTDATE FROM CONTEST WHERE MEMBERID=#{memberId} AND CONTESTDELETEYN='N' ORDER BY CONTESTDATE DESC
 	</select>
 	<select id="selectContestCount" parameterType="string" resultType="_int">
-		SELECT COUNT(*) FROM CONTEST WHERE MEMBERID=#{memberId} AND CONTESTYN='N'
+		SELECT COUNT(*) FROM CONTEST WHERE MEMBERID=#{memberId} AND CONTESTDELETEYN='N'
 	</select>
 	<select id="noReadMessage" parameterType="string" resultType="_int">
 		SELECT COUNT(*) FROM MESSAGE WHERE RECEIVEID=#{memberId} AND READDATE IS NULL AND RECEIVEDELETEYN = 'N'

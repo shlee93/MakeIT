@@ -398,12 +398,20 @@ public class MemberController {
 
 	@RequestMapping("/findIdCheck.do")
 	public ModelAndView findIdCheck(String email) {
-		int randomNo = SendMail.sendmail(email);
-		logger.debug(randomNo);
+		List<String> id = service.searchId(email);
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("randomNo", randomNo);
-		mv.addObject("email", email);
-		mv.setViewName("member/findIdCheck");
+		logger.debug(id);
+		if(id.size() != 0) {
+			int randomNo = SendMail.sendmail(email);
+			logger.debug(randomNo);
+			mv.addObject("randomNo", randomNo);
+			mv.addObject("email", email);
+			mv.setViewName("member/findIdCheck");
+		} else {
+			mv.addObject("msg","아이디가 존재하지 않습니다.");
+			mv.addObject("loc","/member/findId.do");
+			mv.setViewName("common/msg");
+		}
 		return mv;
 	}
 
@@ -436,29 +444,37 @@ public class MemberController {
 	@RequestMapping("/findPwCheck.do")
 	public ModelAndView findPwCheck(String id) {
 		String email = service.searchEmail(id);
-		int randomNo = SendMail.sendmail(email);
-		logger.debug(randomNo);
+		logger.debug(email);
 		ModelAndView mv = new ModelAndView();
-		String[] emailCk = email.split("@");
-		int idLength = emailCk[0].length();
-		int domainLength = emailCk[1].length();
-		logger.debug(idLength);
-		logger.debug(domainLength);
-		String idStr = emailCk[0].substring(0, 4);
-		String domainStr = emailCk[1].substring(0, 4);
-		for(int j = 0; j<idLength-4;j++) {
-			idStr+="*";
+		if(email != null) {
+			int randomNo = SendMail.sendmail(email);
+			logger.debug(randomNo);
+			String[] emailCk = email.split("@");
+			int idLength = emailCk[0].length();
+			int domainLength = emailCk[1].length();
+			logger.debug(idLength);
+			logger.debug(domainLength);
+			String idStr = emailCk[0].substring(0, 4);
+			String domainStr = emailCk[1].substring(0, 4);
+			for(int j = 0; j<idLength-4;j++) {
+				idStr+="*";
+			}
+			for(int i = 0; i<domainLength-4;i++) {
+				domainStr+="*";
+			}
+			emailCk[0] = idStr;
+			emailCk[1] = domainStr;
+			String fullEmail = idStr+"@"+domainStr;
+			mv.addObject("randomNo", randomNo);
+			mv.addObject("email",fullEmail);
+			mv.addObject("id", id);
+			mv.setViewName("member/findPwCheck");
+
+		} else {
+			mv.addObject("msg","아이디가 존재하지 않습니다.");
+			mv.addObject("loc","/member/findPw.do");
+			mv.setViewName("common/msg");
 		}
-		for(int i = 0; i<domainLength-4;i++) {
-			domainStr+="*";
-		}
-		emailCk[0] = idStr;
-		emailCk[1] = domainStr;
-		String fullEmail = idStr+"@"+domainStr;
-		mv.addObject("randomNo", randomNo);
-		mv.addObject("email",fullEmail);
-		mv.addObject("id", id);
-		mv.setViewName("member/findPwCheck");
 		return mv;
 	}
 

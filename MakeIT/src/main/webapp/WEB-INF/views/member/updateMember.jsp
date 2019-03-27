@@ -80,15 +80,15 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-1">
-        	<div style='position:fixed; margin-top: 10em;'>
-    			<span onclick='fn_back()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
-          	 	<script>
-           			function fn_back()
-	           		{
-	           			history.back();
-	           		}
-	           	</script>
-           	</div>
+        	<div style='position:fixed; margin-top:-6em;'>
+            <span onclick='fn_back()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-left"></i></span>                           
+                <script>
+                   function fn_back()
+                   {
+                      history.back();
+                   }
+                </script>
+            </div>
         </div>
         <div class="col-md-10">
             <div class="row">
@@ -120,8 +120,7 @@
                     			</div>
                    			</div>
 				            <label for="memberProfile">사진 선택</label> 
-				            <input type="file" name="memberProfile" id="memberProfile" class="upload-hidden" accept=".gif, .jpg, .png">
-				            <input type="hidden" name="profileImg" id="profileImg" value="${member.REIMG }">
+				            <input type="file" name="memberProfile" id="memberProfile" class="upload-hidden" value="${member.REIMG }" accept=".gif, .jpg, .png">
 				        </div>
                     </div>
                     <div class="col-md-3 mb-2">
@@ -167,7 +166,7 @@
                         </c:if>
                     </div>
                     <div class="col-md-6 mb-2">
-                        <input type="date" id='birth' name='birth' class='form-control' value='${member.BIRTH }' required>
+                        <input type="date" id='birth' name='birth' class='form-control' value='${member.BIRTH }' min="1900-01-01" required>
                     </div>
                     <div class="col-md-3 mb-2">
                     </div>
@@ -329,9 +328,15 @@
     
     
 <script>	
+$('#joinEmailDomain').keyup(function(){
+	$('#emailValid').attr("value","0");
+});
+$('#memberEmail').keyup(function(){
+	$('#emailValid').attr("value","0");
+});
 $('#emailDomain').change(function(){
 	var domain = $('#emailDomain').val().trim();
-	
+	$('#emailValid').attr("value","0");
 	$('#joinEmailDomain').val('');
 	$('#joinEmailDomain').val(domain);
 	
@@ -429,7 +434,7 @@ $(function(){
 			
     function fn_enroll_validate()
     {
-    	if($('#profileImg').val().trim() == ""){
+    	if($('#memberProfile').val().trim() == ""){
     		alert("사진을 선택해주세요");
     		$('#memberProfile').focus();
     		return false;
@@ -491,7 +496,15 @@ $(function(){
             $('#memberAccount').focus();
             return false;
         }
-        
+        var memberName = $('#memberName').val().trim();
+        var pattern = /^[가-힣]{2,8}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
+
+        if(!pattern.test(memberName)){
+        	alert("이름은 영문 또는 한글로만 입력 가능합니다.");
+       	 	$('#memberName').focus();
+            return false;
+        	
+        }
         if($('#memberName').val().trim().length==0)
         {
             alert("이름을 입력하세요");
@@ -505,6 +518,8 @@ $(function(){
             $('#birth').focus();
             return false;
         }
+
+        
 
         return true;
     };      
@@ -525,9 +540,7 @@ $(function(){
 	$('#cancleBtn').click(function(){
 		location.href = "${path}/member/memberMyPage.do";
 	});
-	$('#updateBtn').click(function(){
-		$('#updateFrm').submit();
-	})
+
     
     	
 </script>

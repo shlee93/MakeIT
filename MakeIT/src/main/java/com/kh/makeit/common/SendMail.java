@@ -42,7 +42,7 @@ public class SendMail {
         }});
         try{
             Message message = new MimeMessage(session); 
-            message.setFrom(new InternetAddress("i37491287@gmail.com"));// 
+            message.setFrom(new InternetAddress("i37491287@gmail.com","MakeIT"));// 
             message.setRecipients(Message.RecipientType.TO,
             InternetAddress.parse(email)); 
             message.setSubject("MakeIT 인증번호 입니다.");
