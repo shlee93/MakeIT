@@ -33,10 +33,11 @@
    	<link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Sunflower:300" rel="stylesheet">
    	
    	<style>
-		/* div
+		
+		div
 		{
-			border:1px solid red;
-		} */
+			border:1px solid blue;
+		}
 		
 		header
 		{
@@ -206,26 +207,39 @@
 				                           	    <c:set var='currentId' value='${memberMap.get("MEMBERID")}'/>								
 				                           	   	   	<c:choose>
 									    	   		   	<c:when test="${currentId eq contestObj.MEMBERID}">
-									    	   		   		<i class="fas fa-edit donggeulI"></i>				 			                          										    	   		   
+									    	   		   		<i class="fas fa-edit donggeulI"></i>
+										    	   		   		<div class="icon-title">
+							                                       <p>수정하기</p>
+							                                    </div>
+						                                    <span class="forActive"></span>				 			                          										    	   		   
 									    	   		   	</c:when>
 												       	<c:otherwise>
-								                        	<i class="fas fa-kiss-wink-heart donggeulI"></i>   				     		
+								                        	<i class="fas fa-kiss-wink-heart donggeulI"></i>  
+								                        		<div class="icon-title">
+							                                       <p>찜설정</p>
+							                                    </div>
+						                                    <span class="forActive"></span>		 				     		
 												       	</c:otherwise>
 										 		   	</c:choose>	   	
-				                           		<span class="forActive"></span>
-				                           		<div class="icon-title">
-			                                       <p>수정하기</p>
-			                                    </div>
+				                           						                           		
 				                            </span>
 			                           		
 				                            <span class="itemDot itemDot2" data-tab="2">
 				                           	    <c:set var='currentId' value='${memberMap.get("MEMBERID")}'/>								
 				                           	   	   	<c:choose>
 									    	   		   	<c:when test="${currentId eq contestObj.MEMBERID}">
-				 			                          		<i class="fas fa-trash-alt donggeulI"></i>								    	   		   
+				 			                          		<i class="fas fa-trash-alt donggeulI"></i>
+				 			                          		<div class="icon-title">
+						                                       <p>삭제하기</p>
+						                                    </div>
+						                                    <span class="forActive"></span>										    	   		   
 									    	   		   	</c:when>
 												       	<c:otherwise>
-								                           	<i class="fa fa-comments donggeulI"></i>			     		
+								                           	<i class="fa fa-comments donggeulI"></i>
+								                           	<div class="icon-title">
+						                                       <p>쪽지하기</p>
+						                                    </div>
+						                                    <span class="forActive"></span>					     		
 												       	</c:otherwise>
 										 		   	</c:choose>	   	
 				                           		<span class="forActive"></span>
@@ -233,7 +247,10 @@
 				                           	
 				                           	<span class="itemDot itemDot3 active" data-tab="3">
 					                           	<i class="fa fa-briefcase donggeulI"></i>
-				                           	   	<span class="forActive"></span>
+				                           	   	<div class="icon-title">
+			                                       <p>지원하기</p>
+			                                    </div>
+		                                    	<span class="forActive"></span>		
 				                           	</span>
 				                           	<!-- <span class="itemDot itemDot3" data-tab="3">
 					                           	<i class="fa fa-user donggeulI"></i>
@@ -248,7 +265,10 @@
 						    	   		   	<c:when test="${currentId ne contestObj.MEMBERID}">
 						                       	<span class="itemDot itemDot5" data-tab="5">
 						                       	   	<i class="fas fa-angry donggeulI"></i>
-					                           	   	<span class="forActive"></span>
+					                           	   	<div class="icon-title">
+				                                       <p>신고하기</p>
+				                                    </div>
+			                                    	<span class="forActive"></span>		
 					                           	</span>
 				                           	</c:when>
 			                           	</c:choose>
@@ -512,7 +532,7 @@
 		                        	
 		                        	<!-- 작성자 소개 -->  	
 	                          		<div class='col-md-10'>
-	                          			<textarea class='form-control' rows='6' style='width:100%; height: 100%;'readonly>${contestObj.INTRODUCTION}</textarea>
+	                          			<textarea class='form-control' rows='6' style='width:100%; height: 100%; margin-top:30px;' readonly>${contestObj.INTRODUCTION}</textarea>
 	                          		</div>
 	                          		<!-- 작성자 소개 끝 -->
 	                          		
