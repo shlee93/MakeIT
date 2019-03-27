@@ -11,7 +11,7 @@
       .box img{width:100%;height:auto;transition:all .3s; }
       .box3:hover img{transform:scale(1.2);filter:blur(5px);-moz-filter:blur(5px);-webkit-filter:blur(5px)}
       .box3 .box-content{padding:30px 10px;top:10%;bottom:10%;opacity:0;z-index:2; cursor:pointer;}
-      .box3:hover .box-content{box-shadow:0 0 0 35px rgba(255,255,255,.3);opacity:0;transition:all .3s}
+      .box3:hover .box-content{box-shadow:0 0 0 35px rgba(255,255,255,.3);opacity:1;transition:all .3s}
       .box3 .title{font-size:24px;font-weight:600;color:#88c425;margin:0 0 5px}
       .box3 .post{display:block;margin:0 0 5px;font-size:14px;color:rgba(255,255,255,.8)}
       .box3 .description{font-size:14px;color:#fff;margin:0 0 20px}
