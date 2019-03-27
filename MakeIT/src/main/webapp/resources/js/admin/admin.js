@@ -977,7 +977,7 @@ $(document).on('click','#refund-btn',function(){
 */
 //환불 요청 결제
 $(document).on('click','#refund-btn',function(){
-	var $view_Status=$(opener.document).children('#refund-view-status');
+	var $view_Status=$(opener.document).find('#refund-view-status');
 	var viewStatus=$view_Status.val();
 	var title=$('#refund-title').val();
 	var specNo=$('#end-spec-no').val();
@@ -1039,14 +1039,16 @@ $(document).on('click','#refund-btn',function(){
 	
 })
 //환불 거부
-$(document).on('click','#nagetive-btn',function(){
-	var $view_Status=$(opener.document).children('#refund-view-status');
+$(document).on('click','#negative-btn',function(){
+	var $view_Status=$(opener.document).find('#refund-view-status');
+	console.log(viewStatus);
 	var viewStatus=$view_Status.val();
 	var title=$('#refund-title').val();
 	var specNo=$('#end-spec-no').val();
 	var price=$('#refund-price').val()
 	var $payment_Tab=$('.refund-view-div');
 	var cPage=$('#cPage').val();
+	var no=$('#no').val();
 	
 	$.ajax({
 		
@@ -1058,6 +1060,7 @@ $(document).on('click','#nagetive-btn',function(){
 		},
 		dataType:"html",
 		success:function(data){
+			alert("환불 취소했습니다.");
 			$payment_Tab.html(data);
 			self.close();
 		}
