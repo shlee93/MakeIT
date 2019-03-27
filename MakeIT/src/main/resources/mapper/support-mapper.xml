@@ -152,6 +152,11 @@
   
   <!-- faq 질문 검색 -->
   <select id="selectFaqSearch" parameterType="string" resultType="map">
-  	SELECT * FROM FAQ WHERE FAQTITLE LIKE '%'||${faqSearch}||'%'
+  	SELECT * FROM FAQ WHERE FAQTITLE LIKE '%'||#{_parameter}||'%'
+  </select>
+  
+  <!-- faq 질문 검색 카테고리 -->
+  <select id="selectFaqCategory" parameterType="string" resultType="map">
+  	SELECT * FROM FAQCATEGORY WHERE FAQNACATEGORYNO IN (SELECT FAQNACATEGORYNO FROM FAQ WHERE FAQTITLE LIKE '%'||#{_parameter}||'%')
   </select>
 </mapper>

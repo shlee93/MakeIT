@@ -500,7 +500,7 @@ $(document).on('click','#qna-status',function(){
 //faq 질문 검색
 $(document).on('keyup','#faq-search',function(){
 	var faqSearch=$('#faq-search').val();
-	
+	console.log(faqSearch);
 	$.ajax({
 		
 		url:"selectFaqSearch.do",
@@ -571,7 +571,7 @@ $(document).on('keyup','textarea', function(){
 	 console.log(textEleHeight);
 	 textEle.css('height', textEleHeight);
 });
-
+//qna 제목 글자 제한
 $(document).on('keyup','#qna-title',function(){
 	var title=$('#qna-title').val();
 	if(title.length>30){
@@ -579,6 +579,20 @@ $(document).on('keyup','#qna-title',function(){
 		$('#qna-title').val(title.substring(0.30));
 		$('#qna-title').focus();
 	}
+})
+
+//faq 화면 전환
+$(document).on('click','#nav-faq-tab',function(){
+	
+	$.ajax({
+		
+		url:"selectFaqSearch.do",
+		dataType:"html",
+		success:function(data){
+			$('#faq-search').val('');
+			$('.faq-section').html(data);
+		}
+	})
 })
 
 

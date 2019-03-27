@@ -17,8 +17,7 @@
 	<select id="selectSearchAdmin" parameterType="string"
 		resultType="map">
 		SELECT M.*,GRADENAME FROM MEMBER M
-		JOIN GRADE G ON(G.GRADENO=M.GRADENO) WHERE MEMBERID LIKE
-		'%'||${searchId}||'%'
+		JOIN GRADE G ON(G.GRADENO=M.GRADENO) WHERE MEMBERLEVEL NOT LIKE 0 AND MEMBERID LIKE '%${_parameter}%'
 	</select>
 
 	<!-- 관리자 페이지 회원 상세보기 -->
@@ -39,7 +38,8 @@
 	<select id="selectMemberSortAdmin" parameterType="map"
 		resultType="map">
 		SELECT M.*,GRADENAME FROM MEMBER M
-		JOIN GRADE G ON(G.GRADENO=M.GRADENO) WHERE MEMBERLEVEL NOT LIKE 0
+		JOIN GRADE G ON(G.GRADENO=M.GRADENO) WHERE MEMBERLEVEL NOT LIKE 0 AND MEMBERID LIKE '%${searchId}%'
+
 		<if test="memberSort!='nosort'">
 			<choose>
 				<when test="ascDesc==0 and memberSort=='gradeno'">
@@ -65,7 +65,7 @@
 	</select>
 	<select id="selectSearchMemberCountAdmin" parameterType="string" resultType="_int">
 		SELECT COUNT(*)
-		FROM MEMBER WHERE MEMBERLEVEL NOT LIKE 0 AND MEMBERID='%${_parameter}%'
+		FROM MEMBER WHERE MEMBERLEVEL NOT LIKE 0 AND MEMBERID LIKE '%${_parameter}%'
 	</select>
 	
 	<!-- 관리자 페이지 카테고리 리스트 -->

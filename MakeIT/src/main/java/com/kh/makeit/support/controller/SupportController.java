@@ -15,6 +15,7 @@ import javax.crypto.NoSuchPaddingException;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.net.URLCodec;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.makeit.admin.controller.AdminController;
 import com.kh.makeit.admin.model.service.AdminService;
 import com.kh.makeit.common.AES256Util;
 import com.kh.makeit.common.MakeitException;
@@ -36,7 +38,7 @@ public class SupportController {
 	AdminService adminService;
 	@Autowired
 	SupportService supportService;
-
+	private Logger logger = Logger.getLogger(SupportController.class);
 
 	@RequestMapping("/support/supportView.do")
 	public ModelAndView supportView(
@@ -454,15 +456,15 @@ public class SupportController {
 	public ModelAndView selectFaqSearch(
 				@RequestParam(value="faqSearch", required=false, defaultValue="") String faqSearch
 			) {
-		
+		logger.info(faqSearch);
 		ModelAndView mav=new ModelAndView();
 		//FAQ 출력
-		List<Map<String,String>> faqList=adminService.selectFaqListAdmin();
-		List<Map<String,String>> categoryList=supportService.selectFaqSearch(faqSearch);
+		List<Map<String,String>> faqList=supportService.selectFaqSearch(faqSearch);
+		List<Map<String,String>> categoryList=supportService.selectFaqCategory(faqSearch);
 		
 		mav.addObject("faqList", faqList);
 		mav.addObject("categoryList", categoryList);
-		mav.setViewName("support/selectFaqSearch");
+		mav.setViewName("support/faqSearchView");
 		
 		return mav;
 		

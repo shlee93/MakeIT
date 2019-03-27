@@ -13,7 +13,7 @@
 	</div>
 </div>
 <br>
-<c:if test="${not empty categoryList }">
+<c:if test="${not empty categoryList and not empty faqList }">
 	<c:forEach items="${categoryList }" var="category">
 		<div class="faq-back">
 			<div class="faq-category btn btn-outline-info slidetopleft">●&nbsp;${category.FAQNACATEGORYNAME }

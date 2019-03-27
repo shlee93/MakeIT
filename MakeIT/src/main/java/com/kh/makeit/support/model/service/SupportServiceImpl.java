@@ -118,6 +118,15 @@ public class SupportServiceImpl implements SupportService {
 		
 		return dao.selectFaqSearch(faqSearch);
 	}
+
+	//faq 질문 검색 카테고리
+	@Override
+	public List<Map<String, String>> selectFaqCategory(String faqSearch) {
+		
+		return dao.selectFaqCategory(faqSearch);
+	}
+	
+	
 	
 	
 }

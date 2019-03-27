@@ -49,4 +49,7 @@ public interface SupportService {
 	
 	//faq 질문검색
 	List<Map<String,String>> selectFaqSearch(String faqSearch);
+	
+	//faq 질문검색 카테고리
+	List<Map<String,String>> selectFaqCategory(String faqSearch);
 }

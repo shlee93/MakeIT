@@ -211,6 +211,7 @@ $(document).on('click','#member-sort-reverse',function(){
 	var memberSort=$('#member-sort option:selected').val();
 	var ascDesc;
 	var $sortBtn=$(this);
+	var searchId=$('#search-id').val();
 	
 	if(memberSort=='memberid'){
 		if($('#memberIdSort').val()==0){
@@ -266,6 +267,7 @@ $(document).on('click','#member-sort-reverse',function(){
 			
 			url:"memberSortAdmin.do",
 			data:{
+				"searchId":searchId,
 				"memberSort":memberSort,
 				"ascDesc":ascDesc
 			},
@@ -291,11 +293,13 @@ $(document).on('change','#member-sort',function(){
 	var memberSort=$('#member-sort option:selected').val();
 	var ascDesc=0;
 	var $sortBtn=$('#member-sort-reverse');
+	var searchId=$('#search-id').val();
 	if(memberSort!="nosort"){
 		$.ajax({
 			
 			url:"memberSortAdmin.do",
 			data:{
+				"searchId":searchId,
 				"memberSort":memberSort,
 				"ascDesc":ascDesc
 			},
@@ -329,6 +333,7 @@ $(document).on('click','.member-page',function(){
 	var cPage=$(this).children('.cPage').val();
 	var viewStatus=$('#view-status').val();
 	//회원 관리에 필요한 변수
+	var searchId=$('#search-id').val();
 	var memberSort=$('#member-sort option:selected').val();
 	var ascDesc=0;
 	//신고관리에 필요한 변수
@@ -374,7 +379,8 @@ $(document).on('click','.member-page',function(){
 			data:{
 					"cPage":cPage,
 					"memberSort":memberSort,
-					"ascDesc":ascDesc
+					"ascDesc":ascDesc,
+					"searchId":searchId
 				},
 			dataType:"html",
 			success:function(data){
@@ -1190,6 +1196,20 @@ $(document).on('keyup','#faq-search',function(){
 		},
 		dataType:"html",
 		success:function(data){
+			$('.faq-section').html(data);
+		}
+	})
+})
+
+//faq 화면 전환
+$(document).on('click','#nav-faq-tab',function(){
+	
+	$.ajax({
+		
+		url:"selectFaqSearchAdmin.do",
+		dataType:"html",
+		success:function(data){
+			$('#faq-search').val('');
 			$('.faq-section').html(data);
 		}
 	})

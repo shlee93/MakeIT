@@ -6,8 +6,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-<c:if test="${not empty categoryList }">
+<c:if test="${not empty categoryList and not empty faqList }">
 	<c:forEach items="${categoryList }" var="category">
+		
 		<div class="faq-back">
 		    <div class="faq-category btn btn-outline-info slidetopleft">●&nbsp;${category.FAQNACATEGORYNAME }
 		
@@ -40,7 +41,7 @@
 	
 	</c:forEach>
 </c:if>
-<c:if test="${empty categoryList }">
+<c:if test="${empty categoryList and empty faqList }">
 	<div class="col-md-12">
 		준비중입니다.
 	</div>

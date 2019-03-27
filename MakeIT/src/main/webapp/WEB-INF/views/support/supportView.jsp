@@ -68,7 +68,7 @@
 												<td><%=i %></td>
 												<td>${qna.FAQNACATEGORYNAME }</td>
 												<td colspan="3">
-													<a class="qna-pass ${sessionScope.member.MEMBERLEVEL==0?'qna-admin':'' }" ${sessionScope.member.MEMBERLEVEL==0?'':'data-toggle="modal" data-target="#squarespaceModal"' }>${qna.QNATITLE }</a>
+													<a class="qna-pass ${sessionScope.member.MEMBERLEVEL==0||sessionScope.member.MEMBERID==qna.MEMBERID?'qna-admin':'' }" ${sessionScope.member.MEMBERLEVEL==0||sessionScope.member.MEMBERID==qna.MEMBERID?'':'data-toggle="modal" data-target="#squarespaceModal"' }>${qna.QNATITLE }</a>
 													<input type="hidden" value="${qna.QNANO }"/>
 												</td>
 												<td>

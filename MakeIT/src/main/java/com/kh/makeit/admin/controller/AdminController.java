@@ -151,18 +151,20 @@ public class AdminController {
 	
 	@RequestMapping("/admin/memberSortAdmin.do")
 	public ModelAndView memberSortAdmin(
+				String searchId,
 				String memberSort, 
 				int ascDesc,
 				@RequestParam(value="cPage", required=false, defaultValue="1") int cPage
 			) {
 		//회원 리스트 정렬
 		int numPerPage=5;
-		int memberCount=adminService.selectMemberCountAdmin();
+		int memberCount=adminService.selectSearchMemberCountAdmin(searchId);
 		String pageBar=PageFactory.getPageBarAdmin(memberCount, cPage, numPerPage,"/makeit/admin/adminView.do");
 		
 		Map<Object,Object> sort=new HashMap();
 		sort.put("memberSort", memberSort);
 		sort.put("ascDesc", ascDesc);
+		sort.put("searchId", searchId);
 		List<Map<String,String>> memberList=adminService.selectMemberSortAdmin(sort,cPage,numPerPage);
 		logger.info(memberList);
 		ModelAndView mav=new ModelAndView();
@@ -959,15 +961,15 @@ public class AdminController {
 	}
 	
 	//faq 질문 검색
-	@RequestMapping("/support/selectFaqSearchAdmin.do")
+	@RequestMapping("/admin/selectFaqSearchAdmin.do")
 	public ModelAndView selectFaqSearchAdmin(
 			@RequestParam(value="faqSearch", required=false, defaultValue="") String faqSearch
 			) {
 		
 		ModelAndView mav=new ModelAndView();
 		//FAQ 출력
-		List<Map<String,String>> faqList=adminService.selectFaqListAdmin();
-		List<Map<String,String>> categoryList=supportService.selectFaqSearch(faqSearch);
+		List<Map<String,String>> faqList=supportService.selectFaqSearch(faqSearch);
+		List<Map<String,String>> categoryList=supportService.selectFaqCategory(faqSearch);
 		
 		mav.addObject("faqList", faqList);
 		mav.addObject("categoryList", categoryList);
