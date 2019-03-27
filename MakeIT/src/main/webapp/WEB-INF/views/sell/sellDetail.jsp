@@ -840,11 +840,11 @@
       		</div>
 		</div>   
    		<div class='col-md-1' id='right-nav'>
-   			<c:if test="${sessionScope.member.MEMBERID=='admin'}">             
-         		<div style='position:fixed; margin-top: 10em;'>
-            		<button id="" class=" btn btn-outline-info slidetopleft" >승인</button>
-         		</div>
-      		</c:if>
+   			<c:if test="${sessionScope.member.MEMBERLEVEL == 0 and detailList.get(0).SELLCHECKYN=='N'}">
+             <div style='position:fixed;'>
+                <span id='approval-btn' style='cursor:pointer; font-size: 4em;'><i class="fas fa-check-circle"></i></span>                    
+                 </div>
+              </c:if>
    			
    		</div>                   
 	</div>
