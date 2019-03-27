@@ -111,6 +111,20 @@ public class SupportDaoImpl implements SupportDao {
 		
 		return sqlSession.selectOne("support.selectOneQna3", qnaNo);
 	}
+
+	//faq 질문검색
+	@Override
+	public List<Map<String, String>> selectFaqSearch(String faqSearch) {
+		
+		return sqlSession.selectList("support.selectFaqSearch", faqSearch);
+	}
+
+	//faq 질문 검색 카테고리
+	@Override
+	public List<Map<String, String>> selectFaqCategory(String faqSearch) {
+		
+		return sqlSession.selectList("support.selectFaqCategory", faqSearch);
+	}
 	
 	
 	

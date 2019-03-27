@@ -122,8 +122,8 @@
     
     .donggeulI
     {
-       margin-top:0.4em;
+
+    	margin-top:0.4em;
     }
-    
     .dotCircle .itemDot .icon-title{ z-index: 2; width:100px; text-align:center; margin-left:-12px}
-   	.dotCircle .itemDot .icon-title p{font-size:18px; font-weight: bold}
+	.dotCircle .itemDot .icon-title p{font-size:18px; font-weight: bold}
