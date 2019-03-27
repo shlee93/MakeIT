@@ -80,7 +80,7 @@
 	<div class="form-group">
 	  <label class="col-md-6 control-label" for="qna-content"><strong>내용</strong></label>  
 	  <div class="col-md-6">
-	  	<textarea rows="10" cols="100" placeholder="질문을 입력해주세요" id="qna-content" name="qna-content"></textarea>
+	  	<textarea rows="10" cols="100" placeholder="개인정보에 관한 내용 입력은 하지 마세요!" id="qna-content" name="qna-content"></textarea>
 	  </div>
 	</div>
 	

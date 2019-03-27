@@ -303,7 +303,9 @@ public class SupportController {
 			@RequestParam(value="sortCheck", required=false, defaultValue="0") String sortCheck
 			) {
 		ModelAndView mav=new ModelAndView();
+		List<Map<String,String>> categoryList=adminService.selectFaqCategoryAdmin();
 		Map<String,String> qna=supportService.selectOneQna(qnaNo);
+		mav.addObject("categoryList", categoryList);
 		mav.addObject("qna", qna);
 		mav.addObject("searchQna", searchQna);
 		mav.addObject("filter", filter);
@@ -317,7 +319,7 @@ public class SupportController {
 	//게시글 수정
 	@RequestMapping("/support/updateQnaEnd.do")
 	public ModelAndView updateQnaEnd(
-			int qnaNo,String writer,String pass,int categoryNo,String title,String content,
+			int qnaNo,String writer,int categoryNo,String title,String content,
 			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
 			@RequestParam(value="searchQna", required=false, defaultValue="") String searchQna,
 			@RequestParam(value="filter", required=false, defaultValue="QNATITLE") String filter,
