@@ -29,7 +29,7 @@
          and se.detailinterestno = #{sCategoryFlag}  <!-- order by gr.gradeno desc -->
          </when>
    </choose>
-   and se.sellcheckyn='Y' order by gr.gradeno desc
+   and se.sellcheckyn='Y' and se.selldeleteyn='N' order by gr.gradeno desc
 </select>
 
 <select id="sellMainPerformance" resultType="map" parameterType="map">
@@ -43,7 +43,7 @@
          and se.detailinterestno = #{sCategoryFlag}  <!-- order by pf.totalsale desc -->
          </when>
    </choose>
-   and se.sellcheckyn='Y' order by pf.totalsale desc
+   and se.sellcheckyn='Y' and se.selldeleteyn='N' order by pf.totalsale desc
 </select>
 
 <select id="sellMainNew" resultType="map" parameterType="map">
@@ -54,7 +54,7 @@ select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.g
    <choose>
          <when test='sCategoryFlag!=null and sCategoryFlag!=""'> and se.detailinterestno = #{sCategoryFlag}  <!-- order by selldate desc --></when>
    </choose>
-    and se.sellcheckyn='Y' order by selldate desc
+    and se.sellcheckyn='Y' and se.selldeleteyn='N' order by selldate desc
 </select> 
 
 <select id="sellCount" resultType="_int" parameterType="map">
@@ -110,13 +110,13 @@ select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.g
    and detailinterestno=#{sCategoryFlag}
    </if>
    <if test='newValue=="1"'>
-     and se.sellcheckyn='Y'  order by selldate desc
+     and se.sellcheckyn='Y' and se.selldeleteyn='N' order by selldate desc
    </if>
    <if test='gradeValue=="1"'>
-      and se.sellcheckyn='Y' order by mem.gradeno desc
+      and se.sellcheckyn='Y' and se.selldeleteyn='N' order by mem.gradeno desc
    </if>
    <if test='sellValue=="1"'>
-     and se.sellcheckyn='Y'  order by pf.totalsale desc
+     and se.sellcheckyn='Y' and se.selldeleteyn='N' order by pf.totalsale desc
    </if>
 </select>
 
@@ -132,7 +132,7 @@ select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.g
    <if test='searchtype=="writer"'>
       and memberid like '%'||#{searchValue}||'%'
    </if>
-  and sellcheckyn='Y'
+  and sellcheckyn='Y' and selldeleteyn='N'
 </select>
 <select id="searchPerCount" parameterType="map" resultType="_int">
    select count(distinct sellno) from sell se join member mb on(se.memberid=mb.memberid) join performance pf on(se.memberid=pf.memberid)  where 1=1
@@ -145,12 +145,12 @@ select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.g
    <if test='searchtype=="writer"'>
       and se.memberid like '%'||#{searchValue}||'%'
    </if>
-   and se.sellcheckyn='Y'
+   and se.sellcheckyn='Y' and se.selldeleteyn='N'
 </select>
 
 <!--메인창에서 상세창으로 데이터 가져오는 매퍼  -->
 <select id="selldetailView" parameterType="_int" resultType="map">
-   select se.selltitle,se.sellno,se.sellcontent,se.memberid,me.MEMBERNAME,me.INTRODUCTION,me.reimg,gr.gradename from sell se join member me on(se.memberid=me.memberid) join grade gr on(gr.gradeno=me.gradeno) where sellno=#{sellno}
+   select se.selltitle,se.sellno,se.sellcontent,se.memberid,se.sellcheckyn,me.MEMBERNAME,me.INTRODUCTION,me.reimg,gr.gradename from sell se join member me on(se.memberid=me.memberid) join grade gr on(gr.gradeno=me.gradeno) where sellno=#{sellno}
 </select>
 <!-- 메인창에서 이미지 가져오는놈 -->
 <select id="selldetailImg" parameterType="_int" resultType="map">
