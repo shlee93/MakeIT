@@ -404,7 +404,7 @@
  	
   		
   		//댓글 쓰기 엔터 이벤트
-  		$(document).on('keyup','#boardDetailwriteButton', function(e){
+  		$(document).on('keyup','#boardDetailWrite input', function(e){
   			
   			if(e.keyCode == 13){
 
