@@ -34,10 +34,10 @@
    	
    	<style>
 		
-		div
+		/* div
 		{
 			border:1px solid blue;
-		}
+		} */
 		
 		header
 		{
@@ -84,7 +84,7 @@
 		if($(this).scrollTop() > 200)
 		{
 			var windowVal = $(this).scrollTop();
-			$('#donggeulNav').css('top',windowVal-250);
+			$('#donggeulNav').css('top',windowVal-260);
 		}
 		if($(this).scrollTop() < 200) 
         {
@@ -550,6 +550,7 @@
 	           	</div>
            	</c:if>
 	    	</div>
+	    	
 	    	<script>
 			    function fn_applicantAccess_modal()
 				{  
@@ -792,6 +793,8 @@
 	         	</form>                   
 		  	</div>
 	  	</div>
-	</div>	
+	</div>
+	
 </body>
+
 </html>
