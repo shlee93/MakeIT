@@ -319,22 +319,38 @@
 		                        			<!-- 첫번째 법륜 -->
 		                        			<span class="itemDot active itemDot1" data-tab="1">
 			                           	    	<c:if test="${sessionScope.member.MEMBERID eq detailList.get(0).MEMBERID}">
-						    	   		   			<i class="fas fa-edit donggeulI"></i>				 			                          										    	   		   
+						    	   		   			<i class="fas fa-edit donggeulI"></i>		
+						    	   		   			<span class="forActive"></span>
+					                           		<div class="icon-title">
+	                                       				<p>수정하기</p>
+	                                    			</div>		 			                          										    	   		   
 						    	   		   		</c:if>
 												<c:if test="${sessionScope.member.MEMBERID ne detailList.get(0).MEMBERID}">
-					                        		<i class="fas fa-kiss-wink-heart donggeulI"></i>   				     		
+					                        		<i class="fas fa-kiss-wink-heart donggeulI"></i>
+					                        		<span class="forActive"></span>
+				                           			<div class="icon-title">
+                                       					<p>찜설정</p>
+                                    				</div>   				     		
 												</c:if>  	
-				                           		<span class="forActive"></span>
+				                           		
 				                            </span>
 			                           		<!-- 첫번째 법륜 끝 -->
 			                           		
 			                           		<!-- 두번째 법륜 시작 -->
 				                            <span class="itemDot itemDot2" data-tab="2">
 				                           	    <c:if test="${session.MEMBERID eq detailList.get(0).MEMBERID}">
-	 			                          			<i class="fas fa-trash-alt donggeulI"></i>								    	   		   
+	 			                          			<i class="fas fa-trash-alt donggeulI"></i>	
+	 			                          			<span class="forActive"></span>
+				                           			<div class="icon-title">
+                                       					<p>삭제하기</p>
+                                    				</div>   								    	   		   
 							    	   		   	</c:if>
 												<c:if test="${session.MEMBERID ne detailList.get(0).MEMBERID}">
-						                           	<i class="fa fa-comments donggeulI"></i>			     		
+						                           	<i class="fa fa-comments donggeulI"></i>
+						                           	<span class="forActive"></span>
+				                           			<div class="icon-title">
+                                       					<p>쪽지하기</p>
+                                    				</div>   				     		
 												</c:if>	   	
 				                           		<span class="forActive"></span>
 				                            </span>
@@ -343,7 +359,10 @@
 				                           	<!-- 세번째 법륜 시작 -->
 				                           	<span class="itemDot itemDot3" data-tab="3">
 				                           		<i class="fas fa-shopping-cart donggeulI"></i>
-				                           	   	<span class="forActive"></span>
+				                           	   	<span class="forActive"></span>				                           	   	
+				                           			<div class="icon-title">
+                                       					<p>구매관련</p>
+                                    				</div>   	
 				                           	</span>
 				                           	<!-- 세번째 법륜 끝 -->
 				                           	
@@ -355,7 +374,11 @@
 				                           				<c:if test="${purchaseList.STATUSNO eq '3'}">                           		
 								                           	<span class="itemDot itemDot4" data-tab="4">
 								                           		<i class="fas fa-file-signature donggeulI"></i>
+									                           
 									                           	<span class="forActive"></span>
+				                           						<div class="icon-title">
+                                       							<p>구매확정</p>
+                                    							</div>   	
 								                           	</span>
 								                           	<c:set var="loop_flag" value="true" />
 							                           	</c:if>
@@ -369,6 +392,9 @@
 						                       	<span class="itemDot itemDot5" data-tab="5">
 						                       	   	<i class="fas fa-angry donggeulI"></i>
 					                           	   	<span class="forActive"></span>
+				                           			<div class="icon-title">
+                                       					<p>신고하기</p>
+                                    				</div>   	
 					                           	</span>
 				                           	</c:if>
 				                           	<!-- 다섯번째 법륜 끝 -->
@@ -382,6 +408,9 @@
 								                           	<span class="itemDot itemDot6" data-tab="6">
 									                           	<i class="fas fa-hand-holding-usd donggeulI"></i>
 									                           	<span class="forActive"></span>
+							                           			<div class="icon-title">
+			                                       					<p>환불하기</p>
+			                                    				</div>   	
 								                           	</span>
 								                           	<c:set var="loop_flag" value="true" />
 							                           	</c:if>
@@ -399,7 +428,10 @@
 				                           				<c:if test="${session.MEMBERID eq purchaseList.MEMBERID}">                           		
 								                           	<span class="itemDot itemDot7" data-tab="7">
 						                           <i class="fa fa-tags donggeulI"></i>
-						                           	<span class="forActive"></span>
+						                         <span class="forActive"></span>
+				                           			<div class="icon-title">
+                                       					<p>후기작성</p>
+                                    				</div>   	
 				                           		</span>
 								                           	<c:set var="loop_flag" value="true" />
 							                           	</c:if>
@@ -680,7 +712,7 @@
 			                                		<form id="sellRefundFrm" action="${path}/sell/sellRefund.do">
 			                                    		<input type="hidden" id="sellno" name="sellno" value="${detailList.get(0).SELLNO}">
 			                                    		<input type="hidden" id="sellRefundSpec" name="sellRefundSpec" value="">				                                    					                                    	
-			                                    		<select id="optionRefund" name="sellSpecNo" required="true" class="form-control donggeulInnerList" style="width:100%" onchange="fn_refundSelected(this.value)" >                      
+			                                    		<select id="optionRefund" name="sellSpecNo"  class="form-control donggeulInnerList" style="width:100%;" onchange="fn_refundSelected(this.value)" required="required" >                      
 					                                    	<option value="">환불옵션선택</option>
 						                                        <c:forEach items="${purchaseList}" var="purchaseList">
 									      							<c:if test="${session.MEMBERID ne detailList.get(0).MEMBERID and purchaseList.STATUSNO=='3'|| purchaseList.STATUSNO=='2'}">
@@ -691,14 +723,14 @@
 					                                    <input class="btn btn-outline-info slidetopleft donggeulInnerBtn" type="button" onclick='fn_refundPop()' value="환불하기">				                                    
 					                                    <script>	
 					                                    	function fn_refundSelected(str)
-					                                    	{
+					                                    	{					                                    			
 					                                    		  $("#sellRefundSpec").attr("value",str);	
 					                                    		 console.log( $("#sellRefundSpec").val());
 					                                    	}
 															function fn_refundPop(){
 																if(${sessionScope.member.MEMBERID!=null}){
-					                                    var sellSpecNo=$('#sellRefundSpec').val();
-					                                    console.log(sellSpecNo);
+							                                    var sellSpecNo=$('#sellRefundSpec').val();
+							                                    console.log($('#optionRefund').val());
 																	var url="${path}/sell/sellRefund.do";
 																	var name="환불하기";			
 																	window.open("${path}/sell/sellRefund.do?sellWriter=${detailList.get(0).MEMBERID}&&sellSpecNo="+sellSpecNo+"&&refundId=${purchaseList.get(0).MEMBERID}",name,'width=490, height=300, menubar=no, status=no, toolbar=no');
@@ -827,7 +859,7 @@
 	                        	
 	                        	<!-- 작성자 소개 -->  	
                           		<div class='col-md-10'>
-                          		<textarea class='form-control' rows='6'style='width:100%; height: 100%;'readonly>${detailList.get(0).INTRODUCTION}</textarea>
+                          		<textarea class='form-control' rows='6'style='width:100%; margin-top:30px; height: 100%;'readonly >${detailList.get(0).INTRODUCTION}</textarea>
                           		</div>
                           		<!-- 작성자 소개 끝 -->
                           		

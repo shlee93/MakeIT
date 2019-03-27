@@ -86,7 +86,7 @@ public class PageFactory {
       // 페이지 숫자
       while(!(pageNo>pageEnd||pageNo>totalPage)) {
          if(cPage==pageNo) {
-            pageBar+="<li class='page-item' active>";
+            pageBar+="<li class='page-item active' >";
             pageBar+="<a class='page-link'>"+pageNo+"</a>";
             pageBar+="</li>";
          } else {
@@ -144,7 +144,7 @@ public class PageFactory {
       // 페이지 숫자
       while(!(pageNo>pageEnd||pageNo>totalPage)) {
          if(cPage==pageNo) {
-            pageBar+="<li class='page-item' active>";
+            pageBar+="<li class='page-item active' >";
             pageBar+="<a class='page-link'>"+pageNo+"</a>";
             pageBar+="</li>";
          } else {
@@ -195,7 +195,7 @@ public class PageFactory {
       // 페이지 숫자
       while(!(pageNo>pageEnd||pageNo>totalPage)) {
          if(cPage==pageNo) {
-            pageBar+="<li class='page-item' active>";
+            pageBar+="<li class='page-item active' >";
             pageBar+="<a class='page-link'>"+pageNo+"</a>";
             pageBar+="</li>";
          } else {
@@ -247,7 +247,7 @@ public class PageFactory {
       // 페이지 숫자
       while(!(pageNo>pageEnd||pageNo>totalPage)) {
          if(cPage==pageNo) {
-            pageBar+="<li class='page-item' active>";
+            pageBar+="<li class='page-item active' >";
             pageBar+="<a class='page-link'>"+pageNo+"</a>";
             pageBar+="</li>";
          } else {
