@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
@@ -57,6 +57,7 @@
 		}
 				    
 	</style>
+	
 </head>
 
 <script>
@@ -119,7 +120,6 @@
 	})
 </script>
 
-<body>
 	<div class='container-fluid' id="total">
     	<div class='row'>
     		<div class='col-md-1' id='left-nav'>
@@ -135,7 +135,7 @@
     		</div>    
         	<div class='col-md-10' id='section' style='padding:50px' >
             	<div class='row'>            	
-               		<div class="col-md-6" id="img-container" style='padding:1px; width: 100%; height: 600px;'>
+               		<div class="col-md-6" id="img-container" style='padding:1px; width: 100%;'>
                			<h4 style="font-family: 'Sunflower','sans-serif';">${contestObj.CONTESTTITLE}</h4>
                			<div class='row mainImgContainer' id='mainImgContainer'>
                	   			<img class="mainImg" id='${contestMainImg.CONTESTIMGNO}' src="${path}/resources/upload/contest/${contestMainImg.CONTESTIMGRE}" style='max-height: 400px; min-height: 600px; width: 100%;'>
@@ -544,12 +544,15 @@
        			</div>
 			</div>
 	    	<div class='col-md-1' id='right-nav' >
-	    	<c:if test="${sessionScope.member.MEMBERLEVEL == 0 and contestObj.CONTESTYN=='N'}">
-	    		<div style='position:fixed;'>
-	    			<span id='approval-btn' style='cursor:pointer; font-size: 4em;'><i class="fas fa-check-circle"></i></span>	          	 	
-	           	</div>
-           	</c:if>
+		    	<c:if test="${sessionScope.member.MEMBERLEVEL == 0 and contestObj.CONTESTYN=='N'}">
+		    		<div style='position:fixed;'>
+		    			<span id='approval-btn' style='cursor:pointer; font-size: 4em;'><i class="fas fa-check-circle"></i></span>	          	 	
+		           	</div>
+	           	</c:if>
 	    	</div>
+    	</div>
+   	
+    	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	    	
 	    	<script>
 			    function fn_applicantAccess_modal()
@@ -611,6 +614,8 @@
 		    	}    	
 	    	
 	   		</script>
+	   		
+	   		
     
 	    	<div class="modal" id="applicantAccessModal" role="dialog">
 	    		<form  id='contestApplicantFrm' method='post' enctype="multipart/form-data">
@@ -795,6 +800,4 @@
 	  	</div>
 	</div>
 	
-</body>
-
-</html>
+	
