@@ -256,7 +256,7 @@
 													<i class="fas fa-kiss-wink-heart donggeulI"></i>
 												 <span class="forActive"></span>
 												 <div class="icon-title">
-													<p>찜하기</p>
+													<p>찜설정</p>
 												</div>
 											</span>
 											</c:if>
