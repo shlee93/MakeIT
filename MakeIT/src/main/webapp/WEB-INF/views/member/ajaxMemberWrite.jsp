@@ -211,7 +211,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="fr" items="${freeList }">
 		                    			<tr>
 		                    				<td><c:out value="${fr.FREENO }"/></td>
-											<td><a class="myPageInfo" href="#"><c:out value="${fr.FREETITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/board/boardInfoView.do?freeNo=${fr.FREENO }"><c:out value="${fr.FREETITLE }"/></a></td>
 											<td><c:out value="${fr.MEMBERID }"/></td>
 											<td><c:out value="${fr.FREEDATE }"/></td>
 		                    			</tr>
@@ -373,7 +373,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="fr" items="${freeList }">
 		                    			<tr>
 		                    				<td><c:out value="${fr.FREENO }"/></td>
-											<td><a class="myPageInfo" href="#"><c:out value="${fr.FREETITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/board/boardInfoView.do?freeNo=${fr.FREENO }"><c:out value="${fr.FREETITLE }"/></a></td>
 											<td><c:out value="${fr.MEMBERID }"/></td>
 											<td><c:out value="${fr.FREEDATE }"/></td>
 		                    			</tr>
@@ -535,7 +535,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="fr" items="${freeList }">
 		                    			<tr>
 		                    				<td><c:out value="${fr.FREENO }"/></td>
-											<td><a class="myPageInfo" href="#"><c:out value="${fr.FREETITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/board/boardInfoView.do?freeNo=${fr.FREENO }"><c:out value="${fr.FREETITLE }"/></a></td>
 											<td><c:out value="${fr.MEMBERID }"/></td>
 											<td><c:out value="${fr.FREEDATE }"/></td>
 		                    			</tr>
@@ -697,7 +697,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="fr" items="${freeList }">
 		                    			<tr>
 		                    				<td><c:out value="${fr.FREENO }"/></td>
-											<td><a class="myPageInfo" href="#"><c:out value="${fr.FREETITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/board/boardInfoView.do?freeNo=${fr.FREENO }"><c:out value="${fr.FREETITLE }"/></a></td>
 											<td><c:out value="${fr.MEMBERID }"/></td>
 											<td><c:out value="${fr.FREEDATE }"/></td>
 		                    			</tr>
@@ -859,7 +859,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="fr" items="${freeList }">
 		                    			<tr>
 		                    				<td><c:out value="${fr.FREENO }"/></td>
-											<td><a class="myPageInfo" href="#"><c:out value="${fr.FREETITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/board/boardInfoView.do?freeNo=${fr.FREENO }"><c:out value="${fr.FREETITLE }"/></a></td>
 											<td><c:out value="${fr.MEMBERID }"/></td>
 											<td><c:out value="${fr.FREEDATE }"/></td>
 		                    			</tr>
