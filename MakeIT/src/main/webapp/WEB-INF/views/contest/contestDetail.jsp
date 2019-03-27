@@ -201,8 +201,7 @@
                         		<div class="row align-items-center" style='margin-top: -5em;'>			                  
 			                  		<div class="holderCircle">
 			                        	<div class="round"></div>
-		                        		<div class="dotCircle">
-			                        		
+		                        		<div class="dotCircle">		                        				                        		
 			                        		<span class="itemDot itemDot1" data-tab="1">
 				                           	    <c:set var='currentId' value='${memberMap.get("MEMBERID")}'/>								
 				                           	   	   	<c:choose>
@@ -214,6 +213,9 @@
 												       	</c:otherwise>
 										 		   	</c:choose>	   	
 				                           		<span class="forActive"></span>
+				                           		<div class="icon-title">
+			                                       <p>수정하기</p>
+			                                    </div>
 				                            </span>
 			                           		
 				                            <span class="itemDot itemDot2" data-tab="2">
