@@ -27,27 +27,45 @@ public class BoardServiceimpl implements BoardService {
 	}
 
 	@Override
-	public List<Map<String,String>> selectBoardDetailView(String freeNo) {
+	public List<Map<String,String>> selectBoardDetailView(int freeNo) {
 
 		return dao.selectBoardDetailView(freeNo);
 	}
 
 	@Override
-	public List<Map<String,String>> selectBoardCommentView(String freeNo) {
+	public List<Map<String,String>> selectBoardCommentView(int freeNo) {
 		// TODO Auto-generated method stub
 		return dao.selectBoardCommentView(freeNo);
 	}
 
 	@Override
-	public List<Map<String,String>> selectBoardImgView(String freeNo) {
+	public List<Map<String,String>> selectBoardImgView(int freeNo) {
 		// TODO Auto-generated method stub
 		return dao.selectBoardImgView(freeNo);
 	}
 
 	@Override
-	public int updateboardViews(String freeNo) {
+	public int updateboardViews(int freeNo) {
 		// TODO Auto-generated method stub
 		return dao.updateboardViews(freeNo);
+	}
+
+	@Override
+	public int insertComment(Map<Object, Object> insertValue) {
+		// TODO Auto-generated method stub
+		return dao.insertComment(insertValue);
+	}
+	
+	@Override
+	public int insertreComment(Map<Object, Object> insertValue) {
+		// TODO Auto-generated method stub
+		return dao.insertreComment(insertValue);
+	}
+
+	@Override
+	public int deleteComment(int commentNo) {
+		// TODO Auto-generated method stub
+		return dao.deleteComment(commentNo);
 	}
 
 }
