@@ -7,8 +7,11 @@ public interface BoardDao {
 	
 	int selectBoardCount();
 	List<Map<String,String>> selectBoardList(int cPage, int numPerPage);
-	List<Map<String,String>> selectBoardDetailView(String freeNo);
-	List<Map<String,String>> selectBoardCommentView(String freeNo);
-	List<Map<String,String>> selectBoardImgView(String freeNo);
-	int updateboardViews(String freeNo);
+	List<Map<String,String>> selectBoardDetailView(int freeNo);
+	List<Map<String,String>> selectBoardCommentView(int freeNo);
+	List<Map<String,String>> selectBoardImgView(int freeNo);
+	int updateboardViews(int freeNo);
+	int insertComment(Map<Object, Object> insertValue);
+	int insertreComment(Map<Object, Object> insertValue);
+	int deleteComment(int commentNo);
 }

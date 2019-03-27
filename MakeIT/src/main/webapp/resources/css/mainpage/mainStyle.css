@@ -393,8 +393,39 @@
         left: 0px;
         transition: ease-in-out;
         transition-duration: 0.7s;
-        background-color: blue;
+		cursor:pointer;
         /* opacity: 0.1; */
+    }
+    .famousContent img{
+    	position:relative;
+    	width:100%;
+    	height:auto;
+    	background-size:cover;
+    	transition:ease-in-out;
+    	transition-duration:0.7s;
+    }
+    .famousContentTitleBox{
+    	position:absolute;
+    	width:100%;
+    	height: 150px;
+    	top:50%;
+    	left:50%;
+    	transform: translate(-50%,-50%);
+    	background-color: rgba(0,0,0,0.7);
+    }
+    .famousContentTitleBox p{
+    	position:relative;
+    	display:inline-block;
+    	left:50%;
+    	top:50%;
+    	transform: translate(-50%,-50%);
+    	font-size:50px;
+        font-family: 'Sunflower', sans-serif;
+    	color:white;
+    	transition:ease-in-out;
+    	transition-duration:0.7s;
+		text-overflow:ellipsis;
+		overflow:hidden;
     }
 
     #recentlyViewWrap{
@@ -420,24 +451,67 @@
     }
     #recentlyViewBody{
         position: relative;
+        display: inline-block;
         left: 50%;
         transform: translateX(-50%);
         width: 800px;
         height: 400px;
-        border: 3px solid black;
         border-radius: 15px;
+        white-space:nowrap;
         background-color: white;
+        overflow:hidden;
     }
-    #recentlyView{
+    .recentlyView{
         position: relative;
+        display: inline-block;
+        left: 0px;
+        width:800px;
+        height:100%;
+        background-color:cornflowerblue;
+        transition:ease-in-out;
+        transition-duration: 0.7s;
+        cursor:pointer;
     }
+    .recentlyView img{
+    	position: absolute;
+    	width: 100%;
+    	height:auto;
+    	background-size: cover;
+    	transition:ease-in-out;
+    	transition-duration:0.7s;
+    }
+    .recentlyTitleBox{
+    	position: absolute;
+    	width:100%;
+    	height:150px;
+    	top: 80%;
+    	transform:translateY(-80%);
+    	background-color: rgba(0,0,0,0.7);
+
+    }
+    .recentlyTitle{
+    	position:relative;
+    	display:inline-block;
+    	max-width:700px;
+    	left:50%;
+    	top:50%;
+    	transform: translate(-50%,-50%);
+    	font-size:35px;
+        font-family: 'Sunflower', sans-serif;
+    	color:white;
+    	transition:ease-in-out;
+    	transition-duration:0.7s;
+		text-overflow:ellipsis;
+		overflow:hidden;
+    }
+
     #recentlyViewLeft{
         position: absolute;
         width: 50px;
         height: 50px;
-        left: -8%;
+        left: 0%;
         top: 50%;
-        transform: translate(8%,-50%);
+        transform: translate(0%,-50%);
         border-radius: 100%;
         background-color: mediumvioletred;
         cursor: pointer;
@@ -446,9 +520,9 @@
         position: absolute;
         width: 50px;
         height: 50px;
-        left: 108%;
+        left: 100%;
         top: 50%;
-        transform: translate(-108%,-50%);
+        transform: translate(-100%,-50%);
         border-radius: 100%;
         background-color: mediumvioletred;
         cursor: pointer;
@@ -484,15 +558,30 @@
         transform: translate(-50%,-50%);
         /* background-color: white; */
     }
-    #similarContentBody div{
+    .similarContent{
         position: relative;
         display: inline-block;
         width: 150px;
         height: 150px;
-        border: 2px solid black;
-        border-radius: 5px;
-        background-color: white;
+        margin-right: 10px;
+        border-radius: 15px;
+        background-color: #138496;
+        overflow:hidden;
+        cursor: pointer;
     }
+    .similarContent p{
+    	position: relative;
+        width: max-content;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        font-size: 25px;
+        /* font-weight: bold; */
+        word-break:break-all;
+        font-family: 'Sunflower', sans-serif;
+        color: white;
+    }
+
     #rankingViewWrap{
         position: relative;
         left: 50%;

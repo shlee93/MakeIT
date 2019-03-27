@@ -24,24 +24,39 @@ public class BoardDaoimpl implements BoardDao {
 		return sqlSession.selectList("board.selectBoardList",null,rb);
 	}
 	@Override
-	public List<Map<String,String>> selectBoardDetailView(String freeNo) {
+	public List<Map<String,String>> selectBoardDetailView(int freeNo) {
 
 		return sqlSession.selectList("board.selectBoardDetailViewList",freeNo);
 	}
 	@Override
-	public List<Map<String,String>> selectBoardCommentView(String freeNo) {
+	public List<Map<String,String>> selectBoardCommentView(int freeNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("board.selectBoardCommentViewList",freeNo);
 	}
 	@Override
-	public List<Map<String,String>> selectBoardImgView(String freeNo) {
+	public List<Map<String,String>> selectBoardImgView(int freeNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("board.selectBoardImgViewList",freeNo);
 	}
 	@Override
-	public int updateboardViews(String freeNo) {
+	public int updateboardViews(int freeNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.update("board.updateboardViews",freeNo);
+	}
+	@Override
+	public int insertComment(Map<Object, Object> insertValue) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("board.insertComment", insertValue);
+	}
+	@Override
+	public int insertreComment(Map<Object, Object> insertValue) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("board.insertreComment", insertValue);
+	}
+	@Override
+	public int deleteComment(int commentNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("board.deleteComment", commentNo);
 	}
 
 }
