@@ -211,7 +211,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="fr" items="${freeList }">
 		                    			<tr>
 		                    				<td style="width: 20%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${fr.FREENO }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a class="myPageInfo" href="#"><c:out value="${fr.FREETITLE }"/></a></td>
+											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a class="myPageInfo" href="${path }/board/boardInfoView.do?freeNo=${fr.FREENO }"><c:out value="${fr.FREETITLE }"/></a></td>
 											<td style="width: 20%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${fr.MEMBERID }"/></td>
 											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${fr.FREEDATE }"/></td>
 		                    			</tr>

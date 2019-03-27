@@ -310,9 +310,21 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<String> selectSimilarView() {
+	public List<String> selectSimilarView(List<String> list) {
 		// TODO Auto-generated method stub
-		return dao.selectSimilarView();
+		return dao.selectSimilarView(list);
+	}
+
+	@Override
+	public List<Map<String, String>> selectSimilarList(List<String> list) {
+		// TODO Auto-generated method stub
+		return dao.selectSimilarList(list);
+	}
+
+	@Override
+	public List<Map<String, String>> selectInterestList(String interestNo) {
+		// TODO Auto-generated method stub
+		return dao.selectInterestList(interestNo);
 	}
 	
 }

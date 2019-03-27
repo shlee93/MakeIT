@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 /* 관리자 페이지 메인 */
 h5,h4,h3,h2,h1,a,span,div,button,th,td{
 	font-family: 'Sunflower', sans-serif;
@@ -1321,6 +1323,26 @@ translate
  	background-color: #138496; 
 	transition:ease-in-out;
 	transition-duration:0.7s;
+	cursor:pointer;
+}
+#writeBoardBtn{
+	position: absolute;
+	width:150px;
+	height:55px;
+	left:970px;
+	top:77px;
+	background-color: #138496;
+}
+#writeBoardBtn p{
+	position: absolute;	
+	left:50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	font-size:25px;
+	font-weight:bold;
+    font-family: 'Sunflower', sans-serif;
+	white-space: nowrap;
+	color: white;
 	cursor:pointer;
 }
 /* 게시글 승인 */

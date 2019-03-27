@@ -170,7 +170,7 @@
 	
 	
 	<select id="selectSellList" resultType="map">
-		SELECT SELLTITLE,INTERESTNO FROM SELL 
+		SELECT SELLTITLE,INTERESTNO,SELL.SELLNO FROM SELL 
     	WHERE SELL.SELLNO IN
     		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
     			#{item}
@@ -179,11 +179,23 @@
 	</select>
 	
 	<select id="selectSimilarView" parameterType="string" resultType="string">
-		SELECT SELL.SELLNO FROM SELL 
+		SELECT INTERESTNO FROM SELL 
     	WHERE SELL.SELLNO IN
     	<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
     		#{item}
     	</foreach>
+	</select>
+	
+	<select id="selectSimilarList" resultType="map">
+		SELECT DETAILINTEREST FROM DETAILINTEREST 
+		WHERE INTERESTNO IN
+    	<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+    		#{item}
+    	</foreach>
+	</select>
+	
+	<select id="selectInterestList" resultType="map">
+		SELECT DETAILINTEREST FROM DETAILINTEREST WHERE INTERESTNO = #{interestNo}
 	</select>
 	
 	<select id="selectFamousList" parameterType="string" resultType="string">

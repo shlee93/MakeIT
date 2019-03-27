@@ -31,11 +31,6 @@
     <div id="similarContentWrap">
         <p id="similarContentTitle">관련 페이지</p>
         <div id="similarContentBody">
-            <div id="similarContent1"></div>
-            <div id="similarContent2"></div>
-            <div id="similarContent3"></div>
-            <div id="similarContent4"></div>
-            <div id="similarContent5"></div>
         </div>
     </div>
 
@@ -98,7 +93,7 @@
 			dataType:"json",
 			success: function(data){
 				console.log(data);
-				var dataSize = data.length;
+				var dataSize = data["sellList"].length;
 				var imgSrc;
 				console.log(dataSize);
 				for(var i=0; i<dataSize; i++){
@@ -107,25 +102,26 @@
 					$('#recentlyViewBody').append("<div class='recentlyView'></div>");
 					$('.recentlyView:last-child()').append("<img src="+imgSrc+" />");
 					$('.recentlyView:last-child()').append("<div class='recentlyTitleBox'></div>");
-					$('.recentlyView:last-child() .recentlyTitleBox').append("<p class='recentlyTitle'>"+data[i]["SELLTITLE"]+"</p>");
-					$('.recentlyView:last-child() .recentlyTitleBox').append("<p class='recentlysellNo'>"+data[i]["SELLNO"]+"</p>");      
+					$('.recentlyView:last-child() .recentlyTitleBox').append("<p class='recentlyTitle'>"+data["sellList"][i]["SELLTITLE"]+"</p>");
+					$('.recentlyView:last-child() .recentlyTitleBox').append("<p class='recentlysellNo' style='display:none'>"+data["sellList"][i]["SELLNO"]+"</p>");
+					$('.recentlyView:last-child() .recentlyTitleBox').append("<p class='recentlyInterestNo' style='display:none'>"+data["sellList"][i]["INTERESTNO"]+"</p>");
+					
+				}
+				var dataSize2 = data["similarList"].length;
+				var sizeCheck =0;
+				for(var i=0;i<dataSize2;i++){
+					
+					if(sizeCheck<5){
+						$('#similarContentBody').append("<div class='similarContent'><p>"+data["similarList"][i]["DETAILINTEREST"]+"</p></div>");	
+					}
+					sizeCheck++;
+					
+				
 				}
 				
-				$.ajax({
-					url:"${path}/member/interestPage.do",
-					data:{"interestNo":data[0]["INTERESTNO"]},
-					successs: function(data){
-						console.log("ㅎㅎㅎㅎㅎ");
-						console.log(data);
-					},
-					error: function(){
-						console.log("통불~");
-					}
-					
-				});
 				
-			},
-			error: function(){
+			}
+			,error: function(){
 				console.log('통패~');
 			}
 		});
@@ -146,15 +142,98 @@
     	var sellNo = $(this).children('.recentlyTitleBox').children('.recentlysellNo').text();
     	location.href="${path }/sell/selldetail?sellno="+sellNo;
     });
+    $(document).on('click','.similarContent',function(){
+    	
+    	var similarText = $(this).children('p').text();
+    	var locationNo;
+    	console.log(similarText);
+    	
+    	if(similarText == "웹"){
+			locationNo = "1";
+		}
+		if(similarText == "모바일"){
+			locationNo = "2";
+		}
+		if(similarText == "게임"){
+			locationNo = "3";
+		}
+		if(similarText == "응용프로그램"){
+			locationNo = "4";
+		}
+		if(similarText == "보안프로그램"){
+			locationNo = "5";
+		}
+		if(similarText == "DB관리"){
+			locationNo = "6";
+		}
+		if(similarText == "웹 디자인"){
+			locationNo = "7";
+		}
+		if(similarText == "웹 퍼블리셔"){
+			locationNo = "8";
+		}
+		if(similarText == "게임 디자인"){
+			locationNo = "9";
+		}
+		if(similarText == "모의해킹"){
+			locationNo = "10";
+		}
+		if(similarText == "침해대응"){
+			locationNo = "11";
+		}
+		if(similarText == "보안관제"){
+			locationNo = "12";
+		}
+		if(similarText == "컨설턴트"){
+			locationNo = "13";
+		}
+		
+    	location.href="${path }/sell/sellmain.do?sCategoryFlag="+locationNo;
+    });
 
     
     var recentlyViewRightCallback = true;
+    var recentlyIndexCheck =0;
     $(document).on('click','#recentlyViewRight',function(){
+    	
+    	
         var leftVal =  $('.recentlyView').css('left').replace('px','');
 		var imgSize = $('.recentlyView').prevAll().length;
 		console.log(imgSize);
         if(recentlyViewRightCallback){
+
             if(leftVal != -800 * Number(imgSize)){
+            	       	
+            	//관련페이지 오른쪽 버튼 클릭 AJAX
+            	recentlyIndexCheck++;
+            	var interestNo = $('.recentlyView:eq('+recentlyIndexCheck+')').children('.recentlyTitleBox').children('.recentlyInterestNo').text();
+            	console.log(interestNo);
+            	if(interestNo > 0){
+            		
+            		$.ajax({
+                		url:"${path}/member/recentlyView.do",
+                		dataType:"json",
+                		data:{"interestNo":interestNo},
+                		success: function(data){
+                			console.log(data);
+            				var dataSize = data.length;
+            				var sizeCheck =0;
+            				$('.similarContent').remove();
+            				for(var i=0;i<dataSize;i++){
+            					
+            				if(sizeCheck<5){
+            				$('#similarContentBody').append("<div class='similarContent'><p>"+data[i]["DETAILINTEREST"]+"</p></div>");	
+            				
+            				sizeCheck++;
+            				}
+            				}
+                		},
+                		error: function(){
+                			console.log("실패~~");
+                		}
+                	})
+            	}
+            	
                 leftVal = Number(leftVal)-800;
                 console.log(leftVal);
                 $('.recentlyView').css('left', leftVal+'px');
@@ -175,7 +254,39 @@
         var leftVal =  $('.recentlyView').css('left').replace('px','');
 		
         if(recentlyViewLeftCallback){
+
             if(leftVal != 0){
+            	
+            	//관련페이지 왼쪽 버튼 클릭 AJAX
+            	recentlyIndexCheck--;
+            	var interestNo = $('.recentlyView:eq('+recentlyIndexCheck+')').children('.recentlyTitleBox').children('.recentlyInterestNo').text();
+            	console.log(interestNo);
+            	if(interestNo > 0){
+            		
+            		$.ajax({
+                		url:"${path}/member/recentlyView.do",
+                		dataType:"json",
+                		data:{"interestNo":interestNo},
+                		success: function(data){
+                			console.log(data);
+            				var dataSize = data.length;
+            				var sizeCheck =0;
+            				$('.similarContent').remove();
+            				for(var i=0;i<dataSize;i++){
+            					
+            				if(sizeCheck<5){
+            				$('#similarContentBody').append("<div class='similarContent'><p>"+data[i]["DETAILINTEREST"]+"</p></div>");	
+            				
+            				sizeCheck++;
+            				}
+            				}
+                		},
+                		error: function(){
+                			console.log("실패~~");
+                		}
+                	})
+            	}
+            	
                 leftVal = Number(leftVal)+800;
 
                 $('.recentlyView').css('left', leftVal+'px');

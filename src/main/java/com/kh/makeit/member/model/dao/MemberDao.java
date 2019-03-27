@@ -120,6 +120,7 @@ public interface MemberDao {
 	List<String> selectFamousList();
 	
 	List<Map<String,String>> selectFamousView(List<String> list);
-	List<String> selectSimilarView();
-
+	List<String> selectSimilarView(List<String> list);
+	List<Map<String,String>> selectSimilarList(List<String> list);
+	List<Map<String,String>> selectInterestList(String interestNo);
 }

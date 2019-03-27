@@ -504,9 +504,7 @@
 		text-overflow:ellipsis;
 		overflow:hidden;
     }
-    .recentlysellNo{
-    	display:none;
-    }
+
     #recentlyViewLeft{
         position: absolute;
         width: 50px;
@@ -560,15 +558,30 @@
         transform: translate(-50%,-50%);
         /* background-color: white; */
     }
-    #similarContentBody div{
+    .similarContent{
         position: relative;
         display: inline-block;
         width: 150px;
         height: 150px;
-        border: 2px solid black;
-        border-radius: 5px;
-        background-color: white;
+        margin-right: 10px;
+        border-radius: 15px;
+        background-color: #138496;
+        overflow:hidden;
+        cursor: pointer;
     }
+    .similarContent p{
+    	position: relative;
+        width: max-content;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        font-size: 25px;
+        /* font-weight: bold; */
+        word-break:break-all;
+        font-family: 'Sunflower', sans-serif;
+        color: white;
+    }
+
     #rankingViewWrap{
         position: relative;
         left: 50%;

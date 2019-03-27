@@ -333,8 +333,20 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<String> selectSimilarView() {
+	public List<String> selectSimilarView(List<String> list) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("member.selectSimilarView");
+		return sqlSession.selectList("member.selectSimilarView", list);
+	}
+
+	@Override
+	public List<Map<String, String>> selectSimilarList(List<String> list) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("member.selectSimilarList",list);
+	}
+
+	@Override
+	public List<Map<String, String>> selectInterestList(String interestNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("member.selectInterestList",interestNo);
 	}
 }

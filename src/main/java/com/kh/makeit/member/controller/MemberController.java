@@ -1329,7 +1329,7 @@ public class MemberController {
 	@RequestMapping("/member/mainajax.do")
 	@ResponseBody
 	public Map<String,String> mainAjax() {
-		ModelAndView mv = new ModelAndView();
+		ModelAndView ssssssssssssssssssssssssssssssssssssssssssssssssss = new ModelAndView();
 		int serviceNum = service.selectServiceNum();
 		int tradeNum = service.selectTradeNum();
 		String trade = Integer.toString(tradeNum);
@@ -1413,7 +1413,7 @@ public class MemberController {
 /*				System.out.println("쿠키 이름 : "+cName+" /쿠기 값 : "+cVal+" /쿠기 날짜 : "+cDate);*/
 				if(cName != "intro" && cName != "JSESSIONID") {
 					if(checkSize < 5) {
-						list.add(cVal);
+						list.add(cVal);																																																																																																																													
 						checkSize++;
 						System.out.println("쿠키 값 ~~!!!! : "+cVal);
 					}
@@ -1422,24 +1422,30 @@ public class MemberController {
 		}
 		Map<Object,Object> allList = new HashMap();
 		List<Map<String,String>> sellList = service.selectSellList(list);
-		List<String> sellnoList = service.selectSimilarView();
-		logger.debug(sellList);
-		logger.debug(sellnoList);
+		List<String> interestnoList = service.selectSimilarView(list);
+
+		List<Map<String,String>> similarList = service.selectSimilarList(interestnoList);
+
+		allList.put("sellList", sellList);
+		allList.put("similarList", similarList);
 		Gson gson = new Gson();
-		String data = gson.toJson(sellList);
+		String data = gson.toJson(allList);
 		logger.debug(data);
 
 		return data;
 	}
 	
-	@RequestMapping(value="/member/interestPage.do", produces="application/text; charset=utf8")
+	@RequestMapping(value="/member/recentlyView.do", produces="application/text; charset=utf8")
 	@ResponseBody
-	public String interestPage() {
+	public String interestPage(String interestNo) {
 		
+		List<Map<String,String>> interestList = service.selectInterestList(interestNo);
 		
+		logger.debug("ddddddddddddddddddddddddddddddddd"+interestList);
+		Gson gson = new Gson();
+		String data = gson.toJson(interestList);
 		
-		
-		return "ss";
+		return data;
 	}
 
 }

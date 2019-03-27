@@ -19,7 +19,7 @@
 	</select>
 	
 	<select id="selectBoardCommentViewList" resultType="Map">
-		SELECT *  FROM FREECOMMENT  WHERE FREENO = #{freeNo}
+		SELECT *  FROM FREECOMMENT  WHERE FREENO = #{freeNo} ORDER BY FREECOMMENTREF,FREECOMMENTNO
 	</select>
 	
 	<select id="selectBoardImgViewList" resultType="Map">
@@ -29,6 +29,18 @@
 	<update id="updateboardViews">
 		UPDATE FREE SET FREEVIEWS = FREEVIEWS+1 WHERE FREENO = #{freeNo}
 	</update>
+	
+	<insert id="insertComment" parameterType="Map">
+		INSERT INTO FREECOMMENT VALUES(seq_freecommentno.nextval,#{freeNo},seq_freecommentno.currval,#{memberId},1,#{inputText},SYSDATE,'F')
+	</insert>
+	
+	<insert id="insertreComment" parameterType="Map">
+		INSERT INTO FREECOMMENT VALUES(seq_freecommentno.nextval,#{freeNo},#{commentNo},#{memberId},2,#{inputText},SYSDATE,'F')
+	</insert>
+	
+	<delete id="deleteComment" parameterType="_int">
+		DELETE FROM FREECOMMENT WHERE FREECOMMENTNO = #{commentNo}
+	</delete>
 	
 	
 </mapper>
