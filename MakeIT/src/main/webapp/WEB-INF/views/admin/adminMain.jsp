@@ -39,9 +39,10 @@
                     <!-- 회원관리 탭 -->
                         <div class="tab-pane fade show active" id="nav-member" role="tabpanel" aria-labelledby="nav-member-tab">
                             <!--회원 검색 div  -->
+                            <hr>
                             <div class="member-search">
                                 <div id="search-icon">검색</div>
-                                <input id="search-id" type="text" placeholder="검색할 회원의 아이디를 입력해주세요" size="50"/>
+                                <input id="search-id" type="text" placeholder="검색할 회원의 아이디를 입력해주세요" style="width:80%"/>
                                 <select id="member-sort">
                                 	<option class="member-sort-option" value="nosort">정렬</option>
                                     <option class="member-sort-option" value="memberid">아이디</option>
@@ -157,7 +158,7 @@
                                                    	<input type="hidden" id="approval-tab-status" value="approval"/>
                                                     <ul id="menu-content" class="menu-content collapse out">
 	
-                                                        <li class='side-nav-li approval-li' data-toggle="collapse" data-target="#new"
+                                                        <li class='side-nav-li approval-li active' data-toggle="collapse" data-target="#new"
                                                             class="collapsed">
                                                             <a href="#">
                                                                 	구매
@@ -207,6 +208,7 @@
 								                        </nav>
 								                        <div class="tab-content" id="nav-tabContent">
 								                            <div class="tab-pane fade show active" id="nav-approval2" role="tabpanel" aria-labelledby="nav-approval2-tab">
+								                            	<hr>
 								                            	<div id="search-div">
 								                            		<select id="approval-select">
 								                            			
@@ -215,6 +217,7 @@
 								                            		</select>
 								                            		<input type="text" id="approval-search-inp" placeholder="검색내용을 입력해주세요" />
 								                            	</div>
+								                            	<hr>
 								                                <table class="table approval-tbl" cellspacing="0">
 								                                    <thead>
 								                                        <tr>
@@ -285,6 +288,7 @@
 								                                </table>
 								                            </div>
 								                            <div class="tab-pane fade" id="nav-delete" role="tabpanel" aria-labelledby="nav-delete-tab">
+							                                	<hr>
 							                                	<div id="search-div">
 								                            		<select id="delete-select">
 								                            			
@@ -293,6 +297,7 @@
 								                            		</select>
 								                            		<input type="text" id="delete-search-inp" placeholder="검색내용을 입력해주세요" />
 								                            	</div>
+								                            	<hr>
 								                                <table class="table delete-tbl" cellspacing="0">
 								                                    <thead>
 								                                        <tr>

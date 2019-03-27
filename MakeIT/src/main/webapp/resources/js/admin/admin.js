@@ -17,11 +17,22 @@ $(document).on('click','.approval-li',function(){
 			},
 			dataType:"html",
 			success:function(data){
-				console.log(data);
+
 				$('#nav-approval2').html(data);
 				$all_Li.removeClass('active');
 				$click_Li.addClass('active');
 				
+				$.ajax({
+					url:"deleteView.do",
+					data:{
+						"deleteStatus":approvalStatus
+					},
+					dataType:"html",
+					success:function(data){
+
+						$('#nav-delete').html(data);
+					}
+				})
 			}
 		})
 		
@@ -39,10 +50,22 @@ $(document).on('click','.approval-li',function(){
 			},
 			dataType:"html",
 			success:function(data){
-				console.log(data);
+
 				$('#nav-delete').html(data);
 				$all_Li.removeClass('active');
 				$click_Li.addClass('active');
+				
+				$.ajax({
+					url:"approvalView.do",
+					data:{
+						"approvalStatus":deleteStatus
+					},
+					dataType:"html",
+					success:function(data){
+
+						$('#nav-approval2').html(data);
+					}
+				})
 			}
 		})
 	}

@@ -21,7 +21,7 @@
 		</c:if>
 
 	</select> 
-	<input id="search-qna" type="text" placeholder="검색 내용을 입력해주세요" size="50" value="${searchQna }" />
+	<input id="search-qna" type="text" placeholder="검색 내용을 입력해주세요" style="width:83%" value="${searchQna }" />
 </div>
 <hr>
 <c:if test="${member.MEMBERLEVEL==0 }">
