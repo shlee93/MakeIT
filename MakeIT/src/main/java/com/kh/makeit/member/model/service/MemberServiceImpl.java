@@ -291,5 +291,41 @@ public class MemberServiceImpl implements MemberService {
 		return dao.totalContestTradeCount(memberId);
 	}
 	
+	@Override
+	public List<Map<String, String>> selectSellList(List<String> list) {
+		// TODO Auto-generated method stub
+		return dao.selectSellList(list);
+	}
+
+	@Override
+	public List<String> selectFamousList() {
+		// TODO Auto-generated method stub
+		return dao.selectFamousList();
+	}
+
+	@Override
+	public List<Map<String, String>> selectFamousView(List<String> list) {
+		// TODO Auto-generated method stub
+		return dao.selectFamousView(list);
+	}
+
+	@Override
+	public List<String> selectSimilarView(List<String> list) {
+		// TODO Auto-generated method stub
+		return dao.selectSimilarView(list);
+	}
+
+	@Override
+	public List<Map<String, String>> selectSimilarList(List<String> list) {
+		// TODO Auto-generated method stub
+		return dao.selectSimilarList(list);
+	}
+
+	@Override
+	public List<Map<String, String>> selectInterestList(String interestNo) {
+		// TODO Auto-generated method stub
+		return dao.selectInterestList(interestNo);
+	}
+
 }
 

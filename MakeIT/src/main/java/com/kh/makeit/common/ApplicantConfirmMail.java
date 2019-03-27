@@ -43,7 +43,7 @@ public class ApplicantConfirmMail
         }});
         try{
             Message message = new MimeMessage(session); 
-            message.setFrom(new InternetAddress("i37491287@gmail.com"));// 
+            message.setFrom(new InternetAddress("i37491287@gmail.com","MakeIT"));// 
             message.setRecipients(Message.RecipientType.TO,
             InternetAddress.parse(email)); 
             message.setSubject("[MakeIT]- ["+applicantId+"] 님의 ["+contestTitle+"] 지원이 완료되었습니다.");

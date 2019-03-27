@@ -17,7 +17,7 @@
 
 
 <script type="text/javascript">
-  var naver_id_login = new naver_id_login("ayo0PcF7e31pJS4Lbj1N", "http://localhost:9090/makeit/callback");
+  var naver_id_login = new naver_id_login("ayo0PcF7e31pJS4Lbj1N", "http://192.168.130.50:9090/makeit/callback");
   //alert(naver_id_login.oauthParams.access_token);
   // 접근 토큰 값 출력
   // 네이버 사용자 프로필 조회

@@ -28,6 +28,7 @@ public class AdminController {
 	
 	private Logger logger = Logger.getLogger(AdminController.class);
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/admin/adminView.do")
 	public ModelAndView adminView(
 				HttpServletRequest request,
@@ -39,16 +40,28 @@ public class AdminController {
 				@RequestParam(value="approvalStatus", required=false, defaultValue="BUY") String approvalStatus,
 				@RequestParam(value="deleteStatus", required=false, defaultValue="BUY") String deleteStatus
 			) {
-		HttpSession session=request.getSession();
-		@SuppressWarnings("unchecked")
-		Map<String,String> member=(Map<String,String>)session.getAttribute("member");
-		String memberLevel=member.get("MEMBERLEVEL");
-		int level=Integer.parseInt(memberLevel);
-		ModelAndView mav=new ModelAndView();
-		if(level!=0) {
-			mav.setViewName("common/error");
-			return mav;
-		}
+
+			HttpSession session=request.getSession();
+			Map<Object,Object> member=(Map<Object, Object>)session.getAttribute("member");
+			ModelAndView mav=new ModelAndView();
+			if(member!=null) {
+				
+				if(Integer.parseInt(member.get("MEMBERLEVEL")+"")!=0) {
+					String msg="접속경로가 잘못되었습니다.";
+					String loc="/";
+					mav.addObject("script",msg);
+					mav.addObject("loc",loc);
+					mav.setViewName("common/msg");
+					return mav;
+				}
+			}else {
+				String msg="접속경로가 잘못되었습니다.";
+				String loc="/";
+				mav.addObject("script",msg);
+				mav.addObject("loc",loc);
+				mav.setViewName("common/msg");
+				return mav;
+			}
 		
 		//회원 리스트 출력
 		int numPerPage=5;

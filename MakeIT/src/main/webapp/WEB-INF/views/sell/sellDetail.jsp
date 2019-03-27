@@ -712,7 +712,7 @@
 			                                		<form id="sellRefundFrm" action="${path}/sell/sellRefund.do">
 			                                    		<input type="hidden" id="sellno" name="sellno" value="${detailList.get(0).SELLNO}">
 			                                    		<input type="hidden" id="sellRefundSpec" name="sellRefundSpec" value="">				                                    					                                    	
-			                                    		<select id="optionRefund" name="sellSpecNo" required="true" class="form-control donggeulInnerList" style="width:100%" onchange="fn_refundSelected(this.value)" >                      
+			                                    		<select id="optionRefund" name="sellSpecNo"  class="form-control donggeulInnerList" style="width:100%;" onchange="fn_refundSelected(this.value)" required="required" >                      
 					                                    	<option value="">환불옵션선택</option>
 						                                        <c:forEach items="${purchaseList}" var="purchaseList">
 									      							<c:if test="${session.MEMBERID ne detailList.get(0).MEMBERID and purchaseList.STATUSNO=='3'|| purchaseList.STATUSNO=='2'}">
@@ -723,14 +723,14 @@
 					                                    <input class="btn btn-outline-info slidetopleft donggeulInnerBtn" type="button" onclick='fn_refundPop()' value="환불하기">				                                    
 					                                    <script>	
 					                                    	function fn_refundSelected(str)
-					                                    	{
+					                                    	{					                                    			
 					                                    		  $("#sellRefundSpec").attr("value",str);	
 					                                    		 console.log( $("#sellRefundSpec").val());
 					                                    	}
 															function fn_refundPop(){
 																if(${sessionScope.member.MEMBERID!=null}){
-					                                    var sellSpecNo=$('#sellRefundSpec').val();
-					                                    console.log(sellSpecNo);
+							                                    var sellSpecNo=$('#sellRefundSpec').val();
+							                                    console.log($('#optionRefund').val());
 																	var url="${path}/sell/sellRefund.do";
 																	var name="환불하기";			
 																	window.open("${path}/sell/sellRefund.do?sellWriter=${detailList.get(0).MEMBERID}&&sellSpecNo="+sellSpecNo+"&&refundId=${purchaseList.get(0).MEMBERID}",name,'width=490, height=300, menubar=no, status=no, toolbar=no');

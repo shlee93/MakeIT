@@ -114,8 +114,15 @@
            width:30%;
         }
         
-        .donggeulInnerBtn
+       /*  .donggeulInnerBtn
 		{
 		   position:relative; 
 		   top:-100px;
+		} */
+		.donggeulInnerBtn
+		{
+			position:absolute; 
+			width: 130%;
+			top:130px;
+			left:-0.9em;
 		}

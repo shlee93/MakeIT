@@ -101,7 +101,7 @@
 												<td><%=i %></td>
 												<td></td>
 												<td colspan="3">
-													&nbsp;&nbsp;→[답변]<a class="qna-title-reple qna-pass ${sessionScope.member.MEMBERLEVEL==0?'qna-admin':'' }" ${sessionScope.member.MEMBERLEVEL==0?'':'data-toggle="modal" data-target="#squarespaceModal"' }>${qna.QNATITLE }</a>
+													&nbsp;&nbsp;→[답변]<a class="qna-title-reple qna-pass ${sessionScope.member.MEMBERLEVEL==0||sessionScope.member.MEMBERID==qna.MEMBERID?'qna-admin':'' }" ${sessionScope.member.MEMBERLEVEL==0?'':'data-toggle="modal" data-target="#squarespaceModal"' }>${qna.QNATITLE }</a>
 													<input type="hidden" value="${qna.QNANO }"/>
 												</td>
 												<td>&nbsp;&nbsp;${qna.MEMBERID }</td>

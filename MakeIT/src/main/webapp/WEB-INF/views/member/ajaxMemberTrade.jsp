@@ -90,7 +90,7 @@ pageEncoding="UTF-8"%>
 	                    			<th style="width: 20%;">작성자</th>
 	                    			<th style="width: 20%;">가격</th>
 	                    		</tr>
-	                    		<c:if test="${totalBuyCount != 0 }">
+	                    		<c:if test="${totalBuyTradeCount != 0 }">
 		                    		<c:forEach var="bo" items="${buyList }">
 		                    			<tr>
 		                    				<td style="width: 30%;">
@@ -107,7 +107,7 @@ pageEncoding="UTF-8"%>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
-	                    		<c:if test="${totalBuyCount == 0 }">
+	                    		<c:if test="${totalBuyTradeCount == 0 }">
 	                    			<tr>
 	                    				<td colspan='4' style="text-align: center;">
 	                    					검색된 결과가 없습니다.
@@ -130,7 +130,7 @@ pageEncoding="UTF-8"%>
 	                    			<th style="width: 20%;">옵션</th>
 	                    			<th style="width: 20%;">가격</th>
 	                    		</tr>
-	                    		<c:if test="${totalSellCount != 0 }">
+	                    		<c:if test="${totalSellTradeCount != 0 }">
 		                    		<c:forEach var="so" items="${sellList }">
 		                    			<tr>
 		                    				<td style="width: 20%;">
@@ -148,7 +148,7 @@ pageEncoding="UTF-8"%>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
-	                    		<c:if test="${totalSellCount == 0 }">
+	                    		<c:if test="${totalSellTradeCount == 0 }">
 	                    			<tr>
 	                    				<td colspan='5' style="text-align: center;">
 	                    					검색된 결과가 없습니다.
@@ -170,7 +170,7 @@ pageEncoding="UTF-8"%>
 	                    			<th style="width: 20%;">작성자</th>
 	                    			<th style="width: 20%;">상금</th>
 	                    		</tr>
-	                    		<c:if test="${totalContestCount != 0 }">
+	                    		<c:if test="${totalContestTradeCount != 0 }">
 		                    		<c:forEach var="con" items="${contestList }">
 		                    			<tr>
 		                    				<td style="width: 30%;">
@@ -187,7 +187,7 @@ pageEncoding="UTF-8"%>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
-	                    		<c:if test="${totalContestCount == 0 }">
+	                    		<c:if test="${totalContestTradeCount == 0 }">
 	                    			<tr>
 	                    				<td colspan='4' style="text-align: center;">
 	                    					검색된 결과가 없습니다.
@@ -211,7 +211,7 @@ pageEncoding="UTF-8"%>
 	                    			<th style="width: 20%;">작성자</th>
 	                    			<th style="width: 20%;">가격</th>
 	                    		</tr>
-	                    		<c:if test="${totalBuyCount != 0 }">
+	                    		<c:if test="${totalBuyTradeCount != 0 }">
 		                    		<c:forEach var="bo" items="${buyList }">
 		                    			<tr>
 		                    				<td style="width: 30%;">
@@ -228,7 +228,7 @@ pageEncoding="UTF-8"%>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
-	                    		<c:if test="${totalBuyCount == 0 }">
+	                    		<c:if test="${totalBuyTradeCount == 0 }">
 	                    			<tr>
 	                    				<td colspan='4' style="text-align: center;">
 	                    					검색된 결과가 없습니다.
@@ -251,7 +251,7 @@ pageEncoding="UTF-8"%>
 	                    			<th style="width: 20%;">옵션</th>
 	                    			<th style="width: 20%;">가격</th>
 	                    		</tr>
-	                    		<c:if test="${totalSellCount != 0 }">
+	                    		<c:if test="${totalSellTradeCount != 0 }">
 		                    		<c:forEach var="so" items="${sellList }">
 		                    			<tr>
 		                    				<td style="width: 20%;">
@@ -269,7 +269,7 @@ pageEncoding="UTF-8"%>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
-	                    		<c:if test="${totalSellCount == 0 }">
+	                    		<c:if test="${totalSellTradeCount == 0 }">
 	                    			<tr>
 	                    				<td colspan='5' style="text-align: center;">
 	                    					검색된 결과가 없습니다.
@@ -291,7 +291,7 @@ pageEncoding="UTF-8"%>
 	                    			<th style="width: 20%;">작성자</th>
 	                    			<th style="width: 20%;">상금</th>
 	                    		</tr>
-	                    		<c:if test="${totalContestCount != 0 }">
+	                    		<c:if test="${totalContestTradeCount != 0 }">
 		                    		<c:forEach var="con" items="${contestList }">
 		                    			<tr>
 		                    				<td style="width: 30%;">
@@ -308,7 +308,7 @@ pageEncoding="UTF-8"%>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
-	                    		<c:if test="${totalContestCount == 0 }">
+	                    		<c:if test="${totalContestTradeCount == 0 }">
 	                    			<tr>
 	                    				<td colspan='4' style="text-align: center;">
 	                    					검색된 결과가 없습니다.
@@ -332,7 +332,7 @@ pageEncoding="UTF-8"%>
 	                    			<th style="width: 20%;">작성자</th>
 	                    			<th style="width: 20%;">가격</th>
 	                    		</tr>
-	                    		<c:if test="${totalBuyCount != 0 }">
+	                    		<c:if test="${totalBuyTradeCount != 0 }">
 		                    		<c:forEach var="bo" items="${buyList }">
 		                    			<tr>
 		                    				<td style="width: 30%;"><c:out value="${bo.STATUSNAME }"/></td>
@@ -342,7 +342,7 @@ pageEncoding="UTF-8"%>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
-	                    		<c:if test="${totalBuyCount == 0 }">
+	                    		<c:if test="${totalBuyTradeCount == 0 }">
 	                    			<tr>
 	                    				<td colspan='4' style="text-align: center;">
 	                    					검색된 결과가 없습니다.
@@ -365,7 +365,7 @@ pageEncoding="UTF-8"%>
 	                    			<th style="width: 20%;">옵션</th>
 	                    			<th style="width: 20%;">가격</th>
 	                    		</tr>
-	                    		<c:if test="${totalSellCount != 0 }">
+	                    		<c:if test="${totalSellTradeCount != 0 }">
 		                    		<c:forEach var="so" items="${sellList }">
 		                    			<tr>
 		                    				<td style="width: 20%;"><c:out value="${so.STATUSNAME }"/></td>
@@ -376,7 +376,7 @@ pageEncoding="UTF-8"%>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
-	                    		<c:if test="${totalSellCount == 0 }">
+	                    		<c:if test="${totalSellTradeCount == 0 }">
 	                    			<tr>
 	                    				<td colspan='5' style="text-align: center;">
 	                    					검색된 결과가 없습니다.
@@ -398,7 +398,7 @@ pageEncoding="UTF-8"%>
 	                    			<th style="width: 20%;">작성자</th>
 	                    			<th style="width: 20%;">상금</th>
 	                    		</tr>
-	                    		<c:if test="${totalContestCount != 0 }">
+	                    		<c:if test="${totalContestTradeCount != 0 }">
 		                    		<c:forEach var="con" items="${contestList }">
 		                    			<tr>
 		                    				<td style="width: 30%;">
@@ -415,7 +415,7 @@ pageEncoding="UTF-8"%>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
-	                    		<c:if test="${totalContestCount == 0 }">
+	                    		<c:if test="${totalContestTradeCount == 0 }">
 	                    			<tr>
 	                    				<td colspan='4' style="text-align: center;">
 	                    					검색된 결과가 없습니다.

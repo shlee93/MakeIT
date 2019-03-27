@@ -33,9 +33,10 @@
    	<link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Sunflower:300" rel="stylesheet">
    	
    	<style>
+		
 		div
 		{
-			border:1px solid red;
+			border:1px solid blue;
 		}
 		
 		header
@@ -49,8 +50,10 @@
 		}
 		.donggeulInnerBtn
 		{
-			position:relative; 
-			top:-100px;
+			position:absolute; 
+			width: 130%;
+			top:130px;
+			left:-0.9em;
 		}
 				    
 	</style>
@@ -196,32 +199,47 @@
                         		<h4 style="display: inline; font-family: 'Sunflower', sans-serif;"><strong>${contestObj.GRADENAME}</strong> ${contestObj.MEMBERNAME}</h4>
  			                   	
  			                   	<!-- 똥글뱅이 -->
-                        		<div class="row align-items-center" style='margin-top: -5em; z-index:50;'>			                  
+                        		<div class="row align-items-center" style='margin-top: -5em;'>			                  
 			                  		<div class="holderCircle">
 			                        	<div class="round"></div>
-		                        		<div class="dotCircle">
-			                        		
+		                        		<div class="dotCircle">		                        				                        		
 			                        		<span class="itemDot itemDot1" data-tab="1">
 				                           	    <c:set var='currentId' value='${memberMap.get("MEMBERID")}'/>								
 				                           	   	   	<c:choose>
 									    	   		   	<c:when test="${currentId eq contestObj.MEMBERID}">
-									    	   		   		<i class="fas fa-edit donggeulI"></i>				 			                          										    	   		   
+									    	   		   		<i class="fas fa-edit donggeulI"></i>
+										    	   		   		<div class="icon-title">
+							                                       <p>수정하기</p>
+							                                    </div>
+						                                    <span class="forActive"></span>				 			                          										    	   		   
 									    	   		   	</c:when>
 												       	<c:otherwise>
-								                        	<i class="fas fa-kiss-wink-heart donggeulI"></i>   				     		
+								                        	<i class="fas fa-kiss-wink-heart donggeulI"></i>  
+								                        		<div class="icon-title">
+							                                       <p>찜설정</p>
+							                                    </div>
+						                                    <span class="forActive"></span>		 				     		
 												       	</c:otherwise>
 										 		   	</c:choose>	   	
-				                           		<span class="forActive"></span>
+				                           						                           		
 				                            </span>
 			                           		
 				                            <span class="itemDot itemDot2" data-tab="2">
 				                           	    <c:set var='currentId' value='${memberMap.get("MEMBERID")}'/>								
 				                           	   	   	<c:choose>
 									    	   		   	<c:when test="${currentId eq contestObj.MEMBERID}">
-				 			                          		<i class="fas fa-trash-alt donggeulI"></i>								    	   		   
+				 			                          		<i class="fas fa-trash-alt donggeulI"></i>
+				 			                          		<div class="icon-title">
+						                                       <p>삭제하기</p>
+						                                    </div>
+						                                    <span class="forActive"></span>										    	   		   
 									    	   		   	</c:when>
 												       	<c:otherwise>
-								                           	<i class="fa fa-comments donggeulI"></i>			     		
+								                           	<i class="fa fa-comments donggeulI"></i>
+								                           	<div class="icon-title">
+						                                       <p>쪽지하기</p>
+						                                    </div>
+						                                    <span class="forActive"></span>					     		
 												       	</c:otherwise>
 										 		   	</c:choose>	   	
 				                           		<span class="forActive"></span>
@@ -229,7 +247,10 @@
 				                           	
 				                           	<span class="itemDot itemDot3 active" data-tab="3">
 					                           	<i class="fa fa-briefcase donggeulI"></i>
-				                           	   	<span class="forActive"></span>
+				                           	   	<div class="icon-title">
+			                                       <p>지원하기</p>
+			                                    </div>
+		                                    	<span class="forActive"></span>		
 				                           	</span>
 				                           	<!-- <span class="itemDot itemDot3" data-tab="3">
 					                           	<i class="fa fa-user donggeulI"></i>
@@ -244,7 +265,10 @@
 						    	   		   	<c:when test="${currentId ne contestObj.MEMBERID}">
 						                       	<span class="itemDot itemDot5" data-tab="5">
 						                       	   	<i class="fas fa-angry donggeulI"></i>
-					                           	   	<span class="forActive"></span>
+					                           	   	<div class="icon-title">
+				                                       <p>신고하기</p>
+				                                    </div>
+			                                    	<span class="forActive"></span>		
 					                           	</span>
 				                           	</c:when>
 			                           	</c:choose>
@@ -339,7 +363,7 @@
 											      			<input type='hidden' id='sendId' name='sendId' value='${memberMap.get("MEMBERID")}'/>
 											      			<input type='hidden' id='receiveId' name='receiveId' value='${contestObj.MEMBERID }'/>
 											      		<%-- </form> --%> 
-										      			<button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick='fn_message()'>쪽지보내기</button>
+										      			<button class="btn btn-outline-info slidetopleft donggeulInnerBtn" onclick='fn_message()' >쪽지보내기</button>
 										      			
 										      			<script>									      			
 										      				function fn_message()
@@ -508,7 +532,7 @@
 		                        	
 		                        	<!-- 작성자 소개 -->  	
 	                          		<div class='col-md-10'>
-	                          			<textarea class='form-control' rows='6' style='width:100%; height: 100%;'readonly>${contestObj.INTRODUCTION}</textarea>
+	                          			<textarea class='form-control' rows='6' style='width:100%; height: 100%; margin-top:30px;' readonly>${contestObj.INTRODUCTION}</textarea>
 	                          		</div>
 	                          		<!-- 작성자 소개 끝 -->
 	                          		
@@ -520,10 +544,9 @@
        			</div>
 			</div>
 	    	<div class='col-md-1' id='right-nav' >
-	    	<c:if test="${sessionScope.member.MEMBERID == 'admin'}">
+	    	<c:if test="${sessionScope.member.MEMBERLEVEL == 0 and contestObj.CONTESTYN=='N'}">
 	    		<div style='position:fixed;'>
-	    			<span onclick='fn_back()' id='approval-btn' style='cursor:pointer; font-size: 4em;'><i class="fas fa-check-circle"></i></span>   				           
-	          	 	
+	    			<span id='approval-btn' style='cursor:pointer; font-size: 4em;'><i class="fas fa-check-circle"></i></span>	          	 	
 	           	</div>
            	</c:if>
 	    	</div>

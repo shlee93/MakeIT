@@ -43,7 +43,7 @@
 	#container{
 	 width:97%;
 	}
-	.btn-primary{
+	.slidetopleft{
 	   position:relative;
 	   left:83%;
 	   top:3px;
@@ -60,24 +60,26 @@
                		</div>
            		</div>
             	<div class="row">
-               		<div class="col-md-2" >
+               		<div class="col-md-1" >
                   
                		</div>
-               		<div class="col-md-9">
+               		<div class="col-md-10">
                   		<label>신고대상</label> 
                   		<input class="form-control" type="text" name="reportId" value="${contestWriter}" style="width:40%;">
                		</div>
+               		<div class='col-md-1'></div>
             	</div>
             	
             	<br/>
             	
             	<div class="row">
-               		<div class="col-md-3">
-                  		<label style="">신고내용</label> 
+               		<div class="col-md-1">
                		</div>
-               		<div class="col-md-9">
+               		<div class="col-md-10">
+                  		<label style="">신고내용</label> 
                   		<textarea id='reportContent' name="reportContent" class="form-control" rows="5"></textarea>
                		</div>
+               		<div class='col-md-1'></div>
                		
                		<script>
                			$('#reportContent').on('keyup', function() 

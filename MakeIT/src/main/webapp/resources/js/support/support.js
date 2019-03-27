@@ -567,6 +567,14 @@ $(document).on('click','textarea', function(){
 	 textEle.css('height', textEleHeight);
 });
 
+$(document).on('keyup','#qna-title',function(){
+	var title=$('#qna-title').val();
+	if(title.length>30){
+		alert("제목은 30글자 제한입니다.");
+		$('#qna-title').val(title.substring(0.30));
+		$('#qna-title').focus();
+	}
+})
 
 
 
