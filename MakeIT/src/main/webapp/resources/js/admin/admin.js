@@ -978,7 +978,7 @@ $(document).on('click','#refund-btn',function(){
 	var price=$('#refund-price').val()
 	var $payment_Tab=$('.refund-view-div');
 	var cPage=$('#cPage').val();
-
+	var no=$('#no').val();
 	console.log(title);
 	console.log(price);
 	
@@ -1010,6 +1010,7 @@ $(document).on('click','#refund-btn',function(){
 				
 				url:"updateRefundEnd.do",
 				data:{
+					"no":no,
 					"cPage":cPage,
 					"refundStatus":viewStatus,
 					"specNo":specNo
@@ -1139,47 +1140,60 @@ $(document).on('click','.report-view',function(){
 })
 
 //faq 카테고리 클릭 이벤트
-$(document).on('click', '.faq-slide', function () {
+$(document).on('click', '.faq-category', function () {
 
-	var $faq_list = $(this).parent().next();
+	var $faq_list = $(this).next();
 
 	if ($faq_list.is(':hidden')) {
 
 		$faq_list.slideDown('slow');
-		$(this).html("▲");
+		$(this).children().html("▲");
 
 	} else {
 
 		$faq_list.slideUp('slow');
-		$(this).html("▼");
+		$(this).children().html("▼");
 
 	}
-	$(this).parent('.faq-category').next().children('.faq-list').children('.faq-question').children('textarea').click();
-
+	
 });
 
 
 //faq 답변 보기 이벤트
-$(document).on('click', '.answer-slide', function () {
+$(document).on('click', '.faq-question', function () {
 
-	var $slide_btn = $(this);
-	var $answer = $slide_btn.siblings('.faq-answer');
-	
+
+	var $answer = $(this).children('.faq-answer');
+
 	if ($answer.is(':hidden')) {
+		$('.faq-answer').slideUp('slow');
 		$answer.slideDown('slow');
-		$(this).html("▲");
-		
+		$(this).siblings('.answer-slide').html("▲");
+
 	} else {
 		$answer.slideUp('slow');
-		$(this).html("▼");
-
+		$(this).siblings('.answer-slide').html("▼");
 
 	}
-	$(this).siblings('.faq-answer').children('textarea').click();
-	
-	
+
 });
 
+//faq 질문 검색
+$(document).on('keyup','#faq-search',function(){
+	var faqSearch=$('#faq-search').val();
+	
+	$.ajax({
+		
+		url:"selectFaqSearchAdmin.do",
+		data:{
+			"faqSearch":faqSearch,
+		},
+		dataType:"html",
+		success:function(data){
+			$('.faq-section').html(data);
+		}
+	})
+})
 //faq 카테고리 추가 이벤트
 $(document).on('click', '.faq-category-insert', function () {
 
@@ -1323,7 +1337,7 @@ $(document).on('click','.qna-delete',function(){
 
 //텍스트 에어리어 크기조절
 
-$(document).on('click','textarea', function(){
+$(document).on('keyup','textarea', function(){
 	 var textEle=$(this);
 	 console.log(textEle);
 	 textEle[0].style.height = 'auto';

@@ -111,18 +111,13 @@ public class SupportServiceImpl implements SupportService {
 		
 		return dao.selectOneQna3(qnaNo);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	//faq 질문 검색
+	@Override
+	public List<Map<String, String>> selectFaqSearch(String faqSearch) {
+		
+		return dao.selectFaqSearch(faqSearch);
+	}
 	
 	
 }

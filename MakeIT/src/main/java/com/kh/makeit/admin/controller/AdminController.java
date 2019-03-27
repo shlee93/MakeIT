@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.makeit.admin.model.service.AdminService;
+import com.kh.makeit.buy.model.service.BuyService;
 import com.kh.makeit.common.PageFactory;
 import com.kh.makeit.member.model.service.MemberService;
+import com.kh.makeit.support.model.service.SupportService;
 
 @Controller
 public class AdminController {
@@ -25,7 +27,10 @@ public class AdminController {
 	MemberService memberService;
 	@Autowired
 	AdminService adminService;
-	
+	@Autowired
+	SupportService supportService;
+	@Autowired
+	BuyService buyService;
 	private Logger logger = Logger.getLogger(AdminController.class);
 	
 	@SuppressWarnings("unchecked")
@@ -588,7 +593,7 @@ public class AdminController {
 	
 	//결제완료 spec status 업데이트
 	@RequestMapping("/admin/updateRefundEnd")
-	public ModelAndView updateRefundEnd(int specNo,String refundStatus,
+	public ModelAndView updateRefundEnd(int no,int specNo,String refundStatus,
 			@RequestParam(value="cPage",required=false, defaultValue="1") int cPage
 			) {
 		int numPerPage=5;
@@ -599,7 +604,9 @@ public class AdminController {
 		refund.put("specNo", specNo);
 		refund.put("refundStatus", refundStatus);
 		int result=adminService.updateRefundEnd(refund);
-			
+		if(result>0&&refundStatus.equals("BUY")) {
+			int result2 = buyService.buyDelete(no);
+		}
 		//결제현황 출력
 		List<Map<Object,Object>> paymentList=adminService.selectRefundListAdmin(refundStatus,cPage,numPerPage);
 							
@@ -947,6 +954,24 @@ public class AdminController {
 		mav.addObject("pageBarRefund", pageBarRefund);
 		mav.addObject("paymentList", paymentList);
 		mav.setViewName("/admin/adminPaymentView");
+		return mav;
+	}
+	
+	//faq 질문 검색
+	@RequestMapping("/support/selectFaqSearchAdmin.do")
+	public ModelAndView selectFaqSearchAdmin(
+			@RequestParam(value="faqSearch", required=false, defaultValue="") String faqSearch
+			) {
+		
+		ModelAndView mav=new ModelAndView();
+		//FAQ 출력
+		List<Map<String,String>> faqList=adminService.selectFaqListAdmin();
+		List<Map<String,String>> categoryList=supportService.selectFaqSearch(faqSearch);
+		
+		mav.addObject("faqList", faqList);
+		mav.addObject("categoryList", categoryList);
+		mav.setViewName("admin/adminFaqSearchView");
+		
 		return mav;
 	}
 

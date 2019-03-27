@@ -449,5 +449,24 @@ public class SupportController {
 		return mav;
 	}
 	
+	//faq 질문 검색
+	@RequestMapping("/support/selectFaqSearch.do")
+	public ModelAndView selectFaqSearch(
+				@RequestParam(value="faqSearch", required=false, defaultValue="") String faqSearch
+			) {
+		
+		ModelAndView mav=new ModelAndView();
+		//FAQ 출력
+		List<Map<String,String>> faqList=adminService.selectFaqListAdmin();
+		List<Map<String,String>> categoryList=supportService.selectFaqSearch(faqSearch);
+		
+		mav.addObject("faqList", faqList);
+		mav.addObject("categoryList", categoryList);
+		mav.setViewName("support/selectFaqSearch");
+		
+		return mav;
+		
+	}
+	
 
 }

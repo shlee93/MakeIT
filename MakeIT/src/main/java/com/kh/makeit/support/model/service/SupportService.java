@@ -46,4 +46,7 @@ public interface SupportService {
 
 	//qna 게시글 비밀번호 체크
 	String selectQnaPassCheck(int qnaNo);
+	
+	//faq 질문검색
+	List<Map<String,String>> selectFaqSearch(String faqSearch);
 }
