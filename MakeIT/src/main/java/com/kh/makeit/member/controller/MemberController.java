@@ -1451,8 +1451,8 @@ public class MemberController {
 				String cVal = c.getValue();
 				String cName = c.getName();
 				int cDate = c.getMaxAge();
-/*				System.out.println("쿠키 이름 : "+cName+" /쿠기 값 : "+cVal+" /쿠기 날짜 : "+cDate);*/
-				if(cName != "intro" && cName != "JSESSIONID") {
+				System.out.println("쿠키 이름~~~ : "+cName+" /쿠기 값 : "+cVal+" /쿠기 날짜 : "+cDate);
+				if(!cName.equals("intro") && !cName.equals("JSESSIONID")) {
 					if(checkSize < 5) {
 						list.add(cVal);																																																																																																																													
 						checkSize++;
