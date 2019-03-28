@@ -1,7 +1,11 @@
-package com.kh.makeit.board.controller;
+	package com.kh.makeit.board.controller;
 
 
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,10 +19,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.kh.makeit.board.model.service.BoardService;
+import com.kh.makeit.board.model.vo.BoardAttach;
 import com.kh.makeit.common.PageFactory;
 
 @Controller
@@ -29,12 +35,12 @@ public class BoardController {
 	@Autowired
 	BoardService boardService;
 	
+	//자유게시판 가기
 	@RequestMapping("/board/boardMain.do")
 	public ModelAndView boardView(
 				@RequestParam(value="cPage", required=false, defaultValue="1") int cPage
 			) {
-		int numPerPage=30;
-		int numPerPage2=10;
+		int numPerPage=20;
 		int memberCount = boardService.selectBoardCount();
 		String memberPageBar = PageFactory.getPageBarAdmin(memberCount, cPage, numPerPage,"/board/boardMain.do");
 		
@@ -49,11 +55,33 @@ public class BoardController {
 		return mav;
 	}
 	
+	//내정보에서 자유게시판 들어올때
+	@RequestMapping("/board/boardInfoView.do")
+	public ModelAndView boardInfoView(
+			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, String freeNo
+		) {
+	int numPerPage=30;
+	int numPerPage2=10;
+	int memberCount = boardService.selectBoardCount();
+	String memberPageBar = PageFactory.getPageBarAdmin(memberCount, cPage, numPerPage,"/board/boardMain.do");
+	
+	ModelAndView mav = new ModelAndView();
+	List<Map<String,String>> memberList = boardService.selectBoardList(cPage,numPerPage);
+	
+	logger.debug(memberList);
+	mav.addObject("memberPageBar",memberPageBar);
+	mav.addObject("memberList",memberList);
+	mav.addObject("infoFreeNo",freeNo);
+	mav.setViewName("/board/boardMain");
+	
+	return mav;
+	}
 	
 	
+	//게시판디테일 정보 불러오기
 	@RequestMapping(value="/board/freeboardView.do", produces="application/text; charset=utf8")
 	@ResponseBody
-	public String freeboardView(HttpServletRequest request,String freeNo) {
+	public String freeboardView(HttpServletRequest request,int freeNo) {
 
 		Map<Object,Object> allList = new HashMap();
 		int updateViews = boardService.updateboardViews(freeNo);
@@ -80,5 +108,262 @@ public class BoardController {
 		
 		return data;
 	}
+	
+	//댓글 정보 저장
+	@RequestMapping(value="/board/insertComment.do", produces="application/text; charset=utf8")
+	@ResponseBody
+	public String insertComment(String inputText, int freeNo, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+	    Map sessionMap = (Map) session.getAttribute("member");
+	    String memberId = (String)sessionMap.get("MEMBERID");
+	    Map<Object, Object> insertValue = new HashMap();
+	    
+	    insertValue.put("memberId", memberId);
+	    insertValue.put("inputText", inputText);
+	    insertValue.put("freeNo", freeNo);
+	    
+	    Map<Object,Object> allList = new HashMap();
+	    int updateComment = boardService.insertComment(insertValue);
+	    List<Map<String,String>> boardCommentList = boardService.selectBoardCommentView(freeNo);
+	    allList.put("boardCommentList", boardCommentList);
+	    allList.put("memberId",memberId);
+	    
+	    Gson gson = new Gson();
+		String data = gson.toJson(allList);
+		
+		return data;
+	}
+	
+	//대댓글 정보 저장
+	@RequestMapping(value="/board/insertreComment.do", produces="application/text; charset=utf8")
+	@ResponseBody
+	public String insertreComment(String inputText, int freeNo,int commentNo, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+	    Map sessionMap = (Map) session.getAttribute("member");
+	    String memberId = (String)sessionMap.get("MEMBERID");
+	    Map<Object, Object> insertValue = new HashMap();
+	    
+	    insertValue.put("memberId", memberId);
+	    insertValue.put("inputText", inputText);
+	    insertValue.put("freeNo", freeNo);
+	    insertValue.put("commentNo", commentNo);
+	    
+	    Map<Object,Object> allList = new HashMap();
+	    int updateComment = boardService.insertreComment(insertValue);
+	    List<Map<String,String>> boardCommentList = boardService.selectBoardCommentView(freeNo);
+	    allList.put("boardCommentList", boardCommentList);
+	    allList.put("memberId",memberId);
+	    
+	    Gson gson = new Gson();
+		String data = gson.toJson(allList);
+		
+		return data;
+	}
+	
+	//댓삭
+	@RequestMapping(value="/board/commentDelete.do", produces="application/text; charset=utf8")
+	@ResponseBody
+	public String deleteComment(int commentNo, int freeNo, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+	    Map sessionMap = (Map) session.getAttribute("member");
+	    String memberId = (String)sessionMap.get("MEMBERID");
+	    
+	    logger.debug("코멘트 노!!!!!!!!!!!!!!!!!!!!! : "+commentNo);
+	    int deleteComment = boardService.deleteComment(commentNo);
+	    logger.debug(deleteComment);
+	    
+	    Map<Object,Object> allList = new HashMap();
+	    List<Map<String,String>> boardCommentList = boardService.selectBoardCommentView(freeNo);
+	    allList.put("boardCommentList", boardCommentList);
+	    allList.put("memberId",memberId);
+	    
+	    Gson gson = new Gson();
+	    String data = gson.toJson(allList);
+	    
+	    return data;
+	}
+	
+	//게시판 글쓰기 가기
+	@RequestMapping("/board/writeBoard.do")
+	public ModelAndView writeBoardView(HttpServletRequest request) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		HttpSession session = request.getSession();
+	    Map sessionMap = (Map) session.getAttribute("member");
+	    String memberId = (String)sessionMap.get("MEMBERID");
+	    
+		
+	    mav.addObject("memberId", memberId);
+		mav.setViewName("/board/writeBoard");
+		
+		return mav;
+	}
+	
+	//게시판 수정 가기
+	@RequestMapping("/board/boardModify.do")
+	public ModelAndView boardModifyView(HttpServletRequest request,String freeNo) {
+		
+		ModelAndView mav = new ModelAndView();
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+freeNo);
+		
+		HttpSession session = request.getSession();
+	    Map sessionMap = (Map) session.getAttribute("member");
+	    String memberId = (String)sessionMap.get("MEMBERID");
+	    List<Map<String,String>> boardList = boardService.selectBoardDetailView(Integer.parseInt(freeNo));
+		logger.debug(boardList);
+	    mav.addObject("memberId", memberId);
+	    mav.addObject("boardList",boardList);
+		mav.setViewName("/board/boardModify");
+		
+		return mav;
+	}
+	
+	//게시판 글쓰기 정보 업로드
+	@RequestMapping("/board/insertWriteBoardEnd.do")
+	public String insertWriteBoardEnd(String writeTitle, String writeContent, MultipartFile[] input_file, HttpServletRequest request) {
+
+		HttpSession session = request.getSession();
+	    Map sessionMap = (Map) session.getAttribute("member");
+	    String memberId = (String)sessionMap.get("MEMBERID");
+	    
+		System.out.println("인풋파일" + input_file);
+		System.out.println("타이틀" + writeTitle);
+		System.out.println("내용" + writeContent);
+		System.out.println("아이디 값" + memberId);
+		
+		ArrayList<BoardAttach> files=new ArrayList();
+		Map<String, String> map = new HashMap();
+		
+		map.put("memberId", memberId);
+		map.put("writeTitle", writeTitle);
+		map.put("writeContent", writeContent);
+		
+		for(MultipartFile a : input_file)
+		{
+			System.out.println("asdf   " + a.getOriginalFilename());
+		}
+		
+		String savDir = request.getSession().getServletContext().getRealPath("/resources/upload/board");
+		
+		for(MultipartFile f: input_file)
+		{
+			if(!f.isEmpty()) {
+				//파일명 생성(rename)
+				String freeImgOri=f.getOriginalFilename();
+				String ext=freeImgOri.substring(freeImgOri.lastIndexOf(".")); //.부터 확장자까지 가져오기
+				//rename규칙 설정
+				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSSS");
+				int rdv=(int)(Math.random()*1000); //랜덤값설정
+				String freeImgRe=sdf.format(System.currentTimeMillis())+"_"+rdv+ext;  //새이름
+				//파일입출력ㅎ
+				try {
+					f.transferTo(new File(savDir+"/"+freeImgRe)); //저경로에다가 파일을 생성해주는것
+				}catch(IllegalStateException | IOException e) {  //일리갈은 세이브디아이알 못찾을때 뜨는것
+					e.printStackTrace();
+				}
+
+				BoardAttach ba = new BoardAttach();
+				System.out.println(" 경로 !!!!!  "+freeImgRe);
+				System.out.println(" 경로 !!!!!!!!!!!!  "+freeImgOri);	
+				ba.setFreeImgRe(freeImgRe);
+				ba.setFreeImgOri(freeImgOri);
+				files.add(ba);
+
+				
+			}
+		}
+		int result = boardService.insertBoardList(files, map);
+		
+		System.out.println("결과1 : "+result);
+
+		return "redirect:/";
+	}
+	
+	@RequestMapping("/board/modifyWriteBoardEnd.do")
+	public String modifyWriteBoardEnd(String freeNo,String writeTitle, String writeContent, MultipartFile[] input_file, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+	    Map sessionMap = (Map) session.getAttribute("member");
+	    String memberId = (String)sessionMap.get("MEMBERID");
+	    
+		System.out.println("인풋파일" + input_file);
+		System.out.println("타이틀" + writeTitle);
+		System.out.println("내용" + writeContent);
+		System.out.println("아이디 값" + memberId);
+		
+		ArrayList<BoardAttach> files=new ArrayList();
+		Map<Object, Object> map = new HashMap();
+		map.put("freeNo", Integer.parseInt(freeNo));
+		map.put("memberId", memberId);
+		map.put("writeTitle", writeTitle);
+		map.put("writeContent", writeContent);
+		
+		
+		for(MultipartFile a : input_file)
+		{
+			System.out.println("asdf   " + a.getOriginalFilename());
+		}
+		
+		String savDir = request.getSession().getServletContext().getRealPath("/resources/upload/board");
+		
+		for(MultipartFile f: input_file)
+		{
+			if(!f.isEmpty()) {
+				//파일명 생성(rename)
+				String freeImgOri=f.getOriginalFilename();
+				String ext=freeImgOri.substring(freeImgOri.lastIndexOf(".")); //.부터 확장자까지 가져오기
+				//rename규칙 설정
+				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSSS");
+				int rdv=(int)(Math.random()*1000); //랜덤값설정
+				String freeImgRe=sdf.format(System.currentTimeMillis())+"_"+rdv+ext;  //새이름
+				//파일입출력ㅎ
+				try {
+					f.transferTo(new File(savDir+"/"+freeImgRe)); //저경로에다가 파일을 생성해주는것
+				}catch(IllegalStateException | IOException e) {  //일리갈은 세이브디아이알 못찾을때 뜨는것
+					e.printStackTrace();
+				}
+
+				BoardAttach ba = new BoardAttach();
+				System.out.println(" 경로 !!!!!  "+freeImgRe);
+				System.out.println(" 경로 !!!!!!!!!!!!  "+freeImgOri);	
+				ba.setFreeImgRe(freeImgRe);
+				ba.setFreeImgOri(freeImgOri);
+				files.add(ba);
+
+				
+			}
+		}
+		int result = boardService.updateBoardList(files, map, Integer.parseInt(freeNo));
+		
+		System.out.println("결과1 : "+result);
+
+		return "redirect:/";
+	}
+	
+	 //페이징
+	@RequestMapping("/board/memberSortboard.do")
+	public ModelAndView memberSortAdmin(
+
+				@RequestParam(value="cPage", required=false, defaultValue="1") int cPage
+			) {
+		//회원 리스트 정렬
+		int numPerPage=20;
+		int memberCount= boardService.selectMemberCountBoard();
+		String pageBar=PageFactory.getPageBarAdmin(memberCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+		
+		Map<Object,Object> sort=new HashMap();
+
+		List<Map<String,String>> memberList=boardService.selectMemberSortBoard(sort,cPage,numPerPage);
+		logger.info(memberList);
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("memberPageBar", pageBar);
+		mav.addObject("memberList",memberList);
+		mav.setViewName("board/boardView");
+		
+		return mav;
+	}
+
 
 }
+

@@ -108,6 +108,10 @@ pageEncoding="UTF-8"%>
 		});
 	}
 	function sendMessage(){
+		if($('#messageContent').val().trim().length == 0){
+			alert('내용을 입력해주세요');
+			return false;
+		}
 		$('#naviBarStatus').attr("value","4");
 		$.ajax({
 			url:"${path}/member/reSendMessageEnd.do",

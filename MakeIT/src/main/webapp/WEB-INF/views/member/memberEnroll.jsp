@@ -77,15 +77,15 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-1">
-        	<div style='position:fixed; margin-top: 10em;'>
-    			<span onclick='fn_back()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
-          	 	<script>
-           			function fn_back()
-	           		{
-	           			history.back();
-	           		}
-	           	</script>
-           	</div>
+        	<div style='position:fixed; margin-top:-6em;'>
+            <span onclick='fn_back()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-left"></i></span>                           
+                <script>
+                   function fn_back()
+                   {
+                      history.back();
+                   }
+                </script>
+            </div>
         </div>
         <div class="col-md-10" id="text-area">
             <form name='signupform' action="${path }/member/memberEnrollEnd.do" method="POST" onsubmit='return fn_enroll_validate()' enctype="multipart/form-data">
@@ -183,7 +183,7 @@
                         </c:if>
                     </div>
                     <div class="col-md-6 mb-2">
-                        <input type="date" id='birth' name='birth' class='form-control' value='' maxlength="6" placeholder="예시 : 900123" required>
+                        <input type="date" id='birth' name='birth' class='form-control' value='' maxlength="6" min="1900-01-01" placeholder="예시 : 900123" required>
                     </div>
                     <div class="col-md-3 mb-2">
                     </div>
@@ -500,7 +500,14 @@
                 
                 return false;   
             }
-            
+
+    		if(!/^[a-zA-Z0-9]{6,20}$/.test(memberId))
+    		 { 
+    		     alert('아이디는 숫자와 영문자 조합으로 6~20자리를 사용해야 합니다.'); 
+    		     $('#memberId').focus();
+    		     return false;
+    		 }
+    		
             if($('#password').val().trim().length==0)
             {
                 alert("패스워드를 입력하세요!");
@@ -572,6 +579,15 @@
             	return false;
             }
             
+            var memberName = $('#memberName').val().trim();
+            var pattern = /^[가-힣]{2,8}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
+
+            if(!pattern.test(memberName)){
+            	alert("이름은 영문 또는 한글로만 입력 가능합니다.");
+           	 	$('#memberName').focus();
+                return false;
+            	
+            }
             if($('#memberName').val().trim().length==0)
             {
                 alert("이름을 입력하세요");
@@ -601,7 +617,7 @@
             }
             
 			var memberPhone = $('#memberPhone').val().trim();
-
+			
             if(!/^[0-9]+$/.test(memberPhone))
             { 
                 alert('핸드폰 번호는 숫자만 사용해야 합니다.'); 
@@ -649,6 +665,17 @@
     		     $('#memberId').focus();
     		     return false;
     		 }
+    		
+    		var chk_idnum = memberId.search(/[0-9]/g); 
+            var chk_ideng = memberId.search(/[a-z]/ig);
+            var chk_ideng2 = memberId.search(/[A-Z]/ig);
+            if(chk_idnum < 0 || chk_ideng < 0 || chk_ideng2 < 0)
+            { 
+                alert('아이디는 숫자와 영문자 조합으로 6~20자리를 사용해야 합니다.');
+                $('#memberId').focus();
+                return false;
+            }
+            
     		var url="${path}/member/duplicateCheck";
     		var title="아이디 중복체크";
     		var shape="left=200px, top=100px, width=300px, height=200px";

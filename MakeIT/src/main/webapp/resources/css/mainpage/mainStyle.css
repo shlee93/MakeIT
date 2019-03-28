@@ -345,7 +345,7 @@
         position: relative;
         font-size: 35px;
         /* font-weight: bold; */
-        margin-bottom: -15px;
+        margin-bottom: -5px;
         white-space: nowrap;
         color: black;
         opacity: 0.8;
@@ -370,9 +370,13 @@
         z-index: 1;
         transform: translate(-1%,-50%);
         border-radius: 100%;
-        background-color: gold;
+/*         background-color: gold; */
         cursor: pointer;
     }
+     #famousContentLeft img{
+     	width:100%;
+     	height:auto;
+     }
     #famousContentRight{
         position: absolute;
         width: 50px;
@@ -382,9 +386,13 @@
         z-index: 1;
         transform: translate(-99%,-50%);
         border-radius: 100%;
-        background-color: gold;
+/*         background-color: gold; */
         cursor: pointer;
     }
+    #famousContentRight img{
+     	width:100%;
+     	height:auto;
+     }
     .famousContent{
         position: relative;
         display: inline-block;
@@ -393,8 +401,39 @@
         left: 0px;
         transition: ease-in-out;
         transition-duration: 0.7s;
-        background-color: blue;
+		cursor:pointer;
         /* opacity: 0.1; */
+    }
+    .famousContent img{
+    	position:relative;
+    	width:100%;
+    	height:auto;
+    	background-size:cover;
+    	transition:ease-in-out;
+    	transition-duration:0.7s;
+    }
+    .famousContentTitleBox{
+    	position:absolute;
+    	width:100%;
+    	height: 150px;
+    	top:50%;
+    	left:50%;
+    	transform: translate(-50%,-50%);
+    	background-color: rgba(0,0,0,0.7);
+    }
+    .famousContentTitleBox p{
+    	position:relative;
+    	display:inline-block;
+    	left:50%;
+    	top:50%;
+    	transform: translate(-50%,-50%);
+    	font-size:50px;
+        font-family: 'Sunflower', sans-serif;
+    	color:white;
+    	transition:ease-in-out;
+    	transition-duration:0.7s;
+		text-overflow:ellipsis;
+		overflow:hidden;
     }
 
     #recentlyViewWrap{
@@ -420,38 +459,87 @@
     }
     #recentlyViewBody{
         position: relative;
+        display: inline-block;
         left: 50%;
         transform: translateX(-50%);
         width: 800px;
         height: 400px;
-        border: 3px solid black;
         border-radius: 15px;
+        white-space:nowrap;
         background-color: white;
+        overflow:hidden;
     }
-    #recentlyView{
+    .recentlyView{
         position: relative;
+        display: inline-block;
+        left: 0px;
+        width:800px;
+        height:100%;
+        background-color:cornflowerblue;
+        transition:ease-in-out;
+        transition-duration: 0.7s;
+        cursor:pointer;
     }
+    .recentlyView img{
+    	position: absolute;
+    	width: 100%;
+    	height:auto;
+    	background-size: cover;
+    	transition:ease-in-out;
+    	transition-duration:0.7s;
+    }
+    .recentlyTitleBox{
+    	position: absolute;
+    	width:100%;
+    	height:150px;
+    	top: 80%;
+    	transform:translateY(-80%);
+    	background-color: rgba(0,0,0,0.7);
+
+    }
+    .recentlyTitle{
+    	position:relative;
+    	display:inline-block;
+    	max-width:700px;
+    	left:50%;
+    	top:50%;
+    	transform: translate(-50%,-50%);
+    	font-size:35px;
+        font-family: 'Sunflower', sans-serif;
+    	color:white;
+    	transition:ease-in-out;
+    	transition-duration:0.7s;
+		text-overflow:ellipsis;
+		overflow:hidden;
+    }
+
     #recentlyViewLeft{
         position: absolute;
         width: 50px;
         height: 50px;
-        left: -8%;
+        left: 0%;
         top: 50%;
-        transform: translate(8%,-50%);
+        transform: translate(0%,-50%);
         border-radius: 100%;
-        background-color: mediumvioletred;
         cursor: pointer;
+    }
+    #recentlyViewLeft img{
+    	width:100%;
+    	height: auto;
     }
     #recentlyViewRight{
         position: absolute;
         width: 50px;
         height: 50px;
-        left: 108%;
+        left: 100%;
         top: 50%;
-        transform: translate(-108%,-50%);
+        transform: translate(-100%,-50%);
         border-radius: 100%;
-        background-color: mediumvioletred;
         cursor: pointer;
+    }
+    #recentlyViewRight img{
+       	width:100%;
+    	height: auto;
     }
 
     #similarContentWrap{
@@ -484,15 +572,30 @@
         transform: translate(-50%,-50%);
         /* background-color: white; */
     }
-    #similarContentBody div{
+    .similarContent{
         position: relative;
         display: inline-block;
         width: 150px;
         height: 150px;
-        border: 2px solid black;
-        border-radius: 5px;
-        background-color: white;
+        margin-right: 10px;
+        border-radius: 15px;
+        background-color: #138496;
+        overflow:hidden;
+        cursor: pointer;
     }
+    .similarContent p{
+    	position: relative;
+        width: max-content;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        font-size: 25px;
+        /* font-weight: bold; */
+        word-break:break-all;
+        font-family: 'Sunflower', sans-serif;
+        color: white;
+    }
+
     #rankingViewWrap{
         position: relative;
         left: 50%;
@@ -569,7 +672,11 @@
         top:50%;
         transform: translate(-3%,-50%);
         border-radius: 100%;
-        background-color: cornflowerblue;
+
+    }
+    #rankingView1stLogo img{
+    	width:100%;
+    	height:auto;
     }
     #rankingView1stPriceBody{
         position: absolute;
@@ -642,13 +749,16 @@
     }
     .rankingViewLogo{
         position: absolute;
-        width: 50px;
-        height: 50px;
+        width: 55px;
+        height: 55px;
         left: 5%;
         top: 80%;
         transform: translate(-5%,-80%);
         border-radius: 100%;
-        background-color: cornflowerblue;
+    }
+    .rankingViewLogo img{
+    	width:100%;
+    	height:auto;
     }
     .rankingViewPriceBox{
         position: absolute;
@@ -862,15 +972,76 @@
 
     #reviewModalDelete{
         position: absolute;
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
         left: 98%;
         top: 5px;
         transform: translateX(-98%);
-        background-color: cornflowerblue;
+        background-color: #ff0909;
         border-radius: 100%;
         z-index: 2;
         cursor: pointer;
+        opacity:0.7;
+    }
+    #reviewModalBody{
+    	position:absolute;
+    	width:600px;
+    	height:660px;
+    	left:50%;
+    	top:50%;
+    	transform: translate(-50%,-50%);
+/*     	border: 1px solid gray; */
+    	overflow:hidden;
+    }
+    #reviewModalSort{
+    	position:absolute;
+    	width:100%;
+    	height:max-content;
+		top:0px;
+   /*  	background-color: yellow; */
+    	transition: ease-in-out;
+    	transition-duration: 0.7s;
+    }
+    .reviewModalBox{
+    	position:relative;
+    	width:600px;
+    	height:150px;
+    	margin-bottom:20px;
+    	left:50%;
+    	top:0px;
+    	transform:translateX(-50%);
+    	background-color: gainsboro;
+    	cursor:pointer;
+    }
+    .reviewStarBox{
+    	position: absolute;
+    	width:max-content;
+    	height:max-content;
+    	margin-left:5px;
+    	top:50%;
+    	transform: translateY(-50%);
+    	/* background-color: blue; */
+    }
+    .reviewStar{
+    	position:relative;
+    	/* display: inline-block; */
+    	width:40px;
+    	height:40px;
+    	margin-left:5px;
+    }
+    .reviewContent{
+    	position:relative;
+    	font-size:25px;
+    	width: 340px;
+    	height: max-content;
+    	top:50%;
+    	left: 250px;
+    	transform: translateY(-50%);
+    	text-overflow:ellipsis;
+    	overflow:hidden;
+    	white-space:nowrap;
+    	font-family: 'Sunflower', sans-serif;
+    	color: black;
     }
 /* ============================일러스트================================ */
     #illusWrap1{

@@ -291,5 +291,65 @@ public class MemberServiceImpl implements MemberService {
 		return dao.totalContestTradeCount(memberId);
 	}
 	
+	@Override
+	public List<Map<String, String>> selectSellList(List<String> list) {
+		// TODO Auto-generated method stub
+		return dao.selectSellList(list);
+	}
+
+	@Override
+	public List<String> selectFamousList() {
+		// TODO Auto-generated method stub
+		return dao.selectFamousList();
+	}
+
+	@Override
+	public List<Map<String, String>> selectFamousView(List<String> list) {
+		// TODO Auto-generated method stub
+		return dao.selectFamousView(list);
+	}
+
+	@Override
+	public List<String> selectSimilarView(List<String> list) {
+		// TODO Auto-generated method stub
+		return dao.selectSimilarView(list);
+	}
+
+	@Override
+	public List<Map<String, String>> selectSimilarList(List<String> list) {
+		// TODO Auto-generated method stub
+		return dao.selectSimilarList(list);
+	}
+
+	@Override
+	public List<Map<String, String>> selectInterestList(String interestNo) {
+		// TODO Auto-generated method stub
+		return dao.selectInterestList(interestNo);
+	}
+
+	@Override
+	public List<Map<String, String>> selectWorkSum(String memberId) {
+		// TODO Auto-generated method stub
+		return dao.selectWorkSum(memberId);
+	}
+
+	@Override
+	public List<Map<String, String>> selectStarSum(String memberId) {
+		// TODO Auto-generated method stub
+		return dao.selectStarSum(memberId);
+	}
+
+	@Override
+	public List<Map<String, String>> selectMajor(String memberId) {
+		// TODO Auto-generated method stub
+		return dao.selectMajor(memberId);
+	}
+	
+	@Override
+	public List<Map<String, String>> selectReviewList(String memberId) {
+		// TODO Auto-generated method stub
+		return dao.selectReviewList(memberId);
+	}
+
 }
 

@@ -110,10 +110,10 @@
 		SELECT * FROM ACCOUNT WHERE ACCOUNTNO=#{accountNo} AND BANKCODE=#{bankCode}
 	</select>
 	<select id="contestList" parameterType="string" resultType="map">
-		SELECT * FROM CONTEST WHERE MEMBERID=#{memberId} AND CONTESTYN='N' ORDER BY CONTESTDATE DESC
+		SELECT CONTESTNO, CONTESTTITLE,MEMBERID,CONTESTDATE FROM CONTEST WHERE MEMBERID=#{memberId} AND CONTESTDELETEYN='N' ORDER BY CONTESTDATE DESC
 	</select>
 	<select id="selectContestCount" parameterType="string" resultType="_int">
-		SELECT COUNT(*) FROM CONTEST WHERE MEMBERID=#{memberId} AND CONTESTYN='N'
+		SELECT COUNT(*) FROM CONTEST WHERE MEMBERID=#{memberId} AND CONTESTDELETEYN='N'
 	</select>
 	<select id="noReadMessage" parameterType="string" resultType="_int">
 		SELECT COUNT(*) FROM MESSAGE WHERE RECEIVEID=#{memberId} AND READDATE IS NULL AND RECEIVEDELETEYN = 'N'
@@ -166,6 +166,65 @@
 	<select id="totalContestTradeCount" parameterType="string" resultType="_int">
 		SELECT COUNT(*) FROM CONTEST C JOIN CONTESTAPPLICANT A ON (C.CONTESTNO=A.CONTESTNO) WHERE A.APPLICANTID=#{memberId}
 	</select>
+	
+	<select id="selectWorkSumList" parameterType="string" resultType="map">
+		SELECT SUM(SELLSPECNO) FROM SELLSPEC S JOIN MEMBER M ON M.MEMBERID=S.MEMBERID WHERE M.MEMBERID=#{memberId}
+	</select>
+	
+	<select id="selectStarSumList" parameterType="string" resultType="map">
+		SELECT SELLREVIEWSTAR FROM SELLREVIEW WHERE SELLNO IN(SELECT SELLNO FROM SELL JOIN MEMBER ON MEMBER.MEMBERID = SELL.MEMBERID WHERE MEMBER.MEMBERID=#{memberId})
+	</select>
+	
+	<select id="selectMajorList" parameterType="string" resultType="map">
+		SELECT INTERESTNO,MEMBERNAME,MEMBERID FROM MEMBER WHERE MEMBERID=#{memberId}
+	</select>
+	
+	
+	<select id="selectSellList" resultType="map">
+		SELECT SELLTITLE,INTERESTNO,SELL.SELLNO FROM SELL 
+    	WHERE SELL.SELLNO IN
+    		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+    			#{item}
+    		</foreach>
+
+	</select>
+	
+	<select id="selectSimilarView" parameterType="string" resultType="string">
+		SELECT INTERESTNO FROM SELL 
+    	WHERE SELL.SELLNO IN
+    	<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+    		#{item}
+    	</foreach>
+	</select>
+	
+	<select id="selectSimilarList" resultType="map">
+		SELECT DETAILINTEREST FROM DETAILINTEREST 
+		WHERE INTERESTNO IN
+    	<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+    		#{item}
+    	</foreach>
+	</select>
+	
+	<select id="selectInterestList" resultType="map">
+		SELECT DETAILINTEREST FROM DETAILINTEREST WHERE INTERESTNO = #{interestNo}
+	</select>
+	
+	<select id="selectFamousList" parameterType="string" resultType="string">
+		SELECT DETAILINTERESTNO FROM SELL GROUP BY DETAILINTERESTNO
+	</select>
+	
+	<select id ="selectFamousView" resultType="map">
+		SELECT DETAILINTEREST FROM DETAILINTEREST 
+		WHERE DETAILINTERESTNO IN
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+    		#{item}
+    	</foreach>
+	</select>
+	
+	<select id="selectReviewList" parameterType="string" resultType="map">
+		SELECT * FROM SELLREVIEW WHERE SELLNO IN(SELECT SELLNO FROM SELL JOIN MEMBER ON MEMBER.MEMBERID = SELL.MEMBERID WHERE MEMBER.MEMBERID=#{memberId}) ORDER BY SELLREVIEWNO DESC
+	</select>
+	
 	<resultMap type="map" id="memberMap">
 		<result column="interest" property="interest" typeHandler="strArray"/>
 	</resultMap>

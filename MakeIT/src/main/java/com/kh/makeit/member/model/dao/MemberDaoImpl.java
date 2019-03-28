@@ -313,6 +313,68 @@ public class MemberDaoImpl implements MemberDao {
 	public int totalContestTradeCount(String memberId) {
 		return sqlSession.selectOne("member.totalContestTradeCount",memberId);
 	}
+	
+	
+	
+	@Override
+	public List<Map<String, String>> selectSellList(List<String> list) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("member.selectSellList", list);
+	}
+
+	@Override
+	public List<String> selectFamousList() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("member.selectFamousList");
+	}
+
+	@Override
+	public List<Map<String, String>> selectFamousView(List<String> list) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("member.selectFamousView", list);
+	}
+
+	@Override
+	public List<String> selectSimilarView(List<String> list) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("member.selectSimilarView", list);
+	}
+
+	@Override
+	public List<Map<String, String>> selectSimilarList(List<String> list) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("member.selectSimilarList",list);
+	}
+
+	@Override
+	public List<Map<String, String>> selectInterestList(String interestNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("member.selectInterestList",interestNo);
+	}
+
+	@Override
+	public List<Map<String, String>> selectWorkSum(String memberId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("member.selectWorkSumList",memberId);
+	}
+
+	@Override
+	public List<Map<String, String>> selectStarSum(String memberId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("member.selectStarSumList",memberId);
+	}
+
+	@Override
+	public List<Map<String, String>> selectMajor(String memberId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("member.selectMajorList",memberId);
+	}
+
+	@Override
+	public List<Map<String, String>> selectReviewList(String memberId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("member.selectReviewList",memberId);
+	}
 
 
 }

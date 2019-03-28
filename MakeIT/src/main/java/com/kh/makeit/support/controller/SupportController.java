@@ -15,6 +15,7 @@ import javax.crypto.NoSuchPaddingException;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.net.URLCodec;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.makeit.admin.controller.AdminController;
 import com.kh.makeit.admin.model.service.AdminService;
 import com.kh.makeit.common.AES256Util;
 import com.kh.makeit.common.MakeitException;
@@ -36,7 +38,7 @@ public class SupportController {
 	AdminService adminService;
 	@Autowired
 	SupportService supportService;
-
+	private Logger logger = Logger.getLogger(SupportController.class);
 
 	@RequestMapping("/support/supportView.do")
 	public ModelAndView supportView(
@@ -303,7 +305,9 @@ public class SupportController {
 			@RequestParam(value="sortCheck", required=false, defaultValue="0") String sortCheck
 			) {
 		ModelAndView mav=new ModelAndView();
+		List<Map<String,String>> categoryList=adminService.selectFaqCategoryAdmin();
 		Map<String,String> qna=supportService.selectOneQna(qnaNo);
+		mav.addObject("categoryList", categoryList);
 		mav.addObject("qna", qna);
 		mav.addObject("searchQna", searchQna);
 		mav.addObject("filter", filter);
@@ -317,7 +321,7 @@ public class SupportController {
 	//게시글 수정
 	@RequestMapping("/support/updateQnaEnd.do")
 	public ModelAndView updateQnaEnd(
-			int qnaNo,String writer,String pass,int categoryNo,String title,String content,
+			int qnaNo,String writer,int categoryNo,String title,String content,
 			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
 			@RequestParam(value="searchQna", required=false, defaultValue="") String searchQna,
 			@RequestParam(value="filter", required=false, defaultValue="QNATITLE") String filter,
@@ -445,6 +449,25 @@ public class SupportController {
 		mav.addObject("sortCheck", sortCheck);
 		mav.setViewName("support/qnaDetailView");
 		return mav;
+	}
+	
+	//faq 질문 검색
+	@RequestMapping("/support/selectFaqSearch.do")
+	public ModelAndView selectFaqSearch(
+				@RequestParam(value="faqSearch", required=false, defaultValue="") String faqSearch
+			) {
+		logger.info(faqSearch);
+		ModelAndView mav=new ModelAndView();
+		//FAQ 출력
+		List<Map<String,String>> faqList=supportService.selectFaqSearch(faqSearch);
+		List<Map<String,String>> categoryList=supportService.selectFaqCategory(faqSearch);
+		
+		mav.addObject("faqList", faqList);
+		mav.addObject("categoryList", categoryList);
+		mav.setViewName("support/faqSearchView");
+		
+		return mav;
+		
 	}
 	
 

@@ -90,18 +90,18 @@ pageEncoding="UTF-8"%>
 	                    <div class="col-md-12">
 	                    	<table class="table table-striped table-hover">
 	                    		<tr>
-	                    			<th style="width: 10%;">번호</th>
-	                    			<th style="width: 30%;">제목</th>
-	                    			<th style="width: 30%;">작성자</th>
-	                    			<th style="width: 30%;">작성일</th>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>작성일</th>
 	                    		</tr>
 	                    		<c:if test="${totalBuyCount != 0 }">
 		                    		<c:forEach var="bo" items="${buyOutBoxList }">
 		                    			<tr>
-		                    				<td style="width: 10%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${bo.BUYNO }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${bo.MEMBERID }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${bo.BUYDATE }"/></td>
+		                    				<td><c:out value="${bo.BUYNO }"/></td>
+											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><c:out value="${bo.MEMBERID }"/></td>
+											<td><c:out value="${bo.BUYDATE }"/></td>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
@@ -122,18 +122,18 @@ pageEncoding="UTF-8"%>
 						<div class="col-md-12">
 	                    	<table class="table table-striped table-hover">
 	                    		<tr>
-	                    			<th style="width: 10%;">번호</th>
-	                    			<th style="width: 30%;">제목</th>
-	                    			<th style="width: 30%;">작성자</th>
-	                    			<th style="width: 30%;">작성일</th>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>작성일</th>
 	                    		</tr>
 	                    		<c:if test="${totalSellCount != 0 }">
 		                    		<c:forEach var="so" items="${sellOutBoxList }">
 		                    			<tr>
-		                    				<td style="width: 10%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${so.SELLNO }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${so.MEMBERID }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${so.SELLDATE }"/></td>
+		                    				<td><c:out value="${so.SELLNO }"/></td>
+											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><c:out value="${so.MEMBERID }"/></td>
+											<td><c:out value="${so.SELLDATE }"/></td>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
@@ -154,18 +154,18 @@ pageEncoding="UTF-8"%>
 						<div class="col-md-12">
 	                    	<table class="table table-striped table-hover">
 	                    		<tr>
-	                    			<th style="width: 10%;">번호</th>
-	                    			<th style="width: 30%;">제목</th>
-	                    			<th style="width: 30%;">작성자</th>
-	                    			<th style="width: 30%;">개최일</th>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>개최일</th>
 	                    		</tr>
 	                    		<c:if test="${totalContestCount != 0 }">
 		                    		<c:forEach var="co" items="${contestOutBoxList }">
 		                    			<tr>
-		                    				<td style="width: 10%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${co.CONTESTNO }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a href="${path }/contest/contestDetail.do?contestNo=${co.CONTESTNO }"><c:out value="${co.CONTESTTITLE }"/></a></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${co.MEMBERID }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${co.CONTESTDATE }"/></td>
+		                    				<td><c:out value="${co.CONTESTNO }"/></td>
+											<td><a href="${path }/contest/contestDetail.do?contestNo=${co.CONTESTNO }"><c:out value="${co.CONTESTTITLE }"/></a></td>
+											<td><c:out value="${co.MEMBERID }"/></td>
+											<td><c:out value="${co.CONTESTDATE }"/></td>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
@@ -188,18 +188,18 @@ pageEncoding="UTF-8"%>
 	                    <div class="col-md-12">
 	                    	<table class="table table-striped table-hover">
 	                    		<tr>
-	                    			<th style="width: 10%;">번호</th>
-	                    			<th style="width: 30%;">제목</th>
-	                    			<th style="width: 30%;">작성자</th>
-	                    			<th style="width: 30%;">작성일</th>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>작성일</th>
 	                    		</tr>
 	                    		<c:if test="${totalBuyCount != 0 }">
 		                    		<c:forEach var="bo" items="${buyOutBoxList }">
 		                    			<tr>
-		                    				<td style="width: 10%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${bo.BUYNO }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${bo.MEMBERID }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${bo.BUYDATE }"/></td>
+		                    				<td><c:out value="${bo.BUYNO }"/></td>
+											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><c:out value="${bo.MEMBERID }"/></td>
+											<td><c:out value="${bo.BUYDATE }"/></td>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
@@ -220,18 +220,18 @@ pageEncoding="UTF-8"%>
 						<div class="col-md-12">
 	                    	<table class="table table-striped table-hover">
 	                    		<tr>
-	                    			<th style="width: 10%;">번호</th>
-	                    			<th style="width: 30%;">제목</th>
-	                    			<th style="width: 30%;">작성자</th>
-	                    			<th style="width: 30%;">작성일</th>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>작성일</th>
 	                    		</tr>
 	                    		<c:if test="${totalSellCount != 0 }">
 		                    		<c:forEach var="so" items="${sellOutBoxList }">
 		                    			<tr>
-		                    				<td style="width: 10%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${so.SELLNO }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${so.MEMBERID }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${so.SELLDATE }"/></td>
+		                    				<td><c:out value="${so.SELLNO }"/></td>
+											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><c:out value="${so.MEMBERID }"/></td>
+											<td><c:out value="${so.SELLDATE }"/></td>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
@@ -252,18 +252,18 @@ pageEncoding="UTF-8"%>
 						<div class="col-md-12">
 	                    	<table class="table table-striped table-hover">
 	                    		<tr>
-	                    			<th style="width: 10%;">번호</th>
-	                    			<th style="width: 30%;">제목</th>
-	                    			<th style="width: 30%;">작성자</th>
-	                    			<th style="width: 30%;">개최일</th>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>개최일</th>
 	                    		</tr>
 	                    		<c:if test="${totalContestCount != 0 }">
 		                    		<c:forEach var="co" items="${contestOutBoxList }">
 		                    			<tr>
-		                    				<td style="width: 10%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${co.CONTESTNO }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a href="${path }/contest/contestDetail.do?contestNo=${co.CONTESTNO }"><c:out value="${co.CONTESTTITLE }"/></a></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${co.MEMBERID }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${co.CONTESTDATE }"/></td>
+		                    				<td><c:out value="${co.CONTESTNO }"/></td>
+											<td><a href="${path }/contest/contestDetail.do?contestNo=${co.CONTESTNO }"><c:out value="${co.CONTESTTITLE }"/></a></td>
+											<td><c:out value="${co.MEMBERID }"/></td>
+											<td><c:out value="${co.CONTESTDATE }"/></td>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
@@ -286,18 +286,18 @@ pageEncoding="UTF-8"%>
 	                    <div class="col-md-12">
 	                    	<table class="table table-striped table-hover">
 	                    		<tr>
-	                    			<th style="width: 10%;">번호</th>
-	                    			<th style="width: 30%;">제목</th>
-	                    			<th style="width: 30%;">작성자</th>
-	                    			<th style="width: 30%;">작성일</th>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>작성일</th>
 	                    		</tr>
 	                    		<c:if test="${totalBuyCount != 0 }">
 		                    		<c:forEach var="bo" items="${buyOutBoxList }">
 		                    			<tr>
-		                    				<td style="width: 10%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${bo.BUYNO }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${bo.MEMBERID }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${bo.BUYDATE }"/></td>
+		                    				<td><c:out value="${bo.BUYNO }"/></td>
+											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><c:out value="${bo.MEMBERID }"/></td>
+											<td><c:out value="${bo.BUYDATE }"/></td>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
@@ -318,18 +318,18 @@ pageEncoding="UTF-8"%>
 						<div class="col-md-12">
 	                    	<table class="table table-striped table-hover">
 	                    		<tr>
-	                    			<th style="width: 10%;">번호</th>
-	                    			<th style="width: 30%;">제목</th>
-	                    			<th style="width: 30%;">작성자</th>
-	                    			<th style="width: 30%;">작성일</th>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>작성일</th>
 	                    		</tr>
 	                    		<c:if test="${totalSellCount != 0 }">
 		                    		<c:forEach var="so" items="${sellOutBoxList }">
 		                    			<tr>
-		                    				<td style="width: 10%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${so.SELLNO }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${so.MEMBERID }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${so.SELLDATE }"/></td>
+		                    				<td><c:out value="${so.SELLNO }"/></td>
+											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><c:out value="${so.MEMBERID }"/></td>
+											<td><c:out value="${so.SELLDATE }"/></td>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>
@@ -350,18 +350,18 @@ pageEncoding="UTF-8"%>
 						<div class="col-md-12">
 	                    	<table class="table table-striped table-hover">
 	                    		<tr>
-	                    			<th style="width: 10%;">번호</th>
-	                    			<th style="width: 30%;">제목</th>
-	                    			<th style="width: 30%;">작성자</th>
-	                    			<th style="width: 30%;">개최일</th>
+	                    			<th>번호</th>
+	                    			<th>제목</th>
+	                    			<th>작성자</th>
+	                    			<th>개최일</th>
 	                    		</tr>
 	                    		<c:if test="${totalContestCount != 0 }">
 		                    		<c:forEach var="co" items="${contestOutBoxList }">
 		                    			<tr>
-		                    				<td style="width: 10%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${co.CONTESTNO }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><a href="${path }/contest/contestDetail.do?contestNo=${co.CONTESTNO }"><c:out value="${co.CONTESTTITLE }"/></a></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${co.MEMBERID }"/></td>
-											<td style="width: 30%; white-space : nowrap; text-overflow:ellipsis; overflow:hidden;"><c:out value="${co.CONTESTDATE }"/></td>
+		                    				<td><c:out value="${co.CONTESTNO }"/></td>
+											<td><a href="${path }/contest/contestDetail.do?contestNo=${co.CONTESTNO }"><c:out value="${co.CONTESTTITLE }"/></a></td>
+											<td><c:out value="${co.MEMBERID }"/></td>
+											<td><c:out value="${co.CONTESTDATE }"/></td>
 		                    			</tr>
 		                    		</c:forEach>
 	                    		</c:if>

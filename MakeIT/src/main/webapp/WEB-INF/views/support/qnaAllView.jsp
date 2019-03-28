@@ -21,7 +21,7 @@
 		</c:if>
 
 	</select> 
-	<input id="search-qna" type="text" placeholder="검색 내용을 입력해주세요" size="50" value="${searchQna }" />
+	<input id="search-qna" type="text" placeholder="검색 내용을 입력해주세요" style="width:83%" value="${searchQna }" />
 </div>
 <hr>
 <c:if test="${member.MEMBERLEVEL==0 }">
@@ -50,7 +50,7 @@
 							<td><%=i %></td>
 							<td>${qna.FAQNACATEGORYNAME }</td>
 							<td colspan="3">
-								<a class="qna-pass ${sessionScope.member.MEMBERLEVEL==0?'qna-admin':'' }" ${sessionScope.member.MEMBERLEVEL==0?'':'data-toggle="modal" data-target="#squarespaceModal"' }>${qna.QNATITLE }</a>
+								<a class="qna-pass ${sessionScope.member.MEMBERLEVEL==0||sessionScope.member.MEMBERID==qna.MEMBERID?'qna-admin':'' }" ${sessionScope.member.MEMBERLEVEL==0?'':'data-toggle="modal" data-target="#squarespaceModal"' }>${qna.QNATITLE }</a>
 								<input type="hidden" value="${qna.QNANO }"/>
 							</td>
 							<td>

@@ -38,7 +38,7 @@
                             	</c:if>
                             	
                             </select>
-                            <input id="search-qna" type="text" placeholder="검색 내용을 입력해주세요" size="50"/>
+                            <input id="search-qna" type="text" placeholder="검색 내용을 입력해주세요" style="width:83%"/>
                             
                         </div>
                             <hr>
@@ -68,7 +68,7 @@
 												<td><%=i %></td>
 												<td>${qna.FAQNACATEGORYNAME }</td>
 												<td colspan="3">
-													<a class="qna-pass ${sessionScope.member.MEMBERLEVEL==0?'qna-admin':'' }" ${sessionScope.member.MEMBERLEVEL==0?'':'data-toggle="modal" data-target="#squarespaceModal"' }>${qna.QNATITLE }</a>
+													<a class="qna-pass ${sessionScope.member.MEMBERLEVEL==0||sessionScope.member.MEMBERID==qna.MEMBERID?'qna-admin':'' }" ${sessionScope.member.MEMBERLEVEL==0||sessionScope.member.MEMBERID==qna.MEMBERID?'':'data-toggle="modal" data-target="#squarespaceModal"' }>${qna.QNATITLE }</a>
 													<input type="hidden" value="${qna.QNANO }"/>
 												</td>
 												<td>
@@ -101,7 +101,7 @@
 												<td><%=i %></td>
 												<td></td>
 												<td colspan="3">
-													&nbsp;&nbsp;→[답변]<a class="qna-title-reple qna-pass ${sessionScope.member.MEMBERLEVEL==0?'qna-admin':'' }" ${sessionScope.member.MEMBERLEVEL==0?'':'data-toggle="modal" data-target="#squarespaceModal"' }>${qna.QNATITLE }</a>
+													&nbsp;&nbsp;→[답변]<a class="qna-title-reple qna-pass ${sessionScope.member.MEMBERLEVEL==0||sessionScope.member.MEMBERID==qna.MEMBERID?'qna-admin':'' }" ${sessionScope.member.MEMBERLEVEL==0?'':'data-toggle="modal" data-target="#squarespaceModal"' }>${qna.QNATITLE }</a>
 													<input type="hidden" value="${qna.QNANO }"/>
 												</td>
 												<td>&nbsp;&nbsp;${qna.MEMBERID }</td>
@@ -136,49 +136,55 @@
                                     <th>FAQ-자주 묻는 질문</th>
                                 </tr>
                             </thead>
-
+							<tbody>
+								<tr>
+									<td>
+										<input type="text" id="faq-search" placeholder="검색할 질문의 '키워드'를 입력해주세요" style="width:100%;"/>
+									</td>
+								</tr>
+							</tbody>
                         </table>
-                        
-                        <c:if test="${not empty categoryList }">
-                        	<c:forEach items="${categoryList }" var="category">
-                         <div class="faq-back">
-                             <div class="faq-category btn btn-outline-info slidetopleft">●&nbsp;${category.FAQNACATEGORYNAME }
-
-		                         <button class="faq-slide btn btn-outline-info slidetopleft">▼</button>
-
-                             </div>
-                             <div class="faq-list-back">
-                                 <ul class="faq-list">
-                                 <c:forEach items="${faqList }" var="faq">
-                                 	<c:if test="${faq.FAQNACATEGORYNO==category.FAQNACATEGORYNO }">
-                                 	
-	                                    <li class="faq-question">
-	                                    	<textarea cols="65" style="resize:none; border:0;" readonly="readonly">●&nbsp;${faq.FAQTITLE }</textarea>
-											
-	                                       	<button class="answer-slide">▼</button>
-	                                       
-	                                       	<hr>
-	                                       	<div class="faq-answer">
-	                                       		<textarea cols="90" style="resize:none; border:0; width:100%;" readonly="readonly">○&nbsp;${faq.FAQCONTENT }</textarea>
-	                                       	</div>
-	                                        
-	                                    </li>
-                                 	</c:if>
-                                     
-                                 </c:forEach>
-                                 </ul>
-                                 
-                             </div>
-                         </div>
-                        	
-                        	</c:forEach>
-                        </c:if>
-                        <c:if test="${empty categoryList }">
-                        	<div class="col-md-12">
-                        		준비중입니다.
-                        	</div>
-                        </c:if>
-                       
+                        <div class="col-md-12 faq-section">
+	                        <c:if test="${not empty categoryList }">
+	                        	<c:forEach items="${categoryList }" var="category">
+	                         <div class="faq-back">
+	                             <div class="faq-category btn btn-outline-info slidetopleft">●&nbsp;${category.FAQNACATEGORYNAME }
+	
+			                         <button class="faq-slide btn btn-outline-info slidetopleft">▼</button>
+	
+	                             </div>
+	                             <div class="faq-list-back">
+	                                 <ul class="faq-list">
+	                                 <c:forEach items="${faqList }" var="faq">
+	                                 	<c:if test="${faq.FAQNACATEGORYNO==category.FAQNACATEGORYNO }">
+	                                 	
+		                                    <li class="faq-question">
+		                                    	<textarea cols="65" style="resize:none; border:0;" readonly="readonly">●&nbsp;${faq.FAQTITLE }</textarea>
+												
+		                                       	<button class="answer-slide">▼</button>
+		                                       
+		                                       	<hr>
+		                                       	<div class="faq-answer">
+		                                       		<textarea cols="90" rows='12' style="resize:none; border:0; width:100%;" readonly="readonly">○&nbsp;${faq.FAQCONTENT }</textarea>
+		                                       	</div>
+		                                        
+		                                    </li>
+	                                 	</c:if>
+	                                     
+	                                 </c:forEach>
+	                                 </ul>
+	                                 
+	                             </div>
+	                         </div>
+	                        	
+	                        	</c:forEach>
+	                        </c:if>
+	                        <c:if test="${empty categoryList }">
+	                        	<div class="col-md-12">
+	                        		준비중입니다.
+	                        	</div>
+	                        </c:if>
+                        </div>
 					</div>
 				</div>
 			</div>

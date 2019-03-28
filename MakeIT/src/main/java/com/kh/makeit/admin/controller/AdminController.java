@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.makeit.admin.model.service.AdminService;
+import com.kh.makeit.buy.model.service.BuyService;
 import com.kh.makeit.common.PageFactory;
 import com.kh.makeit.member.model.service.MemberService;
+import com.kh.makeit.support.model.service.SupportService;
 
 @Controller
 public class AdminController {
@@ -25,9 +27,13 @@ public class AdminController {
 	MemberService memberService;
 	@Autowired
 	AdminService adminService;
-	
+	@Autowired
+	SupportService supportService;
+	@Autowired
+	BuyService buyService;
 	private Logger logger = Logger.getLogger(AdminController.class);
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/admin/adminView.do")
 	public ModelAndView adminView(
 				HttpServletRequest request,
@@ -39,16 +45,28 @@ public class AdminController {
 				@RequestParam(value="approvalStatus", required=false, defaultValue="BUY") String approvalStatus,
 				@RequestParam(value="deleteStatus", required=false, defaultValue="BUY") String deleteStatus
 			) {
-		HttpSession session=request.getSession();
-		@SuppressWarnings("unchecked")
-		Map<String,String> member=(Map<String,String>)session.getAttribute("member");
-		String memberLevel=member.get("MEMBERLEVEL");
-		int level=Integer.parseInt(memberLevel);
-		ModelAndView mav=new ModelAndView();
-		if(level!=0) {
-			mav.setViewName("common/error");
-			return mav;
-		}
+
+			HttpSession session=request.getSession();
+			Map<Object,Object> member=(Map<Object, Object>)session.getAttribute("member");
+			ModelAndView mav=new ModelAndView();
+			if(member!=null) {
+				
+				if(Integer.parseInt(member.get("MEMBERLEVEL")+"")!=0) {
+					String msg="접속경로가 잘못되었습니다.";
+					String loc="/";
+					mav.addObject("msg",msg);
+					mav.addObject("loc",loc);
+					mav.setViewName("common/errorEL");
+					return mav;
+				}
+			}else {
+				String msg="접속경로가 잘못되었습니다.";
+				String loc="/";
+				mav.addObject("msg",msg);
+				mav.addObject("loc",loc);
+				mav.setViewName("common/errorEL");
+				return mav;
+			}
 		
 		//회원 리스트 출력
 		int numPerPage=5;
@@ -133,18 +151,20 @@ public class AdminController {
 	
 	@RequestMapping("/admin/memberSortAdmin.do")
 	public ModelAndView memberSortAdmin(
+				String searchId,
 				String memberSort, 
 				int ascDesc,
 				@RequestParam(value="cPage", required=false, defaultValue="1") int cPage
 			) {
 		//회원 리스트 정렬
 		int numPerPage=5;
-		int memberCount=adminService.selectMemberCountAdmin();
+		int memberCount=adminService.selectSearchMemberCountAdmin(searchId);
 		String pageBar=PageFactory.getPageBarAdmin(memberCount, cPage, numPerPage,"/makeit/admin/adminView.do");
 		
 		Map<Object,Object> sort=new HashMap();
 		sort.put("memberSort", memberSort);
 		sort.put("ascDesc", ascDesc);
+		sort.put("searchId", searchId);
 		List<Map<String,String>> memberList=adminService.selectMemberSortAdmin(sort,cPage,numPerPage);
 		logger.info(memberList);
 		ModelAndView mav=new ModelAndView();
@@ -576,7 +596,7 @@ public class AdminController {
 	
 	//결제완료 spec status 업데이트
 	@RequestMapping("/admin/updateRefundEnd")
-	public ModelAndView updateRefundEnd(int specNo,String refundStatus,
+	public ModelAndView updateRefundEnd(int no,int specNo,String refundStatus,
 			@RequestParam(value="cPage",required=false, defaultValue="1") int cPage
 			) {
 		int numPerPage=5;
@@ -587,7 +607,9 @@ public class AdminController {
 		refund.put("specNo", specNo);
 		refund.put("refundStatus", refundStatus);
 		int result=adminService.updateRefundEnd(refund);
-			
+		if(result>0&&refundStatus.equals("BUY")) {
+			int result2 = buyService.buyDelete(no);
+		}
 		//결제현황 출력
 		List<Map<Object,Object>> paymentList=adminService.selectRefundListAdmin(refundStatus,cPage,numPerPage);
 							
@@ -935,6 +957,24 @@ public class AdminController {
 		mav.addObject("pageBarRefund", pageBarRefund);
 		mav.addObject("paymentList", paymentList);
 		mav.setViewName("/admin/adminPaymentView");
+		return mav;
+	}
+	
+	//faq 질문 검색
+	@RequestMapping("/admin/selectFaqSearchAdmin.do")
+	public ModelAndView selectFaqSearchAdmin(
+			@RequestParam(value="faqSearch", required=false, defaultValue="") String faqSearch
+			) {
+		
+		ModelAndView mav=new ModelAndView();
+		//FAQ 출력
+		List<Map<String,String>> faqList=supportService.selectFaqSearch(faqSearch);
+		List<Map<String,String>> categoryList=supportService.selectFaqCategory(faqSearch);
+		
+		mav.addObject("faqList", faqList);
+		mav.addObject("categoryList", categoryList);
+		mav.setViewName("admin/adminFaqSearchView");
+		
 		return mav;
 	}
 

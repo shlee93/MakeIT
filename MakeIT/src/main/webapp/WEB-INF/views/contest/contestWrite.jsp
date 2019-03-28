@@ -325,4 +325,5 @@
 	    <div class="col-md-1"></div>
 	</div>
 </body>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </html>

@@ -20,7 +20,7 @@
 	<div class="form-group">
 	  <label class="col-md-6 control-label" for="qna-title"><strong>비밀번호</strong></label>  
 	  <div class="col-md-6">
-	  	<input id="qna-title" name="qna-title" class="form-control input-md" type="password" value="${qna.QNAPASS }" readonly>
+	  	<input id="qna-pass" name="qna-pass" class="form-control input-md" type="password" value="${qna.QNAPASS }" readonly>
 	  </div>
 	</div>
 	

@@ -1,15 +1,3 @@
-$(document).ready(function(){
-	
-	cmaTextareaSize(120);
-});
-
-function cmaTextareaSize(bsize) { // 객체명, 기본사이즈
-    var sTextarea =$('textarea');
-    var csize = (sTextarea.scrollHeight >= bsize) ? sTextarea.scrollHeight+"px" : bsize+"px";
-    sTextarea.css("height",bsize+"px"); 
-    sTextarea.css("height",csize);
-}
-
 //qna 검색
 $(document).on('keyup','#search-qna',function(){
 	var searchQna=$('#search-qna').val();
@@ -509,42 +497,59 @@ $(document).on('click','#qna-status',function(){
 	
 })
 
+//faq 질문 검색
+$(document).on('keyup','#faq-search',function(){
+	var faqSearch=$('#faq-search').val();
+	console.log(faqSearch);
+	$.ajax({
+		
+		url:"selectFaqSearch.do",
+		data:{
+			"faqSearch":faqSearch,
+		},
+		dataType:"html",
+		success:function(data){
+			$('.faq-section').html(data);
+		}
+	})
+})
 //faq 카테고리 클릭 이벤트
-$(document).on('click', '.faq-slide', function () {
-	cmaTextareaSize(120);
-	var $faq_list = $(this).parent().next();
+$(document).on('click', '.faq-category', function () {
+
+	var $faq_list = $(this).next();
 
 	if ($faq_list.is(':hidden')) {
 
 		$faq_list.slideDown('slow');
-		$(this).html("▲");
+		$(this).children().html("▲");
 
 	} else {
 
 		$faq_list.slideUp('slow');
-		$(this).html("▼");
+		$(this).children().html("▼");
 
 	}
-	$(this).parent('.faq-category').next().children('.faq-list').children('.faq-question').children('textarea').click();
+	
 });
 
 
 //faq 답변 보기 이벤트
-$(document).on('click', '.answer-slide', function () {
-	cmaTextareaSize(120);
-	var $slide_btn = $(this);
-	var $answer = $slide_btn.siblings('.faq-answer');
-	$('textarea').click();
+$(document).on('click', '.faq-question', function () {
+
+
+	var $answer = $(this).children('.faq-answer');
+
 	if ($answer.is(':hidden')) {
+		$('.faq-answer').slideUp('slow');
 		$answer.slideDown('slow');
-		$(this).html("▲");
+		$(this).siblings('.answer-slide').html("▲");
 
 	} else {
 		$answer.slideUp('slow');
-		$(this).html("▼");
+		$(this).siblings('.answer-slide').html("▼");
 
 	}
-	$(this).siblings('.faq-answer').children('textarea').click();
+
 });
 
 $(document).on('keyup','textarea', function() {
@@ -558,7 +563,7 @@ $(document).on('keyup','textarea', function() {
 
 //텍스트 에어리어 크기조절
 
-$(document).on('click','textarea', function(){
+$(document).on('keyup','textarea', function(){
 	 var textEle=$(this);
 	 console.log(textEle);
 	 textEle[0].style.height = 'auto';
@@ -566,7 +571,29 @@ $(document).on('click','textarea', function(){
 	 console.log(textEleHeight);
 	 textEle.css('height', textEleHeight);
 });
+//qna 제목 글자 제한
+$(document).on('keyup','#qna-title',function(){
+	var title=$('#qna-title').val();
+	if(title.length>30){
+		alert("제목은 30글자 제한입니다.");
+		$('#qna-title').val(title.substring(0.30));
+		$('#qna-title').focus();
+	}
+})
 
+//faq 화면 전환
+$(document).on('click','#nav-faq-tab',function(){
+	
+	$.ajax({
+		
+		url:"selectFaqSearch.do",
+		dataType:"html",
+		success:function(data){
+			$('#faq-search').val('');
+			$('.faq-section').html(data);
+		}
+	})
+})
 
 
 

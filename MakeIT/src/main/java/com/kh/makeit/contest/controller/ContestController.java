@@ -134,7 +134,7 @@ public class ContestController
 		
 		if(memberMap!=null)
 		{
-			System.out.println("아이디시ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ바ㅓㄷ리ㅏㅁ누읾나이러ㅣㅏㅁㄴㅇ"+memberMap.get("MEMBERID"));
+			/*System.out.println("아이디시ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ바ㅓㄷ리ㅏㅁ누읾나이러ㅣㅏㅁㄴㅇ"+memberMap.get("MEMBERID"));*/
 			Map outBoxc= new HashMap();
 			outBoxc.put("contestNo",contestNo);
 			outBoxc.put("memberId", memberMap.get("MEMBERID"));
@@ -152,10 +152,10 @@ public class ContestController
 			for(int i=0;i<contestContainer.size()-2;i++)
 			{
 				contestSubImgList.add(i,contestContainer.get(i+1));
-				System.out.println("포문 잘 돌아가니?"+contestSubImgList);
+				/*System.out.println("포문 잘 돌아가니?"+contestSubImgList);*/
 			}
 			Map<String,String> contestObj= contestContainer.get(contestContainer.size()-1);
-			System.out.println(contestObj);
+			/*System.out.println(contestObj);*/
 			mv.addObject("contestMainImg", contestMainImg);
 			mv.addObject("contestSubImgList", contestSubImgList);
 			mv.addObject("contestObj", contestObj);
