@@ -65,7 +65,7 @@
                		</div>
                		<div class="col-md-10">
                   		<label>신고대상</label> 
-                  		<input class="form-control" type="text" name="reportId" value="${contestWriter}" style="width:40%;">
+                  		<input class="form-control" type="text" name="reportId" value="${contestWriter}" style="width:40%;" readonly>
                		</div>
                		<div class='col-md-1'></div>
             	</div>
