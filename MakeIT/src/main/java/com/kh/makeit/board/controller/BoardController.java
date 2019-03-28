@@ -211,9 +211,11 @@ public class BoardController {
 	    Map sessionMap = (Map) session.getAttribute("member");
 	    String memberId = (String)sessionMap.get("MEMBERID");
 	    List<Map<String,String>> boardList = boardService.selectBoardDetailView(Integer.parseInt(freeNo));
-		logger.debug(boardList);
+	    List<Map<String,String>> boardImgList = boardService.selectBoardImgView(Integer.parseInt(freeNo)); 
+		logger.debug("보드 리스트 모디 : "+boardImgList);
 	    mav.addObject("memberId", memberId);
 	    mav.addObject("boardList",boardList);
+	    mav.addObject("boardImgList",boardImgList);
 		mav.setViewName("/board/boardModify");
 		
 		return mav;
@@ -224,60 +226,60 @@ public class BoardController {
 	public String insertWriteBoardEnd(String writeTitle, String writeContent, MultipartFile[] input_file, HttpServletRequest request) {
 
 		HttpSession session = request.getSession();
-	    Map sessionMap = (Map) session.getAttribute("member");
-	    String memberId = (String)sessionMap.get("MEMBERID");
-	    
-		System.out.println("인풋파일" + input_file);
-		System.out.println("타이틀" + writeTitle);
-		System.out.println("내용" + writeContent);
-		System.out.println("아이디 값" + memberId);
-		
-		ArrayList<BoardAttach> files=new ArrayList();
-		Map<String, String> map = new HashMap();
-		
-		map.put("memberId", memberId);
-		map.put("writeTitle", writeTitle);
-		map.put("writeContent", writeContent);
-		
-		for(MultipartFile a : input_file)
-		{
-			System.out.println("asdf   " + a.getOriginalFilename());
-		}
-		
-		String savDir = request.getSession().getServletContext().getRealPath("/resources/upload/board");
-		
-		for(MultipartFile f: input_file)
-		{
-			if(!f.isEmpty()) {
-				//파일명 생성(rename)
-				String freeImgOri=f.getOriginalFilename();
-				String ext=freeImgOri.substring(freeImgOri.lastIndexOf(".")); //.부터 확장자까지 가져오기
-				//rename규칙 설정
-				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSSS");
-				int rdv=(int)(Math.random()*1000); //랜덤값설정
-				String freeImgRe=sdf.format(System.currentTimeMillis())+"_"+rdv+ext;  //새이름
-				//파일입출력ㅎ
-				try {
-					f.transferTo(new File(savDir+"/"+freeImgRe)); //저경로에다가 파일을 생성해주는것
-				}catch(IllegalStateException | IOException e) {  //일리갈은 세이브디아이알 못찾을때 뜨는것
-					e.printStackTrace();
-				}
+	       Map sessionMap = (Map) session.getAttribute("member");
+	       String memberId = (String)sessionMap.get("MEMBERID");
+	       
+	      System.out.println("인풋파일" + input_file);
+	      System.out.println("타이틀" + writeTitle);
+	      System.out.println("내용" + writeContent);
+	      System.out.println("아이디 값" + memberId);
+	      
+	      ArrayList<BoardAttach> files=new ArrayList();
+	      Map<String, String> map = new HashMap();
+	      
+	      map.put("memberId", memberId);
+	      map.put("writeTitle", writeTitle);
+	      map.put("writeContent", writeContent);
+	      
+	      for(MultipartFile a : input_file)
+	      {
+	         System.out.println("asdf   " + a.getOriginalFilename());
+	      }
+	      
+	      String savDir = request.getSession().getServletContext().getRealPath("/resources/upload/board");
+	      logger.debug("sssssssssssssssssssssssssssssssssssssssssssssssssssss///////"+savDir);
+	      for(MultipartFile f: input_file)
+	      {
+	         if(!f.isEmpty()) {
+	            //파일명 생성(rename)
+	            String freeImgOri=f.getOriginalFilename();
+	            String ext=freeImgOri.substring(freeImgOri.lastIndexOf(".")); //.부터 확장자까지 가져오기
+	            //rename규칙 설정
+	            SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSSS");
+	            int rdv=(int)(Math.random()*1000); //랜덤값설정
+	            String freeImgRe=sdf.format(System.currentTimeMillis())+"_"+rdv+ext;  //새이름
+	            //파일입출력ㅎ
+	            try {
+	               f.transferTo(new File(savDir+"/"+freeImgRe)); //저경로에다가 파일을 생성해주는것
+	            }catch(IllegalStateException | IOException e) {  //일리갈은 세이브디아이알 못찾을때 뜨는것
+	               e.printStackTrace();
+	            }
 
-				BoardAttach ba = new BoardAttach();
-				System.out.println(" 경로 !!!!!  "+freeImgRe);
-				System.out.println(" 경로 !!!!!!!!!!!!  "+freeImgOri);	
-				ba.setFreeImgRe(freeImgRe);
-				ba.setFreeImgOri(freeImgOri);
-				files.add(ba);
+	            BoardAttach ba = new BoardAttach();
+	            System.out.println(" 경로 !!!!!  "+freeImgRe);
+	            System.out.println(" 경로 !!!!!!!!!!!!  "+freeImgOri);   
+	            ba.setFreeImgRe(freeImgRe);
+	            ba.setFreeImgOri(freeImgOri);
+	            files.add(ba);
 
-				
-			}
-		}
-		int result = boardService.insertBoardList(files, map);
-		
-		System.out.println("결과1 : "+result);
+	            
+	         }
+	      }
+	      int result = boardService.insertBoardList(files, map);
+	      
+	      System.out.println("결과1 : "+result);
 
-		return "redirect:/";
+	      return "redirect:/";
 	}
 	
 	@RequestMapping("/board/modifyWriteBoardEnd.do")
@@ -345,17 +347,45 @@ public class BoardController {
 	@RequestMapping("/board/memberSortboard.do")
 	public ModelAndView memberSortAdmin(
 
-				@RequestParam(value="cPage", required=false, defaultValue="1") int cPage
+				@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,String memberSort
 			) {
 		//회원 리스트 정렬
 		int numPerPage=20;
 		int memberCount= boardService.selectMemberCountBoard();
 		String pageBar=PageFactory.getPageBarAdmin(memberCount, cPage, numPerPage,"/makeit/admin/adminView.do");
 		
-		Map<Object,Object> sort=new HashMap();
-
+		logger.debug("assssssssssssssssssssssssss"+memberSort);
+		Map<String,String> sort=new HashMap();
+		sort.put("memberSort", memberSort);
 		List<Map<String,String>> memberList=boardService.selectMemberSortBoard(sort,cPage,numPerPage);
 		logger.info(memberList);
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("memberPageBar", pageBar);
+		mav.addObject("memberList",memberList);
+		mav.setViewName("board/boardView");
+		
+		return mav;
+	}
+	
+	//회원 아이디 검색
+	@RequestMapping("/board/boardSearch.do")
+	public ModelAndView memberSearch(
+				String searchId,
+				String memberSort,
+				@RequestParam(value="cPage", required=false, defaultValue="1") int cPage
+			) { 	
+	
+		int numPerPage=20;
+		int memberCount= boardService.selectSearchCountBoard(searchId);
+		Map<String,String> sort=new HashMap();
+		sort.put("searchId", searchId);
+		sort.put("memberSort", memberSort);
+		
+		logger.debug("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa /    "+searchId);
+		logger.debug("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb /    "+memberSort);
+		String pageBar=PageFactory.getPageBarAdmin(memberCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+		List<Map<String,String>> memberList=boardService.selectMemberSortBoard(sort,cPage,numPerPage);
+		
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("memberPageBar", pageBar);
 		mav.addObject("memberList",memberList);
