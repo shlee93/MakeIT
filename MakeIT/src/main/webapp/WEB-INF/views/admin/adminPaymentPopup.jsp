@@ -87,11 +87,7 @@
 		</h4>
 		<input type="hidden" id="end-spec-no" value="${paymentInfo.BUYSPECNO }"/>
 		<div class="rating">
-			<span class="glyphicon glyphicon-star"></span> <span
-				class="glyphicon glyphicon-star"></span> <span
-				class="glyphicon glyphicon-star"></span> <span
-				class="glyphicon glyphicon-star"></span> <span
-				class="glyphicon glyphicon-star"></span> (10 reviews)
+			
 		</div>
 		<h2 class="payment-target">
 			<small>결제대상 ID:<span class="glyphicon glyphicon-usd"></span></small>
@@ -147,7 +143,7 @@
 				<span class="glyphicon glyphicon-shopping-cart"></span> 결제
 			</button>
 			<button type="button" class="btn btn-outline-info slidetopleft pull-right" id="close" data-dismiss="modal">
-				<span class="glyphicon glyphicon-remove">닫기</span>
+				닫기
 			</button>
 		</div>
 	</div>

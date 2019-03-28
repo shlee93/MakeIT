@@ -181,6 +181,9 @@ public class AdminController {
 		ModelAndView mav=new ModelAndView();
 		Map<Object, Object> member=adminService.selectMemberDetailAdmin(memberId);
 		logger.info(member);
+		String[] addressSplit = ((String) member.get("ADDRESS")).split("/");
+		String address = addressSplit[0] + " " + addressSplit[1];
+		member.put("ADDRESS", address);
 		mav.addObject("member", member);
 		mav.setViewName("admin/memberDetailView");
 		return mav;
@@ -487,7 +490,7 @@ public class AdminController {
 			@RequestParam(value="sortCheck",required=false, defaultValue="0") int sortCheck
 			) {
 		int numPerPage=5;
-		int paymentCount=adminService.selectPaymentCountAdmin(paymentStatus);
+		int paymentCount=adminService.selectPaymentListCountAdmin(paymentStatus);
 		String pageBarPayment=PageFactory.getPageBarAdmin(paymentCount, cPage, numPerPage,"/makeit/admin/adminView.do");
 		ModelAndView mav=new ModelAndView();
 		Map<Object,Object> payment=new HashMap();

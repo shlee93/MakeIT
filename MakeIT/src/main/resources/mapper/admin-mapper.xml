@@ -265,7 +265,7 @@
 	</select>
 	<!-- 결제현황 리스트 카운트 -->
 	<select id="selectPaymentCountAdmin" parameterType="string" resultType="_int">
-		SELECT COUNT(*) FROM ${_parameter}SPEC
+		SELECT COUNT(*) FROM ${_parameter}SPEC WHERE NOT STATUSNO IN(5,6,7)
 	</select>
 	<!-- 결제현황 리스트 -->
 	<select id="selectPaymentListAdmin" parameterType="map" resultType="map">
@@ -278,7 +278,7 @@
 				P.* 
 				FROM ${paymentStatus}SPEC P 
 				JOIN ${paymentStatus} S ON(S.${paymentStatus}NO=P.${paymentStatus}NO) 
-				WHERE ${paymentStatus}CHECKYN='Y' AND ${paymentStatus}DELETEYN='N'
+				WHERE ${paymentStatus}CHECKYN='Y' AND ${paymentStatus}DELETEYN='N' AND NOT STATUSNO IN(5,6,7)
 			</when>
 			<otherwise>
 				SELECT 
@@ -287,7 +287,7 @@
 				P.* 
 				FROM ${paymentStatus}SPEC P 
 				JOIN ${paymentStatus} B ON(B.${paymentStatus}NO=P.${paymentStatus}NO) 
-				WHERE ${paymentStatus}CHECKYN='Y' AND ${paymentStatus}DELETEYN='N'
+				WHERE ${paymentStatus}CHECKYN='Y' AND ${paymentStatus}DELETEYN='N' AND NOT STATUSNO IN(5,6,7)
 			</otherwise>
 		</choose>
 		<if test="sortCheck==4">
@@ -319,6 +319,7 @@
 				SELECT P.*,
 				B.MEMBERID AS BUYID,
 				B.BUYTITLE,
+				B.BUYPRICE,
 				A.BANKNAME,
 				M.ACCOUNT,
 				M.MEMBERNAME,
@@ -390,6 +391,7 @@
 				SELECT P.*,
 				B.MEMBERID AS BUYID,
 				B.BUYTITLE,
+				B.BUYPRICE,
 				A.BANKNAME,
 				M.ACCOUNT,
 				M.MEMBERNAME,
@@ -615,4 +617,9 @@
 	<update id="updateRefundNegativeUpdate">
 		UPDATE ${refundStatus}SPEC SET STATUSNO=3 WHERE ${refundStatus}SPECNO=#{specNo}
 	</update>
+	
+	<!-- 구매확정 리스트 -->
+	<select id="selectPaymentListCountAdmin" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM ${_parameter}SPEC WHERE STATUSNO=4
+	</select>
 </mapper>

@@ -628,7 +628,9 @@
 									</div>
 									<div class="col-md-9 col-xs-9 payment-view-div">
 										<!-- 결제현황 -->
-										<button class="btn btn-outline-info slidetopleft" id="paymentSort-btn">구매확정▼</button>
+										<hr>
+											<button class="btn btn-outline-info slidetopleft" id="paymentSort-btn" style="float:right;">구매확정▼</button>
+										<hr>
 									<c:choose>
 										<c:when test="${not empty paymentList }">
 										

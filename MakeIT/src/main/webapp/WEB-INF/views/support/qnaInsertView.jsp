@@ -42,7 +42,7 @@
 	<div class="form-group">
 	  <label class="col-md-6 control-label" for="qna-pass"><strong>비밀번호:</strong></label>  
 	  <div class="col-md-6">
-	  	<input id="qna-pass" name="qna-pass" class="form-control input-md" type="password"/>
+	  	<input id="qna-pass" name="qna-pass" class="form-control input-md" type="password" placeholder="비밀번호는 숫자와 영문자 조합으로 4~10자리를 사용해야 합니다."/>
 	  </div>
 	</div>
 	<div class="form-group">

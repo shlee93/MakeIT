@@ -368,8 +368,13 @@ public class AdminDaoImpl implements AdminDao {
 		
 		return sqlSession.update("admin.updateRefundNegativeUpdate", negative);
 	}
-	
-	
+
+	//구매확정 카운트
+	@Override
+	public int selectPaymentListCountAdmin(String paymentStatus) {
+		
+		return sqlSession.selectOne("admin.selectPaymentListCountAdmin", paymentStatus);
+	}
 	
 	
 }

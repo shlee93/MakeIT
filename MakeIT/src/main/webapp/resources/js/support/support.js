@@ -212,7 +212,14 @@ $(document).on('click','#insert-qna',function(){
 	var searchQna=$('#search-qna').val();
 	var filter=$('#filter').val();
 	var sortCheck=$('#sortCheck').val();
-	
+	var ck=/^.*(?=^.{4,10}$)(?=.*\d)(?=.*[a-zA-Z])/;
+
+	if(!/^.*(?=^.{4,10}$)(?=.*\d)(?=.*[a-zA-Z]).*$/.test(pass))
+    { 
+        alert('비밀번호는 숫자와 영문자 조합으로 4~10자리를 사용해야 합니다.'); 
+        $('#qna-pass').focus();
+        return false;
+    }
 	if(pass==passCk){
 		
 		if(title==""){
@@ -370,10 +377,17 @@ $(document).on('click','#insert-qna-admin',function(){
 	var filter=$('#filter').val();
 	var sortCheck=$('#sortCheck').val();
 	var qnaNo=$('#qnaNo').val();
+	
+	
 	if(title==""){
 		alert("제목을 입력해주세요!");
 		$('#qna-title').focus();
 		return false;
+	}else if(pass!=passCk){
+		alert("확인한 비밀번호가 일치하지 않습니다!");
+		$('#qna-pass').focus();
+		return false;
+		
 	}else if(content==""){
 		alert("내용을 입력해주세요!");
 		$('#qna-content').focus();
@@ -574,9 +588,9 @@ $(document).on('keyup','textarea', function(){
 //qna 제목 글자 제한
 $(document).on('keyup','#qna-title',function(){
 	var title=$('#qna-title').val();
-	if(title.length>30){
-		alert("제목은 30글자 제한입니다.");
-		$('#qna-title').val(title.substring(0.30));
+	if(title.length>100){
+		alert("제목은 100글자 제한입니다.");
+		$('#qna-title').val(title.substring(0.100));
 		$('#qna-title').focus();
 	}
 })

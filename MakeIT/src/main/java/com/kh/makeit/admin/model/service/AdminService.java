@@ -153,4 +153,7 @@ public interface AdminService {
 	
 	//환불 거부
 	int updateRefundNegativeEnd(Map<Object,Object> negative);
+	
+	//구매확정 카운트
+	int selectPaymentListCountAdmin(String paymentStatus);
 }

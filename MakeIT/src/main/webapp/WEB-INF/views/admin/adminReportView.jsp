@@ -13,8 +13,8 @@
 	<c:forEach items='${reportList }' var="report">
 		<c:choose>
 			<c:when test="${report.CATEGORYCODE eq 'S' }">
-				<div class="panel-body btn btn-outline-info slidetopleft">
-					<div class="report-tab-back">
+				<div class="panel-body">
+					<div class="report-tab-back btn btn-outline-info slidetopleft">
 						<ul class="report-tab">
 							<li><strong>피신고인:</strong> <span class="report-id">${report.MEMBERID }</span>
 							</li>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -97,8 +97,8 @@
 			
 			</c:when>
 			<c:when test="${report.CATEGORYCODE eq 'C' }">
-				<div class="panel-body btn btn-outline-info slidetopleft">
-					<div class="report-tab-back">
+				<div class="panel-body">
+					<div class="report-tab-back btn btn-outline-info slidetopleft">
 						<ul class="report-tab">
 							<li><strong>피신고인:</strong> <span class="report-id">${report.MEMBERID }</span>
 							</li>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -180,8 +180,8 @@
 				</div>
 			</c:when>
 			<c:when test="${report.CATEGORYCODE eq 'F' }">
-				<div class="panel-body btn btn-outline-info slidetopleft">
-					<div class="report-tab-back">
+				<div class="panel-body">
+					<div class="report-tab-back btn btn-outline-info slidetopleft">
 						<ul class="report-tab">
 							<li><strong>피신고인:</strong> <span class="report-id">${report.MEMBERID }</span>
 							</li>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -263,8 +263,8 @@
 				</div>
 			</c:when>
 			<c:when test="${report.CATEGORYCODE eq 'B' }">
-				<div class="panel-body btn btn-outline-info slidetopleft">
-					<div class="report-tab-back">
+				<div class="panel-body">
+					<div class="report-tab-back btn btn-outline-info slidetopleft">
 						<ul class="report-tab">
 							<li><strong>피신고인:</strong> <span class="report-id">${report.MEMBERID }</span>&nbsp;&nbsp;&nbsp;&nbsp;
 							</li>

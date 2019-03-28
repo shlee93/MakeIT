@@ -368,5 +368,14 @@ public class AdminServiceImpl implements AdminService {
 		
 		return dao.updateRefundNegativeEnd(negative);
 	}
+
+	//구매확정 리스트
+	@Override
+	public int selectPaymentListCountAdmin(String paymentStatus) {
+		
+		return dao.selectPaymentListCountAdmin(paymentStatus);
+	}
+	
+	
 	
 }

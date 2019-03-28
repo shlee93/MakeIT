@@ -116,10 +116,14 @@ $(document).on('click','#updateQna',function(){
 			return false;
 		}
 	}
-	
+	var count=0;
 	for(var i=0;i<$faq_Question.length;i++){
 		
 		if(question==$faq_Question.eq(i).val()){
+			count++;
+			
+		}
+		if(count>1){
 			alert("이미 등록된 질문 입니다.");
 			$('#question').focus();
 			return false;
@@ -144,11 +148,19 @@ $(document).on('click','#updateQna',function(){
 	
 });
 
-$(document).on('keyup','textarea', function() {
+$(document).on('keyup','#question', function() {
 	console.log($(this).val().length);
-    if($(this).val().length > 450) {
+    if($(this).val().length > 100) {
        alert("글자수는 450자로 이내로 제한됩니다.");
-       $(this).val($(this).val().substring(0, 450));
+       $(this).val($(this).val().substring(0, 100));
+    }
+ 
+});
+$(document).on('keyup','#answer', function() {
+	console.log($(this).val().length);
+    if($(this).val().length > 1333) {
+       alert("글자수는 450자로 이내로 제한됩니다.");
+       $(this).val($(this).val().substring(0, 1333));
     }
  
 });
