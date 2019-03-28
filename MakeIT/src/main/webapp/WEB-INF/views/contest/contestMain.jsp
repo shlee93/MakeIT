@@ -337,7 +337,7 @@
 						</div>
 		            	<div class='col-md-10' id='section'>
 		            		<div id="pageTitle" style="padding-bottom:20px;">
-		                  		<h1 style="font-family: 'Sunflower', sans-serif;">컨테스트 게시판</h2>
+		                  		<h1 style="font-family: 'Sunflower', sans-serif;">콘테스트 게시판</h2>
 		               		</div>
 		           			<div class='row'>
 			       		  	    <div class='col-md-8'>

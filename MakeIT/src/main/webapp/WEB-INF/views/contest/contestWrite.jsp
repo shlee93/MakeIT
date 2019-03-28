@@ -317,7 +317,13 @@
 				</script>
 		        <br>
 		        <div id="btn-container">
-		           <button class="btn btn-outline-info slidetopleft">취소</button>
+		           <button type='button' onclick='fn_back();' class="btn btn-outline-info slidetopleft">취소</button>
+		           <script>
+			           function fn_back()
+		           	   {
+		           		   history.back();
+		           	   }
+		           </script>
 		           <input type='submit' class="btn btn-outline-info slidetopleft" value='작성'/>
 	        	</div>
 	        </form>
