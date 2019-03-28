@@ -643,21 +643,32 @@
 			               	  		<input type='file' id='upFile' name='upFile' accept=".zip"/>
 			               	  	</th> 	
 			               		<tr>
-			                  		<th>
+			                  		<th id='applicantText'>
 			                  			지원하기(한개의 압축파일로 올려주세요)
 		                  	  		</th>
 				                  	<td>
-				                  		<input type="button" id="applicantSubmit" onclick='fn_applicant_submit()' class="memModal" value='지원하기'>
+				                  		<button type="button" id="applicantSubmit" onclick='fn_applicant_submit()' class="memModal" >지원하기</button>
 				                  
 				                  		<script>
 					                  		function fn_applicant_submit()
-					                  		{			                  			
-					                  			$('#applicantAccessModal').modal('hide');
-					                  			
+					                  		{
 					                  			if($('#upFile').val()!='')
 				                  				{
-					                  				$('#contestApplicantFrm').attr('action','${path}/contest/contestApplicant.do');
-					                  				$('#contestApplicantFrm').submit();
+													 var size = document.getElementById("upFile").files[0].size;
+													 console.log(size);
+				                  			       	 var maxSize  = 1024*1024*1024*1    //1기가
+	
+				                  			         if(size > maxSize)
+				                  			         {
+				                  			             $('#applicantText').text("파일은 1기가 이내로 올려주세요"); 
+				                  			             return
+				                  			         }
+				                  			         else
+			                  			        	 {				                  			       	  
+					                  					 $('#contestApplicantFrm').attr('action','${path}/contest/contestApplicant.do');
+					                  			         $('#contestApplicantFrm').submit();
+					                  			         $('#applicantAccessModal').modal('hide');
+			                  			        	 }
 				                  				}
 					                  			else
 				                  				{
