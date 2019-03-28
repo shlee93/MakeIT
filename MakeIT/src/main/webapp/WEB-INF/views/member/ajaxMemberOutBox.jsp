@@ -66,7 +66,9 @@ pageEncoding="UTF-8"%>
 		<form id="hiddenFrm" action="" method="post">
 			<input type="hidden" id="updateId" name="updateId" value="${map.MEMBERID }"/>
 			<input type="button" onclick="updateMember();" class="btn btn-outline-info slidetopleft" name="updateBtn" value="정보수정"/>
-			<input type="button" onclick="deleteMember();" class="btn btn-outline-info slidetopleft" name="deleteBtn" value="회원탈퇴"/>
+			<c:if test="${map.MEMBERLEVEL != 0 }">
+              	<input type="button" onclick="deleteMember();" class="btn btn-outline-info slidetopleft" name="deleteBtn" value="회원탈퇴"/>
+            </c:if>
 		</form>
     </div>
 </div>
