@@ -131,6 +131,12 @@ public class BoardServiceimpl implements BoardService {
 		// TODO Auto-generated method stub
 		return dao.selectMemberSortBoard(sort,cPage,numPerPage);
 	}
+	
+	@Override
+	public List<Map<String, String>> selectSearchBoard(Map<String, String> sort, int cPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return dao.selectSearchBoard(sort,cPage,numPerPage);
+	}
 
 	@Override
 	public int selectMemberCountBoard() {
@@ -143,5 +149,7 @@ public class BoardServiceimpl implements BoardService {
 		// TODO Auto-generated method stub
 		return dao.selectSearchCountBoard(searchId);
 	}
+
+
 
 }

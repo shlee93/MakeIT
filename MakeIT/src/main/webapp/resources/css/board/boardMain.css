@@ -1288,7 +1288,7 @@ translate
 	transition-duration: 0.5s;
 	cursor:pointer;
 }
-.recommentDelete{
+.recommentClose{
 	position: absolute;
 	display: inline-block;
 	width: 17px;
@@ -1307,6 +1307,19 @@ translate
 	position: relative;
 	display: inline-block;
 		margin-right:10px;
+	width: max-content;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 15px;
+	font-weight:bold;
+	color: black;
+	white-space:nowrap;
+	cursor:pointer;
+}
+.recommentDelete{
+	position: relative;
+	display: inline-block;
+	margin-left:10px;
 	width: max-content;
 	top: 50%;
 	transform: translateY(-50%);

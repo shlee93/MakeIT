@@ -223,8 +223,8 @@ public class BoardController {
 	
 	//게시판 글쓰기 정보 업로드
 	@RequestMapping("/board/insertWriteBoardEnd.do")
-	public String insertWriteBoardEnd(String writeTitle, String writeContent, MultipartFile[] input_file, HttpServletRequest request) {
-
+	public ModelAndView insertWriteBoardEnd(String writeTitle, String writeContent, MultipartFile[] input_file, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession();
 	       Map sessionMap = (Map) session.getAttribute("member");
 	       String memberId = (String)sessionMap.get("MEMBERID");
@@ -277,9 +277,29 @@ public class BoardController {
 	      }
 	      int result = boardService.insertBoardList(files, map);
 	      
+	      String msg = "";
+	      String loc = "";
+
+	      if(result > 0)
+	      {
+	         msg="작성을 완료하였습니다.";
+	         loc="/board/boardMain.do";
+	         mav.addObject("msg",msg);
+	         mav.addObject("loc",loc);
+	         mav.setViewName("common/msg");
+	      }
+	      else
+	      {
+	         msg="등록에 실패하였습니다. 다시 시도해 주세요.";
+	         loc="/board/boardMain.do";
+	         mav.addObject("msg",msg);
+	         mav.addObject("loc",loc);
+	         mav.setViewName("common/msg");
+	         
+	      }
 	      System.out.println("결과1 : "+result);
 
-	      return "redirect:/";
+	      return mav;
 	}
 	
 	@RequestMapping("/board/modifyWriteBoardEnd.do")
@@ -384,7 +404,7 @@ public class BoardController {
 		logger.debug("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa /    "+searchId);
 		logger.debug("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb /    "+memberSort);
 		String pageBar=PageFactory.getPageBarAdmin(memberCount, cPage, numPerPage,"/makeit/admin/adminView.do");
-		List<Map<String,String>> memberList=boardService.selectMemberSortBoard(sort,cPage,numPerPage);
+		List<Map<String,String>> memberList=boardService.selectSearchBoard(sort,cPage,numPerPage);
 		
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("memberPageBar", pageBar);

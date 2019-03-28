@@ -124,6 +124,7 @@ margin-top: 260px;
 
 <form id="sellWriteFrm" enctype="multipart/form-data" method="post" action="${path}/board/modifyWriteBoardEnd.do">
 <c:forEach items="${boardList }" var="board">
+
 	<div id="writeBoardBody">
 		<div id="decoBar"></div>
 	
@@ -146,6 +147,20 @@ margin-top: 260px;
          	</div>
 			
 			<div id="imgSortBox"></div>
+				
+				<script>
+					$('#imgSortBox').append("<img class='writeImg' src='${path}/resources/upload/board/${boardImg.get('FREEIMGRE')}' />");
+				</script>
+				<c:forEach items="${boardImgList }" var="boardImg">
+					<input type="text" id="freeNo" name="freeNo" value="${board.get('FREENO') }" style="display:none" />
+					
+					<script>
+					console.log('${boardImg.get("FREEIMGNO") }');
+					console.log('${boardImg.get("FREENO") }');
+					$('#writeBoardTitleBox').append('<p type="text" id="imgNo" name="imgNo" style="display:none"> ${boardImg.get("FREEIMGNO") }</p>');
+					$('#writeBoardTitleBox').append('<p type="text" id="imgFreeNo" name="imgFreeNo" style="display:none"> ${boardImg.get("FREENO") }</p>');
+					</script>
+				</c:forEach>
 			
 			<div id="btn-container">
 	            <button id="writeCancle" class="btn btn-outline-info">취소</button>
@@ -157,16 +172,25 @@ margin-top: 260px;
 </c:forEach>
 </form>
 	
-	
+
 
 <script>
-	
 
 	var sel_files = [];
 	$(document).ready(function(){
 		$('#input_file').on("change", handleImgsFilesSelect);
 	});
 	function handleImgsFilesSelect(e){
+		
+		//업로드 이미지 삭제
+		var index = $('.writeImg').length;
+		for(var i=0; i<index; i++){
+			console.log($('.writeImg:eq('+i+')').attr('src'));
+			var path =$('.writeImg:eq('+i+')').attr('src');
+		}
+		
+		
+		
 		var files = e.target.files;
 		var fileArr = Array.prototype.slice.call(files);
 		

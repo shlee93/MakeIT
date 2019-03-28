@@ -11,7 +11,7 @@
 	</select>
 	
 	<select id="selectBoardList" resultType="map">
-		SELECT * FROM FREE WHERE FREEYN NOT LIKE 'Y'
+		SELECT * FROM FREE WHERE FREEYN NOT LIKE 'Y' ORDER BY FREENO DESC
 	</select>
 	
 	<select id="selectBoardDetailViewList" resultType="map">
@@ -56,18 +56,15 @@
 	
 	<select id="selectMemberSortBoard" parameterType="map"
 		resultType="map">
-		SELECT * FROM FREE WHERE FREEYN NOT LIKE 'Y'
-		 	<if test="memberSort!='nosort'">
-				<choose>
-					<when test="memberSort=='memberid'">
-						AND MEMBERID=#{searchId} ORDER BY MEMBERID DESC
-					</when>
-				</choose>
-			</if> 
+		SELECT * FROM FREE WHERE FREEYN NOT LIKE 'Y' ORDER BY FREENO DESC
 	</select>
 	
 	<select id="selectMemberCountBoard" resultType="_int">
 		SELECT COUNT(*) FROM FREE WHERE FREEYN NOT LIKE 'Y'
+	</select>
+
+	<select id="selectSearchBoard" parameterType="string" resultType="map">
+		SELECT * FROM FREE WHERE FREEYN NOT LIKE 'Y' AND MEMBERID LIKE '%'||#{searchId}||'%' ORDER BY FREENO DESC
 	</select>
 	
 	<select id="selectSearchCountBoard" parameterType="string" resultType="_int">

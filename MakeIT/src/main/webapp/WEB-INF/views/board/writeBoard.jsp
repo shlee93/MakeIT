@@ -144,7 +144,7 @@ margin-top: 260px;
 			<div id="imgSortBox"></div>
 			
 			<div id="btn-container">
-	            <button id="writeCancle" class="btn btn-outline-info">취소</button>
+	            <button id="writeCancle" type="button" class="btn btn-outline-info" onclick="fn_cancle()">취소</button>
 	            <button type="submit" class="btn btn-outline-info">작성</button>
 	         </div>
 		</div>
@@ -156,6 +156,9 @@ margin-top: 260px;
 
 <script>
 	
+	function fn_cancle(){
+		location.href="${path}/board/boardMain.do";
+	}
 
 	var sel_files = [];
 	$(document).ready(function(){
