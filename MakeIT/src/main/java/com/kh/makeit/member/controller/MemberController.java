@@ -1488,5 +1488,37 @@ public class MemberController {
 		
 		return data;
 	}
+	
+	@RequestMapping(value="/member/rankingViewDetail.do", produces="application/text; charset=utf8")
+	@ResponseBody
+	public String rankingViewDetail(String memberId) {
+		
+		List<Map<String,String>> workList = service.selectWorkSum(memberId);
+		List<Map<String,String>> starList = service.selectStarSum(memberId); 
+		List<Map<String,String>> majorList = service.selectMajor(memberId); 
+		
+		Map<Object, Object> allList = new HashMap();
+		allList.put("workList", workList);
+		allList.put("starList", starList);
+		allList.put("majorList", majorList);
+
+		Gson gson = new Gson();
+		String data=gson.toJson(allList);
+		
+		return data;
+	}
+	
+	@RequestMapping(value="/member/rankingViewMore.do", produces="application/text; charset=utf8")
+	@ResponseBody
+	public String rankingViewMore(String memberId) {
+		
+		logger.debug("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+memberId);
+		List<Map<String,String>> reviewList = service.selectReviewList(memberId); 
+		
+		Gson gson = new Gson();
+		String data=gson.toJson(reviewList);
+		
+		return data;
+	}
 
 }

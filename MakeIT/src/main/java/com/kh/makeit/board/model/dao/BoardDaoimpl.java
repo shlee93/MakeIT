@@ -8,6 +8,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.makeit.board.model.vo.BoardAttach;
+
 @Repository
 public class BoardDaoimpl implements BoardDao {
 
@@ -57,6 +59,32 @@ public class BoardDaoimpl implements BoardDao {
 	public int deleteComment(int commentNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.delete("board.deleteComment", commentNo);
+	}
+
+	@Override
+	public int selectMemberCountBoard() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("board.selectMemberCountBoard");
+	}
+	@Override
+	public List<Map<String, String>>selectMemberSortBoard(Map<Object,Object> sort, int cPage, int numPerPage) {
+		RowBounds rb=new RowBounds((cPage-1)*numPerPage,numPerPage);
+		return sqlSession.selectList("board.selectMemberSortBoard",sort,rb);
+	}
+	@Override
+	public int insertBoard(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("board.insertBoard", map);
+	}
+	@Override
+	public int insertBoardImg(BoardAttach ba) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("board.insertBoardImg", ba);
+	}
+	@Override
+	public int updateBoard(Map<Object, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("board.updateBoard", map);
 	}
 
 }

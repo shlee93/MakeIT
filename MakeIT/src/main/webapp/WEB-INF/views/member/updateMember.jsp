@@ -113,14 +113,17 @@
 	                    		<div class="upload-thumb-wrap">
 	                    			<c:if test="${member.REIMG != null }">
 		                    			<img src="${path }/resources/upload/member/${member.REIMG}" class="upload-thumb">
+		                    			<input type="hidden" name="profileCk" id="profileCk" value="1">
 		                            </c:if>
 		                            <c:if test="${member.REIMG == null }">
 		                            	<img src="${path }/resources/image/logo1.png" alt=""/>
+		                            	<input type="hidden" name="profileCk" id="profileCk" value="0">
 		                            </c:if>
                     			</div>
                    			</div>
 				            <label for="memberProfile">사진 선택</label> 
 				            <input type="file" name="memberProfile" id="memberProfile" class="upload-hidden" value="${member.REIMG }" accept=".gif, .jpg, .png">
+				            
 				        </div>
                     </div>
                     <div class="col-md-3 mb-2">
@@ -353,6 +356,7 @@ $(document).ready(function(){
    var imgTarget = $('.preview-image .upload-hidden');
 
    imgTarget.on('change', function(e){
+	   $('#profileCk').attr("value","1");
       var files=e.target.files;
        var filesArr=Array.prototype.slice.call(files);
        console.log(files);
@@ -434,7 +438,7 @@ $(function(){
 			
     function fn_enroll_validate()
     {
-    	if($('#memberProfile').val().trim() == ""){
+    	if($('#profileCk').val().trim() == "0"){
     		alert("사진을 선택해주세요");
     		$('#memberProfile').focus();
     		return false;

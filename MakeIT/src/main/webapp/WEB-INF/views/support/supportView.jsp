@@ -38,7 +38,7 @@
                             	</c:if>
                             	
                             </select>
-                            <input id="search-qna" type="text" placeholder="검색 내용을 입력해주세요" size="50"/>
+                            <input id="search-qna" type="text" placeholder="검색 내용을 입력해주세요" style="width:83%"/>
                             
                         </div>
                             <hr>

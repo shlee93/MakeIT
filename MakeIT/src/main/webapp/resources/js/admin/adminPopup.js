@@ -1,12 +1,13 @@
-$(document).ready(function(){
-	adjustHeight();
-});
 function adjustHeight() {
 	  var textEle = $('textarea');
 	  textEle[0].style.height = 'auto';
 	  var textEleHeight = textEle.prop('scrollHeight');
 	  textEle.css('height', textEleHeight);
 };
+//멤버 뷰 닫기
+$(document).on('click','#close-member',function(){
+	self.close();
+})
 //관리자 회원정보 업데이트
 $(document).on('click','#member-update',function(){
 	var memberId=$('.panel-title').text();

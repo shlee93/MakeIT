@@ -111,6 +111,7 @@
 				<input type="hidden" id="no" value="${refund.SELLNO}">
 				<input type="hidden" id="cPage" value="${cPage}">
 				<input type="hidden" id="refundStatus" value="${refundStatus}">	
+				<input type="hidden" id="end-spec-no" value="${refund.SELLSPECNO}">	
 	
 			</div>
 		</form>
@@ -172,6 +173,7 @@
 				<input type="hidden" id="no" value="${refund.BUYNO}">
 				<input type="hidden" id="cPage" value="${cPage}">
 				<input type="hidden" id="refundStatus" value="${refundStatus}">	
+				<input type="hidden" id="end-spec-no" value="${refund.BUYSPECNO}">	
 	
 			</div>
 		</form>

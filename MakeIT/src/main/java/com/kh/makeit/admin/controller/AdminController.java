@@ -54,17 +54,17 @@ public class AdminController {
 				if(Integer.parseInt(member.get("MEMBERLEVEL")+"")!=0) {
 					String msg="접속경로가 잘못되었습니다.";
 					String loc="/";
-					mav.addObject("script",msg);
+					mav.addObject("msg",msg);
 					mav.addObject("loc",loc);
-					mav.setViewName("common/msg");
+					mav.setViewName("common/errorEL");
 					return mav;
 				}
 			}else {
 				String msg="접속경로가 잘못되었습니다.";
 				String loc="/";
-				mav.addObject("script",msg);
+				mav.addObject("msg",msg);
 				mav.addObject("loc",loc);
-				mav.setViewName("common/msg");
+				mav.setViewName("common/errorEL");
 				return mav;
 			}
 		

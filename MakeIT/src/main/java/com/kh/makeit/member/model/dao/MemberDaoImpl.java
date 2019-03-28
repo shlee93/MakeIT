@@ -352,5 +352,29 @@ public class MemberDaoImpl implements MemberDao {
 		return sqlSession.selectList("member.selectInterestList",interestNo);
 	}
 
+	@Override
+	public List<Map<String, String>> selectWorkSum(String memberId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("member.selectWorkSumList",memberId);
+	}
+
+	@Override
+	public List<Map<String, String>> selectStarSum(String memberId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("member.selectStarSumList",memberId);
+	}
+
+	@Override
+	public List<Map<String, String>> selectMajor(String memberId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("member.selectMajorList",memberId);
+	}
+
+	@Override
+	public List<Map<String, String>> selectReviewList(String memberId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("member.selectReviewList",memberId);
+	}
+
 
 }

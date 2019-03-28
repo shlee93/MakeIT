@@ -154,11 +154,11 @@ div {
          <div id="intro-div">
         
             <label>제목</label> 
-            <input type="text" name="title" class="form-control col-sm-9" style="display: inline;" placeholder="제목을 입력하세요." />
+            <input type="text" name="title" class="form-control col-sm-9" style="display: inline;" placeholder="제목을 입력하세요." required />
             <br>
             <br>
             <label>내용</label>
-            <textarea name="content" class="form-control" rows="10"></textarea>
+            <textarea name="content" class="form-control" rows="10" required></textarea>
          </div>
          <div class="filebox bs3-primary preview-image" style="padding-top:10px;">
 			<label for="input_file">파일 선택</label> <input type="file" name="input_file" id="input_file" class="upload-hidden" multiple="multiple" >

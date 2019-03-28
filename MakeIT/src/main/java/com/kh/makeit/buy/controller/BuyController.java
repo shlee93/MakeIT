@@ -235,7 +235,7 @@ public class BuyController {
 			}
 		}
 		
-		mv.addObject("voLFlag", volFlag);
+		mv.addObject("volFlag", volFlag);
 		mv.addObject("volList", volList);
 		mv.addObject("detailList",detailList);
 		mv.addObject("mainimgList", mainimgList);

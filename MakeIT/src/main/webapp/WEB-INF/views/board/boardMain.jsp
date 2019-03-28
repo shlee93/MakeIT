@@ -11,7 +11,7 @@
 </jsp:include>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/board/boardMain.css" />
-<script src="${pageContext.request.contextPath }/resources/js/admin/admin.js"></script>
+
 
 <section id="tabs" class="project-tab">
 		<div class="container">
@@ -21,8 +21,6 @@
                         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                             <a class="nav-item nav-link active" id="nav-member-tab" data-toggle="tab" href="#nav-member"
                                 role="tab" aria-controls="nav-member" aria-selected="true">자유 게시판</a>
-                            <a class="nav-item nav-link" id="nav-approval-tab" data-toggle="tab" href="#nav-approval"
-                                role="tab" aria-controls="nav-approval" aria-selected="false">불만 게시판</a>
          
                             <input type="hidden" id="view-status" value="member"/>
                         </div>
@@ -61,6 +59,7 @@
 										<p id="boardViews"></p>
 										<p id="boardDate"></p>
 										<p id="boardNo"></p>
+										<div id="boardModifyBtn"><p id="boardModifyText">수정</p></div>
 									</div>
 									
 									<div id="boardDetailBox">
@@ -145,6 +144,12 @@
  				$('#boardNo').html(data["boardList"][0]["FREENO"]);
  				$('#boardDetailContent').html(data["boardList"][0]["FREECONTENT"]);
  				
+ 				if(data["memberId"] == data["boardList"][0]["MEMBERID"]){
+ 					$('#boardModifyBtn').css('display','block');
+ 				}else{
+ 					$('#boardModifyBtn').css('display','none');
+ 				}
+ 				
  				//이미지 생성
  				var boardImgSize = data["boardImgList"].length;
  				if(boardImgSize != 0){
@@ -154,7 +159,7 @@
  						$('#boardDetailBox').append("<div class='boardDetailImg'><img class='boardDetailImg2' src="+imgSrc+"/></div>");
  					}
  				}
- 				$('#boardDetailBox').append("<div id='boardLogo'></div>");
+ 				$('#boardDetailBox').append("<div id='boardLogo'><img src='${path}/resources/image/logo2.png'/></div>");
  				
  				var commentSum = data["boardCommentList"].length;
  				$('#commentSum').html("댓글 수 "+commentSum);
@@ -181,7 +186,7 @@
 						else{
 
 							$('#boardDetailComment').append("<div class='recommentDiv'></div>");
-							$('.recommentDiv:last-child()').append("<div class='recommentImg'></div>");
+							$('.recommentDiv:last-child()').append("<div class='recommentImg'><img src='${path}/resources/images/recomment.png'/></div>");
 		 					$('.recommentDiv:last-child()').append("<p class='recommentNick'>"+data["boardCommentList"][i]["MEMBERID"]+"</p>");
 		 					$('.recommentDiv:last-child()').append("<p class='recommentContent'>"+data["boardCommentList"][i]["FREECOMMENTCONTENT"]+"</p>");
 		 					$('.recommentDiv:last-child()').append("<p class='recommentNo' style='display:none'>"+data["boardCommentList"][i]["FREECOMMENTNO"]+"</p>");
@@ -262,6 +267,12 @@
  				$('#boardNo').html(data["boardList"][0]["FREENO"]);
  				$('#boardDetailContent').html(data["boardList"][0]["FREECONTENT"]);
  				
+ 				if(data["memberId"] == data["boardList"][0]["MEMBERID"]){
+ 					$('#boardModifyBtn').css('display','block');
+ 				}else{
+ 					$('#boardModifyBtn').css('display','none');
+ 				}
+ 				
  				//이미지 생성
  				var boardImgSize = data["boardImgList"].length;
  				if(boardImgSize != 0){
@@ -271,7 +282,7 @@
  						$('#boardDetailBox').append("<div class='boardDetailImg'><img class='boardDetailImg2' src="+imgSrc+"/></div>");
  					}
  				}
- 				$('#boardDetailBox').append("<div id='boardLogo'></div>");
+ 				$('#boardDetailBox').append("<div id='boardLogo'><img src='${path}/resources/image/logo2.png'/></div>");
  				
  				var commentSum = data["boardCommentList"].length;
  				$('#commentSum').html("댓글 수 "+commentSum);
@@ -298,7 +309,7 @@
 						else{
 
 							$('#boardDetailComment').append("<div class='recommentDiv'></div>");
-							$('.recommentDiv:last-child()').append("<div class='recommentImg'></div>");
+							$('.recommentDiv:last-child()').append("<div class='recommentImg'><img src='${path}/resources/images/recomment.png'/></div>");
 		 					$('.recommentDiv:last-child()').append("<p class='recommentNick'>"+data["boardCommentList"][i]["MEMBERID"]+"</p>");
 		 					$('.recommentDiv:last-child()').append("<p class='recommentContent'>"+data["boardCommentList"][i]["FREECOMMENTCONTENT"]+"</p>");
 		 					$('.recommentDiv:last-child()').append("<p class='recommentNo' style='display:none'>"+data["boardCommentList"][i]["FREECOMMENTNO"]+"</p>");
@@ -393,6 +404,34 @@
 	  						}
 	
 	  	 				}
+	  	 				setTimeout(function(){
+	  	 					
+	  	 					//자유게시판 디테일  크기 구하기 1/4
+	  	 					$('#boardDetailNav').css('height','70px');
+	  	 					var navHeight = $('#boardDetailNav').css('height').replace("px","");
+	  	 					
+	  	 					//자유게시판 디테일  크기 구하기 2/4
+	  	 					$('#boardDetailBox').css('height','max-content');
+	  	 					var boxHeight = $('#boardDetailBox').css('height').replace("px","");
+	  	 					
+	  	 					//자유게시판 디테일  크기 구하기 3/4
+	  	 					$('#boardDetailCommentBox').css('height','max-content');
+	  	 					var commentHeight = $('#boardDetailCommentBox').css('height').replace("px","");
+	  	 					
+	  	 					//자유게시판 디테일  크기 구하기 4/4
+	  	 					var writeHeight = $('#boardDetailWriteBox').css('height').replace("px","");
+	  	 					
+	  	 					//자유게시판 디테일  최종크기
+	  	 					var sumHeight = Number(navHeight) + Number(boxHeight) + Number(commentHeight) + Number(writeHeight)-50;
+
+	  	 					$('#boardDetailView').css('height',sumHeight);
+	  	 					setTimeout(function(){
+	  	 						$('#boardDetailNav').css({'transition:':'ease-in-out','transition-duration':'0.7s'});
+	  	 						$('#boardDetailNav').css('opacity','1');
+	  	 						$('#boardDetailBox').css('opacity','1');
+	  	 						$('#boardDetailCommentBox').css('opacity','1');
+	  	 					}, 300);
+	  	 				}, 300);
 	  					
 	  				},
 	  				error: function(){
@@ -465,6 +504,34 @@
   		  						}
   		
   		  	 				}
+  		  	 			setTimeout(function(){
+  		  				
+  		  				//자유게시판 디테일  크기 구하기 1/4
+  		  				$('#boardDetailNav').css('height','70px');
+  		  				var navHeight = $('#boardDetailNav').css('height').replace("px","");
+  		  				
+  		  				//자유게시판 디테일  크기 구하기 2/4
+  		  				$('#boardDetailBox').css('height','max-content');
+  		  				var boxHeight = $('#boardDetailBox').css('height').replace("px","");
+  		  				
+  		  				//자유게시판 디테일  크기 구하기 3/4
+  		  				$('#boardDetailCommentBox').css('height','max-content');
+  		  				var commentHeight = $('#boardDetailCommentBox').css('height').replace("px","");
+  		  				
+  		  				//자유게시판 디테일  크기 구하기 4/4
+  		  				var writeHeight = $('#boardDetailWriteBox').css('height').replace("px","");
+  		  				
+  		  				//자유게시판 디테일  최종크기
+  		  				var sumHeight = Number(navHeight) + Number(boxHeight) + Number(commentHeight) + Number(writeHeight)-50;
+
+  		  				$('#boardDetailView').css('height',sumHeight);
+  		  				setTimeout(function(){
+  		  					$('#boardDetailNav').css({'transition:':'ease-in-out','transition-duration':'0.7s'});
+  		  					$('#boardDetailNav').css('opacity','1');
+  		  					$('#boardDetailBox').css('opacity','1');
+  		  					$('#boardDetailCommentBox').css('opacity','1');
+  		  				}, 300);
+  		  			}, 300);	
   		  					
   		  				},
   		  				error: function(){
@@ -538,6 +605,34 @@
 	  						}
 	
 	  	 				}
+	  	 				setTimeout(function(){
+	  	 					
+	  	 					//자유게시판 디테일  크기 구하기 1/4
+	  	 					$('#boardDetailNav').css('height','70px');
+	  	 					var navHeight = $('#boardDetailNav').css('height').replace("px","");
+	  	 					
+	  	 					//자유게시판 디테일  크기 구하기 2/4
+	  	 					$('#boardDetailBox').css('height','max-content');
+	  	 					var boxHeight = $('#boardDetailBox').css('height').replace("px","");
+	  	 					
+	  	 					//자유게시판 디테일  크기 구하기 3/4
+	  	 					$('#boardDetailCommentBox').css('height','max-content');
+	  	 					var commentHeight = $('#boardDetailCommentBox').css('height').replace("px","");
+	  	 					
+	  	 					//자유게시판 디테일  크기 구하기 4/4
+	  	 					var writeHeight = $('#boardDetailWriteBox').css('height').replace("px","");
+	  	 					
+	  	 					//자유게시판 디테일  최종크기
+	  	 					var sumHeight = Number(navHeight) + Number(boxHeight) + Number(commentHeight) + Number(writeHeight)-50;
+
+	  	 					$('#boardDetailView').css('height',sumHeight);
+	  	 					setTimeout(function(){
+	  	 						$('#boardDetailNav').css({'transition:':'ease-in-out','transition-duration':'0.7s'});
+	  	 						$('#boardDetailNav').css('opacity','1');
+	  	 						$('#boardDetailBox').css('opacity','1');
+	  	 						$('#boardDetailCommentBox').css('opacity','1');
+	  	 					}, 300);
+	  	 				}, 300);	
 	  					
 	  				},
 	  				error: function(){
@@ -601,6 +696,34 @@
   		 				
   						}
   	 				}
+  	 				setTimeout(function(){
+  	 					
+  	 					//자유게시판 디테일  크기 구하기 1/4
+  	 					$('#boardDetailNav').css('height','70px');
+  	 					var navHeight = $('#boardDetailNav').css('height').replace("px","");
+  	 					
+  	 					//자유게시판 디테일  크기 구하기 2/4
+  	 					$('#boardDetailBox').css('height','max-content');
+  	 					var boxHeight = $('#boardDetailBox').css('height').replace("px","");
+  	 					
+  	 					//자유게시판 디테일  크기 구하기 3/4
+  	 					$('#boardDetailCommentBox').css('height','max-content');
+  	 					var commentHeight = $('#boardDetailCommentBox').css('height').replace("px","");
+  	 					
+  	 					//자유게시판 디테일  크기 구하기 4/4
+  	 					var writeHeight = $('#boardDetailWriteBox').css('height').replace("px","");
+  	 					
+  	 					//자유게시판 디테일  최종크기
+  	 					var sumHeight = Number(navHeight) + Number(boxHeight) + Number(commentHeight) + Number(writeHeight)-50;
+
+  	 					$('#boardDetailView').css('height',sumHeight);
+  	 					setTimeout(function(){
+  	 						$('#boardDetailNav').css({'transition:':'ease-in-out','transition-duration':'0.7s'});
+  	 						$('#boardDetailNav').css('opacity','1');
+  	 						$('#boardDetailBox').css('opacity','1');
+  	 						$('#boardDetailCommentBox').css('opacity','1');
+  	 					}, 300);
+  	 				}, 300);	
   					
   					
   				},
@@ -640,11 +763,60 @@
 		}, 300);		
 	});
 	
+	//게시글 작성 이동
 	$('#writeBoardBtn').click(function(){
 		location.href="${path}/board/writeBoard.do";
 	});
-		
 	
+	//게시글 수정 이동
+	$("#boardModifyBtn").click(function(){
+		var freeNo = $(this).parent().children('#boardNo').text();
+		location.href="${path}/board/boardModify.do?freeNo="+freeNo;
+	});
+	
+	
+	//페이징
+	$(document).on('click','.member-page',function(){
+		var cPage=$(this).children('.cPage').val();
+		var viewStatus=$('#view-status').val();
+
+		if(viewStatus=='member'){
+			
+/* 			if(memberSort=='memberid'){
+				
+				ascDesc=$('#memberIdSort').val();
+				console.log(ascDesc);
+			}else if(memberSort=='membername'){
+				
+				ascDesc=$('#memberNameSort').val();
+			}else if(memberSort=='address'){
+				
+				ascDesc=$('#addressSort').val();
+			}else if(memberSort=='gradeno'){
+				
+				ascDesc=$('#gradeNoSort').val();
+			}else if(memberSort=='entdate'){
+				
+				ascDesc=$('#entDateSort').val();
+			}else if(memberSort=='birth'){
+				
+				ascDesc=$('#birthSort').val();
+			}  */
+			
+			$.ajax({
+				url:"${path}/board/memberSortboard.do",
+				data:{
+						"cPage":cPage
+					},
+				dataType:"html",
+				success:function(data){
+					$('.member-view').html(data);
+					
+				}
+				
+			})
+		}
+	});
 </script>
                         
 	

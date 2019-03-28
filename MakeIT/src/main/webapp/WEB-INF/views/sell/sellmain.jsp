@@ -9,14 +9,14 @@
 	<jsp:param value="HelloSpring" name="pageTitle"/>
 </jsp:include>
 
-
+<!-- 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>판매페이지</title>
 
-
+ -->
 
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
@@ -30,8 +30,7 @@
 
 }
 </style>
-</head>
-<body>
+
 
 	<form action="" name="pageFrm">
 		<input type="hidden" id="sCategoryFlag" name="sCategoryFlag" value="" />
@@ -40,6 +39,9 @@
 	<input type="hidden" id="gradeValue" value="0">
 	<input type="hidden" id="sellValue" value="0">
 	<input type="hidden" id="isSearch" value="0">
+	<div id="total" style='padding:1.1em;'>
+
+	 	<div class='container-fluid' id="total">
 	<div class='row'>
 		<div class='col-md-1'>
 		<div style='position:fixed; margin-top:-6em;'>
@@ -782,7 +784,8 @@
 				</div>
 			</div>
 		</div>
-		
+		</div>
+		</div>
 			<div class='col-md-1'></div>
 			</div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include> 

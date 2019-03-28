@@ -24,9 +24,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.kh.makeit.board.model.service.BoardService;
+import com.kh.makeit.board.model.vo.BoardAttach;
 import com.kh.makeit.common.PageFactory;
-
-import sun.print.resources.serviceui;
 
 @Controller
 public class BoardController {
@@ -41,8 +40,7 @@ public class BoardController {
 	public ModelAndView boardView(
 				@RequestParam(value="cPage", required=false, defaultValue="1") int cPage
 			) {
-		int numPerPage=30;
-		int numPerPage2=10;
+		int numPerPage=20;
 		int memberCount = boardService.selectBoardCount();
 		String memberPageBar = PageFactory.getPageBarAdmin(memberCount, cPage, numPerPage,"/board/boardMain.do");
 		
@@ -202,11 +200,88 @@ public class BoardController {
 		return mav;
 	}
 	
-	//게시판 글쓰기 정보 업로드
-	@RequestMapping("/board/insertWriteBoardEnd.do")
-	public ModelAndView insertWriteBoardEnd(String writeTitle, String writeContent, MultipartFile[] input_file, HttpServletRequest request) {
+	//게시판 수정 가기
+	@RequestMapping("/board/boardModify.do")
+	public ModelAndView boardModifyView(HttpServletRequest request,String freeNo) {
 		
 		ModelAndView mav = new ModelAndView();
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+freeNo);
+		
+		HttpSession session = request.getSession();
+	    Map sessionMap = (Map) session.getAttribute("member");
+	    String memberId = (String)sessionMap.get("MEMBERID");
+	    List<Map<String,String>> boardList = boardService.selectBoardDetailView(Integer.parseInt(freeNo));
+		logger.debug(boardList);
+	    mav.addObject("memberId", memberId);
+	    mav.addObject("boardList",boardList);
+		mav.setViewName("/board/boardModify");
+		
+		return mav;
+	}
+	
+	//게시판 글쓰기 정보 업로드
+	@RequestMapping("/board/insertWriteBoardEnd.do")
+	public String insertWriteBoardEnd(String writeTitle, String writeContent, MultipartFile[] input_file, HttpServletRequest request) {
+
+		HttpSession session = request.getSession();
+	    Map sessionMap = (Map) session.getAttribute("member");
+	    String memberId = (String)sessionMap.get("MEMBERID");
+	    
+		System.out.println("인풋파일" + input_file);
+		System.out.println("타이틀" + writeTitle);
+		System.out.println("내용" + writeContent);
+		System.out.println("아이디 값" + memberId);
+		
+		ArrayList<BoardAttach> files=new ArrayList();
+		Map<String, String> map = new HashMap();
+		
+		map.put("memberId", memberId);
+		map.put("writeTitle", writeTitle);
+		map.put("writeContent", writeContent);
+		
+		for(MultipartFile a : input_file)
+		{
+			System.out.println("asdf   " + a.getOriginalFilename());
+		}
+		
+		String savDir = request.getSession().getServletContext().getRealPath("/resources/upload/board");
+		
+		for(MultipartFile f: input_file)
+		{
+			if(!f.isEmpty()) {
+				//파일명 생성(rename)
+				String freeImgOri=f.getOriginalFilename();
+				String ext=freeImgOri.substring(freeImgOri.lastIndexOf(".")); //.부터 확장자까지 가져오기
+				//rename규칙 설정
+				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSSS");
+				int rdv=(int)(Math.random()*1000); //랜덤값설정
+				String freeImgRe=sdf.format(System.currentTimeMillis())+"_"+rdv+ext;  //새이름
+				//파일입출력ㅎ
+				try {
+					f.transferTo(new File(savDir+"/"+freeImgRe)); //저경로에다가 파일을 생성해주는것
+				}catch(IllegalStateException | IOException e) {  //일리갈은 세이브디아이알 못찾을때 뜨는것
+					e.printStackTrace();
+				}
+
+				BoardAttach ba = new BoardAttach();
+				System.out.println(" 경로 !!!!!  "+freeImgRe);
+				System.out.println(" 경로 !!!!!!!!!!!!  "+freeImgOri);	
+				ba.setFreeImgRe(freeImgRe);
+				ba.setFreeImgOri(freeImgOri);
+				files.add(ba);
+
+				
+			}
+		}
+		int result = boardService.insertBoardList(files, map);
+		
+		System.out.println("결과1 : "+result);
+
+		return "redirect:/";
+	}
+	
+	@RequestMapping("/board/modifyWriteBoardEnd.do")
+	public String modifyWriteBoardEnd(String freeNo,String writeTitle, String writeContent, MultipartFile[] input_file, HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
 	    Map sessionMap = (Map) session.getAttribute("member");
@@ -217,49 +292,78 @@ public class BoardController {
 		System.out.println("내용" + writeContent);
 		System.out.println("아이디 값" + memberId);
 		
+		ArrayList<BoardAttach> files=new ArrayList();
+		Map<Object, Object> map = new HashMap();
+		map.put("freeNo", Integer.parseInt(freeNo));
+		map.put("memberId", memberId);
+		map.put("writeTitle", writeTitle);
+		map.put("writeContent", writeContent);
+		
+		
 		for(MultipartFile a : input_file)
 		{
 			System.out.println("asdf   " + a.getOriginalFilename());
 		}
 		
-		Map<Object,Object> freeFiles = new HashMap();
-		Map<Object,Object> freeImgFiles = new HashMap();
 		String savDir = request.getSession().getServletContext().getRealPath("/resources/upload/board");
 		
 		for(MultipartFile f: input_file)
 		{
 			if(!f.isEmpty()) {
 				//파일명 생성(rename)
-				String orifileName=f.getOriginalFilename();
-				String ext=orifileName.substring(orifileName.lastIndexOf(".")); //.부터 확장자까지 가져오기
+				String freeImgOri=f.getOriginalFilename();
+				String ext=freeImgOri.substring(freeImgOri.lastIndexOf(".")); //.부터 확장자까지 가져오기
 				//rename규칙 설정
 				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSSS");
 				int rdv=(int)(Math.random()*1000); //랜덤값설정
-				String reName=sdf.format(System.currentTimeMillis())+"_"+rdv+ext;  //새이름
+				String freeImgRe=sdf.format(System.currentTimeMillis())+"_"+rdv+ext;  //새이름
 				//파일입출력ㅎ
 				try {
-					f.transferTo(new File(savDir+"/"+reName)); //저경로에다가 파일을 생성해주는것
+					f.transferTo(new File(savDir+"/"+freeImgRe)); //저경로에다가 파일을 생성해주는것
 				}catch(IllegalStateException | IOException e) {  //일리갈은 세이브디아이알 못찾을때 뜨는것
 					e.printStackTrace();
 				}
-				freeFiles.put("memberId", memberId);
-				freeFiles.put("writeTitle", writeTitle);
-				freeFiles.put("writeContent", writeContent);
-				freeFiles.put("memberId", memberId);
+
+				BoardAttach ba = new BoardAttach();
+				System.out.println(" 경로 !!!!!  "+freeImgRe);
+				System.out.println(" 경로 !!!!!!!!!!!!  "+freeImgOri);	
+				ba.setFreeImgRe(freeImgRe);
+				ba.setFreeImgOri(freeImgOri);
+				files.add(ba);
+
 				
-				System.out.println(" 경로 !!!!!!!!!!!!  "+reName);
-				System.out.println(" 경로 !!!!!!!!!!!!  "+orifileName);
-				
-				freeImgFiles.put("reName", reName);
-				freeImgFiles.put("oriName", orifileName);
 			}
 		}
+		int result = boardService.updateBoardList(files, map, Integer.parseInt(freeNo));
 		
+		System.out.println("결과1 : "+result);
 
+		return "redirect:/";
+	}
+	
+	 //페이징
+	@RequestMapping("/board/memberSortboard.do")
+	public ModelAndView memberSortAdmin(
+
+				@RequestParam(value="cPage", required=false, defaultValue="1") int cPage
+			) {
+		//회원 리스트 정렬
+		int numPerPage=20;
+		int memberCount= boardService.selectMemberCountBoard();
+		String pageBar=PageFactory.getPageBarAdmin(memberCount, cPage, numPerPage,"/makeit/admin/adminView.do");
 		
+		Map<Object,Object> sort=new HashMap();
+
+		List<Map<String,String>> memberList=boardService.selectMemberSortBoard(sort,cPage,numPerPage);
+		logger.info(memberList);
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("memberPageBar", pageBar);
+		mav.addObject("memberList",memberList);
+		mav.setViewName("board/boardView");
 		
 		return mav;
 	}
 
 
 }
+
