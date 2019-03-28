@@ -123,5 +123,9 @@ public interface MemberDao {
 	List<String> selectSimilarView(List<String> list);
 	List<Map<String,String>> selectSimilarList(List<String> list);
 	List<Map<String,String>> selectInterestList(String interestNo);
+	List<Map<String,String>> selectWorkSum(String memberId);
+	List<Map<String,String>> selectStarSum(String memberId);
+	List<Map<String,String>> selectMajor(String memberId);
+	List<Map<String,String>> selectReviewList(String memberId);
 
 }

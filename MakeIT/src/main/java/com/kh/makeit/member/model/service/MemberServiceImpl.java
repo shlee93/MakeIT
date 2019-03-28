@@ -327,5 +327,29 @@ public class MemberServiceImpl implements MemberService {
 		return dao.selectInterestList(interestNo);
 	}
 
+	@Override
+	public List<Map<String, String>> selectWorkSum(String memberId) {
+		// TODO Auto-generated method stub
+		return dao.selectWorkSum(memberId);
+	}
+
+	@Override
+	public List<Map<String, String>> selectStarSum(String memberId) {
+		// TODO Auto-generated method stub
+		return dao.selectStarSum(memberId);
+	}
+
+	@Override
+	public List<Map<String, String>> selectMajor(String memberId) {
+		// TODO Auto-generated method stub
+		return dao.selectMajor(memberId);
+	}
+	
+	@Override
+	public List<Map<String, String>> selectReviewList(String memberId) {
+		// TODO Auto-generated method stub
+		return dao.selectReviewList(memberId);
+	}
+
 }
 

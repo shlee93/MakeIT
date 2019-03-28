@@ -67,11 +67,11 @@ public class PageFactory {
       int totalPage = (int)Math.ceil((double)totalCon/numPerPage); 
       pageBar+="<ul class='pagination pagination-sm' style='justify-content:center'>";
       // 이전
-      System.out.println("pagination cPage :"+ cPage);
+      /*System.out.println("pagination cPage :"+ cPage);
       System.out.println("pagination pageNo :"+pageNo);
       System.out.println("pagination totalCon :"+totalCon);
       System.out.println("pagination numPerPage :"+numPerPage);
-      System.out.println("pagination totalPage :"+totalPage);
+      System.out.println("pagination totalPage :"+totalPage);*/
       
       
       if(pageNo==1) {
@@ -351,11 +351,11 @@ public class PageFactory {
 		int totalPage = (int)Math.ceil((double)totalCon/numPerPage); //3
 		pageBar+="<ul class='pagination pagination-sm' style='justify-content:center'>";
 		// 이전
-		System.out.println("pagination cPage :"+ cPage);
+		/*System.out.println("pagination cPage :"+ cPage);
 		System.out.println("pagination pageNo :"+pageNo);
 		System.out.println("pagination totalCon :"+totalCon);
 		System.out.println("pagination numPerPage :"+numPerPage);
-		System.out.println("pagination totalPage :"+totalPage);
+		System.out.println("pagination totalPage :"+totalPage);*/
 		
 		
 		if(pageNo==1) {

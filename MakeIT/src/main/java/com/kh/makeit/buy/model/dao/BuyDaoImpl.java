@@ -70,7 +70,15 @@ public class BuyDaoImpl implements BuyDao {
 	@Override
 	public List<Map<String, String>> selectVolList(Map m, int numPerPage, int cPage) {
 		RowBounds rb=new RowBounds((cPage-1)*numPerPage,numPerPage);
-		return session.selectList("buy.selectVolList",m,rb);
+		if(numPerPage == 0)
+		{
+			return session.selectList("buy.selectVolList",m);
+		}
+		else
+		{
+			return session.selectList("buy.selectVolList",m,rb);
+		}
+		
 	}
 
 	@Override

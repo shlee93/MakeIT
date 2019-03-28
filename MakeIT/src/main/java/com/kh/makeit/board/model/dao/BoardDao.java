@@ -1,7 +1,10 @@
 package com.kh.makeit.board.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import com.kh.makeit.board.model.vo.BoardAttach;
 
 public interface BoardDao {
 	
@@ -14,4 +17,14 @@ public interface BoardDao {
 	int insertComment(Map<Object, Object> insertValue);
 	int insertreComment(Map<Object, Object> insertValue);
 	int deleteComment(int commentNo);
+	int insertBoard(Map<String, String> map);
+	int insertBoardImg(BoardAttach ba);
+	int updateBoard(Map<Object, Object> map);
+	
+	//관리자 페이지 회원 수
+	int selectMemberCountBoard();
+	int selectSearchCountBoard(String searchId);
+	
+	//관리자 페이지 회원 정렬
+	List<Map<String,String>> selectMemberSortBoard(Map<String,String> sort, int cPage, int numPerPage);
 }

@@ -68,9 +68,14 @@ textarea{
 }
 
 #search-icon {
-	border: 1px solid gray;
-	border-radius: 50%;
-	width: 5%;
+	width: 40px;
+	height:40px;
+	margin-top:2px;
+	margin-right: 10px;
+}
+#search-icon img{
+	width:100%;
+	height:auto;
 }
 
 #member-sort-reverse{
@@ -1028,6 +1033,27 @@ translate
 	transition:ease-in-out;
 	transition-duration:0.7s;
 }
+#boardModifyBtn{
+	position:absolute;
+	width:90px;
+	height:55px;
+	left:99%;
+	top:50%;
+	transform: translate(-99%,-50%);
+	background-color: #138496;
+	border-radius:4px;
+	cursor:pointer;
+	display: none;
+}
+#boardModifyText{
+	position:absolute;
+	left:50%;
+	top:50%;
+	transform: translate(-50%,-50%);
+	font-family: 'Sunflower', sans-serif;
+	font-size: 25px;
+	color: white;
+}
 #boardDetailBox{
 	position: relative;
 	width: 100%;
@@ -1071,15 +1097,19 @@ translate
 
 #boardLogo{
 	position: relative;
-	width: 100px;
-	height: 100px;
+	width: 150px;
+	height: 150px;
 	margin-top: 150px;
 	margin-bottom: 30px;
 	left: 50%;
 	transform: translateX(-50%);
-	background-color: #138496;
+/* 	background-color: #138496; */
 	transition:ease-in-out;
 	transition-duration:0.7s;
+}
+#boardLogo img{
+	width:100%;
+	height:auto;
 }
 
 #boardDetailCommentBox{
@@ -1159,11 +1189,15 @@ translate
 .recommentImg{
 	position: absolute;
 	display: inline-block;
-	width:50px;
-	height:50px;
+	width:20px;
+	height:20px;
 	top:50%;
 	transform: translateY(-50%);
-	background-color: #138496;
+
+}
+.recommentImg img{
+	width:100%;
+	height:auto;
 }
 .recommentNick{
 	position: relative;

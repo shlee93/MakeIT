@@ -103,7 +103,7 @@ public class sellServiceImpl implements sellService {
       try {
          result=dao.insertDataMap(dataMap);
          if(result==0) //롤백해야되는상황
-         {
+         { 	 	 
             throw new MakeitException("게시글 등록에 실패하였습니다.");
          }
          for(SellAttach a : files)

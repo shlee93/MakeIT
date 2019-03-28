@@ -302,7 +302,7 @@
 											</c:if>
 											<!-- 다섯번째 법륜 끝 -->
 											<!-- 여섯번째 법륜 (지원하기)-->
-											<c:if test='${sessionScope.member.MEMBERID ne detailList.MEMBERID and empty specList3 and volFlag == false}'>
+											<c:if test='${sessionScope.member.MEMBERID ne detailList.MEMBERID and empty specList3 and volFlag == "false"}'>
 											<span class="itemDot ${sessionScope.member.MEMBERID ne detailList.MEMBERID?"active":"" } itemDot1" data-tab="6"> 
 											<!-- 작성자가 아니면 --> 
 												
