@@ -66,7 +66,9 @@ pageEncoding="UTF-8"%>
 		<form id="hiddenFrm" action="" method="post">
 			<input type="hidden" id="updateId" name="updateId" value="${map.MEMBERID }"/>
 			<input type="button" onclick="updateMember();" class="btn btn-outline-info slidetopleft" name="updateBtn" value="정보수정"/>
-			<input type="button" onclick="deleteMember();" class="btn btn-outline-info slidetopleft" name="deleteBtn" value="회원탈퇴"/>
+			<c:if test="${map.MEMBERLEVEL != 0 }">
+              	<input type="button" onclick="deleteMember();" class="btn btn-outline-info slidetopleft" name="deleteBtn" value="회원탈퇴"/>
+            </c:if>
 		</form>
     </div>
 </div>
@@ -99,7 +101,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="bo" items="${buyOutBoxList }">
 		                    			<tr>
 		                    				<td><c:out value="${bo.BUYNO }"/></td>
-											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
 											<td><c:out value="${bo.MEMBERID }"/></td>
 											<td><c:out value="${bo.BUYDATE }"/></td>
 		                    			</tr>
@@ -131,7 +133,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="so" items="${sellOutBoxList }">
 		                    			<tr>
 		                    				<td><c:out value="${so.SELLNO }"/></td>
-											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
 											<td><c:out value="${so.MEMBERID }"/></td>
 											<td><c:out value="${so.SELLDATE }"/></td>
 		                    			</tr>
@@ -163,7 +165,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="co" items="${contestOutBoxList }">
 		                    			<tr>
 		                    				<td><c:out value="${co.CONTESTNO }"/></td>
-											<td><a href="${path }/contest/contestDetail.do?contestNo=${co.CONTESTNO }"><c:out value="${co.CONTESTTITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/contest/contestDetail.do?contestNo=${co.CONTESTNO }"><c:out value="${co.CONTESTTITLE }"/></a></td>
 											<td><c:out value="${co.MEMBERID }"/></td>
 											<td><c:out value="${co.CONTESTDATE }"/></td>
 		                    			</tr>
@@ -197,7 +199,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="bo" items="${buyOutBoxList }">
 		                    			<tr>
 		                    				<td><c:out value="${bo.BUYNO }"/></td>
-											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
 											<td><c:out value="${bo.MEMBERID }"/></td>
 											<td><c:out value="${bo.BUYDATE }"/></td>
 		                    			</tr>
@@ -229,7 +231,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="so" items="${sellOutBoxList }">
 		                    			<tr>
 		                    				<td><c:out value="${so.SELLNO }"/></td>
-											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
 											<td><c:out value="${so.MEMBERID }"/></td>
 											<td><c:out value="${so.SELLDATE }"/></td>
 		                    			</tr>
@@ -261,7 +263,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="co" items="${contestOutBoxList }">
 		                    			<tr>
 		                    				<td><c:out value="${co.CONTESTNO }"/></td>
-											<td><a href="${path }/contest/contestDetail.do?contestNo=${co.CONTESTNO }"><c:out value="${co.CONTESTTITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/contest/contestDetail.do?contestNo=${co.CONTESTNO }"><c:out value="${co.CONTESTTITLE }"/></a></td>
 											<td><c:out value="${co.MEMBERID }"/></td>
 											<td><c:out value="${co.CONTESTDATE }"/></td>
 		                    			</tr>
@@ -295,7 +297,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="bo" items="${buyOutBoxList }">
 		                    			<tr>
 		                    				<td><c:out value="${bo.BUYNO }"/></td>
-											<td><a href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/buy/buyDetail?buyNo=${bo.BUYNO }"><c:out value="${bo.BUYTITLE }"/></a></td>
 											<td><c:out value="${bo.MEMBERID }"/></td>
 											<td><c:out value="${bo.BUYDATE }"/></td>
 		                    			</tr>
@@ -327,7 +329,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="so" items="${sellOutBoxList }">
 		                    			<tr>
 		                    				<td><c:out value="${so.SELLNO }"/></td>
-											<td><a href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/sell/selldetail?sellno=${so.SELLNO }"><c:out value="${so.SELLTITLE }"/></a></td>
 											<td><c:out value="${so.MEMBERID }"/></td>
 											<td><c:out value="${so.SELLDATE }"/></td>
 		                    			</tr>
@@ -359,7 +361,7 @@ pageEncoding="UTF-8"%>
 		                    		<c:forEach var="co" items="${contestOutBoxList }">
 		                    			<tr>
 		                    				<td><c:out value="${co.CONTESTNO }"/></td>
-											<td><a href="${path }/contest/contestDetail.do?contestNo=${co.CONTESTNO }"><c:out value="${co.CONTESTTITLE }"/></a></td>
+											<td><a class="myPageInfo" href="${path }/contest/contestDetail.do?contestNo=${co.CONTESTNO }"><c:out value="${co.CONTESTTITLE }"/></a></td>
 											<td><c:out value="${co.MEMBERID }"/></td>
 											<td><c:out value="${co.CONTESTDATE }"/></td>
 		                    			</tr>

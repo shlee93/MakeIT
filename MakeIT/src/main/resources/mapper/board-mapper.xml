@@ -68,7 +68,7 @@
 	</select>
 	
 	<select id="selectSearchCountBoard" parameterType="string" resultType="_int">
-		SELECT COUNT(*) FROM FREE WHERE FREEYN NOT LIKE 'Y' AND MEMBERID=#{searchId} ORDER BY MEMBERID DESC
+		SELECT COUNT(*) FROM FREE WHERE FREEYN NOT LIKE 'Y' AND MEMBERID LIKE '%'||#{searchId}||'%' ORDER BY MEMBERID DESC
 	</select>
 	
 	<update id="updateBoard" parameterType="map">

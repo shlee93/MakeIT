@@ -60,19 +60,23 @@
                     	<form id="hiddenFrm" action="" method="post">
 	                    	<input type="hidden" id="updateId" name="updateId" value="${map.MEMBERID }"/>
 	                        <input type="button" onclick="updateMember();" class="btn btn-outline-info slidetopleft" name="updateBtn" value="정보수정"/>
-	                        <input type="button" onclick="deleteMember();" class="btn btn-outline-info slidetopleft" name="deleteBtn" value="회원탈퇴"/>
+	                        <c:if test="${map.MEMBERLEVEL != 0 }">
+	                        	<input type="button" onclick="deleteMember();" class="btn btn-outline-info slidetopleft" name="deleteBtn" value="회원탈퇴"/>
+	                        </c:if>
                     	</form>
                     </div>
                 </div>
                 <div class="row" id="bottomrow">
                     <div class="col-md-4">
                         <div class="profile-work">
-                            <p>마이페이지</p>
-                            <a class="myPageInfo" onclick="memberInfoAjax();">회원정보</a><br/>
-                            <a class="myPageInfo" onclick="memberOutBoxAjax();">찜한 목록</a><br/>
-                            <a class="myPageInfo" onclick="memberWriteAjax();">내가 쓴 글 보기</a><br/>
-                            <a class="myPageInfo" onclick="memberMessageAjax();">쪽지함</a><br/>
-                            <a class="myPageInfo" onclick="memberTradeAjax();">거래내역</a>
+                            <c:if test="${map.REPORTCOUNT < 5}">
+                            	<p>마이페이지</p>
+	                            <a class="myPageInfo" onclick="memberInfoAjax();">회원정보</a><br/>
+	                            <a class="myPageInfo" onclick="memberOutBoxAjax();">찜한 목록</a><br/>
+	                            <a class="myPageInfo" onclick="memberWriteAjax();">내가 쓴 글 보기</a><br/>
+	                            <a class="myPageInfo" onclick="memberMessageAjax();">쪽지함</a><br/>
+	                            <a class="myPageInfo" onclick="memberTradeAjax();">거래내역</a>
+                            </c:if>
                         </div>
                     </div>
                     <div class="col-md-8">
@@ -282,6 +286,7 @@
         <input type="hidden" id="contestcPage" name="contestcPage" value="${contestcPage }">
         <input type="hidden" id="naviBarStatus" name = "naviBarStatus" value="${naviBarStatus }">
         <input type="hidden" id="noReadMessage" name = "noReadMessage" value="${noReadMessage }">
+        <input type="hidden" id="reportCount" name = "reportCount" value="${map.REPORTCOUNT }">
 		<script>
 			$('#appealContent').on('keyup', function() {
 				if($(this).val().length > 1333) {
@@ -380,6 +385,11 @@
 				    $("#modalOnLoad").modal('show');
 				});	
 			}
+			if($('#reportCount').val() >= 5){
+				$(document).ready(function () {
+				    $("#modalOnLoad").modal('show');
+				});
+			}
 			
 		</script>
         </div>
@@ -390,10 +400,18 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body text-center">
-                <p>
-                	새 받은 메시지가 [<c:out value="${noReadMessage }"></c:out>]건 있습니다.
-                </p>
-                <button type="button" class="btn blue btn-outline" data-dismiss="modal" aria-hidden="true">Close</button>
+            	<c:if test="${map.REPORTCOUNT < 5 }">
+	                <p>
+	                	새 받은 메시지가 [<c:out value="${noReadMessage }"></c:out>]건 있습니다.
+	                </p>
+	                <button type="button" class="btn blue btn-outline" data-dismiss="modal" aria-hidden="true">Close</button>
+                </c:if>
+                <c:if test="${map.REPORTCOUNT >= 5 }">
+                	<p>
+	                	신고누적횟수 5회 이상으로 이용이 제한됩니다.<br/>관리자에게 문의하세요
+	                </p>
+	                <button type="button" class="btn blue btn-outline" data-dismiss="modal" aria-hidden="true">Close</button>
+                </c:if>
             </div>
         </div>
     </div>
