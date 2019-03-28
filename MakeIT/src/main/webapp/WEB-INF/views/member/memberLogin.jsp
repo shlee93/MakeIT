@@ -79,12 +79,12 @@
                                 	<input type="hidden" id="token" name="token" value="">
                                 </form>
                                 <script>
-	                                var naver_id_login = new naver_id_login("ayo0PcF7e31pJS4Lbj1N", "http://192.168.130.50:9090/makeit/callback");	// Client ID, CallBack URL 삽입
+	                                var naver_id_login = new naver_id_login("ayo0PcF7e31pJS4Lbj1N", "http://192.168.20.229:9090/makeit/callback");	// Client ID, CallBack URL 삽입
 									// 단 'localhost'가 포함된 CallBack URL
 									var state = naver_id_login.getUniqState();
 									
 									naver_id_login.setButton("green", 2, 50);
-									naver_id_login.setDomain("http://192.168.130.50:9090/makeit");	//  URL
+									naver_id_login.setDomain("http://192.168.20.229:9090/makeit");	//  URL
 									naver_id_login.setState(state);
 									naver_id_login.setPopup();
 									naver_id_login.init_naver_id_login();

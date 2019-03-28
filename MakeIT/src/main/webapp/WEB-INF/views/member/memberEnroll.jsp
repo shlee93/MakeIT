@@ -500,7 +500,14 @@
                 
                 return false;   
             }
-            
+
+    		if(!/^[a-zA-Z0-9]{6,20}$/.test(memberId))
+    		 { 
+    		     alert('아이디는 숫자와 영문자 조합으로 6~20자리를 사용해야 합니다.'); 
+    		     $('#memberId').focus();
+    		     return false;
+    		 }
+    		
             if($('#password').val().trim().length==0)
             {
                 alert("패스워드를 입력하세요!");
@@ -658,6 +665,17 @@
     		     $('#memberId').focus();
     		     return false;
     		 }
+    		
+    		var chk_idnum = memberId.search(/[0-9]/g); 
+            var chk_ideng = memberId.search(/[a-z]/ig);
+            var chk_ideng2 = memberId.search(/[A-Z]/ig);
+            if(chk_idnum < 0 || chk_ideng < 0 || chk_ideng2 < 0)
+            { 
+                alert('아이디는 숫자와 영문자 조합으로 6~20자리를 사용해야 합니다.');
+                $('#memberId').focus();
+                return false;
+            }
+            
     		var url="${path}/member/duplicateCheck";
     		var title="아이디 중복체크";
     		var shape="left=200px, top=100px, width=300px, height=200px";
