@@ -147,6 +147,28 @@
 		var scmove = $('#sub-img-div').offset().top;
 		$('html, body').animate( { scrollTop : 950 }, 400 );
 	}
+	
+	$(window).scroll(function(){
+		var scBottom = $('#nav-tabContent').offset().top + $('#nav-tabContent').height()-1040;
+		console.log("시발"+scBottom)
+		if($(this).scrollTop() >scBottom)
+		{
+			console.log('여기 300')
+			$('#donggeulNav').css('top',scBottom);
+		}
+		if($(this).scrollTop() > 200 && $(this).scrollTop()<scBottom)
+		{
+			console.log($(this).scrollTop());
+			var windowVal = $(this).scrollTop();
+			$('#donggeulNav').css('top',windowVal-260);
+		}
+		if($(this).scrollTop() < 200) 
+        {
+			var windowVal = $(this).scrollTop();
+			$('#donggeulNav').css('top','100px');
+        }	
+		
+	})	
 	     
 </script>
  

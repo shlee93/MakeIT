@@ -223,7 +223,7 @@
       		if(reportCount == 5)
       		{
       			alert("신고누적으로 서비스가 제한된 회원입니다. 관리자에게 문의해주세요.");
-                location.href="${path}";
+                location.href="${path}/support/supportView.do";
       		}
       		else
       		{
