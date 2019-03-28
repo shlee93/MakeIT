@@ -77,6 +77,11 @@ public class BoardDaoimpl implements BoardDao {
 		return sqlSession.selectList("board.selectMemberSortBoard",sort,rb);
 	}
 	@Override
+	public List<Map<String, String>> selectSearchBoard(Map<String, String> sort, int cPage, int numPerPage) {
+		RowBounds rb=new RowBounds((cPage-1)*numPerPage,numPerPage);
+		return sqlSession.selectList("board.selectSearchBoard",sort,rb);
+	}
+	@Override
 	public int insertBoard(Map<String, String> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("board.insertBoard", map);
@@ -91,5 +96,6 @@ public class BoardDaoimpl implements BoardDao {
 		// TODO Auto-generated method stub
 		return sqlSession.update("board.updateBoard", map);
 	}
+
 
 }

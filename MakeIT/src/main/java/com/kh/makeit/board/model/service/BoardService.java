@@ -23,6 +23,7 @@ public interface BoardService {
 	
 	//관리자 페이지 회원 정렬
 	List<Map<String,String>> selectMemberSortBoard(Map<String,String> sort, int cPage, int numPerPage);
+	List<Map<String,String>> selectSearchBoard(Map<String,String> sort, int cPage, int numPerPage);
 	//관리자 페이지 회원 수
 	int selectMemberCountBoard();
 	int selectSearchCountBoard(String searchId);

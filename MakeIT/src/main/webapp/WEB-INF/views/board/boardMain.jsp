@@ -120,6 +120,7 @@
 </section>
 
 <script>
+
 	//마이페이지에서 넘어올때 값
 	var infoFreeNo = "${infoFreeNo}";
 	console.log(infoFreeNo);
@@ -938,34 +939,6 @@
 	});
 </script>
                         
-	
-
-<!-- <div id="boardDetailNav">
-		<p id="boardTitle">췍췍 석 ㅊ체체체asdasdasdasdasd체체</p>
-		<p id="boardViews">조회수 123432</p>
-		<p id="boardLike">좋아요 865</p>
-		<p id="boardDate">| 2018/01/11</p>
-	</div>
-	
-	<div id="boardDetailBox">
-		<div id="boardDetailContent"><p>!!!asdsadasdadaskdnasdas<br/>adasssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssudjsauuiujsajandasdasbhdsbdas</p></div>
-		<div id="boardUpButton"></div>
-	</div>
-	
-	<div id="boardDetailCommentBox">
-		<div id="boardDetailComment"></div>
-		<div id="boardDetailWriteBox">
-			<div id="boardDetailWrite"><input id="boardDetailWrite" type="text"></div>
-			<div id="boardDetailwriteButton"></div>
-		</div>
-	</div> -->
-
-
-
-
-
-
-
 
 
 

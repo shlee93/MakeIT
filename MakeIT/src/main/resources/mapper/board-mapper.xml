@@ -62,6 +62,10 @@
 	<select id="selectMemberCountBoard" resultType="_int">
 		SELECT COUNT(*) FROM FREE WHERE FREEYN NOT LIKE 'Y'
 	</select>
+
+	<select id="selectSearchBoard" parameterType="string" resultType="map">
+		SELECT * FROM FREE WHERE FREEYN NOT LIKE 'Y' AND MEMBERID LIKE '%'||#{searchId}||'%' ORDER BY FREENO DESC
+	</select>
 	
 	<select id="selectSearchCountBoard" parameterType="string" resultType="_int">
 		SELECT COUNT(*) FROM FREE WHERE FREEYN NOT LIKE 'Y' AND MEMBERID=#{searchId} ORDER BY MEMBERID DESC
