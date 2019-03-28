@@ -247,7 +247,7 @@ insert into SELLOPTION values(SEQ_SELLOPTIONCODE.NEXTVAL,#{selloptionNo},#{selln
 </select>
 <!-- 환불하기 -->
 <update id="sellRefundEnd" parameterType="map">
- 	update sellspec set statusno='6' where memberid=#{refundId} and sellspecno=#{sellSpecNo}
+ 	update sellspec set statusno='6', sellreasonrefund=#{reportContent} where memberid=#{refundId} and sellspecno=#{sellSpecNo}
 </update>
 <insert id="insertReview" parameterType="map">
       INSERT INTO SELLREVIEW VALUES(SEQ_SELLREVIEWNO.NEXTVAL, #{reviewContent}, #{starCount}, #{sellno}, #{memberId}, 'S')

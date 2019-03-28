@@ -147,7 +147,7 @@ $(function()
 						<label>금액</label>
 					</div>
 					<div id="priceProduct" class="col-md-8">
-						<input type='number' id="price" name="price" min="1" step="10000" pattern="^[0-9]" class='form-control col-md-2' style='display: inline' placeholder="금액(원)" value="${detailList.BUYPRICE }">
+						<input type='number' id="price" name="price" min="0" step="10000" pattern="^[0-9]" class='form-control col-md-2' style='display: inline' placeholder="금액(원)" value="${detailList.BUYPRICE }">
 						
 						 <br /> <br />
 					</div>

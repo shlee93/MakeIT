@@ -703,13 +703,14 @@ public class sellController {
 	}
 
 	@RequestMapping("/sell/sellRefundEnd")
-	public ModelAndView sellRefundEnd(int sellSpecNo, String refundId) {
+	public ModelAndView sellRefundEnd(int sellSpecNo, String refundId, String reportContent) {
 		System.out.println(sellSpecNo);
 		System.out.println("shdjkfljksdl" + refundId);
 		ModelAndView mv = new ModelAndView();
 		Map payBack = new HashMap();
 		payBack.put("sellSpecNo", sellSpecNo);
 		payBack.put("refundId", refundId);
+		payBack.put("reportContent", reportContent);
 		int result = service.sellRefundEnd(payBack);
 		String msg = "";
 		String loc = "";
