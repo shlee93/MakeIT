@@ -324,6 +324,12 @@ public class BuyServiceImpl implements BuyService {
 		return dao.selectBuyImg(buyNo);
 	}
 
+	@Override
+	public List<Map<String, String>> selectCtgList() {
+		// TODO Auto-generated method stub
+		return dao.selectCtgList();
+	}
+
 	
 	
 	
