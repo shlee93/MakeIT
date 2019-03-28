@@ -728,16 +728,24 @@
 					                                    		 console.log( $("#sellRefundSpec").val());
 					                                    	}
 															function fn_refundPop(){
-																if(${sessionScope.member.MEMBERID!=null}){
-							                                    var sellSpecNo=$('#sellRefundSpec').val();
-							                                    console.log($('#optionRefund').val());
-																	var url="${path}/sell/sellRefund.do";
-																	var name="환불하기";			
-																	window.open("${path}/sell/sellRefund.do?sellWriter=${detailList.get(0).MEMBERID}&&sellSpecNo="+sellSpecNo+"&&refundId=${purchaseList.get(0).MEMBERID}",name,'width=490, height=300, menubar=no, status=no, toolbar=no');
-																}else{
-																	alert('로그인 후 이용해 주세요 ');
-																	location.href="${path}/member/memberLogin.do";
-																};			
+																if($('#sellRefundSpec').val()!='')
+																	{
+																	
+																	
+																		if(${sessionScope.member.MEMBERID!=null}){
+										                                    var sellSpecNo=$('#sellRefundSpec').val();
+										                                    console.log($('#optionRefund').val());
+																				var url="${path}/sell/sellRefund.do";
+																				var name="환불하기";			
+																				window.open("${path}/sell/sellRefund.do?sellWriter=${detailList.get(0).MEMBERID}&&sellSpecNo="+sellSpecNo+"&&refundId=${purchaseList.get(0).MEMBERID}",name,'width=490, height=300, menubar=no, status=no, toolbar=no');
+																			}else{
+																				alert('로그인 후 이용해 주세요 ');
+																				location.href="${path}/member/memberLogin.do";
+																			}
+																			}
+																else{
+																		alert('환불할 옵션을 선택해 주세요');
+																	}
 															}
 														</script>
 					                                    
