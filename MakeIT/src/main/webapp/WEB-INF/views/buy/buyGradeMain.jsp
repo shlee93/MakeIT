@@ -58,12 +58,12 @@
                                    <div class='sub-description'>											
 														
 										<div class='infobox' style='margin-left: 1.2em;'>
-											<div style='width: 340px; height: 24px; overflow:hidden;'>
-												<h5>${gradeList.BUYTITLE}</h5>
+											<div style='width: 90%; height: 40px; overflow:hidden;'>
+												<h6>${gradeList.BUYTITLE}</h6>
 											</div>
 											<div class='row'>
 												<div class='col-md-7' id="price">
-													<h5 style='position:relative; top:33%'>가격: ${gradeList.BUYPRICE }</h5>
+													<h6 style='position:relative; top:33%'>가격: ${gradeList.BUYPRICE }</h6>
 												</div>
 												<div class='col-md-5' style='float:right'>
 													<p id="gradep">
@@ -82,7 +82,7 @@
 						                              <c:if test="${gradeList.GRADENAME == '다이아' }">
 						                                 <p style='display: inline;'><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"></p>
 						                              </c:if>
-													${gradeList.GRADENAME}
+													<%-- ${gradeList.GRADENAME} --%>
 													</p>
 												</div>
 											</div>

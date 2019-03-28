@@ -553,8 +553,8 @@
 											<div class='sub-description'>									
 														
 												<div class='infobox' style='margin-left: 1.2em;'>
-													<div style='width: 340px; height: 24px; overflow:hidden;'>
-														<h5>${newList.SELLTITLE}</h5>
+													<div style='width: 90%; height: 40px; /* white-space:nowrap; */ text-overflow:ellipsis; overflow:hidden; '>
+														<h6>${newList.SELLTITLE}</h6>
 													</div>
 													<div class='row'>
 														<div class='col-md-7'>
@@ -576,7 +576,7 @@
 																			});
 																});
 															</script>
-															<h5 id="price${newList.SELLNO}" style='position:relative; top:33%'>${newList.SELLPRICE }</h5>
+															<h6 id="price${newList.SELLNO}" style='position:relative; top:33%'>${newList.SELLPRICE }</h6>
 														</div>
 														<div class='col-md-5' style='float:right'>
 															<p id="gradep">
@@ -595,7 +595,7 @@
 								                              <c:if test="${newList.GRADENAME == '다이아' }">
 								                                 <p style='display: inline;'><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"></p>
 								                              </c:if>
-															${newList.GRADENAME}
+															<%-- ${newList.GRADENAME} --%>
 															</p>
 														</div>
 													</div>
