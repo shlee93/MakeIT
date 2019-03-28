@@ -189,7 +189,7 @@
 		 					
 		 					//댓글삭제
 		 					if(data["memberId"] == data["boardCommentList"][i]["MEMBERID"]){
-		 						$('.commentDiv:last-child()').append("<p class='commentDelete'>| 삭제</p>");
+		 						$('.recommentDiv:last-child()').append("<p class='recommentDelete'>| 삭제</p>");
 		 					} 
 						}
 	 				
@@ -312,7 +312,7 @@
 		 					
 		 					//댓글삭제
 		 					if(data["memberId"] == data["boardCommentList"][i]["MEMBERID"]){
-		 						$('.commentDiv:last-child()').append("<p class='commentDelete'>| 삭제</p>");
+		 						$('.recommentDiv:last-child()').append("<p class='recommentDelete'>| 삭제</p>");
 		 					} 
 						}
 	 				
@@ -332,10 +332,10 @@
   			$(this).parent().append('<div class="recommentInputBox"></div>');
   			$('.recommentInputBox:last-child()').append('<input type="text" class="recommentInput"/>');
   			$('.recommentInputBox:last-child()').append('<div class="recommentSubmit"></div>');
-  			$('.recommentInputBox:last-child()').append('<div class="recommentDelete"></div>');
+  			$('.recommentInputBox:last-child()').append('<div class="recommentClose"></div>');
   		});
   		//댓글달기 닫기 버튼 이벤트
-  		$(document).on('click','.recommentDelete',function(){
+  		$(document).on('click','.recommentClose',function(){
   			$('.recommentInputBox').remove();
   		});
   		
@@ -393,7 +393,7 @@
 	  			 					$('.recommentDiv:last-child()').append("<p class='recommentNo' style='display:none'>"+data["boardCommentList"][i]["FREECOMMENTNO"]+"</p>");
 	  			 					//댓글삭제
 	  			 					if(data["memberId"] == data["boardCommentList"][i]["MEMBERID"]){
-	  			 						$('.commentDiv:last-child()').append("<p class='commentDelete'>| 삭제</p>");
+	  			 						$('.recommentDiv:last-child()').append("<p class='recommentDelete'>| 삭제</p>");
 	  			 					} 
 	  							}
 	  		 				
@@ -493,7 +493,7 @@
   		  			 					$('.recommentDiv:last-child()').append("<p class='recommentNo' style='display:none'>"+data["boardCommentList"][i]["FREECOMMENTNO"]+"</p>");
   		  			 					//댓글삭제
   		  			 					if(data["memberId"] == data["boardCommentList"][i]["MEMBERID"]){
-  		  			 						$('.commentDiv:last-child()').append("<p class='commentDelete'>| 삭제</p>");
+  		  			 						$('.recommentDiv:last-child()').append("<p class='recommentDelete'>| 삭제</p>");
   		  			 					} 
   		  							}
   		  		 				
@@ -594,7 +594,7 @@
 	  			 					$('.recommentDiv:last-child()').append("<p class='recommentNo' style='display:none'>"+data["boardCommentList"][i]["FREECOMMENTNO"]+"</p>");
 	  			 					//댓글삭제
 	  			 					if(data["memberId"] == data["boardCommentList"][i]["MEMBERID"]){
-	  			 						$('.commentDiv:last-child()').append("<p class='commentDelete'>| 삭제</p>");
+	  			 						$('.recommentDiv:last-child()').append("<p class='recommentDelete'>| 삭제</p>");
 	  			 					} 
 	  							}
 	  		 				
@@ -643,90 +643,194 @@
   		//댓글 삭제 이벤트
   		$(document).on('click','.commentDelete',function(){
   			
-  			var commentNo = $(this).parent().children('.commentNo').text();
-  			var freeNo = $('#boardNo').text();
-				
-   			$.ajax({
-  				url:"${path}/board/commentDelete.do",
-  				dataType:"json",
-  				data:{"commentNo":commentNo,"freeNo":freeNo},
-  				success: function(data){
-  					console.log(data);
-  					
-  					
-  					$('.commentDiv').remove();
-  					$('.recommentDiv').remove();
-  					
-  	 				var commentSum = data["boardCommentList"].length;
-  	 				$('#commentSum').html("댓글 수 "+commentSum);
-  	 				if(commentSum != 0){
+  			if(confirm("댓글을 삭제하시겠습니까?"))
+            {
+               var commentNo = $(this).parent().children('.commentNo').text();
+                 var freeNo = $('#boardNo').text();
+                  
+                  $.ajax({
+                    url:"${path}/board/commentDelete.do",
+                    dataType:"json",
+                    data:{"commentNo":commentNo,"freeNo":freeNo},
+                    success: function(data){
+                       console.log(data);
+                       
+                       
+                       $('.commentDiv').remove();
+                       $('.recommentDiv').remove();
+                       
+                        var commentSum = data["boardCommentList"].length;
+                        $('#commentSum').html("댓글 수 "+commentSum);
+                        if(commentSum != 0){
 
-  						for(var i=0; i<commentSum; i++){
-  							if(data["boardCommentList"][i]["FREECOMMENTLEVEL"] == "1"){
+                          for(var i=0; i<commentSum; i++){
+                             if(data["boardCommentList"][i]["FREECOMMENTLEVEL"] == "1"){
 
-  								$('#boardDetailComment').append("<div class='commentDiv'></div>");
-  			 					$('.commentDiv:last-child()').append("<p class='commentNick'>"+data["boardCommentList"][i]["MEMBERID"]+"</p>");
-  			 					$('.commentDiv:last-child()').append("<p class='commentContent'>"+data["boardCommentList"][i]["FREECOMMENTCONTENT"]+"</p>");
-  			 					$('.commentDiv:last-child()').append("<p class='commentNo' style='display:none'>"+data["boardCommentList"][i]["FREECOMMENTNO"]+"</p>");
-  			 					//댓글달기
-  			 					$('.commentDiv:last-child()').append("<p class='recommentButton'>댓글달기</p>");
-  								
-  			 					//댓글삭제
-  			 					if(data["memberId"] == data["boardCommentList"][i]["MEMBERID"]){
-  			 						$('.commentDiv:last-child()').append("<p class='commentDelete'>| 삭제</p>");
-  			 					} 
-  			 			
-  							}
-  							else{
+                                $('#boardDetailComment').append("<div class='commentDiv'></div>");
+                                 $('.commentDiv:last-child()').append("<p class='commentNick'>"+data["boardCommentList"][i]["MEMBERID"]+"</p>");
+                                 $('.commentDiv:last-child()').append("<p class='commentContent'>"+data["boardCommentList"][i]["FREECOMMENTCONTENT"]+"</p>");
+                                 $('.commentDiv:last-child()').append("<p class='commentNo' style='display:none'>"+data["boardCommentList"][i]["FREECOMMENTNO"]+"</p>");
+                                 //댓글달기
+                                 $('.commentDiv:last-child()').append("<p class='recommentButton'>댓글달기</p>");
+                                
+                                 //댓글삭제
+                                 if(data["memberId"] == data["boardCommentList"][i]["MEMBERID"]){
+                                    $('.commentDiv:last-child()').append("<p class='commentDelete'>| 삭제</p>");
+                                 } 
+                           
+                             }
+                             else{
 
-  								$('#boardDetailComment').append("<div class='recommentDiv'></div>");
-  								$('.recommentDiv:last-child()').append("<div class='recommentImg'></div>");
-  			 					$('.recommentDiv:last-child()').append("<p class='recommentNick'>"+data["boardCommentList"][i]["MEMBERID"]+"</p>");
-  			 					$('.recommentDiv:last-child()').append("<p class='recommentContent'>"+data["boardCommentList"][i]["FREECOMMENTCONTENT"]+"</p>");
-  			 					$('.recommentDiv:last-child()').append("<p class='recommentNo' style='display:none'>"+data["boardCommentList"][i]["FREECOMMENTNO"]+"</p>");
-  			 					//댓글삭제
-  			 					if(data["memberId"] == data["boardCommentList"][i]["MEMBERID"]){
-  			 						$('.commentDiv:last-child()').append("<p class='commentDelete'>| 삭제</p>");
-  			 					} 
-  							}
-  		 				
-  						}
-  	 				}
-  	 				setTimeout(function(){
-  	 					
-  	 					//자유게시판 디테일  크기 구하기 1/4
-  	 					$('#boardDetailNav').css('height','70px');
-  	 					var navHeight = $('#boardDetailNav').css('height').replace("px","");
-  	 					
-  	 					//자유게시판 디테일  크기 구하기 2/4
-  	 					$('#boardDetailBox').css('height','max-content');
-  	 					var boxHeight = $('#boardDetailBox').css('height').replace("px","");
-  	 					
-  	 					//자유게시판 디테일  크기 구하기 3/4
-  	 					$('#boardDetailCommentBox').css('height','max-content');
-  	 					var commentHeight = $('#boardDetailCommentBox').css('height').replace("px","");
-  	 					
-  	 					//자유게시판 디테일  크기 구하기 4/4
-  	 					var writeHeight = $('#boardDetailWriteBox').css('height').replace("px","");
-  	 					
-  	 					//자유게시판 디테일  최종크기
-  	 					var sumHeight = Number(navHeight) + Number(boxHeight) + Number(commentHeight) + Number(writeHeight)-50;
+                                $('#boardDetailComment').append("<div class='recommentDiv'></div>");
+                                $('.recommentDiv:last-child()').append("<div class='recommentImg'></div>");
+                                 $('.recommentDiv:last-child()').append("<p class='recommentNick'>"+data["boardCommentList"][i]["MEMBERID"]+"</p>");
+                                 $('.recommentDiv:last-child()').append("<p class='recommentContent'>"+data["boardCommentList"][i]["FREECOMMENTCONTENT"]+"</p>");
+                                 $('.recommentDiv:last-child()').append("<p class='recommentNo' style='display:none'>"+data["boardCommentList"][i]["FREECOMMENTNO"]+"</p>");
+                                 //댓글삭제
+                                 if(data["memberId"] == data["boardCommentList"][i]["MEMBERID"]){
+                                    $('.commentDiv:last-child()').append("<p class='commentDelete'>| 삭제</p>");
+                                 } 
+                             }
+                           
+                          }
+                        }
+                        setTimeout(function(){
+                           
+                           //자유게시판 디테일  크기 구하기 1/4
+                           $('#boardDetailNav').css('height','70px');
+                           var navHeight = $('#boardDetailNav').css('height').replace("px","");
+                           
+                           //자유게시판 디테일  크기 구하기 2/4
+                           $('#boardDetailBox').css('height','max-content');
+                           var boxHeight = $('#boardDetailBox').css('height').replace("px","");
+                           
+                           //자유게시판 디테일  크기 구하기 3/4
+                           $('#boardDetailCommentBox').css('height','max-content');
+                           var commentHeight = $('#boardDetailCommentBox').css('height').replace("px","");
+                           
+                           //자유게시판 디테일  크기 구하기 4/4
+                           var writeHeight = $('#boardDetailWriteBox').css('height').replace("px","");
+                           
+                           //자유게시판 디테일  최종크기
+                           var sumHeight = Number(navHeight) + Number(boxHeight) + Number(commentHeight) + Number(writeHeight)-50;
 
-  	 					$('#boardDetailView').css('height',sumHeight);
-  	 					setTimeout(function(){
-  	 						$('#boardDetailNav').css({'transition:':'ease-in-out','transition-duration':'0.7s'});
-  	 						$('#boardDetailNav').css('opacity','1');
-  	 						$('#boardDetailBox').css('opacity','1');
-  	 						$('#boardDetailCommentBox').css('opacity','1');
-  	 					}, 300);
-  	 				}, 300);	
-  					
-  					
-  				},
-  				error: function(){
-  					console.log("실패");
-  				}
-  			}) 
+                           $('#boardDetailView').css('height',sumHeight);
+                           setTimeout(function(){
+                              $('#boardDetailNav').css({'transition:':'ease-in-out','transition-duration':'0.7s'});
+                              $('#boardDetailNav').css('opacity','1');
+                              $('#boardDetailBox').css('opacity','1');
+                              $('#boardDetailCommentBox').css('opacity','1');
+                           }, 300);
+                        }, 300);   
+                       
+                       
+                    },
+                    error: function(){
+                       console.log("실패");
+                    }
+                 }) 
+            }
+            else
+            {
+               return;
+            } 
+  		});
+  		
+  		
+  		//댓댓글 삭제 이벤트
+  		$(document).on('click','.recommentDelete',function(){
+  			
+  			if(confirm("댓글을 삭제하시겠습니까?"))
+            {
+               var commentNo = $(this).parent().children('.recommentNo').text();
+                 var freeNo = $('#boardNo').text();
+                  
+                  $.ajax({
+                    url:"${path}/board/commentDelete.do",
+                    dataType:"json",
+                    data:{"commentNo":commentNo,"freeNo":freeNo},
+                    success: function(data){
+                       console.log(data);
+                       
+                       
+                       $('.commentDiv').remove();
+                       $('.recommentDiv').remove();
+                       
+                        var commentSum = data["boardCommentList"].length;
+                        $('#commentSum').html("댓글 수 "+commentSum);
+                        if(commentSum != 0){
+
+                          for(var i=0; i<commentSum; i++){
+                             if(data["boardCommentList"][i]["FREECOMMENTLEVEL"] == "1"){
+
+                                $('#boardDetailComment').append("<div class='commentDiv'></div>");
+                                 $('.commentDiv:last-child()').append("<p class='commentNick'>"+data["boardCommentList"][i]["MEMBERID"]+"</p>");
+                                 $('.commentDiv:last-child()').append("<p class='commentContent'>"+data["boardCommentList"][i]["FREECOMMENTCONTENT"]+"</p>");
+                                 $('.commentDiv:last-child()').append("<p class='commentNo' style='display:none'>"+data["boardCommentList"][i]["FREECOMMENTNO"]+"</p>");
+                                 //댓글달기
+                                 $('.commentDiv:last-child()').append("<p class='recommentButton'>댓글달기</p>");
+                                
+                                 //댓글삭제
+                                 if(data["memberId"] == data["boardCommentList"][i]["MEMBERID"]){
+                                    $('.commentDiv:last-child()').append("<p class='commentDelete'>| 삭제</p>");
+                                 } 
+                           
+                             }
+                             else{
+
+                                $('#boardDetailComment').append("<div class='recommentDiv'></div>");
+                                $('.recommentDiv:last-child()').append("<div class='recommentImg'></div>");
+                                 $('.recommentDiv:last-child()').append("<p class='recommentNick'>"+data["boardCommentList"][i]["MEMBERID"]+"</p>");
+                                 $('.recommentDiv:last-child()').append("<p class='recommentContent'>"+data["boardCommentList"][i]["FREECOMMENTCONTENT"]+"</p>");
+                                 $('.recommentDiv:last-child()').append("<p class='recommentNo' style='display:none'>"+data["boardCommentList"][i]["FREECOMMENTNO"]+"</p>");
+                                 //댓글삭제
+                                 if(data["memberId"] == data["boardCommentList"][i]["MEMBERID"]){
+                                    $('.commentDiv:last-child()').append("<p class='commentDelete'>| 삭제</p>");
+                                 } 
+                             }
+                           
+                          }
+                        }
+                        setTimeout(function(){
+                           
+                           //자유게시판 디테일  크기 구하기 1/4
+                           $('#boardDetailNav').css('height','70px');
+                           var navHeight = $('#boardDetailNav').css('height').replace("px","");
+                           
+                           //자유게시판 디테일  크기 구하기 2/4
+                           $('#boardDetailBox').css('height','max-content');
+                           var boxHeight = $('#boardDetailBox').css('height').replace("px","");
+                           
+                           //자유게시판 디테일  크기 구하기 3/4
+                           $('#boardDetailCommentBox').css('height','max-content');
+                           var commentHeight = $('#boardDetailCommentBox').css('height').replace("px","");
+                           
+                           //자유게시판 디테일  크기 구하기 4/4
+                           var writeHeight = $('#boardDetailWriteBox').css('height').replace("px","");
+                           
+                           //자유게시판 디테일  최종크기
+                           var sumHeight = Number(navHeight) + Number(boxHeight) + Number(commentHeight) + Number(writeHeight)-50;
+
+                           $('#boardDetailView').css('height',sumHeight);
+                           setTimeout(function(){
+                              $('#boardDetailNav').css({'transition:':'ease-in-out','transition-duration':'0.7s'});
+                              $('#boardDetailNav').css('opacity','1');
+                              $('#boardDetailBox').css('opacity','1');
+                              $('#boardDetailCommentBox').css('opacity','1');
+                           }, 300);
+                        }, 300);   
+                       
+                       
+                    },
+                    error: function(){
+                       console.log("실패");
+                    }
+                 }) 
+            }
+            else
+            {
+               return;
+            }
   		});
   		
 		setTimeout(function(){
