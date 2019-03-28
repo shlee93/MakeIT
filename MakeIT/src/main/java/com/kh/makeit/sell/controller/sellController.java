@@ -341,6 +341,14 @@ public class sellController {
 		List<Map<String, String>> sellReivew = service.sellReview(sellno);
 		List<Map<String, String>> subimgList = service.sellsubImg(sellno);
 		
+
+		Cookie[] cookies = request.getCookies();
+		//sellno 쿠키값 삭제
+	    Cookie CookieDelete = new Cookie("sellNoc", null) ;
+	    CookieDelete.setMaxAge(0) ;
+	    response.addCookie(CookieDelete);
+
+		
 		//sellno 쿠키값 보내기
 	   	String sellNoc = Integer.toString(sellno);
 		Cookie cookie = new Cookie(sellNoc, sellNoc);

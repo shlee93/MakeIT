@@ -26,6 +26,11 @@
 		SELECT *  FROM FREEIMG  WHERE FREENO = #{freeNo}
 	</select>
 	
+	<select id="selectBoardImg2" resultType="map">
+		SELECT *  FROM FREEIMG  WHERE FREENO = #{freeNo}
+	</select>
+	
+	
 	<update id="updateboardViews">
 		UPDATE FREE SET FREEVIEWS = FREEVIEWS+1 WHERE FREENO = #{freeNo}
 	</update>
@@ -71,11 +76,24 @@
 		SELECT COUNT(*) FROM FREE WHERE FREEYN NOT LIKE 'Y' AND MEMBERID=#{searchId} ORDER BY MEMBERID DESC
 	</select>
 	
-	<update id="updateBoard" parameterType="map">
+	<update id="updateBoardList" parameterType="map">
 		UPDATE FREE SET FREETITLE = #{writeTitle},
 						FREECONTENT =#{writeContent}
 		WHERE FREENO = #{freeNo}
 	</update>
 	
+	<delete id="deleteModifyBoard" parameterType="com.kh.makeit.board.model.vo.BoardAttach">
+
+		DELETE FROM FREEIMG WHERE FREEIMGNO = #{freeImgNo}
+	</delete>
+	
+	<insert id="insertModifyBoard" parameterType="com.kh.makeit.board.model.vo.BoardAttach">
+
+	 	INSERT INTO FREEIMG VALUES(seq_freeImgNo.nextval,#{freeNo},'F',#{freeImgOri},#{freeImgRe})
+	</insert>
+	
+	<delete id="deleteBoardList" parameterType="_int">
+		DELETE FROM FREE WHERE FREENO = #{freeNo}
+	</delete>
 	
 </mapper>

@@ -13,12 +13,16 @@ public interface BoardService {
 	List<Map<String,String>> selectBoardDetailView(int freeNo);
 	List<Map<String,String>> selectBoardCommentView(int freeNo);
 	List<Map<String,String>> selectBoardImgView(int freeNo);
+	List<Map<Object,Object>> selectBoardImg2(int freeNo);
 	int updateboardViews(int freeNo);
 	int insertComment(Map<Object, Object> insertValue);
 	int insertreComment(Map<Object, Object> insertValue);
 	int deleteComment(int commentNo);
 	int insertBoardList(ArrayList<BoardAttach> files, Map<String, String> map);
-	int updateBoardList(ArrayList<BoardAttach> files, Map<Object, Object> map,int freeNo);
+	int updateBoardList(Map<Object, Object> map);
+	int deleteModifyBoardImg(ArrayList<BoardAttach> files);
+	int insertModifyBoardImg(ArrayList<BoardAttach> files);
+	int deleteBoardList(int freeNo);
 
 	
 	//관리자 페이지 회원 정렬

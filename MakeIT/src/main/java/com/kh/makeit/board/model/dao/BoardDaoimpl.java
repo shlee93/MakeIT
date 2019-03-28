@@ -41,6 +41,11 @@ public class BoardDaoimpl implements BoardDao {
 		return sqlSession.selectList("board.selectBoardImgViewList",freeNo);
 	}
 	@Override
+	public List<Map<Object,Object>> selectBoardImg2(int freeNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("board.selectBoardImg2",freeNo);
+	}
+	@Override
 	public int updateboardViews(int freeNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.update("board.updateboardViews",freeNo);
@@ -92,9 +97,24 @@ public class BoardDaoimpl implements BoardDao {
 		return sqlSession.insert("board.insertBoardImg", ba);
 	}
 	@Override
-	public int updateBoard(Map<Object, Object> map) {
+	public int updateBoardList(Map<Object, Object> map) {
 		// TODO Auto-generated method stub
-		return sqlSession.update("board.updateBoard", map);
+		return sqlSession.update("board.updateBoardList", map);
+	}
+	@Override
+	public int deleteModifyBoard(BoardAttach ba) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("board.deleteModifyBoard",ba);
+	}
+	@Override
+	public int insertModifyBoard(BoardAttach ba) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("board.insertModifyBoard",ba);
+	}
+	@Override
+	public int deleteBoardList(int freeNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("board.deleteBoardList",freeNo);
 	}
 
 

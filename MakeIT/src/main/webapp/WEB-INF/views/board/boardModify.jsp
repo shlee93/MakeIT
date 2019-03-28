@@ -36,6 +36,19 @@ body,html{
 	z-index:1;
 	background-color: #138496;
 }
+#boardDelete{
+	position: absolute;
+	width:max-content;
+	height:max-content;
+	left:98%;
+	top:50%;
+	transform:translate(-98%,-50%);
+	font-family: 'Sunflower', sans-serif;
+	font-size:17px;
+	font-weight: bold;
+	color:white;
+	cursor:pointer;
+}
 #writeBoardTitleBox{
 	position: relative;
 	width:100%;
@@ -126,11 +139,13 @@ margin-top: 260px;
 <c:forEach items="${boardList }" var="board">
 
 	<div id="writeBoardBody">
-		<div id="decoBar"></div>
+		<div id="decoBar">
+			<p id="boardDelete">게시글 삭제</p>
+		</div>
 	
 		<div id="writeBoardTitleBox">
 			<input type="text" id="writeTitleInput" name="writeTitle" value="${board.get('FREETITLE')}" placeholder="    제목을 입력하세요." maxlength="20" required/>
-			<input type="text" id="freeNo" name="freeNo" value="${board.get('FREENO') }" style="display:none" />
+			<input type="text" id="freeNo" name="freeNo" style="display:none" />
 		</div>
 		
 		<div id="writeBoardContentBox">
@@ -148,25 +163,30 @@ margin-top: 260px;
 			
 			<div id="imgSortBox"></div>
 				
-				<script>
-					$('#imgSortBox').append("<img class='writeImg' src='${path}/resources/upload/board/${boardImg.get('FREEIMGRE')}' />");
-				</script>
 				<c:forEach items="${boardImgList }" var="boardImg">
-					<input type="text" id="freeNo" name="freeNo" value="${board.get('FREENO') }" style="display:none" />
+					<%-- <input type="text" id="freeImgNo" name="freeImgNo" value="${boardImg.get('FREEEIMGNO') }" style="display:none" /> --%>
 					
 					<script>
-					console.log('${boardImg.get("FREEIMGNO") }');
-					console.log('${boardImg.get("FREENO") }');
+
 					$('#writeBoardTitleBox').append('<p type="text" id="imgNo" name="imgNo" style="display:none"> ${boardImg.get("FREEIMGNO") }</p>');
 					$('#writeBoardTitleBox').append('<p type="text" id="imgFreeNo" name="imgFreeNo" style="display:none"> ${boardImg.get("FREENO") }</p>');
+					$('#imgSortBox').append("<img class='writeImg' src='${path}/resources/upload/board/${boardImg.get('FREEIMGRE')}' />");
+					
 					</script>
 				</c:forEach>
+				<script>
+					$('#freeNo').attr('value',"${board.get('FREENO') }");
+				</script>
 			
 			<div id="btn-container">
-	            <button id="writeCancle" class="btn btn-outline-info">취소</button>
-	            <button type="submit" class="btn btn-outline-info">작성</button>
+	            <button id="writeCancle" type="button" onclick="fn_cancle()" class="btn btn-outline-info">취소</button>
+	            <button type="submit" id="submitBtn" class="btn btn-outline-info">작성</button>
 	         </div>
 		</div>
+		
+		<script>
+
+		</script>
 	
 	</div>
 </c:forEach>
@@ -176,21 +196,29 @@ margin-top: 260px;
 
 <script>
 
+	$(document).on('click','#boardDelete',function(){
+		
+		if(confirm("삭제 하시겠습니까?")){
+			var freeNo = $('#freeNo').attr('value');
+
+			location.href="${path}/board/boardDelete.do?freeNo="+freeNo;
+			
+		}else{
+			location.href="${path}/board/boardMain.do";
+		}
+	})
+
+	function fn_cancle(){
+		location.href="${path}/board/boardMain.do";
+	}
+
 	var sel_files = [];
 	$(document).ready(function(){
 		$('#input_file').on("change", handleImgsFilesSelect);
 	});
 	function handleImgsFilesSelect(e){
-		
-		//업로드 이미지 삭제
-		var index = $('.writeImg').length;
-		for(var i=0; i<index; i++){
-			console.log($('.writeImg:eq('+i+')').attr('src'));
-			var path =$('.writeImg:eq('+i+')').attr('src');
-		}
-		
-		
-		
+
+	
 		var files = e.target.files;
 		var fileArr = Array.prototype.slice.call(files);
 		

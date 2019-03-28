@@ -644,10 +644,12 @@
   		//댓글 삭제 이벤트
   		$(document).on('click','.commentDelete',function(){
   			
-  			if(confirm("댓글을 삭제하시겠습니까?"))
-            {
+/*   			if(confirm("댓글을 삭제하시겠습니까?"))
+            { */
                var commentNo = $(this).parent().children('.commentNo').text();
                  var freeNo = $('#boardNo').text();
+                 console.log("(1)코멘트 넘버 : "+ commentNo);
+                 console.log("(1)게시글 넘버 : "+ freeNo);
                   
                   $.ajax({
                     url:"${path}/board/commentDelete.do",
@@ -689,7 +691,7 @@
                                  $('.recommentDiv:last-child()').append("<p class='recommentNo' style='display:none'>"+data["boardCommentList"][i]["FREECOMMENTNO"]+"</p>");
                                  //댓글삭제
                                  if(data["memberId"] == data["boardCommentList"][i]["MEMBERID"]){
-                                    $('.commentDiv:last-child()').append("<p class='commentDelete'>| 삭제</p>");
+                                    $('.recommentDiv:last-child()').append("<p class='recommentDelete'>| 삭제</p>");
                                  } 
                              }
                            
@@ -725,26 +727,26 @@
                         }, 300);   
                        
                        
-                    },
-                    error: function(){
-                       console.log("실패");
                     }
                  }) 
-            }
+/*             }
             else
             {
                return;
-            } 
+            }  */
   		});
   		
   		
   		//댓댓글 삭제 이벤트
   		$(document).on('click','.recommentDelete',function(){
   			
-  			if(confirm("댓글을 삭제하시겠습니까?"))
-            {
-               var commentNo = $(this).parent().children('.recommentNo').text();
+/*   			if(confirm("댓글을 삭제하시겠습니까?"))
+            { */
+  				
+                var commentNo = $(this).parent().children('.recommentNo').text();
                  var freeNo = $('#boardNo').text();
+                 console.log("(2)코멘트 넘버 : "+ commentNo);
+                 console.log("(2)게시글 넘버 : "+ freeNo);
                   
                   $.ajax({
                     url:"${path}/board/commentDelete.do",
@@ -786,7 +788,7 @@
                                  $('.recommentDiv:last-child()').append("<p class='recommentNo' style='display:none'>"+data["boardCommentList"][i]["FREECOMMENTNO"]+"</p>");
                                  //댓글삭제
                                  if(data["memberId"] == data["boardCommentList"][i]["MEMBERID"]){
-                                    $('.commentDiv:last-child()').append("<p class='commentDelete'>| 삭제</p>");
+                                    $('.recommentDiv:last-child()').append("<p class='recommentDelete'>| 삭제</p>");
                                  } 
                              }
                            
@@ -827,11 +829,11 @@
                        console.log("실패");
                     }
                  }) 
-            }
-            else
+            
+/*             }else
             {
                return;
-            }
+            } */
   		});
   		
 		setTimeout(function(){
