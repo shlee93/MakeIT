@@ -40,7 +40,7 @@ public class ContestController
 	@RequestMapping("/contest/contestMain.do")
 	public ModelAndView contestMain(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, HttpServletRequest request, String sortTypeFlag)
 	{
-		System.out.println("현재P"+cPage);
+		/*System.out.println("현재P"+cPage);*/
 		int numPerPage=3;
 		ModelAndView mv=new ModelAndView();
 		int contentCount=cs.contestCountService();		

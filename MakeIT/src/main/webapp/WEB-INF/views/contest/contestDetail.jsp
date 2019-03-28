@@ -232,7 +232,7 @@
 				 			                          		<div class="icon-title">
 						                                       <p>삭제하기</p>
 						                                    </div>
-						                                    <span class="forActive"></span>										    	   		   
+						                                    <span class="forActive"></span>						                                   										    	   		   
 									    	   		   	</c:when>
 												       	<c:otherwise>
 								                           	<i class="fa fa-comments donggeulI"></i>
@@ -248,7 +248,7 @@
 				                           	<span class="itemDot itemDot3 active" data-tab="3">
 					                           	<i class="fa fa-briefcase donggeulI"></i>
 				                           	   	<div class="icon-title">
-			                                       <p>지원하기</p>
+			                                       <p>지원자</p>
 			                                    </div>
 		                                    	<span class="forActive"></span>		
 				                           	</span>
@@ -352,8 +352,12 @@
 												    	<script>
 												    		function fn_contestDelSubmit()
 												    		{
-												    			$('#contestDetailFrm').attr('action','${path}/contest/contestDel.do');
-												    			$('#contestDetailFrm').submit();
+												    			var yn=confirm('정말로 삭제하시겠습니까?');
+												    			if(yn)
+											    				{
+													    			$('#contestDetailFrm').attr('action','${path}/contest/contestDel.do');
+													    			$('#contestDetailFrm').submit();
+											    				}
 												    		}
 												    	</script> 
 												    	  
@@ -709,7 +713,28 @@
 					            	            {				            	             
 					            	               $('#applicantEmail').html(data['EMAIL']);
 					            	               $('#applicantInterest').html(data['INTERESTNO']);				            	               
-					            	               $('#applicantGrade').html(data['GRADENO']);
+					            	               
+					            	               if(data['GRADENO']==1)
+				            	            	   {
+					            	            	   $('#applicantGrade').html('<img alt="" src="${path }/resources/image/bronzeGrade.png" style="max-width: 50px;max-height: 50px;">')	 		   
+				            	            	   }
+					            	               if(data['GRADENO']==2)
+				            	            	   {
+					            	            	   $('#applicantGrade').html('<img alt="" src="${path }/resources/image/silverGrade.png" style="max-width: 50px;max-height: 50px;">')	 		   
+				            	            	   }
+					            	               if(data['GRADENO']==3)
+				            	            	   {
+					            	            	   $('#applicantGrade').html('<img alt="" src="${path }/resources/image/goldGrade.png" style="max-width: 50px;max-height: 50px;">')	 		   
+				            	            	   }
+					            	               if(data['GRADENO']==4)
+				            	            	   {
+					            	            	   $('#applicantGrade').html('<img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;">')	 		   
+				            	            	   }
+					            	               if(data['GRADENO']==5)
+				            	            	   {
+					            	            	   $('#applicantGrade').html('<img alt="" src="${path }/resources/image/diamondGrade.png" style="max-width: 50px;max-height: 50px;">')	 		   
+				            	            	   }
+					            	               
 					            	               $('#applicantYn').html(data['APPLICANTYN']);
 					            	               $('#downLoadBtn').attr('value',"다운로드("+data['APPLICANTFILEORI']+")")
 					            	               $('#applicantAcceptTarget').attr('value',data['MEMBERID']);
