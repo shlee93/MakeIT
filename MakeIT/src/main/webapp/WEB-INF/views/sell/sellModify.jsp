@@ -110,6 +110,17 @@
                   
                  
                </select>
+               <input type='hidden' id='interestHidden' value='${modifyMap.INTERESTNO}'>
+				<input type='hidden' id='detailInterestHidden' value='${modifyMap.DETAILINTERESTNO}'>
+				
+				<script>
+					$(function()
+				{	        		
+						$('#interest').val($('#interestHidden').val()).trigger('change');
+						$('#detailInterest').val($('#detailInterestHidden').val()).trigger('change');
+				})
+					
+				</script>
             </div> 
             <br> 
          </div>
