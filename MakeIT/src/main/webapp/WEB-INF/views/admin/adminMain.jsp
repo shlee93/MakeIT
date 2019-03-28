@@ -150,7 +150,9 @@
                                             <!-- 네비 사이드 -->
 
                                             <div class="nav-side-menu">
-                                                <div class="brand">게시판</div>
+                                                <div class="brand">
+                                                	<img src="/makeit/resources/image/logo1main.png" style="max-width:50px; max-height:50px; margin-bottom: 2em;">
+                                                </div>
                                                 <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse"
                                                     data-target="#menu-content"></i>
                                                 <div class="menu-list">
@@ -406,7 +408,9 @@
 												<!-- 네비 사이드 -->
 			
 												<div class="nav-side-menu">
-													<div class="brand">게시판</div>
+													<div class="brand">
+														<img src="/makeit/resources/image/logo1main.png" style="max-width:50px; max-height:50px; margin-bottom: 2em;">
+													</div>
 													<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
 													<div class="menu-list">
 														<input type="hidden" id="report-view-status" value="BUY"/>
@@ -594,7 +598,9 @@
 										<!-- 네비 사이드 -->
 	
 										<div class="nav-side-menu">
-											<div class="brand">게시판</div>
+											<div class="brand">
+												<img src="/makeit/resources/image/logo1main.png" style="max-width:50px; max-height:50px; margin-bottom: 2em;">
+											</div>
 											<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse"
 												data-target="#menu-content"></i>
 											<div class="menu-list">
@@ -754,7 +760,9 @@
 										<!-- 네비 사이드 -->
 	
 										<div class="nav-side-menu">
-											<div class="brand">게시판</div>
+											<div class="brand">
+												<img src="/makeit/resources/image/logo1main.png" style="max-width:50px; max-height:50px; margin-bottom: 2em;">
+											</div>
 											<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse"
 												data-target="#menu-content"></i>
 											<div class="menu-list">
