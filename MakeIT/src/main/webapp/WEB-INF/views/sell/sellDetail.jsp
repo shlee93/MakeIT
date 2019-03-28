@@ -133,6 +133,12 @@
 			}
 		})
 	})
+	
+	function fn_scroll()
+	{
+		var scmove = $('#sub-img-div').offset().top;
+		$('html, body').animate( { scrollTop : 950 }, 400 );
+	}
 </script>
                         
 <div class='container-fluid' id="total">
@@ -156,7 +162,7 @@
                     	
                     	<img id="mainImg" class="mainImg" src="${path}/resources/upload/sell/${mainimgList.get(0).SELLIMGRE}" style='max-height: 400px; min-height: 600px; width: 100%;'>
                     </div>
-                    <div class='row'>              
+                    <div class='row' id="sub-img-div">           
                     	<c:forEach items="${subimgList}" var="subimgList">                          
                         	<div class="col-md-3 subImg" >
                             	<img  class="subImgs" src="${path}/resources/upload/sell/${subimgList.SELLIMGRE}" style="cursor:pointer" >     
@@ -167,10 +173,10 @@
                     <div class='row'>
                         <nav id=tab-list>
                             <div class="nav nav-tabs nav-fill detail" id="nav-tab" role="tablist" style="width:100%; font-size:1.1em;">
-                                <a class="nav-item nav-link active detail" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">상세설명</a>
-                                <a class="nav-item nav-link detail" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">후기</a>
-                                <a class="nav-item nav-link detail" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">취소 / 환불규정</a>
-                                <a class="nav-item nav-link detail" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false">옵션별 가격</a>
+                                <a onclick="fn_scroll()" class="nav-item nav-link active detail" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">상세설명</a>
+                                <a onclick="fn_scroll()" class="nav-item nav-link detail" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">후기</a>
+                                <a onclick="fn_scroll()" class="nav-item nav-link detail" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">취소 / 환불규정</a>
+                                <a onclick="fn_scroll()" class="nav-item nav-link detail" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false">옵션별 가격</a>
                             </div>
                         </nav>
                         <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent" style="width:100%;">

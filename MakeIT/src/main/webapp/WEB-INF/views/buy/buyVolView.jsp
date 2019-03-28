@@ -113,8 +113,8 @@
 		</c:forEach>
 		</div>
 		<div id="btn-div">
-			<button class="btn btn-secondary" onclick="volCommit();">결정 및 결제하기</button>
-			<button class="btn btn-secondary" onclick="fn_back()">뒤로가기</button>
+			<button class='btn btn-outline-info slidetopleft' onclick="volCommit();">결정 및 결제하기</button>
+			<button class='btn btn-outline-info slidetopleft' onclick="fn_back()">뒤로가기</button>
 		</div>
 		
 		

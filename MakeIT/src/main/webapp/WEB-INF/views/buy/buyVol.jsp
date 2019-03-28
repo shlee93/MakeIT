@@ -167,7 +167,7 @@ div {
 		<input type="hidden" name="buyNo" value="${param.buyNo }"/>
 		
          <div id="btn-container">
-            <input type="submit" class="btn btn-secondary" value="지원하기"/>
+            <input type="submit" class='btn btn-outline-info slidetopleft' value="지원하기"/>
          </div>
           </form>
       </div>
