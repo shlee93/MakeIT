@@ -275,6 +275,12 @@ public class BuyDaoImpl implements BuyDao {
 		return session.insert("buy.insertBuyImg", m);
 	}
 
+	@Override
+	public List<Map<String, String>> selectCtgList() {
+		// TODO Auto-generated method stub
+		return session.selectList("buy.selectCtgList");
+	}
+
 	
 	
 	

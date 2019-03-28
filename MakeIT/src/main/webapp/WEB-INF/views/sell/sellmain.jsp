@@ -69,32 +69,37 @@
 								<li class="menu"><a href="#"> <i class="fas fa-cogs"></i>
 										&nbsp;개발자
 								</a>
-									<ul class="hide">									
-										<li onclick="fn_changeCategory('1');">웹</li>
-										<li onclick="fn_changeCategory('2');">모바일</li>
-										<li onclick="fn_changeCategory('3');">게임</li>
-										<li onclick="fn_changeCategory('4');">응용프로그램</li>
-										<li onclick="fn_changeCategory('5');">보안프로그램</li>
-										<li onclick="fn_changeCategory('6');">DB관리</li>
-									</ul></li>
+									<ul class="hide">
+										<c:forEach items="${categoryList }" var="category">
+											<c:if test="${category.INTERESTNO == 1 }">
+												<li onclick="fn_changeCategory('${category.DETAILINTERESTNO}');">${category.DETAILINTEREST }</li>
+											</c:if>	
+										</c:forEach>
+									</ul>
+										
+								</li>
 								<li class="menu"><a href="#"> <i
 										class="fas fa-pen-fancy"></i> &nbsp;웹 디자이너
 								</a>
 									<ul class="hide">
-										<li onclick="fn_changeCategory('7');">웹 디자인</li>
-										<li onclick="fn_changeCategory('8');">웹 퍼블리셔</li>
-										<li onclick="fn_changeCategory('9');">게임 디자인</li>
-									</ul></li>
+										<c:forEach items="${categoryList }" var="category">
+											<c:if test="${category.INTERESTNO == 2 }">
+												<li onclick="fn_changeCategory('${category.DETAILINTERESTNO}');">${category.DETAILINTEREST }</li>
+											</c:if>	
+										</c:forEach>
+									</ul>
+								</li>
 								<li class="menu"><a href="#"> <i
 										class="fas fa-shield-alt"></i> &nbsp;네트워크보안
 								</a>
 									<ul class="hide">
-										<li onclick="fn_changeCategory('10');">모의해킹</li>
-										<li onclick="fn_changeCategory('11');">침해대응</li>
-										<li onclick="fn_changeCategory('12');">보안관제</li>
-										<li onclick="fn_changeCategory('13');">컨설턴트</li>
-
-									</ul></li>
+										<c:forEach items="${categoryList }" var="category">
+											<c:if test="${category.INTERESTNO == 3 }">
+												<li onclick="fn_changeCategory('${category.DETAILINTERESTNO}');">${category.DETAILINTEREST }</li>
+											</c:if>	
+										</c:forEach>
+									</ul>
+								</li>
 							</ul>
 						</div>
 					</div>

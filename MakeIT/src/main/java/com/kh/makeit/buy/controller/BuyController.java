@@ -69,11 +69,15 @@ public class BuyController {
 		
 		List<Map<String,String>> gradeList = service.buyMainGrade(map,cPage,numPerPage);
 		List<Map<String,String>> newList = service.buyMainNew(map,cPage,numPerPage);
+		
+		List<Map<String,String>> categoryList = service.selectCtgList();
+		
 		System.out.println("안녕하세요"+newList);
 		mv.addObject("gradeList",gradeList);
 		mv.addObject("valueMap", valueMap);
 		mv.addObject("newList",newList);
 		mv.addObject("sCategoryFlag",sCategoryFlag);
+		mv.addObject("categoryList", categoryList);
 		mv.setViewName("buy/buymain");
 		return mv;
 	}
@@ -227,11 +231,13 @@ public class BuyController {
 		
 		//현재 로그인한 사람이 지원한 사람인지 체크
 		boolean volFlag = false;
-		for(Map m : volList)
-		{
-			if(m.get("MEMBERID").equals(sessionMap.get("MEMBERID")))
+		if(sessionMap != null) {
+			for(Map m : volList)
 			{
-				volFlag = true;
+				if(m.get("MEMBERID").equals(sessionMap.get("MEMBERID")))
+				{
+					volFlag = true;
+				}
 			}
 		}
 		

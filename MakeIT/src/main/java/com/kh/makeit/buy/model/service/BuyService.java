@@ -44,5 +44,6 @@ public interface BuyService {
 	int buyModifyEnd(ArrayList<BuyAttach> files, List<Map<String, String>> imgList, Map<String, String> map);
 	int buyDelete(int buyNo);
 	List<Map<String, String>> selectBuyImg(int buyNo);
+	List<Map<String, String>> selectCtgList();
 	
 }
