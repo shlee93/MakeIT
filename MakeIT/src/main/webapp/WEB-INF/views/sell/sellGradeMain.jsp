@@ -65,7 +65,59 @@
                                          
                                        </div>
                                    </div>
-                                   <div class='sub-description'>
+                                   <div class='sub-description'>									
+														
+										<div class='infobox' style='margin-left: 1.2em;'>
+											<div style='width: 340px; height: 24px; overflow:hidden;'>
+												<h5>${gradeList.SELLTITLE}</h5>
+											</div>
+											<div class='row'>
+												<div class='col-md-7'>
+													<script>
+														$(function() {
+															var sellNo = ${gradeList.SELLNO};
+															$.ajax({
+																		url : "${path}/sellprice.do",
+																		data : {
+																			"sellNo" : sellNo
+																		},
+																		dataType : "json",
+																		success : function(data) {
+
+																			var sellPrice = data["sellPrice"];
+																			var priceContainer = $('#gradePrice${gradeList.SELLNO}');
+																			priceContainer.append("최저가:" +sellPrice);
+																		}
+																	});
+														});
+													</script>
+													<h5 id="gradePrice${gradeList.SELLNO}" style='position:relative; top:33%'>${gradeList.SELLPRICE }</h5>
+												</div>
+												<div class='col-md-5' style='float:right'>
+													<p id="gradep">
+													  <c:if test="${gradeList.GRADENAME == '브론즈' }">
+				                                 	  <p style='display: inline;'><img alt="" src="${path }/resources/image/bronzeGrade.png" style="max-width: 50px;max-height: 50px;"></p>
+						                              </c:if>
+						                              <c:if test="${gradeList.GRADENAME == '실버' }">
+						                                 <p style='display: inline;'><img alt="" src="${path }/resources/image/silverGrade.png" style="max-width: 50px;max-height: 50px;"></p>
+						                              </c:if>
+						                              <c:if test="${gradeList.GRADENAME == '골드' }">
+						                                 <p style='display: inline;'><img alt="" src="${path }/resources/image/goldGrade.png" style="max-width: 50px;max-height: 50px;"></p>
+						                              </c:if>
+						                              <c:if test="${gradeList.GRADENAME == '플래티넘' }">
+						                                 <p style='display: inline;'><img alt="" src="${path }/resources/image/platinumGrade.png" style="max-width: 50px;max-height: 50px;"></p>
+						                              </c:if>
+						                              <c:if test="${gradeList.GRADENAME == '다이아' }">
+						                                 <p style='display: inline;'><img alt="" src="${path }/resources/image/diamodeGrade.png" style="max-width: 50px;max-height: 50px;"></p>
+						                              </c:if>
+													${gradeList.GRADENAME}
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+                                   <%-- <div class='sub-description'>
                                       <div style='float:left;'>
                                            <p>${gradeList.SELLTITLE}</p>
                                       </div>
@@ -107,7 +159,7 @@
 						                           		</c:if>
 						                           		${gradeList.GRADENAME}</p>
                                       </div>                                       
-                                   </div>
+                                   </div> --%>
                                </div>
                                 </c:forEach>
                            

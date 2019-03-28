@@ -340,8 +340,10 @@
 		                  		<h1 style="font-family: 'Sunflower', sans-serif;">컨테스트 게시판</h2>
 		               		</div>
 		           			<div class='row'>
-			       		  	    <div class='col-md-8'>	
+			       		  	    <div class='col-md-8'>
+			       		  	    	
 					       		    <div style='margin-left:2em;'>
+					       		    	<i class='fa fa-search'></i>
 					       		    	<select id='searchTypeSel' class='form-control' style='display:inline; width: 100px;'>
 					       		    		<option value=''>검색</option>
 					       		    		<option value='title'>제목</option>
@@ -365,7 +367,7 @@
 				       		    			});
 					       		    	</script>
 						                <input type="text" id='contestKeywordInput' class='form-control' placeholder="검색카테고리를 선택해주세요." style='width: 300px; display: inline;'/>
-						                <button class="btn btn-outline-info slidetopleft" type='button' id='contestSearchBtn' style='margin-bottom: 0.3em' >검색</button>
+						                <button class="btn btn-outline-info slidetopleft" type='button' id='contestSearchBtn' style='margin-bottom: 0.3em' >Search</button>
 						                <script>
 						                	$(function()
 				                			{
@@ -551,7 +553,7 @@
 			              	<div class='row' style='margin-bottom:1em;'>
 			              	  	<div class='col-md-10'></div>
 			              	  	<div class='col-md-2'>
-			              	  	  	<a class="btn btn-outline-info slidetopleft" style='float:right;'href="${path }/contest/contestWrite.do">글작성</a>
+			              	  	  	<a class="btn btn-outline-info slidetopleft" style='float:right;'href="${path }/contest/contestWrite.do">새 글 작성</a>
 			              	  	</div>
 			              	</div>
 	              
