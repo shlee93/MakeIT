@@ -248,6 +248,7 @@
 		           	</div>
 	       		</div>
 				<div class='col-md-10'>
+					
 					<div class='row'>
 						<div class='col-md-2'>
 							<div class="nav-side-menu">
@@ -333,6 +334,9 @@
 		                    </script>
 						</div>
 		            	<div class='col-md-10' id='section'>
+		            		<div id="pageTitle" style="padding-bottom:20px;">
+		                  		<h1 style="font-family: 'Sunflower', sans-serif;">컨테스트 게시판</h2>
+		               		</div>
 		           			<div class='row'>
 			       		  	    <div class='col-md-8'>	
 					       		    <div style='margin-left:2em;'>
@@ -343,25 +347,52 @@
 					       		    	</select>
 					       		    	<script>
 						       		    	$(function()
-				       		    			{
+				       		    			{						       		    		
 						       		    		$('#searchTypeSel').change(function()
 						       		    		{
 						       		    			$('#searchTypeFlag').attr('value',this.value);
-						       		    			/* console.log($('#searchTypeFlag').val()); */
+						       		    			if($('#searchTypeSel').val()=='title')
+						       		    			{
+						       		    				$('#contestKeywordInput').attr('placeHolder',"제목을 입력해주세요")
+						       		    			}
+						       		    			if($('#searchTypeSel').val()=='name')
+						       		    			{
+						       		    				$('#contestKeywordInput').attr('placeHolder',"주최자 이름을 입력해주세요")
+						       		    			}
 						       		    		})
 				       		    			});
 					       		    	</script>
-						                <input type="text" id='contestKeywordInput' class='form-control' placeholder="검색할 아이디를 입력하세요" style='width: 300px; display: inline;'/>
-						                <input class="btn btn-outline-info slidetopleft" type='button' id='contestSearchBtn' style='margin-bottom: 0.3em' value='검색'/>
+						                <input type="text" id='contestKeywordInput' class='form-control' placeholder="검색카테고리를 선택해주세요." style='width: 300px; display: inline;'/>
+						                <button class="btn btn-outline-info slidetopleft" type='button' id='contestSearchBtn' style='margin-bottom: 0.3em' >검색</button>
 						                <script>
 						                	$(function()
 				                			{
 						                		$('#contestSearchBtn').click(function()
 				                				{
-						                			var keyword=$('#contestKeywordInput').val();
-						                			console.log(keyword);
-						                			$('#searchTypeKeyword').attr('value',keyword);
-						                			$('#sortFrm').submit();
+						                			if($('#searchTypeSel').val()=='검색'||$('#searchTypeSel').val()=='')
+						       		    			{
+							       		    			alert("검색타입을 선택해주세요");
+							       		    			
+							       		    			
+						       		    			}
+						                			else
+					                				{
+						                				if($('#contestKeywordInput').val()=='')
+						                				{
+							                				alert("검색어를 입력해주세요");
+						                				}
+							                			else
+						                				{
+								                			var keyword=$('#contestKeywordInput').val();
+								                			$('#searchTypeKeyword').attr('value',keyword);
+								                			$('#sortFrm').submit();						                				
+						                				}						                				
+					                				}
+						                			
+						                			
+						                			
+						                			
+						                			
 				                				})
 						                	});
 						                </script>
@@ -542,4 +573,5 @@
 		</div>            			            
 	</div>			              
 </body>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </html>

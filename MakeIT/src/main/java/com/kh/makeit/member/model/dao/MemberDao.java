@@ -114,5 +114,14 @@ public interface MemberDao {
 	int totalBuyTradeCount(String memberId);
 
 	int totalContestTradeCount(String memberId);
+	
+	List<Map<String,String>> selectSellList(List<String> list);
+	
+	List<String> selectFamousList();
+	
+	List<Map<String,String>> selectFamousView(List<String> list);
+	List<String> selectSimilarView(List<String> list);
+	List<Map<String,String>> selectSimilarList(List<String> list);
+	List<Map<String,String>> selectInterestList(String interestNo);
 
 }

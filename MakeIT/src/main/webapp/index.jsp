@@ -23,20 +23,14 @@
         <p id="recentlyViewTitle">최근 본 페이지</p>
 
         <div id="recentlyViewBody">
-            <div id="recentlyView"></div>
-            <div id="recentlyViewLeft"></div>
-            <div id="recentlyViewRight"></div>
         </div>
+        <div id="recentlyViewLeft"></div>
+        <div id="recentlyViewRight"></div>
     </div>
 
     <div id="similarContentWrap">
         <p id="similarContentTitle">관련 페이지</p>
         <div id="similarContentBody">
-            <div id="similarContent1"></div>
-            <div id="similarContent2"></div>
-            <div id="similarContent3"></div>
-            <div id="similarContent4"></div>
-            <div id="similarContent5"></div>
         </div>
     </div>
 
@@ -92,16 +86,309 @@
     
     <script>
     $(function(){
-        // $.ajax{ 인기 컨텐츠
-        // 
-        // }
+    	
+    	//최근 본 페이지
+		$.ajax({
+			url:"${path}/member/sawPage.do",
+			dataType:"json",
+			success: function(data){
+				console.log(data);
+				var dataSize = data["sellList"].length;
+				var imgSrc;
+				console.log(dataSize);
+				for(var i=0; i<dataSize; i++){
 
-        $('#famousContentBody').append("<div class='famousContent'></div>");
+					imgSrc = '${path}/resources/mainSource/image/recently'+ (i+1) +'.jpg';
+					$('#recentlyViewBody').append("<div class='recentlyView'></div>");
+					$('.recentlyView:last-child()').append("<img src="+imgSrc+" />");
+					$('.recentlyView:last-child()').append("<div class='recentlyTitleBox'></div>");
+					$('.recentlyView:last-child() .recentlyTitleBox').append("<p class='recentlyTitle'>"+data["sellList"][i]["SELLTITLE"]+"</p>");
+					$('.recentlyView:last-child() .recentlyTitleBox').append("<p class='recentlysellNo' style='display:none'>"+data["sellList"][i]["SELLNO"]+"</p>");
+					$('.recentlyView:last-child() .recentlyTitleBox').append("<p class='recentlyInterestNo' style='display:none'>"+data["sellList"][i]["INTERESTNO"]+"</p>");
+					
+				}
+				var dataSize2 = data["similarList"].length;
+				var sizeCheck =0;
+				for(var i=0;i<dataSize2;i++){
+					
+					if(sizeCheck<5){
+						$('#similarContentBody').append("<div class='similarContent'><p>"+data["similarList"][i]["DETAILINTEREST"]+"</p></div>");	
+					}
+					sizeCheck++;
+					
+				
+				}
+				
+				
+			}
+			,error: function(){
+				console.log('통패~');
+			}
+		});
+		
+
+    	
+    });
+    
+    $(document).on('mouseenter','.recentlyView',function(){
+    	$(this).children('img').css('transform','scale(1.2)');
+    	$(this).children('.recentlyTitleBox').children('.recentlyTitle').css('font-size','45px');
+    });
+    $(document).on('mouseleave','.recentlyView',function(){
+    	$(this).children('img').css('transform','scale(1)');
+    	$(this).children('.recentlyTitleBox').children('.recentlyTitle').css('font-size','35px');
+    });
+    $(document).on('click','.recentlyView',function(){
+    	var sellNo = $(this).children('.recentlyTitleBox').children('.recentlysellNo').text();
+    	location.href="${path }/sell/selldetail?sellno="+sellNo;
+    });
+    $(document).on('click','.similarContent',function(){
+    	
+    	var similarText = $(this).children('p').text();
+    	var locationNo;
+    	console.log(similarText);
+    	
+    	if(similarText == "웹"){
+			locationNo = "1";
+		}
+		if(similarText == "모바일"){
+			locationNo = "2";
+		}
+		if(similarText == "게임"){
+			locationNo = "3";
+		}
+		if(similarText == "응용프로그램"){
+			locationNo = "4";
+		}
+		if(similarText == "보안프로그램"){
+			locationNo = "5";
+		}
+		if(similarText == "DB관리"){
+			locationNo = "6";
+		}
+		if(similarText == "웹 디자인"){
+			locationNo = "7";
+		}
+		if(similarText == "웹 퍼블리셔"){
+			locationNo = "8";
+		}
+		if(similarText == "게임 디자인"){
+			locationNo = "9";
+		}
+		if(similarText == "모의해킹"){
+			locationNo = "10";
+		}
+		if(similarText == "침해대응"){
+			locationNo = "11";
+		}
+		if(similarText == "보안관제"){
+			locationNo = "12";
+		}
+		if(similarText == "컨설턴트"){
+			locationNo = "13";
+		}
+		
+    	location.href="${path }/sell/sellmain.do?sCategoryFlag="+locationNo;
+    });
+
+    
+    var recentlyViewRightCallback = true;
+    var recentlyIndexCheck =0;
+    $(document).on('click','#recentlyViewRight',function(){
+    	
+    	
+        var leftVal =  $('.recentlyView').css('left').replace('px','');
+		var imgSize = $('.recentlyView').prevAll().length;
+		console.log(imgSize);
+        if(recentlyViewRightCallback){
+
+            if(leftVal != -800 * Number(imgSize)){
+            	       	
+            	//관련페이지 오른쪽 버튼 클릭 AJAX
+            	recentlyIndexCheck++;
+            	var interestNo = $('.recentlyView:eq('+recentlyIndexCheck+')').children('.recentlyTitleBox').children('.recentlyInterestNo').text();
+            	console.log(interestNo);
+            	if(interestNo > 0){
+            		
+            		$.ajax({
+                		url:"${path}/member/recentlyView.do",
+                		dataType:"json",
+                		data:{"interestNo":interestNo},
+                		success: function(data){
+                			console.log(data);
+            				var dataSize = data.length;
+            				var sizeCheck =0;
+            				$('.similarContent').remove();
+            				for(var i=0;i<dataSize;i++){
+            					
+            				if(sizeCheck<5){
+            				$('#similarContentBody').append("<div class='similarContent'><p>"+data[i]["DETAILINTEREST"]+"</p></div>");	
+            				
+            				sizeCheck++;
+            				}
+            				}
+                		},
+                		error: function(){
+                			console.log("실패~~");
+                		}
+                	})
+            	}
+            	
+                leftVal = Number(leftVal)-800;
+                console.log(leftVal);
+                $('.recentlyView').css('left', leftVal+'px');
+            }
+
+            recentlyViewRightCallback = false;
+            setTimeout(function(){
+            	recentlyViewRightCallback = true;
+            },750);   
+        }else{
+            console.log('block');
+        }
+
+    });
+    
+    var recentlyViewLeftCallback = true;  
+    $(document).on('click','#recentlyViewLeft',function(){
+        var leftVal =  $('.recentlyView').css('left').replace('px','');
+		
+        if(recentlyViewLeftCallback){
+
+            if(leftVal != 0){
+            	
+            	//관련페이지 왼쪽 버튼 클릭 AJAX
+            	recentlyIndexCheck--;
+            	var interestNo = $('.recentlyView:eq('+recentlyIndexCheck+')').children('.recentlyTitleBox').children('.recentlyInterestNo').text();
+            	console.log(interestNo);
+            	if(interestNo > 0){
+            		
+            		$.ajax({
+                		url:"${path}/member/recentlyView.do",
+                		dataType:"json",
+                		data:{"interestNo":interestNo},
+                		success: function(data){
+                			console.log(data);
+            				var dataSize = data.length;
+            				var sizeCheck =0;
+            				$('.similarContent').remove();
+            				for(var i=0;i<dataSize;i++){
+            					
+            				if(sizeCheck<5){
+            				$('#similarContentBody').append("<div class='similarContent'><p>"+data[i]["DETAILINTEREST"]+"</p></div>");	
+            				
+            				sizeCheck++;
+            				}
+            				}
+                		},
+                		error: function(){
+                			console.log("실패~~");
+                		}
+                	})
+            	}
+            	
+                leftVal = Number(leftVal)+800;
+
+                $('.recentlyView').css('left', leftVal+'px');
+            }
+            recentlyViewLeftCallback = false;
+            setTimeout(function(){
+            	recentlyViewLeftCallback = true;
+            },750);
+        }else{
+            console.log('block');
+        }
+    })
+ 
+    
+    
+    $(function(){
+
+         $.ajax({
+        	url:"${path}/member/famousView.do",
+        	dataType:"json",
+        	success: function(data){
+        		console.log(data);
+                $('#famousContentBody').append("<div class='famousContent'><img src='${path}/resources/mainSource/image/famous1.jpg' /></div>");
+                $('#famousContentBody').append("<div class='famousContent'><img src='${path}/resources/mainSource/image/famous2.jpg'/></div>");
+                $('#famousContentBody').append("<div class='famousContent'><img src='${path}/resources/mainSource/image/famous3.jpg'/></div>");
+                $('.famousContent:eq(0)').append("<div class='famousContentTitleBox'></div>");
+                $('.famousContent:eq(1)').append("<div class='famousContentTitleBox'></div>");
+                $('.famousContent:eq(2)').append("<div class='famousContentTitleBox'></div>");
+                
+                $('.famousContent:eq(0) .famousContentTitleBox').append("<p>"+data[0]["DETAILINTEREST"]+"</p>"); 
+                $('.famousContent:eq(1) .famousContentTitleBox').append("<p>"+data[1]["DETAILINTEREST"]+"</p>"); 
+                $('.famousContent:eq(2) .famousContentTitleBox').append("<p>"+data[2]["DETAILINTEREST"]+"</p>"); 
+        	},
+        	error: function(){
+        		console.log('통패~');
+        	}
+        	 
+         });
+         
+         $(document).on('mouseenter','.famousContent',function(){
+         	$(this).children('img').css('transform','scale(1.2)');
+         	$(this).children('.famousContentTitleBox').children('p').css('font-size','70px');
+         });
+         $(document).on('mouseleave','.famousContent',function(){
+         	$(this).children('img').css('transform','scale(1)');
+         	$(this).children('.famousContentTitleBox').children('p').css('font-size','50px');
+         });
+    	$(document).on('click','.famousContent',function(){
+    		
+    		var famousTitle = $(this).children('.famousContentTitleBox').children('p').text();
+    		var locationNo;
+    		if(famousTitle == "웹"){
+    			locationNo = "1";
+    		}
+    		if(famousTitle == "모바일"){
+    			locationNo = "2";
+    		}
+    		if(famousTitle == "게임"){
+    			locationNo = "3";
+    		}
+    		if(famousTitle == "응용프로그램"){
+    			locationNo = "4";
+    		}
+    		if(famousTitle == "보안프로그램"){
+    			locationNo = "5";
+    		}
+    		if(famousTitle == "DB관리"){
+    			locationNo = "6";
+    		}
+    		if(famousTitle == "웹 디자인"){
+    			locationNo = "7";
+    		}
+    		if(famousTitle == "웹 퍼블리셔"){
+    			locationNo = "8";
+    		}
+    		if(famousTitle == "게임 디자인"){
+    			locationNo = "9";
+    		}
+    		if(famousTitle == "모의해킹"){
+    			locationNo = "10";
+    		}
+    		if(famousTitle == "침해대응"){
+    			locationNo = "11";
+    		}
+    		if(famousTitle == "보안관제"){
+    			locationNo = "12";
+    		}
+    		if(famousTitle == "컨설턴트"){
+    			locationNo = "13";
+    		}
+    		
+        	location.href="${path }/sell/sellmain.do?sCategoryFlag="+locationNo;
+    	})
+             	//http://localhost:9090/makeit/sell/sellmain.do?sCategoryFlag=1
+         
+
+/*         $('#famousContentBody').append("<div class='famousContent'></div>");
         $('#famousContentBody').append("<div class='famousContent'></div>");
         $('#famousContentBody').append("<div class='famousContent'></div>"); 
         $('.famousContent:eq('+0+')').css('background-color','blue');
         $('.famousContent:eq('+1+')').css('background-color','red');
-        $('.famousContent:eq('+2+')').css('background-color','black');
+        $('.famousContent:eq('+2+')').css('background-color','black'); */
 
         $.ajax({ //랭킹 컨텐츠
         	url:"${path}/member/ranking.do",
@@ -139,7 +426,7 @@
                 $('#rankingView1stNick').css('top','50%');
                 $('#rankingView1stNick').css('transform','translate(-50%,-50%)');
                 
-                for(var i=1; i<10; i++){
+                for(var i=1; i<9; i++){
                 	
 	                	var num = data[i]['SUM(SELLPRICE)'] + ""; 
 	                	var len = num.length;

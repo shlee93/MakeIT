@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.makeit.buy.model.vo.BuyAttach;
 import com.kh.makeit.common.PageFactory;
 import com.kh.makeit.sell.model.service.sellService;
 import com.kh.makeit.sell.model.vo.SellAttach;
@@ -332,13 +333,20 @@ public class sellController {
 
 	// 메인페이지에서 이미지클릭해서 상세뷰로
 	@RequestMapping("/sell/selldetail")
-	public ModelAndView selldeatailView(int sellno, HttpServletRequest request) {
+	public ModelAndView selldeatailView(int sellno, HttpServletRequest request, HttpServletResponse response) {
 		List<Map<String, String>> detailList = service.selldetailView(sellno);
 		System.out.println(detailList + "디테일!!!!!!!!!!!!!!!!!!!!");
 		List<Map<String, String>> mainimgList = service.selldetailImg(sellno);
 		List<Map<String, String>> optionList = service.selldetailOption(sellno);
 		List<Map<String, String>> sellReivew = service.sellReview(sellno);
 		List<Map<String, String>> subimgList = service.sellsubImg(sellno);
+		
+		//sellno 쿠키값 보내기
+	   	String sellNoc = Integer.toString(sellno);
+		Cookie cookie = new Cookie(sellNoc, sellNoc);
+	 	cookie.setMaxAge(7 * 24 * 60 * 60);
+	 	cookie.setPath("/");
+	 	response.addCookie(cookie);
 
 		int reviewCnt = service.selectReviewCnt(sellno);
 		HttpSession session = request.getSession();
@@ -676,10 +684,10 @@ public class sellController {
 	}
 
 	@RequestMapping("/sell/sellRefund.do")
-	public ModelAndView sellRefund(int sellno, String refundId, String sellWriter) {
+	public ModelAndView sellRefund(int sellSpecNo, String refundId, String sellWriter) {
 		ModelAndView mv = new ModelAndView();
 		Map refundMap = new HashMap();
-		refundMap.put("sellno", sellno);
+		refundMap.put("sellSpecNo", sellSpecNo);
 		refundMap.put("refundId", refundId);
 		refundMap.put("sellWriter", sellWriter);
 		mv.addObject("refundMap", refundMap);
@@ -688,12 +696,12 @@ public class sellController {
 	}
 
 	@RequestMapping("/sell/sellRefundEnd")
-	public ModelAndView sellRefundEnd(int sellno, String refundId) {
-		System.out.println(sellno);
+	public ModelAndView sellRefundEnd(int sellSpecNo, String refundId) {
+		System.out.println(sellSpecNo);
 		System.out.println("shdjkfljksdl" + refundId);
 		ModelAndView mv = new ModelAndView();
 		Map payBack = new HashMap();
-		payBack.put("sellno", sellno);
+		payBack.put("sellSpecNo", sellSpecNo);
 		payBack.put("refundId", refundId);
 		int result = service.sellRefundEnd(payBack);
 		String msg = "";

@@ -398,12 +398,20 @@ public class MemberController {
 
 	@RequestMapping("/findIdCheck.do")
 	public ModelAndView findIdCheck(String email) {
-		int randomNo = SendMail.sendmail(email);
-		logger.debug(randomNo);
+		List<String> id = service.searchId(email);
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("randomNo", randomNo);
-		mv.addObject("email", email);
-		mv.setViewName("member/findIdCheck");
+		logger.debug(id);
+		if(id.size() != 0) {
+			int randomNo = SendMail.sendmail(email);
+			logger.debug(randomNo);
+			mv.addObject("randomNo", randomNo);
+			mv.addObject("email", email);
+			mv.setViewName("member/findIdCheck");
+		} else {
+			mv.addObject("msg","아이디가 존재하지 않습니다.");
+			mv.addObject("loc","/member/findId.do");
+			mv.setViewName("common/msg");
+		}
 		return mv;
 	}
 
@@ -436,29 +444,37 @@ public class MemberController {
 	@RequestMapping("/findPwCheck.do")
 	public ModelAndView findPwCheck(String id) {
 		String email = service.searchEmail(id);
-		int randomNo = SendMail.sendmail(email);
-		logger.debug(randomNo);
+		logger.debug(email);
 		ModelAndView mv = new ModelAndView();
-		String[] emailCk = email.split("@");
-		int idLength = emailCk[0].length();
-		int domainLength = emailCk[1].length();
-		logger.debug(idLength);
-		logger.debug(domainLength);
-		String idStr = emailCk[0].substring(0, 4);
-		String domainStr = emailCk[1].substring(0, 4);
-		for(int j = 0; j<idLength-4;j++) {
-			idStr+="*";
+		if(email != null) {
+			int randomNo = SendMail.sendmail(email);
+			logger.debug(randomNo);
+			String[] emailCk = email.split("@");
+			int idLength = emailCk[0].length();
+			int domainLength = emailCk[1].length();
+			logger.debug(idLength);
+			logger.debug(domainLength);
+			String idStr = emailCk[0].substring(0, 4);
+			String domainStr = emailCk[1].substring(0, 4);
+			for(int j = 0; j<idLength-4;j++) {
+				idStr+="*";
+			}
+			for(int i = 0; i<domainLength-4;i++) {
+				domainStr+="*";
+			}
+			emailCk[0] = idStr;
+			emailCk[1] = domainStr;
+			String fullEmail = idStr+"@"+domainStr;
+			mv.addObject("randomNo", randomNo);
+			mv.addObject("email",fullEmail);
+			mv.addObject("id", id);
+			mv.setViewName("member/findPwCheck");
+
+		} else {
+			mv.addObject("msg","아이디가 존재하지 않습니다.");
+			mv.addObject("loc","/member/findPw.do");
+			mv.setViewName("common/msg");
 		}
-		for(int i = 0; i<domainLength-4;i++) {
-			domainStr+="*";
-		}
-		emailCk[0] = idStr;
-		emailCk[1] = domainStr;
-		String fullEmail = idStr+"@"+domainStr;
-		mv.addObject("randomNo", randomNo);
-		mv.addObject("email",fullEmail);
-		mv.addObject("id", id);
-		mv.setViewName("member/findPwCheck");
 		return mv;
 	}
 
@@ -1391,6 +1407,86 @@ public class MemberController {
 	public String mainpage() {
 		
 		return "mainpage/mainpage";
+	}
+	
+	@RequestMapping("/board/boardDetailView.do")
+	public ModelAndView boardDetailView(String freeNo) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("freeNo",freeNo);
+		mav.setViewName("board/boardMain");
+		return mav;
+	}
+	
+	@RequestMapping(value="/member/famousView.do",	produces="application/text; charset=utf8")
+	@ResponseBody
+	public String famousView() {
+		
+		List<String> famousListNo = service.selectFamousList();
+		List<String> listNo = new ArrayList();
+		listNo.add(famousListNo.get(0));
+		listNo.add(famousListNo.get(1));
+		listNo.add(famousListNo.get(2));
+		List<Map<String,String>> famousList = service.selectFamousView(listNo);
+		logger.debug(famousList);
+/*		list.put("0", famousList.get(0).get());*/
+		Gson gson = new Gson();
+		String data = gson.toJson(famousList);
+		
+		return data;
+	}
+	
+	@RequestMapping(value="/member/sawPage.do",	produces="application/text; charset=utf8")
+	@ResponseBody
+	public String sawPage(HttpServletRequest request) {
+		
+		List<String> list = new ArrayList();
+		int checkSize =0;
+    	Cookie[] cookies = request.getCookies();
+		if(cookies != null) {
+
+			for(int i=cookies.length; i>0; i--) {
+				Cookie c = cookies[i-1];
+				String cVal = c.getValue();
+				String cName = c.getName();
+				int cDate = c.getMaxAge();
+				System.out.println("쿠키 이름~~~ : "+cName+" /쿠기 값 : "+cVal+" /쿠기 날짜 : "+cDate);
+				if(!cName.equals("intro") && !cName.equals("JSESSIONID")) {
+					if(checkSize < 5) {
+						list.add(cVal);																																																																																																																													
+						checkSize++;
+						System.out.println("쿠키 값 ~~!!!! : "+cVal);
+					}
+				}
+			}
+		}
+		Map<Object,Object> allList = new HashMap();
+		List<Map<String,String>> sellList = service.selectSellList(list);
+		List<String> interestnoList = service.selectSimilarView(list);
+
+		List<Map<String,String>> similarList = service.selectSimilarList(interestnoList);
+
+		allList.put("sellList", sellList);
+		allList.put("similarList", similarList);
+		Gson gson = new Gson();
+		String data = gson.toJson(allList);
+		logger.debug(data);
+
+		return data;
+	}
+	
+	@RequestMapping(value="/member/recentlyView.do", produces="application/text; charset=utf8")
+	@ResponseBody
+	public String interestPage(String interestNo) {
+		
+		List<Map<String,String>> interestList = service.selectInterestList(interestNo);
+		
+		logger.debug("ddddddddddddddddddddddddddddddddd"+interestList);
+		Gson gson = new Gson();
+		String data = gson.toJson(interestList);
+		
+		return data;
 	}
 
 }

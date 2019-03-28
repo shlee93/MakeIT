@@ -137,14 +137,14 @@ thead {
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>아이디</th>
-						<th>제목</th>
-						<th>지원 날짜</th>
+						<th style="width:20%">아이디</th>
+						<th style="width:50%">제목</th>
+						<th style="width:30%">지원 날짜</th>
 					</tr>
 				</thead>
 				<tbody>
 				<c:forEach items="${volList}" var="v">
-					<tr class="volTr" onclick="fn_volView('${v.MEMBERID}', '${v.BUYNO }', '${v.CATEGORYCODE }')" >
+					<tr class="volTr" onclick="fn_volView('${v.MEMBERID}', '${v.BUYNO }', '${v.CATEGORYCODE }')" style="text-align:center">
 						<td><c:out value="${v.MEMBERID }"/></td>
 						<td><c:out value="${v.BUYCANDIDATETITLE }"/></td>
 						<fmt:parseDate value="${v.BUYCANDIDATEDATE }" var="dateFMT" pattern="yyyy-MM-dd HH:mm:ss.S"/>

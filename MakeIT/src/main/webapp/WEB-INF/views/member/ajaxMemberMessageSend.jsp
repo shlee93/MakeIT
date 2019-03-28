@@ -58,7 +58,7 @@ pageEncoding="UTF-8"%>
                     			<td><input type="text" id="sendId" name="sendId" class="form-control" value="<c:out value="${map.MEMBERID }"></c:out>" readonly></td>
                     			<th>받는사람</th>
                     			<td>
-                   					<input type="text" id="receiveId" name="receiveId" class="form-control" placeholder="받는사람 ID를 입력하세요" value="" list="datalist">
+                   					<input type="text" id="receiveId" name="receiveId" class="form-control" placeholder="받는사람 ID" value="" list="datalist">
                    					<datalist id="datalist"></datalist>
                     			</td>
                     		</tr>
@@ -130,6 +130,10 @@ pageEncoding="UTF-8"%>
 				alert('내용을 입력해주세요');
 				return false;
 			} else{
+				if($('#sendId').val()==$('#receiveId').val()){
+					alert("본인에게는 메시지를 보낼 수 없습니다.");
+					return false;
+				}
 				$.ajax({
 					url:"${path}/member/reSendMessageEnd.do",
 					dataType:"html",
@@ -138,15 +142,30 @@ pageEncoding="UTF-8"%>
 						"messageContent":$('#messageContent').val()},
 					success:function(data){
 						alert(data);
-						$.ajax({
-							url:"${path}/member/memberMessageAjax.do",
-							dataType:"html",
-							data:{"memberId":$('#sendId').val()},
-							success:function(data){
-								console.log(data);
-								$('#ajaxHtml').html(data);
-							}
-						});
+						if(data=="메시지가 정상적으로 발송되었습니다."){
+							$.ajax({
+								url:"${path}/member/memberMessageAjax.do",
+								dataType:"html",
+								data:{"memberId":$('#sendId').val()},
+								success:function(data){
+									console.log(data);
+									$('#ajaxHtml').html(data);
+								}
+							});
+						} else{
+							$('#receiveId').val('');
+							$('#receiveId').focus();
+							/* $.ajax({
+								url:"${path}/member/sendMessage.do",
+								dataType:"html",
+								data:{"memberId":$('#sendId').val()},
+								success:function(data){
+									console.log(data);
+									$('#ajaxHtml').html(data);
+								}
+							}); */
+						}
+						
 					}
 				});
 			}

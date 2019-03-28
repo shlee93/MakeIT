@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
@@ -33,9 +33,10 @@
    	<link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Sunflower:300" rel="stylesheet">
    	
    	<style>
+		
 		/* div
 		{
-			border:1px solid red;
+			border:1px solid blue;
 		} */
 		
 		header
@@ -56,6 +57,7 @@
 		}
 				    
 	</style>
+	
 </head>
 
 <script>
@@ -83,7 +85,7 @@
 		if($(this).scrollTop() > 200)
 		{
 			var windowVal = $(this).scrollTop();
-			$('#donggeulNav').css('top',windowVal-250);
+			$('#donggeulNav').css('top',windowVal-260);
 		}
 		if($(this).scrollTop() < 200) 
         {
@@ -118,7 +120,6 @@
 	})
 </script>
 
-<body>
 	<div class='container-fluid' id="total">
     	<div class='row'>
     		<div class='col-md-1' id='left-nav'>
@@ -134,7 +135,7 @@
     		</div>    
         	<div class='col-md-10' id='section' style='padding:50px' >
             	<div class='row'>            	
-               		<div class="col-md-6" id="img-container" style='padding:1px; width: 100%; height: 600px;'>
+               		<div class="col-md-6" id="img-container" style='padding:1px; width: 100%;'>
                			<h4 style="font-family: 'Sunflower','sans-serif';">${contestObj.CONTESTTITLE}</h4>
                			<div class='row mainImgContainer' id='mainImgContainer'>
                	   			<img class="mainImg" id='${contestMainImg.CONTESTIMGNO}' src="${path}/resources/upload/contest/${contestMainImg.CONTESTIMGRE}" style='max-height: 400px; min-height: 600px; width: 100%;'>
@@ -201,29 +202,44 @@
                         		<div class="row align-items-center" style='margin-top: -5em;'>			                  
 			                  		<div class="holderCircle">
 			                        	<div class="round"></div>
-		                        		<div class="dotCircle">
-			                        		
+		                        		<div class="dotCircle">		                        				                        		
 			                        		<span class="itemDot itemDot1" data-tab="1">
 				                           	    <c:set var='currentId' value='${memberMap.get("MEMBERID")}'/>								
 				                           	   	   	<c:choose>
 									    	   		   	<c:when test="${currentId eq contestObj.MEMBERID}">
-									    	   		   		<i class="fas fa-edit donggeulI"></i>				 			                          										    	   		   
+									    	   		   		<i class="fas fa-edit donggeulI"></i>
+										    	   		   		<div class="icon-title">
+							                                       <p>수정하기</p>
+							                                    </div>
+						                                    <span class="forActive"></span>				 			                          										    	   		   
 									    	   		   	</c:when>
 												       	<c:otherwise>
-								                        	<i class="fas fa-kiss-wink-heart donggeulI"></i>   				     		
+								                        	<i class="fas fa-kiss-wink-heart donggeulI"></i>  
+								                        		<div class="icon-title">
+							                                       <p>찜설정</p>
+							                                    </div>
+						                                    <span class="forActive"></span>		 				     		
 												       	</c:otherwise>
 										 		   	</c:choose>	   	
-				                           		<span class="forActive"></span>
+				                           						                           		
 				                            </span>
 			                           		
 				                            <span class="itemDot itemDot2" data-tab="2">
 				                           	    <c:set var='currentId' value='${memberMap.get("MEMBERID")}'/>								
 				                           	   	   	<c:choose>
 									    	   		   	<c:when test="${currentId eq contestObj.MEMBERID}">
-				 			                          		<i class="fas fa-trash-alt donggeulI"></i>								    	   		   
+				 			                          		<i class="fas fa-trash-alt donggeulI"></i>
+				 			                          		<div class="icon-title">
+						                                       <p>삭제하기</p>
+						                                    </div>
+						                                    <span class="forActive"></span>										    	   		   
 									    	   		   	</c:when>
 												       	<c:otherwise>
-								                           	<i class="fa fa-comments donggeulI"></i>			     		
+								                           	<i class="fa fa-comments donggeulI"></i>
+								                           	<div class="icon-title">
+						                                       <p>쪽지하기</p>
+						                                    </div>
+						                                    <span class="forActive"></span>					     		
 												       	</c:otherwise>
 										 		   	</c:choose>	   	
 				                           		<span class="forActive"></span>
@@ -231,7 +247,10 @@
 				                           	
 				                           	<span class="itemDot itemDot3 active" data-tab="3">
 					                           	<i class="fa fa-briefcase donggeulI"></i>
-				                           	   	<span class="forActive"></span>
+				                           	   	<div class="icon-title">
+			                                       <p>지원하기</p>
+			                                    </div>
+		                                    	<span class="forActive"></span>		
 				                           	</span>
 				                           	<!-- <span class="itemDot itemDot3" data-tab="3">
 					                           	<i class="fa fa-user donggeulI"></i>
@@ -246,7 +265,10 @@
 						    	   		   	<c:when test="${currentId ne contestObj.MEMBERID}">
 						                       	<span class="itemDot itemDot5" data-tab="5">
 						                       	   	<i class="fas fa-angry donggeulI"></i>
-					                           	   	<span class="forActive"></span>
+					                           	   	<div class="icon-title">
+				                                       <p>신고하기</p>
+				                                    </div>
+			                                    	<span class="forActive"></span>		
 					                           	</span>
 				                           	</c:when>
 			                           	</c:choose>
@@ -510,7 +532,7 @@
 		                        	
 		                        	<!-- 작성자 소개 -->  	
 	                          		<div class='col-md-10'>
-	                          			<textarea class='form-control' rows='6' style='width:100%; height: 100%;'readonly>${contestObj.INTRODUCTION}</textarea>
+	                          			<textarea class='form-control' rows='6' style='width:100%; height: 100%; margin-top:30px;' readonly>${contestObj.INTRODUCTION}</textarea>
 	                          		</div>
 	                          		<!-- 작성자 소개 끝 -->
 	                          		
@@ -522,13 +544,16 @@
        			</div>
 			</div>
 	    	<div class='col-md-1' id='right-nav' >
-	    	<c:if test="${sessionScope.member.MEMBERID == 'admin'}">
-	    		<div style='position:fixed;'>
-	    			<span onclick='fn_back()' id='approval-btn' style='cursor:pointer; font-size: 4em;'><i class="fas fa-check-circle"></i></span>   				           
-	          	 	
-	           	</div>
-           	</c:if>
+		    	<c:if test="${sessionScope.member.MEMBERLEVEL == 0 and contestObj.CONTESTYN=='N'}">
+		    		<div style='position:fixed;'>
+		    			<span id='approval-btn' style='cursor:pointer; font-size: 4em;'><i class="fas fa-check-circle"></i></span>	          	 	
+		           	</div>
+	           	</c:if>
 	    	</div>
+    	</div>
+   	
+    	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
+	    	
 	    	<script>
 			    function fn_applicantAccess_modal()
 				{  
@@ -589,6 +614,8 @@
 		    	}    	
 	    	
 	   		</script>
+	   		
+	   		
     
 	    	<div class="modal" id="applicantAccessModal" role="dialog">
 	    		<form  id='contestApplicantFrm' method='post' enctype="multipart/form-data">
@@ -771,6 +798,6 @@
 	         	</form>                   
 		  	</div>
 	  	</div>
-	</div>	
-</body>
-</html>
+	</div>
+	
+	

@@ -30,15 +30,15 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-1">
-        	<div style='position:fixed; margin-top: 10em;'>
-    			<span onclick='fn_back()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-left"></i></span>    				           
-          	 	<script>
-           			function fn_back()
-	           		{
-	           			history.back();
-	           		}
-	           	</script>
-           	</div>
+        	<div style='position:fixed; margin-top:-6em;'>
+            <span onclick='fn_back()' style='cursor:pointer; font-size: 4em;'><i class="fas fa-arrow-circle-left"></i></span>                           
+                <script>
+                   function fn_back()
+                   {
+                      history.back();
+                   }
+                </script>
+            </div>
         </div>
         <div class="col-md-10">     
             <div id="loginTab">
@@ -79,12 +79,12 @@
                                 	<input type="hidden" id="token" name="token" value="">
                                 </form>
                                 <script>
-	                                var naver_id_login = new naver_id_login("ayo0PcF7e31pJS4Lbj1N", "http://localhost:9090/makeit/callback");	// Client ID, CallBack URL 삽입
+	                                var naver_id_login = new naver_id_login("ayo0PcF7e31pJS4Lbj1N", "http://192.168.20.229:9090/makeit/callback");	// Client ID, CallBack URL 삽입
 									// 단 'localhost'가 포함된 CallBack URL
 									var state = naver_id_login.getUniqState();
 									
 									naver_id_login.setButton("green", 2, 50);
-									naver_id_login.setDomain("http://localhost:9090/makeit");	//  URL
+									naver_id_login.setDomain("http://192.168.20.229:9090/makeit");	//  URL
 									naver_id_login.setState(state);
 									naver_id_login.setPopup();
 									naver_id_login.init_naver_id_login();
