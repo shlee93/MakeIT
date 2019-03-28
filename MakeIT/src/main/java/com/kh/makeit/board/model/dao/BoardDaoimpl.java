@@ -67,7 +67,12 @@ public class BoardDaoimpl implements BoardDao {
 		return sqlSession.selectOne("board.selectMemberCountBoard");
 	}
 	@Override
-	public List<Map<String, String>>selectMemberSortBoard(Map<Object,Object> sort, int cPage, int numPerPage) {
+	public int selectSearchCountBoard(String searchId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("board.selectSearchCountBoard",searchId);
+	}
+	@Override
+	public List<Map<String, String>>selectMemberSortBoard(Map<String,String> sort, int cPage, int numPerPage) {
 		RowBounds rb=new RowBounds((cPage-1)*numPerPage,numPerPage);
 		return sqlSession.selectList("board.selectMemberSortBoard",sort,rb);
 	}

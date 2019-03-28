@@ -68,9 +68,14 @@ textarea{
 }
 
 #search-icon {
-	border: 1px solid gray;
-	border-radius: 50%;
-	width: 5%;
+	width: 40px;
+	height:40px;
+	margin-top:2px;
+	margin-right: 10px;
+}
+#search-icon img{
+	width:100%;
+	height:auto;
 }
 
 #member-sort-reverse{
