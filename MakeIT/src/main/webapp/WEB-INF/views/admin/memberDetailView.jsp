@@ -74,19 +74,19 @@
 										<tr>
 											<td><strong>전화번호</strong></td>
 											<td>
-												<input type="text" name="phone" id="phone" value="${member.get('PHONE') }" />
+												<input type="text" name="phone" id="phone" value="${member.get('PHONE') }" readonly />
 											</td>
 										</tr>
 										<tr>
 											<td><strong>이메일</strong></td>
 											<td>
-												<input type="text" name="email" id="email" value="${member.get('EMAIL') }" />
+												<input type="text" name="email" id="email" value="${member.get('EMAIL') }" readonly />
 											</td>
 										</tr>
 										<tr>
 											<td><strong>주소</strong></td>
 											<td>
-												<input type="text" name="address" id="address" value="${member.get('ADDRESS') }" />
+												<input type="text" name="address" id="address" value="${member.get('ADDRESS') }" readonly/>
 											</td>
 										</tr>
 										<tr>
@@ -103,7 +103,10 @@
 								</table>
 								<button class="btn btn-outline-info slidetopleft" id="close-member">닫기</button>
 								<button class="btn btn-outline-info slidetopleft" id="member-update">수정</button>
-
+								<button class="btn btn-outline-info slidetopleft" id="member-delete">삭제</button>
+								<input type="hidden" id="cPage" value="${cPage }"/>
+								<input type="hidden" id="searchId" value="${searchId }"/>
+								
 							</div>
 						</div>
 					</div>

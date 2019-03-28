@@ -71,7 +71,7 @@ public interface AdminDao {
 	List<Map<Object,Object>> selectReportListAdmin(String reportStatus,int cPage,int numPerPage);
 	
 	//관리자 페이지 회원 신고 횟수 증가
-	int updateReportCount(String reportId);
+	int updateReportCount(Map<Object,Object> report);
 	
 	//관리자 페이지 게시글 신고 검토 여부
 	int updateReportStatus(Map<Object,Object> report);
@@ -153,4 +153,10 @@ public interface AdminDao {
 	
 	//환불 거부
 	int updateRefundNegativeEnd(Map<Object,Object> negative);
+	
+	//구매확정 카운트
+	int selectPaymentListCountAdmin(String paymentStatus);
+	
+	//회원 삭제
+	int deleteMemberAdmin(String memberId);
 }

@@ -13,8 +13,8 @@
 	<c:forEach items='${reportList }' var="report">
 		<c:choose>
 			<c:when test="${report.CATEGORYCODE eq 'S' }">
-				<div class="panel-body btn btn-outline-info slidetopleft">
-					<div class="report-tab-back">
+				<div class="panel-body">
+					<div class="report-tab-back btn btn-outline-info slidetopleft">
 						<ul class="report-tab">
 							<li><strong>피신고인:</strong> <span class="report-id">${report.MEMBERID }</span>
 							</li>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -82,7 +82,7 @@
 										<tr>
 											<td></td>
 											<td>
-												<input type="hidden" class="content-no" value="${report.SELLNO }"/>
+												<input type="hidden" class="content-no" value="${report.SELLREPORTNO }"/>
 												<button class="report-btn-cancel btn btn-outline-info slidetopleft">신고 거부</button>
 												<button class="report-btn btn btn-outline-info slidetopleft">신고 승인</button>
 											</td>
@@ -97,8 +97,8 @@
 			
 			</c:when>
 			<c:when test="${report.CATEGORYCODE eq 'C' }">
-				<div class="panel-body btn btn-outline-info slidetopleft">
-					<div class="report-tab-back">
+				<div class="panel-body">
+					<div class="report-tab-back btn btn-outline-info slidetopleft">
 						<ul class="report-tab">
 							<li><strong>피신고인:</strong> <span class="report-id">${report.MEMBERID }</span>
 							</li>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -166,7 +166,7 @@
 										<tr>
 											<td></td>
 											<td>
-												<input type="hidden" class="content-no" value="${report.CONTESTNO }"/>
+												<input type="hidden" class="content-no" value="${report.CONTESTREPORTNO }"/>
 												<button class="report-btn btn btn-outline-info slidetopleft">신고승인</button>
 												<button class="report-btn-cancel btn btn-outline-info slidetopleft">신고거부</button>
 											</td>
@@ -180,8 +180,8 @@
 				</div>
 			</c:when>
 			<c:when test="${report.CATEGORYCODE eq 'F' }">
-				<div class="panel-body btn btn-outline-info slidetopleft">
-					<div class="report-tab-back">
+				<div class="panel-body">
+					<div class="report-tab-back btn btn-outline-info slidetopleft">
 						<ul class="report-tab">
 							<li><strong>피신고인:</strong> <span class="report-id">${report.MEMBERID }</span>
 							</li>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -249,7 +249,7 @@
 										<tr>
 											<td></td>
 											<td>
-												<input type="hidden" class="content-no" value="${report.BUYNO }"/>
+												<input type="hidden" class="content-no" value="${report.FREEREPORTNO }"/>
 												<button class="report-btn btn btn-outline-info slidetopleft">신고 승인</button>
 												<button class="report-btn-cancel btn btn-outline-info slidetopleft">신고 거부</button>
 											</td>
@@ -263,8 +263,8 @@
 				</div>
 			</c:when>
 			<c:when test="${report.CATEGORYCODE eq 'B' }">
-				<div class="panel-body btn btn-outline-info slidetopleft">
-					<div class="report-tab-back">
+				<div class="panel-body">
+					<div class="report-tab-back btn btn-outline-info slidetopleft">
 						<ul class="report-tab">
 							<li><strong>피신고인:</strong> <span class="report-id">${report.MEMBERID }</span>&nbsp;&nbsp;&nbsp;&nbsp;
 							</li>
@@ -332,7 +332,7 @@
 										<tr>
 											<td></td>
 											<td>
-												<input type="hidden" class="content-no" value="${report.BUYNO }"/>
+												<input type="hidden" class="content-no" value="${report.BUYREPORTNO }"/>
 												<button class="report-btn btn btn-outline-info slidetopleft">신고 승인</button>
 												<button class="report-btn-cancel btn btn-outline-info slidetopleft">신고 거부</button>
 											</td>

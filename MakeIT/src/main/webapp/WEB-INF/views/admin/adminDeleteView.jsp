@@ -38,7 +38,7 @@
 			            <td>${delete.MEMBERID }</td>
 			            <td>${delete.BUYDATE }</td>
 			            <td>${delete.INTEREST }</td>
-			            <td><button class="return-content">복구</button></td>
+			            <td><button class="return-content btn btn-outline-info slidetopleft">복구</button></td>
           			</tr>
   				</c:when>
   				<c:when test="${delete.CATEGORYCODE eq 'S' }">
@@ -50,7 +50,7 @@
 			            <td>${delete.MEMBERID }</td>
 			            <td>${delete.SELLDATE }</td>
 			            <td>${delete.INTEREST }</td>
-			            <td><button class="return-content">복구</button></td>
+			            <td><button class="return-content btn btn-outline-info slidetopleft">복구</button></td>
 		          	</tr>
   				</c:when>
   				<c:when test="${delete.CATEGORYCODE eq 'C' }">
@@ -62,7 +62,7 @@
 			            <td>${delete.MEMBERID }</td>
 			            <td>${delete.CONTESTDATE }</td>
 			            <td>${delete.INTEREST }</td>
-			            <td><button class="return-content">복구</button></td>
+			            <td><button class="return-content btn btn-outline-info slidetopleft">복구</button></td>
 			        </tr>
   				</c:when>
   				

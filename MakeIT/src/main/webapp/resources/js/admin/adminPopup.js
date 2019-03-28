@@ -16,7 +16,8 @@ $(document).on('click','#member-update',function(){
 	var address=$('#address').val();
 	var reportCount=$('#reportCount').val();
 	var $member_table=$(opener.document).find('.member-view');
-	
+	var cPage=$('#cPage').val();
+	var searchId=$('#searchId').val();
 	if(phone==''){
 		alert('전화번호 입력값이 없습니다.');
 		$('#phone').focus();
@@ -42,7 +43,31 @@ $(document).on('click','#member-update',function(){
 			"phone":phone,
 			"email":email,
 			"address":address,
-			"reportCount":reportCount
+			"reportCount":reportCount,
+			"cPage":cPage,
+			"searchId":searchId
+		},
+		dataType:"html",
+		success:function(data){
+			$member_table.html(data);
+			self.close();
+		}
+	})
+});
+
+//관리자 회원정보 업데이트
+$(document).on('click','#member-delete',function(){
+	var memberId=$('.panel-title').text();
+	var cPage=$('#cPage').val();
+	var searchId=$('#searchId').val();
+	var $member_table=$(opener.document).find('.member-view');
+	
+	$.ajax({
+		url:"memberDeleteAdmin.do",
+		data:{
+			"memberId":memberId,
+			"cPage":cPage,
+			"searchId":searchId
 		},
 		dataType:"html",
 		success:function(data){
@@ -116,10 +141,14 @@ $(document).on('click','#updateQna',function(){
 			return false;
 		}
 	}
-	
+	var count=0;
 	for(var i=0;i<$faq_Question.length;i++){
 		
 		if(question==$faq_Question.eq(i).val()){
+			count++;
+			
+		}
+		if(count>1){
 			alert("이미 등록된 질문 입니다.");
 			$('#question').focus();
 			return false;
@@ -144,11 +173,19 @@ $(document).on('click','#updateQna',function(){
 	
 });
 
-$(document).on('keyup','textarea', function() {
+$(document).on('keyup','#question', function() {
 	console.log($(this).val().length);
-    if($(this).val().length > 450) {
+    if($(this).val().length > 100) {
        alert("글자수는 450자로 이내로 제한됩니다.");
-       $(this).val($(this).val().substring(0, 450));
+       $(this).val($(this).val().substring(0, 100));
+    }
+ 
+});
+$(document).on('keyup','#answer', function() {
+	console.log($(this).val().length);
+    if($(this).val().length > 1333) {
+       alert("글자수는 450자로 이내로 제한됩니다.");
+       $(this).val($(this).val().substring(0, 1333));
     }
  
 });

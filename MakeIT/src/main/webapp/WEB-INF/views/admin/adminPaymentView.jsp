@@ -5,7 +5,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-<button class="btn btn-outline-info slidetopleft" id="paymentSort-btn">구매확정▼</button>
+<hr>
+	<button class="btn btn-outline-info slidetopleft" id="paymentSort-btn" style="float:right;">구매확정▼</button>
+<hr>
 <c:choose>
 	<c:when test="${not empty paymentList }">
 

@@ -1,7 +1,14 @@
 /* 관리자 페이지 메인 */
-h5,h4,h3,h2,h1,a,span,button,th,td{
+.buy-title,.sell-title,.contest-title{
+	cursor:pointer;
+}
+h5,h4,h3,h2,h1,a,span,button,th,td,.col-md-9,.faq-category{
 	font-family: 'Sunflower', sans-serif;
 	font-size:20px;
+}
+#search-icon img {
+    width: 100%;
+    height: auto;
 }
 li{
 	color:black;
@@ -66,9 +73,9 @@ textarea{
 }
 
 #search-icon {
-	border: 1px solid gray;
+
 	border-radius: 50%;
-	width: 5%;
+	width: 3%;
 }
 
 #member-sort-reverse{
