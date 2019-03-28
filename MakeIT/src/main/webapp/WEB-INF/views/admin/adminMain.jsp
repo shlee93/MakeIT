@@ -41,7 +41,9 @@
                             <!--회원 검색 div  -->
                             <hr>
                             <div class="member-search">
-                                <div id="search-icon">검색</div>
+                                <div id="search-icon">
+									<img src="${path }/resources/images/search.png"/>
+								</div>
                                 <input id="search-id" type="text" placeholder="검색할 회원의 아이디를 입력해주세요" style="width:80%"/>
                                 <select id="member-sort">
                                 	<option class="member-sort-option" value="nosort">정렬</option>
@@ -177,7 +179,7 @@
                                                         <li class='side-nav-li approval-li' data-toggle="collapse" data-target="#new"
                                                             class="collapsed">
                                                             <a href="#">
-                                                                	컨테스트
+                                                                	콘테스트
                                                             </a>
                                                             <input type="hidden" class="approval-status" value="CONTEST"/>
                                                         </li>
@@ -431,7 +433,7 @@
 															<li class='side-nav-li report-view' data-toggle="collapse" data-target="#new" class="collapsed">
 																<input type="hidden" value="CONTEST"/>
 																<a href="#">
-																	컨테스트
+																	콘테스트
 																</a>
 															</li>
 															<li class='side-nav-li report-view' data-toggle="collapse" data-target="#new" class="collapsed">
@@ -542,7 +544,7 @@
 																			<tr>
 																				<td></td>
 																				<td>
-																					<input type="hidden" class="content-no" value="${report.BUYNO }"/>
+																					<input type="hidden" class="content-no" value="${report.BUYREPORTNO }"/>
 																					<button class="report-btn-cancel btn btn-outline-info slidetopleft">신고 거부</button>
 																					<button class="report-btn btn btn-outline-info slidetopleft">신고 승인</button>
 																				</td>
@@ -605,6 +607,7 @@
 												data-target="#menu-content"></i>
 											<div class="menu-list">
 												<input type="hidden" id="payment-view-status" value="BUY" />
+												<input type="hidden" id="payment-sort-check" value="0"/>
 												<ul id="menu-content" class="menu-content collapse out">
 													<li class='side-nav-li payment-view active' data-toggle="collapse" data-target="#new" class="collapsed">
 														<input type="hidden" value="BUY" /> 
@@ -626,6 +629,7 @@
 										<!-- 네비 사이드 끝 -->
 	
 									</div>
+									
 									<div class="col-md-9 col-xs-9 payment-view-div">
 										<!-- 결제현황 -->
 										<hr>

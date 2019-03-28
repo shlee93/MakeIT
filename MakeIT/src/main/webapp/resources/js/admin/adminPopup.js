@@ -16,7 +16,8 @@ $(document).on('click','#member-update',function(){
 	var address=$('#address').val();
 	var reportCount=$('#reportCount').val();
 	var $member_table=$(opener.document).find('.member-view');
-	
+	var cPage=$('#cPage').val();
+	var searchId=$('#searchId').val();
 	if(phone==''){
 		alert('전화번호 입력값이 없습니다.');
 		$('#phone').focus();
@@ -42,7 +43,31 @@ $(document).on('click','#member-update',function(){
 			"phone":phone,
 			"email":email,
 			"address":address,
-			"reportCount":reportCount
+			"reportCount":reportCount,
+			"cPage":cPage,
+			"searchId":searchId
+		},
+		dataType:"html",
+		success:function(data){
+			$member_table.html(data);
+			self.close();
+		}
+	})
+});
+
+//관리자 회원정보 업데이트
+$(document).on('click','#member-delete',function(){
+	var memberId=$('.panel-title').text();
+	var cPage=$('#cPage').val();
+	var searchId=$('#searchId').val();
+	var $member_table=$(opener.document).find('.member-view');
+	
+	$.ajax({
+		url:"memberDeleteAdmin.do",
+		data:{
+			"memberId":memberId,
+			"cPage":cPage,
+			"searchId":searchId
 		},
 		dataType:"html",
 		success:function(data){

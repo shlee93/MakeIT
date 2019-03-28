@@ -161,9 +161,9 @@ public class AdminDaoImpl implements AdminDao {
 
 	//관리자 페이지 회원 신고 횟수 증가
 	@Override
-	public int updateReportCount(String reportId) {
+	public int updateReportCount(Map<Object,Object> report) {
 		
-		return sqlSession.update("admin.updateReportCount", reportId);
+		return sqlSession.update("admin.updateReportCount", report);
 	}
 	
 	//관리자 페이지 게시글 신고 검토 여부
@@ -374,6 +374,13 @@ public class AdminDaoImpl implements AdminDao {
 	public int selectPaymentListCountAdmin(String paymentStatus) {
 		
 		return sqlSession.selectOne("admin.selectPaymentListCountAdmin", paymentStatus);
+	}
+
+	//회원 삭제
+	@Override
+	public int deleteMemberAdmin(String memberId) {
+		
+		return sqlSession.delete("admin.deleteMemberAdmin", memberId);
 	}
 	
 	

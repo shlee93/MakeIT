@@ -383,11 +383,6 @@ $(document).on('click','#insert-qna-admin',function(){
 		alert("제목을 입력해주세요!");
 		$('#qna-title').focus();
 		return false;
-	}else if(pass!=passCk){
-		alert("확인한 비밀번호가 일치하지 않습니다!");
-		$('#qna-pass').focus();
-		return false;
-		
 	}else if(content==""){
 		alert("내용을 입력해주세요!");
 		$('#qna-content').focus();

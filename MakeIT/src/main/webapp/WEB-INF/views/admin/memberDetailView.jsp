@@ -103,7 +103,10 @@
 								</table>
 								<button class="btn btn-outline-info slidetopleft" id="close-member">닫기</button>
 								<button class="btn btn-outline-info slidetopleft" id="member-update">수정</button>
-
+								<button class="btn btn-outline-info slidetopleft" id="member-delete">삭제</button>
+								<input type="hidden" id="cPage" value="${cPage }"/>
+								<input type="hidden" id="searchId" value="${searchId }"/>
+								
 							</div>
 						</div>
 					</div>

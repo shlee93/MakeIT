@@ -5,7 +5,9 @@ $(document).on('click','.approval-li',function(){
 	
 	if(approval_Tab_Status=='approval'){
 		$('#approval-status').val($(this).children('input').val());
+		$('#delete-status').val($(this).children('input').val());
 		var approvalStatus=$('#approval-status').val();
+		var deleteStatus=$('#delete-status').val();
 		var $click_Li=$(this);
 		var $all_Li=$('.approval-li');
 		
@@ -25,7 +27,7 @@ $(document).on('click','.approval-li',function(){
 				$.ajax({
 					url:"deleteView.do",
 					data:{
-						"deleteStatus":approvalStatus
+						"deleteStatus":deleteStatus
 					},
 					dataType:"html",
 					success:function(data){
@@ -38,7 +40,9 @@ $(document).on('click','.approval-li',function(){
 		
 	}else if(approval_Tab_Status=='delete'){
 		$('#approval-status').val($(this).children('input').val());
-		var deleteStatus=$('#approval-status').val();
+		$('#delete-status').val($(this).children('input').val());
+		var approvalStatus=$('#approval-status').val();
+		var deleteStatus=$('#delete-status').val();
 		
 		var $click_Li=$(this);
 		var $all_Li=$('.approval-li');
@@ -58,7 +62,7 @@ $(document).on('click','.approval-li',function(){
 				$.ajax({
 					url:"approvalView.do",
 					data:{
-						"approvalStatus":deleteStatus
+						"approvalStatus":approvalStatus
 					},
 					dataType:"html",
 					success:function(data){
@@ -225,8 +229,10 @@ $(document).on('keyup','#search-id',function(){
 //회원정보 수정 팝업
 $(document).on('click','.member-id',function(){
 	var memberId=$(this).text();
+	var cPage=$(this).parent().parent().siblings('tr').children('td').children('ul').children('.active').children().text();
+	var searchId=$('#search-id').val();
 	//console.log(memberId);
-	window.open("memberDetailView.do?memberId="+memberId,"memberWin","width=500, height=500, top=200,left=1000");
+	window.open("memberDetailView.do?memberId="+memberId+"&cPage="+cPage+"&searchId="+searchId,"memberWin","width=500, height=500, top=200,left=1000");
 	
 	
 });
@@ -361,9 +367,11 @@ $(document).on('click','.member-page',function(){
 	var ascDesc=0;
 	//신고관리에 필요한 변수
 	var reportStatus=$('#report-view-status').val();
+	var $report_tab=$('.panel-info');
 	//결제현황리스트에 필요한 변수
 	var paymentStatus=$('#payment-view-status').val();
 	var $payment_Tab=$('.payment-view-div');
+	var paySortCheck=$('#payment-sort-check').val();
 	//미승인 게시글 리스트에 필요한 변수
 	var approvalStatus=$('#approval-status').val();
 	var approvalSearch=$('#approval-search-inp').val();
@@ -479,6 +487,8 @@ $(document).on('click','.return-content',function(){
 	var flag=confirm("복구하시겠습니까?");
 	var deleteStatus=$('#delete-status').val();
 	var contentNo=$(this).parent().siblings('td').children('.number').val();
+	alert(contentNo);
+	alert(deleteStatus);
 	if(flag){
 		
 		$.ajax({
@@ -497,7 +507,23 @@ $(document).on('click','.return-content',function(){
 	}
 	
 })
+$(document).on('keyup','.deInterest-val',function(){
+	var deInterestVal=$(this).val();
+	
+	if(deInterestVal.length > 30) {
+       alert("글자수는 30자로 이내로 제한됩니다.");
+       $(this).val(deInterestVal.substring(0, 30));
+    }
+})
 
+$(document).on('keyup','.category-val',function(){
+	var categoryVal=$(this).val();
+	
+	if(categoryVal.length > 10) {
+       alert("글자수는 10자로 이내로 제한됩니다.");
+       $(this).val(categoryVal.substring(0, 10));
+    }
+})
 //1차 카테고리 버튼 클릭 화면전환 이벤트
 $(document).on('click','.first-interest',function(){
 	var interestNo=$(this).children('.interest-no').val();
@@ -847,12 +873,12 @@ $(document).on('click','.payment-view',function(){
 
 //구매확정 결제현황만 출력
 $(document).on('click','#paymentSort-btn',function(){
-	
+	$('#payment-sort-check').val(4);
 	var $view_Status=$('#payment-view-status');
 	var $click_Li=$(this);
 	var viewStatus=$view_Status.val();
 	var $payment_Tab=$('.payment-view-div');
-	var sortCheck=4;
+	var sortCheck=$('#payment-sort-check').val();
 	$.ajax({
 		url:"selectPaymentListView.do",
 		data:{

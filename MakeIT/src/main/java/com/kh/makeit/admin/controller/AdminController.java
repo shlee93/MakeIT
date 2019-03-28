@@ -176,7 +176,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/admin/memberDetailView.do")
-	public ModelAndView memberDetailView(String memberId) {
+	public ModelAndView memberDetailView(String memberId,int cPage,String searchId) {
 		//회원 정보 상세보기
 		ModelAndView mav=new ModelAndView();
 		Map<Object, Object> member=adminService.selectMemberDetailAdmin(memberId);
@@ -184,6 +184,8 @@ public class AdminController {
 		String[] addressSplit = ((String) member.get("ADDRESS")).split("/");
 		String address = addressSplit[0] + " " + addressSplit[1];
 		member.put("ADDRESS", address);
+		mav.addObject("searchId",searchId);
+		mav.addObject("cPage",cPage);
 		mav.addObject("member", member);
 		mav.setViewName("admin/memberDetailView");
 		return mav;
@@ -192,29 +194,53 @@ public class AdminController {
 	@RequestMapping("/admin/memberUpdateAdmin.do")
 	public ModelAndView memberUpdateAdmin(
 				String memberId, 
-				String phone, 
-				String email,
-				String address, 
 				int reportCount,
+				String searchId,
 				@RequestParam(value="cPage", required=false, defaultValue="1") int cPage
 			
 			) {
 		//회원정보 수정하기
 		ModelAndView mav=new ModelAndView();
 		Map<Object,Object> update=new HashMap();
+
 		update.put("memberId", memberId);
-		update.put("phone", phone);
-		update.put("email", email);
-		update.put("address", address);
 		update.put("reportCount", reportCount);
 		logger.info(update);
 		int result=adminService.updateMemberDetailAdmin(update);
 		logger.info(result);
 		if(result>0) {
 			int numPerPage=5;
-			int memberCount=adminService.selectMemberCountAdmin();
+			int memberCount=adminService.selectSearchMemberCountAdmin(searchId);
 			String pageBar=PageFactory.getPageBarAdmin(memberCount, cPage, numPerPage,"/makeit/admin/adminView.do");
-			List<Map<String,String>> memberList=adminService.selectMemberListAdmin(cPage,numPerPage);
+			List<Map<String,String>> memberList=adminService.selectMemberSearchAdmin(searchId, cPage, numPerPage);
+			mav.addObject("pageBar", pageBar);
+			mav.addObject("result", result);
+			mav.addObject("memberList",memberList);
+			mav.setViewName("admin/adminMemberView");
+		}else {
+			mav.addObject("result", result);
+		}
+		
+		return mav;
+	}
+	
+	@RequestMapping("/admin/memberDeleteAdmin.do")
+	public ModelAndView memberDeleteAdmin(
+				String memberId,
+				String searchId,
+				@RequestParam(value="cPage", required=false, defaultValue="1") int cPage
+			
+			) {
+		//회원 삭제하기
+		ModelAndView mav=new ModelAndView();
+
+		int result=adminService.deleteMemberAdmin(memberId);
+		logger.info(result);
+		if(result>0) {
+			int numPerPage=5;
+			int memberCount=adminService.selectSearchMemberCountAdmin(searchId);
+			String pageBar=PageFactory.getPageBarAdmin(memberCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+			List<Map<String,String>> memberList=adminService.selectMemberSearchAdmin(searchId, cPage, numPerPage);
 			mav.addObject("pageBar", pageBar);
 			mav.addObject("result", result);
 			mav.addObject("memberList",memberList);
@@ -439,22 +465,24 @@ public class AdminController {
 			@RequestParam(value="reportFlag",required=false,defaultValue="true") boolean reportFlag,
 			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage
 			) {
-		int numPerPage=5;
-		int reportCount=adminService.selectReportCountAdmin(reportStatus);
-		String pageBarReport=PageFactory.getPageBarAdmin(reportCount, cPage, numPerPage,"/makeit/admin/adminView.do");
 		ModelAndView mav=new ModelAndView();
 		int result=0;
 		int result2=0;
+		
 		Map<Object,Object> report=new HashMap();
-		if(reportFlag) {
-			
-			result2=adminService.updateReportCount(reportId);
-			
-		}
 		report.put("reportId", reportId);
 		report.put("reportStatus", reportStatus);
 		report.put("contentNo", contentNo);
+		if(reportFlag) {
+			
+			result2=adminService.updateReportCount(report);
+			
+		}
 		result=adminService.updateReportStatus(report);
+		int numPerPage=5;
+		int reportCount=adminService.selectReportCountAdmin(reportStatus);
+		String pageBarReport=PageFactory.getPageBarAdmin(reportCount, cPage, numPerPage,"/makeit/admin/adminView.do");
+		
 		
 		List<Map<Object,Object>> reportList=adminService.selectReportListAdmin(reportStatus,cPage,numPerPage);
 		mav.addObject("pageBarReport", pageBarReport);
