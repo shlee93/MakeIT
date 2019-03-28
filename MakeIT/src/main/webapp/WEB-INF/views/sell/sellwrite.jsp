@@ -110,7 +110,7 @@
              </div>
              <div id="priceProduct" class="col-md-8">
              
-               <input type="number" class="form-control col-md-2" min='0' step='1' pattern="^[0-9]" required id='firstPrice' name="price" style="display: inline" placeholder="금액(원)">
+               <input type="number" class="form-control col-md-2" min='0' step='10000' pattern="^[0-9]" required id='firstPrice' name="price" style="display: inline" placeholder="금액(원)">
                <input type="text" class="form-control col-md-2" required id='endDate' name="endDate" style="display: inline" placeholder="작업기한"> 
                <input type="text" class="form-control  col-md-8" required id="firstOption" name="productOption" style="display: inline" placeholder="상품에 대한 설명을 입력하세요.">
                <br/><br/>
