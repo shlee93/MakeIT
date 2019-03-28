@@ -66,7 +66,7 @@
 							<input type="hidden" id="memberId" value="${sessionScope.member.MEMBERID}">						
 						</div>
 						<div class='col-md-6' style='padding-left: 100px;'>
-							<h4>구매수량 : <input type='number' id="purchaseAccount" min="1" step="1" pattern="^[0-9]" class='form-control' style='width: 30%; float:right; margin-right: 5em;'></h4>
+							<h4>구매수량 : <input type='number' id="purchaseAccount" min="1" step="1" pattern="^[0-9]" required class='form-control' style='width: 30%; float:right; margin-right: 5em;'></h4>
 							<h4 style='margin-top: 1.2em;'>옵션별 금액 : <p style='display:inline; float:right; margin-right: 3.5em;'>${purchase.SELLPRICE}원</p></h4>
 							<h4 style='margin-top: 1.2em;'>총 금액 : <p id="totalPrice" style='display:inline; float:right; margin-right: 3.5em;'></p></h4>
 							<input type="hidden" id="hiddenTotal" value="">

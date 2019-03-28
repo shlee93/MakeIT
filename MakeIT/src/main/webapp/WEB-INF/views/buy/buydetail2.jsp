@@ -141,6 +141,12 @@
 	         $('#donggeulNav').css('top','100px');
 	        }      
 	   })
+	   
+	function fn_scroll()
+	{
+		var scmove = $('#sub-img-div').offset().top;
+		$('html, body').animate( { scrollTop : 950 }, 400 );
+	}
 	     
 </script>
  
@@ -167,7 +173,7 @@
             		<div class='row mainImgContainer' id='mainImgContainer'>  	                	
 	                   <img id="mainImg" class="mainImg" src="${path}/resources/upload/buy/${mainimgList.BUYIMGRE}" style="min-height:600px;max-height:400px;">
 	               	</div>
-                    <div class='row'>              
+                    <div class='row' id='sub-img-div'>              
                       <c:forEach items="${subimgList}" var="subimgList">                          
                         <div class="col-md-3 subImg">
                             <img  class="subImgs" src="${path}/resources/upload/buy/${subimgList.BUYIMGRE}" style="cursor:pointer" >     
@@ -178,8 +184,8 @@
                     <div class='row'>
                         <nav id=tab-list>
                             <div class="nav nav-tabs nav-fill detail" id="nav-tab" role="tablist" style="width:100%; font-size:1.1em;">
-                                <a class="nav-item nav-link active detail" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">상세설명</a>
-                                <a class="nav-item nav-link detail" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">취소 / 환불규정</a>
+                                <a onclick="fn_scroll()" class="nav-item nav-link active detail" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">상세설명</a>
+                                <a onclick="fn_scroll()" class="nav-item nav-link detail" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">취소 / 환불규정</a>
                             </div>
                         </nav>
                         <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent" style="width:100%;">
@@ -316,7 +322,7 @@
 											</c:if>
 											<!-- 여섯번째 법륜 끝 -->
 											<!-- 일곱번째 법륜 (환불요청)-->
-											<c:if test="${sessionScope.member.MEMBERID eq detailList.MEMBERID and specList2.STATUSNO == 3}">
+											<c:if test="${sessionScope.member.MEMBERID eq detailList.MEMBERID and specList2.STATUSNO <= 3}">
 											<span class="itemDot itemDot1" data-tab="7"> 
 												<!-- 작성자면 -->
 												
