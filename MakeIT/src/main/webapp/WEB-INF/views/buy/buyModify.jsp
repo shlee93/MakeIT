@@ -117,6 +117,17 @@ $(function()
 
 
 						</select>
+						<input type='hidden' id='interestHidden' value='${detailList.INTERESTNO}'>
+				        <input type='hidden' id='detailInterestHidden' value='${detailList.DETAILINTERESTNO}'>
+			        
+				        <script>
+				        	$(function()
+			      			{	        		
+				        		$('#interest').val($('#interestHidden').val()).trigger('change');
+				        		$('#detailInterest').val($('#detailInterestHidden').val()).trigger('change');
+			      			})
+				        	
+				        </script>
 					</div>
 					<br>
 				</div>

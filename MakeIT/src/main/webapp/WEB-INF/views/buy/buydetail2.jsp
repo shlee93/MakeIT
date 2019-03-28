@@ -184,6 +184,7 @@
                         </nav>
                         <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent" style="width:100%;">
                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" style='width: 100%'>
+                            	<p style="font-weight:bold; font-size:16pt">희망가격 : ${detailList.BUYPRICE }</p>
                             	<pre style="font-weight:bold; white-space: pre-wrap;">${detailList.BUYCONTENT}</pre>
                               	<%-- <textarea class='contentTextArea' rows="34" readonly='readonly' style="border:0px">${detailList.BUYCONTENT}</textarea> --%>
                             </div>
