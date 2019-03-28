@@ -500,13 +500,11 @@
                 
                 return false;   
             }
-
-    		if(!/^[a-zA-Z0-9]{6,20}$/.test(memberId))
-    		 { 
-    		     alert('아이디는 숫자와 영문자 조합으로 6~20자리를 사용해야 합니다.'); 
-    		     $('#memberId').focus();
-    		     return false;
-    		 }
+            var idReg = /^[a-z]+[a-z0-9]{5,19}$/g;
+            if( !idReg.test($('#memberId').val().trim()) ) {
+                alert("아이디는 영문자로 시작하는 6~20자 영문자 또는 숫자이어야 합니다.");
+                return;
+            }
     		
             if($('#password').val().trim().length==0)
             {

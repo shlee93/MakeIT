@@ -96,7 +96,7 @@
 					<h1>정보수정</h1>
                 </div>
             </div>
-            <form name='updateFrm' id="updateFrm" action="${path }/member/memberUpdateEnd.do" method="POST" onsubmit='return fn_enroll_validate()' enctype="multipart/form-data">
+            <form name='signupform' id="signupform" action="${path }/member/memberUpdateEnd.do" method="POST" onsubmit='return fn_enroll_validate()' enctype="multipart/form-data">
                 <div class="row">
                 	<div class="col-md-1 mb-2"></div>
                 	<div class="col-md-2 mb-2">
