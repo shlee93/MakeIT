@@ -1,29 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" isErrorPage="true"%>
-    
-   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-   <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-   <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-   	
-   <c:set var="path" value="${pageContext.request.contextPath}"/>
-   <%@ page import="java.util.*" %> 
-   
-   
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 	
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
+
 <html>
-	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+<head>
+<meta charset="UTF-8">
+ <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Sunflower:300" rel="stylesheet">
 	<!---- Icon link local ----->
-
+	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 	<!-------    font awesome online plug --------------->
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<head>
-<meta charset="UTF-8">
-<title>에러페이지</title>
+<title>MakeIT-에러</title>
 <style>
 	#logo{
     max-width: 40%;
@@ -113,11 +110,12 @@
 	 
 </style>
 </head>
-<body>	
+
+<body>
 	<div id="error-back" class="col-md-12">
 		<div class="col-md-1"></div>
         <div class="error-container col-md-10">
-        	<p class="triangle-border">시스템에 오류가...죄송해요</p>
+        	<p class="triangle-border">${msg }</p>
             <img id="logo" src="${path }/resources/image/logo3.png"/>
             <h1></h1>
             <button class="btn btn-outline-info slidetopleft back-btn" onclick="back();">뒤로 가기</button>
@@ -130,5 +128,7 @@
     	 window.history.back();
      }
     </script>
+
+
 </body>
 </html>

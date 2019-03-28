@@ -4,14 +4,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
+<hr>
 <div id="search-div">
 	<select id="approval-select">
 		
-		<option class="approval-select-option" value="TITLE" ${approvalOption=='TITLE'?'selected':'' }>작성자</option>
-		<option class="approval-select-option" value="MEMBERID" ${approvalOption=='MEMBERID'?'selected':'' }>제목</option>
+		<option class="approval-select-option" value="TITLE" ${approvalOption=='TITLE'?'selected':'' }>제목</option>
+		<option class="approval-select-option" value="MEMBERID" ${approvalOption=='MEMBERID'?'selected':'' }>작성자</option>
 	</select>
 	<input type="text" id="approval-search-inp" placeholder="검색내용을 입력해주세요" value="${approvalSearch}" />
 </div>
+<hr>
    <table class="table approval-tbl" cellspacing="0">
        <thead>
            <tr>

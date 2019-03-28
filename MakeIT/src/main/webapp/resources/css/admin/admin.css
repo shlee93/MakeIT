@@ -1263,5 +1263,8 @@ translate
 }
 /* 게시글 승인 */
 #approval-search-inp{
-	width:85%;
+	width:87%;
+}
+#delete-search-inp{
+	width:87%;
 }
