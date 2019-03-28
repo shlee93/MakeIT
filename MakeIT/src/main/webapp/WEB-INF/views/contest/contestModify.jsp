@@ -211,7 +211,7 @@
 		       	<br/>
 	       	
 		       	<label>상금</label>
-		     	<input type="number" class="form-control col-md-2" id='contestPrice' name='contestPrice' style="display: inline;" placeholder="상금 총액"  value='${contest.get("CONTESTPRICE")}' required/>
+		     	<input type="number" step='10000' min='0' class="form-control col-md-2" id='contestPrice' name='contestPrice' style="display: inline;" placeholder="상금 총액"  value='${contest.get("CONTESTPRICE")}' required/>
 		       	
 		       	<br/>
 	       	  

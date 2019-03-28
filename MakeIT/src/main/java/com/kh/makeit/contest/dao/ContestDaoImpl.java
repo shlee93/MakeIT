@@ -167,5 +167,13 @@ public class ContestDaoImpl implements ContestDao
 	public List<ContestImg> contestPreModifyImgDao(int contestNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("contest.contestPreModifyImg", contestNo);
-	}	
+	}
+
+	@Override
+	public List<Map<String,String>> detailInterestCategoryDao() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("contest.detailInterestCategory");
+	}
+	
+	
 }

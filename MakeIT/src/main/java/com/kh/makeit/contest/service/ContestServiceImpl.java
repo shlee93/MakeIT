@@ -221,6 +221,12 @@ public class ContestServiceImpl implements ContestService
 	public List<ContestImg> contestPreModifyImgService(int contestNo) {
 		// TODO Auto-generated method stub
 		return cd.contestPreModifyImgDao(contestNo);
-	}	
+	}
+
+	@Override
+	public List<Map<String,String>> detailInterestCategoryService() {
+		// TODO Auto-generated method stub
+		return cd.detailInterestCategoryDao();
+	}		
 	
 }

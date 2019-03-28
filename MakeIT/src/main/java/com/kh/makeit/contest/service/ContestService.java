@@ -30,4 +30,5 @@ public interface ContestService
 	int contestOutBoxInsertService(Map outBoxInsert);
 	int contestOutBoxDeleteService(Map outBoxDelete);
 	int insertReportService(Map reportMap);
+	List<Map<String,String>> detailInterestCategoryService();
 }

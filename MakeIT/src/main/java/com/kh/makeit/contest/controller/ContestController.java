@@ -40,6 +40,7 @@ public class ContestController
 	@RequestMapping("/contest/contestMain.do")
 	public ModelAndView contestMain(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, HttpServletRequest request, String sortTypeFlag)
 	{
+		List<Map<String,String>> detailInterest=cs.detailInterestCategoryService();
 		/*System.out.println("현재P"+cPage);*/
 		int numPerPage=3;
 		ModelAndView mv=new ModelAndView();
@@ -56,6 +57,8 @@ public class ContestController
 			contestList.get(i).put("CONTESTDEADLINE", contestDeadLine);
 		}
 		mv.addObject("contestList", contestList);
+		mv.addObject("detailInterest",detailInterest);
+		System.out.println(detailInterest);
 		mv.setViewName("contest/contestMain");		
 		
 		return mv;
@@ -63,6 +66,7 @@ public class ContestController
 	@RequestMapping("/contest/sort.do")
 	public ModelAndView sortMain(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, HttpServletRequest request, String interestFlag, String detailInterestFlag, String searchTypeFlag, String searchTypeKeyword, String sortTypeFlag)
 	{
+		List<Map<String,String>> detailInterest=cs.detailInterestCategoryService();
 		Map searchFlag=new HashMap();
 		ModelAndView mv=new ModelAndView();
 		int numPerPage=3;
@@ -111,6 +115,7 @@ public class ContestController
 			contestList.get(i).put("CONTESTDEADLINE", contestDeadLine);
 		}
 		mv.addObject("contestList", contestList);
+		mv.addObject("detailInterest", detailInterest);
 		mv.setViewName("contest/contestMain");	
 		
 		return mv;
@@ -454,9 +459,7 @@ public class ContestController
 	
 	@RequestMapping("/contest/contestModifyEnd.do")
 	public String contestModifyEnd(int contestNo, String contestTitle, String contestContent, String contestDate, String contestDeadLine, String contestPrice, String detailInterestNo, String interestNo, String mainImgReInsert, HttpServletRequest request,@RequestParam(value="mainImgNo", required=false, defaultValue="0") int mainImgNo, MultipartFile[] upFile) throws BoardException
-	{
-		
-		
+	{	
 		System.out.println("업파일 머가 있니?"+upFile[0].getOriginalFilename());
 		
 		if(!upFile[0].getOriginalFilename().equals(""))
@@ -546,11 +549,21 @@ public class ContestController
 			/*System.out.println("픽커"+picker);
 			System.out.println("이전이미지"+preMainImg);*/
 			ContestImg modiMain=files.get(picker);
-			files.remove(picker);
-			files.remove(0);
-			files.add(0,modiMain);
-			files.add(preMainImg);
-			cs.contestModifyEndService(contest,files);
+			if(files.size()>1)
+			{
+				files.remove(picker);
+				files.remove(0);
+				
+				files.add(0,modiMain);
+				files.add(preMainImg);
+				cs.contestModifyEndService(contest,files);
+			}
+			else if(files.size()==1)
+			{
+				files.remove(0);
+				files.add(preMainImg);
+				cs.contestModifyEndService(contest,files);
+			}
 		}
 		
 		return "redirect:/contest/contestMain.do";

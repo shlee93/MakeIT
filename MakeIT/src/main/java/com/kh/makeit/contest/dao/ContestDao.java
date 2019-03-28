@@ -32,5 +32,6 @@ public interface ContestDao
 	int contestOutBoxDeleteDao(Map outBoxDelete);
 	int insertReportDao(Map reportMap);
 	List<ContestImg> contestPreModifyImgDao(int contestNo);
+	List<Map<String,String>> detailInterestCategoryDao();
 	
 }

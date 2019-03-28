@@ -182,6 +182,10 @@
 	<!-- 컨테스트 신고 -->
 	<insert id="insertReport" parameterType="map">
 	   insert into CONTESTREPORT values(SEQ_CONTESTREPORTNO.NEXTVAL,#{contestNo},#{reportId},'C',#{reportContent},default,default)
-	</insert>	
+	</insert>
+	
+	<select id='detailInterestCategory' resultType='map'>
+	   select * from detailInterest 
+	</select>	
 	
 </mapper>

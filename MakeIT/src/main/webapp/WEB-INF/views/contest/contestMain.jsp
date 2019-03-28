@@ -261,12 +261,11 @@
 		                                       <i class="fas fa-cogs"></i> &nbsp;개발자 
 		                                    </a>
 				                            <ul class="hide">
-			                                   <li onclick='fn_interest_flag_Search(1)'>웹</li>
-			                                   <li onclick='fn_interest_flag_Search(2)'>모바일</li>
-			                                   <li onclick='fn_interest_flag_Search(3)'>게임</li>
-			                                   <li onclick='fn_interest_flag_Search(4)'>응용프로그램</li>
-			                                   <li onclick='fn_interest_flag_Search(5)'>보안프로그램</li>
-			                                   <li onclick='fn_interest_flag_Search(6)'>DB관리</li>
+				                               <c:forEach items="${detailInterest}" var="detailInterest">
+				                                  <c:if test='${detailInterest.INTERESTNO =="1"}'>
+				                                     <li onclick ='fn_interest_flag_Search(${detailInterest.DETAILINTERESTNO})'>${detailInterest.DETAILINTEREST }</li>
+			                                   	  </c:if>
+			                                   </c:forEach>
 				                            </ul>
 				                        </li>
 				                        <li class="menu">
@@ -274,9 +273,11 @@
 		                                        <i class="fas fa-pen-fancy"></i> &nbsp;웹 디자이너 
 		                                    </a>
 				                            <ul class="hide">
-			                                    <li onclick='fn_interest_flag_Search(7)'>웹 디자인</li>
-			                                    <li onclick='fn_interest_flag_Search(8)'>웹 퍼블리셔</li>
-			                                    <li onclick='fn_interest_flag_Search(9)'>게임 디자인</li>
+				                            	<c:forEach items="${detailInterest}" var="detailInterest">
+				                                   <c:if test='${detailInterest.INTERESTNO =="2"}'>
+				                                     <li onclick ='fn_interest_flag_Search(${detailInterest.DETAILINTERESTNO})'>${detailInterest.DETAILINTEREST }</li>
+			                                   	   </c:if>
+		                                   	    </c:forEach>
 				                            </ul>
 				                        </li>
 				                        <li class="menu">
@@ -284,10 +285,11 @@
 				                                <i class="fas fa-shield-alt"></i> &nbsp;네트워크보안
 				                            </a>
 			                                <ul class="hide">
-			                                    <li onclick='fn_interest_flag_Search(10)'>모의해킹</li>
-			                                    <li onclick='fn_interest_flag_Search(11)'>침해대응</li>
-			                                    <li onclick='fn_interest_flag_Search(12)'>보안관제</li>
-			                                    <li onclick='fn_interest_flag_Search(13)'>컨설턴트</li>			                                    
+			                                	<c:forEach items="${detailInterest}" var="detailInterest">
+				                                    <c:if test='${detailInterest.INTERESTNO =="3"}'>
+				                                        <li onclick ="fn_interest_flag_Search(${detailInterest.DETAILINTERESTNO});">${detailInterest.DETAILINTEREST }</li>
+			                                   	    </c:if>
+		                                   	    </c:forEach>			                                    
 			                                </ul>
 				                        </li>
 		                            </ul>
@@ -517,10 +519,10 @@
 								                        <script>									                      
 									                        
 									                        var nowDate = new Date();
-									                        var endDate = new Date('${contest.CONTESTDEADLINE}');                  
-								                         
+									                        var endDate = new Date('${contest.CONTESTDEADLINE}');  
+									                        var minusDate= nowDate=endDate;									                      
 
-									                        if (endDate-nowDate <= 0) 
+									                        if (endDate-nowDate < 0) 
 									                        {
 									                        	console.log('종료서비스'+'${contest.CONTESTTITLE}');
 									                        	$('#detailSee${contest.CONTESTNO}').attr('disabled',true);
