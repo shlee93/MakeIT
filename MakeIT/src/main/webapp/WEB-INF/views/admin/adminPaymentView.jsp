@@ -20,11 +20,11 @@
 							<ul class="deal-info">
 								<li class="deal-no">
 									<strong>구매자:</strong>
-									${payment.MEMBERID }&nbsp;&nbsp;
+									${payment.BUYID }&nbsp;&nbsp;
 								</li>
 								<li class="dealer">
 									<strong>판매자:</strong> 
-									${payment.BUYID }
+									${payment.MEMBERID }
 								</li>
 								<li class="deal-title">
 									<br><strong>글 제목:</strong> 

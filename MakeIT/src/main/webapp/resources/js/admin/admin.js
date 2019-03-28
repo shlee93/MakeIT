@@ -1095,7 +1095,7 @@ $(document).on('click','#negative-btn',function(){
 	var title=$('#refund-title').val();
 	var specNo=$('#end-spec-no').val();
 	var price=$('#refund-price').val()
-	var $payment_Tab=$('.refund-view-div');
+	var $payment_Tab=$(opener.document).find('.refund-view-div');
 	var cPage=$('#cPage').val();
 	var no=$('#no').val();
 	

@@ -647,11 +647,11 @@
 			                                        <ul class="deal-info">
 			                                            <li class="deal-no">
 			                                            	<strong>구매자:</strong>
-			                                            	${payment.MEMBERID }&nbsp;&nbsp;
+			                                            	${payment.BUYID }&nbsp;&nbsp;
 			                                            </li>
 			                                            <li class="dealer">
 			                                            	<strong>판매자:</strong>
-			                                            	<span>${payment.BUYID }</span>                            	
+			                                            	<span>${payment.MEMBERID }</span>                            	
 			                                            </li>
 			                                            <li class="deal-title">
 															<br><strong>글 제목:</strong> 
@@ -807,15 +807,15 @@
 		                                        <ul class="deal-info">
 		                                            <li class="deal-no">
 			                                          	<strong>구매자:</strong>
-			                                           	${payment.BUYID }
+			                                           	${refund.BUYID }
 			                                        </li>
 			                                        <li class="dealer">
 			                                           	<strong>판매자:</strong>
-			                                           	${payment.MEMBERID }
+			                                           	${refund.MEMBERID }
 			                                        </li>
 			                                        <li class="deal-title">
 														<br><strong>글 제목:</strong> 
-														${payment.BUYTITLE }
+														${refund.BUYTITLE }
 													</li>
 		                                        </ul>
 		                                    </div>
@@ -836,7 +836,7 @@
 		                                           
 		                                            <li class="step-item refund-pop">
 		                                                <a href="#!">환불 승인</a>
-		                                                <input type="hidden" class="spec-no" value="${payment.BUYSPECNO }"/>
+		                                                <input type="hidden" class="spec-no" value="${refund.BUYSPECNO }"/>
 		                                            </li>
 		                                        </ul>
 		                                    </div>
@@ -851,15 +851,15 @@
 		                                        <ul class="deal-info">
 		                                            <li class="deal-no">
 			                                          	<strong>구매자:</strong>
-			                                           	${payment.MEMBERID }
+			                                           	${refund.MEMBERID }
 			                                        </li>
 			                                        <li class="dealer">
 			                                           	<strong>판매자:</strong>
-			                                           	${payment.SELLID }
+			                                           	${refund.SELLID }
 			                                        </li>
 			                                        <li class="deal-title">
 														<br><strong>글 제목:</strong> 
-														${payment.SELLTITLE }
+														${refund.SELLTITLE }
 													</li>
 		                                        </ul>
 		                                    </div>
@@ -879,7 +879,7 @@
 		                                            </li>
 		                                            <li class="step-item refund-pop">
 		                                                <a href="#!">환불 승인</a>
-		                                                <input type="hidden" class="spec-no" value="${payment.SELLSPECNO }"/>
+		                                                <input type="hidden" class="spec-no" value="${refund.SELLSPECNO }"/>
 		                                            </li>
 		                                        </ul>
 		                                    </div>
