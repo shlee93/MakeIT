@@ -122,7 +122,7 @@
 	                        $(document).on('click','.sell-title',function(e){
 	                        	var sellNo=$(this).siblings('input').val();
 	                        	e.preventDefault();  
-	                            var url = "${path}/sell/selldetail?sellNo="+sellNo;  
+	                            var url = "${path}/sell/selldetail?sellno="+sellNo;  
 	                            window.open(url, "_blank");  
 	                        });
 
@@ -313,7 +313,7 @@
 								                                    <tbody>
 								                                    <c:choose>
 								                                    	<c:when test="${not empty deleteList }">
-								                                    		<c:forEach items="${deleteList }" var="approval">
+								                                    		<c:forEach items="${deleteList }" var="delete">
 								                                    			<c:choose>
 								                                    				<c:when test="${delete.CATEGORYCODE eq 'B' }">
 								                                    					<tr>
