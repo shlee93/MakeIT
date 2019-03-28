@@ -263,7 +263,7 @@
 								<p>1. 작업물 수령 후 단순 변심 및 불분명한 사유로 인한 경우 결제 금액은 환불이 불가합니다.</p>
                             </div>
                             <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab"  style='width:100%';text-align="center">
-                                <table id="optionT" border="1px solid black" style='width:100%'  >
+                                <table id="optionT" border="1px solid black" style='width:100%;height:100%;' >
                                		<tr>
                                			<th>옵션</th>
                                 		<th>옵션내용</th>
@@ -728,16 +728,24 @@
 					                                    		 console.log( $("#sellRefundSpec").val());
 					                                    	}
 															function fn_refundPop(){
-																if(${sessionScope.member.MEMBERID!=null}){
-							                                    var sellSpecNo=$('#sellRefundSpec').val();
-							                                    console.log($('#optionRefund').val());
-																	var url="${path}/sell/sellRefund.do";
-																	var name="환불하기";			
-																	window.open("${path}/sell/sellRefund.do?sellWriter=${detailList.get(0).MEMBERID}&&sellSpecNo="+sellSpecNo+"&&refundId=${purchaseList.get(0).MEMBERID}",name,'width=490, height=300, menubar=no, status=no, toolbar=no');
-																}else{
-																	alert('로그인 후 이용해 주세요 ');
-																	location.href="${path}/member/memberLogin.do";
-																};			
+																if($('#sellRefundSpec').val()!='')
+																	{
+																	
+																	
+																		if(${sessionScope.member.MEMBERID!=null}){
+										                                    var sellSpecNo=$('#sellRefundSpec').val();
+										                                    console.log($('#optionRefund').val());
+																				var url="${path}/sell/sellRefund.do";
+																				var name="환불하기";			
+																				window.open("${path}/sell/sellRefund.do?sellWriter=${detailList.get(0).MEMBERID}&&sellSpecNo="+sellSpecNo+"&&refundId=${purchaseList.get(0).MEMBERID}",name,'width=490, height=300, menubar=no, status=no, toolbar=no');
+																			}else{
+																				alert('로그인 후 이용해 주세요 ');
+																				location.href="${path}/member/memberLogin.do";
+																			}
+																			}
+																else{
+																		alert('환불할 옵션을 선택해 주세요');
+																	}
 															}
 														</script>
 					                                    

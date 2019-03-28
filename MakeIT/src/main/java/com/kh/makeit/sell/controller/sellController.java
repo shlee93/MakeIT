@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.makeit.buy.model.service.BuyService;
 import com.kh.makeit.common.PageFactory;
 import com.kh.makeit.sell.model.service.sellService;
 import com.kh.makeit.sell.model.vo.SellAttach;
@@ -34,6 +35,8 @@ public class sellController {
 
 	@Autowired
 	sellService service;
+	@Autowired
+	BuyService buyService;
 
 	@RequestMapping("/sell/sellDetail.do")
 	public String sellDetail() {
@@ -77,6 +80,9 @@ public class sellController {
 		List<Map> gradeList = service.sellMainGrade(map, cPage, numPerPage);
 		List<Map> performanceList = service.sellMainPerformance(map, cPage, numPerPage);
 		List<Map<String, String>> newList = service.sellMainNew(map, cPage, numPerPage);
+		
+		List<Map<String,String>> categoryList = buyService.selectCtgList();
+		
 		System.out.println("안녕하세요" + newList);
 		mv.addObject("gradeList", gradeList);
 
@@ -84,6 +90,7 @@ public class sellController {
 		mv.addObject("valueMap", valueMap);
 		mv.addObject("newList", newList);
 		mv.addObject("sCategoryFlag", sCategoryFlag);
+		mv.addObject("categoryList", categoryList);
 		mv.setViewName("sell/sellmain");
 		return mv;
 	}

@@ -158,7 +158,7 @@ select se.sellno,se.categorycode, se.memberid,mem.introduction,gr.gradename,gr.g
 </select>
 <!-- 옵션가져오기 -->
 <select id="selldetailOption" parameterType="_int" resultType="map">
-   select * from selloption where sellno=#{sellno}
+   select * from selloption where sellno=#{sellno} order by selloptionno
 </select>
 <select id="sellReview" parameterType="_int" resultType="map">
    select * from sellReview where sellno=#{sellno} order by sellreviewno desc
@@ -250,7 +250,7 @@ insert into SELLOPTION values(SEQ_SELLOPTIONCODE.NEXTVAL,#{selloptionNo},#{selln
  	update sellspec set statusno='6' where memberid=#{refundId} and sellspecno=#{sellSpecNo}
 </update>
 <insert id="insertReview" parameterType="map">
-      INSERT INTO SELLREVIEW VALUES(SEQ_REVIEWNO.NEXTVAL, #{reviewContent}, #{starCount}, #{sellno}, #{memberId}, 'S')
+      INSERT INTO SELLREVIEW VALUES(SEQ_SELLREVIEWNO.NEXTVAL, #{reviewContent}, #{starCount}, #{sellno}, #{memberId}, 'S')
    </insert>
    
    <select id="selectReviewCnt" parameterType="_int" resultType="_int">

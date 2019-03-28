@@ -188,4 +188,7 @@
 	<insert id="insertBuyImg" parameterType="map">
 		INSERT INTO BUYIMG VALUES(SEQ_BUYIMGNO.NEXTVAL, #{BUYNO}, 'B', #{BUYIMGORI}, #{BUYIMGRE})
 	</insert>
+	<select id="selectCtgList" resultType="map">
+		SELECT * FROM DETAILINTEREST
+	</select>
 </mapper>

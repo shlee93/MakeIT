@@ -110,6 +110,17 @@
                   
                  
                </select>
+               <input type='hidden' id='interestHidden' value='${modifyMap.INTERESTNO}'>
+				<input type='hidden' id='detailInterestHidden' value='${modifyMap.DETAILINTERESTNO}'>
+				
+				<script>
+					$(function()
+				{	        		
+						$('#interest').val($('#interestHidden').val()).trigger('change');
+						$('#detailInterest').val($('#detailInterestHidden').val()).trigger('change');
+				})
+					
+				</script>
             </div> 
             <br> 
          </div>
@@ -132,7 +143,7 @@
              <div id="priceProduct" class="col-md-8">
              	<c:forEach items="${modifyOption}" var="modifyOption">
              	<div>
-	                <input type="number" class="form-control col-md-2 price" min='0' step='1' pattern="^[0-9]" required name="price" style="display: inline" placeholder="금액(원)" value="${modifyOption.SELLPRICE}">
+	                <input type="number" class="form-control col-md-2 price" min='0' step='10000' pattern="^[0-9]" required name="price" style="display: inline" placeholder="금액(원)" value="${modifyOption.SELLPRICE}">
 	               <input type="text" class="form-control col-md-2" id='endDate' name="endDate" style="display: inline" required value="${modifyOption.SELLDEADLINE}"> 
 	               <input type="text" class="form-control  col-md-8" id="firstOption" name="productOption" required style="display: inline" value="${modifyOption.SELLOPTIONCONTENT }">
 	               <br/><br/>
