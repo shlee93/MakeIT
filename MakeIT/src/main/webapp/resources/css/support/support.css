@@ -4,7 +4,7 @@ textarea{
 	font-size:22px;
 	
 }
-h5,h4,h3,h2,h1,a,span,button,th,td{
+h5,h4,h3,h2,h1,a,span,button,th,td,.col-md-9,.faq-category{
 	font-family: 'Sunflower', sans-serif;
 	font-size:20px;
 }
@@ -97,7 +97,7 @@ textarea{
 }
 
 .faq-category {
-	border: 1px solid gray;
+	
 	border-radius: 5px;
 	color:black;
 	width: 90%;
