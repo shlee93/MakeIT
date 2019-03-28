@@ -10,19 +10,19 @@
 		SELECT COUNT(*) FROM FREE WHERE FREEYN NOT LIKE 'Y'
 	</select>
 	
-	<select id="selectBoardList" resultType="Map">
+	<select id="selectBoardList" resultType="map">
 		SELECT * FROM FREE WHERE FREEYN NOT LIKE 'Y'
 	</select>
 	
-	<select id="selectBoardDetailViewList" resultType="Map">
+	<select id="selectBoardDetailViewList" resultType="map">
 		SELECT *  FROM FREE  WHERE FREENO = #{freeNo}
 	</select>
 	
-	<select id="selectBoardCommentViewList" resultType="Map">
+	<select id="selectBoardCommentViewList" resultType="map">
 		SELECT *  FROM FREECOMMENT  WHERE FREENO = #{freeNo} ORDER BY FREECOMMENTREF,FREECOMMENTNO
 	</select>
 	
-	<select id="selectBoardImgViewList" resultType="Map">
+	<select id="selectBoardImgViewList" resultType="map">
 		SELECT *  FROM FREEIMG  WHERE FREENO = #{freeNo}
 	</select>
 	
@@ -30,17 +30,44 @@
 		UPDATE FREE SET FREEVIEWS = FREEVIEWS+1 WHERE FREENO = #{freeNo}
 	</update>
 	
-	<insert id="insertComment" parameterType="Map">
+	<insert id="insertComment" parameterType="map">
 		INSERT INTO FREECOMMENT VALUES(seq_freecommentno.nextval,#{freeNo},seq_freecommentno.currval,#{memberId},1,#{inputText},SYSDATE,'F')
 	</insert>
 	
-	<insert id="insertreComment" parameterType="Map">
+	<insert id="insertreComment" parameterType="map">
 		INSERT INTO FREECOMMENT VALUES(seq_freecommentno.nextval,#{freeNo},#{commentNo},#{memberId},2,#{inputText},SYSDATE,'F')
 	</insert>
 	
 	<delete id="deleteComment" parameterType="_int">
 		DELETE FROM FREECOMMENT WHERE FREECOMMENTNO = #{commentNo}
 	</delete>
+	
+	<insert id="insertBoard" parameterType="map">
+		INSERT INTO FREE VALUES(SEQ_FREENO.NEXTVAL,'F',1,#{memberId},#{writeTitle},#{writeContent},DEFAULT,DEFAULT,DEFAULT)
+		<selectKey keyProperty="freeNo" resultType="string" order="AFTER">
+			SELECT SEQ_FREENO.CURRVAL FROM DUAL
+		</selectKey>
+	</insert>
+	
+	<insert id="insertBoardImg" parameterType="com.kh.makeit.board.model.vo.BoardAttach">
+
+		INSERT INTO FREEIMG VALUES(seq_freeimgno.nextval,#{freeNo},'F',#{freeImgOri},#{freeImgRe})
+	</insert>
+	
+	<select id="selectMemberSortBoard" parameterType="map"
+		resultType="map">
+		SELECT * FROM FREE WHERE FREEYN NOT LIKE 'Y'
+	</select>
+	
+	<select id="selectMemberCountBoard" resultType="_int">
+		SELECT COUNT(*) FROM FREE WHERE FREEYN NOT LIKE 'Y'
+	</select>
+	
+	<update id="updateBoard" parameterType="map">
+		UPDATE FREE SET FREETITLE = #{writeTitle},
+						FREECONTENT =#{writeContent}
+		WHERE FREENO = #{freeNo}
+	</update>
 	
 	
 </mapper>

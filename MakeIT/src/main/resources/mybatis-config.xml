@@ -9,4 +9,7 @@
 	<typeHandlers>
 		<package name="com.kh.makeit.common"/>
 	</typeHandlers>
+	
 </configuration>
+
+
