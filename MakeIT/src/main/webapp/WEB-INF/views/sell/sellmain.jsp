@@ -69,7 +69,7 @@
 								<li class="menu"><a href="#"> <i class="fas fa-cogs"></i>
 										&nbsp;개발자
 								</a>
-									<ul class="hide">
+									<ul class="hide">									
 										<li onclick="fn_changeCategory('1');">웹</li>
 										<li onclick="fn_changeCategory('2');">모바일</li>
 										<li onclick="fn_changeCategory('3');">게임</li>

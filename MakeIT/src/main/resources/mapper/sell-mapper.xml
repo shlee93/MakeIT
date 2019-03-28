@@ -250,7 +250,7 @@ insert into SELLOPTION values(SEQ_SELLOPTIONCODE.NEXTVAL,#{selloptionNo},#{selln
  	update sellspec set statusno='6' where memberid=#{refundId} and sellspecno=#{sellSpecNo}
 </update>
 <insert id="insertReview" parameterType="map">
-      INSERT INTO SELLREVIEW VALUES(SEQ_REVIEWNO.NEXTVAL, #{reviewContent}, #{starCount}, #{sellno}, #{memberId}, 'S')
+      INSERT INTO SELLREVIEW VALUES(SEQ_SELLREVIEWNO.NEXTVAL, #{reviewContent}, #{starCount}, #{sellno}, #{memberId}, 'S')
    </insert>
    
    <select id="selectReviewCnt" parameterType="_int" resultType="_int">
