@@ -62,7 +62,7 @@
    					order by a.contestNo desc
    				</if>
    				<if test='sortTypeFlag=="endDate"'>
-   					order by a.contestDeadLine asc
+   					order by a.contestDeadLine desc
    				</if>
    				<if test='sortTypeFlag=="price"'>
    					order by a.contestPrice desc   				
