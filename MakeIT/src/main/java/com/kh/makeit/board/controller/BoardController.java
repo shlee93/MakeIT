@@ -171,6 +171,7 @@ public class BoardController {
 	    logger.debug("코멘트 노!!!!!!!!!!!!!!!!!!!!! : "+commentNo);
 	    int deleteComment = boardService.deleteComment(commentNo);
 	    logger.debug(deleteComment);
+	    System.out.println("도냐??????????????");
 	    
 	    Map<Object,Object> allList = new HashMap();
 	    List<Map<String,String>> boardCommentList = boardService.selectBoardCommentView(freeNo);
@@ -212,12 +213,12 @@ public class BoardController {
 	    String memberId = (String)sessionMap.get("MEMBERID");
 	    List<Map<String,String>> boardList = boardService.selectBoardDetailView(Integer.parseInt(freeNo));
 	    List<Map<String,String>> boardImgList = boardService.selectBoardImgView(Integer.parseInt(freeNo)); 
+	    logger.debug("보드 리스트! : "+boardList);
 		logger.debug("보드 리스트 모디 : "+boardImgList);
 	    mav.addObject("memberId", memberId);
 	    mav.addObject("boardList",boardList);
 	    mav.addObject("boardImgList",boardImgList);
-		mav.setViewName("/board/boardModify");
-		
+		mav.setViewName("/board/boardModify");	
 		return mav;
 	}
 	
@@ -303,65 +304,183 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/board/modifyWriteBoardEnd.do")
-	public String modifyWriteBoardEnd(String freeNo,String writeTitle, String writeContent, MultipartFile[] input_file, HttpServletRequest request) {
+	public ModelAndView modifyWriteBoardEnd(String freeNo,String writeTitle, String writeContent, MultipartFile[] input_file, HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
 	    Map sessionMap = (Map) session.getAttribute("member");
 	    String memberId = (String)sessionMap.get("MEMBERID");
+	    ModelAndView mav = new ModelAndView();
 	    
-		System.out.println("인풋파일" + input_file);
-		System.out.println("타이틀" + writeTitle);
-		System.out.println("내용" + writeContent);
-		System.out.println("아이디 값" + memberId);
-		
-		ArrayList<BoardAttach> files=new ArrayList();
+		System.out.println("타이틀    " + writeTitle);
+		System.out.println("내용    " + writeContent);
+		System.out.println("아이디 값    " + memberId);
+		System.out.println("피드 넘버 값   " + freeNo);
 		Map<Object, Object> map = new HashMap();
 		map.put("freeNo", Integer.parseInt(freeNo));
 		map.put("memberId", memberId);
 		map.put("writeTitle", writeTitle);
 		map.put("writeContent", writeContent);
+		System.out.println("되니??~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		System.out.println(Integer.parseInt(freeNo));
+
 		
+		int result = boardService.updateBoardList(map);
+		System.out.println("결과1 : "+result);
+
 		
-		for(MultipartFile a : input_file)
-		{
-			System.out.println("asdf   " + a.getOriginalFilename());
+		for(MultipartFile file1 : input_file) {
+			logger.debug("      새로운 값 받아와서 실행~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			logger.debug(file1.getOriginalFilename());
 		}
 		
-		String savDir = request.getSession().getServletContext().getRealPath("/resources/upload/board");
 		
-		for(MultipartFile f: input_file)
+		String savDir = request.getSession().getServletContext().getRealPath("/resources/upload/board");
+		ArrayList<BoardAttach> files=new ArrayList();
+
+		boolean checkFile = false;
+		for(MultipartFile file: input_file)
 		{
-			if(!f.isEmpty()) {
+			if(!file.isEmpty()) {
+				
+				checkFile = true;
 				//파일명 생성(rename)
-				String freeImgOri=f.getOriginalFilename();
+				String freeImgOri=file.getOriginalFilename();
 				String ext=freeImgOri.substring(freeImgOri.lastIndexOf(".")); //.부터 확장자까지 가져오기
 				//rename규칙 설정
 				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSSS");
 				int rdv=(int)(Math.random()*1000); //랜덤값설정
-				String freeImgRe=sdf.format(System.currentTimeMillis())+"_"+rdv+ext;  //새이름
+				String freeImgRe2=sdf.format(System.currentTimeMillis())+"_"+rdv+ext;  //새이름
 				//파일입출력ㅎ
 				try {
-					f.transferTo(new File(savDir+"/"+freeImgRe)); //저경로에다가 파일을 생성해주는것
+					file.transferTo(new File(savDir+"/"+freeImgRe2)); //저경로에다가 파일을 생성해주는것
 				}catch(IllegalStateException | IOException e) {  //일리갈은 세이브디아이알 못찾을때 뜨는것
 					e.printStackTrace();
 				}
-
 				BoardAttach ba = new BoardAttach();
-				System.out.println(" 경로 !!!!!  "+freeImgRe);
-				System.out.println(" 경로 !!!!!!!!!!!!  "+freeImgOri);	
-				ba.setFreeImgRe(freeImgRe);
-				ba.setFreeImgOri(freeImgOri);
-				files.add(ba);
 
+			    try {
+					System.out.println(" ㅎㅇㅎㅇㅇㅎㅇ2");
+					ba.setFreeNo(Integer.parseInt(freeNo));
+					System.out.println(" ㅎㅇㅎㅇㅇㅎㅇ3");
+					ba.setFreeImgRe(freeImgRe2);
+					System.out.println(" ㅎㅇㅎㅇㅇㅎㅇ4");
+					ba.setFreeImgOri(freeImgOri);
+					System.out.println(" ㅎㅇㅎㅇㅇㅎㅇ5");
+					files.add(ba);
+
+				}catch(Exception e) {
+			    	e.printStackTrace();
+			    }
+
+				System.out.println("eeeeeeeeee : "+ ba);
 				
 			}
 		}
-		int result = boardService.updateBoardList(files, map, Integer.parseInt(freeNo));
-		
-		System.out.println("결과1 : "+result);
 
-		return "redirect:/";
+		if(checkFile == true) {
+			ArrayList<BoardAttach> files2=new ArrayList();
+			List<Map<Object,Object>> selectBoardImg = boardService.selectBoardImg2(Integer.parseInt(freeNo));
+			System.out.println(selectBoardImg);
+			if(selectBoardImg.size() > 0) {
+
+				for(int i=0; i<selectBoardImg.size(); i++) {
+					BoardAttach ba = new BoardAttach();
+					ba.setFreeImgNo(Integer.parseInt(selectBoardImg.get(i).get("FREEIMGNO").toString()));
+					files2.add(ba);
+				}
+/*				//업로드 이미지 삭제
+				var index = $('.writeImg').length;
+				for(var i=0; i<index; i++){
+					console.log($('.writeImg:eq('+i+')').attr('src'));
+					var path =$('.writeImg:eq('+i+')').attr('src');
+				}*/
+		         
+/*		        if( file.exists() ){
+		        if(file.delete()){*/
+
+				int deleteResult = boardService.deleteModifyBoardImg(files2);
+				if(deleteResult > 0) {
+					for(int i=0; i<selectBoardImg.size(); i++) {
+						String deleteDir = request.getSession().getServletContext().getRealPath("/resources/upload/board/");
+				        File file = new File(deleteDir+selectBoardImg.get(i).get("FREEIMGRE").toString());
+				        System.out.println("파일 경로 : "+file);
+				        
+				        if( file.exists() ){
+				        	file.delete();
+				        }
+					}
+
+				}
+
+			}
+
+
+			logger.debug(" 업로드 실행~");
+
+			int insertResult = boardService.insertModifyBoardImg(files);
+		}else {
+			logger.debug(" 업로드 실패 ㅠㅠ~");
+		}
+		
+		
+		
+	    String msg = "";
+	    String loc = "";
+		
+	    if(result > 0)
+	      {
+	         msg="수정을 완료하였습니다.";
+	         loc="/board/boardMain.do";
+	         mav.addObject("msg",msg);
+	         mav.addObject("loc",loc);
+	         mav.setViewName("common/msg");
+	      }
+	      else
+	      {
+	         msg="수정을 실패하였습니다. 다시 시도해 주세요.";
+	         loc="/board/boardMain.do";
+	         mav.addObject("msg",msg);
+	         mav.addObject("loc",loc);
+	         mav.setViewName("common/msg");
+	         
+	      }
+
+		return mav;
 	}
+	
+	@RequestMapping("board/boardDelete.do")
+	public ModelAndView boardDelete(String freeNo) {
+		
+		ModelAndView mav = new ModelAndView();
+		System.out.println("들어옴~~");
+		System.out.println("들어옴~~" + Integer.parseInt(freeNo));
+		int result = boardService.deleteBoardList(Integer.parseInt(freeNo));
+		System.out.println(result);
+	    String msg = "";
+	    String loc = "";
+		
+	    if(result > 0)
+	      {
+	         msg="삭제를 완료하였습니다.";
+	         loc="/board/boardMain.do";
+	         mav.addObject("msg",msg);
+	         mav.addObject("loc",loc);
+	         mav.setViewName("common/msg");
+	      }
+	      else
+	      {
+	         msg="삭제를 실패하였습니다. 다시 시도해 주세요.";
+	         loc="/board/boardMain.do";
+	         mav.addObject("msg",msg);
+	         mav.addObject("loc",loc);
+	         mav.setViewName("common/msg");
+	         
+	      }
+
+		return mav;
+		
+	}
+
 	
 	 //페이징
 	@RequestMapping("/board/memberSortboard.do")

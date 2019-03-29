@@ -13,13 +13,17 @@ public interface BoardDao {
 	List<Map<String,String>> selectBoardDetailView(int freeNo);
 	List<Map<String,String>> selectBoardCommentView(int freeNo);
 	List<Map<String,String>> selectBoardImgView(int freeNo);
+	List<Map<Object,Object>> selectBoardImg2(int freeNo);
 	int updateboardViews(int freeNo);
 	int insertComment(Map<Object, Object> insertValue);
 	int insertreComment(Map<Object, Object> insertValue);
 	int deleteComment(int commentNo);
 	int insertBoard(Map<String, String> map);
 	int insertBoardImg(BoardAttach ba);
-	int updateBoard(Map<Object, Object> map);
+	int updateBoardList(Map<Object, Object> map);
+	int deleteModifyBoard(BoardAttach ba);
+	int insertModifyBoard(BoardAttach ba);
+	int deleteBoardList(int freeNo);
 	
 	//관리자 페이지 회원 수
 	int selectMemberCountBoard();

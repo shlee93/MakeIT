@@ -101,6 +101,7 @@
 				var dataSize = data["sellList"].length;
 				var imgSrc;
 				console.log(dataSize);
+
 				for(var i=0; i<dataSize; i++){
 
 					imgSrc = '${path}/resources/mainSource/image/recently'+ (i+1) +'.jpg';
@@ -123,11 +124,14 @@
 					
 				
 				}
-				
-				
+
 			}
 			,error: function(){
-				console.log('통패~');
+				console.log('토유ㅐ!');
+				var imgSrc;
+				imgSrc = '${path}/resources/image/logo3.png';
+				$('#recentlyViewBody').append("<div class='recentlyViewNoCookie'></div>");
+				$('.recentlyViewNoCookie:last-child()').append("<img src="+imgSrc+" />");
 			}
 		});
 		
