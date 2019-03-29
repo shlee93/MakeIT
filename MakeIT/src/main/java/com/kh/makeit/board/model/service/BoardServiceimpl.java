@@ -47,6 +47,12 @@ public class BoardServiceimpl implements BoardService {
 		// TODO Auto-generated method stub
 		return dao.selectBoardImgView(freeNo);
 	}
+	
+	@Override
+	public List<Map<Object,Object>> selectBoardImg2(int freeNo) {
+		// TODO Auto-generated method stub
+		return dao.selectBoardImg2(freeNo);
+	}
 
 	@Override
 	public int updateboardViews(int freeNo) {
@@ -101,30 +107,57 @@ public class BoardServiceimpl implements BoardService {
 	}
 	
 	@Override
-	public int updateBoardList(ArrayList<BoardAttach> files, Map<Object, Object> map, int freeNo) {
+	public int updateBoardList(Map<Object, Object> map) {
 		
-		int result =0;
-		
-		try {
-			result = dao.updateBoard(map);
-			System.out.println("보드 인서트 : "+result);
+		return dao.updateBoardList(map);
+	}
+	
+	@Override
+	public int deleteModifyBoardImg(ArrayList<BoardAttach> files) {
 
+		int result =0;
+
+		try {
 			for(BoardAttach ba : files) {
-				System.out.println("실행~~~~~~~~~~~~~~~~~~~~");
-				/*ba.setFreeNo(Integer.parseInt(map.get("freeNo")));*/
-/*				result = dao.deleteBoardImg(ba, freeNo);
-				result = dao.insertBoardImg(ba, freeNo);*/
-				if(result > 0) {
-					
+				
+				result = dao.deleteModifyBoard(ba);
+
+				if(result>0) {
+					System.out.println("삭제 완료");
 				}
 			}
+			
+			
 		}catch(Exception e)
 		{
 			e.printStackTrace();
 		}
-			
 		return result;
 	}
+
+	@Override
+	public int insertModifyBoardImg(ArrayList<BoardAttach> files) {
+		
+		int result =0;
+		
+		try {
+			for(BoardAttach ba : files) {
+				
+				result = dao.insertModifyBoard(ba);
+				
+				if(result>0) {
+					System.out.println("입력 완료");
+				}
+			}
+			
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 
 	@Override
 	public List<Map<String, String>> selectMemberSortBoard(Map<String,String> sort, int cPage, int numPerPage) {
@@ -150,6 +183,11 @@ public class BoardServiceimpl implements BoardService {
 		return dao.selectSearchCountBoard(searchId);
 	}
 
+	@Override
+	public int deleteBoardList(int freeNo) {
+		// TODO Auto-generated method stub
+		return dao.deleteBoardList(freeNo);
+	}
 
 
 }
