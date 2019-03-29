@@ -567,7 +567,7 @@
                                 }
                                   
                               
-                           },3000);
+                           },2000);
                          }else{
                             
                              setTimeout(function(){
@@ -676,7 +676,7 @@
                $('#rankingDetailViewGood').html("만족도 :"+averageStar+"/5"); 
                
                if(data["workList"][0] != null){
-                  $('#rankingDetailViewWork').html("작업수: ("+data["workList"][0]["SUM(SELLSPECNO)"]+")");
+                  $('#rankingDetailViewWork').html("작업수: ("+data["workList"][0]["COUNT(SELLSPECNO)"]+")");
                }else{
                   $('#rankingDetailViewWork').html("작업수: (0)");
                }
@@ -755,7 +755,7 @@
                $('#rankingDetailViewGood').html("만족도 :"+averageStar+"/5"); 
                
                if(data["workList"][0] != null){
-                  $('#rankingDetailViewWork').html("작업수: ("+data["workList"][0]["SUM(SELLSPECNO)"]+")");
+                  $('#rankingDetailViewWork').html("작업수: ("+data["workList"][0]["COUNT(SELLSPECNO)"]+")");
                }else{
                   $('#rankingDetailViewWork').html("작업수: (0)");
                }
@@ -776,7 +776,28 @@
            $('#rankingDetailViewBody').css('opacity','1');
         }
     });
-
+    
+    $(document).on('mouseenter','#rankingView1stBody',function(){
+       $('#rankingView1stBody').css('background-color','#138496');
+       $('#rankingViewTitle').css('color','white');
+       $('#rankingView1stPriceTitle').css('color','#138496');
+    });
+    $(document).on('mouseleave','#rankingView1stBody',function(){
+         $('#rankingView1stBody').css('background-color','gainsboro');
+       $('#rankingViewTitle').css('color','black');
+       $('#rankingView1stPriceTitle').css('color','gray');
+    });
+    
+    
+    $(document).on('mouseenter','.rankingViewBox',function(){
+       $(this).children('.rankingViewPriceBox').children('.rankingViewPrice').css('color','#138496');
+       $(this).children('.rankingViewNickBox').children().css('color','#138496');
+    });
+    $(document).on('mouseleave','.rankingViewBox',function(){
+         $(this).children('.rankingViewPriceBox').children('.rankingViewPrice').css('color','black');
+       $(this).children('.rankingViewNickBox').children('.rankingViewNick').css('color','black');
+    });
+    
 
 
     var famousContentRightCallback = true;

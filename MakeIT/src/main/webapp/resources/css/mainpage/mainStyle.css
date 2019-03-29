@@ -669,7 +669,10 @@
         background-color: gainsboro;
         margin-bottom: -5px;
         cursor: pointer;
+        transition:ease-in-out;
+        transition-duration:0.5s;
     }
+
     
     #rankingViewTitle{
         position: relative;
@@ -683,6 +686,8 @@
         font-family: 'Sunflower', sans-serif;
         /* background-color: red; */
         color: black;
+        transition:ease-in-out;
+        transition-duration:0.5s;
     }
     #rankingView1stBox{
         position: absolute;
@@ -725,6 +730,8 @@
         font-weight: bold;
         font-family: 'Sunflower', sans-serif;
         color: gray;
+        transition:ease-in-out;
+        transition-duration: 0.5s;
     }
     #rankingView1stPrice{
         position: relative;
@@ -809,6 +816,8 @@
         font-family: 'Sunflower', sans-serif;
         white-space: nowrap;
         color: black;
+        transition:ease-in-out;
+        transition-duration:0.5s;
     }
     .rankingViewNickBox{
         position: absolute;
@@ -831,6 +840,8 @@
         font-family: 'Sunflower', sans-serif;
         /* font-weight: bold; */
         color: black;
+        transition:ease-in-out;
+        transition-duration:0.5s;
     }
     .rankingId{
         position: absolute;
@@ -918,7 +929,7 @@
         left: 50%;
         top: 50%;
         transform: translate(-50%,-50%);
-        width: max-content;
+        width: 300px;
         height: max-content;
         /* background-color: red; */
     }
@@ -926,6 +937,9 @@
         display: block;
         font-size: 25px;
         color: black;
+      text-align:center;
+        text-overflow:ellipsis;
+        overflow:hidden;
         font-family: 'Sunflower', sans-serif;
         margin-bottom: 3px;
     }
@@ -933,6 +947,9 @@
         display: block;
         font-size: 25px;
         color: black;
+      text-align:center;
+        text-overflow:ellipsis;
+        overflow:hidden;
         font-family: 'Sunflower', sans-serif;
         margin-bottom: 3px;
     }
@@ -940,6 +957,10 @@
         display: block;
         font-size: 25px;
         color: black;
+       text-align:center;
+      white-space:nowrap;
+        text-overflow:ellipsis;
+        overflow:hidden;
         font-family: 'Sunflower', sans-serif;
         margin-bottom: 3px;
     }

@@ -18,63 +18,69 @@ $(document).on('click','#member-update',function(){
 	var $member_table=$(opener.document).find('.member-view');
 	var cPage=$('#cPage').val();
 	var searchId=$('#searchId').val();
-	if(phone==''){
-		alert('전화번호 입력값이 없습니다.');
-		$('#phone').focus();
-		return false;
-	}else if(phone==''){
-		alert('이메일 입력값이 없습니다.');
-		$('#email').focus();
-		return false;
-	}else if(phone==''){
-		alert('주소 입력값이 없습니다.');
-		$('#address').focus();
-		return false;
-	}else if(phone==''){
-		alert('신고 횟수 입력값이 없습니다.');
-		$('#reportCount').focus();
-		return false;
-	}
-	console.log($member_table);
-	$.ajax({
-		url:"memberUpdateAdmin.do",
-		data:{
-			"memberId":memberId,
-			"phone":phone,
-			"email":email,
-			"address":address,
-			"reportCount":reportCount,
-			"cPage":cPage,
-			"searchId":searchId
-		},
-		dataType:"html",
-		success:function(data){
-			$member_table.html(data);
-			self.close();
+	
+	if(confirm("수정하시겠습니까?"))
+	{
+		if(phone==''){
+			alert('전화번호 입력값이 없습니다.');
+			$('#phone').focus();
+			return false;
+		}else if(phone==''){
+			alert('이메일 입력값이 없습니다.');
+			$('#email').focus();
+			return false;
+		}else if(phone==''){
+			alert('주소 입력값이 없습니다.');
+			$('#address').focus();
+			return false;
+		}else if(phone==''){
+			alert('신고 횟수 입력값이 없습니다.');
+			$('#reportCount').focus();
+			return false;
 		}
-	})
+		console.log($member_table);
+		$.ajax({
+			url:"memberUpdateAdmin.do",
+			data:{
+				"memberId":memberId,
+				"phone":phone,
+				"email":email,
+				"address":address,
+				"reportCount":reportCount,
+				"cPage":cPage,
+				"searchId":searchId
+			},
+			dataType:"html",
+			success:function(data){
+				$member_table.html(data);
+				self.close();
+			}
+		})
+	}
 });
 
-//관리자 회원정보 업데이트
+//관리자 회원정보삭제
 $(document).on('click','#member-delete',function(){
 	var memberId=$('.panel-title').text();
 	var cPage=$('#cPage').val();
 	var searchId=$('#searchId').val();
 	var $member_table=$(opener.document).find('.member-view');
-	
-	$.ajax({
-		url:"memberDeleteAdmin.do",
-		data:{
-			"memberId":memberId,
-			"cPage":cPage,
-			"searchId":searchId
-		},
-		dataType:"html",
-		success:function(data){
-			$member_table.html(data);
-			self.close();
-		}
-	})
+	if(confirm("삭제하시겠습니까?"))
+	{
+		$.ajax({
+			url:"memberDeleteAdmin.do",
+			data:{
+				"memberId":memberId,
+				"cPage":cPage,
+				"searchId":searchId
+			},
+			dataType:"html",
+			success:function(data){
+				$member_table.html(data);
+				self.close();
+			}
+		})
+	}
 });
 
 // FAQ 질문 답변 등록

@@ -168,7 +168,7 @@
 	</select>
 	
 	<select id="selectWorkSumList" parameterType="string" resultType="map">
-		SELECT SUM(SELLSPECNO) FROM SELLSPEC S JOIN MEMBER M ON M.MEMBERID=S.MEMBERID WHERE M.MEMBERID=#{memberId}
+		SELECT COUNT(SELLSPECNO) FROM SELLSPEC S JOIN MEMBER M ON M.MEMBERID=S.MEMBERID WHERE M.MEMBERID=#{memberId}
 	</select>
 	
 	<select id="selectStarSumList" parameterType="string" resultType="map">

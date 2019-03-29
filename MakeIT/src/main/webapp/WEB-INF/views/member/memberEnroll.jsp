@@ -236,13 +236,13 @@
                         </c:if>
                     </div>
                     <div class="col-md-1 mb-2">
-                        <input type="text" id='memberEmail' name='memberEmail' class='form-control' value='' placeholder="이메일" required>
+                        <input type="text" id='memberEmail' maxlength="20" name='memberEmail' class='form-control' value='' placeholder="이메일" required>
                     </div>
                     <div class="col-md-1 mb-2 memberNo-center">
                         <span>@</span>
                     </div>
                     <div class="col-md-2 mb-2">
-                    	<input type="text" class="form-control" id="joinEmailDomain" name="joinEmailDomain" placeholder="직접입력" required>
+                    	<input type="text" class="form-control" maxlength="20" id="joinEmailDomain" name="joinEmailDomain" placeholder="직접입력" required>
                     </div>
                     <div class="col-md-2 mb-2">
                         <select class='form-control' id='emailDomain' name='emailDomain'>
