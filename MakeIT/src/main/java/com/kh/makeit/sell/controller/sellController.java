@@ -349,19 +349,24 @@ public class sellController {
 		List<Map<String, String>> subimgList = service.sellsubImg(sellno);
 		
 
-		Cookie[] cookies = request.getCookies();
-		//sellno 쿠키값 삭제
-	    Cookie CookieDelete = new Cookie("sellNoc", null) ;
-	    CookieDelete.setMaxAge(0) ;
-	    response.addCookie(CookieDelete);
+   String sellNoc = Integer.toString(sellno);
+      Cookie[] cookies = request.getCookies();
+      //sellno 쿠키값 삭제
+      for(int i=0; i<cookies.length; i++) {
+         if(cookies[i].getName().equals(sellNoc)) {
+            
+             Cookie CookieDelete = new Cookie(sellNoc, sellNoc);
+             CookieDelete.setMaxAge(0) ;
+             response.addCookie(CookieDelete);
+         }
+      }
+      
+      //sellno 쿠키값 보내기
 
-		
-		//sellno 쿠키값 보내기
-	   	String sellNoc = Integer.toString(sellno);
-		Cookie cookie = new Cookie(sellNoc, sellNoc);
-	 	cookie.setMaxAge(7 * 24 * 60 * 60);
-	 	cookie.setPath("/");
-	 	response.addCookie(cookie);
+      Cookie cookie = new Cookie(sellNoc, sellNoc);
+       cookie.setMaxAge(7 * 24 * 60 * 60);
+       cookie.setPath("/");
+       response.addCookie(cookie);
 
 		int reviewCnt = service.selectReviewCnt(sellno);
 		HttpSession session = request.getSession();

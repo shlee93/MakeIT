@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/board/boardMain.css" />
 
 
+
 <section id="tabs" class="project-tab">
       <div class="container">
           <div class="row">
@@ -69,7 +70,7 @@
                               </div>
                               <div id="boardDetailWriteBox">
                                  <div id="boardDetailWrite"><input id="boardDetailWrite" type="text"></div>
-                                 <div id="boardDetailwriteButton"></div>
+                                 <div id="boardDetailwriteButton"> <p>소통하기</p></div>
                               </div>
                            </div>
                             </div>
@@ -121,7 +122,7 @@
 
 <script>
 
-   //마이페이지에서 넘어올때 값
+   //마이페이지에서 넘어올때 값  여기다!
    var infoFreeNo = "${infoFreeNo}";
    console.log(infoFreeNo);
    if(infoFreeNo != ""){
@@ -230,8 +231,8 @@
             $('#boardDetailNav').css('opacity','1');
             $('#boardDetailBox').css('opacity','1');
             $('#boardDetailCommentBox').css('opacity','1');
-         }, 300);
-      }, 300);   
+         }, 1000);
+      }, 1000);   
       
    });
       
@@ -239,9 +240,17 @@
    }
    
    
-   //게시판 디테일 보기 클릭 이벤트
+   //게시판 디테일 보기 클릭 이벤트 여기다!
+   
+
    $(document).on('click','.boardView',function(){
-      $(window).scrollTop("500");
+      
+<%if(session.getAttribute("member") == null){%>
+   alert("게시판 이용을 위해 로그인을 해주세요!");
+   location.href="${path }/member/memberLogin.do";
+<%}else{%>
+
+      $(window).scrollTop("200");
       $('.boardDetailImg2').remove();
       $('.boardDetailImg').remove();
       $('#boardLogo').remove();
@@ -427,8 +436,8 @@
                            $('#boardDetailNav').css('opacity','1');
                            $('#boardDetailBox').css('opacity','1');
                            $('#boardDetailCommentBox').css('opacity','1');
-                        }, 300);
-                     }, 300);
+                        }, 1000);
+                     }, 1000);
                     
                  },
                  error: function(){
@@ -863,13 +872,23 @@
             $('#boardDetailBox').css('opacity','1');
             $('#boardDetailCommentBox').css('opacity','1');
          }, 300);
-      }, 300);      
+      }, 300);  
+      <%}%>
    });
+
+   
    
    //게시글 작성 이동
    $('#writeBoardBtn').click(function(){
-      location.href="${path}/board/writeBoard.do";
+      
+<%if(session.getAttribute("member") == null){%>
+   alert("게시판 이용을 위해 로그인을 해주세요!");
+   location.href="${path }/member/memberLogin.do";
+<%}else{%>
+   location.href="${path}/board/writeBoard.do";
+<%}%>
    });
+
    
    //게시글 수정 이동
    $("#boardModifyBtn").click(function(){

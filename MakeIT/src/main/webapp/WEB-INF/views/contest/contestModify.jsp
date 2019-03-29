@@ -127,7 +127,7 @@
 				<label>제목</label> 
 	
 				<select class="form-control col-md-2" id='interestNo' name='interestNo' style="display: inline;" required/>
-	        		<option>카테고리</option>
+	        		<option disabled selected>카테고리</option>
 	        		<option value='1'>개발자</option>
 	        		<option value='2'>웹디자이너</option>
 	        		<option value='3'>네트워크보안</option>         

@@ -114,9 +114,9 @@
                   if ( rsp.success ) {
                      var msg = '결제가 완료되었습니다.';
                      msg += '고유ID : ' + rsp.imp_uid;
-                     msg += '<br>상점 거래ID : ' + rsp.merchant_uid;
-                     msg += '<br>결제 금액 : ' + rsp.paid_amount;
-                     msg += '<br>카드 승인번호 : ' + rsp.apply_num;
+                     msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+                     msg += '\n결제 금액 : ' + rsp.paid_amount;
+                     msg += '\n카드 승인번호 : ' + rsp.apply_num;
                      alert(msg);
                      location.href="${path}/buy/volCommit.do?buyNo="+buyNo+"&&memberId="+memberId+"&&price="+price+"&&title="+title;
                     /*  $.ajax({

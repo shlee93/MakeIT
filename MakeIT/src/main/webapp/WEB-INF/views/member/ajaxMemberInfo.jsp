@@ -240,7 +240,7 @@ pageEncoding="UTF-8"%>
                  	<div class="row">
                      	<div class="col-md-12">
                      		<input type="hidden" name="appealId" value="${map.MEMBERID }">
-                          	<textarea rows="10" cols="80" class="form-control" name="appealContent"><c:out value="${map.INTRODUCTION }"></c:out></textarea>
+                          	<textarea rows="10" cols="80" class="form-control" name="appealContent" id="appealContent"><c:out value="${map.INTRODUCTION }"></c:out></textarea>
                      	</div>
                  	</div>
                  	<div class="row">
@@ -254,4 +254,13 @@ pageEncoding="UTF-8"%>
         </div>
     </div>
     <input type="hidden" id="fadeStatus" name="fadeStatus" value="${fadeStatus }">
+<script>
+$('#appealContent').on('keyup', function() {
+	if($(this).val().length > 1333) {
+		alert("글자수는 1333자로 이내로 제한됩니다.");
+		$(this).val($(this).val().substring(0, 1333));
+	}
+
+});
+</script>
 </div>

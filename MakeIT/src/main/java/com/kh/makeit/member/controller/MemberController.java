@@ -1453,7 +1453,7 @@ public class MemberController {
 				int cDate = c.getMaxAge();
 				System.out.println("쿠키 이름~~~ : "+cName+" /쿠기 값 : "+cVal+" /쿠기 날짜 : "+cDate);
 				if(!cName.equals("intro") && !cName.equals("JSESSIONID")) {
-					if(checkSize < 5) {
+					if(checkSize < 15) {
 						list.add(cVal);																																																																																																																													
 						checkSize++;
 						System.out.println("쿠키 값 ~~!!!! : "+cVal);

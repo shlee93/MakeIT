@@ -653,7 +653,7 @@
 			               	  	</th> 	
 			               		<tr>
 			                  		<th id='applicantText'>
-			                  			지원하기(한개의 압축파일로 올려주세요)
+			                  			지원하기(가급적 압축파일로 올려주세요)
 		                  	  		</th>
 				                  	<td>
 				                  		<button type="button" id="applicantSubmit" onclick='fn_applicant_submit()' class="memModal" >지원하기</button>

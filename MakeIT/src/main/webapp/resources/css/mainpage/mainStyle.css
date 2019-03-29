@@ -41,8 +41,8 @@
         border-radius: 100%;
     }
     #logoIcon img{
-    	width: 100%;
-    	height: 100%;
+       width: 100%;
+       height: 100%;
     }
     #serviceWrap{
         position: absolute;
@@ -50,7 +50,7 @@
         top: 120px;
         transform: translateX(-50%);
         cursor: default;
-        /* background-color: blue;  */	
+        /* background-color: blue;  */   
     }
     #tradeService{
         position: relative;
@@ -91,24 +91,24 @@
         font-size: 35px;
         color: white;
         text-decoration: none;
-		font-family: 'Nanum Pen Script', cursive;
-		transition: ease-in-out;
-		transition-duration: 0.7s;
+      font-family: 'Nanum Pen Script', cursive;
+      transition: ease-in-out;
+      transition-duration: 0.7s;
     }
     #login:hover{
-    	color: gold;
+       color: gold;
     }
     #join{
         font-size: 35px;
         color: white;
         white-space: nowrap;
         text-decoration: none;
-		font-family: 'Nanum Pen Script', cursive;
-		transition: ease-in-out;
-		transition-duration: 0.7s;
+      font-family: 'Nanum Pen Script', cursive;
+      transition: ease-in-out;
+      transition-duration: 0.7s;
     }
     #join:hover{
-    	color: gold;
+       color: gold;
     }
 
     #mainWrite{
@@ -127,7 +127,7 @@
         font-size: 45px;
         text-align:center;
         color: white;
-		font-family: 'Nanum Pen Script', cursive;
+      font-family: 'Nanum Pen Script', cursive;
         white-space: nowrap;
     }
     #write2{
@@ -138,7 +138,7 @@
         font-size: 100px;
         font-weight: bold;
         color: gold;
-  		font-family: 'Sunflower', sans-serif;
+        font-family: 'Sunflower', sans-serif;
         white-space: nowrap;
         letter-spacing: -10px;
         cursor: default;
@@ -170,25 +170,25 @@
     }
     #icon1{
         position: relative;
-		display:inline-block;
+      display:inline-block;
         width: 100px;
         height: 100px;
-    	cursor:pointer;
+       cursor:pointer;
     }
     #icon1 img{
-    	position:relative;
-    	width: 100%;
-    	height: 100%;
-    	top:0px;
-		transition:ease-in-out;
+       position:relative;
+       width: 100%;
+       height: 100%;
+       top:0px;
+      transition:ease-in-out;
         transition-duration:0.5s;
     }
     #icon1 p{
-		font-family: 'Nanum Pen Script', cursive;
-		font-size: 30px;
-		color: black;
-		text-align: center;
-		transition:ease-in-out;
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: 30px;
+      color: black;
+      text-align: center;
+      transition:ease-in-out;
         transition-duration:0.5s;
     }
     
@@ -199,21 +199,21 @@
         width: 100px;
         height: 100px;
         margin-left: 40px;
-		cursor:pointer;
+      cursor:pointer;
     }
     #icon2 img{
-    	position:relative;
-    	width: 100%;
-    	height: 100%;
-    	top:0px;
-		transition:ease-in-out;
+       position:relative;
+       width: 100%;
+       height: 100%;
+       top:0px;
+      transition:ease-in-out;
         transition-duration:0.5s;
     }
     #icon2 p{
-		font-family: 'Nanum Pen Script', cursive;
-		font-size: 30px;
-		color: black;
-		text-align: center;
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: 30px;
+      color: black;
+      text-align: center;
         transition:ease-in-out;
         transition-duration:0.5s;
     }
@@ -228,19 +228,19 @@
         cursor:pointer;
     }
     #icon3 img{
-    	position:relative;
-    	width: 100%;
-    	height: 100%;
-    	top:0px;
-		transition:ease-in-out;
+       position:relative;
+       width: 100%;
+       height: 100%;
+       top:0px;
+      transition:ease-in-out;
         transition-duration:0.5s;
     }
     #icon3 p{
-		font-family: 'Nanum Pen Script', cursive;
-		font-size: 30px;
-		color: black;
-		text-align: center;
-		transition:ease-in-out;
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: 30px;
+      color: black;
+      text-align: center;
+      transition:ease-in-out;
         transition-duration:0.5s;
     }
     
@@ -253,19 +253,19 @@
         cursor:pointer;
     }
     #icon4 img{
-    	position:relative;
-    	width: 100px;
-    	height: 100px;
-    	top:0px;
-		transition:ease-in-out;
+       position:relative;
+       width: 100px;
+       height: 100px;
+       top:0px;
+      transition:ease-in-out;
         transition-duration:0.5s;
     }
     #icon4 p{
-		font-family: 'Nanum Pen Script', cursive;
-		font-size: 30px;
-		color: black;
-		text-align: center;
-		transition:ease-in-out;
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: 30px;
+      color: black;
+      text-align: center;
+      transition:ease-in-out;
         transition-duration:0.5s;
     }
     
@@ -278,19 +278,19 @@
         cursor:pointer;
     }
     #icon5 img{
-    	position:relative;
-    	width: 100px;
-    	height: 100px;
-    	top:0px;
-		transition:ease-in-out;
+       position:relative;
+       width: 100px;
+       height: 100px;
+       top:0px;
+      transition:ease-in-out;
         transition-duration:0.5s;
     }
     #icon5 p{
-		font-family: 'Nanum Pen Script', cursive;
-		font-size: 30px;
-		color: black;
-		text-align: center;
-		transition:ease-in-out;
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: 30px;
+      color: black;
+      text-align: center;
+      transition:ease-in-out;
         transition-duration:0.5s;
     }
     #icon6{
@@ -302,19 +302,19 @@
         cursor:pointer;
     }
     #icon6 img{
-    	position:relative;
-    	width: 100px;
-    	height: 100px;
-    	top:0px;
-		transition:ease-in-out;
+       position:relative;
+       width: 100px;
+       height: 100px;
+       top:0px;
+      transition:ease-in-out;
         transition-duration:0.5s;
     }
     #icon6 p{
-		font-family: 'Nanum Pen Script', cursive;
-		font-size: 30px;
-		color: black;
-		text-align: center;
-		transition:ease-in-out;
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: 30px;
+      color: black;
+      text-align: center;
+      transition:ease-in-out;
         transition-duration:0.5s;
     }
     
@@ -374,8 +374,8 @@
         cursor: pointer;
     }
      #famousContentLeft img{
-     	width:100%;
-     	height:auto;
+        width:100%;
+        height:auto;
      }
     #famousContentRight{
         position: absolute;
@@ -390,8 +390,8 @@
         cursor: pointer;
     }
     #famousContentRight img{
-     	width:100%;
-     	height:auto;
+        width:100%;
+        height:auto;
      }
     .famousContent{
         position: relative;
@@ -401,39 +401,39 @@
         left: 0px;
         transition: ease-in-out;
         transition-duration: 0.7s;
-		cursor:pointer;
+      cursor:pointer;
         /* opacity: 0.1; */
     }
     .famousContent img{
-    	position:relative;
-    	width:100%;
-    	height:auto;
-    	background-size:cover;
-    	transition:ease-in-out;
-    	transition-duration:0.7s;
+       position:relative;
+       width:100%;
+       height:auto;
+       background-size:cover;
+       transition:ease-in-out;
+       transition-duration:0.7s;
     }
     .famousContentTitleBox{
-    	position:absolute;
-    	width:100%;
-    	height: 150px;
-    	top:50%;
-    	left:50%;
-    	transform: translate(-50%,-50%);
-    	background-color: rgba(0,0,0,0.7);
+       position:absolute;
+       width:100%;
+       height: 150px;
+       top:50%;
+       left:50%;
+       transform: translate(-50%,-50%);
+       background-color: rgba(0,0,0,0.7);
     }
     .famousContentTitleBox p{
-    	position:relative;
-    	display:inline-block;
-    	left:50%;
-    	top:50%;
-    	transform: translate(-50%,-50%);
-    	font-size:50px;
+       position:relative;
+       display:inline-block;
+       left:50%;
+       top:50%;
+       transform: translate(-50%,-50%);
+       font-size:50px;
         font-family: 'Sunflower', sans-serif;
-    	color:white;
-    	transition:ease-in-out;
-    	transition-duration:0.7s;
-		text-overflow:ellipsis;
-		overflow:hidden;
+       color:white;
+       transition:ease-in-out;
+       transition-duration:0.7s;
+      text-overflow:ellipsis;
+      overflow:hidden;
     }
 
     #recentlyViewWrap{
@@ -481,12 +481,12 @@
         cursor:pointer;
     }
     .recentlyView img{
-    	position: absolute;
-    	width: 100%;
-    	height:auto;
-    	background-size: cover;
-    	transition:ease-in-out;
-    	transition-duration:0.7s;
+       position: absolute;
+       width: 100%;
+       height:auto;
+       background-size: cover;
+       transition:ease-in-out;
+       transition-duration:0.7s;
     }
     .recentlyViewNoCookie{
         position: relative;
@@ -495,7 +495,6 @@
         width:800px;
         height:100%;
         background-color:white;
-        border: 1px solid gray;
         transition:ease-in-out;
         transition-duration: 0.7s;
         cursor:default;
@@ -503,36 +502,46 @@
     
     .recentlyViewNoCookie img{
         position: absolute;
-    	width: 100%;
-    	height:auto;
-    	background-size: cover;
-    	transition:ease-in-out;
-    	transition-duration:0.7s;
+       width: 100%;
+       height:auto;
+       background-size: cover;
+       transition:ease-in-out;
+       transition-duration:0.7s;
+    }
+    #noCookieText{
+        position: absolute;
+        left:50%;
+        top:0%;
+        transform:translate(-50%,-0%);
+        font-family: 'Sunflower', sans-serif;
+        font-size: 30px;
+        font-weight:bold;
+        color:black;
     }
 
     .recentlyTitleBox{
-    	position: absolute;
-    	width:100%;
-    	height:150px;
-    	top: 80%;
-    	transform:translateY(-80%);
-    	background-color: rgba(0,0,0,0.7);
+       position: absolute;
+       width:100%;
+       height:150px;
+       top: 80%;
+       transform:translateY(-80%);
+       background-color: rgba(0,0,0,0.7);
 
     }
     .recentlyTitle{
-    	position:relative;
-    	display:inline-block;
-    	max-width:700px;
-    	left:50%;
-    	top:50%;
-    	transform: translate(-50%,-50%);
-    	font-size:35px;
+       position:relative;
+       display:inline-block;
+       max-width:700px;
+       left:50%;
+       top:50%;
+       transform: translate(-50%,-50%);
+       font-size:35px;
         font-family: 'Sunflower', sans-serif;
-    	color:white;
-    	transition:ease-in-out;
-    	transition-duration:0.7s;
-		text-overflow:ellipsis;
-		overflow:hidden;
+       color:white;
+       transition:ease-in-out;
+       transition-duration:0.7s;
+      text-overflow:ellipsis;
+      overflow:hidden;
     }
 
     #recentlyViewLeft{
@@ -546,8 +555,8 @@
         cursor: pointer;
     }
     #recentlyViewLeft img{
-    	width:100%;
-    	height: auto;
+       width:100%;
+       height: auto;
     }
     #recentlyViewRight{
         position: absolute;
@@ -560,8 +569,8 @@
         cursor: pointer;
     }
     #recentlyViewRight img{
-       	width:100%;
-    	height: auto;
+          width:100%;
+       height: auto;
     }
 
     #similarContentWrap{
@@ -606,7 +615,7 @@
         cursor: pointer;
     }
     .similarContent p{
-    	position: relative;
+       position: relative;
         width: max-content;
         left: 50%;
         top: 50%;
@@ -697,8 +706,8 @@
 
     }
     #rankingView1stLogo img{
-    	width:100%;
-    	height:auto;
+       width:100%;
+       height:auto;
     }
     #rankingView1stPriceBody{
         position: absolute;
@@ -779,8 +788,8 @@
         border-radius: 100%;
     }
     .rankingViewLogo img{
-    	width:100%;
-    	height:auto;
+       width:100%;
+       height:auto;
     }
     .rankingViewPriceBox{
         position: absolute;
@@ -1006,64 +1015,64 @@
         opacity:0.7;
     }
     #reviewModalBody{
-    	position:absolute;
-    	width:600px;
-    	height:660px;
-    	left:50%;
-    	top:50%;
-    	transform: translate(-50%,-50%);
-/*     	border: 1px solid gray; */
-    	overflow:hidden;
+       position:absolute;
+       width:600px;
+       height:660px;
+       left:50%;
+       top:50%;
+       transform: translate(-50%,-50%);
+/*        border: 1px solid gray; */
+       overflow:hidden;
     }
     #reviewModalSort{
-    	position:absolute;
-    	width:100%;
-    	height:max-content;
-		top:0px;
-   /*  	background-color: yellow; */
-    	transition: ease-in-out;
-    	transition-duration: 0.7s;
+       position:absolute;
+       width:100%;
+       height:max-content;
+      top:0px;
+   /*     background-color: yellow; */
+       transition: ease-in-out;
+       transition-duration: 0.7s;
     }
     .reviewModalBox{
-    	position:relative;
-    	width:600px;
-    	height:150px;
-    	margin-bottom:20px;
-    	left:50%;
-    	top:0px;
-    	transform:translateX(-50%);
-    	background-color: gainsboro;
-    	cursor:pointer;
+       position:relative;
+       width:600px;
+       height:150px;
+       margin-bottom:20px;
+       left:50%;
+       top:0px;
+       transform:translateX(-50%);
+       background-color: gainsboro;
+       cursor:pointer;
     }
     .reviewStarBox{
-    	position: absolute;
-    	width:max-content;
-    	height:max-content;
-    	margin-left:5px;
-    	top:50%;
-    	transform: translateY(-50%);
-    	/* background-color: blue; */
+       position: absolute;
+       width:max-content;
+       height:max-content;
+       margin-left:5px;
+       top:50%;
+       transform: translateY(-50%);
+       /* background-color: blue; */
     }
     .reviewStar{
-    	position:relative;
-    	/* display: inline-block; */
-    	width:40px;
-    	height:40px;
-    	margin-left:5px;
+       position:relative;
+       /* display: inline-block; */
+       width:40px;
+       height:40px;
+       margin-left:5px;
     }
     .reviewContent{
-    	position:relative;
-    	font-size:25px;
-    	width: 340px;
-    	height: max-content;
-    	top:50%;
-    	left: 250px;
-    	transform: translateY(-50%);
-    	text-overflow:ellipsis;
-    	overflow:hidden;
-    	white-space:nowrap;
-    	font-family: 'Sunflower', sans-serif;
-    	color: black;
+       position:relative;
+       font-size:25px;
+       width: 340px;
+       height: max-content;
+       top:50%;
+       left: 250px;
+       transform: translateY(-50%);
+       text-overflow:ellipsis;
+       overflow:hidden;
+       white-space:nowrap;
+       font-family: 'Sunflower', sans-serif;
+       color: black;
     }
 /* ============================일러스트================================ */
     #illusWrap1{
@@ -1177,7 +1186,7 @@
         top: 43%;
         transform: translate(-74%,-43%);
         }
-        50%{	
+        50%{   
         left: 74%;
         top: 40.5%;
         transform: translate(-74%,-40.5%);
@@ -1334,7 +1343,7 @@
         }
     }
     #ship{
-        position: absolute;	
+        position: absolute;   
         width: 50px;
         height: auto;
         animation-name: shipAni;
