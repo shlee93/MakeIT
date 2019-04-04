@@ -522,7 +522,7 @@
 									                        
 									                        var nowDate = new Date();
 									                        var endDate = new Date('${contest.CONTESTDEADLINE}');  
-									                        var minusDate= nowDate=endDate;									                      
+									                        var minusDate= nowDate-endDate;									                      
 
 									                        if (endDate-nowDate < 0) 
 									                        {

@@ -1,4 +1,5 @@
-  --시퀀스 드롭
+
+--시퀀스 드롭
   
 DROP SEQUENCE SEQ_GRADENO;
 DROP SEQUENCE SEQ_INTERESTNO;
@@ -28,6 +29,7 @@ DROP SEQUENCE SEQ_CONTESTAPPLICANTNO;
 DROP SEQUENCE SEQ_BUYREPORTNO;
 DROP SEQUENCE SEQ_SELLREPORTNO;
 DROP SEQUENCE SEQ_CONTESTREPORTNO;
+DROP SEQUENCE SEQ_SELLREVIEWNO;
 
 --시퀀스 생성
 CREATE SEQUENCE SEQ_GRADENO;
@@ -58,6 +60,7 @@ CREATE SEQUENCE SEQ_CONTESTAPPLICANTNO;
 CREATE SEQUENCE SEQ_BUYREPORTNO;
 CREATE SEQUENCE SEQ_SELLREPORTNO;
 CREATE SEQUENCE SEQ_CONTESTREPORTNO;
+CREATE SEQUENCE SEQ_SELLREVIEWNO;
 
 --테이블 드롭
 DROP TABLE BUYSPEC;
@@ -126,7 +129,7 @@ DROP TABLE BANK;
         CREATE TABLE DETAILINTEREST (
            DETAILINTERESTNO NUMBER,
            INTERESTNO NUMBER,
-           DETAILINTEREST VARCHAR2(20),
+           DETAILINTEREST VARCHAR2(90),
            CONSTRAINT FK_INTERESTNO FOREIGN KEY(INTERESTNO) REFERENCES INTEREST(INTERESTNO) ON DELETE CASCADE,
            CONSTRAINT PK_DETAILINTEREST PRIMARY KEY(DETAILINTERESTNO,INTERESTNO)
         );
@@ -458,7 +461,7 @@ DROP TABLE BANK;
                 FREECATEGORY VARCHAR2(50) NOT NULL
             );
             
-            --자유게시판
+              --자유게시판
             CREATE TABLE FREE(
                 FREENO NUMBER,
                 CATEGORYCODE VARCHAR2(10),
@@ -468,6 +471,7 @@ DROP TABLE BANK;
                 FREECONTENT VARCHAR2(3999) NOT NULL,
                 FREEDATE DATE DEFAULT SYSDATE,
                 FREEYN CHAR(1) DEFAULT 'N' CHECK(FREEYN IN('Y','N')),
+                FREEVIEWS NUMBER DEFAULT 0,
                 CONSTRAINT FK_FREE_CATEGORYCODE FOREIGN KEY(CATEGORYCODE)
                 REFERENCES CATEGORY(CATEGORYCODE) ON DELETE CASCADE,
                 CONSTRAINT FK_FREE_FREECATEGORYNO FOREIGN KEY(FREECATEGORYNO)
@@ -3024,7 +3028,8 @@ insert into buyimg values(seq_buyimgno.nextval,29,'B','buy29-5.PNG','buy29-5.PNG
 
 
 --콘테스트 인서트
-insert into CONTEST values(seq_contestNo.nextval,'C', '2018년 불법 스포츠 도박 근절 해커톤 대회 (일정변경)','개요
+
+ insert into CONTEST values(seq_contestNo.nextval,'C', '2018년 불법 스포츠 도박 근절 해커톤 대회 (일정변경)','개요
 2018년 ‘88년 서울 올림픽 30주년’을 기념하여 개최되는 본 행사는 갈수록 심각해지고 있는
 불법 스포츠도박의 실태와 도박중독으로 인한 사회 문제의 심각성을 공유하고
 집단지성을 통해 불법 스포츠 도박을 근절할 수 있는 근본적이고 다양한 방안을 마련하기 위한 행사입니다. 
@@ -3087,8 +3092,8 @@ insert into CONTEST values(seq_contestNo.nextval,'C', '2018년 불법 스포츠 도박 �
 - Tel : 02-516-6773 
 - E-mail : plan@aiobest.com', '2017-09-13', '2017-10-12', '120000000','Y', default, '10', '3', 'test18');
   
-  insert into CONTESTIMG values(SEQ_CONTESTIMGNO.nextval,2,'C','사물인터넷해커톤.png','사물인터넷해커톤.png');
-  
+  insert into CONTESTIMG values(SEQ_CONTESTIMGNO.nextval,2,'C','사물인터넷해커톤.png','사물인터넷해커톤.png'); 
+
    insert into CONTEST values(seq_contestNo.nextval,'C','사이버안전 콘텐츠 공모전', '주제
 [사이버안전]
   -사이버도박 예방
@@ -3154,7 +3159,7 @@ insert into CONTEST values(seq_contestNo.nextval,'C', '2018년 불법 스포츠 도박 �
   : 한국산업기술관리평가원 원장상 / 1 / 20만원 상당의 부상
 [전 부문]
 - 인기상 : 임베디드SW · System산업협회 회장상 / 2 / 10만원 상당의 부상
-공모전 대외활동 사이트 : 위비티 https://www.wevity.com', '2018-04-30', '2019-09-19', '130000000','Y', default, '2', '1', 'test15');
+공모전 대외활동 사이트 : 위비티 https://www.wevity.com', '2019-04-30', '2019-09-19', '130000000','Y', default, '2', '1', 'test15');
 
   insert into CONTESTIMG values(SEQ_CONTESTIMGNO.nextval,4,'C','임베디드2.jpg','임베디드2.jpg'); 
   insert into CONTESTIMG values(SEQ_CONTESTIMGNO.nextval,4,'C','임베디드소프트웨어.jpg','임베디드소프트웨어.jpg');   
@@ -3214,7 +3219,7 @@ insert into CONTEST values(seq_contestNo.nextval,'C', 'iPhone 앱 아이디어','● K
 - 중고등학생 부문
 - 대학생 및 일반인 부문
 
-', '2019-04-20', '2019-05-20', '350000000','Y', default, '2', '1', 'test18');
+', '2019-04-22', '2019-06-20', '350000000','Y', default, '2', '1', 'test18');
   
   insert into CONTESTIMG values(SEQ_CONTESTIMGNO.nextval,8,'C','아이폰앱개발.jpg','아이폰앱개발.jpg');  
   
@@ -3301,7 +3306,7 @@ insert into CONTEST values(seq_contestNo.nextval,'C','2019 차세대 의료기기 창업�
 문의처
 - 전화 : 033-760-6136
 - 홈페이지 : http://creative.wmit.or.kr/
-', '2019-03-20', '2019-05-20', '20000000','Y', default, '1', '1', 'test17');
+', '2019-08-13', '2019-10-20', '20000000','Y', default, '1', '1', 'test17');
   
   insert into CONTESTIMG values(SEQ_CONTESTIMGNO.nextval,10,'C','차세대의료기기.jpg','차세대의료기기.jpg');   
 
@@ -3329,9 +3334,9 @@ kbidcinfo@gmail.com
 기타사항
 자세한 사항은 아래 링크 참고 하세요.
 온오프믹스 https://www.onoffmix.com/event/167804
-', '2019-03-20', '2019-05-20', '40000000','Y', default, '10', '3', 'test18');
+', '2019-02-27', '2019-04-30', '40000000','Y', default, '10', '3', 'test18');
   
-  insert into CONTESTIMG values(SEQ_CONTESTIMGNO.nextval,11,'C','블록체인 해커톤.jpg','블록체인 해커톤.jpg');     
+  insert into CONTESTIMG values(SEQ_CONTESTIMGNO.nextval,11,'C','블록체인 해커톤.jpg','블록체인 해커톤.jpg');  
   
   insert into CONTEST values(seq_contestNo.nextval,'C', '국내 최대 규모 블록체인 해커톤 ‘2018 Hdac Hackathon’','주제
 - 블록체인 기반 보안 강화 모듈 개발
@@ -3407,13 +3412,197 @@ kbidcinfo@gmail.com
     INSERT INTO FAQCATEGORY VALUES(SEQ_FAQNACATEGORYNO.NEXTVAL,'신고관련');
     
     INSERT INTO FAQ VALUES(SEQ_FAQNO.NEXTVAL,'페이지 이용제한 기준이 있나요?','관리자가 5회 신고 승인시 24시간 이후 페이지 이용제한을 받습니다. 
-    부득이한 사정시 관리자에게 메일로 신고에 대한 항의를 할 경우 적합하다고 판단이 될 시에는 신고카운트를 내려드리고 다시 페이지 이용을 하실 수 있습니다. ',3); 
+    부득이한 사정시 관리자에게 메일로 신고에 대한 항의를 할 경우 적합하다고 판단이 될 시에는 신고카운트를 내려드리고 다시 페이지 이용을 하실 수 있습니다. ',4); 
     INSERT INTO FAQ VALUES(SEQ_FAQNO.NEXTVAL,'어떤 사람을 신고해야 하나요?','신고의 대한 기준은 거래 중 부적합한 상대방의 행동이나 요청이 있을 경우 신고를 하시면 됩니다.
-    ex) 페이지 외부 거래 요청, 거래시 구매확정이 늦어짐 등',3);
+    ex) 페이지 외부 거래 요청, 거래시 구매확정이 늦어짐 등',4);
     INSERT INTO FAQ VALUES(SEQ_FAQNO.NEXTVAL,'구매한 서비스의 결과물이 설명한 것과 차이가 납니다.','구매한 서비스의 결과물이 처음 설명과 차이가 난다고 느끼실 경우 컴플레인 게시판을 이용해주시면 됩니다. 
-    컴플레인 게시판은 "자유게시판" 내부에 위치해 있습니다.',3);
+    컴플레인 게시판은 "자유게시판" 내부에 위치해 있습니다.',4);
     
     insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test2',1,'옵션1',1,1,'S',SYSDATE,'2',DEFAULT);
     INSERT INTO BUYCANDIDATE VALUES('test2',3,'B','테스트 마이크 아아','누구보다 빠르게 난  남들과는 다르게 색다르게 비트를 타는 비트위의 나그네',SYSDATE);
     INSERT INTO BUYSPEC VALUES(SEQ_BUYSPECNO.NEXTVAL,'test2',3,'B',sYSDATE,'3',default);--test3이 환불을 해야함
+    
+
+--내가 지원한 것
+    INSERT INTO BUYCANDIDATE VALUES('test33',5,'B','테스트 마이크 아아','누구보다 빠르게 난  남들과는 다르게 색다르게 비트를 타는 비트위의 나그네',SYSDATE);
+    INSERT INTO BUYSPEC VALUES(SEQ_BUYSPECNO.NEXTVAL,'test33',5,'B',sYSDATE,'3',default);--test3이 환불을 해야함
+    INSERT INTO BUYCANDIDATE VALUES('test33',6,'B','테스트 마이크 아아','누구보다 빠르게 난  남들과는 다르게 색다르게 비트를 타는 비트위의 나그네',SYSDATE);
+    INSERT INTO BUYSPEC VALUES(SEQ_BUYSPECNO.NEXTVAL,'test33',6,'B',sYSDATE,'3',default);--test3이 환불을 해야함
+    INSERT INTO BUYCANDIDATE VALUES('test33',7,'B','테스트 마이크 아아','누구보다 빠르게 난  남들과는 다르게 색다르게 비트를 타는 비트위의 나그네',SYSDATE);
+    INSERT INTO BUYSPEC VALUES(SEQ_BUYSPECNO.NEXTVAL,'test33',7,'B',sYSDATE,'3',default);--test3이 환불을 해야함
+    INSERT INTO BUYCANDIDATE VALUES('test33',8,'B','테스트 마이크 아아','누구보다 빠르게 난  남들과는 다르게 색다르게 비트를 타는 비트위의 나그네',SYSDATE);
+    INSERT INTO BUYSPEC VALUES(SEQ_BUYSPECNO.NEXTVAL,'test33',8,'B',sYSDATE,'3',default);--test3이 환불을 해야함
+    INSERT INTO BUYCANDIDATE VALUES('test33',9,'B','테스트 마이크 아아','누구보다 빠르게 난  남들과는 다르게 색다르게 비트를 타는 비트위의 나그네',SYSDATE);
+    INSERT INTO BUYSPEC VALUES(SEQ_BUYSPECNO.NEXTVAL,'test33',9,'B',sYSDATE,'3',default);--test3이 환불을 해야함
+    INSERT INTO BUYCANDIDATE VALUES('test33',10,'B','테스트 마이크 아아','누구보다 빠르게 난  남들과는 다르게 색다르게 비트를 타는 비트위의 나그네',SYSDATE);
+    INSERT INTO BUYSPEC VALUES(SEQ_BUYSPECNO.NEXTVAL,'test33',10,'B',sYSDATE,'3',default);--test3이 환불을 해야함
+    --sellspec
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test2',1,'옵션1',1,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test3',4,'옵션2',2,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test4',9,'옵션1',5,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test5',11,'옵션1',6,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test5',33,'옵션1',17,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test5',35,'옵션1',18,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test7',41,'옵션2',21,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test12',42,'옵션1',22,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test13',44,'옵션1',23,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test21',53,'옵션2',27,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test22',55,'옵션2',28,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test27',56,'옵션1',29,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test31',1,'옵션1',1,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test30',1,'옵션1',1,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test2',3,'옵션1',2,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test4',23,'옵션1',12,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test5',25,'옵션1',13,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test7',5,'옵션1',3,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test8',7,'옵션1',4,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test9',9,'옵션1',5,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test10',11,'옵션1',6,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test12',13,'옵션1',7,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test11',15,'옵션1',8,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test13',17,'옵션1',9,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test17',19,'옵션1',10,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test2',21,'옵션1',11,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test28',1,'옵션1',1,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test5',1,'옵션1',1,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test5',40,'옵션1',21,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test6',1,'옵션1',1,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test7',34,'옵션2',17,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test8',35,'옵션1',18,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test9',37,'옵션2',19,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test10',39,'옵션2',20,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test11',1,'옵션1',1,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test12',6,'옵션2',3,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test2',7,'옵션1',4,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test25',1,'옵션1',1,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test12',1,'옵션1',1,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test21',1,'옵션1',1,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test32',15,'옵션1',8,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test21',13,'옵션1',7,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test23',9,'옵션1',5,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test7',1,'옵션1',1,1,'S',SYSDATE,'5',DEFAULT);
+    insert into sellspec values(SEQ_SELLSPECNO.NEXTVAL,'test28',1,'옵션1',1,1,'S',SYSDATE,'5',DEFAULT);
+    
+    --contest
+    INSERT INTO CONTESTAPPLICANT VALUES(SEQ_CONTESTAPPLICANTNO.NEXTVAL,1,'C','test33',DEFAULT,null,null);
+    INSERT INTO CONTESTAPPLICANT VALUES(SEQ_CONTESTAPPLICANTNO.NEXTVAL,2,'C','test33',DEFAULT,null,null);
+    INSERT INTO CONTESTAPPLICANT VALUES(SEQ_CONTESTAPPLICANTNO.NEXTVAL,3,'C','test33',DEFAULT,null,null);
+    INSERT INTO CONTESTAPPLICANT VALUES(SEQ_CONTESTAPPLICANTNO.NEXTVAL,4,'C','test33',DEFAULT,null,null);
+    INSERT INTO CONTESTAPPLICANT VALUES(SEQ_CONTESTAPPLICANTNO.NEXTVAL,5,'C','test33',DEFAULT,null,null);
+    INSERT INTO CONTESTAPPLICANT VALUES(SEQ_CONTESTAPPLICANTNO.NEXTVAL,6,'C','test33',DEFAULT,null,null);
+    INSERT INTO CONTESTAPPLICANT VALUES(SEQ_CONTESTAPPLICANTNO.NEXTVAL,7,'C','test33',DEFAULT,null,null);
+    INSERT INTO CONTESTAPPLICANT VALUES(SEQ_CONTESTAPPLICANTNO.NEXTVAL,8,'C','test33',DEFAULT,null,null);
+    INSERT INTO CONTESTAPPLICANT VALUES(SEQ_CONTESTAPPLICANTNO.NEXTVAL,9,'C','test33',DEFAULT,null,null);
+    INSERT INTO CONTESTAPPLICANT VALUES(SEQ_CONTESTAPPLICANTNO.NEXTVAL,10,'C','test33',DEFAULT,null,null);
+    INSERT INTO CONTESTAPPLICANT VALUES(SEQ_CONTESTAPPLICANTNO.NEXTVAL,11,'C','test33',DEFAULT,null,null);
+
+--자유게시판 인서트
+insert into FREECATEGORY values(seq_freecategoryno.nextval,'자유게시판');
+insert into FREE values(seq_freeno.nextval,'F',1,'test2','안녕하세요 재밌는거 알려드릴게요~~','안녕하세거 asd알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test','안녕하세요 재밌는거 알려릴게요~~','안녕하세요 재밌는알요~~안녕하세요 재밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test12','안녕하세요 재밌 알려드릴게요~~','안녕하세요 재밌는 알려드릴게d요sdas~~안녕 재밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test23','안녕하세요 재밌는거 알려드릴게요~~','안녕하세요 재asd밌는거 알릴게요~~안녕밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test22','안녕하세요 재밌asdas거 알릴게요~~','안녕하세das요asd 재밌거 알려드릴게요~~안녕asda하세요 재밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test21','안녕하드릴게요~~','안녕하세요 재밌는거 알려드릴dasd게asas as알려드릴게요~~안녕하세요 재밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test24','안재밌는거 알려드릴게요~~','안녕하세요 재밌는거 알려드릴게요~~안녕하세요 재밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test23','안녕하세요 재밌는거 알려드릴','게요~~das안녕하dasd세요 재asd거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test22','안녕하세요 asd재드릴게요~~','안녕하세요 재밌는거 알asda려드릴게요~~안녕하세요 재밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test12','안녕하 알려das게asd요~~','안녕하세a요 재밌는거 알려드릴게요~~안녕하세요 재밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test2','안녕하세요 재밌는거 알드릴게요~~','안녕하세요 재asd려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test22','안녕하세요 재밌는거 알요~~','안녕하세요 재밌 알려드릴게요~~안녕하세요 재밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test8','안녕하세요 밌는거 알려드릴게요~~','안녕하세asd요 das 알려드릴게요~~안녕밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test2','안녕하세요 재밌는거 알려드릴게요~~','안녕하세거 asd알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test','안녕하세요 재밌는거 알려릴게요~~','안녕하세요 재밌는알요~~안녕하세요 재밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test12','안녕하세요 재밌 알려드릴게요~~','안녕하세요 재밌는 알려드릴게d요sdas~~안녕 재밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test23','안녕하세요 재밌는거 알려드릴게요~~','안녕하세요 재asd밌는거 알릴게요~~안녕밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test22','안녕하세요 재밌asdas거 알릴게요~~','안녕하세das요asd 재밌거 알려드릴게요~~안녕asda하세요 재밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test21','안녕하드릴게요~~','안녕하세요 재밌는거 알려드릴dasd게asas as알려드릴게요~~안녕하세요 재밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test24','안재밌는거 알려드릴게요~~','안녕하세요 재밌는거 알려드릴게요~~안녕하세요 재밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test23','안녕하세요 재밌는거 알려드릴','게요~~das안녕하dasd세요 재asd거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test22','안녕하세요 asd재드릴게요~~','안녕하세요 재밌는거 알asda려드릴게요~~안녕하세요 재밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test12','안녕하 알려das게asd요~~','안녕하세a요 재밌는거 알려드릴게요~~안녕하세요 재밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test2','안녕하세요 재밌는거 알드릴게요~~','안녕하세요 재asd려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test22','안녕하세요 재밌는거 알요~~','안녕하세요 재밌 알려드릴게요~~안녕하세요 재밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test8','안녕하세요 밌는거 알려드릴게요~~','안녕하세asd요 das 알려드릴게요~~안녕밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test2','안녕하세요 재밌는거 알려드릴게요~~','안녕하세거 asd알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test','안녕하세요 재밌는거 알려릴게요~~','안녕하세요 재밌는알요~~안녕하세요 재밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test12','안녕하세요 재밌 알려드릴게요~~','안녕하세요 재밌는 알려드릴게d요sdas~~안녕 재밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test23','안녕하세요 재밌는거 알려드릴게요~~','안녕하세요 재asd밌는거 알릴게요~~안녕밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test22','안녕하세요 재밌asdas거 알릴게요~~','안녕하세das요asd 재밌거 알려드릴게요~~안녕asda하세요 재밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test21','안녕하드릴게요~~','안녕하세요 재밌는거 알려드릴dasd게asas as알려드릴게요~~안녕하세요 재밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test24','안재밌는거 알려드릴게요~~','안녕하세요 재밌는거 알려드릴게요~~안녕하세요 재밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test23','안녕하세요 재밌는거 알려드릴','게요~~das안녕하dasd세요 재asd거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test22','안녕하세요 asd재드릴게요~~','안녕하세요 재밌는거 알asda려드릴게요~~안녕하세요 재밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test12','안녕하 알려das게asd요~~','안녕하세a요 재밌는거 알려드릴게요~~안녕하세요 재밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test2','안녕하세요 재밌는거 알드릴게요~~','안녕하세요 재asd려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test22','안녕하세요 재밌는거 알요~~','안녕하세요 재밌 알려드릴게요~~안녕하세요 재밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+insert into FREE values(seq_freeno.nextval,'F',1,'test8','안녕하세요 밌는거 알려드릴게요~~','안녕하세asd요 das 알려드릴게요~~안녕밌는거 알려드릴게요~~',DEFAULT,DEFAULT,DEFAULT);
+
+--자유게시판 댓글 인서트
+insert into FREECOMMENT values(seq_freecommentno.nextval,1,seq_freecommentno.currval ,'test2',1,'안녕하세요~~',SYSDATE,'F');
+insert into FREECOMMENT values(seq_freecommentno.nextval,1,1 ,'test3',2,'안녕하세요~~',SYSDATE,'F');
+insert into FREECOMMENT values(seq_freecommentno.nextval,1,1 ,'test4',2,'안녕하세요~~',SYSDATE,'F');
+insert into FREECOMMENT values(seq_freecommentno.nextval,1,seq_freecommentno.currval ,'test5',1,'안녕하세요~~',SYSDATE,'F');
+
+insert into FREECOMMENT values(seq_freecommentno.nextval,2,seq_freecommentno.currval,'test6',1,'안녕하세요~~',SYSDATE,'F');
+insert into FREECOMMENT values(seq_freecommentno.nextval,2,2 ,'test7',2,'안녕하세요~~',SYSDATE,'F');
+insert into FREECOMMENT values(seq_freecommentno.nextval,2,2 ,'test8',2,'안녕하세요~~',SYSDATE,'F');
+insert into FREECOMMENT values(seq_freecommentno.nextval,2,seq_freecommentno.currval,'test9',1,'안녕하세요~~',SYSDATE,'F');
+
+--자유게시판 이미지 인서트
+insert into FREEIMG values(seq_freeimgno.nextval,1,'F','20190313_1335430987_743.jpg','20190313_1335430987_743.jpg');
+insert into FREEIMG values(seq_freeimgno.nextval,2,'F','20190313_1335430989_309.jpg','20190313_1335430989_309.jpg');
+insert into FREEIMG values(seq_freeimgno.nextval,3,'F','20190313_1335430992_873.jpg','20190313_1335430992_873.jpg');
+insert into FREEIMG values(seq_freeimgno.nextval,6,'F','20190313_1335430994_532.jpg','20190313_1335430994_532.jpg');
+insert into FREEIMG values(seq_freeimgno.nextval,7,'F','20190313_1335430992_873.jpg','20190313_1335430992_873.jpg');
+insert into FREEIMG values(seq_freeimgno.nextval,10,'F','20190313_1335430989_309.jpg','20190313_1335430989_309.jpg');
+insert into FREEIMG values(seq_freeimgno.nextval,11,'F','20190313_1335430987_743.jpg','20190313_1335430987_743.jpg');
+insert into FREEIMG values(seq_freeimgno.nextval,12,'F','20190313_1335430989_309.jpg','20190313_1335430989_309.jpg');
+insert into FREEIMG values(seq_freeimgno.nextval,13,'F','20190313_1335430994_532.jpg','20190313_1335430994_532.jpg');
+insert into FREEIMG values(seq_freeimgno.nextval,14,'F','20190313_1335430987_743.jpg','20190313_1335430987_743.jpg');
+insert into FREEIMG values(seq_freeimgno.nextval,15,'F','20190313_1335430989_309.jpg','20190313_1335430989_309.jpg');
+insert into FREEIMG values(seq_freeimgno.nextval,16,'F','20190313_1335430992_873.jpg','20190313_1335430992_873.jpg');
+insert into FREEIMG values(seq_freeimgno.nextval,17,'F','20190313_1335430987_743.jpg','20190313_1335430987_743.jpg');
+insert into FREEIMG values(seq_freeimgno.nextval,18,'F','20190313_1335430987_743.jpg','20190313_1335430987_743.jpg');
+insert into FREEIMG values(seq_freeimgno.nextval,19,'F','20190313_1335430992_873.jpg','20190313_1335430992_873.jpg');
+insert into FREEIMG values(seq_freeimgno.nextval,20,'F','20190313_1335430989_309.jpg','20190313_1335430989_309.jpg');
+
+----------------------------------------리뷰 인서트
+
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'훌륭합니다!!!',1,1,'test2','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'따봉!!!',3,1,'test3','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'훌륭!!합니다!!!',4,1,'test4','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'좋아요',5,2,'test5','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'훌륭합니다!!!',5,2,'test6','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'좋아요!!!',5,2,'test7','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'훌륭합니다!!!',5,2,'test8','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'훌륭합좋아요니다!!!',4,3,'test9','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'훌륭합니다!!!',3,3,'test10','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'따봉!!!',4,3,'test11','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'따봉!!!',5,3,'test12','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'따봉!!!',5,4,'test13','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'훌륭합니다!!!',1,1,'test2','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'따봉!!!',3,1,'test3','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'훌륭!!합니다!!!',4,1,'test4','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'좋아요',5,2,'test5','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'훌륭합니다!!!',5,2,'test6','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'좋아요!!!',5,2,'test7','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'훌륭합니다!!!',5,2,'test8','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'훌륭합좋아요니다!!!',4,3,'test9','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'훌륭합니다!!!',3,3,'test10','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'따봉!!!',4,3,'test11','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'따봉!!!',5,3,'test12','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'따봉!!!',5,4,'test13','S');
+     INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'훌륭합니다!!!',1,1,'test2','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'따봉!!!',3,1,'test3','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'훌륭!!합니다!!!',4,1,'test4','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'좋아요',5,2,'test5','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'훌륭합니다!!!',5,2,'test6','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'좋아요!!!',5,2,'test7','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'훌륭합니다!!!',5,2,'test8','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'훌륭합좋아요니다!!!',4,3,'test9','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'훌륭합니다!!!',3,3,'test10','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'따봉!!!',4,3,'test11','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'따봉!!!',5,3,'test12','S');
+    INSERT INTO SELLREVIEW VALUES(seq_sellreviewno.nextval,'따봉!!!',5,4,'test13','S');
 commit;
